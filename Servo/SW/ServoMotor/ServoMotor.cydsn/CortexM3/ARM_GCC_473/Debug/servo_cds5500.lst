@@ -1,0 +1,707 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"servo_cds5500.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Checksum,"ax",%progbits
+  19              		.align	2
+  20              		.global	Checksum
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	Checksum, %function
+  24              	Checksum:
+  25              	.LFB56:
+  26              		.file 1 ".\\servo_cds5500.c"
+   1:.\servo_cds5500.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\servo_cds5500.c ****  * All rights reserved.
+   3:.\servo_cds5500.c ****  *
+   4:.\servo_cds5500.c ****  * This software may be modified and distributed under the terms
+   5:.\servo_cds5500.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\servo_cds5500.c ****  */
+   7:.\servo_cds5500.c **** 
+   8:.\servo_cds5500.c **** #include <project.h>
+   9:.\servo_cds5500.c **** #include "servo_cds5500.h"
+  10:.\servo_cds5500.c **** #include <stdio.h>
+  11:.\servo_cds5500.c **** 
+  12:.\servo_cds5500.c **** 
+  13:.\servo_cds5500.c **** uint8 Checksum(void)
+  14:.\servo_cds5500.c **** {
+  27              		.loc 1 14 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 8
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 83B0     		sub	sp, sp, #12
+  37              	.LCFI1:
+  38              		.cfi_def_cfa_offset 16
+  39 0004 00AF     		add	r7, sp, #0
+  40              	.LCFI2:
+  41              		.cfi_def_cfa_register 7
+  15:.\servo_cds5500.c **** 	uint8 checksum = 0;
+  42              		.loc 1 15 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 2
+
+
+  43 0006 4FF00003 		mov	r3, #0
+  44 000a FB71     		strb	r3, [r7, #7]
+  16:.\servo_cds5500.c **** 	
+  17:.\servo_cds5500.c **** 	
+  18:.\servo_cds5500.c **** 	
+  19:.\servo_cds5500.c **** 	return checksum;
+  45              		.loc 1 19 0
+  46 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  20:.\servo_cds5500.c **** }
+  47              		.loc 1 20 0
+  48 000e 1846     		mov	r0, r3
+  49 0010 07F10C07 		add	r7, r7, #12
+  50 0014 BD46     		mov	sp, r7
+  51 0016 80BC     		pop	{r7}
+  52 0018 7047     		bx	lr
+  53              		.cfi_endproc
+  54              	.LFE56:
+  55              		.size	Checksum, .-Checksum
+  56 001a 00BF     		.section	.text.WritePos,"ax",%progbits
+  57              		.align	2
+  58              		.global	WritePos
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	WritePos, %function
+  62              	WritePos:
+  63              	.LFB57:
+  21:.\servo_cds5500.c **** 
+  22:.\servo_cds5500.c **** void WritePos(int id, int position, int velocity)
+  23:.\servo_cds5500.c **** {
+  64              		.loc 1 23 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 24
+  67              		@ frame_needed = 1, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69 0000 80B4     		push	{r7}
+  70              	.LCFI3:
+  71              		.cfi_def_cfa_offset 4
+  72              		.cfi_offset 7, -4
+  73 0002 87B0     		sub	sp, sp, #28
+  74              	.LCFI4:
+  75              		.cfi_def_cfa_offset 32
+  76 0004 00AF     		add	r7, sp, #0
+  77              	.LCFI5:
+  78              		.cfi_def_cfa_register 7
+  79 0006 F860     		str	r0, [r7, #12]
+  80 0008 B960     		str	r1, [r7, #8]
+  81 000a 7A60     		str	r2, [r7, #4]
+  24:.\servo_cds5500.c **** 	int messageLength = 7;
+  82              		.loc 1 24 0
+  83 000c 4FF00703 		mov	r3, #7
+  84 0010 7B61     		str	r3, [r7, #20]
+  25:.\servo_cds5500.c **** 
+  26:.\servo_cds5500.c **** 	/*
+  27:.\servo_cds5500.c **** 	printf(startByte);              // send some data
+  28:.\servo_cds5500.c **** 	printf(startByte);
+  29:.\servo_cds5500.c **** 	printf(id);
+  30:.\servo_cds5500.c **** 	printf(messageLength);
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 3
+
+
+  31:.\servo_cds5500.c **** 	printf(INST_WRITE);
+  32:.\servo_cds5500.c **** 	printf(P_GOAL_POSITION_L);
+  33:.\servo_cds5500.c **** 	printf(pos);
+  34:.\servo_cds5500.c **** 	printf(pos2);
+  35:.\servo_cds5500.c **** 	printf(vel);
+  36:.\servo_cds5500.c **** 	printf(vel2);
+  37:.\servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF);
+  38:.\servo_cds5500.c **** 	*/
+  39:.\servo_cds5500.c **** }
+  85              		.loc 1 39 0
+  86 0012 07F11C07 		add	r7, r7, #28
+  87 0016 BD46     		mov	sp, r7
+  88 0018 80BC     		pop	{r7}
+  89 001a 7047     		bx	lr
+  90              		.cfi_endproc
+  91              	.LFE57:
+  92              		.size	WritePos, .-WritePos
+  93              		.text
+  94              	.Letext0:
+  95              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+  96              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+  97              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+  98              		.section	.debug_info,"",%progbits
+  99              	.Ldebug_info0:
+ 100 0000 30010000 		.4byte	0x130
+ 101 0004 0200     		.2byte	0x2
+ 102 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 103 000a 04       		.byte	0x4
+ 104 000b 01       		.uleb128 0x1
+ 105 000c 24000000 		.4byte	.LASF19
+ 106 0010 01       		.byte	0x1
+ 107 0011 AF000000 		.4byte	.LASF20
+ 108 0015 04010000 		.4byte	.LASF21
+ 109 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 110 001d 00000000 		.4byte	0
+ 111 0021 00000000 		.4byte	0
+ 112 0025 00000000 		.4byte	.Ldebug_line0
+ 113 0029 02       		.uleb128 0x2
+ 114 002a 01       		.byte	0x1
+ 115 002b 06       		.byte	0x6
+ 116 002c 4C010000 		.4byte	.LASF0
+ 117 0030 02       		.uleb128 0x2
+ 118 0031 01       		.byte	0x1
+ 119 0032 08       		.byte	0x8
+ 120 0033 CF000000 		.4byte	.LASF1
+ 121 0037 02       		.uleb128 0x2
+ 122 0038 02       		.byte	0x2
+ 123 0039 05       		.byte	0x5
+ 124 003a 67010000 		.4byte	.LASF2
+ 125 003e 02       		.uleb128 0x2
+ 126 003f 02       		.byte	0x2
+ 127 0040 07       		.byte	0x7
+ 128 0041 9C000000 		.4byte	.LASF3
+ 129 0045 03       		.uleb128 0x3
+ 130 0046 71010000 		.4byte	.LASF9
+ 131 004a 02       		.byte	0x2
+ 132 004b 4F       		.byte	0x4f
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 4
+
+
+ 133 004c 50000000 		.4byte	0x50
+ 134 0050 02       		.uleb128 0x2
+ 135 0051 04       		.byte	0x4
+ 136 0052 05       		.byte	0x5
+ 137 0053 E2000000 		.4byte	.LASF4
+ 138 0057 02       		.uleb128 0x2
+ 139 0058 04       		.byte	0x4
+ 140 0059 07       		.byte	0x7
+ 141 005a 73000000 		.4byte	.LASF5
+ 142 005e 02       		.uleb128 0x2
+ 143 005f 08       		.byte	0x8
+ 144 0060 05       		.byte	0x5
+ 145 0061 00000000 		.4byte	.LASF6
+ 146 0065 02       		.uleb128 0x2
+ 147 0066 08       		.byte	0x8
+ 148 0067 07       		.byte	0x7
+ 149 0068 85000000 		.4byte	.LASF7
+ 150 006c 04       		.uleb128 0x4
+ 151 006d 04       		.byte	0x4
+ 152 006e 05       		.byte	0x5
+ 153 006f 696E7400 		.ascii	"int\000"
+ 154 0073 02       		.uleb128 0x2
+ 155 0074 04       		.byte	0x4
+ 156 0075 07       		.byte	0x7
+ 157 0076 17000000 		.4byte	.LASF8
+ 158 007a 03       		.uleb128 0x3
+ 159 007b 6D000000 		.4byte	.LASF10
+ 160 007f 03       		.byte	0x3
+ 161 0080 5B       		.byte	0x5b
+ 162 0081 30000000 		.4byte	0x30
+ 163 0085 02       		.uleb128 0x2
+ 164 0086 04       		.byte	0x4
+ 165 0087 04       		.byte	0x4
+ 166 0088 61010000 		.4byte	.LASF11
+ 167 008c 02       		.uleb128 0x2
+ 168 008d 08       		.byte	0x8
+ 169 008e 04       		.byte	0x4
+ 170 008f F4000000 		.4byte	.LASF12
+ 171 0093 02       		.uleb128 0x2
+ 172 0094 01       		.byte	0x1
+ 173 0095 08       		.byte	0x8
+ 174 0096 DD000000 		.4byte	.LASF13
+ 175 009a 02       		.uleb128 0x2
+ 176 009b 04       		.byte	0x4
+ 177 009c 07       		.byte	0x7
+ 178 009d 79010000 		.4byte	.LASF14
+ 179 00a1 05       		.uleb128 0x5
+ 180 00a2 01       		.byte	0x1
+ 181 00a3 82010000 		.4byte	.LASF22
+ 182 00a7 01       		.byte	0x1
+ 183 00a8 0D       		.byte	0xd
+ 184 00a9 01       		.byte	0x1
+ 185 00aa 7A000000 		.4byte	0x7a
+ 186 00ae 00000000 		.4byte	.LFB56
+ 187 00b2 1A000000 		.4byte	.LFE56
+ 188 00b6 00000000 		.4byte	.LLST0
+ 189 00ba 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 5
+
+
+ 190 00bb CE000000 		.4byte	0xce
+ 191 00bf 06       		.uleb128 0x6
+ 192 00c0 FB000000 		.4byte	.LASF17
+ 193 00c4 01       		.byte	0x1
+ 194 00c5 0F       		.byte	0xf
+ 195 00c6 7A000000 		.4byte	0x7a
+ 196 00ca 02       		.byte	0x2
+ 197 00cb 91       		.byte	0x91
+ 198 00cc 77       		.sleb128 -9
+ 199 00cd 00       		.byte	0
+ 200 00ce 07       		.uleb128 0x7
+ 201 00cf 01       		.byte	0x1
+ 202 00d0 0E000000 		.4byte	.LASF23
+ 203 00d4 01       		.byte	0x1
+ 204 00d5 16       		.byte	0x16
+ 205 00d6 01       		.byte	0x1
+ 206 00d7 00000000 		.4byte	.LFB57
+ 207 00db 1C000000 		.4byte	.LFE57
+ 208 00df 38000000 		.4byte	.LLST1
+ 209 00e3 01       		.byte	0x1
+ 210 00e4 20010000 		.4byte	0x120
+ 211 00e8 08       		.uleb128 0x8
+ 212 00e9 696400   		.ascii	"id\000"
+ 213 00ec 01       		.byte	0x1
+ 214 00ed 16       		.byte	0x16
+ 215 00ee 6C000000 		.4byte	0x6c
+ 216 00f2 02       		.byte	0x2
+ 217 00f3 91       		.byte	0x91
+ 218 00f4 6C       		.sleb128 -20
+ 219 00f5 09       		.uleb128 0x9
+ 220 00f6 58010000 		.4byte	.LASF15
+ 221 00fa 01       		.byte	0x1
+ 222 00fb 16       		.byte	0x16
+ 223 00fc 6C000000 		.4byte	0x6c
+ 224 0100 02       		.byte	0x2
+ 225 0101 91       		.byte	0x91
+ 226 0102 68       		.sleb128 -24
+ 227 0103 09       		.uleb128 0x9
+ 228 0104 EB000000 		.4byte	.LASF16
+ 229 0108 01       		.byte	0x1
+ 230 0109 16       		.byte	0x16
+ 231 010a 6C000000 		.4byte	0x6c
+ 232 010e 02       		.byte	0x2
+ 233 010f 91       		.byte	0x91
+ 234 0110 64       		.sleb128 -28
+ 235 0111 06       		.uleb128 0x6
+ 236 0112 C1000000 		.4byte	.LASF18
+ 237 0116 01       		.byte	0x1
+ 238 0117 18       		.byte	0x18
+ 239 0118 6C000000 		.4byte	0x6c
+ 240 011c 02       		.byte	0x2
+ 241 011d 91       		.byte	0x91
+ 242 011e 74       		.sleb128 -12
+ 243 011f 00       		.byte	0
+ 244 0120 0A       		.uleb128 0xa
+ 245 0121 3F010000 		.4byte	.LASF24
+ 246 0125 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 6
+
+
+ 247 0126 1606     		.2byte	0x616
+ 248 0128 2E010000 		.4byte	0x12e
+ 249 012c 01       		.byte	0x1
+ 250 012d 01       		.byte	0x1
+ 251 012e 0B       		.uleb128 0xb
+ 252 012f 45000000 		.4byte	0x45
+ 253 0133 00       		.byte	0
+ 254              		.section	.debug_abbrev,"",%progbits
+ 255              	.Ldebug_abbrev0:
+ 256 0000 01       		.uleb128 0x1
+ 257 0001 11       		.uleb128 0x11
+ 258 0002 01       		.byte	0x1
+ 259 0003 25       		.uleb128 0x25
+ 260 0004 0E       		.uleb128 0xe
+ 261 0005 13       		.uleb128 0x13
+ 262 0006 0B       		.uleb128 0xb
+ 263 0007 03       		.uleb128 0x3
+ 264 0008 0E       		.uleb128 0xe
+ 265 0009 1B       		.uleb128 0x1b
+ 266 000a 0E       		.uleb128 0xe
+ 267 000b 55       		.uleb128 0x55
+ 268 000c 06       		.uleb128 0x6
+ 269 000d 11       		.uleb128 0x11
+ 270 000e 01       		.uleb128 0x1
+ 271 000f 52       		.uleb128 0x52
+ 272 0010 01       		.uleb128 0x1
+ 273 0011 10       		.uleb128 0x10
+ 274 0012 06       		.uleb128 0x6
+ 275 0013 00       		.byte	0
+ 276 0014 00       		.byte	0
+ 277 0015 02       		.uleb128 0x2
+ 278 0016 24       		.uleb128 0x24
+ 279 0017 00       		.byte	0
+ 280 0018 0B       		.uleb128 0xb
+ 281 0019 0B       		.uleb128 0xb
+ 282 001a 3E       		.uleb128 0x3e
+ 283 001b 0B       		.uleb128 0xb
+ 284 001c 03       		.uleb128 0x3
+ 285 001d 0E       		.uleb128 0xe
+ 286 001e 00       		.byte	0
+ 287 001f 00       		.byte	0
+ 288 0020 03       		.uleb128 0x3
+ 289 0021 16       		.uleb128 0x16
+ 290 0022 00       		.byte	0
+ 291 0023 03       		.uleb128 0x3
+ 292 0024 0E       		.uleb128 0xe
+ 293 0025 3A       		.uleb128 0x3a
+ 294 0026 0B       		.uleb128 0xb
+ 295 0027 3B       		.uleb128 0x3b
+ 296 0028 0B       		.uleb128 0xb
+ 297 0029 49       		.uleb128 0x49
+ 298 002a 13       		.uleb128 0x13
+ 299 002b 00       		.byte	0
+ 300 002c 00       		.byte	0
+ 301 002d 04       		.uleb128 0x4
+ 302 002e 24       		.uleb128 0x24
+ 303 002f 00       		.byte	0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 7
+
+
+ 304 0030 0B       		.uleb128 0xb
+ 305 0031 0B       		.uleb128 0xb
+ 306 0032 3E       		.uleb128 0x3e
+ 307 0033 0B       		.uleb128 0xb
+ 308 0034 03       		.uleb128 0x3
+ 309 0035 08       		.uleb128 0x8
+ 310 0036 00       		.byte	0
+ 311 0037 00       		.byte	0
+ 312 0038 05       		.uleb128 0x5
+ 313 0039 2E       		.uleb128 0x2e
+ 314 003a 01       		.byte	0x1
+ 315 003b 3F       		.uleb128 0x3f
+ 316 003c 0C       		.uleb128 0xc
+ 317 003d 03       		.uleb128 0x3
+ 318 003e 0E       		.uleb128 0xe
+ 319 003f 3A       		.uleb128 0x3a
+ 320 0040 0B       		.uleb128 0xb
+ 321 0041 3B       		.uleb128 0x3b
+ 322 0042 0B       		.uleb128 0xb
+ 323 0043 27       		.uleb128 0x27
+ 324 0044 0C       		.uleb128 0xc
+ 325 0045 49       		.uleb128 0x49
+ 326 0046 13       		.uleb128 0x13
+ 327 0047 11       		.uleb128 0x11
+ 328 0048 01       		.uleb128 0x1
+ 329 0049 12       		.uleb128 0x12
+ 330 004a 01       		.uleb128 0x1
+ 331 004b 40       		.uleb128 0x40
+ 332 004c 06       		.uleb128 0x6
+ 333 004d 9742     		.uleb128 0x2117
+ 334 004f 0C       		.uleb128 0xc
+ 335 0050 01       		.uleb128 0x1
+ 336 0051 13       		.uleb128 0x13
+ 337 0052 00       		.byte	0
+ 338 0053 00       		.byte	0
+ 339 0054 06       		.uleb128 0x6
+ 340 0055 34       		.uleb128 0x34
+ 341 0056 00       		.byte	0
+ 342 0057 03       		.uleb128 0x3
+ 343 0058 0E       		.uleb128 0xe
+ 344 0059 3A       		.uleb128 0x3a
+ 345 005a 0B       		.uleb128 0xb
+ 346 005b 3B       		.uleb128 0x3b
+ 347 005c 0B       		.uleb128 0xb
+ 348 005d 49       		.uleb128 0x49
+ 349 005e 13       		.uleb128 0x13
+ 350 005f 02       		.uleb128 0x2
+ 351 0060 0A       		.uleb128 0xa
+ 352 0061 00       		.byte	0
+ 353 0062 00       		.byte	0
+ 354 0063 07       		.uleb128 0x7
+ 355 0064 2E       		.uleb128 0x2e
+ 356 0065 01       		.byte	0x1
+ 357 0066 3F       		.uleb128 0x3f
+ 358 0067 0C       		.uleb128 0xc
+ 359 0068 03       		.uleb128 0x3
+ 360 0069 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 8
+
+
+ 361 006a 3A       		.uleb128 0x3a
+ 362 006b 0B       		.uleb128 0xb
+ 363 006c 3B       		.uleb128 0x3b
+ 364 006d 0B       		.uleb128 0xb
+ 365 006e 27       		.uleb128 0x27
+ 366 006f 0C       		.uleb128 0xc
+ 367 0070 11       		.uleb128 0x11
+ 368 0071 01       		.uleb128 0x1
+ 369 0072 12       		.uleb128 0x12
+ 370 0073 01       		.uleb128 0x1
+ 371 0074 40       		.uleb128 0x40
+ 372 0075 06       		.uleb128 0x6
+ 373 0076 9742     		.uleb128 0x2117
+ 374 0078 0C       		.uleb128 0xc
+ 375 0079 01       		.uleb128 0x1
+ 376 007a 13       		.uleb128 0x13
+ 377 007b 00       		.byte	0
+ 378 007c 00       		.byte	0
+ 379 007d 08       		.uleb128 0x8
+ 380 007e 05       		.uleb128 0x5
+ 381 007f 00       		.byte	0
+ 382 0080 03       		.uleb128 0x3
+ 383 0081 08       		.uleb128 0x8
+ 384 0082 3A       		.uleb128 0x3a
+ 385 0083 0B       		.uleb128 0xb
+ 386 0084 3B       		.uleb128 0x3b
+ 387 0085 0B       		.uleb128 0xb
+ 388 0086 49       		.uleb128 0x49
+ 389 0087 13       		.uleb128 0x13
+ 390 0088 02       		.uleb128 0x2
+ 391 0089 0A       		.uleb128 0xa
+ 392 008a 00       		.byte	0
+ 393 008b 00       		.byte	0
+ 394 008c 09       		.uleb128 0x9
+ 395 008d 05       		.uleb128 0x5
+ 396 008e 00       		.byte	0
+ 397 008f 03       		.uleb128 0x3
+ 398 0090 0E       		.uleb128 0xe
+ 399 0091 3A       		.uleb128 0x3a
+ 400 0092 0B       		.uleb128 0xb
+ 401 0093 3B       		.uleb128 0x3b
+ 402 0094 0B       		.uleb128 0xb
+ 403 0095 49       		.uleb128 0x49
+ 404 0096 13       		.uleb128 0x13
+ 405 0097 02       		.uleb128 0x2
+ 406 0098 0A       		.uleb128 0xa
+ 407 0099 00       		.byte	0
+ 408 009a 00       		.byte	0
+ 409 009b 0A       		.uleb128 0xa
+ 410 009c 34       		.uleb128 0x34
+ 411 009d 00       		.byte	0
+ 412 009e 03       		.uleb128 0x3
+ 413 009f 0E       		.uleb128 0xe
+ 414 00a0 3A       		.uleb128 0x3a
+ 415 00a1 0B       		.uleb128 0xb
+ 416 00a2 3B       		.uleb128 0x3b
+ 417 00a3 05       		.uleb128 0x5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 9
+
+
+ 418 00a4 49       		.uleb128 0x49
+ 419 00a5 13       		.uleb128 0x13
+ 420 00a6 3F       		.uleb128 0x3f
+ 421 00a7 0C       		.uleb128 0xc
+ 422 00a8 3C       		.uleb128 0x3c
+ 423 00a9 0C       		.uleb128 0xc
+ 424 00aa 00       		.byte	0
+ 425 00ab 00       		.byte	0
+ 426 00ac 0B       		.uleb128 0xb
+ 427 00ad 35       		.uleb128 0x35
+ 428 00ae 00       		.byte	0
+ 429 00af 49       		.uleb128 0x49
+ 430 00b0 13       		.uleb128 0x13
+ 431 00b1 00       		.byte	0
+ 432 00b2 00       		.byte	0
+ 433 00b3 00       		.byte	0
+ 434              		.section	.debug_loc,"",%progbits
+ 435              	.Ldebug_loc0:
+ 436              	.LLST0:
+ 437 0000 00000000 		.4byte	.LFB56
+ 438 0004 02000000 		.4byte	.LCFI0
+ 439 0008 0200     		.2byte	0x2
+ 440 000a 7D       		.byte	0x7d
+ 441 000b 00       		.sleb128 0
+ 442 000c 02000000 		.4byte	.LCFI0
+ 443 0010 04000000 		.4byte	.LCFI1
+ 444 0014 0200     		.2byte	0x2
+ 445 0016 7D       		.byte	0x7d
+ 446 0017 04       		.sleb128 4
+ 447 0018 04000000 		.4byte	.LCFI1
+ 448 001c 06000000 		.4byte	.LCFI2
+ 449 0020 0200     		.2byte	0x2
+ 450 0022 7D       		.byte	0x7d
+ 451 0023 10       		.sleb128 16
+ 452 0024 06000000 		.4byte	.LCFI2
+ 453 0028 1A000000 		.4byte	.LFE56
+ 454 002c 0200     		.2byte	0x2
+ 455 002e 77       		.byte	0x77
+ 456 002f 10       		.sleb128 16
+ 457 0030 00000000 		.4byte	0
+ 458 0034 00000000 		.4byte	0
+ 459              	.LLST1:
+ 460 0038 00000000 		.4byte	.LFB57
+ 461 003c 02000000 		.4byte	.LCFI3
+ 462 0040 0200     		.2byte	0x2
+ 463 0042 7D       		.byte	0x7d
+ 464 0043 00       		.sleb128 0
+ 465 0044 02000000 		.4byte	.LCFI3
+ 466 0048 04000000 		.4byte	.LCFI4
+ 467 004c 0200     		.2byte	0x2
+ 468 004e 7D       		.byte	0x7d
+ 469 004f 04       		.sleb128 4
+ 470 0050 04000000 		.4byte	.LCFI4
+ 471 0054 06000000 		.4byte	.LCFI5
+ 472 0058 0200     		.2byte	0x2
+ 473 005a 7D       		.byte	0x7d
+ 474 005b 20       		.sleb128 32
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 10
+
+
+ 475 005c 06000000 		.4byte	.LCFI5
+ 476 0060 1C000000 		.4byte	.LFE57
+ 477 0064 0200     		.2byte	0x2
+ 478 0066 77       		.byte	0x77
+ 479 0067 20       		.sleb128 32
+ 480 0068 00000000 		.4byte	0
+ 481 006c 00000000 		.4byte	0
+ 482              		.section	.debug_aranges,"",%progbits
+ 483 0000 24000000 		.4byte	0x24
+ 484 0004 0200     		.2byte	0x2
+ 485 0006 00000000 		.4byte	.Ldebug_info0
+ 486 000a 04       		.byte	0x4
+ 487 000b 00       		.byte	0
+ 488 000c 0000     		.2byte	0
+ 489 000e 0000     		.2byte	0
+ 490 0010 00000000 		.4byte	.LFB56
+ 491 0014 1A000000 		.4byte	.LFE56-.LFB56
+ 492 0018 00000000 		.4byte	.LFB57
+ 493 001c 1C000000 		.4byte	.LFE57-.LFB57
+ 494 0020 00000000 		.4byte	0
+ 495 0024 00000000 		.4byte	0
+ 496              		.section	.debug_ranges,"",%progbits
+ 497              	.Ldebug_ranges0:
+ 498 0000 00000000 		.4byte	.LFB56
+ 499 0004 1A000000 		.4byte	.LFE56
+ 500 0008 00000000 		.4byte	.LFB57
+ 501 000c 1C000000 		.4byte	.LFE57
+ 502 0010 00000000 		.4byte	0
+ 503 0014 00000000 		.4byte	0
+ 504              		.section	.debug_line,"",%progbits
+ 505              	.Ldebug_line0:
+ 506 0000 2D010000 		.section	.debug_str,"MS",%progbits,1
+ 506      02000201 
+ 506      00000201 
+ 506      FB0E0D00 
+ 506      01010101 
+ 507              	.LASF6:
+ 508 0000 6C6F6E67 		.ascii	"long long int\000"
+ 508      206C6F6E 
+ 508      6720696E 
+ 508      7400
+ 509              	.LASF23:
+ 510 000e 57726974 		.ascii	"WritePos\000"
+ 510      65506F73 
+ 510      00
+ 511              	.LASF8:
+ 512 0017 756E7369 		.ascii	"unsigned int\000"
+ 512      676E6564 
+ 512      20696E74 
+ 512      00
+ 513              	.LASF19:
+ 514 0024 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ 514      4320342E 
+ 514      372E3320 
+ 514      32303133 
+ 514      30333132 
+ 515 0057 616E6368 		.ascii	"anch revision 196615]\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 11
+
+
+ 515      20726576 
+ 515      6973696F 
+ 515      6E203139 
+ 515      36363135 
+ 516              	.LASF10:
+ 517 006d 75696E74 		.ascii	"uint8\000"
+ 517      3800
+ 518              	.LASF5:
+ 519 0073 6C6F6E67 		.ascii	"long unsigned int\000"
+ 519      20756E73 
+ 519      69676E65 
+ 519      6420696E 
+ 519      7400
+ 520              	.LASF7:
+ 521 0085 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 521      206C6F6E 
+ 521      6720756E 
+ 521      7369676E 
+ 521      65642069 
+ 522              	.LASF3:
+ 523 009c 73686F72 		.ascii	"short unsigned int\000"
+ 523      7420756E 
+ 523      7369676E 
+ 523      65642069 
+ 523      6E7400
+ 524              	.LASF20:
+ 525 00af 2E5C7365 		.ascii	".\\servo_cds5500.c\000"
+ 525      72766F5F 
+ 525      63647335 
+ 525      3530302E 
+ 525      6300
+ 526              	.LASF18:
+ 527 00c1 6D657373 		.ascii	"messageLength\000"
+ 527      6167654C 
+ 527      656E6774 
+ 527      6800
+ 528              	.LASF1:
+ 529 00cf 756E7369 		.ascii	"unsigned char\000"
+ 529      676E6564 
+ 529      20636861 
+ 529      7200
+ 530              	.LASF13:
+ 531 00dd 63686172 		.ascii	"char\000"
+ 531      00
+ 532              	.LASF4:
+ 533 00e2 6C6F6E67 		.ascii	"long int\000"
+ 533      20696E74 
+ 533      00
+ 534              	.LASF16:
+ 535 00eb 76656C6F 		.ascii	"velocity\000"
+ 535      63697479 
+ 535      00
+ 536              	.LASF12:
+ 537 00f4 646F7562 		.ascii	"double\000"
+ 537      6C6500
+ 538              	.LASF17:
+ 539 00fb 63686563 		.ascii	"checksum\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 12
+
+
+ 539      6B73756D 
+ 539      00
+ 540              	.LASF21:
+ 541 0104 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\Servo\\SW\\ServoMotor\\Ser"
+ 541      6F626F74 
+ 541      69637363 
+ 541      6F64655C 
+ 541      7472756E 
+ 542 0131 766F4D6F 		.ascii	"voMotor.cydsn\000"
+ 542      746F722E 
+ 542      63796473 
+ 542      6E00
+ 543              	.LASF24:
+ 544 013f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 544      52784275 
+ 544      66666572 
+ 544      00
+ 545              	.LASF0:
+ 546 014c 7369676E 		.ascii	"signed char\000"
+ 546      65642063 
+ 546      68617200 
+ 547              	.LASF15:
+ 548 0158 706F7369 		.ascii	"position\000"
+ 548      74696F6E 
+ 548      00
+ 549              	.LASF11:
+ 550 0161 666C6F61 		.ascii	"float\000"
+ 550      7400
+ 551              	.LASF2:
+ 552 0167 73686F72 		.ascii	"short int\000"
+ 552      7420696E 
+ 552      7400
+ 553              	.LASF9:
+ 554 0171 696E7433 		.ascii	"int32_t\000"
+ 554      325F7400 
+ 555              	.LASF14:
+ 556 0179 73697A65 		.ascii	"sizetype\000"
+ 556      74797065 
+ 556      00
+ 557              	.LASF22:
+ 558 0182 43686563 		.ascii	"Checksum\000"
+ 558      6B73756D 
+ 558      00
+ 559              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br
