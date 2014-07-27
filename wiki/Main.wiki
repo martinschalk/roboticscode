@@ -1,11 +1,8 @@
 #labels Main
-This is my wiki page for my robotic projects.
-
 = Introduction =
 
-My idol
-
-
+This is my wiki page for my robotic projects.
+[http://theinvisibleagent.files.wordpress.com/2009/01/robot-johnny5.jpg]
 
 
 = Details =
