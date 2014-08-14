@@ -13,21 +13,32 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="ServoMotor\ServoMotor\Generated_Source">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="ServoMotor\ServoMotor\Source Files\test.c">
 <ExpandedNodeIds>
 <v>ServoMotor</v>
 <v>ServoMotor\ServoMotor</v>
 <v>ServoMotor\ServoMotor\TopDesign.cysch</v>
 <v>ServoMotor\ServoMotor\ServoMotor.cydwr</v>
 <v>ServoMotor\ServoMotor\Header Files</v>
+<v>ServoMotor\ServoMotor\Header Files\bal.h</v>
+<v>ServoMotor\ServoMotor\Header Files\bpl.h</v>
 <v>ServoMotor\ServoMotor\Header Files\bsd_license.h</v>
 <v>ServoMotor\ServoMotor\Header Files\bus.h</v>
 <v>ServoMotor\ServoMotor\Header Files\global.h</v>
+<v>ServoMotor\ServoMotor\Header Files\hal.h</v>
 <v>ServoMotor\ServoMotor\Header Files\servo_cds5500.h</v>
+<v>ServoMotor\ServoMotor\Header Files\test.h</v>
+<v>ServoMotor\ServoMotor\Header Files\tmr.h</v>
+<v>ServoMotor\ServoMotor\Header Files\types.h</v>
 <v>ServoMotor\ServoMotor\Source Files</v>
+<v>ServoMotor\ServoMotor\Source Files\bal.c</v>
+<v>ServoMotor\ServoMotor\Source Files\bpl.c</v>
 <v>ServoMotor\ServoMotor\Source Files\bus.c</v>
+<v>ServoMotor\ServoMotor\Source Files\hal.c</v>
 <v>ServoMotor\ServoMotor\Source Files\main.c</v>
 <v>ServoMotor\ServoMotor\Source Files\servo_cds5500.c</v>
+<v>ServoMotor\ServoMotor\Source Files\test.c</v>
+<v>ServoMotor\ServoMotor\Source Files\tmr.c</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cy_boot</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cy_boot\cm3gcc.ld</v>
@@ -54,18 +65,40 @@
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cy_boot\CySpc.h</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cy_boot\cytypes.h</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cy_boot\cyutils.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\isr_pick_up_servo_msg</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\isr_pick_up_servo_msg\isr_pick_up_servo_msg.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\isr_pick_up_servo_msg\isr_pick_up_servo_msg.h</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO\UART_SERVO.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO\UART_SERVO.h</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO\UART_SERVO_BOOT.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO\UART_SERVO_INT.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO\UART_SERVO_PM.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO_IntClock</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO_IntClock\UART_SERVO_IntClock.c</v>
-<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_SERVO_IntClock\UART_SERVO_IntClock.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_rx</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_rx\Isr_rx.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_rx\Isr_rx.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_timer</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_timer\Isr_timer.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_timer\Isr_timer.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_tx</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_tx\Isr_tx.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\Isr_tx\Isr_tx.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER\TIMER.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER\TIMER.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER\TIMER_PM.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER_CLOCK</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER_CLOCK\TIMER_CLOCK.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\TIMER_CLOCK\TIMER_CLOCK.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART\UART.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART\UART.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART\UART_BOOT.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART\UART_INT.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART\UART_PM.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_IntClock</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_IntClock\UART_IntClock.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_IntClock\UART_IntClock.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST\UART_TEST.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST\UART_TEST.h</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST\UART_TEST_BOOT.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST\UART_TEST_INT.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST\UART_TEST_PM.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST_IntClock</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST_IntClock\UART_TEST_IntClock.c</v>
+<v>ServoMotor\ServoMotor\Generated_Source\PSoC5\UART_TEST_IntClock\UART_TEST_IntClock.h</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cydevice.h</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cydevice_trm.h</v>
 <v>ServoMotor\ServoMotor\Generated_Source\PSoC5\cydevicegnu.inc</v>
@@ -90,14 +123,25 @@
 <v>ServoMotor\ServoMotor\TopDesign.cysch</v>
 <v>ServoMotor\ServoMotor\ServoMotor.cydwr</v>
 <v>ServoMotor\ServoMotor\Header Files</v>
+<v>ServoMotor\ServoMotor\Header Files\bal.h</v>
+<v>ServoMotor\ServoMotor\Header Files\bpl.h</v>
 <v>ServoMotor\ServoMotor\Header Files\bsd_license.h</v>
 <v>ServoMotor\ServoMotor\Header Files\bus.h</v>
 <v>ServoMotor\ServoMotor\Header Files\global.h</v>
+<v>ServoMotor\ServoMotor\Header Files\hal.h</v>
 <v>ServoMotor\ServoMotor\Header Files\servo_cds5500.h</v>
+<v>ServoMotor\ServoMotor\Header Files\test.h</v>
+<v>ServoMotor\ServoMotor\Header Files\tmr.h</v>
+<v>ServoMotor\ServoMotor\Header Files\types.h</v>
 <v>ServoMotor\ServoMotor\Source Files</v>
+<v>ServoMotor\ServoMotor\Source Files\bal.c</v>
+<v>ServoMotor\ServoMotor\Source Files\bpl.c</v>
 <v>ServoMotor\ServoMotor\Source Files\bus.c</v>
+<v>ServoMotor\ServoMotor\Source Files\hal.c</v>
 <v>ServoMotor\ServoMotor\Source Files\main.c</v>
 <v>ServoMotor\ServoMotor\Source Files\servo_cds5500.c</v>
+<v>ServoMotor\ServoMotor\Source Files\test.c</v>
+<v>ServoMotor\ServoMotor\Source Files\tmr.c</v>
 <v>ServoMotor\ServoMotor\Generated_Source</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
@@ -123,6 +167,8 @@
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\bal.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\bpl.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\bus.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\Cm3Start.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CyBootAsmGnu.lst</v>
@@ -134,14 +180,25 @@
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cyPm.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CySpc.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cyutils.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\isr_pick_up_servo_msg.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\hal.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\Isr_rx.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\Isr_timer.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\Isr_tx.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\main.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\servo_cds5500.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_BOOT.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_INT.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_IntClock.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_PM.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\test.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\TIMER_PM.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\tmr.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_BOOT.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_INT.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_IntClock.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_PM.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_TEST.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_TEST_BOOT.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_TEST_INT.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_TEST_IntClock.lst</v>
+<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_TEST_PM.lst</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.elf</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.hex</v>
 <v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.map</v>
@@ -151,34 +208,6 @@
 <VisibleNodeIds>
 <v>ServoMotor</v>
 <v>ServoMotor\ServoMotor</v>
-<v>ServoMotor\ServoMotor\CortexM3</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\bus.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\Cm3Start.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CyDmac.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CyFlash.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CyLib.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cymetadata.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cyPm.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\CySpc.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\cyutils.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\isr_pick_up_servo_msg.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\main.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\servo_cds5500.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_BOOT.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_INT.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_IntClock.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\Listing Files\UART_SERVO_PM.lst</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.elf</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.hex</v>
-<v>ServoMotor\ServoMotor\CortexM3\ARM_GCC_473\Debug\ServoMotor.map</v>
-<v>ServoMotor\ServoMotor\ServoMotor.rpt</v>
-<v>ServoMotor\ServoMotor\ServoMotor_timing.html</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -193,9 +222,13 @@
 <v>ServoMotor\ServoMotor\PSoC 5 Architecture TRM</v>
 <v>ServoMotor\ServoMotor\CY8C58LP Family Datasheet</v>
 <v>ServoMotor\ServoMotor\System Reference Guide v4_10</v>
+<v>ServoMotor\ServoMotor\cy_clock_v2_20</v>
+<v>ServoMotor\ServoMotor\cy_constant_v1_0</v>
 <v>ServoMotor\ServoMotor\cy_isr_v1_70</v>
 <v>ServoMotor\ServoMotor\cy_pins_v2_0</v>
+<v>ServoMotor\ServoMotor\Timer_v2_50</v>
 <v>ServoMotor\ServoMotor\UART_v2_30</v>
+<v>ServoMotor\ServoMotor\ZeroTerminal</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>ServoMotor</v>
@@ -203,9 +236,13 @@
 <v>ServoMotor\ServoMotor\PSoC 5 Architecture TRM</v>
 <v>ServoMotor\ServoMotor\CY8C58LP Family Datasheet</v>
 <v>ServoMotor\ServoMotor\System Reference Guide v4_10</v>
+<v>ServoMotor\ServoMotor\cy_clock_v2_20</v>
+<v>ServoMotor\ServoMotor\cy_constant_v1_0</v>
 <v>ServoMotor\ServoMotor\cy_isr_v1_70</v>
 <v>ServoMotor\ServoMotor\cy_pins_v2_0</v>
+<v>ServoMotor\ServoMotor\Timer_v2_50</v>
 <v>ServoMotor\ServoMotor\UART_v2_30</v>
+<v>ServoMotor\ServoMotor\ZeroTerminal</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
@@ -216,6 +253,14 @@
 <Unloaded />
 <OpenDocs>
 <name v=".\ServoMotor.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\ServoMotor.cydsn\ServoMotor.cydwr" />
+<name v=".\ServoMotor.cydsn\bsd_license.h" />
+<name v=".\ServoMotor.cydsn\main.c" />
+<name v=".\ServoMotor.cydsn\global.h" />
+<name v=".\ServoMotor.cydsn\servo_cds5500.c" />
+<name v=".\ServoMotor.cydsn\servo_cds5500.h" />
+<name v=".\ServoMotor.cydsn\bus.c" />
+<name v=".\ServoMotor.cydsn\bus.h" />
 </OpenDocs>
 <config v="" />
 <AutoUpdate v="true" />

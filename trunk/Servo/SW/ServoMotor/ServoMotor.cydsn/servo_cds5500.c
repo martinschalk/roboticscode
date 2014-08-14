@@ -24,8 +24,8 @@ void WritePos(int id, int position, int velocity)
 	int messageLength = 7;
 
 	/*
-	printf(startByte);              // send some data
-	printf(startByte);
+	printf(startByte0);              // send some data
+	printf(startByte1);
 	printf(id);
 	printf(messageLength);
 	printf(INST_WRITE);

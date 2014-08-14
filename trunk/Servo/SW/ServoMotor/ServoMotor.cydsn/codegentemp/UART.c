@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: UART_SERVO.c
+* File Name: UART.c
 * Version 2.30
 *
 * Description:
@@ -14,39 +14,39 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "UART_SERVO.h"
+#include "UART.h"
 #include "CyLib.h"
-#if(UART_SERVO_INTERNAL_CLOCK_USED)
-    #include "UART_SERVO_IntClock.h"
-#endif /* End UART_SERVO_INTERNAL_CLOCK_USED */
+#if(UART_INTERNAL_CLOCK_USED)
+    #include "UART_IntClock.h"
+#endif /* End UART_INTERNAL_CLOCK_USED */
 
 
 /***************************************
 * Global data allocation
 ***************************************/
 
-uint8 UART_SERVO_initVar = 0u;
-#if( UART_SERVO_TX_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-    volatile uint8 UART_SERVO_txBuffer[UART_SERVO_TXBUFFERSIZE];
-    volatile uint8 UART_SERVO_txBufferRead = 0u;
-    uint8 UART_SERVO_txBufferWrite = 0u;
-#endif /* End UART_SERVO_TX_ENABLED */
-#if( ( UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED ) && \
-     (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH) )
-    volatile uint8 UART_SERVO_rxBuffer[UART_SERVO_RXBUFFERSIZE];
-    volatile uint8 UART_SERVO_rxBufferRead = 0u;
-    volatile uint8 UART_SERVO_rxBufferWrite = 0u;
-    volatile uint8 UART_SERVO_rxBufferLoopDetect = 0u;
-    volatile uint8 UART_SERVO_rxBufferOverflow = 0u;
-    #if (UART_SERVO_RXHW_ADDRESS_ENABLED)
-        volatile uint8 UART_SERVO_rxAddressMode = UART_SERVO_RXADDRESSMODE;
-        volatile uint8 UART_SERVO_rxAddressDetected = 0u;
+uint8 UART_initVar = 0u;
+#if( UART_TX_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
+    volatile uint8 UART_txBuffer[UART_TXBUFFERSIZE];
+    volatile uint8 UART_txBufferRead = 0u;
+    uint8 UART_txBufferWrite = 0u;
+#endif /* End UART_TX_ENABLED */
+#if( ( UART_RX_ENABLED || UART_HD_ENABLED ) && \
+     (UART_RXBUFFERSIZE > UART_FIFO_LENGTH) )
+    volatile uint8 UART_rxBuffer[UART_RXBUFFERSIZE];
+    volatile uint8 UART_rxBufferRead = 0u;
+    volatile uint8 UART_rxBufferWrite = 0u;
+    volatile uint8 UART_rxBufferLoopDetect = 0u;
+    volatile uint8 UART_rxBufferOverflow = 0u;
+    #if (UART_RXHW_ADDRESS_ENABLED)
+        volatile uint8 UART_rxAddressMode = UART_RXADDRESSMODE;
+        volatile uint8 UART_rxAddressDetected = 0u;
     #endif /* End EnableHWAddress */
-#endif /* End UART_SERVO_RX_ENABLED */
+#endif /* End UART_RX_ENABLED */
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_Start
+* Function Name: UART_Start
 ********************************************************************************
 *
 * Summary:
@@ -60,36 +60,36 @@ uint8 UART_SERVO_initVar = 0u;
 *  None.
 *
 * Global variables:
-*  The UART_SERVO_intiVar variable is used to indicate initial
+*  The UART_intiVar variable is used to indicate initial
 *  configuration of this component. The variable is initialized to zero (0u)
 *  and set to one (1u) the first time UART_Start() is called. This allows for
 *  component initialization without re-initialization in all subsequent calls
-*  to the UART_SERVO_Start() routine.
+*  to the UART_Start() routine.
 *
 * Reentrant:
 *  No.
 *
 *******************************************************************************/
-void UART_SERVO_Start(void) 
+void UART_Start(void) 
 {
     /* If not Initialized then initialize all required hardware and software */
-    if(UART_SERVO_initVar == 0u)
+    if(UART_initVar == 0u)
     {
-        UART_SERVO_Init();
-        UART_SERVO_initVar = 1u;
+        UART_Init();
+        UART_initVar = 1u;
     }
-    UART_SERVO_Enable();
+    UART_Enable();
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_Init
+* Function Name: UART_Init
 ********************************************************************************
 *
 * Summary:
 *  Initialize component's parameters to the parameters set by user in the
 *  customizer of the component placed onto schematic. Usually called in
-*  UART_SERVO_Start().
+*  UART_Start().
 *
 * Parameters:
 *  None.
@@ -98,64 +98,64 @@ void UART_SERVO_Start(void)
 *  None.
 *
 *******************************************************************************/
-void UART_SERVO_Init(void) 
+void UART_Init(void) 
 {
-    #if(UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED)
+    #if(UART_RX_ENABLED || UART_HD_ENABLED)
 
-        #if(UART_SERVO_RX_INTERRUPT_ENABLED && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+        #if(UART_RX_INTERRUPT_ENABLED && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
             /* Set the RX Interrupt. */
-            (void)CyIntSetVector(UART_SERVO_RX_VECT_NUM, &UART_SERVO_RXISR);
-            CyIntSetPriority(UART_SERVO_RX_VECT_NUM, UART_SERVO_RX_PRIOR_NUM);
-        #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
+            (void)CyIntSetVector(UART_RX_VECT_NUM, &UART_RXISR);
+            CyIntSetPriority(UART_RX_VECT_NUM, UART_RX_PRIOR_NUM);
+        #endif /* End UART_RX_INTERRUPT_ENABLED */
 
-        #if (UART_SERVO_RXHW_ADDRESS_ENABLED)
-            UART_SERVO_SetRxAddressMode(UART_SERVO_RXAddressMode);
-            UART_SERVO_SetRxAddress1(UART_SERVO_RXHWADDRESS1);
-            UART_SERVO_SetRxAddress2(UART_SERVO_RXHWADDRESS2);
-        #endif /* End UART_SERVO_RXHW_ADDRESS_ENABLED */
+        #if (UART_RXHW_ADDRESS_ENABLED)
+            UART_SetRxAddressMode(UART_RXAddressMode);
+            UART_SetRxAddress1(UART_RXHWADDRESS1);
+            UART_SetRxAddress2(UART_RXHWADDRESS2);
+        #endif /* End UART_RXHW_ADDRESS_ENABLED */
 
         /* Init Count7 period */
-        UART_SERVO_RXBITCTR_PERIOD_REG = UART_SERVO_RXBITCTR_INIT;
+        UART_RXBITCTR_PERIOD_REG = UART_RXBITCTR_INIT;
         /* Configure the Initial RX interrupt mask */
-        UART_SERVO_RXSTATUS_MASK_REG  = UART_SERVO_INIT_RX_INTERRUPTS_MASK;
-    #endif /* End UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED*/
+        UART_RXSTATUS_MASK_REG  = UART_INIT_RX_INTERRUPTS_MASK;
+    #endif /* End UART_RX_ENABLED || UART_HD_ENABLED*/
 
-    #if(UART_SERVO_TX_ENABLED)
-        #if(UART_SERVO_TX_INTERRUPT_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+    #if(UART_TX_ENABLED)
+        #if(UART_TX_INTERRUPT_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
             /* Set the TX Interrupt. */
-            (void)CyIntSetVector(UART_SERVO_TX_VECT_NUM, &UART_SERVO_TXISR);
-            CyIntSetPriority(UART_SERVO_TX_VECT_NUM, UART_SERVO_TX_PRIOR_NUM);
-        #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+            (void)CyIntSetVector(UART_TX_VECT_NUM, &UART_TXISR);
+            CyIntSetPriority(UART_TX_VECT_NUM, UART_TX_PRIOR_NUM);
+        #endif /* End UART_TX_INTERRUPT_ENABLED */
 
         /* Write Counter Value for TX Bit Clk Generator*/
-        #if(UART_SERVO_TXCLKGEN_DP)
-            UART_SERVO_TXBITCLKGEN_CTR_REG = UART_SERVO_BIT_CENTER;
-            UART_SERVO_TXBITCLKTX_COMPLETE_REG = (UART_SERVO_NUMBER_OF_DATA_BITS +
-                        UART_SERVO_NUMBER_OF_START_BIT) * UART_SERVO_OVER_SAMPLE_COUNT;
+        #if(UART_TXCLKGEN_DP)
+            UART_TXBITCLKGEN_CTR_REG = UART_BIT_CENTER;
+            UART_TXBITCLKTX_COMPLETE_REG = (UART_NUMBER_OF_DATA_BITS +
+                        UART_NUMBER_OF_START_BIT) * UART_OVER_SAMPLE_COUNT;
         #else
-            UART_SERVO_TXBITCTR_PERIOD_REG = ((UART_SERVO_NUMBER_OF_DATA_BITS +
-                        UART_SERVO_NUMBER_OF_START_BIT) * UART_SERVO_OVER_SAMPLE_8) - 1u;
-        #endif /* End UART_SERVO_TXCLKGEN_DP */
+            UART_TXBITCTR_PERIOD_REG = ((UART_NUMBER_OF_DATA_BITS +
+                        UART_NUMBER_OF_START_BIT) * UART_OVER_SAMPLE_8) - 1u;
+        #endif /* End UART_TXCLKGEN_DP */
 
         /* Configure the Initial TX interrupt mask */
-        #if(UART_SERVO_TX_INTERRUPT_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-            UART_SERVO_TXSTATUS_MASK_REG = UART_SERVO_TX_STS_FIFO_EMPTY;
+        #if(UART_TX_INTERRUPT_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
+            UART_TXSTATUS_MASK_REG = UART_TX_STS_FIFO_EMPTY;
         #else
-            UART_SERVO_TXSTATUS_MASK_REG = UART_SERVO_INIT_TX_INTERRUPTS_MASK;
-        #endif /*End UART_SERVO_TX_INTERRUPT_ENABLED*/
+            UART_TXSTATUS_MASK_REG = UART_INIT_TX_INTERRUPTS_MASK;
+        #endif /*End UART_TX_INTERRUPT_ENABLED*/
 
-    #endif /* End UART_SERVO_TX_ENABLED */
+    #endif /* End UART_TX_ENABLED */
 
-    #if(UART_SERVO_PARITY_TYPE_SW)  /* Write Parity to Control Register */
-        UART_SERVO_WriteControlRegister( \
-            (UART_SERVO_ReadControlRegister() & (uint8)~UART_SERVO_CTRL_PARITY_TYPE_MASK) | \
-            (uint8)(UART_SERVO_PARITY_TYPE << UART_SERVO_CTRL_PARITY_TYPE0_SHIFT) );
-    #endif /* End UART_SERVO_PARITY_TYPE_SW */
+    #if(UART_PARITY_TYPE_SW)  /* Write Parity to Control Register */
+        UART_WriteControlRegister( \
+            (UART_ReadControlRegister() & (uint8)~UART_CTRL_PARITY_TYPE_MASK) | \
+            (uint8)(UART_PARITY_TYPE << UART_CTRL_PARITY_TYPE0_SHIFT) );
+    #endif /* End UART_PARITY_TYPE_SW */
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_Enable
+* Function Name: UART_Enable
 ********************************************************************************
 *
 * Summary:
@@ -168,50 +168,50 @@ void UART_SERVO_Init(void)
 *  None.
 *
 * Global Variables:
-*  UART_SERVO_rxAddressDetected - set to initial state (0).
+*  UART_rxAddressDetected - set to initial state (0).
 *
 *******************************************************************************/
-void UART_SERVO_Enable(void) 
+void UART_Enable(void) 
 {
     uint8 enableInterrupts;
     enableInterrupts = CyEnterCriticalSection();
 
-    #if(UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED)
+    #if(UART_RX_ENABLED || UART_HD_ENABLED)
         /*RX Counter (Count7) Enable */
-        UART_SERVO_RXBITCTR_CONTROL_REG |= UART_SERVO_CNTR_ENABLE;
+        UART_RXBITCTR_CONTROL_REG |= UART_CNTR_ENABLE;
         /* Enable the RX Interrupt. */
-        UART_SERVO_RXSTATUS_ACTL_REG  |= UART_SERVO_INT_ENABLE;
-        #if(UART_SERVO_RX_INTERRUPT_ENABLED && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-            CyIntEnable(UART_SERVO_RX_VECT_NUM);
-            #if (UART_SERVO_RXHW_ADDRESS_ENABLED)
-                UART_SERVO_rxAddressDetected = 0u;
-            #endif /* End UART_SERVO_RXHW_ADDRESS_ENABLED */
-        #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
-    #endif /* End UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED*/
+        UART_RXSTATUS_ACTL_REG  |= UART_INT_ENABLE;
+        #if(UART_RX_INTERRUPT_ENABLED && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
+            CyIntEnable(UART_RX_VECT_NUM);
+            #if (UART_RXHW_ADDRESS_ENABLED)
+                UART_rxAddressDetected = 0u;
+            #endif /* End UART_RXHW_ADDRESS_ENABLED */
+        #endif /* End UART_RX_INTERRUPT_ENABLED */
+    #endif /* End UART_RX_ENABLED || UART_HD_ENABLED*/
 
-    #if(UART_SERVO_TX_ENABLED)
+    #if(UART_TX_ENABLED)
         /*TX Counter (DP/Count7) Enable */
-        #if(!UART_SERVO_TXCLKGEN_DP)
-            UART_SERVO_TXBITCTR_CONTROL_REG |= UART_SERVO_CNTR_ENABLE;
-        #endif /* End UART_SERVO_TXCLKGEN_DP */
+        #if(!UART_TXCLKGEN_DP)
+            UART_TXBITCTR_CONTROL_REG |= UART_CNTR_ENABLE;
+        #endif /* End UART_TXCLKGEN_DP */
         /* Enable the TX Interrupt. */
-        UART_SERVO_TXSTATUS_ACTL_REG |= UART_SERVO_INT_ENABLE;
-        #if(UART_SERVO_TX_INTERRUPT_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-            CyIntEnable(UART_SERVO_TX_VECT_NUM);
-        #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED*/
-     #endif /* End UART_SERVO_TX_ENABLED */
+        UART_TXSTATUS_ACTL_REG |= UART_INT_ENABLE;
+        #if(UART_TX_INTERRUPT_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
+            CyIntEnable(UART_TX_VECT_NUM);
+        #endif /* End UART_TX_INTERRUPT_ENABLED*/
+     #endif /* End UART_TX_ENABLED */
 
-    #if(UART_SERVO_INTERNAL_CLOCK_USED)
+    #if(UART_INTERNAL_CLOCK_USED)
         /* Enable the clock. */
-        UART_SERVO_IntClock_Start();
-    #endif /* End UART_SERVO_INTERNAL_CLOCK_USED */
+        UART_IntClock_Start();
+    #endif /* End UART_INTERNAL_CLOCK_USED */
 
     CyExitCriticalSection(enableInterrupts);
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_Stop
+* Function Name: UART_Stop
 ********************************************************************************
 *
 * Summary:
@@ -224,48 +224,48 @@ void UART_SERVO_Enable(void)
 *  None.
 *
 *******************************************************************************/
-void UART_SERVO_Stop(void) 
+void UART_Stop(void) 
 {
     uint8 enableInterrupts;
     enableInterrupts = CyEnterCriticalSection();
 
     /* Write Bit Counter Disable */
-    #if(UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED)
-        UART_SERVO_RXBITCTR_CONTROL_REG &= (uint8)~UART_SERVO_CNTR_ENABLE;
-    #endif /* End UART_SERVO_RX_ENABLED */
+    #if(UART_RX_ENABLED || UART_HD_ENABLED)
+        UART_RXBITCTR_CONTROL_REG &= (uint8)~UART_CNTR_ENABLE;
+    #endif /* End UART_RX_ENABLED */
 
-    #if(UART_SERVO_TX_ENABLED)
-        #if(!UART_SERVO_TXCLKGEN_DP)
-            UART_SERVO_TXBITCTR_CONTROL_REG &= (uint8)~UART_SERVO_CNTR_ENABLE;
-        #endif /* End UART_SERVO_TXCLKGEN_DP */
-    #endif /* UART_SERVO_TX_ENABLED */
+    #if(UART_TX_ENABLED)
+        #if(!UART_TXCLKGEN_DP)
+            UART_TXBITCTR_CONTROL_REG &= (uint8)~UART_CNTR_ENABLE;
+        #endif /* End UART_TXCLKGEN_DP */
+    #endif /* UART_TX_ENABLED */
 
-    #if(UART_SERVO_INTERNAL_CLOCK_USED)
+    #if(UART_INTERNAL_CLOCK_USED)
         /* Disable the clock. */
-        UART_SERVO_IntClock_Stop();
-    #endif /* End UART_SERVO_INTERNAL_CLOCK_USED */
+        UART_IntClock_Stop();
+    #endif /* End UART_INTERNAL_CLOCK_USED */
 
     /* Disable internal interrupt component */
-    #if(UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED)
-        UART_SERVO_RXSTATUS_ACTL_REG  &= (uint8)~UART_SERVO_INT_ENABLE;
-        #if(UART_SERVO_RX_INTERRUPT_ENABLED && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-            UART_SERVO_DisableRxInt();
-        #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
-    #endif /* End UART_SERVO_RX_ENABLED */
+    #if(UART_RX_ENABLED || UART_HD_ENABLED)
+        UART_RXSTATUS_ACTL_REG  &= (uint8)~UART_INT_ENABLE;
+        #if(UART_RX_INTERRUPT_ENABLED && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
+            UART_DisableRxInt();
+        #endif /* End UART_RX_INTERRUPT_ENABLED */
+    #endif /* End UART_RX_ENABLED */
 
-    #if(UART_SERVO_TX_ENABLED)
-        UART_SERVO_TXSTATUS_ACTL_REG &= (uint8)~UART_SERVO_INT_ENABLE;
-        #if(UART_SERVO_TX_INTERRUPT_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
-            UART_SERVO_DisableTxInt();
-        #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
-    #endif /* End UART_SERVO_TX_ENABLED */
+    #if(UART_TX_ENABLED)
+        UART_TXSTATUS_ACTL_REG &= (uint8)~UART_INT_ENABLE;
+        #if(UART_TX_INTERRUPT_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
+            UART_DisableTxInt();
+        #endif /* End UART_TX_INTERRUPT_ENABLED */
+    #endif /* End UART_TX_ENABLED */
 
     CyExitCriticalSection(enableInterrupts);
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_ReadControlRegister
+* Function Name: UART_ReadControlRegister
 ********************************************************************************
 *
 * Summary:
@@ -278,18 +278,18 @@ void UART_SERVO_Stop(void)
 *  Current state of the control register.
 *
 *******************************************************************************/
-uint8 UART_SERVO_ReadControlRegister(void) 
+uint8 UART_ReadControlRegister(void) 
 {
-    #if( UART_SERVO_CONTROL_REG_REMOVED )
+    #if( UART_CONTROL_REG_REMOVED )
         return(0u);
     #else
-        return(UART_SERVO_CONTROL_REG);
-    #endif /* End UART_SERVO_CONTROL_REG_REMOVED */
+        return(UART_CONTROL_REG);
+    #endif /* End UART_CONTROL_REG_REMOVED */
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_WriteControlRegister
+* Function Name: UART_WriteControlRegister
 ********************************************************************************
 *
 * Summary:
@@ -302,22 +302,22 @@ uint8 UART_SERVO_ReadControlRegister(void)
 *  None.
 *
 *******************************************************************************/
-void  UART_SERVO_WriteControlRegister(uint8 control) 
+void  UART_WriteControlRegister(uint8 control) 
 {
-    #if( UART_SERVO_CONTROL_REG_REMOVED )
+    #if( UART_CONTROL_REG_REMOVED )
         if(control != 0u) { }      /* release compiler warning */
     #else
-       UART_SERVO_CONTROL_REG = control;
-    #endif /* End UART_SERVO_CONTROL_REG_REMOVED */
+       UART_CONTROL_REG = control;
+    #endif /* End UART_CONTROL_REG_REMOVED */
 }
 
 
-#if(UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED)
+#if(UART_RX_ENABLED || UART_HD_ENABLED)
 
-    #if(UART_SERVO_RX_INTERRUPT_ENABLED)
+    #if(UART_RX_INTERRUPT_ENABLED)
 
         /*******************************************************************************
-        * Function Name: UART_SERVO_EnableRxInt
+        * Function Name: UART_EnableRxInt
         ********************************************************************************
         *
         * Summary:
@@ -333,14 +333,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
         *  Enable the interrupt output -or- the interrupt component itself
         *
         *******************************************************************************/
-        void UART_SERVO_EnableRxInt(void) 
+        void UART_EnableRxInt(void) 
         {
-            CyIntEnable(UART_SERVO_RX_VECT_NUM);
+            CyIntEnable(UART_RX_VECT_NUM);
         }
 
 
         /*******************************************************************************
-        * Function Name: UART_SERVO_DisableRxInt
+        * Function Name: UART_DisableRxInt
         ********************************************************************************
         *
         * Summary:
@@ -356,16 +356,16 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
         *  Disable the interrupt output -or- the interrupt component itself
         *
         *******************************************************************************/
-        void UART_SERVO_DisableRxInt(void) 
+        void UART_DisableRxInt(void) 
         {
-            CyIntDisable(UART_SERVO_RX_VECT_NUM);
+            CyIntDisable(UART_RX_VECT_NUM);
         }
 
-    #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
+    #endif /* UART_RX_INTERRUPT_ENABLED */
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetRxInterruptMode
+    * Function Name: UART_SetRxInterruptMode
     ********************************************************************************
     *
     * Summary:
@@ -382,14 +382,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Enables the output of specific status bits to the interrupt controller
     *
     *******************************************************************************/
-    void UART_SERVO_SetRxInterruptMode(uint8 intSrc) 
+    void UART_SetRxInterruptMode(uint8 intSrc) 
     {
-        UART_SERVO_RXSTATUS_MASK_REG  = intSrc;
+        UART_RXSTATUS_MASK_REG  = intSrc;
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_ReadRxData
+    * Function Name: UART_ReadRxData
     ********************************************************************************
     *
     * Summary:
@@ -403,88 +403,88 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Received data from RX register
     *
     * Global Variables:
-    *  UART_SERVO_rxBuffer - RAM buffer pointer for save received data.
-    *  UART_SERVO_rxBufferWrite - cyclic index for write to rxBuffer,
+    *  UART_rxBuffer - RAM buffer pointer for save received data.
+    *  UART_rxBufferWrite - cyclic index for write to rxBuffer,
     *     checked to identify new data.
-    *  UART_SERVO_rxBufferRead - cyclic index for read from rxBuffer,
+    *  UART_rxBufferRead - cyclic index for read from rxBuffer,
     *     incremented after each byte has been read from buffer.
-    *  UART_SERVO_rxBufferLoopDetect - creared if loop condition was detected
+    *  UART_rxBufferLoopDetect - creared if loop condition was detected
     *     in RX ISR.
     *
     * Reentrant:
     *  No.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_ReadRxData(void) 
+    uint8 UART_ReadRxData(void) 
     {
         uint8 rxData;
 
-        #if(UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_RXBUFFERSIZE > UART_FIFO_LENGTH)
             uint8 loc_rxBufferRead;
             uint8 loc_rxBufferWrite;
             /* Protect variables that could change on interrupt. */
             /* Disable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableRxInt();
-            #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
-            loc_rxBufferRead = UART_SERVO_rxBufferRead;
-            loc_rxBufferWrite = UART_SERVO_rxBufferWrite;
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_DisableRxInt();
+            #endif /* UART_RX_INTERRUPT_ENABLED */
+            loc_rxBufferRead = UART_rxBufferRead;
+            loc_rxBufferWrite = UART_rxBufferWrite;
 
-            if( (UART_SERVO_rxBufferLoopDetect != 0u) || (loc_rxBufferRead != loc_rxBufferWrite) )
+            if( (UART_rxBufferLoopDetect != 0u) || (loc_rxBufferRead != loc_rxBufferWrite) )
             {
-                rxData = UART_SERVO_rxBuffer[loc_rxBufferRead];
+                rxData = UART_rxBuffer[loc_rxBufferRead];
                 loc_rxBufferRead++;
 
-                if(loc_rxBufferRead >= UART_SERVO_RXBUFFERSIZE)
+                if(loc_rxBufferRead >= UART_RXBUFFERSIZE)
                 {
                     loc_rxBufferRead = 0u;
                 }
                 /* Update the real pointer */
-                UART_SERVO_rxBufferRead = loc_rxBufferRead;
+                UART_rxBufferRead = loc_rxBufferRead;
 
-                if(UART_SERVO_rxBufferLoopDetect != 0u )
+                if(UART_rxBufferLoopDetect != 0u )
                 {
-                    UART_SERVO_rxBufferLoopDetect = 0u;
-                    #if( (UART_SERVO_RX_INTERRUPT_ENABLED) && (UART_SERVO_FLOW_CONTROL != 0u) && \
-                         (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH) )
+                    UART_rxBufferLoopDetect = 0u;
+                    #if( (UART_RX_INTERRUPT_ENABLED) && (UART_FLOW_CONTROL != 0u) && \
+                         (UART_RXBUFFERSIZE > UART_FIFO_LENGTH) )
                         /* When Hardware Flow Control selected - return RX mask */
-                        #if( UART_SERVO_HD_ENABLED )
-                            if((UART_SERVO_CONTROL_REG & UART_SERVO_CTRL_HD_SEND) == 0u)
+                        #if( UART_HD_ENABLED )
+                            if((UART_CONTROL_REG & UART_CTRL_HD_SEND) == 0u)
                             {   /* In Half duplex mode return RX mask only in RX
                                 *  configuration set, otherwise
                                 *  mask will be returned in LoadRxConfig() API.
                                 */
-                                UART_SERVO_RXSTATUS_MASK_REG  |= UART_SERVO_RX_STS_FIFO_NOTEMPTY;
+                                UART_RXSTATUS_MASK_REG  |= UART_RX_STS_FIFO_NOTEMPTY;
                             }
                         #else
-                            UART_SERVO_RXSTATUS_MASK_REG  |= UART_SERVO_RX_STS_FIFO_NOTEMPTY;
-                        #endif /* end UART_SERVO_HD_ENABLED */
-                    #endif /* UART_SERVO_RX_INTERRUPT_ENABLED and Hardware flow control*/
+                            UART_RXSTATUS_MASK_REG  |= UART_RX_STS_FIFO_NOTEMPTY;
+                        #endif /* end UART_HD_ENABLED */
+                    #endif /* UART_RX_INTERRUPT_ENABLED and Hardware flow control*/
                 }
             }
             else
             {   /* Needs to check status for RX_STS_FIFO_NOTEMPTY bit*/
-                rxData = UART_SERVO_RXDATA_REG;
+                rxData = UART_RXDATA_REG;
             }
 
             /* Enable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableRxInt();
-            #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_EnableRxInt();
+            #endif /* End UART_RX_INTERRUPT_ENABLED */
 
-        #else /* UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #else /* UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
             /* Needs to check status for RX_STS_FIFO_NOTEMPTY bit*/
-            rxData = UART_SERVO_RXDATA_REG;
+            rxData = UART_RXDATA_REG;
 
-        #endif /* UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #endif /* UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
         return(rxData);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_ReadRxStatus
+    * Function Name: UART_ReadRxStatus
     ********************************************************************************
     *
     * Summary:
@@ -498,34 +498,34 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Current state of the status register.
     *
     * Global Variables:
-    *  UART_SERVO_rxBufferOverflow - used to indicate overload condition.
+    *  UART_rxBufferOverflow - used to indicate overload condition.
     *   It set to one in RX interrupt when there isn?t free space in
-    *   UART_SERVO_rxBufferRead to write new data. This condition returned
+    *   UART_rxBufferRead to write new data. This condition returned
     *   and cleared to zero by this API as an
-    *   UART_SERVO_RX_STS_SOFT_BUFF_OVER bit along with RX Status register
+    *   UART_RX_STS_SOFT_BUFF_OVER bit along with RX Status register
     *   bits.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_ReadRxStatus(void) 
+    uint8 UART_ReadRxStatus(void) 
     {
         uint8 status;
 
-        status = UART_SERVO_RXSTATUS_REG & UART_SERVO_RX_HW_MASK;
+        status = UART_RXSTATUS_REG & UART_RX_HW_MASK;
 
-        #if(UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
-            if( UART_SERVO_rxBufferOverflow != 0u )
+        #if(UART_RXBUFFERSIZE > UART_FIFO_LENGTH)
+            if( UART_rxBufferOverflow != 0u )
             {
-                status |= UART_SERVO_RX_STS_SOFT_BUFF_OVER;
-                UART_SERVO_rxBufferOverflow = 0u;
+                status |= UART_RX_STS_SOFT_BUFF_OVER;
+                UART_rxBufferOverflow = 0u;
             }
-        #endif /* UART_SERVO_RXBUFFERSIZE */
+        #endif /* UART_RXBUFFERSIZE */
 
         return(status);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_GetChar
+    * Function Name: UART_GetChar
     ********************************************************************************
     *
     * Summary:
@@ -541,73 +541,73 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  A returned zero signifies an error condition or no data available.
     *
     * Global Variables:
-    *  UART_SERVO_rxBuffer - RAM buffer pointer for save received data.
-    *  UART_SERVO_rxBufferWrite - cyclic index for write to rxBuffer,
+    *  UART_rxBuffer - RAM buffer pointer for save received data.
+    *  UART_rxBufferWrite - cyclic index for write to rxBuffer,
     *     checked to identify new data.
-    *  UART_SERVO_rxBufferRead - cyclic index for read from rxBuffer,
+    *  UART_rxBufferRead - cyclic index for read from rxBuffer,
     *     incremented after each byte has been read from buffer.
-    *  UART_SERVO_rxBufferLoopDetect - creared if loop condition was detected
+    *  UART_rxBufferLoopDetect - creared if loop condition was detected
     *     in RX ISR.
     *
     * Reentrant:
     *  No.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_GetChar(void) 
+    uint8 UART_GetChar(void) 
     {
         uint8 rxData = 0u;
         uint8 rxStatus;
 
-        #if(UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_RXBUFFERSIZE > UART_FIFO_LENGTH)
             uint8 loc_rxBufferRead;
             uint8 loc_rxBufferWrite;
             /* Protect variables that could change on interrupt. */
             /* Disable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableRxInt();
-            #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
-            loc_rxBufferRead = UART_SERVO_rxBufferRead;
-            loc_rxBufferWrite = UART_SERVO_rxBufferWrite;
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_DisableRxInt();
+            #endif /* UART_RX_INTERRUPT_ENABLED */
+            loc_rxBufferRead = UART_rxBufferRead;
+            loc_rxBufferWrite = UART_rxBufferWrite;
 
-            if( (UART_SERVO_rxBufferLoopDetect != 0u) || (loc_rxBufferRead != loc_rxBufferWrite) )
+            if( (UART_rxBufferLoopDetect != 0u) || (loc_rxBufferRead != loc_rxBufferWrite) )
             {
-                rxData = UART_SERVO_rxBuffer[loc_rxBufferRead];
+                rxData = UART_rxBuffer[loc_rxBufferRead];
                 loc_rxBufferRead++;
-                if(loc_rxBufferRead >= UART_SERVO_RXBUFFERSIZE)
+                if(loc_rxBufferRead >= UART_RXBUFFERSIZE)
                 {
                     loc_rxBufferRead = 0u;
                 }
                 /* Update the real pointer */
-                UART_SERVO_rxBufferRead = loc_rxBufferRead;
+                UART_rxBufferRead = loc_rxBufferRead;
 
-                if(UART_SERVO_rxBufferLoopDetect > 0u )
+                if(UART_rxBufferLoopDetect > 0u )
                 {
-                    UART_SERVO_rxBufferLoopDetect = 0u;
-                    #if( (UART_SERVO_RX_INTERRUPT_ENABLED) && (UART_SERVO_FLOW_CONTROL != 0u) )
+                    UART_rxBufferLoopDetect = 0u;
+                    #if( (UART_RX_INTERRUPT_ENABLED) && (UART_FLOW_CONTROL != 0u) )
                         /* When Hardware Flow Control selected - return RX mask */
-                        #if( UART_SERVO_HD_ENABLED )
-                            if((UART_SERVO_CONTROL_REG & UART_SERVO_CTRL_HD_SEND) == 0u)
+                        #if( UART_HD_ENABLED )
+                            if((UART_CONTROL_REG & UART_CTRL_HD_SEND) == 0u)
                             {   /* In Half duplex mode return RX mask only if
                                 *  RX configuration set, otherwise
                                 *  mask will be returned in LoadRxConfig() API.
                                 */
-                                UART_SERVO_RXSTATUS_MASK_REG  |= UART_SERVO_RX_STS_FIFO_NOTEMPTY;
+                                UART_RXSTATUS_MASK_REG  |= UART_RX_STS_FIFO_NOTEMPTY;
                             }
                         #else
-                            UART_SERVO_RXSTATUS_MASK_REG  |= UART_SERVO_RX_STS_FIFO_NOTEMPTY;
-                        #endif /* end UART_SERVO_HD_ENABLED */
-                    #endif /* UART_SERVO_RX_INTERRUPT_ENABLED and Hardware flow control*/
+                            UART_RXSTATUS_MASK_REG  |= UART_RX_STS_FIFO_NOTEMPTY;
+                        #endif /* end UART_HD_ENABLED */
+                    #endif /* UART_RX_INTERRUPT_ENABLED and Hardware flow control*/
                 }
 
             }
             else
-            {   rxStatus = UART_SERVO_RXSTATUS_REG;
-                if((rxStatus & UART_SERVO_RX_STS_FIFO_NOTEMPTY) != 0u)
+            {   rxStatus = UART_RXSTATUS_REG;
+                if((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
                 {   /* Read received data from FIFO*/
-                    rxData = UART_SERVO_RXDATA_REG;
+                    rxData = UART_RXDATA_REG;
                     /*Check status on error*/
-                    if((rxStatus & (UART_SERVO_RX_STS_BREAK | UART_SERVO_RX_STS_PAR_ERROR |
-                                   UART_SERVO_RX_STS_STOP_ERROR | UART_SERVO_RX_STS_OVERRUN)) != 0u)
+                    if((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
+                                   UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
                     {
                         rxData = 0u;
                     }
@@ -615,31 +615,31 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
             }
 
             /* Enable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableRxInt();
-            #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_EnableRxInt();
+            #endif /* UART_RX_INTERRUPT_ENABLED */
 
-        #else /* UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #else /* UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
-            rxStatus =UART_SERVO_RXSTATUS_REG;
-            if((rxStatus & UART_SERVO_RX_STS_FIFO_NOTEMPTY) != 0u)
+            rxStatus =UART_RXSTATUS_REG;
+            if((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
             {   /* Read received data from FIFO*/
-                rxData = UART_SERVO_RXDATA_REG;
+                rxData = UART_RXDATA_REG;
                 /*Check status on error*/
-                if((rxStatus & (UART_SERVO_RX_STS_BREAK | UART_SERVO_RX_STS_PAR_ERROR |
-                               UART_SERVO_RX_STS_STOP_ERROR | UART_SERVO_RX_STS_OVERRUN)) != 0u)
+                if((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
+                               UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
                 {
                     rxData = 0u;
                 }
             }
-        #endif /* UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #endif /* UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
         return(rxData);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_GetByte
+    * Function Name: UART_GetByte
     ********************************************************************************
     *
     * Summary:
@@ -655,14 +655,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  No.
     *
     *******************************************************************************/
-    uint16 UART_SERVO_GetByte(void) 
+    uint16 UART_GetByte(void) 
     {
-        return ( ((uint16)UART_SERVO_ReadRxStatus() << 8u) | UART_SERVO_ReadRxData() );
+        return ( ((uint16)UART_ReadRxStatus() << 8u) | UART_ReadRxData() );
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_GetRxBufferSize
+    * Function Name: UART_GetRxBufferSize
     ********************************************************************************
     *
     * Summary:
@@ -677,9 +677,9 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  in the RX buffer
     *
     * Global Variables:
-    *  UART_SERVO_rxBufferWrite - used to calculate left bytes.
-    *  UART_SERVO_rxBufferRead - used to calculate left bytes.
-    *  UART_SERVO_rxBufferLoopDetect - checked to decide left bytes amount.
+    *  UART_rxBufferWrite - used to calculate left bytes.
+    *  UART_rxBufferRead - used to calculate left bytes.
+    *  UART_rxBufferLoopDetect - checked to decide left bytes amount.
     *
     * Reentrant:
     *  No.
@@ -688,57 +688,57 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Allows the user to find out how full the RX Buffer is.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_GetRxBufferSize(void)
+    uint8 UART_GetRxBufferSize(void)
                                                             
     {
         uint8 size;
 
-        #if(UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_RXBUFFERSIZE > UART_FIFO_LENGTH)
 
             /* Disable Rx interrupt. */
             /* Protect variables that could change on interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableRxInt();
-            #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_DisableRxInt();
+            #endif /* UART_RX_INTERRUPT_ENABLED */
 
-            if(UART_SERVO_rxBufferRead == UART_SERVO_rxBufferWrite)
+            if(UART_rxBufferRead == UART_rxBufferWrite)
             {
-                if(UART_SERVO_rxBufferLoopDetect > 0u)
+                if(UART_rxBufferLoopDetect > 0u)
                 {
-                    size = UART_SERVO_RXBUFFERSIZE;
+                    size = UART_RXBUFFERSIZE;
                 }
                 else
                 {
                     size = 0u;
                 }
             }
-            else if(UART_SERVO_rxBufferRead < UART_SERVO_rxBufferWrite)
+            else if(UART_rxBufferRead < UART_rxBufferWrite)
             {
-                size = (UART_SERVO_rxBufferWrite - UART_SERVO_rxBufferRead);
+                size = (UART_rxBufferWrite - UART_rxBufferRead);
             }
             else
             {
-                size = (UART_SERVO_RXBUFFERSIZE - UART_SERVO_rxBufferRead) + UART_SERVO_rxBufferWrite;
+                size = (UART_RXBUFFERSIZE - UART_rxBufferRead) + UART_rxBufferWrite;
             }
 
             /* Enable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableRxInt();
-            #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_EnableRxInt();
+            #endif /* End UART_RX_INTERRUPT_ENABLED */
 
-        #else /* UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #else /* UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
             /* We can only know if there is data in the fifo. */
-            size = ((UART_SERVO_RXSTATUS_REG & UART_SERVO_RX_STS_FIFO_NOTEMPTY) != 0u) ? 1u : 0u;
+            size = ((UART_RXSTATUS_REG & UART_RX_STS_FIFO_NOTEMPTY) != 0u) ? 1u : 0u;
 
-        #endif /* End UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #endif /* End UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
         return(size);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_ClearRxBuffer
+    * Function Name: UART_ClearRxBuffer
     ********************************************************************************
     *
     * Summary:
@@ -752,10 +752,10 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_rxBufferWrite - cleared to zero.
-    *  UART_SERVO_rxBufferRead - cleared to zero.
-    *  UART_SERVO_rxBufferLoopDetect - cleared to zero.
-    *  UART_SERVO_rxBufferOverflow - cleared to zero.
+    *  UART_rxBufferWrite - cleared to zero.
+    *  UART_rxBufferRead - cleared to zero.
+    *  UART_rxBufferLoopDetect - cleared to zero.
+    *  UART_rxBufferOverflow - cleared to zero.
     *
     * Reentrant:
     *  No.
@@ -768,41 +768,41 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     * Side Effects:
     *  Any received data not read from the RAM or FIFO buffer will be lost.
     *******************************************************************************/
-    void UART_SERVO_ClearRxBuffer(void) 
+    void UART_ClearRxBuffer(void) 
     {
         uint8 enableInterrupts;
 
         /* clear the HW FIFO */
         /* Enter critical section */
         enableInterrupts = CyEnterCriticalSection();
-        UART_SERVO_RXDATA_AUX_CTL_REG |=  UART_SERVO_RX_FIFO_CLR;
-        UART_SERVO_RXDATA_AUX_CTL_REG &= (uint8)~UART_SERVO_RX_FIFO_CLR;
+        UART_RXDATA_AUX_CTL_REG |=  UART_RX_FIFO_CLR;
+        UART_RXDATA_AUX_CTL_REG &= (uint8)~UART_RX_FIFO_CLR;
         /* Exit critical section */
         CyExitCriticalSection(enableInterrupts);
 
-        #if(UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_RXBUFFERSIZE > UART_FIFO_LENGTH)
             /* Disable Rx interrupt. */
             /* Protect variables that could change on interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableRxInt();
-            #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_DisableRxInt();
+            #endif /* End UART_RX_INTERRUPT_ENABLED */
 
-            UART_SERVO_rxBufferRead = 0u;
-            UART_SERVO_rxBufferWrite = 0u;
-            UART_SERVO_rxBufferLoopDetect = 0u;
-            UART_SERVO_rxBufferOverflow = 0u;
+            UART_rxBufferRead = 0u;
+            UART_rxBufferWrite = 0u;
+            UART_rxBufferLoopDetect = 0u;
+            UART_rxBufferOverflow = 0u;
 
             /* Enable Rx interrupt. */
-            #if(UART_SERVO_RX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableRxInt();
-            #endif /* End UART_SERVO_RX_INTERRUPT_ENABLED */
-        #endif /* End UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+            #if(UART_RX_INTERRUPT_ENABLED)
+                UART_EnableRxInt();
+            #endif /* End UART_RX_INTERRUPT_ENABLED */
+        #endif /* End UART_RXBUFFERSIZE > UART_FIFO_LENGTH */
 
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetRxAddressMode
+    * Function Name: UART_SetRxAddressMode
     ********************************************************************************
     *
     * Summary:
@@ -810,50 +810,50 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *
     * Parameters:
     *  addressMode: Enumerated value indicating the mode of RX addressing
-    *  UART_SERVO__B_UART__AM_SW_BYTE_BYTE -  Software Byte-by-Byte address
+    *  UART__B_UART__AM_SW_BYTE_BYTE -  Software Byte-by-Byte address
     *                                               detection
-    *  UART_SERVO__B_UART__AM_SW_DETECT_TO_BUFFER - Software Detect to Buffer
+    *  UART__B_UART__AM_SW_DETECT_TO_BUFFER - Software Detect to Buffer
     *                                               address detection
-    *  UART_SERVO__B_UART__AM_HW_BYTE_BY_BYTE - Hardware Byte-by-Byte address
+    *  UART__B_UART__AM_HW_BYTE_BY_BYTE - Hardware Byte-by-Byte address
     *                                               detection
-    *  UART_SERVO__B_UART__AM_HW_DETECT_TO_BUFFER - Hardware Detect to Buffer
+    *  UART__B_UART__AM_HW_DETECT_TO_BUFFER - Hardware Detect to Buffer
     *                                               address detection
-    *  UART_SERVO__B_UART__AM_NONE - No address detection
+    *  UART__B_UART__AM_NONE - No address detection
     *
     * Return:
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_rxAddressMode - the parameter stored in this variable for
+    *  UART_rxAddressMode - the parameter stored in this variable for
     *   the farther usage in RX ISR.
-    *  UART_SERVO_rxAddressDetected - set to initial state (0).
+    *  UART_rxAddressDetected - set to initial state (0).
     *
     *******************************************************************************/
-    void UART_SERVO_SetRxAddressMode(uint8 addressMode)
+    void UART_SetRxAddressMode(uint8 addressMode)
                                                         
     {
-        #if(UART_SERVO_RXHW_ADDRESS_ENABLED)
-            #if(UART_SERVO_CONTROL_REG_REMOVED)
+        #if(UART_RXHW_ADDRESS_ENABLED)
+            #if(UART_CONTROL_REG_REMOVED)
                 if(addressMode != 0u) { }     /* release compiler warning */
-            #else /* UART_SERVO_CONTROL_REG_REMOVED */
+            #else /* UART_CONTROL_REG_REMOVED */
                 uint8 tmpCtrl;
-                tmpCtrl = UART_SERVO_CONTROL_REG & (uint8)~UART_SERVO_CTRL_RXADDR_MODE_MASK;
-                tmpCtrl |= (uint8)(addressMode << UART_SERVO_CTRL_RXADDR_MODE0_SHIFT);
-                UART_SERVO_CONTROL_REG = tmpCtrl;
-                #if(UART_SERVO_RX_INTERRUPT_ENABLED && \
-                   (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH) )
-                    UART_SERVO_rxAddressMode = addressMode;
-                    UART_SERVO_rxAddressDetected = 0u;
-                #endif /* End UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH*/
-            #endif /* End UART_SERVO_CONTROL_REG_REMOVED */
-        #else /* UART_SERVO_RXHW_ADDRESS_ENABLED */
+                tmpCtrl = UART_CONTROL_REG & (uint8)~UART_CTRL_RXADDR_MODE_MASK;
+                tmpCtrl |= (uint8)(addressMode << UART_CTRL_RXADDR_MODE0_SHIFT);
+                UART_CONTROL_REG = tmpCtrl;
+                #if(UART_RX_INTERRUPT_ENABLED && \
+                   (UART_RXBUFFERSIZE > UART_FIFO_LENGTH) )
+                    UART_rxAddressMode = addressMode;
+                    UART_rxAddressDetected = 0u;
+                #endif /* End UART_RXBUFFERSIZE > UART_FIFO_LENGTH*/
+            #endif /* End UART_CONTROL_REG_REMOVED */
+        #else /* UART_RXHW_ADDRESS_ENABLED */
             if(addressMode != 0u) { }     /* release compiler warning */
-        #endif /* End UART_SERVO_RXHW_ADDRESS_ENABLED */
+        #endif /* End UART_RXHW_ADDRESS_ENABLED */
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetRxAddress1
+    * Function Name: UART_SetRxAddress1
     ********************************************************************************
     *
     * Summary:
@@ -866,15 +866,15 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     *******************************************************************************/
-    void UART_SERVO_SetRxAddress1(uint8 address) 
+    void UART_SetRxAddress1(uint8 address) 
 
     {
-        UART_SERVO_RXADDRESS1_REG = address;
+        UART_RXADDRESS1_REG = address;
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetRxAddress2
+    * Function Name: UART_SetRxAddress2
     ********************************************************************************
     *
     * Summary:
@@ -887,20 +887,20 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     *******************************************************************************/
-    void UART_SERVO_SetRxAddress2(uint8 address) 
+    void UART_SetRxAddress2(uint8 address) 
     {
-        UART_SERVO_RXADDRESS2_REG = address;
+        UART_RXADDRESS2_REG = address;
     }
 
-#endif  /* UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED*/
+#endif  /* UART_RX_ENABLED || UART_HD_ENABLED*/
 
 
-#if( (UART_SERVO_TX_ENABLED) || (UART_SERVO_HD_ENABLED) )
+#if( (UART_TX_ENABLED) || (UART_HD_ENABLED) )
 
-    #if(UART_SERVO_TX_INTERRUPT_ENABLED)
+    #if(UART_TX_INTERRUPT_ENABLED)
 
         /*******************************************************************************
-        * Function Name: UART_SERVO_EnableTxInt
+        * Function Name: UART_EnableTxInt
         ********************************************************************************
         *
         * Summary:
@@ -916,14 +916,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
         *  Enable the interrupt output -or- the interrupt component itself
         *
         *******************************************************************************/
-        void UART_SERVO_EnableTxInt(void) 
+        void UART_EnableTxInt(void) 
         {
-            CyIntEnable(UART_SERVO_TX_VECT_NUM);
+            CyIntEnable(UART_TX_VECT_NUM);
         }
 
 
         /*******************************************************************************
-        * Function Name: UART_SERVO_DisableTxInt
+        * Function Name: UART_DisableTxInt
         ********************************************************************************
         *
         * Summary:
@@ -939,16 +939,16 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
         *  Disable the interrupt output -or- the interrupt component itself
         *
         *******************************************************************************/
-        void UART_SERVO_DisableTxInt(void) 
+        void UART_DisableTxInt(void) 
         {
-            CyIntDisable(UART_SERVO_TX_VECT_NUM);
+            CyIntDisable(UART_TX_VECT_NUM);
         }
 
-    #endif /* UART_SERVO_TX_INTERRUPT_ENABLED */
+    #endif /* UART_TX_INTERRUPT_ENABLED */
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetTxInterruptMode
+    * Function Name: UART_SetTxInterruptMode
     ********************************************************************************
     *
     * Summary:
@@ -965,14 +965,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Enables the output of specific status bits to the interrupt controller
     *
     *******************************************************************************/
-    void UART_SERVO_SetTxInterruptMode(uint8 intSrc) 
+    void UART_SetTxInterruptMode(uint8 intSrc) 
     {
-        UART_SERVO_TXSTATUS_MASK_REG = intSrc;
+        UART_TXSTATUS_MASK_REG = intSrc;
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_WriteTxData
+    * Function Name: UART_WriteTxData
     ********************************************************************************
     *
     * Summary:
@@ -987,68 +987,68 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     * void
     *
     * Global Variables:
-    *  UART_SERVO_txBuffer - RAM buffer pointer for save data for transmission
-    *  UART_SERVO_txBufferWrite - cyclic index for write to txBuffer,
+    *  UART_txBuffer - RAM buffer pointer for save data for transmission
+    *  UART_txBufferWrite - cyclic index for write to txBuffer,
     *    incremented after each byte saved to buffer.
-    *  UART_SERVO_txBufferRead - cyclic index for read from txBuffer,
+    *  UART_txBufferRead - cyclic index for read from txBuffer,
     *    checked to identify the condition to write to FIFO directly or to TX buffer
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *    initialized.
     *
     * Reentrant:
     *  No.
     *
     *******************************************************************************/
-    void UART_SERVO_WriteTxData(uint8 txDataByte) 
+    void UART_WriteTxData(uint8 txDataByte) 
     {
         /* If not Initialized then skip this function*/
-        if(UART_SERVO_initVar != 0u)
+        if(UART_initVar != 0u)
         {
-            #if(UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+            #if(UART_TXBUFFERSIZE > UART_FIFO_LENGTH)
 
                 /* Disable Tx interrupt. */
                 /* Protect variables that could change on interrupt. */
-                #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                    UART_SERVO_DisableTxInt();
-                #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+                #if(UART_TX_INTERRUPT_ENABLED)
+                    UART_DisableTxInt();
+                #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-                if( (UART_SERVO_txBufferRead == UART_SERVO_txBufferWrite) &&
-                    ((UART_SERVO_TXSTATUS_REG & UART_SERVO_TX_STS_FIFO_FULL) == 0u) )
+                if( (UART_txBufferRead == UART_txBufferWrite) &&
+                    ((UART_TXSTATUS_REG & UART_TX_STS_FIFO_FULL) == 0u) )
                 {
                     /* Add directly to the FIFO. */
-                    UART_SERVO_TXDATA_REG = txDataByte;
+                    UART_TXDATA_REG = txDataByte;
                 }
                 else
                 {
-                    if(UART_SERVO_txBufferWrite >= UART_SERVO_TXBUFFERSIZE)
+                    if(UART_txBufferWrite >= UART_TXBUFFERSIZE)
                     {
-                        UART_SERVO_txBufferWrite = 0u;
+                        UART_txBufferWrite = 0u;
                     }
 
-                    UART_SERVO_txBuffer[UART_SERVO_txBufferWrite] = txDataByte;
+                    UART_txBuffer[UART_txBufferWrite] = txDataByte;
 
                     /* Add to the software buffer. */
-                    UART_SERVO_txBufferWrite++;
+                    UART_txBufferWrite++;
 
                 }
 
                 /* Enable Tx interrupt. */
-                #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                    UART_SERVO_EnableTxInt();
-                #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+                #if(UART_TX_INTERRUPT_ENABLED)
+                    UART_EnableTxInt();
+                #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-            #else /* UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+            #else /* UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
 
                 /* Add directly to the FIFO. */
-                UART_SERVO_TXDATA_REG = txDataByte;
+                UART_TXDATA_REG = txDataByte;
 
-            #endif /* End UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+            #endif /* End UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
         }
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_ReadTxStatus
+    * Function Name: UART_ReadTxStatus
     ********************************************************************************
     *
     * Summary:
@@ -1067,14 +1067,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  accordingly.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_ReadTxStatus(void) 
+    uint8 UART_ReadTxStatus(void) 
     {
-        return(UART_SERVO_TXSTATUS_REG);
+        return(UART_TXSTATUS_REG);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_PutChar
+    * Function Name: UART_PutChar
     ********************************************************************************
     *
     * Summary:
@@ -1087,13 +1087,13 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_txBuffer - RAM buffer pointer for save data for transmission
-    *  UART_SERVO_txBufferWrite - cyclic index for write to txBuffer,
+    *  UART_txBuffer - RAM buffer pointer for save data for transmission
+    *  UART_txBufferWrite - cyclic index for write to txBuffer,
     *     checked to identify free space in txBuffer and incremented after each byte
     *     saved to buffer.
-    *  UART_SERVO_txBufferRead - cyclic index for read from txBuffer,
+    *  UART_txBufferRead - cyclic index for read from txBuffer,
     *     checked to identify free space in txBuffer.
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *     initialized.
     *
     * Reentrant:
@@ -1103,9 +1103,9 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Allows the user to transmit any byte of data in a single transfer
     *
     *******************************************************************************/
-    void UART_SERVO_PutChar(uint8 txDataByte) 
+    void UART_PutChar(uint8 txDataByte) 
     {
-            #if(UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+            #if(UART_TXBUFFERSIZE > UART_FIFO_LENGTH)
                 /* The temporary output pointer is used since it takes two instructions
                 *  to increment with a wrap, and we can't risk doing that with the real
                 *  pointer and getting an interrupt in between instructions.
@@ -1115,62 +1115,62 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
 
                 do{
                     /* Block if software buffer is full, so we don't overwrite. */
-                    #if ((UART_SERVO_TXBUFFERSIZE > UART_SERVO_MAX_BYTE_VALUE) && (CY_PSOC3))
+                    #if ((UART_TXBUFFERSIZE > UART_MAX_BYTE_VALUE) && (CY_PSOC3))
                         /* Disable TX interrupt to protect variables that could change on interrupt */
-                        CyIntDisable(UART_SERVO_TX_VECT_NUM);
+                        CyIntDisable(UART_TX_VECT_NUM);
                     #endif /* End TXBUFFERSIZE > 255 */
-                    loc_txBufferWrite = UART_SERVO_txBufferWrite;
-                    loc_txBufferRead = UART_SERVO_txBufferRead;
-                    #if ((UART_SERVO_TXBUFFERSIZE > UART_SERVO_MAX_BYTE_VALUE) && (CY_PSOC3))
+                    loc_txBufferWrite = UART_txBufferWrite;
+                    loc_txBufferRead = UART_txBufferRead;
+                    #if ((UART_TXBUFFERSIZE > UART_MAX_BYTE_VALUE) && (CY_PSOC3))
                         /* Enable interrupt to continue transmission */
-                        CyIntEnable(UART_SERVO_TX_VECT_NUM);
+                        CyIntEnable(UART_TX_VECT_NUM);
                     #endif /* End TXBUFFERSIZE > 255 */
                 }while( (loc_txBufferWrite < loc_txBufferRead) ? (loc_txBufferWrite == (loc_txBufferRead - 1u)) :
                                         ((loc_txBufferWrite - loc_txBufferRead) ==
-                                        (uint8)(UART_SERVO_TXBUFFERSIZE - 1u)) );
+                                        (uint8)(UART_TXBUFFERSIZE - 1u)) );
 
                 if( (loc_txBufferRead == loc_txBufferWrite) &&
-                    ((UART_SERVO_TXSTATUS_REG & UART_SERVO_TX_STS_FIFO_FULL) == 0u) )
+                    ((UART_TXSTATUS_REG & UART_TX_STS_FIFO_FULL) == 0u) )
                 {
                     /* Add directly to the FIFO. */
-                    UART_SERVO_TXDATA_REG = txDataByte;
+                    UART_TXDATA_REG = txDataByte;
                 }
                 else
                 {
-                    if(loc_txBufferWrite >= UART_SERVO_TXBUFFERSIZE)
+                    if(loc_txBufferWrite >= UART_TXBUFFERSIZE)
                     {
                         loc_txBufferWrite = 0u;
                     }
                     /* Add to the software buffer. */
-                    UART_SERVO_txBuffer[loc_txBufferWrite] = txDataByte;
+                    UART_txBuffer[loc_txBufferWrite] = txDataByte;
                     loc_txBufferWrite++;
 
                     /* Finally, update the real output pointer */
-                    #if ((UART_SERVO_TXBUFFERSIZE > UART_SERVO_MAX_BYTE_VALUE) && (CY_PSOC3))
-                        CyIntDisable(UART_SERVO_TX_VECT_NUM);
+                    #if ((UART_TXBUFFERSIZE > UART_MAX_BYTE_VALUE) && (CY_PSOC3))
+                        CyIntDisable(UART_TX_VECT_NUM);
                     #endif /* End TXBUFFERSIZE > 255 */
-                    UART_SERVO_txBufferWrite = loc_txBufferWrite;
-                    #if ((UART_SERVO_TXBUFFERSIZE > UART_SERVO_MAX_BYTE_VALUE) && (CY_PSOC3))
-                        CyIntEnable(UART_SERVO_TX_VECT_NUM);
+                    UART_txBufferWrite = loc_txBufferWrite;
+                    #if ((UART_TXBUFFERSIZE > UART_MAX_BYTE_VALUE) && (CY_PSOC3))
+                        CyIntEnable(UART_TX_VECT_NUM);
                     #endif /* End TXBUFFERSIZE > 255 */
                 }
 
-            #else /* UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+            #else /* UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
 
-                while((UART_SERVO_TXSTATUS_REG & UART_SERVO_TX_STS_FIFO_FULL) != 0u)
+                while((UART_TXSTATUS_REG & UART_TX_STS_FIFO_FULL) != 0u)
                 {
                     ; /* Wait for room in the FIFO. */
                 }
 
                 /* Add directly to the FIFO. */
-                UART_SERVO_TXDATA_REG = txDataByte;
+                UART_TXDATA_REG = txDataByte;
 
-            #endif /* End UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+            #endif /* End UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_PutString
+    * Function Name: UART_PutString
     ********************************************************************************
     *
     * Summary:
@@ -1183,7 +1183,7 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *     initialized.
     *
     * Reentrant:
@@ -1195,16 +1195,16 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  transmit buffer.
     *
     *******************************************************************************/
-    void UART_SERVO_PutString(const char8 string[]) 
+    void UART_PutString(const char8 string[]) 
     {
         uint16 buf_index = 0u;
         /* If not Initialized then skip this function*/
-        if(UART_SERVO_initVar != 0u)
+        if(UART_initVar != 0u)
         {
             /* This is a blocking function, it will not exit until all data is sent*/
             while(string[buf_index] != (char8)0)
             {
-                UART_SERVO_PutChar((uint8)string[buf_index]);
+                UART_PutChar((uint8)string[buf_index]);
                 buf_index++;
             }
         }
@@ -1212,7 +1212,7 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_PutArray
+    * Function Name: UART_PutArray
     ********************************************************************************
     *
     * Summary:
@@ -1226,23 +1226,23 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *     initialized.
     *
     * Reentrant:
     *  No.
     *
     *******************************************************************************/
-    void UART_SERVO_PutArray(const uint8 string[], uint8 byteCount)
+    void UART_PutArray(const uint8 string[], uint8 byteCount)
                                                                     
     {
         uint8 buf_index = 0u;
         /* If not Initialized then skip this function*/
-        if(UART_SERVO_initVar != 0u)
+        if(UART_initVar != 0u)
         {
             do
             {
-                UART_SERVO_PutChar(string[buf_index]);
+                UART_PutChar(string[buf_index]);
                 buf_index++;
             }while(buf_index < byteCount);
         }
@@ -1250,7 +1250,7 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_PutCRLF
+    * Function Name: UART_PutCRLF
     ********************************************************************************
     *
     * Summary:
@@ -1263,27 +1263,27 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *     initialized.
     *
     * Reentrant:
     *  No.
     *
     *******************************************************************************/
-    void UART_SERVO_PutCRLF(uint8 txDataByte) 
+    void UART_PutCRLF(uint8 txDataByte) 
     {
         /* If not Initialized then skip this function*/
-        if(UART_SERVO_initVar != 0u)
+        if(UART_initVar != 0u)
         {
-            UART_SERVO_PutChar(txDataByte);
-            UART_SERVO_PutChar(0x0Du);
-            UART_SERVO_PutChar(0x0Au);
+            UART_PutChar(txDataByte);
+            UART_PutChar(0x0Du);
+            UART_PutChar(0x0Au);
         }
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_GetTxBufferSize
+    * Function Name: UART_GetTxBufferSize
     ********************************************************************************
     *
     * Summary:
@@ -1297,8 +1297,8 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Integer count of the number of bytes left in the TX buffer
     *
     * Global Variables:
-    *  UART_SERVO_txBufferWrite - used to calculate left space.
-    *  UART_SERVO_txBufferRead - used to calculate left space.
+    *  UART_txBufferWrite - used to calculate left space.
+    *  UART_txBufferRead - used to calculate left space.
     *
     * Reentrant:
     *  No.
@@ -1307,47 +1307,47 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Allows the user to find out how full the TX Buffer is.
     *
     *******************************************************************************/
-    uint8 UART_SERVO_GetTxBufferSize(void)
+    uint8 UART_GetTxBufferSize(void)
                                                             
     {
         uint8 size;
 
-        #if(UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_TXBUFFERSIZE > UART_FIFO_LENGTH)
 
             /* Disable Tx interrupt. */
             /* Protect variables that could change on interrupt. */
-            #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableTxInt();
-            #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+            #if(UART_TX_INTERRUPT_ENABLED)
+                UART_DisableTxInt();
+            #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-            if(UART_SERVO_txBufferRead == UART_SERVO_txBufferWrite)
+            if(UART_txBufferRead == UART_txBufferWrite)
             {
                 size = 0u;
             }
-            else if(UART_SERVO_txBufferRead < UART_SERVO_txBufferWrite)
+            else if(UART_txBufferRead < UART_txBufferWrite)
             {
-                size = (UART_SERVO_txBufferWrite - UART_SERVO_txBufferRead);
+                size = (UART_txBufferWrite - UART_txBufferRead);
             }
             else
             {
-                size = (UART_SERVO_TXBUFFERSIZE - UART_SERVO_txBufferRead) + UART_SERVO_txBufferWrite;
+                size = (UART_TXBUFFERSIZE - UART_txBufferRead) + UART_txBufferWrite;
             }
 
             /* Enable Tx interrupt. */
-            #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableTxInt();
-            #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+            #if(UART_TX_INTERRUPT_ENABLED)
+                UART_EnableTxInt();
+            #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-        #else /* UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #else /* UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
 
-            size = UART_SERVO_TXSTATUS_REG;
+            size = UART_TXSTATUS_REG;
 
             /* Is the fifo is full. */
-            if((size & UART_SERVO_TX_STS_FIFO_FULL) != 0u)
+            if((size & UART_TX_STS_FIFO_FULL) != 0u)
             {
-                size = UART_SERVO_FIFO_LENGTH;
+                size = UART_FIFO_LENGTH;
             }
-            else if((size & UART_SERVO_TX_STS_FIFO_EMPTY) != 0u)
+            else if((size & UART_TX_STS_FIFO_EMPTY) != 0u)
             {
                 size = 0u;
             }
@@ -1357,14 +1357,14 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
                 size = 1u;
             }
 
-        #endif /* End UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #endif /* End UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
 
         return(size);
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_ClearTxBuffer
+    * Function Name: UART_ClearTxBuffer
     ********************************************************************************
     *
     * Summary:
@@ -1378,8 +1378,8 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_txBufferWrite - cleared to zero.
-    *  UART_SERVO_txBufferRead - cleared to zero.
+    *  UART_txBufferWrite - cleared to zero.
+    *  UART_txBufferRead - cleared to zero.
     *
     * Reentrant:
     *  No.
@@ -1393,40 +1393,40 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Any received data not read from the RAM buffer will be lost when overwritten.
     *
     *******************************************************************************/
-    void UART_SERVO_ClearTxBuffer(void) 
+    void UART_ClearTxBuffer(void) 
     {
         uint8 enableInterrupts;
 
         /* Enter critical section */
         enableInterrupts = CyEnterCriticalSection();
         /* clear the HW FIFO */
-        UART_SERVO_TXDATA_AUX_CTL_REG |=  UART_SERVO_TX_FIFO_CLR;
-        UART_SERVO_TXDATA_AUX_CTL_REG &= (uint8)~UART_SERVO_TX_FIFO_CLR;
+        UART_TXDATA_AUX_CTL_REG |=  UART_TX_FIFO_CLR;
+        UART_TXDATA_AUX_CTL_REG &= (uint8)~UART_TX_FIFO_CLR;
         /* Exit critical section */
         CyExitCriticalSection(enableInterrupts);
 
-        #if(UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH)
+        #if(UART_TXBUFFERSIZE > UART_FIFO_LENGTH)
 
             /* Disable Tx interrupt. */
             /* Protect variables that could change on interrupt. */
-            #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                UART_SERVO_DisableTxInt();
-            #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+            #if(UART_TX_INTERRUPT_ENABLED)
+                UART_DisableTxInt();
+            #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-            UART_SERVO_txBufferRead = 0u;
-            UART_SERVO_txBufferWrite = 0u;
+            UART_txBufferRead = 0u;
+            UART_txBufferWrite = 0u;
 
             /* Enable Tx interrupt. */
-            #if(UART_SERVO_TX_INTERRUPT_ENABLED)
-                UART_SERVO_EnableTxInt();
-            #endif /* End UART_SERVO_TX_INTERRUPT_ENABLED */
+            #if(UART_TX_INTERRUPT_ENABLED)
+                UART_EnableTxInt();
+            #endif /* End UART_TX_INTERRUPT_ENABLED */
 
-        #endif /* End UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH */
+        #endif /* End UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SendBreak
+    * Function Name: UART_SendBreak
     ********************************************************************************
     *
     * Summary:
@@ -1448,7 +1448,7 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_initVar - checked to identify that the component has been
+    *  UART_initVar - checked to identify that the component has been
     *     initialized.
     *  tx_period - static variable, used for keeping TX period configuration.
     *
@@ -1482,114 +1482,114 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *   Uses static variable to keep registers configuration.
     *
     *******************************************************************************/
-    void UART_SERVO_SendBreak(uint8 retMode) 
+    void UART_SendBreak(uint8 retMode) 
     {
 
         /* If not Initialized then skip this function*/
-        if(UART_SERVO_initVar != 0u)
+        if(UART_initVar != 0u)
         {
             /*Set the Counter to 13-bits and transmit a 00 byte*/
             /*When that is done then reset the counter value back*/
             uint8 tmpStat;
 
-            #if(UART_SERVO_HD_ENABLED) /* Half Duplex mode*/
+            #if(UART_HD_ENABLED) /* Half Duplex mode*/
 
-                if( (retMode == UART_SERVO_SEND_BREAK) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT ) )
+                if( (retMode == UART_SEND_BREAK) ||
+                    (retMode == UART_SEND_WAIT_REINIT ) )
                 {
                     /* CTRL_HD_SEND_BREAK - sends break bits in HD mode*/
-                    UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() |
-                                                          UART_SERVO_CTRL_HD_SEND_BREAK);
+                    UART_WriteControlRegister(UART_ReadControlRegister() |
+                                                          UART_CTRL_HD_SEND_BREAK);
                     /* Send zeros*/
-                    UART_SERVO_TXDATA_REG = 0u;
+                    UART_TXDATA_REG = 0u;
 
                     do /*wait until transmit starts*/
                     {
-                        tmpStat = UART_SERVO_TXSTATUS_REG;
-                    }while((tmpStat & UART_SERVO_TX_STS_FIFO_EMPTY) != 0u);
+                        tmpStat = UART_TXSTATUS_REG;
+                    }while((tmpStat & UART_TX_STS_FIFO_EMPTY) != 0u);
                 }
 
-                if( (retMode == UART_SERVO_WAIT_FOR_COMPLETE_REINIT) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT) )
+                if( (retMode == UART_WAIT_FOR_COMPLETE_REINIT) ||
+                    (retMode == UART_SEND_WAIT_REINIT) )
                 {
                     do /*wait until transmit complete*/
                     {
-                        tmpStat = UART_SERVO_TXSTATUS_REG;
-                    }while(((uint8)~tmpStat & UART_SERVO_TX_STS_COMPLETE) != 0u);
+                        tmpStat = UART_TXSTATUS_REG;
+                    }while(((uint8)~tmpStat & UART_TX_STS_COMPLETE) != 0u);
                 }
 
-                if( (retMode == UART_SERVO_WAIT_FOR_COMPLETE_REINIT) ||
-                    (retMode == UART_SERVO_REINIT) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT) )
+                if( (retMode == UART_WAIT_FOR_COMPLETE_REINIT) ||
+                    (retMode == UART_REINIT) ||
+                    (retMode == UART_SEND_WAIT_REINIT) )
                 {
-                    UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() &
-                                                  (uint8)~UART_SERVO_CTRL_HD_SEND_BREAK);
+                    UART_WriteControlRegister(UART_ReadControlRegister() &
+                                                  (uint8)~UART_CTRL_HD_SEND_BREAK);
                 }
 
-            #else /* UART_SERVO_HD_ENABLED Full Duplex mode */
+            #else /* UART_HD_ENABLED Full Duplex mode */
 
                 static uint8 tx_period;
 
-                if( (retMode == UART_SERVO_SEND_BREAK) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT) )
+                if( (retMode == UART_SEND_BREAK) ||
+                    (retMode == UART_SEND_WAIT_REINIT) )
                 {
                     /* CTRL_HD_SEND_BREAK - skip to send parity bit at Break signal in Full Duplex mode*/
-                    #if( (UART_SERVO_PARITY_TYPE != UART_SERVO__B_UART__NONE_REVB) || \
-                                        (UART_SERVO_PARITY_TYPE_SW != 0u) )
-                        UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() |
-                                                              UART_SERVO_CTRL_HD_SEND_BREAK);
-                    #endif /* End UART_SERVO_PARITY_TYPE != UART_SERVO__B_UART__NONE_REVB  */
+                    #if( (UART_PARITY_TYPE != UART__B_UART__NONE_REVB) || \
+                                        (UART_PARITY_TYPE_SW != 0u) )
+                        UART_WriteControlRegister(UART_ReadControlRegister() |
+                                                              UART_CTRL_HD_SEND_BREAK);
+                    #endif /* End UART_PARITY_TYPE != UART__B_UART__NONE_REVB  */
 
-                    #if(UART_SERVO_TXCLKGEN_DP)
-                        tx_period = UART_SERVO_TXBITCLKTX_COMPLETE_REG;
-                        UART_SERVO_TXBITCLKTX_COMPLETE_REG = UART_SERVO_TXBITCTR_BREAKBITS;
+                    #if(UART_TXCLKGEN_DP)
+                        tx_period = UART_TXBITCLKTX_COMPLETE_REG;
+                        UART_TXBITCLKTX_COMPLETE_REG = UART_TXBITCTR_BREAKBITS;
                     #else
-                        tx_period = UART_SERVO_TXBITCTR_PERIOD_REG;
-                        UART_SERVO_TXBITCTR_PERIOD_REG = UART_SERVO_TXBITCTR_BREAKBITS8X;
-                    #endif /* End UART_SERVO_TXCLKGEN_DP */
+                        tx_period = UART_TXBITCTR_PERIOD_REG;
+                        UART_TXBITCTR_PERIOD_REG = UART_TXBITCTR_BREAKBITS8X;
+                    #endif /* End UART_TXCLKGEN_DP */
 
                     /* Send zeros*/
-                    UART_SERVO_TXDATA_REG = 0u;
+                    UART_TXDATA_REG = 0u;
 
                     do /* wait until transmit starts */
                     {
-                        tmpStat = UART_SERVO_TXSTATUS_REG;
-                    }while((tmpStat & UART_SERVO_TX_STS_FIFO_EMPTY) != 0u);
+                        tmpStat = UART_TXSTATUS_REG;
+                    }while((tmpStat & UART_TX_STS_FIFO_EMPTY) != 0u);
                 }
 
-                if( (retMode == UART_SERVO_WAIT_FOR_COMPLETE_REINIT) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT) )
+                if( (retMode == UART_WAIT_FOR_COMPLETE_REINIT) ||
+                    (retMode == UART_SEND_WAIT_REINIT) )
                 {
                     do /*wait until transmit complete*/
                     {
-                        tmpStat = UART_SERVO_TXSTATUS_REG;
-                    }while(((uint8)~tmpStat & UART_SERVO_TX_STS_COMPLETE) != 0u);
+                        tmpStat = UART_TXSTATUS_REG;
+                    }while(((uint8)~tmpStat & UART_TX_STS_COMPLETE) != 0u);
                 }
 
-                if( (retMode == UART_SERVO_WAIT_FOR_COMPLETE_REINIT) ||
-                    (retMode == UART_SERVO_REINIT) ||
-                    (retMode == UART_SERVO_SEND_WAIT_REINIT) )
+                if( (retMode == UART_WAIT_FOR_COMPLETE_REINIT) ||
+                    (retMode == UART_REINIT) ||
+                    (retMode == UART_SEND_WAIT_REINIT) )
                 {
 
-                    #if(UART_SERVO_TXCLKGEN_DP)
-                        UART_SERVO_TXBITCLKTX_COMPLETE_REG = tx_period;
+                    #if(UART_TXCLKGEN_DP)
+                        UART_TXBITCLKTX_COMPLETE_REG = tx_period;
                     #else
-                        UART_SERVO_TXBITCTR_PERIOD_REG = tx_period;
-                    #endif /* End UART_SERVO_TXCLKGEN_DP */
+                        UART_TXBITCTR_PERIOD_REG = tx_period;
+                    #endif /* End UART_TXCLKGEN_DP */
 
-                    #if( (UART_SERVO_PARITY_TYPE != UART_SERVO__B_UART__NONE_REVB) || \
-                         (UART_SERVO_PARITY_TYPE_SW != 0u) )
-                        UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() &
-                                                      (uint8)~UART_SERVO_CTRL_HD_SEND_BREAK);
-                    #endif /* End UART_SERVO_PARITY_TYPE != NONE */
+                    #if( (UART_PARITY_TYPE != UART__B_UART__NONE_REVB) || \
+                         (UART_PARITY_TYPE_SW != 0u) )
+                        UART_WriteControlRegister(UART_ReadControlRegister() &
+                                                      (uint8)~UART_CTRL_HD_SEND_BREAK);
+                    #endif /* End UART_PARITY_TYPE != NONE */
                 }
-            #endif    /* End UART_SERVO_HD_ENABLED */
+            #endif    /* End UART_HD_ENABLED */
         }
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_SetTxAddressMode
+    * Function Name: UART_SetTxAddressMode
     ********************************************************************************
     *
     * Summary:
@@ -1603,32 +1603,32 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  None.
     *
     *******************************************************************************/
-    void UART_SERVO_SetTxAddressMode(uint8 addressMode) 
+    void UART_SetTxAddressMode(uint8 addressMode) 
     {
         /* Mark/Space sending enable*/
         if(addressMode != 0u)
         {
-            #if( UART_SERVO_CONTROL_REG_REMOVED == 0u )
-                UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() |
-                                                      UART_SERVO_CTRL_MARK);
-            #endif /* End UART_SERVO_CONTROL_REG_REMOVED == 0u */
+            #if( UART_CONTROL_REG_REMOVED == 0u )
+                UART_WriteControlRegister(UART_ReadControlRegister() |
+                                                      UART_CTRL_MARK);
+            #endif /* End UART_CONTROL_REG_REMOVED == 0u */
         }
         else
         {
-            #if( UART_SERVO_CONTROL_REG_REMOVED == 0u )
-                UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() &
-                                                    (uint8)~UART_SERVO_CTRL_MARK);
-            #endif /* End UART_SERVO_CONTROL_REG_REMOVED == 0u */
+            #if( UART_CONTROL_REG_REMOVED == 0u )
+                UART_WriteControlRegister(UART_ReadControlRegister() &
+                                                    (uint8)~UART_CTRL_MARK);
+            #endif /* End UART_CONTROL_REG_REMOVED == 0u */
         }
     }
 
-#endif  /* EndUART_SERVO_TX_ENABLED */
+#endif  /* EndUART_TX_ENABLED */
 
-#if(UART_SERVO_HD_ENABLED)
+#if(UART_HD_ENABLED)
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_LoadTxConfig
+    * Function Name: UART_LoadTxConfig
     ********************************************************************************
     *
     * Summary:
@@ -1650,24 +1650,24 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  Disable RX interrupt mask, when software buffer has been used.
     *
     *******************************************************************************/
-    void UART_SERVO_LoadTxConfig(void) 
+    void UART_LoadTxConfig(void) 
     {
-        #if((UART_SERVO_RX_INTERRUPT_ENABLED) && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+        #if((UART_RX_INTERRUPT_ENABLED) && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
             /* Disable RX interrupts before set TX configuration */
-            UART_SERVO_SetRxInterruptMode(0u);
-        #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
+            UART_SetRxInterruptMode(0u);
+        #endif /* UART_RX_INTERRUPT_ENABLED */
 
-        UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() | UART_SERVO_CTRL_HD_SEND);
-        UART_SERVO_RXBITCTR_PERIOD_REG = UART_SERVO_HD_TXBITCTR_INIT;
+        UART_WriteControlRegister(UART_ReadControlRegister() | UART_CTRL_HD_SEND);
+        UART_RXBITCTR_PERIOD_REG = UART_HD_TXBITCTR_INIT;
         #if(CY_UDB_V0) /* Manually clear status register when mode has been changed */
             /* Clear status register */
-            CY_GET_REG8(UART_SERVO_RXSTATUS_PTR);
+            CY_GET_REG8(UART_RXSTATUS_PTR);
         #endif /* CY_UDB_V0 */
     }
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_LoadRxConfig
+    * Function Name: UART_LoadRxConfig
     ********************************************************************************
     *
     * Summary:
@@ -1690,23 +1690,23 @@ void  UART_SERVO_WriteControlRegister(uint8 control)
     *  has been used.
     *
     *******************************************************************************/
-    void UART_SERVO_LoadRxConfig(void) 
+    void UART_LoadRxConfig(void) 
     {
-        UART_SERVO_WriteControlRegister(UART_SERVO_ReadControlRegister() &
-                                                (uint8)~UART_SERVO_CTRL_HD_SEND);
-        UART_SERVO_RXBITCTR_PERIOD_REG = UART_SERVO_HD_RXBITCTR_INIT;
+        UART_WriteControlRegister(UART_ReadControlRegister() &
+                                                (uint8)~UART_CTRL_HD_SEND);
+        UART_RXBITCTR_PERIOD_REG = UART_HD_RXBITCTR_INIT;
         #if(CY_UDB_V0) /* Manually clear status register when mode has been changed */
             /* Clear status register */
-            CY_GET_REG8(UART_SERVO_RXSTATUS_PTR);
+            CY_GET_REG8(UART_RXSTATUS_PTR);
         #endif /* CY_UDB_V0 */
 
-        #if((UART_SERVO_RX_INTERRUPT_ENABLED) && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+        #if((UART_RX_INTERRUPT_ENABLED) && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
             /* Enable RX interrupt after set RX configuration */
-            UART_SERVO_SetRxInterruptMode(UART_SERVO_INIT_RX_INTERRUPTS_MASK);
-        #endif /* UART_SERVO_RX_INTERRUPT_ENABLED */
+            UART_SetRxInterruptMode(UART_INIT_RX_INTERRUPTS_MASK);
+        #endif /* UART_RX_INTERRUPT_ENABLED */
     }
 
-#endif  /* UART_SERVO_HD_ENABLED */
+#endif  /* UART_HD_ENABLED */
 
 
 /* [] END OF FILE */

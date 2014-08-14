@@ -7,6 +7,10 @@
 
 #include <project.h>
 
+
+#define TEST_UART
+
+
 #if (defined(__C51__))
 	#define BIG_ENDIAN
 	// 0x1A2B3C4D =  1A 2B 3C 4D 
@@ -19,12 +23,6 @@
 
 
 #define SUCCESS	0
-
-
-typedef uint8 STATUS;
-typedef uint8_t BOOL;
-typedef uint8_t BYTE;
-typedef unsigned int WORD;
 #define BIT(b) (1UL << (b))
 #define TRUE 0x1
 #define FALSE 0x0

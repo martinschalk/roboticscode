@@ -8,12 +8,28 @@ Archive member included because of file (symbol)
                               .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o (CyResetStatus)
 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
                               .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o) (CyPmReadStatus)
-.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                              .\CortexM3\ARM_GCC_473\Debug\main.o (UART_SERVO_Start)
-.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
-                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o) (UART_SERVO_RXISR)
-.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
-                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o) (UART_SERVO_IntClock_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                              .\CortexM3\ARM_GCC_473\Debug\hal.o (UART_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o) (UART_RXISR)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o) (UART_IntClock_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                              .\CortexM3\ARM_GCC_473\Debug\hal.o (Isr_rx_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                              .\CortexM3\ARM_GCC_473\Debug\hal.o (Isr_tx_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                              .\CortexM3\ARM_GCC_473\Debug\test.o (UART_TEST_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o) (UART_TEST_TXISR)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                              .\CortexM3\ARM_GCC_473\Debug\tmr.o (TIMER_Init)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+                              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o) (UART_TEST_IntClock_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+                              .\CortexM3\ARM_GCC_473\Debug\tmr.o (TIMER_CLOCK_Start)
+.\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                              .\CortexM3\ARM_GCC_473\Debug\tmr.o (Isr_timer_Start)
 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
                               .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o) (CyFlash_SetWaitCycles)
 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
@@ -36,12 +52,10 @@ c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4
 Allocating common symbols
 Common symbol       size              file
 
-UART_SERVO_txBuffer
-                    0x20              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-Bus                 0x10              .\CortexM3\ARM_GCC_473\Debug\bus.o
-UART_SERVO_rxBuffer
-                    0x20              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
+UART_rxBuffer       0x20              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+UART_TEST_txBuffer  0x20              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
 dieTemperature      0x2               .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+UART_txBuffer       0x20              .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
 
 Discarded input sections
 
@@ -66,6 +80,25 @@ Discarded input sections
                 0x00000000       0x1c .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bus.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .text.HAL_GetHalStatus
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .text.HAL_SetHalStatus
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .text.HAL_GetRxBufferCount
+                0x00000000       0x10 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .text.HAL_TransmitByte
+                0x00000000       0x68 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\test.o
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\test.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
  .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
@@ -240,74 +273,227 @@ Discarded input sections
                 0x00000000      0x13c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
  .text.CyPmHviLviRestore
                 0x00000000       0x7c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_Stop
-                0x00000000       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_ReadControlRegister
-                0x00000000       0x10 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_WriteControlRegister
-                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetRxInterruptMode
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_ReadRxStatus
-                0x00000000       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_GetChar
-                0x00000000       0xd0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_GetByte
-                0x00000000       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_ClearRxBuffer
-                0x00000000       0x98 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetRxAddressMode
-                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetRxAddress1
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetRxAddress2
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetTxInterruptMode
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_PutChar
-                0x00000000       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_PutString
-                0x00000000       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_PutArray
-                0x00000000       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_PutCRLF
-                0x00000000       0x38 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_GetTxBufferSize
-                0x00000000       0x94 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_ClearTxBuffer
-                0x00000000       0x7c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SendBreak
-                0x00000000       0xc4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text.UART_SERVO_SetTxAddressMode
-                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_Stop
-                0x00000000       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_StopBlock
-                0x00000000       0xf8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_StandbyPower
-                0x00000000       0x54 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_SetDividerRegister
-                0x00000000      0x1e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_GetDividerRegister
-                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_SetModeRegister
-                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_ClearModeRegister
-                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_GetModeRegister
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_SetSourceRegister
-                0x00000000       0xf4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .text.UART_SERVO_IntClock_GetSourceRegister
-                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_Stop
+                0x00000000       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_ReadControlRegister
+                0x00000000       0x10 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_WriteControlRegister
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetRxInterruptMode
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_ReadRxStatus
+                0x00000000       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_GetChar
+                0x00000000       0xd0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_GetByte
+                0x00000000       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_GetRxBufferSize
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_ClearRxBuffer
+                0x00000000       0x98 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetRxAddressMode
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetRxAddress1
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetRxAddress2
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_DisableTxInt
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetTxInterruptMode
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_WriteTxData
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_ReadTxStatus
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_PutString
+                0x00000000       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_PutCRLF
+                0x00000000       0x38 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_GetTxBufferSize
+                0x00000000       0x94 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_ClearTxBuffer
+                0x00000000       0x7c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SendBreak
+                0x00000000       0xc4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text.UART_SetTxAddressMode
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_StopBlock
+                0x00000000       0xf8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_StandbyPower
+                0x00000000       0x54 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_SetDividerRegister
+                0x00000000      0x1e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_GetDividerRegister
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_SetModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_ClearModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_GetModeRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_SetSourceRegister
+                0x00000000       0xf4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text.UART_IntClock_GetSourceRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_StartEx
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_Stop
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_GetVector
+                0x00000000       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_GetPriority
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_GetState
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_SetPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text.Isr_rx_ClearPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_StartEx
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_Stop
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_GetVector
+                0x00000000       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_GetPriority
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_GetState
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_SetPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text.Isr_tx_ClearPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_ReadControlRegister
+                0x00000000       0x10 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_WriteControlRegister
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_EnableTxInt
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_DisableTxInt
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_SetTxInterruptMode
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_WriteTxData
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_ReadTxStatus
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_PutChar
+                0x00000000       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_PutString
+                0x00000000       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_PutArray
+                0x00000000       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_PutCRLF
+                0x00000000       0x38 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_GetTxBufferSize
+                0x00000000       0x94 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_ClearTxBuffer
+                0x00000000       0x7c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_SendBreak
+                0x00000000       0xc4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text.UART_TEST_SetTxAddressMode
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .bss           0x00000000        0x1 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_Start
+                0x00000000       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_Stop
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_SoftwareCapture
+                0x00000000       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_ReadControlRegister
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_WriteControlRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text.TIMER_ReadPeriod
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_StopBlock
+                0x00000000       0xf8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_StandbyPower
+                0x00000000       0x54 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_SetDividerRegister
+                0x00000000      0x1e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_GetDividerRegister
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_SetModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_ClearModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_GetModeRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_SetSourceRegister
+                0x00000000       0xf4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text.UART_TEST_IntClock_GetSourceRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_Stop
+                0x00000000       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_StopBlock
+                0x00000000       0xf8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_StandbyPower
+                0x00000000       0x54 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_SetDividerRegister
+                0x00000000      0x1e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_GetDividerRegister
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_SetModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_ClearModeRegister
+                0x00000000       0x3c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_GetModeRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_SetSourceRegister
+                0x00000000       0xf4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text.TIMER_CLOCK_GetSourceRegister
+                0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_StartEx
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_Stop
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_GetVector
+                0x00000000       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_GetPriority
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_GetState
+                0x00000000       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_SetPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .text.Isr_timer_ClearPending
+                0x00000000       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
  .bss           0x00000000        0x4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
@@ -416,6 +602,11 @@ START GROUP
 LOAD .\CortexM3\ARM_GCC_473\Debug\main.o
 LOAD .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
 LOAD .\CortexM3\ARM_GCC_473\Debug\bus.o
+LOAD .\CortexM3\ARM_GCC_473\Debug\bal.o
+LOAD .\CortexM3\ARM_GCC_473\Debug\hal.o
+LOAD .\CortexM3\ARM_GCC_473\Debug\bpl.o
+LOAD .\CortexM3\ARM_GCC_473\Debug\tmr.o
+LOAD .\CortexM3\ARM_GCC_473\Debug\test.o
 LOAD .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
 LOAD .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
 LOAD .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a
@@ -441,7 +632,7 @@ END GROUP
                 0x00000001                CY_APPL_NUM = 0x1
                 0x00000001                CY_APPL_MAX = 0x1
                 0x00000040                CY_METADATA_SIZE = 0x40
-                0x1fff81a8                PROVIDE (__cy_heap_start, _end)
+                0x1fff8468                PROVIDE (__cy_heap_start, _end)
                 0x00000001                PROVIDE (__cy_region_num, ((__cy_regions_end - __cy_regions) / 0x10))
                 0x20008000                PROVIDE (__cy_stack, (ORIGIN (ram) + 0x10000))
                 0x20004000                PROVIDE (__cy_heap_end, (__cy_stack - 0x4000))
@@ -456,7 +647,7 @@ END GROUP
                 0x00000800                ee_size = (CY_APPL_LOADABLE && ! (CY_EE_IN_BTLDR))?(CY_EE_SIZE / CY_APPL_MAX):CY_EE_SIZE
                 0x00000000                PROVIDE (CY_ECC_OFFSET, ecc_offset)
 
-.text           0x00000000      0xf62
+.text           0x00000000     0x184e
  CREATE_OBJECT_SYMBOLS
                 0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
  *(.romvectors)
@@ -473,102 +664,224 @@ END GROUP
                 0x00000001                ASSERT ((((appl_start + .) <= 0x10000) || 0x1), DMA Init must be within the first 64k of flash)
  *(.text .text.* .gnu.linkonce.t.*)
  .text          0x0000002c       0x54 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
- .text.main     0x00000080       0x20 .\CortexM3\ARM_GCC_473\Debug\main.o
+ .text.main     0x00000080       0x2c .\CortexM3\ARM_GCC_473\Debug\main.o
                 0x00000080                main
- .text.BUS_Init
-                0x000000a0       0x88 .\CortexM3\ARM_GCC_473\Debug\bus.o
-                0x000000a0                BUS_Init
- .text.BUS_Transmit
-                0x00000128       0x80 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .text.BUS_Receive
-                0x000001a8       0xa8 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .text.BUS_Handler
-                0x00000250       0x6c .\CortexM3\ARM_GCC_473\Debug\bus.o
-                0x00000250                BUS_Handler
+ .text.isr_rx_routine
+                0x000000ac       0x24 .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x000000ac                isr_rx_routine
+ .text.isr_tx_routine
+                0x000000d0       0x40 .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x000000d0                isr_tx_routine
+ .text.HAL_Init
+                0x00000110       0x50 .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x00000110                HAL_Init
+ .text.HAL_GetRxIsrCount
+                0x00000160       0x18 .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x00000160                HAL_GetRxIsrCount
+ .text.HAL_GetByte
+                0x00000178       0x3c .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x00000178                HAL_GetByte
+ .text.HAL_TransmitArray
+                0x000001b4       0x60 .\CortexM3\ARM_GCC_473\Debug\hal.o
+                0x000001b4                HAL_TransmitArray
+ .text.BPL_HandleTask
+                0x00000214      0x1e4 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+                0x00000214                BPL_HandleTask
+ .text.isr_timer_routine
+                0x000003f8       0x18 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+                0x000003f8                isr_timer_routine
+ .text.TMR_Init
+                0x00000410       0x6c .\CortexM3\ARM_GCC_473\Debug\tmr.o
+                0x00000410                TMR_Init
+ .text.TMR_SetTimer
+                0x0000047c       0x90 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+                0x0000047c                TMR_SetTimer
+ .text.TMR_HandleTask
+                0x0000050c      0x170 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+                0x0000050c                TMR_HandleTask
+ .text.TST_SendTestMsg
+                0x0000067c       0x18 .\CortexM3\ARM_GCC_473\Debug\test.o
+                0x0000067c                TST_SendTestMsg
+ .text.TST_Init
+                0x00000694       0x30 .\CortexM3\ARM_GCC_473\Debug\test.o
+                0x00000694                TST_Init
  .text.IntDefaultHandler
-                0x000002bc        0x8 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
-                0x000002bc                IntDefaultHandler
- .text.Start_c  0x000002c4       0xcc .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
-                0x000002c4                Start_c
+                0x000006c4        0x8 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x000006c4                IntDefaultHandler
+ .text.Start_c  0x000006cc       0xcc .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x000006cc                Start_c
  .text.initialize_psoc
-                0x00000390       0xb4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
-                0x00000390                initialize_psoc
+                0x00000798       0xb4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x00000798                initialize_psoc
  .text.CYMEMZERO
-                0x00000444       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x0000084c       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.CYCONFIGCPY
-                0x00000464       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x0000086c       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.CyClockStartupError
-                0x00000484        0xc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x0000088c        0xc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.cfg_write_bytes32
-                0x00000490       0x84 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x00000898       0x84 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.ClockSetup
-                0x00000514      0x150 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x0000091c      0x188 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.AnalogSetDefault
-                0x00000664       0x50 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x00000aa4       0x50 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .text.cyfitter_cfg
-                0x000006b4      0x1c4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
-                0x000006b4                cyfitter_cfg
- .text          0x00000878       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
-                0x00000878                CyDelayCycles
-                0x0000088c                CyEnterCriticalSection
-                0x00000894                CyExitCriticalSection
- .text.CyHalt   0x000008a0       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
-                0x000008a0                CyHalt
+                0x00000af4      0x1c4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x00000af4                cyfitter_cfg
+ .text          0x00000cb8       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+                0x00000cb8                CyDelayCycles
+                0x00000ccc                CyEnterCriticalSection
+                0x00000cd4                CyExitCriticalSection
+ .text.CyHalt   0x00000ce0       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+                0x00000ce0                CyHalt
  .text.CyIntSetVector
-                0x000008b8       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
-                0x000008b8                CyIntSetVector
+                0x00000cf8       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+                0x00000cf8                CyIntSetVector
  .text.CyIntSetPriority
-                0x00000918       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
-                0x00000918                CyIntSetPriority
- .text.UART_SERVO_Start
-                0x00000964       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000964                UART_SERVO_Start
- .text.UART_SERVO_Init
-                0x00000990       0x84 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000990                UART_SERVO_Init
- .text.UART_SERVO_Enable
-                0x00000a14       0x94 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000a14                UART_SERVO_Enable
- .text.UART_SERVO_EnableRxInt
-                0x00000aa8       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000aa8                UART_SERVO_EnableRxInt
- .text.UART_SERVO_DisableRxInt
-                0x00000ac0       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000ac0                UART_SERVO_DisableRxInt
- .text.UART_SERVO_ReadRxData
-                0x00000ad8       0xa4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000ad8                UART_SERVO_ReadRxData
- .text.UART_SERVO_GetRxBufferSize
-                0x00000b7c       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000b7c                UART_SERVO_GetRxBufferSize
- .text.UART_SERVO_EnableTxInt
-                0x00000c30       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000c30                UART_SERVO_EnableTxInt
- .text.UART_SERVO_DisableTxInt
-                0x00000c48       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000c48                UART_SERVO_DisableTxInt
- .text.UART_SERVO_WriteTxData
-                0x00000c60       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000c60                UART_SERVO_WriteTxData
- .text.UART_SERVO_ReadTxStatus
-                0x00000d14       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x00000d14                UART_SERVO_ReadTxStatus
- .text.UART_SERVO_RXISR
-                0x00000d2c       0xec .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
-                0x00000d2c                UART_SERVO_RXISR
- .text.UART_SERVO_TXISR
-                0x00000e18       0x98 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
-                0x00000e18                UART_SERVO_TXISR
- .text.UART_SERVO_IntClock_Start
-                0x00000eb0       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
-                0x00000eb0                UART_SERVO_IntClock_Start
+                0x00000d58       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+                0x00000d58                CyIntSetPriority
+ .text.UART_Start
+                0x00000da4       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000da4                UART_Start
+ .text.UART_Init
+                0x00000dd0       0x84 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000dd0                UART_Init
+ .text.UART_Enable
+                0x00000e54       0x94 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000e54                UART_Enable
+ .text.UART_EnableRxInt
+                0x00000ee8       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000ee8                UART_EnableRxInt
+ .text.UART_DisableRxInt
+                0x00000f00       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000f00                UART_DisableRxInt
+ .text.UART_ReadRxData
+                0x00000f18       0xa4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000f18                UART_ReadRxData
+ .text.UART_EnableTxInt
+                0x00000fbc       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000fbc                UART_EnableTxInt
+ .text.UART_PutChar
+                0x00000fd4       0xb4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00000fd4                UART_PutChar
+ .text.UART_PutArray
+                0x00001088       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x00001088                UART_PutArray
+ .text.UART_RXISR
+                0x000010d0       0xec .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+                0x000010d0                UART_RXISR
+ .text.UART_TXISR
+                0x000011bc       0x98 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+                0x000011bc                UART_TXISR
+ .text.UART_IntClock_Start
+                0x00001254       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+                0x00001254                UART_IntClock_Start
+ .text.Isr_rx_Start
+                0x00001298       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x00001298                Isr_rx_Start
+ .text.Isr_rx_Interrupt
+                0x000012bc        0xc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x000012bc                Isr_rx_Interrupt
+ .text.Isr_rx_SetVector
+                0x000012c8       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x000012c8                Isr_rx_SetVector
+ .text.Isr_rx_SetPriority
+                0x000012f0       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x000012f0                Isr_rx_SetPriority
+ .text.Isr_rx_Enable
+                0x00001318       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x00001318                Isr_rx_Enable
+ .text.Isr_rx_Disable
+                0x00001330       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                0x00001330                Isr_rx_Disable
+ .text.Isr_tx_Start
+                0x00001348       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x00001348                Isr_tx_Start
+ .text.Isr_tx_Interrupt
+                0x0000136c        0xc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x0000136c                Isr_tx_Interrupt
+ .text.Isr_tx_SetVector
+                0x00001378       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x00001378                Isr_tx_SetVector
+ .text.Isr_tx_SetPriority
+                0x000013a0       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x000013a0                Isr_tx_SetPriority
+ .text.Isr_tx_Enable
+                0x000013c8       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x000013c8                Isr_tx_Enable
+ .text.Isr_tx_Disable
+                0x000013e0       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                0x000013e0                Isr_tx_Disable
+ .text.UART_TEST_Start
+                0x000013f8       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                0x000013f8                UART_TEST_Start
+ .text.UART_TEST_Init
+                0x00001424       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                0x00001424                UART_TEST_Init
+ .text.UART_TEST_Enable
+                0x00001470       0x4c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                0x00001470                UART_TEST_Enable
+ .text.UART_TEST_TXISR
+                0x000014bc       0x98 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+                0x000014bc                UART_TEST_TXISR
+ .text.TIMER_Init
+                0x00001554       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x00001554                TIMER_Init
+ .text.TIMER_Enable
+                0x000015b4       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x000015b4                TIMER_Enable
+ .text.TIMER_SetInterruptMode
+                0x000015dc       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x000015dc                TIMER_SetInterruptMode
+ .text.TIMER_ReadStatusRegister
+                0x000015fc       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x000015fc                TIMER_ReadStatusRegister
+ .text.TIMER_WritePeriod
+                0x00001614       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x00001614                TIMER_WritePeriod
+ .text.TIMER_ReadCapture
+                0x00001634       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x00001634                TIMER_ReadCapture
+ .text.TIMER_WriteCounter
+                0x0000164c       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x0000164c                TIMER_WriteCounter
+ .text.TIMER_ReadCounter
+                0x0000166c       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x0000166c                TIMER_ReadCounter
+ .text.TIMER_ClearFIFO
+                0x0000168c       0x1c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                0x0000168c                TIMER_ClearFIFO
+ .text.UART_TEST_IntClock_Start
+                0x000016a8       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+                0x000016a8                UART_TEST_IntClock_Start
+ .text.TIMER_CLOCK_Start
+                0x000016ec       0x44 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+                0x000016ec                TIMER_CLOCK_Start
+ .text.Isr_timer_Start
+                0x00001730       0x24 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x00001730                Isr_timer_Start
+ .text.Isr_timer_Interrupt
+                0x00001754        0xc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x00001754                Isr_timer_Interrupt
+ .text.Isr_timer_SetVector
+                0x00001760       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x00001760                Isr_timer_SetVector
+ .text.Isr_timer_SetPriority
+                0x00001788       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x00001788                Isr_timer_SetPriority
+ .text.Isr_timer_Enable
+                0x000017b0       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x000017b0                Isr_timer_Enable
+ .text.Isr_timer_Disable
+                0x000017c8       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                0x000017c8                Isr_timer_Disable
  .text.__libc_init_array
-                0x00000ef4       0x4c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
-                0x00000ef4                __libc_init_array
- .text.memcpy   0x00000f40       0x12 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
-                0x00000f40                memcpy
- .text.memset   0x00000f52       0x10 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
-                0x00000f52                memset
+                0x000017e0       0x4c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
+                0x000017e0                __libc_init_array
+ .text.memcpy   0x0000182c       0x12 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
+                0x0000182c                memcpy
+ .text.memset   0x0000183e       0x10 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
+                0x0000183e                memset
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
@@ -581,75 +894,74 @@ END GROUP
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.gcc_except_table)
 
-.v4_bx          0x00000f64        0x0
+.v4_bx          0x00001850        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00000f64        0x0
+.iplt           0x00001850        0x0
  .iplt          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x00000f64        0x4
+.eh_frame       0x00001850        0x4
  *(.eh_frame)
- .eh_frame      0x00000f64        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
- .eh_frame      0x00000f64        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtend.o
-                0x00000f68                PROVIDE (__exidx_start, .)
+ .eh_frame      0x00001850        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
+ .eh_frame      0x00001850        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtend.o
+                0x00001854                PROVIDE (__exidx_start, .)
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000f68                __exidx_end = .
+                0x00001854                __exidx_end = .
 
-.rodata         0x00000f68       0x80
+.rodata         0x00001854       0x7c
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00000f68       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
-                0x00000fb0                . = ALIGN (0x4)
+ .rodata        0x00001854       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x0000189c                . = ALIGN (0x4)
  *(.init)
- .init          0x00000fb0        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crti.o
-                0x00000fb0                _init
- .init          0x00000fb4        0x8 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
-                0x00000fbc                . = ALIGN (0x4)
-                0x00000fbc                __preinit_array_start = .
+ .init          0x0000189c        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crti.o
+                0x0000189c                _init
+ .init          0x000018a0        0x8 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
+                0x000018a8                . = ALIGN (0x4)
+                0x000018a8                __preinit_array_start = .
  *(.preinit_array)
-                0x00000fbc                __preinit_array_end = .
-                0x00000fbc                . = ALIGN (0x4)
-                0x00000fbc                __init_array_start = .
+                0x000018a8                __preinit_array_end = .
+                0x000018a8                . = ALIGN (0x4)
+                0x000018a8                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x00000fbc        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
- .init_array    0x00000fc0        0x4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
-                0x00000fc4                __init_array_end = .
-                0x00000fc4                . = ALIGN (0x4)
+ .init_array    0x000018a8        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
+ .init_array    0x000018ac        0x4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x000018b0                __init_array_end = .
+                0x000018b0                . = ALIGN (0x4)
  *(.fini)
- .fini          0x00000fc4        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crti.o
-                0x00000fc4                _fini
- .fini          0x00000fc8        0x8 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
-                0x00000fd0                . = ALIGN (0x4)
-                0x00000fd0                __fini_array_start = .
+ .fini          0x000018b0        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crti.o
+                0x000018b0                _fini
+ .fini          0x000018b4        0x8 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
+                0x000018bc                . = ALIGN (0x4)
+                0x000018bc                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x00000fd0        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
+ .fini_array    0x000018bc        0x4 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x00000fd4                __fini_array_end = .
-                0x00000fd4                . = ALIGN (0x4)
+                0x000018c0                __fini_array_end = .
+                0x000018c0                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x00000fd4                . = ALIGN (0x4)
+                0x000018c0                . = ALIGN (0x4)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x00000fd4                . = ALIGN (0x4)
-                0x00000fd4                __cy_regions = .
-                0x00000fd4        0x4 LONG 0xfe8 __cy_region_init_ram
-                0x00000fd8        0x4 LONG 0x1fff8108 __cy_region_start_data
-                0x00000fdc        0x4 LONG 0x8 __cy_region_init_size_ram
-                0x00000fe0        0x4 LONG 0x98 __cy_region_zero_size_ram
-                0x00000fe4                __cy_regions_end = .
-                0x00000fe8                . = ALIGN (0x8)
- *fill*         0x00000fe4        0x4 00
-                0x00000fe8                _etext = .
+                0x000018c0                . = ALIGN (0x4)
+                0x000018c0                __cy_regions = .
+                0x000018c0        0x4 LONG 0x18d0 __cy_region_init_ram
+                0x000018c4        0x4 LONG 0x1fff8108 __cy_region_start_data
+                0x000018c8        0x4 LONG 0x20 __cy_region_init_size_ram
+                0x000018cc        0x4 LONG 0x340 __cy_region_zero_size_ram
+                0x000018d0                __cy_regions_end = .
+                0x000018d0                . = ALIGN (0x8)
+                0x000018d0                _etext = .
 
 .ramvectors     0x1fff8000      0x100
                 0x1fff8000                __cy_region_start_ram = .
@@ -663,7 +975,7 @@ END GROUP
  .noinit        0x1fff8104        0x1 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
                 0x1fff8104                CyResetStatus
 
-.data           0x1fff8108        0x8 load address 0x00000fe8
+.data           0x1fff8108       0x20 load address 0x000018d0
                 0x1fff8108                __cy_region_start_data = .
  *(.jcr)
  .jcr           0x1fff8108        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
@@ -672,50 +984,58 @@ END GROUP
  *(.got)
  *(.shdata)
  *(.data .data.* .gnu.linkonce.d.*)
-                0x1fff8110                . = ALIGN (0x8)
- *fill*         0x1fff810c        0x4 00
+ .data          0x1fff810c       0x10 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .data          0x1fff811c        0xc .\CortexM3\ARM_GCC_473\Debug\test.o
+                0x1fff8128                . = ALIGN (0x8)
  *(.ram)
-                0x1fff8110                _edata = .
+                0x1fff8128                _edata = .
 
-.igot.plt       0x1fff8110        0x0 load address 0x00000ff0
+.igot.plt       0x1fff8128        0x0 load address 0x000018f0
  .igot.plt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
 
-.bss            0x1fff8110       0x98 load address 0x00000ff0
-                0x1fff8110                PROVIDE (__bss_start__, .)
+.bss            0x1fff8128      0x340 load address 0x000018f0
+                0x1fff8128                PROVIDE (__bss_start__, .)
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x1fff8110       0x1c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
- .bss           0x1fff812c       0x20 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .bss           0x1fff814c        0x8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x1fff814c                UART_SERVO_initVar
-                0x1fff814d                UART_SERVO_txBufferRead
-                0x1fff814e                UART_SERVO_txBufferWrite
-                0x1fff814f                UART_SERVO_rxBufferRead
-                0x1fff8150                UART_SERVO_rxBufferWrite
-                0x1fff8151                UART_SERVO_rxBufferLoopDetect
-                0x1fff8152                UART_SERVO_rxBufferOverflow
+ .bss           0x1fff8128       0x1c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
+ .bss           0x1fff8144        0x3 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ *fill*         0x1fff8147        0x1 00
+ .bss           0x1fff8148      0x204 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .bss           0x1fff834c       0xac .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .bss           0x1fff83f8        0x8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x1fff83f8                UART_initVar
+                0x1fff83f9                UART_txBufferRead
+                0x1fff83fa                UART_txBufferWrite
+                0x1fff83fb                UART_rxBufferRead
+                0x1fff83fc                UART_rxBufferWrite
+                0x1fff83fd                UART_rxBufferLoopDetect
+                0x1fff83fe                UART_rxBufferOverflow
+ .bss           0x1fff8400        0x4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                0x1fff8400                UART_TEST_initVar
+                0x1fff8401                UART_TEST_txBufferRead
+                0x1fff8402                UART_TEST_txBufferWrite
  *(COMMON)
- COMMON         0x1fff8154       0x10 .\CortexM3\ARM_GCC_473\Debug\bus.o
-                0x1fff8154                Bus
- COMMON         0x1fff8164       0x40 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                0x1fff8164                UART_SERVO_txBuffer
-                0x1fff8184                UART_SERVO_rxBuffer
-                0x1fff81a8                . = ALIGN (0x8)
- *fill*         0x1fff81a4        0x4 00
+ COMMON         0x1fff8404       0x40 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                0x1fff8404                UART_rxBuffer
+                0x1fff8424                UART_txBuffer
+ COMMON         0x1fff8444       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                0x1fff8444                UART_TEST_txBuffer
+                0x1fff8468                . = ALIGN (0x8)
+ *fill*         0x1fff8464        0x4 00
  *(.ram.b)
-                0x1fff81a8                _end = .
-                0x1fff81a8                __end = .
-                0x1fff81a8                PROVIDE (end, .)
-                0x1fff81a8                PROVIDE (__bss_end__, .)
-                0x00000fe8                __cy_region_init_ram = LOADADDR (.data)
-                0x00000008                __cy_region_init_size_ram = (_edata - ADDR (.data))
-                0x00000098                __cy_region_zero_size_ram = (_end - _edata)
+                0x1fff8468                _end = .
+                0x1fff8468                __end = .
+                0x1fff8468                PROVIDE (end, .)
+                0x1fff8468                PROVIDE (__bss_end__, .)
+                0x000018d0                __cy_region_init_ram = LOADADDR (.data)
+                0x00000020                __cy_region_init_size_ram = (_edata - ADDR (.data))
+                0x00000340                __cy_region_zero_size_ram = (_end - _edata)
 
-.heap           0x1fff81a8     0x1000 load address 0x00000ff0
-                0x1fff81a8                . = _end
-                0x1fff91a8                . = (. + 0x1000)
- *fill*         0x1fff81a8     0x1000 00
-                0x1fff91a8                __cy_heap_limit = .
+.heap           0x1fff8468     0x1000 load address 0x000018f0
+                0x1fff8468                . = _end
+                0x1fff9468                . = (. + 0x1000)
+ *fill*         0x1fff8468     0x1000 00
+                0x1fff9468                __cy_heap_limit = .
 
 .stack          0x20004000     0x4000
                 0x20004000                __cy_stack_limit = .
@@ -729,9 +1049,9 @@ END GROUP
 .cyloadablemeta
  *(.cyloadablemeta)
 
-.cyconfigecc    0x80000000      0x3bc
+.cyconfigecc    0x80000000      0x6ec
  *(.cyconfigecc)
- .cyconfigecc   0x80000000      0x3bc .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+ .cyconfigecc   0x80000000      0x6ec .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
                 0x80000000                cy_meta_configecc
 
 .cycustnvl      0x90000000        0x4
@@ -760,7 +1080,7 @@ END GROUP
  .cymeta        0x90500000        0xc .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
                 0x90500000                cy_metadata
 
-.rel.dyn        0x00000ff0        0x0 load address 0x9050000c
+.rel.dyn        0x000018f0        0x0 load address 0x9050000c
  .rel.iplt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtbegin.o
 
 .stab
@@ -781,187 +1101,324 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x688
+.debug_aranges  0x00000000      0xb28
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 .\CortexM3\ARM_GCC_473\Debug\main.o
  .debug_aranges
                 0x00000020       0x28 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
  .debug_aranges
-                0x00000048       0x38 .\CortexM3\ARM_GCC_473\Debug\bus.o
+                0x00000048       0x18 .\CortexM3\ARM_GCC_473\Debug\bus.o
  .debug_aranges
-                0x00000080       0x18 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+                0x00000060       0x18 .\CortexM3\ARM_GCC_473\Debug\bal.o
  .debug_aranges
-                0x00000098       0x40 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x00000078       0x68 .\CortexM3\ARM_GCC_473\Debug\hal.o
  .debug_aranges
-                0x000000d8       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x000000e0       0x20 .\CortexM3\ARM_GCC_473\Debug\bpl.o
  .debug_aranges
-                0x00000138       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+                0x00000100       0x38 .\CortexM3\ARM_GCC_473\Debug\tmr.o
  .debug_aranges
-                0x00000158      0x218 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+                0x00000138       0x28 .\CortexM3\ARM_GCC_473\Debug\test.o
  .debug_aranges
-                0x00000370       0x90 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+                0x00000160       0x18 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
  .debug_aranges
-                0x00000400      0x110 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
+                0x00000178       0x40 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
  .debug_aranges
-                0x00000510       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
+                0x000001b8       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .debug_aranges
-                0x00000538       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
+                0x00000218       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
  .debug_aranges
-                0x000005a8       0x78 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+                0x00000238      0x218 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
  .debug_aranges
-                0x00000620       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+                0x00000450       0x90 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_aranges
+                0x000004e0      0x110 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_aranges
+                0x000005f0       0x28 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_aranges
+                0x00000618       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_aranges
+                0x00000688       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_aranges
+                0x00000708       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_aranges
+                0x00000788       0xb0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_aranges
+                0x00000838       0x20 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_aranges
+                0x00000858       0x90 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_aranges
+                0x000008e8       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_aranges
+                0x00000958       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_aranges
+                0x000009c8       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_aranges
+                0x00000a48       0x78 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_aranges
+                0x00000ac0       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x32d1
+.debug_info     0x00000000     0x4d52
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000       0xe1 .\CortexM3\ARM_GCC_473\Debug\main.o
- .debug_info    0x000000e1      0x134 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_info    0x00000215      0x2ab .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_info    0x000004c0      0x13f .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
- .debug_info    0x000005ff      0x2ea .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_info    0x000008e9      0x47e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_info    0x00000d67       0x8b .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
- .debug_info    0x00000df2      0xcd7 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_info    0x00001ac9      0x5c3 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_info    0x0000208c      0x706 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_info    0x00002792      0x17e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_info    0x00002910      0x294 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_info    0x00002ba4      0x354 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_info    0x00002ef8      0x3d9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_info    0x00000000       0xf0 .\CortexM3\ARM_GCC_473\Debug\main.o
+ .debug_info    0x000000f0      0x134 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
+ .debug_info    0x00000224       0x9e .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .debug_info    0x000002c2       0x9e .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .debug_info    0x00000360      0x242 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_info    0x000005a2      0x198 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_info    0x0000073a      0x255 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_info    0x0000098f      0x102 .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_info    0x00000a91      0x143 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+ .debug_info    0x00000bd4      0x2ea .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_info    0x00000ebe      0x47e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_info    0x0000133c       0x8b .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+ .debug_info    0x000013c7      0xcd7 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_info    0x0000209e      0x5c3 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_info    0x00002661      0x706 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_info    0x00002d67      0x17e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_info    0x00002ee5      0x294 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_info    0x00003179      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_info    0x000033f1      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_info    0x00003669      0x480 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_info    0x00003ae9       0xfc .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_info    0x00003be5      0x2a0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_info    0x00003e85      0x294 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_info    0x00004119      0x294 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_info    0x000043ad      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_info    0x00004625      0x354 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_info    0x00004979      0x3d9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
-.debug_abbrev   0x00000000      0xf8a
+.debug_abbrev   0x00000000     0x1ba0
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0x7a .\CortexM3\ARM_GCC_473\Debug\main.o
- .debug_abbrev  0x0000007a       0xb4 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_abbrev  0x0000012e      0x116 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_abbrev  0x00000244       0x66 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
- .debug_abbrev  0x000002aa      0x175 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_abbrev  0x0000041f      0x1b9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_abbrev  0x000005d8       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
- .debug_abbrev  0x000005ec      0x207 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_abbrev  0x000007f3      0x170 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_abbrev  0x00000963      0x193 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_abbrev  0x00000af6       0xa4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_abbrev  0x00000b9a      0x11f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_abbrev  0x00000cb9      0x172 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_abbrev  0x00000e2b      0x15f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_abbrev  0x00000000       0x90 .\CortexM3\ARM_GCC_473\Debug\main.o
+ .debug_abbrev  0x00000090       0xb4 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
+ .debug_abbrev  0x00000144       0x4b .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .debug_abbrev  0x0000018f       0x4b .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .debug_abbrev  0x000001da      0x163 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_abbrev  0x0000033d       0x95 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_abbrev  0x000003d2      0x133 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_abbrev  0x00000505       0x8a .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_abbrev  0x0000058f       0x77 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+ .debug_abbrev  0x00000606      0x175 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_abbrev  0x0000077b      0x1b9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_abbrev  0x00000934       0x14 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+ .debug_abbrev  0x00000948      0x207 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_abbrev  0x00000b4f      0x170 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_abbrev  0x00000cbf      0x193 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_abbrev  0x00000e52       0xa4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_abbrev  0x00000ef6      0x11f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_abbrev  0x00001015      0x12d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_abbrev  0x00001142      0x12d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_abbrev  0x0000126f      0x15d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_abbrev  0x000013cc       0x7b .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_abbrev  0x00001447      0x11d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_abbrev  0x00001564      0x11f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_abbrev  0x00001683      0x11f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_abbrev  0x000017a2      0x12d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_abbrev  0x000018cf      0x172 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_abbrev  0x00001a41      0x15f .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
-.debug_line     0x00000000     0x1c82
+.debug_line     0x00000000     0x2e08
  *(.debug_line)
- .debug_line    0x00000000      0x120 .\CortexM3\ARM_GCC_473\Debug\main.o
- .debug_line    0x00000120      0x131 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_line    0x00000251      0x1a3 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_line    0x000003f4       0x53 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
- .debug_line    0x00000447      0x1b0 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_line    0x000005f7      0x21e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_line    0x00000815       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
- .debug_line    0x0000087d      0x73b .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_line    0x00000fb8      0x370 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_line    0x00001328      0x39a .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_line    0x000016c2       0xc6 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_line    0x00001788      0x1aa .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_line    0x00001932      0x1a9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_line    0x00001adb      0x1a7 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_line    0x00000000      0x125 .\CortexM3\ARM_GCC_473\Debug\main.o
+ .debug_line    0x00000125      0x131 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
+ .debug_line    0x00000256       0xea .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .debug_line    0x00000340       0xea .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .debug_line    0x0000042a      0x1d9 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_line    0x00000603      0x151 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_line    0x00000754      0x17a .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_line    0x000008ce      0x127 .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_line    0x000009f5       0x53 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+ .debug_line    0x00000a48      0x1b0 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_line    0x00000bf8      0x222 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_line    0x00000e1a       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+ .debug_line    0x00000e82      0x73b .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_line    0x000015bd      0x370 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_line    0x0000192d      0x394 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_line    0x00001cc1       0xba .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_line    0x00001d7b      0x1a4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_line    0x00001f1f      0x141 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_line    0x00002060      0x151 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_line    0x000021b1      0x263 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_line    0x00002414       0x91 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_line    0x000024a5      0x174 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_line    0x00002619      0x1a9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_line    0x000027c2      0x1a2 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_line    0x00002964      0x154 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_line    0x00002ab8      0x1a9 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_line    0x00002c61      0x1a7 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
-.debug_frame    0x00000000     0x14f8
+.debug_frame    0x00000000     0x21e0
  *(.debug_frame)
  .debug_frame   0x00000000       0x30 .\CortexM3\ARM_GCC_473\Debug\main.o
  .debug_frame   0x00000030       0x48 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_frame   0x00000078       0x90 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_frame   0x00000108       0xa4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_frame   0x000001ac      0x120 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_frame   0x000002cc      0x778 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_frame   0x00000a44      0x1d0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_frame   0x00000c14      0x3ac .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_frame   0x00000fc0       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_frame   0x00001008      0x14c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_frame   0x00001154      0x178 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_frame   0x000012cc      0x13c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
- .debug_frame   0x00001408       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-__atexit2.o)
- .debug_frame   0x00001430       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-exit.o)
- .debug_frame   0x00001458       0x2c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-fini.o)
- .debug_frame   0x00001484       0x2c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
- .debug_frame   0x000014b0       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
- .debug_frame   0x000014d8       0x20 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
+ .debug_frame   0x00000078      0x134 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_frame   0x000001ac       0x34 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_frame   0x000001e0       0x84 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_frame   0x00000264       0x4c .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_frame   0x000002b0       0xa4 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_frame   0x00000354      0x120 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_frame   0x00000474      0x778 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_frame   0x00000bec      0x1d0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_frame   0x00000dbc      0x3ac .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_frame   0x00001168       0x48 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_frame   0x000011b0      0x14c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_frame   0x000012fc      0x180 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_frame   0x0000147c      0x180 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_frame   0x000015fc      0x244 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_frame   0x00001840       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_frame   0x0000186c      0x1b8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_frame   0x00001a24      0x14c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_frame   0x00001b70      0x14c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_frame   0x00001cbc      0x180 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_frame   0x00001e3c      0x178 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_frame   0x00001fb4      0x13c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_frame   0x000020f0       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-__atexit2.o)
+ .debug_frame   0x00002118       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-exit.o)
+ .debug_frame   0x00002140       0x2c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-fini.o)
+ .debug_frame   0x0000216c       0x2c c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
+ .debug_frame   0x00002198       0x28 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
+ .debug_frame   0x000021c0       0x20 c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
 
-.debug_str      0x00000000     0x1838
+.debug_str      0x00000000     0x21a1
  *(.debug_str)
- .debug_str     0x00000000      0x113 .\CortexM3\ARM_GCC_473\Debug\main.o
-                                0x153 (size before relaxing)
- .debug_str     0x00000113       0x4d .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
+ .debug_str     0x00000000      0x11c .\CortexM3\ARM_GCC_473\Debug\main.o
+                                0x15c (size before relaxing)
+ .debug_str     0x0000011c       0x4d .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
                                 0x18b (size before relaxing)
- .debug_str     0x00000160       0xdf .\CortexM3\ARM_GCC_473\Debug\bus.o
-                                0x234 (size before relaxing)
- .debug_str     0x0000023f       0x77 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+ .debug_str     0x00000169        0x8 .\CortexM3\ARM_GCC_473\Debug\bus.o
+                                0x140 (size before relaxing)
+ .debug_str     0x00000171        0x8 .\CortexM3\ARM_GCC_473\Debug\bal.o
+                                0x140 (size before relaxing)
+ .debug_str     0x00000179       0xcd .\CortexM3\ARM_GCC_473\Debug\hal.o
+                                0x215 (size before relaxing)
+ .debug_str     0x00000246       0x7c .\CortexM3\ARM_GCC_473\Debug\bpl.o
+                                0x1c3 (size before relaxing)
+ .debug_str     0x000002c2       0xa3 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+                                0x1f4 (size before relaxing)
+ .debug_str     0x00000365       0x19 .\CortexM3\ARM_GCC_473\Debug\test.o
+                                0x168 (size before relaxing)
+ .debug_str     0x0000037e       0x77 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
                                 0x1a0 (size before relaxing)
- .debug_str     0x000002b6      0x119 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_str     0x000003f5      0x10c .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
                                 0x25c (size before relaxing)
- .debug_str     0x000003cf      0x193 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_str     0x00000501      0x184 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
                                 0x2e2 (size before relaxing)
- .debug_str     0x00000562      0x642 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_str     0x00000685      0x627 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
                                 0x7c2 (size before relaxing)
- .debug_str     0x00000ba4      0x371 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_str     0x00000cac      0x371 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
                                 0x4d1 (size before relaxing)
- .debug_str     0x00000f15      0x49a .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
-                                0x5f0 (size before relaxing)
- .debug_str     0x000013af       0x67 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
-                                0x259 (size before relaxing)
- .debug_str     0x00001416      0x1f4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
-                                0x334 (size before relaxing)
- .debug_str     0x0000160a      0x130 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_str     0x0000101d      0x3a4 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+                                0x4fa (size before relaxing)
+ .debug_str     0x000013c1       0x55 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+                                0x217 (size before relaxing)
+ .debug_str     0x00001416      0x1ac .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+                                0x2ec (size before relaxing)
+ .debug_str     0x000015c2       0xf6 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+                                0x25e (size before relaxing)
+ .debug_str     0x000016b8       0xf6 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+                                0x25e (size before relaxing)
+ .debug_str     0x000017ae      0x218 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+                                0x3f4 (size before relaxing)
+ .debug_str     0x000019c6       0x39 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+                                0x1a9 (size before relaxing)
+ .debug_str     0x000019ff      0x16e .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+                                0x2b8 (size before relaxing)
+ .debug_str     0x00001b6d      0x19d .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+                                0x328 (size before relaxing)
+ .debug_str     0x00001d0a      0x149 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+                                0x2d4 (size before relaxing)
+ .debug_str     0x00001e53      0x120 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+                                0x288 (size before relaxing)
+ .debug_str     0x00001f73      0x130 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
                                 0x297 (size before relaxing)
- .debug_str     0x0000173a       0xfe .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_str     0x000020a3       0xfe .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
                                 0x273 (size before relaxing)
 
-.debug_loc      0x00000000     0x21b0
+.debug_loc      0x00000000     0x36c4
  *(.debug_loc)
  .debug_loc     0x00000000       0x38 .\CortexM3\ARM_GCC_473\Debug\main.o
  .debug_loc     0x00000038       0x70 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_loc     0x000000a8       0xd4 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_loc     0x0000017c      0x100 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_loc     0x0000027c      0x1f8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_loc     0x00000474      0xce0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_loc     0x00001154      0x2e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_loc     0x0000143c      0x65c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_loc     0x00001a98       0x64 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_loc     0x00001afc      0x22c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_loc     0x00001d28      0x258 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_loc     0x00001f80      0x230 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_loc     0x000000a8      0x1e8 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_loc     0x00000290       0x38 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_loc     0x000002c8       0xc8 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_loc     0x00000390       0x64 .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_loc     0x000003f4      0x100 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_loc     0x000004f4      0x1f8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_loc     0x000006ec      0xce0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_loc     0x000013cc      0x2e8 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_loc     0x000016b4      0x65c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_loc     0x00001d10       0x64 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_loc     0x00001d74      0x22c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_loc     0x00001fa0      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_loc     0x00002218      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_loc     0x00002490      0x3e0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_loc     0x00002870       0x2c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_loc     0x0000289c      0x2d0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_loc     0x00002b6c      0x22c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_loc     0x00002d98      0x22c .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_loc     0x00002fc4      0x278 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_loc     0x0000323c      0x258 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_loc     0x00003494      0x230 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
 .debug_macinfo
  *(.debug_macinfo)
 
-.debug_ranges   0x00000000      0x590
+.debug_ranges   0x00000000      0x950
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x10 .\CortexM3\ARM_GCC_473\Debug\main.o
  .debug_ranges  0x00000010       0x18 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
- .debug_ranges  0x00000028       0x28 .\CortexM3\ARM_GCC_473\Debug\bus.o
- .debug_ranges  0x00000050       0x30 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
- .debug_ranges  0x00000080       0x50 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
- .debug_ranges  0x000000d0      0x208 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
- .debug_ranges  0x000002d8       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .debug_ranges  0x00000358      0x100 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .debug_ranges  0x00000458       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .debug_ranges  0x00000470       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
- .debug_ranges  0x000004d0       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
- .debug_ranges  0x00000538       0x58 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .debug_ranges  0x00000028       0x58 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .debug_ranges  0x00000080       0x10 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .debug_ranges  0x00000090       0x28 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .debug_ranges  0x000000b8       0x18 .\CortexM3\ARM_GCC_473\Debug\test.o
+ .debug_ranges  0x000000d0       0x30 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+ .debug_ranges  0x00000100       0x50 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+ .debug_ranges  0x00000150      0x208 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+ .debug_ranges  0x00000358       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+ .debug_ranges  0x000003d8      0x100 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .debug_ranges  0x000004d8       0x18 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .debug_ranges  0x000004f0       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .debug_ranges  0x00000550       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .debug_ranges  0x000005c0       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .debug_ranges  0x00000630       0xa0 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .debug_ranges  0x000006d0       0x10 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .debug_ranges  0x000006e0       0x80 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .debug_ranges  0x00000760       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .debug_ranges  0x000007c0       0x60 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .debug_ranges  0x00000820       0x70 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .debug_ranges  0x00000890       0x68 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .debug_ranges  0x000008f8       0x58 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
 .comment        0x00000000       0x70
  .comment       0x00000000       0x70 .\CortexM3\ARM_GCC_473\Debug\main.o
                                  0x71 (size before relaxing)
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\servo_cds5500.o
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\bus.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\bal.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\hal.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\bpl.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\tmr.o
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\test.o
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
- .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
- .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
- .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
  .comment       0x00000000       0x71 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
 
@@ -996,45 +1453,71 @@ END GROUP
  .ARM.attributes
                 0x000000cb       0x33 .\CortexM3\ARM_GCC_473\Debug\bus.o
  .ARM.attributes
-                0x000000fe       0x33 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
+                0x000000fe       0x33 .\CortexM3\ARM_GCC_473\Debug\bal.o
  .ARM.attributes
-                0x00000131       0x33 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
+                0x00000131       0x33 .\CortexM3\ARM_GCC_473\Debug\hal.o
  .ARM.attributes
-                0x00000164       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
+                0x00000164       0x33 .\CortexM3\ARM_GCC_473\Debug\bpl.o
  .ARM.attributes
-                0x00000197       0x21 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
+                0x00000197       0x33 .\CortexM3\ARM_GCC_473\Debug\tmr.o
  .ARM.attributes
-                0x000001b8       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
+                0x000001ca       0x33 .\CortexM3\ARM_GCC_473\Debug\test.o
  .ARM.attributes
-                0x000001eb       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
+                0x000001fd       0x33 .\CortexM3\ARM_GCC_473\Debug\cymetadata.o
  .ARM.attributes
-                0x0000021e       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO.o)
+                0x00000230       0x33 .\CortexM3\ARM_GCC_473\Debug\Cm3Start.o
  .ARM.attributes
-                0x00000251       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_INT.o)
+                0x00000263       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyfitter_cfg.o)
  .ARM.attributes
-                0x00000284       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_SERVO_IntClock.o)
+                0x00000296       0x21 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyBootAsmGnu.o)
  .ARM.attributes
-                0x000002b7       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+                0x000002b7       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyLib.o)
  .ARM.attributes
-                0x000002ea       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+                0x000002ea       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(cyPm.o)
  .ARM.attributes
-                0x0000031d       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-__atexit2.o)
+                0x0000031d       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART.o)
  .ARM.attributes
-                0x0000034a       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-exit.o)
+                0x00000350       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_INT.o)
  .ARM.attributes
-                0x00000377       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-fini.o)
+                0x00000383       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_IntClock.o)
  .ARM.attributes
-                0x000003a4       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-impure.o)
+                0x000003b6       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_rx.o)
  .ARM.attributes
-                0x000003d1       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
+                0x000003e9       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_tx.o)
  .ARM.attributes
-                0x000003fe       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
+                0x0000041c       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST.o)
  .ARM.attributes
-                0x0000042b       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
+                0x0000044f       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_INT.o)
  .ARM.attributes
-                0x00000458       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtend.o
+                0x00000482       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER.o)
  .ARM.attributes
-                0x00000485       0x1d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
+                0x000004b5       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(UART_TEST_IntClock.o)
+ .ARM.attributes
+                0x000004e8       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(TIMER_CLOCK.o)
+ .ARM.attributes
+                0x0000051b       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(Isr_timer.o)
+ .ARM.attributes
+                0x0000054e       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CyFlash.o)
+ .ARM.attributes
+                0x00000581       0x33 .\CortexM3\ARM_GCC_473\Debug\ServoMotor.a(CySpc.o)
+ .ARM.attributes
+                0x000005b4       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-__atexit2.o)
+ .ARM.attributes
+                0x000005e1       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-exit.o)
+ .ARM.attributes
+                0x0000060e       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-fini.o)
+ .ARM.attributes
+                0x0000063b       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-impure.o)
+ .ARM.attributes
+                0x00000668       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-init.o)
+ .ARM.attributes
+                0x00000695       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memcpy.o)
+ .ARM.attributes
+                0x000006c2       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/../../../../arm-none-eabi/lib/armv7-m\libc_s.a(lib_a-memset.o)
+ .ARM.attributes
+                0x000006ef       0x2d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtend.o
+ .ARM.attributes
+                0x0000071c       0x1d c:/program files (x86)/cypress/psoc creator/3.0/psoc creator/import/gnu_cs/arm/4.7.3/bin/../lib/gcc/arm-none-eabi/4.7.3/armv7-m/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)

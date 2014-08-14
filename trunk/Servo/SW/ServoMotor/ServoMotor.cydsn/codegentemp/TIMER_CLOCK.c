@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: UART_SERVO_IntClock.c
+* File Name: TIMER_CLOCK.c
 * Version 2.20
 *
 *  Description:
@@ -15,7 +15,7 @@
 *******************************************************************************/
 
 #include <cydevice_trm.h>
-#include "UART_SERVO_IntClock.h"
+#include "TIMER_CLOCK.h"
 
 /* Clock Distribution registers. */
 #define CLK_DIST_LD              (* (reg8 *) CYREG_CLKDIST_LD)
@@ -28,7 +28,7 @@
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_Start
+* Function Name: TIMER_CLOCK_Start
 ********************************************************************************
 *
 * Summary:
@@ -42,16 +42,16 @@
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_Start(void) 
+void TIMER_CLOCK_Start(void) 
 {
     /* Set the bit to enable the clock. */
-    UART_SERVO_IntClock_CLKEN |= UART_SERVO_IntClock_CLKEN_MASK;
-	UART_SERVO_IntClock_CLKSTBY |= UART_SERVO_IntClock_CLKSTBY_MASK;
+    TIMER_CLOCK_CLKEN |= TIMER_CLOCK_CLKEN_MASK;
+	TIMER_CLOCK_CLKSTBY |= TIMER_CLOCK_CLKSTBY_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_Stop
+* Function Name: TIMER_CLOCK_Stop
 ********************************************************************************
 *
 * Summary:
@@ -68,11 +68,11 @@ void UART_SERVO_IntClock_Start(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_Stop(void) 
+void TIMER_CLOCK_Stop(void) 
 {
     /* Clear the bit to disable the clock. */
-    UART_SERVO_IntClock_CLKEN &= (uint8)(~UART_SERVO_IntClock_CLKEN_MASK);
-	UART_SERVO_IntClock_CLKSTBY &= (uint8)(~UART_SERVO_IntClock_CLKSTBY_MASK);
+    TIMER_CLOCK_CLKEN &= (uint8)(~TIMER_CLOCK_CLKEN_MASK);
+	TIMER_CLOCK_CLKSTBY &= (uint8)(~TIMER_CLOCK_CLKSTBY_MASK);
 }
 
 
@@ -80,7 +80,7 @@ void UART_SERVO_IntClock_Stop(void)
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_StopBlock
+* Function Name: TIMER_CLOCK_StopBlock
 ********************************************************************************
 *
 * Summary:
@@ -97,9 +97,9 @@ void UART_SERVO_IntClock_Stop(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_StopBlock(void) 
+void TIMER_CLOCK_StopBlock(void) 
 {
-    if ((UART_SERVO_IntClock_CLKEN & UART_SERVO_IntClock_CLKEN_MASK) != 0u)
+    if ((TIMER_CLOCK_CLKEN & TIMER_CLOCK_CLKEN_MASK) != 0u)
     {
 #if HAS_CLKDIST_LD_DISABLE
         uint16 oldDivider;
@@ -107,18 +107,18 @@ void UART_SERVO_IntClock_StopBlock(void)
         CLK_DIST_LD = 0u;
 
         /* Clear all the mask bits except ours. */
-#if defined(UART_SERVO_IntClock__CFG3)
-        CLK_DIST_AMASK = UART_SERVO_IntClock_CLKEN_MASK;
+#if defined(TIMER_CLOCK__CFG3)
+        CLK_DIST_AMASK = TIMER_CLOCK_CLKEN_MASK;
         CLK_DIST_DMASK = 0x00u;
 #else
-        CLK_DIST_DMASK = UART_SERVO_IntClock_CLKEN_MASK;
+        CLK_DIST_DMASK = TIMER_CLOCK_CLKEN_MASK;
         CLK_DIST_AMASK = 0x00u;
-#endif /* UART_SERVO_IntClock__CFG3 */
+#endif /* TIMER_CLOCK__CFG3 */
 
         /* Clear mask of bus clock. */
         CLK_DIST_BCFG2 &= (uint8)(~BCFG2_MASK);
 
-        oldDivider = CY_GET_REG16(UART_SERVO_IntClock_DIV_PTR);
+        oldDivider = CY_GET_REG16(TIMER_CLOCK_DIV_PTR);
         CY_SET_REG16(CYREG_CLKDIST_WRK0, oldDivider);
         CLK_DIST_LD = CYCLK_LD_DISABLE | CYCLK_LD_SYNC_EN | CYCLK_LD_LOAD;
 
@@ -127,13 +127,13 @@ void UART_SERVO_IntClock_StopBlock(void)
 #endif /* HAS_CLKDIST_LD_DISABLE */
 
         /* Clear the bit to disable the clock. */
-        UART_SERVO_IntClock_CLKEN &= (uint8)(~UART_SERVO_IntClock_CLKEN_MASK);
-        UART_SERVO_IntClock_CLKSTBY &= (uint8)(~UART_SERVO_IntClock_CLKSTBY_MASK);
+        TIMER_CLOCK_CLKEN &= (uint8)(~TIMER_CLOCK_CLKEN_MASK);
+        TIMER_CLOCK_CLKSTBY &= (uint8)(~TIMER_CLOCK_CLKSTBY_MASK);
 
 #if HAS_CLKDIST_LD_DISABLE
         /* Clear the disable bit */
         CLK_DIST_LD = 0x00u;
-        CY_SET_REG16(UART_SERVO_IntClock_DIV_PTR, oldDivider);
+        CY_SET_REG16(TIMER_CLOCK_DIV_PTR, oldDivider);
 #endif /* HAS_CLKDIST_LD_DISABLE */
     }
 }
@@ -141,7 +141,7 @@ void UART_SERVO_IntClock_StopBlock(void)
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_StandbyPower
+* Function Name: TIMER_CLOCK_StandbyPower
 ********************************************************************************
 *
 * Summary:
@@ -154,21 +154,21 @@ void UART_SERVO_IntClock_StopBlock(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_StandbyPower(uint8 state) 
+void TIMER_CLOCK_StandbyPower(uint8 state) 
 {
     if(state == 0u)
     {
-        UART_SERVO_IntClock_CLKSTBY &= (uint8)(~UART_SERVO_IntClock_CLKSTBY_MASK);
+        TIMER_CLOCK_CLKSTBY &= (uint8)(~TIMER_CLOCK_CLKSTBY_MASK);
     }
     else
     {
-        UART_SERVO_IntClock_CLKSTBY |= UART_SERVO_IntClock_CLKSTBY_MASK;
+        TIMER_CLOCK_CLKSTBY |= TIMER_CLOCK_CLKSTBY_MASK;
     }
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_SetDividerRegister
+* Function Name: TIMER_CLOCK_SetDividerRegister
 ********************************************************************************
 *
 * Summary:
@@ -190,17 +190,17 @@ void UART_SERVO_IntClock_StandbyPower(uint8 state)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
+void TIMER_CLOCK_SetDividerRegister(uint16 clkDivider, uint8 restart)
                                 
 {
     uint8 enabled;
 
-    uint8 currSrc = UART_SERVO_IntClock_GetSourceRegister();
-    uint16 oldDivider = UART_SERVO_IntClock_GetDividerRegister();
+    uint8 currSrc = TIMER_CLOCK_GetSourceRegister();
+    uint16 oldDivider = TIMER_CLOCK_GetDividerRegister();
 
     if (clkDivider != oldDivider)
     {
-        enabled = UART_SERVO_IntClock_CLKEN & UART_SERVO_IntClock_CLKEN_MASK;
+        enabled = TIMER_CLOCK_CLKEN & TIMER_CLOCK_CLKEN_MASK;
 
         if ((currSrc == (uint8)CYCLK_SRC_SEL_CLK_SYNC_D) && ((oldDivider == 0u) || (clkDivider == 0u)))
         {
@@ -210,15 +210,15 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
                 /* Moving away from SSS, set the divider first so when SSS is cleared we    */
                 /* don't halt the clock.  Using the shadow load isn't required as the       */
                 /* divider is ignored while SSS is set.                                     */
-                CY_SET_REG16(UART_SERVO_IntClock_DIV_PTR, clkDivider);
-                UART_SERVO_IntClock_MOD_SRC &= (uint8)(~CYCLK_SSS);
+                CY_SET_REG16(TIMER_CLOCK_DIV_PTR, clkDivider);
+                TIMER_CLOCK_MOD_SRC &= (uint8)(~CYCLK_SSS);
             }
             else
             {
                 /* Moving to SSS, set SSS which then ignores the divider and we can set     */
                 /* it without bothering with the shadow load.                               */
-                UART_SERVO_IntClock_MOD_SRC |= CYCLK_SSS;
-                CY_SET_REG16(UART_SERVO_IntClock_DIV_PTR, clkDivider);
+                TIMER_CLOCK_MOD_SRC |= CYCLK_SSS;
+                CY_SET_REG16(TIMER_CLOCK_DIV_PTR, clkDivider);
             }
         }
         else
@@ -229,18 +229,18 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
                 CLK_DIST_LD = 0x00u;
 
                 /* Clear all the mask bits except ours. */
-#if defined(UART_SERVO_IntClock__CFG3)
-                CLK_DIST_AMASK = UART_SERVO_IntClock_CLKEN_MASK;
+#if defined(TIMER_CLOCK__CFG3)
+                CLK_DIST_AMASK = TIMER_CLOCK_CLKEN_MASK;
                 CLK_DIST_DMASK = 0x00u;
 #else
-                CLK_DIST_DMASK = UART_SERVO_IntClock_CLKEN_MASK;
+                CLK_DIST_DMASK = TIMER_CLOCK_CLKEN_MASK;
                 CLK_DIST_AMASK = 0x00u;
-#endif /* UART_SERVO_IntClock__CFG3 */
+#endif /* TIMER_CLOCK__CFG3 */
                 /* Clear mask of bus clock. */
                 CLK_DIST_BCFG2 &= (uint8)(~BCFG2_MASK);
 
                 /* If clock is currently enabled, disable it if async or going from N-to-1*/
-                if (((UART_SERVO_IntClock_MOD_SRC & CYCLK_SYNC) == 0u) || (clkDivider == 0u))
+                if (((TIMER_CLOCK_MOD_SRC & CYCLK_SYNC) == 0u) || (clkDivider == 0u))
                 {
 #if HAS_CLKDIST_LD_DISABLE
                     CY_SET_REG16(CYREG_CLKDIST_WRK0, oldDivider);
@@ -250,7 +250,7 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
                     while ((CLK_DIST_LD & CYCLK_LD_LOAD) != 0u) { }
 #endif /* HAS_CLKDIST_LD_DISABLE */
 
-                    UART_SERVO_IntClock_CLKEN &= (uint8)(~UART_SERVO_IntClock_CLKEN_MASK);
+                    TIMER_CLOCK_CLKEN &= (uint8)(~TIMER_CLOCK_CLKEN_MASK);
 
 #if HAS_CLKDIST_LD_DISABLE
                     /* Clear the disable bit */
@@ -260,7 +260,7 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
             }
 
             /* Load divide value. */
-            if ((UART_SERVO_IntClock_CLKEN & UART_SERVO_IntClock_CLKEN_MASK) != 0u)
+            if ((TIMER_CLOCK_CLKEN & TIMER_CLOCK_CLKEN_MASK) != 0u)
             {
                 /* If the clock is still enabled, use the shadow registers */
                 CY_SET_REG16(CYREG_CLKDIST_WRK0, clkDivider);
@@ -271,8 +271,8 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
             else
             {
                 /* If the clock is disabled, set the divider directly */
-                CY_SET_REG16(UART_SERVO_IntClock_DIV_PTR, clkDivider);
-				UART_SERVO_IntClock_CLKEN |= enabled;
+                CY_SET_REG16(TIMER_CLOCK_DIV_PTR, clkDivider);
+				TIMER_CLOCK_CLKEN |= enabled;
             }
         }
     }
@@ -280,7 +280,7 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_GetDividerRegister
+* Function Name: TIMER_CLOCK_GetDividerRegister
 ********************************************************************************
 *
 * Summary:
@@ -294,14 +294,14 @@ void UART_SERVO_IntClock_SetDividerRegister(uint16 clkDivider, uint8 restart)
 *  divide by 2, the return value will be 1.
 *
 *******************************************************************************/
-uint16 UART_SERVO_IntClock_GetDividerRegister(void) 
+uint16 TIMER_CLOCK_GetDividerRegister(void) 
 {
-    return CY_GET_REG16(UART_SERVO_IntClock_DIV_PTR);
+    return CY_GET_REG16(TIMER_CLOCK_DIV_PTR);
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_SetModeRegister
+* Function Name: TIMER_CLOCK_SetModeRegister
 ********************************************************************************
 *
 * Summary:
@@ -329,14 +329,14 @@ uint16 UART_SERVO_IntClock_GetDividerRegister(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_SetModeRegister(uint8 modeBitMask) 
+void TIMER_CLOCK_SetModeRegister(uint8 modeBitMask) 
 {
-    UART_SERVO_IntClock_MOD_SRC |= modeBitMask & (uint8)UART_SERVO_IntClock_MODE_MASK;
+    TIMER_CLOCK_MOD_SRC |= modeBitMask & (uint8)TIMER_CLOCK_MODE_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_ClearModeRegister
+* Function Name: TIMER_CLOCK_ClearModeRegister
 ********************************************************************************
 *
 * Summary:
@@ -364,14 +364,14 @@ void UART_SERVO_IntClock_SetModeRegister(uint8 modeBitMask)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_ClearModeRegister(uint8 modeBitMask) 
+void TIMER_CLOCK_ClearModeRegister(uint8 modeBitMask) 
 {
-    UART_SERVO_IntClock_MOD_SRC &= (uint8)(~modeBitMask) | (uint8)(~(uint8)(UART_SERVO_IntClock_MODE_MASK));
+    TIMER_CLOCK_MOD_SRC &= (uint8)(~modeBitMask) | (uint8)(~(uint8)(TIMER_CLOCK_MODE_MASK));
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_GetModeRegister
+* Function Name: TIMER_CLOCK_GetModeRegister
 ********************************************************************************
 *
 * Summary:
@@ -385,14 +385,14 @@ void UART_SERVO_IntClock_ClearModeRegister(uint8 modeBitMask)
 *  ClearModeRegister descriptions for details about the mode bits.
 *
 *******************************************************************************/
-uint8 UART_SERVO_IntClock_GetModeRegister(void) 
+uint8 TIMER_CLOCK_GetModeRegister(void) 
 {
-    return UART_SERVO_IntClock_MOD_SRC & (uint8)(UART_SERVO_IntClock_MODE_MASK);
+    return TIMER_CLOCK_MOD_SRC & (uint8)(TIMER_CLOCK_MODE_MASK);
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_SetSourceRegister
+* Function Name: TIMER_CLOCK_SetSourceRegister
 ********************************************************************************
 *
 * Summary:
@@ -416,39 +416,39 @@ uint8 UART_SERVO_IntClock_GetModeRegister(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_SetSourceRegister(uint8 clkSource) 
+void TIMER_CLOCK_SetSourceRegister(uint8 clkSource) 
 {
-    uint16 currDiv = UART_SERVO_IntClock_GetDividerRegister();
-    uint8 oldSrc = UART_SERVO_IntClock_GetSourceRegister();
+    uint16 currDiv = TIMER_CLOCK_GetDividerRegister();
+    uint8 oldSrc = TIMER_CLOCK_GetSourceRegister();
 
     if (((oldSrc != ((uint8)CYCLK_SRC_SEL_CLK_SYNC_D)) && 
         (clkSource == ((uint8)CYCLK_SRC_SEL_CLK_SYNC_D))) && (currDiv == 0u))
     {
         /* Switching to Master and divider is 1, set SSS, which will output master, */
         /* then set the source so we are consistent.                                */
-        UART_SERVO_IntClock_MOD_SRC |= CYCLK_SSS;
-        UART_SERVO_IntClock_MOD_SRC =
-            (UART_SERVO_IntClock_MOD_SRC & (uint8)(~UART_SERVO_IntClock_SRC_SEL_MSK)) | clkSource;
+        TIMER_CLOCK_MOD_SRC |= CYCLK_SSS;
+        TIMER_CLOCK_MOD_SRC =
+            (TIMER_CLOCK_MOD_SRC & (uint8)(~TIMER_CLOCK_SRC_SEL_MSK)) | clkSource;
     }
     else if (((oldSrc == ((uint8)CYCLK_SRC_SEL_CLK_SYNC_D)) && 
             (clkSource != ((uint8)CYCLK_SRC_SEL_CLK_SYNC_D))) && (currDiv == 0u))
     {
         /* Switching from Master to not and divider is 1, set source, so we don't   */
         /* lock when we clear SSS.                                                  */
-        UART_SERVO_IntClock_MOD_SRC =
-            (UART_SERVO_IntClock_MOD_SRC & (uint8)(~UART_SERVO_IntClock_SRC_SEL_MSK)) | clkSource;
-        UART_SERVO_IntClock_MOD_SRC &= (uint8)(~CYCLK_SSS);
+        TIMER_CLOCK_MOD_SRC =
+            (TIMER_CLOCK_MOD_SRC & (uint8)(~TIMER_CLOCK_SRC_SEL_MSK)) | clkSource;
+        TIMER_CLOCK_MOD_SRC &= (uint8)(~CYCLK_SSS);
     }
     else
     {
-        UART_SERVO_IntClock_MOD_SRC =
-            (UART_SERVO_IntClock_MOD_SRC & (uint8)(~UART_SERVO_IntClock_SRC_SEL_MSK)) | clkSource;
+        TIMER_CLOCK_MOD_SRC =
+            (TIMER_CLOCK_MOD_SRC & (uint8)(~TIMER_CLOCK_SRC_SEL_MSK)) | clkSource;
     }
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_GetSourceRegister
+* Function Name: TIMER_CLOCK_GetSourceRegister
 ********************************************************************************
 *
 * Summary:
@@ -461,17 +461,17 @@ void UART_SERVO_IntClock_SetSourceRegister(uint8 clkSource)
 *  The input source of the clock. See SetSourceRegister for details.
 *
 *******************************************************************************/
-uint8 UART_SERVO_IntClock_GetSourceRegister(void) 
+uint8 TIMER_CLOCK_GetSourceRegister(void) 
 {
-    return UART_SERVO_IntClock_MOD_SRC & UART_SERVO_IntClock_SRC_SEL_MSK;
+    return TIMER_CLOCK_MOD_SRC & TIMER_CLOCK_SRC_SEL_MSK;
 }
 
 
-#if defined(UART_SERVO_IntClock__CFG3)
+#if defined(TIMER_CLOCK__CFG3)
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_SetPhaseRegister
+* Function Name: TIMER_CLOCK_SetPhaseRegister
 ********************************************************************************
 *
 * Summary:
@@ -489,14 +489,14 @@ uint8 UART_SERVO_IntClock_GetSourceRegister(void)
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_IntClock_SetPhaseRegister(uint8 clkPhase) 
+void TIMER_CLOCK_SetPhaseRegister(uint8 clkPhase) 
 {
-    UART_SERVO_IntClock_PHASE = clkPhase & UART_SERVO_IntClock_PHASE_MASK;
+    TIMER_CLOCK_PHASE = clkPhase & TIMER_CLOCK_PHASE_MASK;
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_IntClock_GetPhase
+* Function Name: TIMER_CLOCK_GetPhase
 ********************************************************************************
 *
 * Summary:
@@ -510,12 +510,12 @@ void UART_SERVO_IntClock_SetPhaseRegister(uint8 clkPhase)
 *  Phase of the analog clock. See SetPhaseRegister for details.
 *
 *******************************************************************************/
-uint8 UART_SERVO_IntClock_GetPhaseRegister(void) 
+uint8 TIMER_CLOCK_GetPhaseRegister(void) 
 {
-    return UART_SERVO_IntClock_PHASE & UART_SERVO_IntClock_PHASE_MASK;
+    return TIMER_CLOCK_PHASE & TIMER_CLOCK_PHASE_MASK;
 }
 
-#endif /* UART_SERVO_IntClock__CFG3 */
+#endif /* TIMER_CLOCK__CFG3 */
 
 
 /* [] END OF FILE */

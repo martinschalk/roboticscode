@@ -5,20 +5,27 @@
  * of the BSD license.  See the LICENSE file for details.
  */
 
+/*
+SERVO MESSAGE
+---------------------------------------------------------
+| sb0 | sb1 | id0 | Length | b0 | b1 | ... | bn | crc0 | crc1 |
+---------------------------------------------------------
+*/
+
 #include <project.h>
 
 #ifndef CDS5500_h
 #define CDS5500_h
 	
 //send both at beginning of each message
+#define START_BYTE_0_VALUE 0xFF	
 #define START_BYTE_1_VALUE 0xFF	
-#define START_BYTE_2_VALUE 0xFF	
 	
 	
 typedef struct _servo_msg
 {
+	uint8 startbyte0;
 	uint8 startbyte1;
-	uint8 startbyte2;
 	uint8 id;			//0-253, 254 is broadcast
 	uint8 length;
 	uint8 instruction[8];

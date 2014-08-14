@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: UART_SERVO_INT.c
+* File Name: UART_INT.c
 * Version 2.30
 *
 * Description:
@@ -16,7 +16,7 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "UART_SERVO.h"
+#include "UART.h"
 #include "CyLib.h"
 
 
@@ -27,12 +27,12 @@
 
 /* `#END` */
 
-#if( (UART_SERVO_RX_ENABLED || UART_SERVO_HD_ENABLED) && \
-     (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+#if( (UART_RX_ENABLED || UART_HD_ENABLED) && \
+     (UART_RXBUFFERSIZE > UART_FIFO_LENGTH))
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_RXISR
+    * Function Name: UART_RXISR
     ********************************************************************************
     *
     * Summary:
@@ -45,25 +45,25 @@
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_rxBuffer - RAM buffer pointer for save received data.
-    *  UART_SERVO_rxBufferWrite - cyclic index for write to rxBuffer,
+    *  UART_rxBuffer - RAM buffer pointer for save received data.
+    *  UART_rxBufferWrite - cyclic index for write to rxBuffer,
     *     increments after each byte saved to buffer.
-    *  UART_SERVO_rxBufferRead - cyclic index for read from rxBuffer,
+    *  UART_rxBufferRead - cyclic index for read from rxBuffer,
     *     checked to detect overflow condition.
-    *  UART_SERVO_rxBufferOverflow - software overflow flag. Set to one
-    *     when UART_SERVO_rxBufferWrite index overtakes
-    *     UART_SERVO_rxBufferRead index.
-    *  UART_SERVO_rxBufferLoopDetect - additional variable to detect overflow.
-    *     Set to one when UART_SERVO_rxBufferWrite is equal to
-    *    UART_SERVO_rxBufferRead
-    *  UART_SERVO_rxAddressMode - this variable contains the Address mode,
+    *  UART_rxBufferOverflow - software overflow flag. Set to one
+    *     when UART_rxBufferWrite index overtakes
+    *     UART_rxBufferRead index.
+    *  UART_rxBufferLoopDetect - additional variable to detect overflow.
+    *     Set to one when UART_rxBufferWrite is equal to
+    *    UART_rxBufferRead
+    *  UART_rxAddressMode - this variable contains the Address mode,
     *     selected in customizer or set by UART_SetRxAddressMode() API.
-    *  UART_SERVO_rxAddressDetected - set to 1 when correct address received,
+    *  UART_rxAddressDetected - set to 1 when correct address received,
     *     and analysed to store following addressed data bytes to the buffer.
     *     When not correct address received, set to 0 to skip following data bytes.
     *
     *******************************************************************************/
-    CY_ISR(UART_SERVO_RXISR)
+    CY_ISR(UART_RXISR)
     {
         uint8 readData;
         uint8 increment_pointer = 0u;
@@ -72,7 +72,7 @@
         #endif /* CY_PSOC3 */
 
         /* User code required at start of ISR */
-        /* `#START UART_SERVO_RXISR_START` */
+        /* `#START UART_RXISR_START` */
 
         /* `#END` */
 
@@ -81,87 +81,87 @@
             CyGlobalIntEnable;
         #endif /* CY_PSOC3 */
 
-        readData = UART_SERVO_RXSTATUS_REG;
+        readData = UART_RXSTATUS_REG;
 
-        if((readData & (UART_SERVO_RX_STS_BREAK | UART_SERVO_RX_STS_PAR_ERROR |
-                        UART_SERVO_RX_STS_STOP_ERROR | UART_SERVO_RX_STS_OVERRUN)) != 0u)
+        if((readData & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
+                        UART_RX_STS_STOP_ERROR | UART_RX_STS_OVERRUN)) != 0u)
         {
             /* ERROR handling. */
-            /* `#START UART_SERVO_RXISR_ERROR` */
+            /* `#START UART_RXISR_ERROR` */
 
             /* `#END` */
         }
 
-        while((readData & UART_SERVO_RX_STS_FIFO_NOTEMPTY) != 0u)
+        while((readData & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
         {
 
-            #if (UART_SERVO_RXHW_ADDRESS_ENABLED)
-                if(UART_SERVO_rxAddressMode == (uint8)UART_SERVO__B_UART__AM_SW_DETECT_TO_BUFFER)
+            #if (UART_RXHW_ADDRESS_ENABLED)
+                if(UART_rxAddressMode == (uint8)UART__B_UART__AM_SW_DETECT_TO_BUFFER)
                 {
-                    if((readData & UART_SERVO_RX_STS_MRKSPC) != 0u)
+                    if((readData & UART_RX_STS_MRKSPC) != 0u)
                     {
-                        if ((readData & UART_SERVO_RX_STS_ADDR_MATCH) != 0u)
+                        if ((readData & UART_RX_STS_ADDR_MATCH) != 0u)
                         {
-                            UART_SERVO_rxAddressDetected = 1u;
+                            UART_rxAddressDetected = 1u;
                         }
                         else
                         {
-                            UART_SERVO_rxAddressDetected = 0u;
+                            UART_rxAddressDetected = 0u;
                         }
                     }
 
-                    readData = UART_SERVO_RXDATA_REG;
-                    if(UART_SERVO_rxAddressDetected != 0u)
+                    readData = UART_RXDATA_REG;
+                    if(UART_rxAddressDetected != 0u)
                     {   /* store only addressed data */
-                        UART_SERVO_rxBuffer[UART_SERVO_rxBufferWrite] = readData;
+                        UART_rxBuffer[UART_rxBufferWrite] = readData;
                         increment_pointer = 1u;
                     }
                 }
                 else /* without software addressing */
                 {
-                    UART_SERVO_rxBuffer[UART_SERVO_rxBufferWrite] = UART_SERVO_RXDATA_REG;
+                    UART_rxBuffer[UART_rxBufferWrite] = UART_RXDATA_REG;
                     increment_pointer = 1u;
                 }
             #else  /* without addressing */
-                UART_SERVO_rxBuffer[UART_SERVO_rxBufferWrite] = UART_SERVO_RXDATA_REG;
+                UART_rxBuffer[UART_rxBufferWrite] = UART_RXDATA_REG;
                 increment_pointer = 1u;
             #endif /* End SW_DETECT_TO_BUFFER */
 
             /* do not increment buffer pointer when skip not adderessed data */
             if( increment_pointer != 0u )
             {
-                if(UART_SERVO_rxBufferLoopDetect != 0u)
+                if(UART_rxBufferLoopDetect != 0u)
                 {   /* Set Software Buffer status Overflow */
-                    UART_SERVO_rxBufferOverflow = 1u;
+                    UART_rxBufferOverflow = 1u;
                 }
                 /* Set next pointer. */
-                UART_SERVO_rxBufferWrite++;
+                UART_rxBufferWrite++;
 
                 /* Check pointer for a loop condition */
-                if(UART_SERVO_rxBufferWrite >= UART_SERVO_RXBUFFERSIZE)
+                if(UART_rxBufferWrite >= UART_RXBUFFERSIZE)
                 {
-                    UART_SERVO_rxBufferWrite = 0u;
+                    UART_rxBufferWrite = 0u;
                 }
                 /* Detect pre-overload condition and set flag */
-                if(UART_SERVO_rxBufferWrite == UART_SERVO_rxBufferRead)
+                if(UART_rxBufferWrite == UART_rxBufferRead)
                 {
-                    UART_SERVO_rxBufferLoopDetect = 1u;
+                    UART_rxBufferLoopDetect = 1u;
                     /* When Hardware Flow Control selected */
-                    #if(UART_SERVO_FLOW_CONTROL != 0u)
+                    #if(UART_FLOW_CONTROL != 0u)
                     /* Disable RX interrupt mask, it will be enabled when user read data from the buffer using APIs */
-                        UART_SERVO_RXSTATUS_MASK_REG  &= (uint8)~UART_SERVO_RX_STS_FIFO_NOTEMPTY;
-                        CyIntClearPending(UART_SERVO_RX_VECT_NUM);
+                        UART_RXSTATUS_MASK_REG  &= (uint8)~UART_RX_STS_FIFO_NOTEMPTY;
+                        CyIntClearPending(UART_RX_VECT_NUM);
                         break; /* Break the reading of the FIFO loop, leave the data there for generating RTS signal */
-                    #endif /* End UART_SERVO_FLOW_CONTROL != 0 */
+                    #endif /* End UART_FLOW_CONTROL != 0 */
                 }
             }
 
             /* Check again if there is data. */
-            readData = UART_SERVO_RXSTATUS_REG;
+            readData = UART_RXSTATUS_REG;
         }
 
         /* User code required at end of ISR (Optional) */
-        /* `#START UART_SERVO_RXISR_END` */
+        /* `#START UART_RXISR_END` */
 
         /* `#END` */
 
@@ -171,14 +171,14 @@
 
     }
 
-#endif /* End UART_SERVO_RX_ENABLED && (UART_SERVO_RXBUFFERSIZE > UART_SERVO_FIFO_LENGTH) */
+#endif /* End UART_RX_ENABLED && (UART_RXBUFFERSIZE > UART_FIFO_LENGTH) */
 
 
-#if(UART_SERVO_TX_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH))
+#if(UART_TX_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
 
 
     /*******************************************************************************
-    * Function Name: UART_SERVO_TXISR
+    * Function Name: UART_TXISR
     ********************************************************************************
     *
     * Summary:
@@ -191,14 +191,14 @@
     *  None.
     *
     * Global Variables:
-    *  UART_SERVO_txBuffer - RAM buffer pointer for transmit data from.
-    *  UART_SERVO_txBufferRead - cyclic index for read and transmit data
+    *  UART_txBuffer - RAM buffer pointer for transmit data from.
+    *  UART_txBufferRead - cyclic index for read and transmit data
     *     from txBuffer, increments after each transmited byte.
-    *  UART_SERVO_rxBufferWrite - cyclic index for write to txBuffer,
+    *  UART_rxBufferWrite - cyclic index for write to txBuffer,
     *     checked to detect available for transmission bytes.
     *
     *******************************************************************************/
-    CY_ISR(UART_SERVO_TXISR)
+    CY_ISR(UART_TXISR)
     {
 
         #if(CY_PSOC3)
@@ -206,7 +206,7 @@
         #endif /* CY_PSOC3 */
 
         /* User code required at start of ISR */
-        /* `#START UART_SERVO_TXISR_START` */
+        /* `#START UART_TXISR_START` */
 
         /* `#END` */
 
@@ -215,23 +215,23 @@
             CyGlobalIntEnable;
         #endif /* CY_PSOC3 */
 
-        while((UART_SERVO_txBufferRead != UART_SERVO_txBufferWrite) &&
-             ((UART_SERVO_TXSTATUS_REG & UART_SERVO_TX_STS_FIFO_FULL) == 0u))
+        while((UART_txBufferRead != UART_txBufferWrite) &&
+             ((UART_TXSTATUS_REG & UART_TX_STS_FIFO_FULL) == 0u))
         {
             /* Check pointer. */
-            if(UART_SERVO_txBufferRead >= UART_SERVO_TXBUFFERSIZE)
+            if(UART_txBufferRead >= UART_TXBUFFERSIZE)
             {
-                UART_SERVO_txBufferRead = 0u;
+                UART_txBufferRead = 0u;
             }
 
-            UART_SERVO_TXDATA_REG = UART_SERVO_txBuffer[UART_SERVO_txBufferRead];
+            UART_TXDATA_REG = UART_txBuffer[UART_txBufferRead];
 
             /* Set next pointer. */
-            UART_SERVO_txBufferRead++;
+            UART_txBufferRead++;
         }
 
         /* User code required at end of ISR (Optional) */
-        /* `#START UART_SERVO_TXISR_END` */
+        /* `#START UART_TXISR_END` */
 
         /* `#END` */
 
@@ -241,7 +241,7 @@
 
     }
 
-#endif /* End UART_SERVO_TX_ENABLED && (UART_SERVO_TXBUFFERSIZE > UART_SERVO_FIFO_LENGTH) */
+#endif /* End UART_TX_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH) */
 
 
 /* [] END OF FILE */

@@ -1,0 +1,973 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"bpl.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.bss
+  19              		.align	2
+  20              	ReceiveBuffer:
+  21 0000 00000000 		.space	256
+  21      00000000 
+  21      00000000 
+  21      00000000 
+  21      00000000 
+  22              		.align	2
+  23              	TransmitBuffer:
+  24 0100 00000000 		.space	256
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  24      00000000 
+  25              	ReceiveCount:
+  26 0200 00       		.space	1
+  27              	TransmitCount:
+  28 0201 00       		.space	1
+  29              		.data
+  30              		.align	2
+  31              		.type	RBHead, %object
+  32              		.size	RBHead, 4
+  33              	RBHead:
+  34 0000 00000000 		.word	ReceiveBuffer
+  35              		.align	2
+  36              		.type	RBTail, %object
+  37              		.size	RBTail, 4
+  38              	RBTail:
+  39 0004 00000000 		.word	ReceiveBuffer
+  40              		.align	2
+  41              		.type	TBHead, %object
+  42              		.size	TBHead, 4
+  43              	TBHead:
+  44 0008 00010000 		.word	TransmitBuffer
+  45              		.align	2
+  46              		.type	TBTail, %object
+  47              		.size	TBTail, 4
+  48              	TBTail:
+  49 000c 00010000 		.word	TransmitBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 2
+
+
+  50              		.bss
+  51              	BplStatus:
+  52 0202 00       		.space	1
+  53 0203 00       		.section	.text.BPL_HandleTask,"ax",%progbits
+  54              		.align	2
+  55              		.global	BPL_HandleTask
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	BPL_HandleTask, %function
+  59              	BPL_HandleTask:
+  60              	.LFB56:
+  61              		.file 1 ".\\bpl.c"
+   1:.\bpl.c       **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\bpl.c       ****  * All rights reserved.
+   3:.\bpl.c       ****  *
+   4:.\bpl.c       ****  * This software may be modified and distributed under the terms
+   5:.\bpl.c       ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\bpl.c       ****  */
+   7:.\bpl.c       **** 
+   8:.\bpl.c       **** 
+   9:.\bpl.c       **** #include <project.h>
+  10:.\bpl.c       **** #include "global.h"
+  11:.\bpl.c       **** #include <stdio.h>
+  12:.\bpl.c       **** 
+  13:.\bpl.c       **** #include "hal.h"
+  14:.\bpl.c       **** #include "bpl.h"
+  15:.\bpl.c       **** 
+  16:.\bpl.c       **** /* Ring buffers */
+  17:.\bpl.c       **** static uint8 	ReceiveBuffer[RX_BUFFER_SIZE];	//RB
+  18:.\bpl.c       **** static uint8 	TransmitBuffer[TX_BUFFER_SIZE];	//TB
+  19:.\bpl.c       **** static uint8 	ReceiveCount = 0;
+  20:.\bpl.c       **** static uint8 	TransmitCount = 0;
+  21:.\bpl.c       **** 
+  22:.\bpl.c       **** static uint8* 	RBHead = ReceiveBuffer;
+  23:.\bpl.c       **** static uint8* 	RBTail = ReceiveBuffer;
+  24:.\bpl.c       **** static uint8* 	TBHead = TransmitBuffer;
+  25:.\bpl.c       **** static uint8* 	TBTail = TransmitBuffer;
+  26:.\bpl.c       **** 
+  27:.\bpl.c       **** static STATUS BplStatus = BPL_STATUS_OK;
+  28:.\bpl.c       **** 
+  29:.\bpl.c       **** /*******************************************************/
+  30:.\bpl.c       **** void BPL_HandleTask(void)
+  31:.\bpl.c       **** {
+  62              		.loc 1 31 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 8
+  65              		@ frame_needed = 1, uses_anonymous_args = 0
+  66 0000 90B5     		push	{r4, r7, lr}
+  67              	.LCFI0:
+  68              		.cfi_def_cfa_offset 12
+  69              		.cfi_offset 4, -12
+  70              		.cfi_offset 7, -8
+  71              		.cfi_offset 14, -4
+  72 0002 83B0     		sub	sp, sp, #12
+  73              	.LCFI1:
+  74              		.cfi_def_cfa_offset 24
+  75 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 3
+
+
+  76              	.LCFI2:
+  77              		.cfi_def_cfa_register 7
+  32:.\bpl.c       **** 	uint8 numBytes;
+  33:.\bpl.c       **** 	
+  34:.\bpl.c       **** 	/* Handle received bytes */
+  35:.\bpl.c       **** 	/* --------------------- */
+  36:.\bpl.c       **** 	while ((HAL_GetRxIsrCount() > 0) && (BplStatus == BPL_STATUS_OK))
+  78              		.loc 1 36 0
+  79 0006 52E0     		b	.L2
+  80              	.L6:
+  37:.\bpl.c       **** 	{
+  38:.\bpl.c       **** 		/* check for buffer overflow */
+  39:.\bpl.c       **** 		if (RBHead++ > RBTail)
+  81              		.loc 1 39 0
+  82 0008 40F20003 		movw	r3, #:lower16:RBHead
+  83 000c C0F20003 		movt	r3, #:upper16:RBHead
+  84 0010 1A68     		ldr	r2, [r3, #0]
+  85 0012 40F20003 		movw	r3, #:lower16:RBTail
+  86 0016 C0F20003 		movt	r3, #:upper16:RBTail
+  87 001a 1B68     		ldr	r3, [r3, #0]
+  88 001c 9A42     		cmp	r2, r3
+  89 001e 94BF     		ite	ls
+  90 0020 0023     		movls	r3, #0
+  91 0022 0123     		movhi	r3, #1
+  92 0024 D9B2     		uxtb	r1, r3
+  93 0026 02F10102 		add	r2, r2, #1
+  94 002a 40F20003 		movw	r3, #:lower16:RBHead
+  95 002e C0F20003 		movt	r3, #:upper16:RBHead
+  96 0032 1A60     		str	r2, [r3, #0]
+  97 0034 0029     		cmp	r1, #0
+  98 0036 07D0     		beq	.L3
+  40:.\bpl.c       **** 		{
+  41:.\bpl.c       **** 			BplStatus = BPL_STATUS_RX_BUFFER_FULL;
+  99              		.loc 1 41 0
+ 100 0038 40F20003 		movw	r3, #:lower16:BplStatus
+ 101 003c C0F20003 		movt	r3, #:upper16:BplStatus
+ 102 0040 4FF0FF02 		mov	r2, #255
+ 103 0044 1A70     		strb	r2, [r3, #0]
+  42:.\bpl.c       **** 			break;
+ 104              		.loc 1 42 0
+ 105 0046 3EE0     		b	.L4
+ 106              	.L3:
+  43:.\bpl.c       **** 		}
+  44:.\bpl.c       **** 		/* check if passing end of ring buffer */
+  45:.\bpl.c       **** 		if (++RBHead == &ReceiveBuffer[RX_BUFFER_SIZE])
+ 107              		.loc 1 45 0
+ 108 0048 40F20003 		movw	r3, #:lower16:RBHead
+ 109 004c C0F20003 		movt	r3, #:upper16:RBHead
+ 110 0050 1B68     		ldr	r3, [r3, #0]
+ 111 0052 03F10102 		add	r2, r3, #1
+ 112 0056 40F20003 		movw	r3, #:lower16:RBHead
+ 113 005a C0F20003 		movt	r3, #:upper16:RBHead
+ 114 005e 1A60     		str	r2, [r3, #0]
+ 115 0060 40F20003 		movw	r3, #:lower16:RBHead
+ 116 0064 C0F20003 		movt	r3, #:upper16:RBHead
+ 117 0068 1A68     		ldr	r2, [r3, #0]
+ 118 006a 5D4B     		ldr	r3, .L14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 4
+
+
+ 119 006c 9A42     		cmp	r2, r3
+ 120 006e 08D1     		bne	.L5
+  46:.\bpl.c       **** 		{
+  47:.\bpl.c       **** 			RBHead = &ReceiveBuffer[0];
+ 121              		.loc 1 47 0
+ 122 0070 40F20003 		movw	r3, #:lower16:RBHead
+ 123 0074 C0F20003 		movt	r3, #:upper16:RBHead
+ 124 0078 40F20002 		movw	r2, #:lower16:ReceiveBuffer
+ 125 007c C0F20002 		movt	r2, #:upper16:ReceiveBuffer
+ 126 0080 1A60     		str	r2, [r3, #0]
+ 127              	.L5:
+  48:.\bpl.c       **** 		}
+  49:.\bpl.c       **** 
+  50:.\bpl.c       **** 		/* copy byte from rx buffer to ring buffer */
+  51:.\bpl.c       **** 		*RBHead = HAL_GetByte();
+ 128              		.loc 1 51 0
+ 129 0082 40F20003 		movw	r3, #:lower16:RBHead
+ 130 0086 C0F20003 		movt	r3, #:upper16:RBHead
+ 131 008a 1C68     		ldr	r4, [r3, #0]
+ 132 008c FFF7FEFF 		bl	HAL_GetByte
+ 133 0090 0346     		mov	r3, r0
+ 134 0092 2370     		strb	r3, [r4, #0]
+  52:.\bpl.c       **** 		ReceiveCount++;	
+ 135              		.loc 1 52 0
+ 136 0094 40F20003 		movw	r3, #:lower16:ReceiveCount
+ 137 0098 C0F20003 		movt	r3, #:upper16:ReceiveCount
+ 138 009c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 139 009e 03F10103 		add	r3, r3, #1
+ 140 00a2 DAB2     		uxtb	r2, r3
+ 141 00a4 40F20003 		movw	r3, #:lower16:ReceiveCount
+ 142 00a8 C0F20003 		movt	r3, #:upper16:ReceiveCount
+ 143 00ac 1A70     		strb	r2, [r3, #0]
+ 144              	.L2:
+  36:.\bpl.c       **** 	while ((HAL_GetRxIsrCount() > 0) && (BplStatus == BPL_STATUS_OK))
+ 145              		.loc 1 36 0 discriminator 1
+ 146 00ae FFF7FEFF 		bl	HAL_GetRxIsrCount
+ 147 00b2 0346     		mov	r3, r0
+ 148 00b4 002B     		cmp	r3, #0
+ 149 00b6 06D0     		beq	.L4
+  36:.\bpl.c       **** 	while ((HAL_GetRxIsrCount() > 0) && (BplStatus == BPL_STATUS_OK))
+ 150              		.loc 1 36 0 is_stmt 0 discriminator 2
+ 151 00b8 40F20003 		movw	r3, #:lower16:BplStatus
+ 152 00bc C0F20003 		movt	r3, #:upper16:BplStatus
+ 153 00c0 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 154 00c2 002B     		cmp	r3, #0
+ 155 00c4 A0D0     		beq	.L6
+ 156              	.L4:
+  53:.\bpl.c       **** 	}
+  54:.\bpl.c       **** 
+  55:.\bpl.c       **** 	
+  56:.\bpl.c       **** 	/* Handle transmission of bytes */
+  57:.\bpl.c       **** 	/* ---------------------------- */
+  58:.\bpl.c       **** 	if ((TransmitCount > 0) && (BplStatus == BPL_STATUS_OK))
+ 157              		.loc 1 58 0 is_stmt 1
+ 158 00c6 40F20003 		movw	r3, #:lower16:TransmitCount
+ 159 00ca C0F20003 		movt	r3, #:upper16:TransmitCount
+ 160 00ce 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 5
+
+
+ 161 00d0 002B     		cmp	r3, #0
+ 162 00d2 40D0     		beq	.L7
+ 163              		.loc 1 58 0 is_stmt 0 discriminator 1
+ 164 00d4 40F20003 		movw	r3, #:lower16:BplStatus
+ 165 00d8 C0F20003 		movt	r3, #:upper16:BplStatus
+ 166 00dc 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 167 00de 002B     		cmp	r3, #0
+ 168 00e0 39D1     		bne	.L7
+  59:.\bpl.c       **** 	{
+  60:.\bpl.c       **** 		numBytes = *TBTail; //message length
+ 169              		.loc 1 60 0 is_stmt 1
+ 170 00e2 40F20003 		movw	r3, #:lower16:TBTail
+ 171 00e6 C0F20003 		movt	r3, #:upper16:TBTail
+ 172 00ea 1B68     		ldr	r3, [r3, #0]
+ 173 00ec 1B78     		ldrb	r3, [r3, #0]
+ 174 00ee FB71     		strb	r3, [r7, #7]
+  61:.\bpl.c       **** 		
+  62:.\bpl.c       **** 		/* check for buffer overflow */
+  63:.\bpl.c       **** 		if (TBTail + numBytes > TBHead)
+ 175              		.loc 1 63 0
+ 176 00f0 40F20003 		movw	r3, #:lower16:TBTail
+ 177 00f4 C0F20003 		movt	r3, #:upper16:TBTail
+ 178 00f8 1A68     		ldr	r2, [r3, #0]
+ 179 00fa FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 180 00fc D218     		adds	r2, r2, r3
+ 181 00fe 40F20003 		movw	r3, #:lower16:TBHead
+ 182 0102 C0F20003 		movt	r3, #:upper16:TBHead
+ 183 0106 1B68     		ldr	r3, [r3, #0]
+ 184 0108 9A42     		cmp	r2, r3
+ 185 010a 07D9     		bls	.L8
+  64:.\bpl.c       **** 		{
+  65:.\bpl.c       **** 			BplStatus = BPL_STATUS_TX_DATA_MISMATCH;
+ 186              		.loc 1 65 0
+ 187 010c 40F20003 		movw	r3, #:lower16:BplStatus
+ 188 0110 C0F20003 		movt	r3, #:upper16:BplStatus
+ 189 0114 4FF0FD02 		mov	r2, #253
+ 190 0118 1A70     		strb	r2, [r3, #0]
+ 191 011a 1CE0     		b	.L7
+ 192              	.L8:
+  66:.\bpl.c       **** 		}
+  67:.\bpl.c       **** 		else
+  68:.\bpl.c       **** 		{
+  69:.\bpl.c       **** 			/* transmit byte */
+  70:.\bpl.c       **** 			BplStatus = HAL_TransmitArray(TBTail, numBytes);
+ 193              		.loc 1 70 0
+ 194 011c 40F20003 		movw	r3, #:lower16:TBTail
+ 195 0120 C0F20003 		movt	r3, #:upper16:TBTail
+ 196 0124 1A68     		ldr	r2, [r3, #0]
+ 197 0126 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 198 0128 1046     		mov	r0, r2
+ 199 012a 1946     		mov	r1, r3
+ 200 012c FFF7FEFF 		bl	HAL_TransmitArray
+ 201 0130 0346     		mov	r3, r0
+ 202 0132 1A46     		mov	r2, r3
+ 203 0134 40F20003 		movw	r3, #:lower16:BplStatus
+ 204 0138 C0F20003 		movt	r3, #:upper16:BplStatus
+ 205 013c 1A70     		strb	r2, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 6
+
+
+  71:.\bpl.c       **** 			TBTail += + numBytes;
+ 206              		.loc 1 71 0
+ 207 013e 40F20003 		movw	r3, #:lower16:TBTail
+ 208 0142 C0F20003 		movt	r3, #:upper16:TBTail
+ 209 0146 1A68     		ldr	r2, [r3, #0]
+ 210 0148 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 211 014a D218     		adds	r2, r2, r3
+ 212 014c 40F20003 		movw	r3, #:lower16:TBTail
+ 213 0150 C0F20003 		movt	r3, #:upper16:TBTail
+ 214 0154 1A60     		str	r2, [r3, #0]
+ 215              	.L7:
+  72:.\bpl.c       **** 		}
+  73:.\bpl.c       **** 	}
+  74:.\bpl.c       **** 	
+  75:.\bpl.c       **** 	
+  76:.\bpl.c       **** 	/* Handle errors */
+  77:.\bpl.c       **** 	/* ------------- */
+  78:.\bpl.c       **** 	switch (BplStatus)
+ 216              		.loc 1 78 0
+ 217 0156 40F20003 		movw	r3, #:lower16:BplStatus
+ 218 015a C0F20003 		movt	r3, #:upper16:BplStatus
+ 219 015e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 220 0160 FD2B     		cmp	r3, #253
+ 221 0162 1CD0     		beq	.L10
+ 222 0164 FF2B     		cmp	r3, #255
+ 223 0166 35D1     		bne	.L13
+ 224              	.L11:
+  79:.\bpl.c       **** 	{
+  80:.\bpl.c       **** 		case BPL_STATUS_RX_BUFFER_FULL:		RBHead = RBTail = ReceiveBuffer;
+ 225              		.loc 1 80 0
+ 226 0168 40F20003 		movw	r3, #:lower16:RBTail
+ 227 016c C0F20003 		movt	r3, #:upper16:RBTail
+ 228 0170 40F20002 		movw	r2, #:lower16:ReceiveBuffer
+ 229 0174 C0F20002 		movt	r2, #:upper16:ReceiveBuffer
+ 230 0178 1A60     		str	r2, [r3, #0]
+ 231 017a 40F20003 		movw	r3, #:lower16:RBTail
+ 232 017e C0F20003 		movt	r3, #:upper16:RBTail
+ 233 0182 1A68     		ldr	r2, [r3, #0]
+ 234 0184 40F20003 		movw	r3, #:lower16:RBHead
+ 235 0188 C0F20003 		movt	r3, #:upper16:RBHead
+ 236 018c 1A60     		str	r2, [r3, #0]
+  81:.\bpl.c       **** 											ReceiveCount = 0;
+ 237              		.loc 1 81 0
+ 238 018e 40F20003 		movw	r3, #:lower16:ReceiveCount
+ 239 0192 C0F20003 		movt	r3, #:upper16:ReceiveCount
+ 240 0196 4FF00002 		mov	r2, #0
+ 241 019a 1A70     		strb	r2, [r3, #0]
+  82:.\bpl.c       **** 											break;
+ 242              		.loc 1 82 0
+ 243 019c 1BE0     		b	.L1
+ 244              	.L10:
+  83:.\bpl.c       **** 		case BPL_STATUS_TX_DATA_MISMATCH:	TBHead = TBTail = TransmitBuffer;
+ 245              		.loc 1 83 0
+ 246 019e 40F20003 		movw	r3, #:lower16:TBTail
+ 247 01a2 C0F20003 		movt	r3, #:upper16:TBTail
+ 248 01a6 40F20002 		movw	r2, #:lower16:TransmitBuffer
+ 249 01aa C0F20002 		movt	r2, #:upper16:TransmitBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 7
+
+
+ 250 01ae 1A60     		str	r2, [r3, #0]
+ 251 01b0 40F20003 		movw	r3, #:lower16:TBTail
+ 252 01b4 C0F20003 		movt	r3, #:upper16:TBTail
+ 253 01b8 1A68     		ldr	r2, [r3, #0]
+ 254 01ba 40F20003 		movw	r3, #:lower16:TBHead
+ 255 01be C0F20003 		movt	r3, #:upper16:TBHead
+ 256 01c2 1A60     		str	r2, [r3, #0]
+  84:.\bpl.c       **** 											TransmitCount = 0;
+ 257              		.loc 1 84 0
+ 258 01c4 40F20003 		movw	r3, #:lower16:TransmitCount
+ 259 01c8 C0F20003 		movt	r3, #:upper16:TransmitCount
+ 260 01cc 4FF00002 		mov	r2, #0
+ 261 01d0 1A70     		strb	r2, [r3, #0]
+  85:.\bpl.c       **** 											break;
+ 262              		.loc 1 85 0
+ 263 01d2 00E0     		b	.L1
+ 264              	.L13:
+  86:.\bpl.c       **** 		default:							break;
+ 265              		.loc 1 86 0
+ 266 01d4 00BF     		nop
+ 267              	.L1:
+  87:.\bpl.c       **** 	}
+  88:.\bpl.c       **** }
+ 268              		.loc 1 88 0
+ 269 01d6 07F10C07 		add	r7, r7, #12
+ 270 01da BD46     		mov	sp, r7
+ 271 01dc 90BD     		pop	{r4, r7, pc}
+ 272              	.L15:
+ 273 01de 00BF     		.align	2
+ 274              	.L14:
+ 275 01e0 00010000 		.word	ReceiveBuffer+256
+ 276              		.cfi_endproc
+ 277              	.LFE56:
+ 278              		.size	BPL_HandleTask, .-BPL_HandleTask
+ 279              		.text
+ 280              	.Letext0:
+ 281              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\3.0\\psoc creator\\import\\gnu_cs\\arm\\4
+ 282              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 283              		.file 4 ".\\types.h"
+ 284              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 285              		.section	.debug_info,"",%progbits
+ 286              	.Ldebug_info0:
+ 287 0000 94010000 		.4byte	0x194
+ 288 0004 0200     		.2byte	0x2
+ 289 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 290 000a 04       		.byte	0x4
+ 291 000b 01       		.uleb128 0x1
+ 292 000c 7A010000 		.4byte	.LASF26
+ 293 0010 01       		.byte	0x1
+ 294 0011 8D000000 		.4byte	.LASF27
+ 295 0015 FF000000 		.4byte	.LASF28
+ 296 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 297 001d 00000000 		.4byte	0
+ 298 0021 00000000 		.4byte	0
+ 299 0025 00000000 		.4byte	.Ldebug_line0
+ 300 0029 02       		.uleb128 0x2
+ 301 002a 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 8
+
+
+ 302 002b 06       		.byte	0x6
+ 303 002c 6E010000 		.4byte	.LASF0
+ 304 0030 02       		.uleb128 0x2
+ 305 0031 01       		.byte	0x1
+ 306 0032 08       		.byte	0x8
+ 307 0033 38000000 		.4byte	.LASF1
+ 308 0037 02       		.uleb128 0x2
+ 309 0038 02       		.byte	0x2
+ 310 0039 05       		.byte	0x5
+ 311 003a 3F010000 		.4byte	.LASF2
+ 312 003e 02       		.uleb128 0x2
+ 313 003f 02       		.byte	0x2
+ 314 0040 07       		.byte	0x7
+ 315 0041 58000000 		.4byte	.LASF3
+ 316 0045 03       		.uleb128 0x3
+ 317 0046 15000000 		.4byte	.LASF9
+ 318 004a 02       		.byte	0x2
+ 319 004b 4F       		.byte	0x4f
+ 320 004c 50000000 		.4byte	0x50
+ 321 0050 02       		.uleb128 0x2
+ 322 0051 04       		.byte	0x4
+ 323 0052 05       		.byte	0x5
+ 324 0053 65010000 		.4byte	.LASF4
+ 325 0057 02       		.uleb128 0x2
+ 326 0058 04       		.byte	0x4
+ 327 0059 07       		.byte	0x7
+ 328 005a 46000000 		.4byte	.LASF5
+ 329 005e 02       		.uleb128 0x2
+ 330 005f 08       		.byte	0x8
+ 331 0060 05       		.byte	0x5
+ 332 0061 F1000000 		.4byte	.LASF6
+ 333 0065 02       		.uleb128 0x2
+ 334 0066 08       		.byte	0x8
+ 335 0067 07       		.byte	0x7
+ 336 0068 A2000000 		.4byte	.LASF7
+ 337 006c 04       		.uleb128 0x4
+ 338 006d 04       		.byte	0x4
+ 339 006e 05       		.byte	0x5
+ 340 006f 696E7400 		.ascii	"int\000"
+ 341 0073 02       		.uleb128 0x2
+ 342 0074 04       		.byte	0x4
+ 343 0075 07       		.byte	0x7
+ 344 0076 95000000 		.4byte	.LASF8
+ 345 007a 03       		.uleb128 0x3
+ 346 007b 58010000 		.4byte	.LASF10
+ 347 007f 03       		.byte	0x3
+ 348 0080 5B       		.byte	0x5b
+ 349 0081 30000000 		.4byte	0x30
+ 350 0085 02       		.uleb128 0x2
+ 351 0086 04       		.byte	0x4
+ 352 0087 04       		.byte	0x4
+ 353 0088 2B000000 		.4byte	.LASF11
+ 354 008c 02       		.uleb128 0x2
+ 355 008d 08       		.byte	0x8
+ 356 008e 04       		.byte	0x4
+ 357 008f 7F000000 		.4byte	.LASF12
+ 358 0093 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 9
+
+
+ 359 0094 01       		.byte	0x1
+ 360 0095 08       		.byte	0x8
+ 361 0096 3A010000 		.4byte	.LASF13
+ 362 009a 02       		.uleb128 0x2
+ 363 009b 04       		.byte	0x4
+ 364 009c 07       		.byte	0x7
+ 365 009d E8000000 		.4byte	.LASF14
+ 366 00a1 03       		.uleb128 0x3
+ 367 00a2 31000000 		.4byte	.LASF15
+ 368 00a6 04       		.byte	0x4
+ 369 00a7 0B       		.byte	0xb
+ 370 00a8 7A000000 		.4byte	0x7a
+ 371 00ac 05       		.uleb128 0x5
+ 372 00ad 01       		.byte	0x1
+ 373 00ae D9000000 		.4byte	.LASF29
+ 374 00b2 01       		.byte	0x1
+ 375 00b3 1E       		.byte	0x1e
+ 376 00b4 01       		.byte	0x1
+ 377 00b5 00000000 		.4byte	.LFB56
+ 378 00b9 E4010000 		.4byte	.LFE56
+ 379 00bd 00000000 		.4byte	.LLST0
+ 380 00c1 01       		.byte	0x1
+ 381 00c2 D5000000 		.4byte	0xd5
+ 382 00c6 06       		.uleb128 0x6
+ 383 00c7 D0000000 		.4byte	.LASF16
+ 384 00cb 01       		.byte	0x1
+ 385 00cc 20       		.byte	0x20
+ 386 00cd 7A000000 		.4byte	0x7a
+ 387 00d1 02       		.byte	0x2
+ 388 00d2 91       		.byte	0x91
+ 389 00d3 6F       		.sleb128 -17
+ 390 00d4 00       		.byte	0
+ 391 00d5 07       		.uleb128 0x7
+ 392 00d6 7A000000 		.4byte	0x7a
+ 393 00da E5000000 		.4byte	0xe5
+ 394 00de 08       		.uleb128 0x8
+ 395 00df 9A000000 		.4byte	0x9a
+ 396 00e3 FF       		.byte	0xff
+ 397 00e4 00       		.byte	0
+ 398 00e5 06       		.uleb128 0x6
+ 399 00e6 1D000000 		.4byte	.LASF17
+ 400 00ea 01       		.byte	0x1
+ 401 00eb 11       		.byte	0x11
+ 402 00ec D5000000 		.4byte	0xd5
+ 403 00f0 05       		.byte	0x5
+ 404 00f1 03       		.byte	0x3
+ 405 00f2 00000000 		.4byte	ReceiveBuffer
+ 406 00f6 06       		.uleb128 0x6
+ 407 00f7 49010000 		.4byte	.LASF18
+ 408 00fb 01       		.byte	0x1
+ 409 00fc 12       		.byte	0x12
+ 410 00fd D5000000 		.4byte	0xd5
+ 411 0101 05       		.byte	0x5
+ 412 0102 03       		.byte	0x3
+ 413 0103 00010000 		.4byte	TransmitBuffer
+ 414 0107 06       		.uleb128 0x6
+ 415 0108 B9000000 		.4byte	.LASF19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 10
+
+
+ 416 010c 01       		.byte	0x1
+ 417 010d 13       		.byte	0x13
+ 418 010e 7A000000 		.4byte	0x7a
+ 419 0112 05       		.byte	0x5
+ 420 0113 03       		.byte	0x3
+ 421 0114 00020000 		.4byte	ReceiveCount
+ 422 0118 06       		.uleb128 0x6
+ 423 0119 07000000 		.4byte	.LASF20
+ 424 011d 01       		.byte	0x1
+ 425 011e 14       		.byte	0x14
+ 426 011f 7A000000 		.4byte	0x7a
+ 427 0123 05       		.byte	0x5
+ 428 0124 03       		.byte	0x3
+ 429 0125 01020000 		.4byte	TransmitCount
+ 430 0129 06       		.uleb128 0x6
+ 431 012a 6B000000 		.4byte	.LASF21
+ 432 012e 01       		.byte	0x1
+ 433 012f 16       		.byte	0x16
+ 434 0130 3A010000 		.4byte	0x13a
+ 435 0134 05       		.byte	0x5
+ 436 0135 03       		.byte	0x3
+ 437 0136 00000000 		.4byte	RBHead
+ 438 013a 09       		.uleb128 0x9
+ 439 013b 04       		.byte	0x4
+ 440 013c 7A000000 		.4byte	0x7a
+ 441 0140 06       		.uleb128 0x6
+ 442 0141 5E010000 		.4byte	.LASF22
+ 443 0145 01       		.byte	0x1
+ 444 0146 17       		.byte	0x17
+ 445 0147 3A010000 		.4byte	0x13a
+ 446 014b 05       		.byte	0x5
+ 447 014c 03       		.byte	0x3
+ 448 014d 04000000 		.4byte	RBTail
+ 449 0151 06       		.uleb128 0x6
+ 450 0152 00000000 		.4byte	.LASF23
+ 451 0156 01       		.byte	0x1
+ 452 0157 18       		.byte	0x18
+ 453 0158 3A010000 		.4byte	0x13a
+ 454 015c 05       		.byte	0x5
+ 455 015d 03       		.byte	0x3
+ 456 015e 08000000 		.4byte	TBHead
+ 457 0162 06       		.uleb128 0x6
+ 458 0163 86000000 		.4byte	.LASF24
+ 459 0167 01       		.byte	0x1
+ 460 0168 19       		.byte	0x19
+ 461 0169 3A010000 		.4byte	0x13a
+ 462 016d 05       		.byte	0x5
+ 463 016e 03       		.byte	0x3
+ 464 016f 0C000000 		.4byte	TBTail
+ 465 0173 06       		.uleb128 0x6
+ 466 0174 C6000000 		.4byte	.LASF25
+ 467 0178 01       		.byte	0x1
+ 468 0179 1B       		.byte	0x1b
+ 469 017a A1000000 		.4byte	0xa1
+ 470 017e 05       		.byte	0x5
+ 471 017f 03       		.byte	0x3
+ 472 0180 02020000 		.4byte	BplStatus
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 11
+
+
+ 473 0184 0A       		.uleb128 0xa
+ 474 0185 72000000 		.4byte	.LASF30
+ 475 0189 05       		.byte	0x5
+ 476 018a 1606     		.2byte	0x616
+ 477 018c 92010000 		.4byte	0x192
+ 478 0190 01       		.byte	0x1
+ 479 0191 01       		.byte	0x1
+ 480 0192 0B       		.uleb128 0xb
+ 481 0193 45000000 		.4byte	0x45
+ 482 0197 00       		.byte	0
+ 483              		.section	.debug_abbrev,"",%progbits
+ 484              	.Ldebug_abbrev0:
+ 485 0000 01       		.uleb128 0x1
+ 486 0001 11       		.uleb128 0x11
+ 487 0002 01       		.byte	0x1
+ 488 0003 25       		.uleb128 0x25
+ 489 0004 0E       		.uleb128 0xe
+ 490 0005 13       		.uleb128 0x13
+ 491 0006 0B       		.uleb128 0xb
+ 492 0007 03       		.uleb128 0x3
+ 493 0008 0E       		.uleb128 0xe
+ 494 0009 1B       		.uleb128 0x1b
+ 495 000a 0E       		.uleb128 0xe
+ 496 000b 55       		.uleb128 0x55
+ 497 000c 06       		.uleb128 0x6
+ 498 000d 11       		.uleb128 0x11
+ 499 000e 01       		.uleb128 0x1
+ 500 000f 52       		.uleb128 0x52
+ 501 0010 01       		.uleb128 0x1
+ 502 0011 10       		.uleb128 0x10
+ 503 0012 06       		.uleb128 0x6
+ 504 0013 00       		.byte	0
+ 505 0014 00       		.byte	0
+ 506 0015 02       		.uleb128 0x2
+ 507 0016 24       		.uleb128 0x24
+ 508 0017 00       		.byte	0
+ 509 0018 0B       		.uleb128 0xb
+ 510 0019 0B       		.uleb128 0xb
+ 511 001a 3E       		.uleb128 0x3e
+ 512 001b 0B       		.uleb128 0xb
+ 513 001c 03       		.uleb128 0x3
+ 514 001d 0E       		.uleb128 0xe
+ 515 001e 00       		.byte	0
+ 516 001f 00       		.byte	0
+ 517 0020 03       		.uleb128 0x3
+ 518 0021 16       		.uleb128 0x16
+ 519 0022 00       		.byte	0
+ 520 0023 03       		.uleb128 0x3
+ 521 0024 0E       		.uleb128 0xe
+ 522 0025 3A       		.uleb128 0x3a
+ 523 0026 0B       		.uleb128 0xb
+ 524 0027 3B       		.uleb128 0x3b
+ 525 0028 0B       		.uleb128 0xb
+ 526 0029 49       		.uleb128 0x49
+ 527 002a 13       		.uleb128 0x13
+ 528 002b 00       		.byte	0
+ 529 002c 00       		.byte	0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 12
+
+
+ 530 002d 04       		.uleb128 0x4
+ 531 002e 24       		.uleb128 0x24
+ 532 002f 00       		.byte	0
+ 533 0030 0B       		.uleb128 0xb
+ 534 0031 0B       		.uleb128 0xb
+ 535 0032 3E       		.uleb128 0x3e
+ 536 0033 0B       		.uleb128 0xb
+ 537 0034 03       		.uleb128 0x3
+ 538 0035 08       		.uleb128 0x8
+ 539 0036 00       		.byte	0
+ 540 0037 00       		.byte	0
+ 541 0038 05       		.uleb128 0x5
+ 542 0039 2E       		.uleb128 0x2e
+ 543 003a 01       		.byte	0x1
+ 544 003b 3F       		.uleb128 0x3f
+ 545 003c 0C       		.uleb128 0xc
+ 546 003d 03       		.uleb128 0x3
+ 547 003e 0E       		.uleb128 0xe
+ 548 003f 3A       		.uleb128 0x3a
+ 549 0040 0B       		.uleb128 0xb
+ 550 0041 3B       		.uleb128 0x3b
+ 551 0042 0B       		.uleb128 0xb
+ 552 0043 27       		.uleb128 0x27
+ 553 0044 0C       		.uleb128 0xc
+ 554 0045 11       		.uleb128 0x11
+ 555 0046 01       		.uleb128 0x1
+ 556 0047 12       		.uleb128 0x12
+ 557 0048 01       		.uleb128 0x1
+ 558 0049 40       		.uleb128 0x40
+ 559 004a 06       		.uleb128 0x6
+ 560 004b 9642     		.uleb128 0x2116
+ 561 004d 0C       		.uleb128 0xc
+ 562 004e 01       		.uleb128 0x1
+ 563 004f 13       		.uleb128 0x13
+ 564 0050 00       		.byte	0
+ 565 0051 00       		.byte	0
+ 566 0052 06       		.uleb128 0x6
+ 567 0053 34       		.uleb128 0x34
+ 568 0054 00       		.byte	0
+ 569 0055 03       		.uleb128 0x3
+ 570 0056 0E       		.uleb128 0xe
+ 571 0057 3A       		.uleb128 0x3a
+ 572 0058 0B       		.uleb128 0xb
+ 573 0059 3B       		.uleb128 0x3b
+ 574 005a 0B       		.uleb128 0xb
+ 575 005b 49       		.uleb128 0x49
+ 576 005c 13       		.uleb128 0x13
+ 577 005d 02       		.uleb128 0x2
+ 578 005e 0A       		.uleb128 0xa
+ 579 005f 00       		.byte	0
+ 580 0060 00       		.byte	0
+ 581 0061 07       		.uleb128 0x7
+ 582 0062 01       		.uleb128 0x1
+ 583 0063 01       		.byte	0x1
+ 584 0064 49       		.uleb128 0x49
+ 585 0065 13       		.uleb128 0x13
+ 586 0066 01       		.uleb128 0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 13
+
+
+ 587 0067 13       		.uleb128 0x13
+ 588 0068 00       		.byte	0
+ 589 0069 00       		.byte	0
+ 590 006a 08       		.uleb128 0x8
+ 591 006b 21       		.uleb128 0x21
+ 592 006c 00       		.byte	0
+ 593 006d 49       		.uleb128 0x49
+ 594 006e 13       		.uleb128 0x13
+ 595 006f 2F       		.uleb128 0x2f
+ 596 0070 0B       		.uleb128 0xb
+ 597 0071 00       		.byte	0
+ 598 0072 00       		.byte	0
+ 599 0073 09       		.uleb128 0x9
+ 600 0074 0F       		.uleb128 0xf
+ 601 0075 00       		.byte	0
+ 602 0076 0B       		.uleb128 0xb
+ 603 0077 0B       		.uleb128 0xb
+ 604 0078 49       		.uleb128 0x49
+ 605 0079 13       		.uleb128 0x13
+ 606 007a 00       		.byte	0
+ 607 007b 00       		.byte	0
+ 608 007c 0A       		.uleb128 0xa
+ 609 007d 34       		.uleb128 0x34
+ 610 007e 00       		.byte	0
+ 611 007f 03       		.uleb128 0x3
+ 612 0080 0E       		.uleb128 0xe
+ 613 0081 3A       		.uleb128 0x3a
+ 614 0082 0B       		.uleb128 0xb
+ 615 0083 3B       		.uleb128 0x3b
+ 616 0084 05       		.uleb128 0x5
+ 617 0085 49       		.uleb128 0x49
+ 618 0086 13       		.uleb128 0x13
+ 619 0087 3F       		.uleb128 0x3f
+ 620 0088 0C       		.uleb128 0xc
+ 621 0089 3C       		.uleb128 0x3c
+ 622 008a 0C       		.uleb128 0xc
+ 623 008b 00       		.byte	0
+ 624 008c 00       		.byte	0
+ 625 008d 0B       		.uleb128 0xb
+ 626 008e 35       		.uleb128 0x35
+ 627 008f 00       		.byte	0
+ 628 0090 49       		.uleb128 0x49
+ 629 0091 13       		.uleb128 0x13
+ 630 0092 00       		.byte	0
+ 631 0093 00       		.byte	0
+ 632 0094 00       		.byte	0
+ 633              		.section	.debug_loc,"",%progbits
+ 634              	.Ldebug_loc0:
+ 635              	.LLST0:
+ 636 0000 00000000 		.4byte	.LFB56
+ 637 0004 02000000 		.4byte	.LCFI0
+ 638 0008 0200     		.2byte	0x2
+ 639 000a 7D       		.byte	0x7d
+ 640 000b 00       		.sleb128 0
+ 641 000c 02000000 		.4byte	.LCFI0
+ 642 0010 04000000 		.4byte	.LCFI1
+ 643 0014 0200     		.2byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 14
+
+
+ 644 0016 7D       		.byte	0x7d
+ 645 0017 0C       		.sleb128 12
+ 646 0018 04000000 		.4byte	.LCFI1
+ 647 001c 06000000 		.4byte	.LCFI2
+ 648 0020 0200     		.2byte	0x2
+ 649 0022 7D       		.byte	0x7d
+ 650 0023 18       		.sleb128 24
+ 651 0024 06000000 		.4byte	.LCFI2
+ 652 0028 E4010000 		.4byte	.LFE56
+ 653 002c 0200     		.2byte	0x2
+ 654 002e 77       		.byte	0x77
+ 655 002f 18       		.sleb128 24
+ 656 0030 00000000 		.4byte	0
+ 657 0034 00000000 		.4byte	0
+ 658              		.section	.debug_aranges,"",%progbits
+ 659 0000 1C000000 		.4byte	0x1c
+ 660 0004 0200     		.2byte	0x2
+ 661 0006 00000000 		.4byte	.Ldebug_info0
+ 662 000a 04       		.byte	0x4
+ 663 000b 00       		.byte	0
+ 664 000c 0000     		.2byte	0
+ 665 000e 0000     		.2byte	0
+ 666 0010 00000000 		.4byte	.LFB56
+ 667 0014 E4010000 		.4byte	.LFE56-.LFB56
+ 668 0018 00000000 		.4byte	0
+ 669 001c 00000000 		.4byte	0
+ 670              		.section	.debug_ranges,"",%progbits
+ 671              	.Ldebug_ranges0:
+ 672 0000 00000000 		.4byte	.LFB56
+ 673 0004 E4010000 		.4byte	.LFE56
+ 674 0008 00000000 		.4byte	0
+ 675 000c 00000000 		.4byte	0
+ 676              		.section	.debug_line,"",%progbits
+ 677              	.Ldebug_line0:
+ 678 0000 4D010000 		.section	.debug_str,"MS",%progbits,1
+ 678      02000501 
+ 678      00000201 
+ 678      FB0E0D00 
+ 678      01010101 
+ 679              	.LASF23:
+ 680 0000 54424865 		.ascii	"TBHead\000"
+ 680      616400
+ 681              	.LASF20:
+ 682 0007 5472616E 		.ascii	"TransmitCount\000"
+ 682      736D6974 
+ 682      436F756E 
+ 682      7400
+ 683              	.LASF9:
+ 684 0015 696E7433 		.ascii	"int32_t\000"
+ 684      325F7400 
+ 685              	.LASF17:
+ 686 001d 52656365 		.ascii	"ReceiveBuffer\000"
+ 686      69766542 
+ 686      75666665 
+ 686      7200
+ 687              	.LASF11:
+ 688 002b 666C6F61 		.ascii	"float\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 15
+
+
+ 688      7400
+ 689              	.LASF15:
+ 690 0031 53544154 		.ascii	"STATUS\000"
+ 690      555300
+ 691              	.LASF1:
+ 692 0038 756E7369 		.ascii	"unsigned char\000"
+ 692      676E6564 
+ 692      20636861 
+ 692      7200
+ 693              	.LASF5:
+ 694 0046 6C6F6E67 		.ascii	"long unsigned int\000"
+ 694      20756E73 
+ 694      69676E65 
+ 694      6420696E 
+ 694      7400
+ 695              	.LASF3:
+ 696 0058 73686F72 		.ascii	"short unsigned int\000"
+ 696      7420756E 
+ 696      7369676E 
+ 696      65642069 
+ 696      6E7400
+ 697              	.LASF21:
+ 698 006b 52424865 		.ascii	"RBHead\000"
+ 698      616400
+ 699              	.LASF30:
+ 700 0072 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 700      52784275 
+ 700      66666572 
+ 700      00
+ 701              	.LASF12:
+ 702 007f 646F7562 		.ascii	"double\000"
+ 702      6C6500
+ 703              	.LASF24:
+ 704 0086 54425461 		.ascii	"TBTail\000"
+ 704      696C00
+ 705              	.LASF27:
+ 706 008d 2E5C6270 		.ascii	".\\bpl.c\000"
+ 706      6C2E6300 
+ 707              	.LASF8:
+ 708 0095 756E7369 		.ascii	"unsigned int\000"
+ 708      676E6564 
+ 708      20696E74 
+ 708      00
+ 709              	.LASF7:
+ 710 00a2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 710      206C6F6E 
+ 710      6720756E 
+ 710      7369676E 
+ 710      65642069 
+ 711              	.LASF19:
+ 712 00b9 52656365 		.ascii	"ReceiveCount\000"
+ 712      69766543 
+ 712      6F756E74 
+ 712      00
+ 713              	.LASF25:
+ 714 00c6 42706C53 		.ascii	"BplStatus\000"
+ 714      74617475 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 16
+
+
+ 714      7300
+ 715              	.LASF16:
+ 716 00d0 6E756D42 		.ascii	"numBytes\000"
+ 716      79746573 
+ 716      00
+ 717              	.LASF29:
+ 718 00d9 42504C5F 		.ascii	"BPL_HandleTask\000"
+ 718      48616E64 
+ 718      6C655461 
+ 718      736B00
+ 719              	.LASF14:
+ 720 00e8 73697A65 		.ascii	"sizetype\000"
+ 720      74797065 
+ 720      00
+ 721              	.LASF6:
+ 722 00f1 6C6F6E67 		.ascii	"long long int\000"
+ 722      206C6F6E 
+ 722      6720696E 
+ 722      7400
+ 723              	.LASF28:
+ 724 00ff 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\Servo\\SW\\ServoMotor\\Ser"
+ 724      6F626F74 
+ 724      69637363 
+ 724      6F64655C 
+ 724      7472756E 
+ 725 012c 766F4D6F 		.ascii	"voMotor.cydsn\000"
+ 725      746F722E 
+ 725      63796473 
+ 725      6E00
+ 726              	.LASF13:
+ 727 013a 63686172 		.ascii	"char\000"
+ 727      00
+ 728              	.LASF2:
+ 729 013f 73686F72 		.ascii	"short int\000"
+ 729      7420696E 
+ 729      7400
+ 730              	.LASF18:
+ 731 0149 5472616E 		.ascii	"TransmitBuffer\000"
+ 731      736D6974 
+ 731      42756666 
+ 731      657200
+ 732              	.LASF10:
+ 733 0158 75696E74 		.ascii	"uint8\000"
+ 733      3800
+ 734              	.LASF22:
+ 735 015e 52425461 		.ascii	"RBTail\000"
+ 735      696C00
+ 736              	.LASF4:
+ 737 0165 6C6F6E67 		.ascii	"long int\000"
+ 737      20696E74 
+ 737      00
+ 738              	.LASF0:
+ 739 016e 7369676E 		.ascii	"signed char\000"
+ 739      65642063 
+ 739      68617200 
+ 740              	.LASF26:
+ 741 017a 474E5520 		.ascii	"GNU C 4.7.3 20130312 (release) [ARM/embedded-4_7-br"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccMuiqn5.s 			page 17
+
+
+ 741      4320342E 
+ 741      372E3320 
+ 741      32303133 
+ 741      30333132 
+ 742 01ad 616E6368 		.ascii	"anch revision 196615]\000"
+ 742      20726576 
+ 742      6973696F 
+ 742      6E203139 
+ 742      36363135 
+ 743              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.7.3 20130312 (release) [ARM/embedded-4_7-br

@@ -5,10 +5,29 @@
  * of the BSD license.  See the LICENSE file for details.
  */
 
+/* BUS STRUCTUR
+
+-------------------------------------------------------------
+APPLICATION LAYER			(APPL)
+- Message Routines
+-------------------------------------------------------------
+BUS ABSTRACTION LAYER		(BAL)
+- Message Handler
+-------------------------------------------------------------
+BUS PRESENTATION LAYER		(BPL)
+- Ring Buffer
+-------------------------------------------------------------
+HARDWARE ABSTRACTION LAYER	(HAL)
+- UART
+-------------------------------------------------------------
+
+*/
+
 #include <project.h>
 #include "global.h"
+#include "types.h"
 
-
+/*
 #define BUS_MSG_BUFFER_SIZE	16
 #define BUS_LENGTH_ERROR	-1
 
@@ -40,5 +59,7 @@ extern BUS_OBJ Bus;
 
 STATUS BUS_Init(void);
 STATUS BUS_Handler(void);
+
+*/
 
 /* [] END OF FILE */

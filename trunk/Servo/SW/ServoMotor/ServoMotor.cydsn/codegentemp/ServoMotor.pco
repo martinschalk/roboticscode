@@ -1,5 +1,5 @@
 # ServoMotor
-# 2014-07-27 18:52:19Z
+# 2014-08-14 20:39:58Z
 
 # IO_0@[IOP=(1)][IoId=(0)] is reserved: SWDDebugEnabled
 dont_use_io iocell 1 0
@@ -8,39 +8,61 @@ dont_use_io iocell 1 1
 # IO_3@[IOP=(1)][IoId=(3)] is reserved: SWDDebugEnabled
 dont_use_io iocell 1 3
 set_location "ClockBlock" clockblockcell -1 -1 0
-set_location "Net_2" 3 5 0 1
+set_location "Isr_rx" interrupt -1 -1 0
+set_location "Isr_timer" interrupt -1 -1 1
+set_location "Isr_tx" interrupt -1 -1 2
+set_location "MODIN1_0" 3 3 1 2
+set_location "MODIN1_1" 3 3 1 1
+set_location "Net_2" 2 1 0 2
 set_io "Rx_1(0)" iocell 4 0
 set_io "Tx_1(0)" iocell 4 1
-set_location "\UART_SERVO:BUART:counter_load_not\" 3 5 1 3
-set_location "\UART_SERVO:BUART:pollcount_0\" 3 5 0 3
-set_location "\UART_SERVO:BUART:pollcount_1\" 3 3 1 1
-set_location "\UART_SERVO:BUART:rx_address_detected\" 3 4 0 3
-set_location "\UART_SERVO:BUART:rx_bitclk_enable\" 3 3 0 2
-set_location "\UART_SERVO:BUART:rx_counter_load\" 3 3 1 0
-set_location "\UART_SERVO:BUART:rx_last\" 3 5 1 0
-set_location "\UART_SERVO:BUART:rx_load_fifo\" 3 3 0 0
-set_location "\UART_SERVO:BUART:rx_postpoll\" 3 4 1 1
-set_location "\UART_SERVO:BUART:rx_state_0\" 3 4 1 0
-set_location "\UART_SERVO:BUART:rx_state_2\" 3 4 0 0
-set_location "\UART_SERVO:BUART:rx_state_3\" 3 4 1 2
-set_location "\UART_SERVO:BUART:rx_state_stop1_reg\" 3 3 0 1
-set_location "\UART_SERVO:BUART:rx_status_3\" 3 3 1 2
-set_location "\UART_SERVO:BUART:rx_status_4\" 3 4 0 2
-set_location "\UART_SERVO:BUART:rx_status_5\" 3 3 1 3
-set_location "\UART_SERVO:BUART:sRX:RxBitCounter\" 3 3 7
-set_location "\UART_SERVO:BUART:sRX:RxShifter:u0\" 3 4 2
-set_location "\UART_SERVO:BUART:sRX:RxSts\" 3 4 4
-set_location "\UART_SERVO:BUART:sTX:TxShifter:u0\" 2 5 2
-set_location "\UART_SERVO:BUART:sTX:TxSts\" 2 5 4
-set_location "\UART_SERVO:BUART:sTX:sCLOCK:TxBitClkGen\" 3 5 2
-set_location "\UART_SERVO:BUART:tx_bitclk\" 2 5 1 1
-set_location "\UART_SERVO:BUART:tx_bitclk_enable_pre\" 2 5 0 3
-set_location "\UART_SERVO:BUART:tx_state_0\" 2 4 1 3
-set_location "\UART_SERVO:BUART:tx_state_1\" 2 3 0 3
-set_location "\UART_SERVO:BUART:tx_state_2\" 2 3 1 3
-set_location "\UART_SERVO:BUART:tx_status_0\" 2 5 0 0
-set_location "\UART_SERVO:BUART:tx_status_2\" 2 5 0 2
-set_location "\UART_SERVO:BUART:txn\" 2 5 1 2
-set_location "\UART_SERVO:RXInternalInterrupt\" interrupt -1 -1 0
-set_location "\UART_SERVO:TXInternalInterrupt\" interrupt -1 -1 1
-set_location "isr_pick_up_servo_msg" interrupt -1 -1 2
+set_location "\TIMER:TimerUDB:rstSts:stsreg\" 2 1 4
+set_location "\TIMER:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\" 2 0 6
+set_location "\TIMER:TimerUDB:sT32:timerdp:u0\" 2 0 2
+set_location "\TIMER:TimerUDB:sT32:timerdp:u1\" 3 0 2
+set_location "\TIMER:TimerUDB:sT32:timerdp:u2\" 3 1 2
+set_location "\TIMER:TimerUDB:sT32:timerdp:u3\" 2 1 2
+set_location "\TIMER:TimerUDB:status_tc\" 2 1 1 0
+set_location "\UART:BUART:counter_load_not\" 3 4 0 2
+set_location "\UART:BUART:rx_address_detected\" 2 0 1 0
+set_location "\UART:BUART:rx_bitclk_enable\" 3 2 0 0
+set_location "\UART:BUART:rx_counter_load\" 2 0 1 2
+set_location "\UART:BUART:rx_last\" 3 1 0 2
+set_location "\UART:BUART:rx_load_fifo\" 3 0 0 0
+set_location "\UART:BUART:rx_postpoll\" 3 2 1 1
+set_location "\UART:BUART:rx_state_0\" 3 1 0 0
+set_location "\UART:BUART:rx_state_2\" 3 0 1 3
+set_location "\UART:BUART:rx_state_3\" 3 2 0 2
+set_location "\UART:BUART:rx_state_stop1_reg\" 2 0 0 0
+set_location "\UART:BUART:rx_status_3\" 3 3 1 0
+set_location "\UART:BUART:rx_status_4\" 3 1 1 2
+set_location "\UART:BUART:rx_status_5\" 3 0 1 0
+set_location "\UART:BUART:sRX:RxBitCounter\" 3 2 7
+set_location "\UART:BUART:sRX:RxShifter:u0\" 3 2 2
+set_location "\UART:BUART:sRX:RxSts\" 3 3 4
+set_location "\UART:BUART:sTX:TxShifter:u0\" 3 4 2
+set_location "\UART:BUART:sTX:TxSts\" 3 0 4
+set_location "\UART:BUART:sTX:sCLOCK:TxBitClkGen\" 2 4 2
+set_location "\UART:BUART:tx_bitclk\" 2 4 0 0
+set_location "\UART:BUART:tx_bitclk_enable_pre\" 3 4 0 1
+set_location "\UART:BUART:tx_state_0\" 3 4 1 2
+set_location "\UART:BUART:tx_state_1\" 2 4 1 1
+set_location "\UART:BUART:tx_state_2\" 2 4 0 1
+set_location "\UART:BUART:tx_status_0\" 3 1 1 3
+set_location "\UART:BUART:tx_status_2\" 3 0 0 2
+set_location "\UART:BUART:txn\" 2 1 1 1
+set_location "\UART:RXInternalInterrupt\" interrupt -1 -1 3
+set_location "\UART:TXInternalInterrupt\" interrupt -1 -1 4
+set_location "\UART_TEST:BUART:counter_load_not\" 2 2 0 3
+set_location "\UART_TEST:BUART:sTX:TxShifter:u0\" 2 3 2
+set_location "\UART_TEST:BUART:sTX:TxSts\" 2 4 4
+set_location "\UART_TEST:BUART:sTX:sCLOCK:TxBitClkGen\" 2 2 2
+set_location "\UART_TEST:BUART:tx_bitclk\" 2 3 0 2
+set_location "\UART_TEST:BUART:tx_bitclk_enable_pre\" 2 3 1 3
+set_location "\UART_TEST:BUART:tx_state_0\" 2 3 1 0
+set_location "\UART_TEST:BUART:tx_state_1\" 2 3 0 1
+set_location "\UART_TEST:BUART:tx_state_2\" 3 3 0 2
+set_location "\UART_TEST:BUART:tx_status_0\" 2 4 1 0
+set_location "\UART_TEST:BUART:tx_status_2\" 2 4 0 2
+set_location "\UART_TEST:BUART:txn\" 3 2 1 0
+set_location "\UART_TEST:TXInternalInterrupt\" interrupt -1 -1 5
