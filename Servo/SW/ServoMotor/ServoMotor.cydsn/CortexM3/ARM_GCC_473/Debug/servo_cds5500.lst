@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
   41              		.cfi_def_cfa_register 7
   15:.\servo_cds5500.c **** 	uint8 checksum = 0;
   42              		.loc 1 15 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 2
 
 
   43 0006 4FF00003 		mov	r3, #0
@@ -114,11 +114,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
   84 0010 7B61     		str	r3, [r7, #20]
   25:.\servo_cds5500.c **** 
   26:.\servo_cds5500.c **** 	/*
-  27:.\servo_cds5500.c **** 	printf(startByte);              // send some data
-  28:.\servo_cds5500.c **** 	printf(startByte);
+  27:.\servo_cds5500.c **** 	printf(startByte0);              // send some data
+  28:.\servo_cds5500.c **** 	printf(startByte1);
   29:.\servo_cds5500.c **** 	printf(id);
   30:.\servo_cds5500.c **** 	printf(messageLength);
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 3
 
 
   31:.\servo_cds5500.c **** 	printf(INST_WRITE);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  130 0046 71010000 		.4byte	.LASF9
  131 004a 02       		.byte	0x2
  132 004b 4F       		.byte	0x4f
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 4
 
 
  133 004c 50000000 		.4byte	0x50
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  187 00b2 1A000000 		.4byte	.LFE56
  188 00b6 00000000 		.4byte	.LLST0
  189 00ba 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 5
 
 
  190 00bb CE000000 		.4byte	0xce
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  244 0120 0A       		.uleb128 0xa
  245 0121 3F010000 		.4byte	.LASF24
  246 0125 04       		.byte	0x4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 6
 
 
  247 0126 1606     		.2byte	0x616
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  301 002d 04       		.uleb128 0x4
  302 002e 24       		.uleb128 0x24
  303 002f 00       		.byte	0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 7
 
 
  304 0030 0B       		.uleb128 0xb
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  358 0067 0C       		.uleb128 0xc
  359 0068 03       		.uleb128 0x3
  360 0069 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 8
 
 
  361 006a 3A       		.uleb128 0x3a
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  415 00a1 0B       		.uleb128 0xb
  416 00a2 3B       		.uleb128 0x3b
  417 00a3 05       		.uleb128 0x5
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 9
 
 
  418 00a4 49       		.uleb128 0x49
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  472 0058 0200     		.2byte	0x2
  473 005a 7D       		.byte	0x7d
  474 005b 20       		.sleb128 32
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 10
 
 
  475 005c 06000000 		.4byte	.LCFI5
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  514      32303133 
  514      30333132 
  515 0057 616E6368 		.ascii	"anch revision 196615]\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 11
 
 
  515      20726576 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 1
  537      6C6500
  538              	.LASF17:
  539 00fb 63686563 		.ascii	"checksum\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccrRDA29.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccM2HBMD.s 			page 12
 
 
  539      6B73756D 

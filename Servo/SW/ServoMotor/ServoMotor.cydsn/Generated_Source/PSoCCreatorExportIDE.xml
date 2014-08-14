@@ -32,10 +32,21 @@
           <File BuildType="BUILD" Toolchain="">.\main.c</File>
           <File BuildType="BUILD" Toolchain="">.\servo_cds5500.c</File>
           <File BuildType="BUILD" Toolchain="">.\bus.c</File>
+          <File BuildType="BUILD" Toolchain="">.\bal.c</File>
+          <File BuildType="BUILD" Toolchain="">.\hal.c</File>
+          <File BuildType="BUILD" Toolchain="">.\bpl.c</File>
+          <File BuildType="BUILD" Toolchain="">.\tmr.c</File>
+          <File BuildType="BUILD" Toolchain="">.\test.c</File>
           <File BuildType="BUILD" Toolchain="">.\servo_cds5500.h</File>
           <File BuildType="BUILD" Toolchain="">.\bsd_license.h</File>
           <File BuildType="BUILD" Toolchain="">.\global.h</File>
           <File BuildType="BUILD" Toolchain="">.\bus.h</File>
+          <File BuildType="BUILD" Toolchain="">.\bal.h</File>
+          <File BuildType="BUILD" Toolchain="">.\bpl.h</File>
+          <File BuildType="BUILD" Toolchain="">.\hal.h</File>
+          <File BuildType="BUILD" Toolchain="">.\types.h</File>
+          <File BuildType="BUILD" Toolchain="">.\tmr.h</File>
+          <File BuildType="BUILD" Toolchain="">.\test.h</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="X:\roboticscode\trunk\Servo\SW\ServoMotor\ServoMotor.cydsn\Generated_Source\PSoC5">
@@ -78,15 +89,31 @@
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\core_cmInstr.h</File>
           <File BuildType="BUILD" Toolchain="IAR EWARM">.\Generated_Source\PSoC5\CyBootAsmIar.s</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\project.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO_PM.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO_INT.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO_BOOT.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\isr_pick_up_servo_msg.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\isr_pick_up_servo_msg.h</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO_IntClock.c</File>
-          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_SERVO_IntClock.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_INT.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_BOOT.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_IntClock.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_IntClock.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_rx.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_rx.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_tx.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_tx.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST_INT.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST_BOOT.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\TIMER.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\TIMER.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\TIMER_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST_IntClock.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\UART_TEST_IntClock.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\TIMER_CLOCK.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\TIMER_CLOCK.h</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_timer.c</File>
+          <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\Isr_timer.h</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\prebuild.bat</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\postbuild.bat</File>
           <File BuildType="BUILD" Toolchain="">.\Generated_Source\PSoC5\CyElfTool.exe</File>

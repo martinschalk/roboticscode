@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: UART_SERVO_BOOT.c
+* File Name: UART_BOOT.c
 * Version 2.30
 *
 * Description:
@@ -15,14 +15,14 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "UART_SERVO.h"
+#include "UART.h"
 
-#if defined(CYDEV_BOOTLOADER_IO_COMP) && (0u != ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_UART_SERVO) || \
+#if defined(CYDEV_BOOTLOADER_IO_COMP) && (0u != ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_UART) || \
                                           (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface)))
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_CyBtldrCommStart
+* Function Name: UART_CyBtldrCommStart
 ********************************************************************************
 *
 * Summary:
@@ -38,17 +38,17 @@
 *  This component automatically enables global interrupt.
 *
 *******************************************************************************/
-void UART_SERVO_CyBtldrCommStart(void) CYSMALL 
+void UART_CyBtldrCommStart(void) CYSMALL 
 {
     /* Start UART component and clear the Tx,Rx buffers */
-    UART_SERVO_Start();
-    UART_SERVO_ClearRxBuffer();
-    UART_SERVO_ClearTxBuffer();
+    UART_Start();
+    UART_ClearRxBuffer();
+    UART_ClearTxBuffer();
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_CyBtldrCommStop
+* Function Name: UART_CyBtldrCommStop
 ********************************************************************************
 *
 * Summary:
@@ -61,15 +61,15 @@ void UART_SERVO_CyBtldrCommStart(void) CYSMALL
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_CyBtldrCommStop(void) CYSMALL 
+void UART_CyBtldrCommStop(void) CYSMALL 
 {
     /* Stop UART component */
-    UART_SERVO_Stop();
+    UART_Stop();
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_CyBtldrCommReset
+* Function Name: UART_CyBtldrCommReset
 ********************************************************************************
 *
 * Summary:
@@ -82,16 +82,16 @@ void UART_SERVO_CyBtldrCommStop(void) CYSMALL
 *  None
 *
 *******************************************************************************/
-void UART_SERVO_CyBtldrCommReset(void) CYSMALL 
+void UART_CyBtldrCommReset(void) CYSMALL 
 {
     /* Clear RX and TX buffers */
-    UART_SERVO_ClearRxBuffer();
-    UART_SERVO_ClearTxBuffer();
+    UART_ClearRxBuffer();
+    UART_ClearTxBuffer();
 }
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_CyBtldrCommWrite
+* Function Name: UART_CyBtldrCommWrite
 ********************************************************************************
 *
 * Summary:
@@ -113,7 +113,7 @@ void UART_SERVO_CyBtldrCommReset(void) CYSMALL
 *  This function should be called after command was received .
 *
 *******************************************************************************/
-cystatus UART_SERVO_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
+cystatus UART_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
          
 {
     uint16 buf_index = 0u;
@@ -122,12 +122,12 @@ cystatus UART_SERVO_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * 
     if(timeOut != 0u) { }
 
     /* Clear receive buffers */
-    UART_SERVO_ClearRxBuffer();
+    UART_ClearRxBuffer();
 
     /* Write TX data using blocking function */
     do
     {
-        UART_SERVO_PutChar(pData[buf_index]);
+        UART_PutChar(pData[buf_index]);
         buf_index++;
     }while(buf_index < size);
 
@@ -139,7 +139,7 @@ cystatus UART_SERVO_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * 
 
 
 /*******************************************************************************
-* Function Name: UART_SERVO_CyBtldrCommRead
+* Function Name: UART_CyBtldrCommRead
 ********************************************************************************
 *
 * Summary:
@@ -165,7 +165,7 @@ cystatus UART_SERVO_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 * 
 *  host. You have to account for the delay in hardware convertors while
 *  calculating this value, if you are using any USB-UART bridges.
 *******************************************************************************/
-cystatus UART_SERVO_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
+cystatus UART_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, uint8 timeOut) CYSMALL
          
 {
     uint16 iCntr;
@@ -183,7 +183,7 @@ cystatus UART_SERVO_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, 
         /* If atleast one byte is received within the timeout interval
         *  enter the next loop waiting for more data reception
         */
-        if(0u != UART_SERVO_GetRxBufferSize())
+        if(0u != UART_GetRxBufferSize())
         {
             /* Wait for more data until 25ms byte to byte time out interval.
             * If no data is received during the last 25 ms(BYTE2BYTE_TIME_OUT)
@@ -194,9 +194,9 @@ cystatus UART_SERVO_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, 
             do
             {
 
-                oldDataCount = UART_SERVO_GetRxBufferSize();
-                CyDelay(UART_SERVO_BYTE2BYTE_TIME_OUT);
-            }while(UART_SERVO_GetRxBufferSize() > oldDataCount);
+                oldDataCount = UART_GetRxBufferSize();
+                CyDelay(UART_BYTE2BYTE_TIME_OUT);
+            }while(UART_GetRxBufferSize() > oldDataCount);
             status = CYRET_SUCCESS;
             break;
         }
@@ -212,9 +212,9 @@ cystatus UART_SERVO_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, 
     dataIndexCntr = 0u;
 
     /* If GetRxBufferSize()>0 , move the received data to the pData buffer */
-    while(UART_SERVO_GetRxBufferSize() > 0u)
+    while(UART_GetRxBufferSize() > 0u)
     {
-        tempCount = UART_SERVO_GetRxBufferSize();
+        tempCount = UART_GetRxBufferSize();
         *count  =(*count) + tempCount;
 
         /* Check if buffer overflow will occur before moving the data */
@@ -223,7 +223,7 @@ cystatus UART_SERVO_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 * count, 
             for (iCntr = 0u; iCntr < tempCount; iCntr++)
             {
                 /* Read the data and move it to the pData buffer */
-                pData[dataIndexCntr] = UART_SERVO_ReadRxData();
+                pData[dataIndexCntr] = UART_ReadRxData();
                 dataIndexCntr++;
             }
 

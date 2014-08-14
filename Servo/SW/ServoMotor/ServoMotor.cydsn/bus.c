@@ -10,6 +10,7 @@
 #include "global.h"
 #include <stdio.h>
 
+#if(0)
 
 static uint8 TransmitBuffer[BUS_MSG_BUFFER_SIZE];
 static uint8 ReceiveBuffer[BUS_MSG_BUFFER_SIZE];
@@ -40,10 +41,10 @@ static STATUS BUS_Transmit(void)
 	
 	while ((i<BUS_MSG_BUFFER_SIZE) && (i<Bus.transmit.tBytes))
 	{
-		while (UART_SERVO_TX_STS_COMPLETE != UART_SERVO_ReadTxStatus())
+		while (UART_TX_STS_COMPLETE != UART_ReadTxStatus())
 		;
 		
-		UART_SERVO_WriteTxData(Bus.transmit.tBuffer[i]);
+		UART_WriteTxData(Bus.transmit.tBuffer[i]);
 		i++;
 	}
 	
@@ -65,11 +66,11 @@ static STATUS BUS_Receive(void)
 	Bus.receive.rInProgress = TRUE;
 	
 	//Returns the number of received bytes remaining in the RX buffer and returns the count in bytes
-	Bus.receive.rBytes = UART_SERVO_GetRxBufferSize();
+	Bus.receive.rBytes = UART_GetRxBufferSize();
 	
 	while (Bus.receive.rBytes != 0)
 	{
-		Bus.receive.rBuffer[i] = UART_SERVO_ReadRxData(); // Returns the next byte of received data.
+		Bus.receive.rBuffer[i] = UART_ReadRxData(); // Returns the next byte of received data.
 		Bus.receive.rBytes --;
 	}
 	
@@ -102,5 +103,7 @@ STATUS BUS_Handler(void)
 	
 	return status;
 }
+
+#endif
 
 /* [] END OF FILE */

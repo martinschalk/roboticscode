@@ -7,24 +7,35 @@
 
 #include <project.h>
 #include "servo_cds5500.h"
-#include "bus.h"
+#include "hal.h"
+#include "bpl.h"
+#include "tmr.h"
+
 #include "global.h"
 
 int main()
 {
-	STATUS status; 
-    /* Initialization */
-	BUS_Init();
-	UART_SERVO_Init();
-	UART_SERVO_EnableRxInt();
-	UART_SERVO_Start();
+	STATUS status;
 	
-    /* CyGlobalIntEnable; */ /* Uncomment this line to enable global interrupts. */
+	/* Initialization */
+	/* -------------- */
+	CyGlobalIntEnable; /* Enable interrupts */
+	status = HAL_Init();
+	status = TMR_Init();
+#ifdef TEST_UART
+	status = TST_Init();
+#endif
+
     for(;;)
     {
         /* Bus handler */
-		status = BUS_Handler();
+		BPL_HandleTask();
+		
+		/* Timer Handler */
+		TMR_HandleTask();
     }
+	
+	(void)status;
 }
 
 /* [] END OF FILE */
