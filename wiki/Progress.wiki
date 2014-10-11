@@ -12,4 +12,9 @@
 - Bus tests with second uart <br>
 
 ==11.10.2014==
-- Servo messages prepared <br>
+- Servo messages Ping() and CheckResponse() prepared <br>
+- Error codes of Response Packet implemented
+
+== TODO ==
+- Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc)
+- implement other servo messages
