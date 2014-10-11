@@ -10,4 +10,6 @@ This is my wiki page for my robotic projects.
 * Servo + Driver
 * Stepper Motor + Driver
 
+#sidebar TableOfContents
+
 <g:plusone size="medium"></g:plusone>
