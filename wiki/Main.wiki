@@ -1,4 +1,6 @@
 #labels Main
+#sidebar TableOfContents
+
 = Introduction =
 
 This is my wiki page for my robotic projects.
@@ -9,7 +11,5 @@ This is my wiki page for my robotic projects.
 * PSoC5
 * Servo + Driver
 * Stepper Motor + Driver
-
-#sidebar TableOfContents
 
 <g:plusone size="medium"></g:plusone>
