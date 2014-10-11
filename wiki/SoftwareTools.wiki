@@ -2,3 +2,10 @@
 = Tortoise SVN =
 
 http://tortoisesvn.net/downloads.html
+
+= PSoC Creator =
+
+01.08.2014 - controller not in device list
+Problem: PsoC Creator 3.0 will not compile device CY8C55*AXI-060
+Reason: Device no longer supported. (does not appear in device list)
+Solution: Using PsoC Creator 2.2
