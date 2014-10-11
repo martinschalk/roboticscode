@@ -4,4 +4,9 @@
 Project started.
 
 01.08.2014
-Problem with new PSoC Creator 3.0 solved (see [Software Tools]). 
+* Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools). 
+* Bus implemented (hal, bpl, bal)
+* Bus tests with second uart
+
+11.10.2014
+* Servo messages prepared
