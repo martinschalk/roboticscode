@@ -1,0 +1,844 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"test.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 B1000000 		.text
+  20      02006100 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.TST_SendTestMsg,"ax",%progbits
+  24              		.align	2
+  25              		.thumb
+  26              		.thumb_func
+  27              		.type	TST_SendTestMsg, %function
+  28              	TST_SendTestMsg:
+  29              	.LFB29:
+  30              		.file 1 ".\\test.c"
+   1:.\test.c      **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\test.c      ****  * All rights reserved.
+   3:.\test.c      ****  *
+   4:.\test.c      ****  * This software may be modified and distributed under the terms
+   5:.\test.c      ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\test.c      ****  */
+   7:.\test.c      **** 
+   8:.\test.c      **** #include "global.h"
+   9:.\test.c      **** #include "types.h"
+  10:.\test.c      **** #include "test.h"
+  11:.\test.c      **** #include "tmr.h"
+  12:.\test.c      **** #include "hal.h"
+  13:.\test.c      **** #include "bal.h"
+  14:.\test.c      **** 
+  15:.\test.c      **** /*
+  16:.\test.c      **** -------------------------------------------
+  17:.\test.c      **** | id0 | id1 | length | b0 | b1 | ... | bn |
+  18:.\test.c      **** -------------------------------------------
+  19:.\test.c      **** */
+  20:.\test.c      **** 
+  21:.\test.c      **** 
+  22:.\test.c      **** /*******************************************************/
+  23:.\test.c      **** static void TST_SendTestMsg(void)
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 2
+
+
+  24:.\test.c      **** {
+  31              		.loc 1 24 0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 1, uses_anonymous_args = 0
+  35              		@ link register save eliminated.
+  36 0000 80B4     		push	{r7}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 4
+  39 0002 00AF     		add	r7, sp, #0
+  40              		.cfi_offset 7, -4
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_register 7
+  25:.\test.c      **** //#define UART_TEST_MSG
+  26:.\test.c      **** //#define BAL_TEST_MSG
+  27:.\test.c      **** 
+  28:.\test.c      **** #if defined(UART_TEST_MSG)
+  29:.\test.c      ****     static uint8 TestMsg[] = {0xFF, 0x01, 5, 2, 3, 0, 4, 5};
+  30:.\test.c      ****     
+  31:.\test.c      ****     UART_TEST_PutArray(TestMsg, sizeof(TestMsg));
+  32:.\test.c      **** #elif defined(BAL_TEST_MSG)
+  33:.\test.c      ****     STATUS status; 
+  34:.\test.c      ****     uint8 msgdata[4] = {1, 2, 3, 4};
+  35:.\test.c      ****     
+  36:.\test.c      ****     BAL_MSG testmsg = {0x0001, 4, msgdata};
+  37:.\test.c      ****     status = BAL_SendMsg(&testmsg);
+  38:.\test.c      ****     (void)status;
+  39:.\test.c      **** #endif
+  40:.\test.c      **** }
+  43              		.loc 1 40 0
+  44 0004 BD46     		mov	sp, r7
+  45 0006 80BC     		pop	{r7}
+  46 0008 7047     		bx	lr
+  47              		.cfi_endproc
+  48              	.LFE29:
+  49              		.size	TST_SendTestMsg, .-TST_SendTestMsg
+  50 000a 00BF     		.section	.text.TST_Blink,"ax",%progbits
+  51              		.align	2
+  52              		.thumb
+  53              		.thumb_func
+  54              		.type	TST_Blink, %function
+  55              	TST_Blink:
+  56              	.LFB30:
+  41:.\test.c      **** 
+  42:.\test.c      **** /*******************************************************/
+  43:.\test.c      **** static void TST_Blink(void)
+  44:.\test.c      **** {
+  57              		.loc 1 44 0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 1, uses_anonymous_args = 0
+  61 0000 80B5     		push	{r7, lr}
+  62              	.LCFI2:
+  63              		.cfi_def_cfa_offset 8
+  64 0002 00AF     		add	r7, sp, #0
+  65              		.cfi_offset 14, -4
+  66              		.cfi_offset 7, -8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 3
+
+
+  67              	.LCFI3:
+  68              		.cfi_def_cfa_register 7
+  45:.\test.c      ****     static uint8 LedVal=0x00;
+  46:.\test.c      **** 	LedVal ^= 0x01;
+  69              		.loc 1 46 0
+  70 0004 40F20003 		movw	r3, #:lower16:LedVal.2876
+  71 0008 C0F20003 		movt	r3, #:upper16:LedVal.2876
+  72 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  73 000e 83F00103 		eor	r3, r3, #1
+  74 0012 DAB2     		uxtb	r2, r3
+  75 0014 40F20003 		movw	r3, #:lower16:LedVal.2876
+  76 0018 C0F20003 		movt	r3, #:upper16:LedVal.2876
+  77 001c 1A70     		strb	r2, [r3, #0]
+  47:.\test.c      **** 	DEBUG_LED_1_Write(LedVal);
+  78              		.loc 1 47 0
+  79 001e 40F20003 		movw	r3, #:lower16:LedVal.2876
+  80 0022 C0F20003 		movt	r3, #:upper16:LedVal.2876
+  81 0026 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  82 0028 1846     		mov	r0, r3
+  83 002a FFF7FEFF 		bl	DEBUG_LED_1_Write
+  48:.\test.c      **** }
+  84              		.loc 1 48 0
+  85 002e 80BD     		pop	{r7, pc}
+  86              		.cfi_endproc
+  87              	.LFE30:
+  88              		.size	TST_Blink, .-TST_Blink
+  89              		.section	.text.TST_SendMotorMsg,"ax",%progbits
+  90              		.align	2
+  91              		.thumb
+  92              		.thumb_func
+  93              		.type	TST_SendMotorMsg, %function
+  94              	TST_SendMotorMsg:
+  95              	.LFB31:
+  49:.\test.c      **** 
+  50:.\test.c      **** /*******************************************************/
+  51:.\test.c      **** static void TST_SendMotorMsg(void)
+  52:.\test.c      **** {
+  96              		.loc 1 52 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 8
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101              	.LCFI4:
+ 102              		.cfi_def_cfa_offset 8
+ 103 0002 82B0     		sub	sp, sp, #8
+ 104              	.LCFI5:
+ 105              		.cfi_def_cfa_offset 16
+ 106 0004 00AF     		add	r7, sp, #0
+ 107              		.cfi_offset 14, -4
+ 108              		.cfi_offset 7, -8
+ 109              	.LCFI6:
+ 110              		.cfi_def_cfa_register 7
+  53:.\test.c      ****     STATUS status; 
+  54:.\test.c      **** 
+  55:.\test.c      ****     Ping(0x01);
+ 111              		.loc 1 55 0
+ 112 0006 4FF00100 		mov	r0, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 4
+
+
+ 113 000a FFF7FEFF 		bl	Ping
+  56:.\test.c      ****     
+  57:.\test.c      ****     (void)status;
+  58:.\test.c      **** }
+ 114              		.loc 1 58 0
+ 115 000e 07F10807 		add	r7, r7, #8
+ 116 0012 BD46     		mov	sp, r7
+ 117 0014 80BD     		pop	{r7, pc}
+ 118              		.cfi_endproc
+ 119              	.LFE31:
+ 120              		.size	TST_SendMotorMsg, .-TST_SendMotorMsg
+ 121 0016 00BF     		.section	.text.TST_Init,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	TST_Init
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.type	TST_Init, %function
+ 127              	TST_Init:
+ 128              	.LFB32:
+  59:.\test.c      **** 
+  60:.\test.c      **** /*******************************************************/
+  61:.\test.c      **** void TST_Init(void)
+  62:.\test.c      **** {
+ 129              		.loc 1 62 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133 0000 80B5     		push	{r7, lr}
+ 134              	.LCFI7:
+ 135              		.cfi_def_cfa_offset 8
+ 136 0002 82B0     		sub	sp, sp, #8
+ 137              	.LCFI8:
+ 138              		.cfi_def_cfa_offset 16
+ 139 0004 02AF     		add	r7, sp, #8
+ 140              		.cfi_offset 14, -4
+ 141              		.cfi_offset 7, -8
+ 142              	.LCFI9:
+ 143              		.cfi_def_cfa 7, 8
+  63:.\test.c      **** #ifdef TEST_BLINK
+  64:.\test.c      **** 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+ 144              		.loc 1 64 0
+ 145 0006 4FF00103 		mov	r3, #1
+ 146 000a 0093     		str	r3, [sp, #0]
+ 147 000c 4FF00000 		mov	r0, #0
+ 148 0010 44F24021 		movw	r1, #:lower16:1000000
+ 149 0014 C0F20F01 		movt	r1, #:upper16:1000000
+ 150 0018 40F20002 		movw	r2, #:lower16:TST_Blink
+ 151 001c C0F20002 		movt	r2, #:upper16:TST_Blink
+ 152 0020 4FF00203 		mov	r3, #2
+ 153 0024 FFF7FEFF 		bl	TMR_SetTimer
+  65:.\test.c      **** #endif	
+  66:.\test.c      **** 	
+  67:.\test.c      **** #ifdef TEST_UART
+  68:.\test.c      **** 	UART_TEST_Start();
+ 154              		.loc 1 68 0
+ 155 0028 FFF7FEFF 		bl	UART_TEST_Start
+  69:.\test.c      **** 	//UART_EnableRxInt();
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 5
+
+
+  70:.\test.c      **** 	//UART_EnableTxInt();
+  71:.\test.c      **** 	//TMR_SetTimer(TIMER_1, TIMER_1SEC, TST_SendTestMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+  72:.\test.c      ****     TMR_SetTimer(TIMER_2, TIMER_1SEC, TST_SendMotorMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+ 156              		.loc 1 72 0
+ 157 002c 4FF00103 		mov	r3, #1
+ 158 0030 0093     		str	r3, [sp, #0]
+ 159 0032 4FF00200 		mov	r0, #2
+ 160 0036 44F24021 		movw	r1, #:lower16:1000000
+ 161 003a C0F20F01 		movt	r1, #:upper16:1000000
+ 162 003e 40F20002 		movw	r2, #:lower16:TST_SendMotorMsg
+ 163 0042 C0F20002 		movt	r2, #:upper16:TST_SendMotorMsg
+ 164 0046 4FF00203 		mov	r3, #2
+ 165 004a FFF7FEFF 		bl	TMR_SetTimer
+  73:.\test.c      **** #endif
+  74:.\test.c      **** }
+ 166              		.loc 1 74 0
+ 167 004e BD46     		mov	sp, r7
+ 168 0050 80BD     		pop	{r7, pc}
+ 169              		.cfi_endproc
+ 170              	.LFE32:
+ 171              		.size	TST_Init, .-TST_Init
+ 172 0052 00BF     		.bss
+ 173              	LedVal.2876:
+ 174 0000 00       		.space	1
+ 175              		.text
+ 176              	.Letext0:
+ 177              		.section	.debug_loc,"",%progbits
+ 178              	.Ldebug_loc0:
+ 179              	.LLST0:
+ 180 0000 00000000 		.4byte	.LFB29
+ 181 0004 02000000 		.4byte	.LCFI0
+ 182 0008 0100     		.2byte	0x1
+ 183 000a 5D       		.byte	0x5d
+ 184 000b 02000000 		.4byte	.LCFI0
+ 185 000f 04000000 		.4byte	.LCFI1
+ 186 0013 0200     		.2byte	0x2
+ 187 0015 7D       		.byte	0x7d
+ 188 0016 04       		.sleb128 4
+ 189 0017 04000000 		.4byte	.LCFI1
+ 190 001b 0A000000 		.4byte	.LFE29
+ 191 001f 0200     		.2byte	0x2
+ 192 0021 77       		.byte	0x77
+ 193 0022 04       		.sleb128 4
+ 194 0023 00000000 		.4byte	0x0
+ 195 0027 00000000 		.4byte	0x0
+ 196              	.LLST1:
+ 197 002b 00000000 		.4byte	.LFB30
+ 198 002f 02000000 		.4byte	.LCFI2
+ 199 0033 0100     		.2byte	0x1
+ 200 0035 5D       		.byte	0x5d
+ 201 0036 02000000 		.4byte	.LCFI2
+ 202 003a 04000000 		.4byte	.LCFI3
+ 203 003e 0200     		.2byte	0x2
+ 204 0040 7D       		.byte	0x7d
+ 205 0041 08       		.sleb128 8
+ 206 0042 04000000 		.4byte	.LCFI3
+ 207 0046 30000000 		.4byte	.LFE30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 6
+
+
+ 208 004a 0200     		.2byte	0x2
+ 209 004c 77       		.byte	0x77
+ 210 004d 08       		.sleb128 8
+ 211 004e 00000000 		.4byte	0x0
+ 212 0052 00000000 		.4byte	0x0
+ 213              	.LLST2:
+ 214 0056 00000000 		.4byte	.LFB31
+ 215 005a 02000000 		.4byte	.LCFI4
+ 216 005e 0100     		.2byte	0x1
+ 217 0060 5D       		.byte	0x5d
+ 218 0061 02000000 		.4byte	.LCFI4
+ 219 0065 04000000 		.4byte	.LCFI5
+ 220 0069 0200     		.2byte	0x2
+ 221 006b 7D       		.byte	0x7d
+ 222 006c 08       		.sleb128 8
+ 223 006d 04000000 		.4byte	.LCFI5
+ 224 0071 06000000 		.4byte	.LCFI6
+ 225 0075 0200     		.2byte	0x2
+ 226 0077 7D       		.byte	0x7d
+ 227 0078 10       		.sleb128 16
+ 228 0079 06000000 		.4byte	.LCFI6
+ 229 007d 16000000 		.4byte	.LFE31
+ 230 0081 0200     		.2byte	0x2
+ 231 0083 77       		.byte	0x77
+ 232 0084 10       		.sleb128 16
+ 233 0085 00000000 		.4byte	0x0
+ 234 0089 00000000 		.4byte	0x0
+ 235              	.LLST3:
+ 236 008d 00000000 		.4byte	.LFB32
+ 237 0091 02000000 		.4byte	.LCFI7
+ 238 0095 0100     		.2byte	0x1
+ 239 0097 5D       		.byte	0x5d
+ 240 0098 02000000 		.4byte	.LCFI7
+ 241 009c 04000000 		.4byte	.LCFI8
+ 242 00a0 0200     		.2byte	0x2
+ 243 00a2 7D       		.byte	0x7d
+ 244 00a3 08       		.sleb128 8
+ 245 00a4 04000000 		.4byte	.LCFI8
+ 246 00a8 06000000 		.4byte	.LCFI9
+ 247 00ac 0200     		.2byte	0x2
+ 248 00ae 7D       		.byte	0x7d
+ 249 00af 10       		.sleb128 16
+ 250 00b0 06000000 		.4byte	.LCFI9
+ 251 00b4 52000000 		.4byte	.LFE32
+ 252 00b8 0200     		.2byte	0x2
+ 253 00ba 77       		.byte	0x77
+ 254 00bb 08       		.sleb128 8
+ 255 00bc 00000000 		.4byte	0x0
+ 256 00c0 00000000 		.4byte	0x0
+ 257              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 258              		.file 3 ".\\/types.h"
+ 259              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+ 260              		.section	.debug_info
+ 261 0000 27010000 		.4byte	0x127
+ 262 0004 0200     		.2byte	0x2
+ 263 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 264 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 7
+
+
+ 265 000b 01       		.uleb128 0x1
+ 266 000c C4000000 		.4byte	.LASF18
+ 267 0010 01       		.byte	0x1
+ 268 0011 4B000000 		.4byte	.LASF19
+ 269 0015 75000000 		.4byte	.LASF20
+ 270 0019 00000000 		.4byte	0x0
+ 271 001d 00000000 		.4byte	0x0
+ 272 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 273 0025 00000000 		.4byte	.Ldebug_line0
+ 274 0029 02       		.uleb128 0x2
+ 275 002a 01       		.byte	0x1
+ 276 002b 06       		.byte	0x6
+ 277 002c 19010000 		.4byte	.LASF0
+ 278 0030 02       		.uleb128 0x2
+ 279 0031 01       		.byte	0x1
+ 280 0032 08       		.byte	0x8
+ 281 0033 D0000000 		.4byte	.LASF1
+ 282 0037 02       		.uleb128 0x2
+ 283 0038 02       		.byte	0x2
+ 284 0039 05       		.byte	0x5
+ 285 003a 45010000 		.4byte	.LASF2
+ 286 003e 02       		.uleb128 0x2
+ 287 003f 02       		.byte	0x2
+ 288 0040 07       		.byte	0x7
+ 289 0041 0E000000 		.4byte	.LASF3
+ 290 0045 02       		.uleb128 0x2
+ 291 0046 04       		.byte	0x4
+ 292 0047 05       		.byte	0x5
+ 293 0048 E3000000 		.4byte	.LASF4
+ 294 004c 02       		.uleb128 0x2
+ 295 004d 04       		.byte	0x4
+ 296 004e 07       		.byte	0x7
+ 297 004f F3000000 		.4byte	.LASF5
+ 298 0053 02       		.uleb128 0x2
+ 299 0054 08       		.byte	0x8
+ 300 0055 05       		.byte	0x5
+ 301 0056 00000000 		.4byte	.LASF6
+ 302 005a 02       		.uleb128 0x2
+ 303 005b 08       		.byte	0x8
+ 304 005c 07       		.byte	0x7
+ 305 005d 54000000 		.4byte	.LASF7
+ 306 0061 03       		.uleb128 0x3
+ 307 0062 04       		.byte	0x4
+ 308 0063 05       		.byte	0x5
+ 309 0064 696E7400 		.ascii	"int\000"
+ 310 0068 02       		.uleb128 0x2
+ 311 0069 04       		.byte	0x4
+ 312 006a 07       		.byte	0x7
+ 313 006b 21000000 		.4byte	.LASF8
+ 314 006f 04       		.uleb128 0x4
+ 315 0070 45000000 		.4byte	.LASF12
+ 316 0074 02       		.byte	0x2
+ 317 0075 4C       		.byte	0x4c
+ 318 0076 30000000 		.4byte	0x30
+ 319 007a 02       		.uleb128 0x2
+ 320 007b 04       		.byte	0x4
+ 321 007c 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 8
+
+
+ 322 007d 3F010000 		.4byte	.LASF9
+ 323 0081 02       		.uleb128 0x2
+ 324 0082 08       		.byte	0x8
+ 325 0083 04       		.byte	0x4
+ 326 0084 05010000 		.4byte	.LASF10
+ 327 0088 02       		.uleb128 0x2
+ 328 0089 01       		.byte	0x1
+ 329 008a 08       		.byte	0x8
+ 330 008b DE000000 		.4byte	.LASF11
+ 331 008f 05       		.uleb128 0x5
+ 332 0090 04       		.byte	0x4
+ 333 0091 07       		.byte	0x7
+ 334 0092 04       		.uleb128 0x4
+ 335 0093 4F010000 		.4byte	.LASF13
+ 336 0097 03       		.byte	0x3
+ 337 0098 0E       		.byte	0xe
+ 338 0099 6F000000 		.4byte	0x6f
+ 339 009d 06       		.uleb128 0x6
+ 340 009e 2E000000 		.4byte	.LASF21
+ 341 00a2 01       		.byte	0x1
+ 342 00a3 17       		.byte	0x17
+ 343 00a4 01       		.byte	0x1
+ 344 00a5 00000000 		.4byte	.LFB29
+ 345 00a9 0A000000 		.4byte	.LFE29
+ 346 00ad 00000000 		.4byte	.LLST0
+ 347 00b1 07       		.uleb128 0x7
+ 348 00b2 6B000000 		.4byte	.LASF14
+ 349 00b6 01       		.byte	0x1
+ 350 00b7 2B       		.byte	0x2b
+ 351 00b8 01       		.byte	0x1
+ 352 00b9 00000000 		.4byte	.LFB30
+ 353 00bd 30000000 		.4byte	.LFE30
+ 354 00c1 2B000000 		.4byte	.LLST1
+ 355 00c5 DB000000 		.4byte	0xdb
+ 356 00c9 08       		.uleb128 0x8
+ 357 00ca EC000000 		.4byte	.LASF16
+ 358 00ce 01       		.byte	0x1
+ 359 00cf 2D       		.byte	0x2d
+ 360 00d0 6F000000 		.4byte	0x6f
+ 361 00d4 05       		.byte	0x5
+ 362 00d5 03       		.byte	0x3
+ 363 00d6 00000000 		.4byte	LedVal.2876
+ 364 00da 00       		.byte	0x0
+ 365 00db 07       		.uleb128 0x7
+ 366 00dc 25010000 		.4byte	.LASF15
+ 367 00e0 01       		.byte	0x1
+ 368 00e1 33       		.byte	0x33
+ 369 00e2 01       		.byte	0x1
+ 370 00e3 00000000 		.4byte	.LFB31
+ 371 00e7 16000000 		.4byte	.LFE31
+ 372 00eb 56000000 		.4byte	.LLST2
+ 373 00ef 02010000 		.4byte	0x102
+ 374 00f3 08       		.uleb128 0x8
+ 375 00f4 3E000000 		.4byte	.LASF17
+ 376 00f8 01       		.byte	0x1
+ 377 00f9 35       		.byte	0x35
+ 378 00fa 92000000 		.4byte	0x92
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 9
+
+
+ 379 00fe 02       		.byte	0x2
+ 380 00ff 91       		.byte	0x91
+ 381 0100 77       		.sleb128 -9
+ 382 0101 00       		.byte	0x0
+ 383 0102 09       		.uleb128 0x9
+ 384 0103 01       		.byte	0x1
+ 385 0104 36010000 		.4byte	.LASF22
+ 386 0108 01       		.byte	0x1
+ 387 0109 3D       		.byte	0x3d
+ 388 010a 01       		.byte	0x1
+ 389 010b 00000000 		.4byte	.LFB32
+ 390 010f 52000000 		.4byte	.LFE32
+ 391 0113 8D000000 		.4byte	.LLST3
+ 392 0117 0A       		.uleb128 0xa
+ 393 0118 0C010000 		.4byte	.LASF23
+ 394 011c 04       		.byte	0x4
+ 395 011d CE06     		.2byte	0x6ce
+ 396 011f 25010000 		.4byte	0x125
+ 397 0123 01       		.byte	0x1
+ 398 0124 01       		.byte	0x1
+ 399 0125 0B       		.uleb128 0xb
+ 400 0126 61000000 		.4byte	0x61
+ 401 012a 00       		.byte	0x0
+ 402              		.section	.debug_abbrev
+ 403 0000 01       		.uleb128 0x1
+ 404 0001 11       		.uleb128 0x11
+ 405 0002 01       		.byte	0x1
+ 406 0003 25       		.uleb128 0x25
+ 407 0004 0E       		.uleb128 0xe
+ 408 0005 13       		.uleb128 0x13
+ 409 0006 0B       		.uleb128 0xb
+ 410 0007 03       		.uleb128 0x3
+ 411 0008 0E       		.uleb128 0xe
+ 412 0009 1B       		.uleb128 0x1b
+ 413 000a 0E       		.uleb128 0xe
+ 414 000b 11       		.uleb128 0x11
+ 415 000c 01       		.uleb128 0x1
+ 416 000d 52       		.uleb128 0x52
+ 417 000e 01       		.uleb128 0x1
+ 418 000f 55       		.uleb128 0x55
+ 419 0010 06       		.uleb128 0x6
+ 420 0011 10       		.uleb128 0x10
+ 421 0012 06       		.uleb128 0x6
+ 422 0013 00       		.byte	0x0
+ 423 0014 00       		.byte	0x0
+ 424 0015 02       		.uleb128 0x2
+ 425 0016 24       		.uleb128 0x24
+ 426 0017 00       		.byte	0x0
+ 427 0018 0B       		.uleb128 0xb
+ 428 0019 0B       		.uleb128 0xb
+ 429 001a 3E       		.uleb128 0x3e
+ 430 001b 0B       		.uleb128 0xb
+ 431 001c 03       		.uleb128 0x3
+ 432 001d 0E       		.uleb128 0xe
+ 433 001e 00       		.byte	0x0
+ 434 001f 00       		.byte	0x0
+ 435 0020 03       		.uleb128 0x3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 10
+
+
+ 436 0021 24       		.uleb128 0x24
+ 437 0022 00       		.byte	0x0
+ 438 0023 0B       		.uleb128 0xb
+ 439 0024 0B       		.uleb128 0xb
+ 440 0025 3E       		.uleb128 0x3e
+ 441 0026 0B       		.uleb128 0xb
+ 442 0027 03       		.uleb128 0x3
+ 443 0028 08       		.uleb128 0x8
+ 444 0029 00       		.byte	0x0
+ 445 002a 00       		.byte	0x0
+ 446 002b 04       		.uleb128 0x4
+ 447 002c 16       		.uleb128 0x16
+ 448 002d 00       		.byte	0x0
+ 449 002e 03       		.uleb128 0x3
+ 450 002f 0E       		.uleb128 0xe
+ 451 0030 3A       		.uleb128 0x3a
+ 452 0031 0B       		.uleb128 0xb
+ 453 0032 3B       		.uleb128 0x3b
+ 454 0033 0B       		.uleb128 0xb
+ 455 0034 49       		.uleb128 0x49
+ 456 0035 13       		.uleb128 0x13
+ 457 0036 00       		.byte	0x0
+ 458 0037 00       		.byte	0x0
+ 459 0038 05       		.uleb128 0x5
+ 460 0039 24       		.uleb128 0x24
+ 461 003a 00       		.byte	0x0
+ 462 003b 0B       		.uleb128 0xb
+ 463 003c 0B       		.uleb128 0xb
+ 464 003d 3E       		.uleb128 0x3e
+ 465 003e 0B       		.uleb128 0xb
+ 466 003f 00       		.byte	0x0
+ 467 0040 00       		.byte	0x0
+ 468 0041 06       		.uleb128 0x6
+ 469 0042 2E       		.uleb128 0x2e
+ 470 0043 00       		.byte	0x0
+ 471 0044 03       		.uleb128 0x3
+ 472 0045 0E       		.uleb128 0xe
+ 473 0046 3A       		.uleb128 0x3a
+ 474 0047 0B       		.uleb128 0xb
+ 475 0048 3B       		.uleb128 0x3b
+ 476 0049 0B       		.uleb128 0xb
+ 477 004a 27       		.uleb128 0x27
+ 478 004b 0C       		.uleb128 0xc
+ 479 004c 11       		.uleb128 0x11
+ 480 004d 01       		.uleb128 0x1
+ 481 004e 12       		.uleb128 0x12
+ 482 004f 01       		.uleb128 0x1
+ 483 0050 40       		.uleb128 0x40
+ 484 0051 06       		.uleb128 0x6
+ 485 0052 00       		.byte	0x0
+ 486 0053 00       		.byte	0x0
+ 487 0054 07       		.uleb128 0x7
+ 488 0055 2E       		.uleb128 0x2e
+ 489 0056 01       		.byte	0x1
+ 490 0057 03       		.uleb128 0x3
+ 491 0058 0E       		.uleb128 0xe
+ 492 0059 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 11
+
+
+ 493 005a 0B       		.uleb128 0xb
+ 494 005b 3B       		.uleb128 0x3b
+ 495 005c 0B       		.uleb128 0xb
+ 496 005d 27       		.uleb128 0x27
+ 497 005e 0C       		.uleb128 0xc
+ 498 005f 11       		.uleb128 0x11
+ 499 0060 01       		.uleb128 0x1
+ 500 0061 12       		.uleb128 0x12
+ 501 0062 01       		.uleb128 0x1
+ 502 0063 40       		.uleb128 0x40
+ 503 0064 06       		.uleb128 0x6
+ 504 0065 01       		.uleb128 0x1
+ 505 0066 13       		.uleb128 0x13
+ 506 0067 00       		.byte	0x0
+ 507 0068 00       		.byte	0x0
+ 508 0069 08       		.uleb128 0x8
+ 509 006a 34       		.uleb128 0x34
+ 510 006b 00       		.byte	0x0
+ 511 006c 03       		.uleb128 0x3
+ 512 006d 0E       		.uleb128 0xe
+ 513 006e 3A       		.uleb128 0x3a
+ 514 006f 0B       		.uleb128 0xb
+ 515 0070 3B       		.uleb128 0x3b
+ 516 0071 0B       		.uleb128 0xb
+ 517 0072 49       		.uleb128 0x49
+ 518 0073 13       		.uleb128 0x13
+ 519 0074 02       		.uleb128 0x2
+ 520 0075 0A       		.uleb128 0xa
+ 521 0076 00       		.byte	0x0
+ 522 0077 00       		.byte	0x0
+ 523 0078 09       		.uleb128 0x9
+ 524 0079 2E       		.uleb128 0x2e
+ 525 007a 00       		.byte	0x0
+ 526 007b 3F       		.uleb128 0x3f
+ 527 007c 0C       		.uleb128 0xc
+ 528 007d 03       		.uleb128 0x3
+ 529 007e 0E       		.uleb128 0xe
+ 530 007f 3A       		.uleb128 0x3a
+ 531 0080 0B       		.uleb128 0xb
+ 532 0081 3B       		.uleb128 0x3b
+ 533 0082 0B       		.uleb128 0xb
+ 534 0083 27       		.uleb128 0x27
+ 535 0084 0C       		.uleb128 0xc
+ 536 0085 11       		.uleb128 0x11
+ 537 0086 01       		.uleb128 0x1
+ 538 0087 12       		.uleb128 0x12
+ 539 0088 01       		.uleb128 0x1
+ 540 0089 40       		.uleb128 0x40
+ 541 008a 06       		.uleb128 0x6
+ 542 008b 00       		.byte	0x0
+ 543 008c 00       		.byte	0x0
+ 544 008d 0A       		.uleb128 0xa
+ 545 008e 34       		.uleb128 0x34
+ 546 008f 00       		.byte	0x0
+ 547 0090 03       		.uleb128 0x3
+ 548 0091 0E       		.uleb128 0xe
+ 549 0092 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 12
+
+
+ 550 0093 0B       		.uleb128 0xb
+ 551 0094 3B       		.uleb128 0x3b
+ 552 0095 05       		.uleb128 0x5
+ 553 0096 49       		.uleb128 0x49
+ 554 0097 13       		.uleb128 0x13
+ 555 0098 3F       		.uleb128 0x3f
+ 556 0099 0C       		.uleb128 0xc
+ 557 009a 3C       		.uleb128 0x3c
+ 558 009b 0C       		.uleb128 0xc
+ 559 009c 00       		.byte	0x0
+ 560 009d 00       		.byte	0x0
+ 561 009e 0B       		.uleb128 0xb
+ 562 009f 35       		.uleb128 0x35
+ 563 00a0 00       		.byte	0x0
+ 564 00a1 49       		.uleb128 0x49
+ 565 00a2 13       		.uleb128 0x13
+ 566 00a3 00       		.byte	0x0
+ 567 00a4 00       		.byte	0x0
+ 568 00a5 00       		.byte	0x0
+ 569              		.section	.debug_pubnames,"",%progbits
+ 570 0000 1B000000 		.4byte	0x1b
+ 571 0004 0200     		.2byte	0x2
+ 572 0006 00000000 		.4byte	.Ldebug_info0
+ 573 000a 2B010000 		.4byte	0x12b
+ 574 000e 02010000 		.4byte	0x102
+ 575 0012 5453545F 		.ascii	"TST_Init\000"
+ 575      496E6974 
+ 575      00
+ 576 001b 00000000 		.4byte	0x0
+ 577              		.section	.debug_aranges,"",%progbits
+ 578 0000 34000000 		.4byte	0x34
+ 579 0004 0200     		.2byte	0x2
+ 580 0006 00000000 		.4byte	.Ldebug_info0
+ 581 000a 04       		.byte	0x4
+ 582 000b 00       		.byte	0x0
+ 583 000c 0000     		.2byte	0x0
+ 584 000e 0000     		.2byte	0x0
+ 585 0010 00000000 		.4byte	.LFB29
+ 586 0014 0A000000 		.4byte	.LFE29-.LFB29
+ 587 0018 00000000 		.4byte	.LFB30
+ 588 001c 30000000 		.4byte	.LFE30-.LFB30
+ 589 0020 00000000 		.4byte	.LFB31
+ 590 0024 16000000 		.4byte	.LFE31-.LFB31
+ 591 0028 00000000 		.4byte	.LFB32
+ 592 002c 52000000 		.4byte	.LFE32-.LFB32
+ 593 0030 00000000 		.4byte	0x0
+ 594 0034 00000000 		.4byte	0x0
+ 595              		.section	.debug_ranges,"",%progbits
+ 596              	.Ldebug_ranges0:
+ 597 0000 00000000 		.4byte	.Ltext0
+ 598 0004 00000000 		.4byte	.Letext0
+ 599 0008 00000000 		.4byte	.LFB29
+ 600 000c 0A000000 		.4byte	.LFE29
+ 601 0010 00000000 		.4byte	.LFB30
+ 602 0014 30000000 		.4byte	.LFE30
+ 603 0018 00000000 		.4byte	.LFB31
+ 604 001c 16000000 		.4byte	.LFE31
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 13
+
+
+ 605 0020 00000000 		.4byte	.LFB32
+ 606 0024 52000000 		.4byte	.LFE32
+ 607 0028 00000000 		.4byte	0x0
+ 608 002c 00000000 		.4byte	0x0
+ 609              		.section	.debug_str,"MS",%progbits,1
+ 610              	.LASF6:
+ 611 0000 6C6F6E67 		.ascii	"long long int\000"
+ 611      206C6F6E 
+ 611      6720696E 
+ 611      7400
+ 612              	.LASF3:
+ 613 000e 73686F72 		.ascii	"short unsigned int\000"
+ 613      7420756E 
+ 613      7369676E 
+ 613      65642069 
+ 613      6E7400
+ 614              	.LASF8:
+ 615 0021 756E7369 		.ascii	"unsigned int\000"
+ 615      676E6564 
+ 615      20696E74 
+ 615      00
+ 616              	.LASF21:
+ 617 002e 5453545F 		.ascii	"TST_SendTestMsg\000"
+ 617      53656E64 
+ 617      54657374 
+ 617      4D736700 
+ 618              	.LASF17:
+ 619 003e 73746174 		.ascii	"status\000"
+ 619      757300
+ 620              	.LASF12:
+ 621 0045 75696E74 		.ascii	"uint8\000"
+ 621      3800
+ 622              	.LASF19:
+ 623 004b 2E5C7465 		.ascii	".\\test.c\000"
+ 623      73742E63 
+ 623      00
+ 624              	.LASF7:
+ 625 0054 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 625      206C6F6E 
+ 625      6720756E 
+ 625      7369676E 
+ 625      65642069 
+ 626              	.LASF14:
+ 627 006b 5453545F 		.ascii	"TST_Blink\000"
+ 627      426C696E 
+ 627      6B00
+ 628              	.LASF20:
+ 629 0075 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
+ 629      6F626F74 
+ 629      69637363 
+ 629      6F64655C 
+ 629      7472756E 
+ 630 00a3 6976655F 		.ascii	"ive_Platform\\DrivePlatform.cydsn\000"
+ 630      506C6174 
+ 630      666F726D 
+ 630      5C447269 
+ 630      7665506C 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 14
+
+
+ 631              	.LASF18:
+ 632 00c4 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 632      4320342E 
+ 632      342E3100 
+ 633              	.LASF1:
+ 634 00d0 756E7369 		.ascii	"unsigned char\000"
+ 634      676E6564 
+ 634      20636861 
+ 634      7200
+ 635              	.LASF11:
+ 636 00de 63686172 		.ascii	"char\000"
+ 636      00
+ 637              	.LASF4:
+ 638 00e3 6C6F6E67 		.ascii	"long int\000"
+ 638      20696E74 
+ 638      00
+ 639              	.LASF16:
+ 640 00ec 4C656456 		.ascii	"LedVal\000"
+ 640      616C00
+ 641              	.LASF5:
+ 642 00f3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 642      20756E73 
+ 642      69676E65 
+ 642      6420696E 
+ 642      7400
+ 643              	.LASF10:
+ 644 0105 646F7562 		.ascii	"double\000"
+ 644      6C6500
+ 645              	.LASF23:
+ 646 010c 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 646      52784275 
+ 646      66666572 
+ 646      00
+ 647              	.LASF0:
+ 648 0119 7369676E 		.ascii	"signed char\000"
+ 648      65642063 
+ 648      68617200 
+ 649              	.LASF15:
+ 650 0125 5453545F 		.ascii	"TST_SendMotorMsg\000"
+ 650      53656E64 
+ 650      4D6F746F 
+ 650      724D7367 
+ 650      00
+ 651              	.LASF22:
+ 652 0136 5453545F 		.ascii	"TST_Init\000"
+ 652      496E6974 
+ 652      00
+ 653              	.LASF9:
+ 654 013f 666C6F61 		.ascii	"float\000"
+ 654      7400
+ 655              	.LASF2:
+ 656 0145 73686F72 		.ascii	"short int\000"
+ 656      7420696E 
+ 656      7400
+ 657              	.LASF13:
+ 658 014f 53544154 		.ascii	"STATUS\000"
+ 658      555300
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cciblsB9.s 			page 15
+
+
+ 659              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
