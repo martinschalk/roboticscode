@@ -1,12 +1,12 @@
 #summary On this page I document my current progress of my robot drive platform.
 
-27.07.2014
-Project started.
+==27.07.2014==
+- Project started.
 
-01.08.2014
-* Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools). 
-* Bus implemented (hal, bpl, bal)
-* Bus tests with second uart
+==01.08.2014==
+- Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools). 
+- Bus implemented (hal, bpl, bal)
+- Bus tests with second uart
 
-11.10.2014
-* Servo messages prepared
+==11.10.2014==
+- Servo messages prepared
