@@ -9,10 +9,3 @@ Add your content here.
 ||Memory||Up to 288 K flash, 64 K SRAM, 2 K EEPROM||
 
 http://tec.icbuy.com/uploads/2013/1/6/AN77835_-_PSoC%C2%AE_3_to_PSoC_5LP_Migration_Guide.pdf
-
-= PSoC Creator =
-
-01.08.2014
-Problem: PsoC Creator 3.0 will not compile device CY8C55*AXI-060
-Reason: Device no longer supported. (does not appear in device list)
-Solution: Using PsoC Creator 2.2
