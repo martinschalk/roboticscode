@@ -1,15 +1,15 @@
 #summary On this page I document my current progress of my robot drive platform.
 
 ==27.07.2014==
-- Project started.
-- SVN server and wiki page prepared
-- prototype of bus created
+- Project started <br>
+- SVN server and wiki page prepared <br>
+- prototype of bus created <br>
 
 ==15.08.2014==
-- Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools)
-- Software timer module created and tested 
-- Bus implemented (hal, bpl, bal)
-- Bus tests with second uart
+- Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools) <br>
+- Software timer module created and tested <br> 
+- Bus implemented (hal, bpl, bal) <br>
+- Bus tests with second uart <br>
 
 ==11.10.2014==
-- Servo messages prepared
+- Servo messages prepared <br>
