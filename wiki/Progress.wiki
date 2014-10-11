@@ -6,8 +6,8 @@
 - prototype of bus created
 
 ==15.08.2014==
-- Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools). 
-- software timer module created and tested 
+- Problem with new PSoC Creator 3.0 solved (see https://code.google.com/p/roboticscode/wiki/SoftwareTools)
+- Software timer module created and tested 
 - Bus implemented (hal, bpl, bal)
 - Bus tests with second uart
 
