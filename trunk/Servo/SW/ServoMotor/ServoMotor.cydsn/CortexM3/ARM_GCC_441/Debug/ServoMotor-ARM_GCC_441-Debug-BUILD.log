@@ -1,0 +1,11 @@
+--------------- Build Started: 08/19/2014 23:24:34 Project: ServoMotor, Configuration: ARM GCC 4.4.1 Debug ---------------
+cydsfit.exe "-.appdatapath" "C:\Users\Martin\AppData\Local\Cypress Semiconductor\PSoC Creator\2.2" "-.fdsnotice" "-.fdswarpdepfile=warp_dependencies.txt" "-.fdselabdepfile=elab_dependencies.txt" "-.fdsbldfile=generated_files.txt" "-p" "X:\roboticscode\trunk\Servo\SW\ServoMotor\ServoMotor.cydsn\ServoMotor.cyprj" "-d" "CY8C5588AXI-060ES1" "-s" "X:\roboticscode\trunk\Servo\SW\ServoMotor\ServoMotor.cydsn\Generated_Source\PSoC5" "--" "-yv2" "-v3" "-ygs" "-q10" "-o2" "-.fftcfgtype=LE"
+Note: This project targets evaluation silicon (ES) that is not available for purchase. Be sure to use production-approved parts to ensure future support.
+Note: The PSoC 5 FirstTouch Kit (CY8CKIT-014) uses the XTAL pins as GPIO to the accelerometer, which is not allowed in production devices. Do not re-target kit projects if you wish to use the accelerometer.
+Elaborating Design...
+ADD: prj.M0246: information: PSoC 5LP provides many improvements over PSoC 5. Learn more about migrating to PSoC 5LP at www.cypress.com/go/PSoC5LP
+ * ServoMotor ()
+Error: bse.M0202: Internal Error (aborting): Der Objektverweis wurde nicht auf eine Objektinstanz festgelegt. (App=cydsfit)
+Stack Trace:
+   bei CyDesigner.PSoC.CyDsFit.ElaborateDesign()
+--------------- Build Failed: 08/19/2014 23:24:38 ---------------
