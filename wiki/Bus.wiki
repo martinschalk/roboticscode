@@ -1,0 +1,17 @@
+#summary Bus
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Layers:
+  * BAL
+  * BPL
+  * HAL
+
+= Ideas =
+
+* Second buffer as "priority line" for messages with high priority
