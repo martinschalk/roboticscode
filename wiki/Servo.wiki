@@ -8,3 +8,5 @@ DFRobot Wiki: http://www.dfrobot.com/wiki/index.php/CDS5500_Robot_Servo_(SKU:SER
 
 Instruction Set:
 http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
+
+[https://roboticscode.googlecode.com/svn/wiki/images/servo_schaltplan.png]
