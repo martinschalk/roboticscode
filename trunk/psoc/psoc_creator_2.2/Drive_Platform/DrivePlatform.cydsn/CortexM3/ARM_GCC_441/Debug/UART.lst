@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
   51              		.global	UART_rxBufferLoopDetect
   52              		.type	UART_rxBufferLoopDetect, %object
   53              		.size	UART_rxBufferLoopDetect, 1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 2
 
 
   54              	UART_rxBufferLoopDetect:
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
   39:.\Generated_Source\PSoC5/UART.c ****     volatile uint8 UART_rxBufferLoopDetect = 0u;
   40:.\Generated_Source\PSoC5/UART.c ****     volatile uint8 UART_rxBufferOverflow = 0u;
   41:.\Generated_Source\PSoC5/UART.c ****     #if (UART_RXHW_ADDRESS_ENABLED)
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 3
 
 
   42:.\Generated_Source\PSoC5/UART.c ****         volatile uint8 UART_rxAddressMode = UART_RXADDRESSMODE;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
   78:.\Generated_Source\PSoC5/UART.c ****         UART_Init();
   88              		.loc 1 78 0
   89 0012 FFF7FEFF 		bl	UART_Init
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 4
 
 
   79:.\Generated_Source\PSoC5/UART.c ****         UART_initVar = 1u;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  120              		.cfi_offset 7, -8
  121              	.LCFI3:
  122              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 5
 
 
  103:.\Generated_Source\PSoC5/UART.c ****     #if(UART_RX_ENABLED || UART_HD_ENABLED)
@@ -274,8 +274,8 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  119:.\Generated_Source\PSoC5/UART.c ****         /* Configure the Initial RX interrupt mask */
  120:.\Generated_Source\PSoC5/UART.c ****         UART_RXSTATUS_MASK_REG  = UART_INIT_RX_INTERRUPTS_MASK;
  137              		.loc 1 120 0
- 138 002e 46F28B53 		movw	r3, #:lower16:1073767819
- 139 0032 C4F20003 		movt	r3, #:upper16:1073767819
+ 138 002e 46F28753 		movw	r3, #:lower16:1073767815
+ 139 0032 C4F20003 		movt	r3, #:upper16:1073767815
  140 0036 4FF02002 		mov	r2, #32
  141 003a 1A70     		strb	r2, [r3, #0]
  121:.\Generated_Source\PSoC5/UART.c ****     #endif /* End UART_RX_ENABLED || UART_HD_ENABLED*/
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  129:.\Generated_Source\PSoC5/UART.c **** 
  130:.\Generated_Source\PSoC5/UART.c ****         /* Write Counter Value for TX Bit Clk Generator*/
  131:.\Generated_Source\PSoC5/UART.c ****         #if(UART_TXCLKGEN_DP)
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 6
 
 
  132:.\Generated_Source\PSoC5/UART.c ****             UART_TXBITCLKGEN_CTR_REG = UART_BIT_CENTER;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  158:.\Generated_Source\PSoC5/UART.c **** * Function Name: UART_Enable
  159:.\Generated_Source\PSoC5/UART.c **** ********************************************************************************
  160:.\Generated_Source\PSoC5/UART.c **** *
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 7
 
 
  161:.\Generated_Source\PSoC5/UART.c **** * Summary:
@@ -414,11 +414,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  182:.\Generated_Source\PSoC5/UART.c ****         /* Enable the RX Interrupt. */
  183:.\Generated_Source\PSoC5/UART.c ****         UART_RXSTATUS_ACTL_REG  |= UART_INT_ENABLE;
  208              		.loc 1 183 0
- 209 002a 46F29B53 		movw	r3, #:lower16:1073767835
- 210 002e C4F20003 		movt	r3, #:upper16:1073767835
- 211 0032 46F29B52 		movw	r2, #:lower16:1073767835
- 212 0036 C4F20002 		movt	r2, #:upper16:1073767835
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 8
+ 209 002a 46F29753 		movw	r3, #:lower16:1073767831
+ 210 002e C4F20003 		movt	r3, #:upper16:1073767831
+ 211 0032 46F29752 		movw	r2, #:lower16:1073767831
+ 212 0036 C4F20002 		movt	r2, #:upper16:1073767831
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 8
 
 
  213 003a 1278     		ldrb	r2, [r2, #0]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  241 0082 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
  242 0084 1846     		mov	r0, r3
  243 0086 FFF7FEFF 		bl	CyExitCriticalSection
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 9
 
 
  210:.\Generated_Source\PSoC5/UART.c **** }
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  277 000c FB71     		strb	r3, [r7, #7]
  231:.\Generated_Source\PSoC5/UART.c **** 
  232:.\Generated_Source\PSoC5/UART.c ****     /* Write Bit Counter Disable */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 10
 
 
  233:.\Generated_Source\PSoC5/UART.c ****     #if(UART_RX_ENABLED || UART_HD_ENABLED)
@@ -571,10 +571,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  249:.\Generated_Source\PSoC5/UART.c ****     #if(UART_RX_ENABLED || UART_HD_ENABLED)
  250:.\Generated_Source\PSoC5/UART.c ****         UART_RXSTATUS_ACTL_REG  &= (uint8)~UART_INT_ENABLE;
  289              		.loc 1 250 0
- 290 002c 46F29B53 		movw	r3, #:lower16:1073767835
- 291 0030 C4F20003 		movt	r3, #:upper16:1073767835
- 292 0034 46F29B52 		movw	r2, #:lower16:1073767835
- 293 0038 C4F20002 		movt	r2, #:upper16:1073767835
+ 290 002c 46F29753 		movw	r3, #:lower16:1073767831
+ 291 0030 C4F20003 		movt	r3, #:upper16:1073767831
+ 292 0034 46F29752 		movw	r2, #:lower16:1073767831
+ 293 0038 C4F20002 		movt	r2, #:upper16:1073767831
  294 003c 1278     		ldrb	r2, [r2, #0]
  295 003e D2B2     		uxtb	r2, r2
  296 0040 02F0EF02 		and	r2, r2, #239
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  307 005e 02F0EF02 		and	r2, r2, #239
  308 0062 1A70     		strb	r2, [r3, #0]
  258:.\Generated_Source\PSoC5/UART.c ****         #if(UART_TX_INTERRUPT_ENABLED && (UART_TXBUFFERSIZE > UART_FIFO_LENGTH))
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 11
 
 
  259:.\Generated_Source\PSoC5/UART.c ****             UART_DisableTxInt();
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  339              		.cfi_offset 7, -4
  340              	.LCFI11:
  341              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 12
 
 
  283:.\Generated_Source\PSoC5/UART.c ****     #if( UART_CONTROL_REG_REMOVED )
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  372              		.cfi_offset 7, -4
  373              	.LCFI14:
  374              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 13
 
 
  375 0006 0346     		mov	r3, r0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  398 0000 80B4     		push	{r7}
  399              	.LCFI15:
  400              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 14
 
 
  401 0002 00AF     		add	r7, sp, #0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  432              		.cfi_def_cfa_offset 4
  433 0002 00AF     		add	r7, sp, #0
  434              		.cfi_offset 7, -4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 15
 
 
  435              	.LCFI18:
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  463              	.LCFI19:
  464              		.cfi_def_cfa_offset 4
  465 0002 83B0     		sub	sp, sp, #12
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 16
 
 
  466              	.LCFI20:
@@ -911,8 +911,8 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  473 0008 FB71     		strb	r3, [r7, #7]
  387:.\Generated_Source\PSoC5/UART.c ****         UART_RXSTATUS_MASK_REG  = intSrc;
  474              		.loc 1 387 0
- 475 000a 46F28B53 		movw	r3, #:lower16:1073767819
- 476 000e C4F20003 		movt	r3, #:upper16:1073767819
+ 475 000a 46F28753 		movw	r3, #:lower16:1073767815
+ 476 000e C4F20003 		movt	r3, #:upper16:1073767815
  477 0012 FA79     		ldrb	r2, [r7, #7]
  478 0014 1A70     		strb	r2, [r3, #0]
  388:.\Generated_Source\PSoC5/UART.c ****     }
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  412:.\Generated_Source\PSoC5/UART.c ****     *     in RX ISR.
  413:.\Generated_Source\PSoC5/UART.c ****     *
  414:.\Generated_Source\PSoC5/UART.c ****     * Reentrant:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 17
 
 
  415:.\Generated_Source\PSoC5/UART.c ****     *  No.
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  530 0034 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
  531 0036 9A42     		cmp	r2, r3
  532 0038 26D0     		beq	.L22
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 18
 
 
  533              	.L21:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  449:.\Generated_Source\PSoC5/UART.c ****                          (UART_RXBUFFERSIZE > UART_FIFO_LENGTH) )
  450:.\Generated_Source\PSoC5/UART.c ****                         /* When Hardware Flow Control selected - return RX mask */
  451:.\Generated_Source\PSoC5/UART.c ****                         #if( UART_HD_ENABLED )
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 19
 
 
  452:.\Generated_Source\PSoC5/UART.c ****                             if((UART_CONTROL_REG & UART_CTRL_HD_SEND) == 0u)
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  594              		.section	.text.UART_ReadRxStatus,"ax",%progbits
  595              		.align	2
  596              		.global	UART_ReadRxStatus
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 20
 
 
  597              		.thumb
@@ -1192,13 +1192,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  512:.\Generated_Source\PSoC5/UART.c **** 
  513:.\Generated_Source\PSoC5/UART.c ****         status = UART_RXSTATUS_REG & UART_RX_HW_MASK;
  617              		.loc 1 513 0
- 618 0006 46F26B53 		movw	r3, #:lower16:1073767787
- 619 000a C4F20003 		movt	r3, #:upper16:1073767787
+ 618 0006 46F26753 		movw	r3, #:lower16:1073767783
+ 619 000a C4F20003 		movt	r3, #:upper16:1073767783
  620 000e 1B78     		ldrb	r3, [r3, #0]
  621 0010 DBB2     		uxtb	r3, r3
  622 0012 03F07F03 		and	r3, r3, #127
  623 0016 FB71     		strb	r3, [r7, #7]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 21
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 21
 
 
  514:.\Generated_Source\PSoC5/UART.c **** 
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  531:.\Generated_Source\PSoC5/UART.c ****     * Summary:
  532:.\Generated_Source\PSoC5/UART.c ****     *  Reads UART RX buffer immediately, if data is not available or an error
  533:.\Generated_Source\PSoC5/UART.c ****     *  condition exists, zero is returned; otherwise, character is read and
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 22
 
 
  534:.\Generated_Source\PSoC5/UART.c ****     *  returned.
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  568:.\Generated_Source\PSoC5/UART.c ****             #endif /* UART_RX_INTERRUPT_ENABLED */
  569:.\Generated_Source\PSoC5/UART.c ****             loc_rxBufferRead = UART_rxBufferRead;
  681              		.loc 1 569 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 23
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 23
 
 
  682 0010 40F20003 		movw	r3, #:lower16:UART_rxBufferRead
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  724 006a BA79     		ldrb	r2, [r7, #6]
  725 006c 1A70     		strb	r2, [r3, #0]
  582:.\Generated_Source\PSoC5/UART.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 24
 
 
  583:.\Generated_Source\PSoC5/UART.c ****                 if(UART_rxBufferLoopDetect > 0u )
@@ -1419,8 +1419,8 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  603:.\Generated_Source\PSoC5/UART.c ****             else
  604:.\Generated_Source\PSoC5/UART.c ****             {   rxStatus = UART_RXSTATUS_REG;
  741              		.loc 1 604 0
- 742 008e 46F26B53 		movw	r3, #:lower16:1073767787
- 743 0092 C4F20003 		movt	r3, #:upper16:1073767787
+ 742 008e 46F26753 		movw	r3, #:lower16:1073767783
+ 743 0092 C4F20003 		movt	r3, #:upper16:1073767783
  744 0096 1B78     		ldrb	r3, [r3, #0]
  745 0098 7B71     		strb	r3, [r7, #5]
  605:.\Generated_Source\PSoC5/UART.c ****                 if((rxStatus & UART_RX_STS_FIFO_NOTEMPTY) != 0u)
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  755 00ae 3B71     		strb	r3, [r7, #4]
  608:.\Generated_Source\PSoC5/UART.c ****                     /*Check status on error*/
  609:.\Generated_Source\PSoC5/UART.c ****                     if((rxStatus & (UART_RX_STS_BREAK | UART_RX_STS_PAR_ERROR |
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 25
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 25
 
 
  756              		.loc 1 609 0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  781              		.section	.text.UART_GetByte,"ax",%progbits
  782              		.align	2
  783              		.global	UART_GetByte
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 26
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 26
 
 
  784              		.thumb
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  815 0020 1846     		mov	r0, r3
  816 0022 98BD     		pop	{r3, r4, r7, pc}
  817              		.cfi_endproc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 27
 
 
  818              	.LFE12:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  840              		.cfi_offset 7, -8
  841              	.LCFI35:
  842              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 28
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 28
 
 
  694:.\Generated_Source\PSoC5/UART.c ****         uint8 size;
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  875 004a C0F20003 		movt	r3, #:upper16:UART_rxBufferRead
  876 004e 1B78     		ldrb	r3, [r3, #0]
  877 0050 DAB2     		uxtb	r2, r3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 29
 
 
  878 0052 40F20003 		movw	r3, #:lower16:UART_rxBufferWrite
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  735:.\Generated_Source\PSoC5/UART.c **** 
  736:.\Generated_Source\PSoC5/UART.c ****         return(size);
  913              		.loc 1 736 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 30
 
 
  914 00aa FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  932              		.cfi_startproc
  933              		@ args = 0, pretend = 0, frame = 8
  934              		@ frame_needed = 1, uses_anonymous_args = 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 31
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 31
 
 
  935 0000 80B5     		push	{r7, lr}
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  974 004c FFF7FEFF 		bl	UART_DisableRxInt
  788:.\Generated_Source\PSoC5/UART.c ****             #endif /* End UART_RX_INTERRUPT_ENABLED */
  789:.\Generated_Source\PSoC5/UART.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 32
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 32
 
 
  790:.\Generated_Source\PSoC5/UART.c ****             UART_rxBufferRead = 0u;
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  807:.\Generated_Source\PSoC5/UART.c ****     *
  808:.\Generated_Source\PSoC5/UART.c ****     * Summary:
  809:.\Generated_Source\PSoC5/UART.c ****     *  Set the receive addressing mode
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 33
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 33
 
 
  810:.\Generated_Source\PSoC5/UART.c ****     *
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  847:.\Generated_Source\PSoC5/UART.c ****                 #endif /* End UART_RXBUFFERSIZE > UART_FIFO_LENGTH*/
  848:.\Generated_Source\PSoC5/UART.c ****             #endif /* End UART_CONTROL_REG_REMOVED */
  849:.\Generated_Source\PSoC5/UART.c ****         #else /* UART_RXHW_ADDRESS_ENABLED */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 34
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 34
 
 
  850:.\Generated_Source\PSoC5/UART.c ****             if(addressMode != 0u) { }     /* release compiler warning */
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1061 0008 FB71     		strb	r3, [r7, #7]
  872:.\Generated_Source\PSoC5/UART.c ****         UART_RXADDRESS1_REG = address;
  1062              		.loc 1 872 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 35
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 35
 
 
  1063 000a 46F22B53 		movw	r3, #:lower16:1073767723
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1098 0006 0346     		mov	r3, r0
  1099 0008 FB71     		strb	r3, [r7, #7]
  892:.\Generated_Source\PSoC5/UART.c ****         UART_RXADDRESS2_REG = address;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 36
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 36
 
 
  1100              		.loc 1 892 0
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1126 0000 80B4     		push	{r7}
  1127              	.LCFI48:
  1128              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 37
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 37
 
 
  1129 0002 00AF     		add	r7, sp, #0
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1160              		.cfi_def_cfa_offset 4
  1161 0002 00AF     		add	r7, sp, #0
  1162              		.cfi_offset 7, -4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 38
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 38
 
 
  1163              	.LCFI51:
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1191              	.LCFI52:
  1192              		.cfi_def_cfa_offset 4
  1193 0002 83B0     		sub	sp, sp, #12
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 39
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 39
 
 
  1194              	.LCFI53:
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  995:.\Generated_Source\PSoC5/UART.c ****     *  UART_initVar - checked to identify that the component has been
  996:.\Generated_Source\PSoC5/UART.c ****     *    initialized.
  997:.\Generated_Source\PSoC5/UART.c ****     *
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 40
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 40
 
 
  998:.\Generated_Source\PSoC5/UART.c ****     * Reentrant:
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1258              		.loc 1 1016 0
  1259 0036 46F26943 		movw	r3, #:lower16:1073767529
  1260 003a C4F20003 		movt	r3, #:upper16:1073767529
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 41
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 41
 
 
  1261 003e 1B78     		ldrb	r3, [r3, #0]
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1300 0096 03F10103 		add	r3, r3, #1
  1301 009a DAB2     		uxtb	r2, r3
  1302 009c 40F20003 		movw	r3, #:lower16:UART_txBufferWrite
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 42
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 42
 
 
  1303 00a0 C0F20003 		movt	r3, #:upper16:UART_txBufferWrite
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1065:.\Generated_Source\PSoC5/UART.c ****     *  the user to handle all bits in this return value accordingly, even if the bit
 1066:.\Generated_Source\PSoC5/UART.c ****     *  was not enabled as an interrupt source the event happened and must be handled
 1067:.\Generated_Source\PSoC5/UART.c ****     *  accordingly.
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 43
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 43
 
 
 1068:.\Generated_Source\PSoC5/UART.c ****     *
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1089:.\Generated_Source\PSoC5/UART.c ****     * Global Variables:
 1090:.\Generated_Source\PSoC5/UART.c ****     *  UART_txBuffer - RAM buffer pointer for save data for transmission
 1091:.\Generated_Source\PSoC5/UART.c ****     *  UART_txBufferWrite - cyclic index for write to txBuffer,
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 44
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 44
 
 
 1092:.\Generated_Source\PSoC5/UART.c ****     *     checked to identify free space in txBuffer and incremented after each byte
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1123:.\Generated_Source\PSoC5/UART.c ****                     loc_txBufferRead = UART_txBufferRead;
  1380              		.loc 1 1123 0
  1381 0016 40F20003 		movw	r3, #:lower16:UART_txBufferRead
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 45
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 45
 
 
  1382 001a C0F20003 		movt	r3, #:upper16:UART_txBufferRead
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1426              		.loc 1 1132 0
  1427 006c 002B     		cmp	r3, #0
  1428 006e 06D1     		bne	.L74
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 46
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 46
 
 
 1134:.\Generated_Source\PSoC5/UART.c ****                 {
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1156:.\Generated_Source\PSoC5/UART.c ****                 }
 1157:.\Generated_Source\PSoC5/UART.c **** 
 1158:.\Generated_Source\PSoC5/UART.c ****             #else /* UART_TXBUFFERSIZE > UART_FIFO_LENGTH */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 47
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 47
 
 
 1159:.\Generated_Source\PSoC5/UART.c **** 
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1197:.\Generated_Source\PSoC5/UART.c ****     *******************************************************************************/
 1198:.\Generated_Source\PSoC5/UART.c ****     void UART_PutString(const char8 string[]) 
 1199:.\Generated_Source\PSoC5/UART.c ****     {
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 48
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 48
 
 
  1477              		.loc 1 1199 0
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1522 003c 002B     		cmp	r3, #0
  1523 003e EED1     		bne	.L81
  1524              	.L82:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 49
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 49
 
 
 1209:.\Generated_Source\PSoC5/UART.c ****             }
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1549              		.cfi_def_cfa_offset 24
  1550 0004 00AF     		add	r7, sp, #0
  1551              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 50
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 50
 
 
  1552              		.cfi_offset 7, -8
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1595              		.thumb
  1596              		.thumb_func
  1597              		.type	UART_PutCRLF, %function
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 51
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 51
 
 
  1598              	UART_PutCRLF:
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1623              		.loc 1 1278 0
  1624 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
  1625 001a 1846     		mov	r0, r3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 52
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 52
 
 
  1626 001c FFF7FEFF 		bl	UART_PutChar
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1310:.\Generated_Source\PSoC5/UART.c ****     uint8 UART_GetTxBufferSize(void)
 1311:.\Generated_Source\PSoC5/UART.c ****                                                             
 1312:.\Generated_Source\PSoC5/UART.c ****     {
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 53
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 53
 
 
  1649              		.loc 1 1312 0
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1688 0040 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
  1689 0042 9A42     		cmp	r2, r3
  1690 0044 0ED2     		bcs	.L93
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 54
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 54
 
 
 1328:.\Generated_Source\PSoC5/UART.c ****             {
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1355:.\Generated_Source\PSoC5/UART.c ****             {
 1356:.\Generated_Source\PSoC5/UART.c ****                 /* We only know there is data in the fifo. */
 1357:.\Generated_Source\PSoC5/UART.c ****                 size = 1u;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 55
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 55
 
 
 1358:.\Generated_Source\PSoC5/UART.c ****             }
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1394:.\Generated_Source\PSoC5/UART.c ****     *
 1395:.\Generated_Source\PSoC5/UART.c ****     *******************************************************************************/
 1396:.\Generated_Source\PSoC5/UART.c ****     void UART_ClearTxBuffer(void) 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 56
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 56
 
 
 1397:.\Generated_Source\PSoC5/UART.c ****     {
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1409:.\Generated_Source\PSoC5/UART.c **** 
 1410:.\Generated_Source\PSoC5/UART.c ****             /* Disable Tx interrupt. */
 1411:.\Generated_Source\PSoC5/UART.c ****             /* Protect variables that could change on interrupt. */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 57
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 57
 
 
 1412:.\Generated_Source\PSoC5/UART.c ****             #if(UART_TX_INTERRUPT_ENABLED)
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1437:.\Generated_Source\PSoC5/UART.c ****     *   0 - Initialize registers for Break, sends the Break signal and return
 1438:.\Generated_Source\PSoC5/UART.c ****     *       imediately.
 1439:.\Generated_Source\PSoC5/UART.c ****     *   1 - Wait until Break sending is complete, reinitialize registers to normal
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 58
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 58
 
 
 1440:.\Generated_Source\PSoC5/UART.c ****     *       transmission mode then return.
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1814              		.cfi_def_cfa_offset 4
  1815 0002 85B0     		sub	sp, sp, #20
  1816              	.LCFI79:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 59
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 59
 
 
  1817              		.cfi_def_cfa_offset 24
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1527:.\Generated_Source\PSoC5/UART.c ****                 }
 1528:.\Generated_Source\PSoC5/UART.c **** 
 1529:.\Generated_Source\PSoC5/UART.c ****             #else /* UART_HD_ENABLED Full Duplex mode */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 60
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 60
 
 
 1530:.\Generated_Source\PSoC5/UART.c **** 
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1858              		.loc 1 1556 0
  1859 0056 46F26943 		movw	r3, #:lower16:1073767529
  1860 005a C4F20003 		movt	r3, #:upper16:1073767529
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 61
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 61
 
 
  1861 005e 1B78     		ldrb	r3, [r3, #0]
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1902 00a8 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
  1903 00aa 032B     		cmp	r3, #3
  1904 00ac 09D1     		bne	.L107
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 62
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 62
 
 
  1905              	.L106:
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
 1598:.\Generated_Source\PSoC5/UART.c ****     * Parameters:
 1599:.\Generated_Source\PSoC5/UART.c ****     *  addressMode: 0 -> Space
 1600:.\Generated_Source\PSoC5/UART.c ****     *               1 -> Mark
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 63
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 63
 
 
 1601:.\Generated_Source\PSoC5/UART.c ****     *
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  1962              	.Ldebug_loc0:
  1963              	.LLST0:
  1964 0000 00000000 		.4byte	.LFB0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 64
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 64
 
 
  1965 0004 02000000 		.4byte	.LCFI0
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2019              	.LLST3:
  2020 008d 00000000 		.4byte	.LFB3
  2021 0091 02000000 		.4byte	.LCFI7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 65
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 65
 
 
  2022 0095 0100     		.2byte	0x1
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2076 011c 77       		.byte	0x77
  2077 011d 10       		.sleb128 16
  2078 011e 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 66
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 66
 
 
  2079 0122 00000000 		.4byte	0x0
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2133 01aa 10       		.sleb128 16
  2134 01ab 00000000 		.4byte	0x0
  2135 01af 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 67
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 67
 
 
  2136              	.LLST9:
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2190 0238 04000000 		.4byte	.LCFI29
  2191 023c 06000000 		.4byte	.LCFI30
  2192 0240 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 68
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 68
 
 
  2193 0242 7D       		.byte	0x7d
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2247 02c9 04000000 		.4byte	.LCFI37
  2248 02cd 0200     		.2byte	0x2
  2249 02cf 7D       		.byte	0x7d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 69
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 69
 
 
  2250 02d0 08       		.sleb128 8
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2304 0356 10       		.sleb128 16
  2305 0357 00000000 		.4byte	0x0
  2306 035b 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 70
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 70
 
 
  2307              	.LLST17:
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2361 03e4 00000000 		.4byte	0x0
  2362 03e8 00000000 		.4byte	0x0
  2363              	.LLST20:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 71
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 71
 
 
  2364 03ec 00000000 		.4byte	.LFB20
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2418 0475 18000000 		.4byte	.LFE22
  2419 0479 0200     		.2byte	0x2
  2420 047b 77       		.byte	0x77
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 72
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 72
 
 
  2421 047c 04       		.sleb128 4
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2475 0506 0200     		.2byte	0x2
  2476 0508 7D       		.byte	0x7d
  2477 0509 08       		.sleb128 8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 73
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 73
 
 
  2478 050a 04000000 		.4byte	.LCFI67
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2532 0590 00000000 		.4byte	0x0
  2533 0594 00000000 		.4byte	0x0
  2534              	.LLST28:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 74
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 74
 
 
  2535 0598 00000000 		.4byte	.LFB28
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2589 0621 06000000 		.4byte	.LCFI83
  2590 0625 0200     		.2byte	0x2
  2591 0627 7D       		.byte	0x7d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 75
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 75
 
 
  2592 0628 10       		.sleb128 16
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2646 005d 3E000000 		.4byte	.LASF7
  2647 0061 03       		.uleb128 0x3
  2648 0062 04       		.byte	0x4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 76
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 76
 
 
  2649 0063 05       		.byte	0x5
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2703 00cf 84000000 		.4byte	.LFE1
  2704 00d3 2B000000 		.4byte	.LLST1
  2705 00d7 08       		.uleb128 0x8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 77
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 77
 
 
  2706 00d8 01       		.byte	0x1
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2760 014f 14000000 		.4byte	.LFE5
  2761 0153 EF000000 		.4byte	.LLST5
  2762 0157 6B010000 		.4byte	0x16b
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 78
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 78
 
 
  2763 015b 0C       		.uleb128 0xc
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2817 01d3 A8000000 		.4byte	.LFE9
  2818 01d7 B3010000 		.4byte	.LLST9
  2819 01db 0D020000 		.4byte	0x20d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 79
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 79
 
 
  2820 01df 0F       		.uleb128 0xf
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2874 0251 21020000 		.4byte	.LLST11
  2875 0255 96020000 		.4byte	0x296
  2876 0259 0F       		.uleb128 0xf
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 80
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 80
 
 
  2877 025a B8030000 		.4byte	.LASF26
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2931 02cf 1F020000 		.4byte	.LASF37
  2932 02d3 01       		.byte	0x1
  2933 02d4 B602     		.2byte	0x2b6
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 81
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 81
 
 
  2934 02d6 6F000000 		.4byte	0x6f
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  2988 034d 0E030000 		.4byte	.LASF42
  2989 0351 01       		.byte	0x1
  2990 0352 6503     		.2byte	0x365
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 82
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 82
 
 
  2991 0354 6F000000 		.4byte	0x6f
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3045 03d1 01       		.byte	0x1
  3046 03d2 C803     		.2byte	0x3c8
  3047 03d4 6F000000 		.4byte	0x6f
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 83
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 83
 
 
  3048 03d8 02       		.byte	0x2
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3102 044f 5904     		.2byte	0x459
  3103 0451 6F000000 		.4byte	0x6f
  3104 0455 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 84
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 84
 
 
  3105 0456 91       		.byte	0x91
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3159 04c7 37000000 		.4byte	.LASF54
  3160 04cb 01       		.byte	0x1
  3161 04cc D404     		.2byte	0x4d4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 85
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 85
 
 
  3162 04ce F4040000 		.4byte	0x4f4
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3216 053f 61050000 		.4byte	.LLST27
  3217 0543 57050000 		.4byte	0x557
  3218 0547 0F       		.uleb128 0xf
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 86
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 86
 
 
  3219 0548 1F020000 		.4byte	.LASF37
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3273 05c0 91       		.byte	0x91
  3274 05c1 77       		.sleb128 -9
  3275 05c2 0F       		.uleb128 0xf
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 87
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 87
 
 
  3276 05c3 A9020000 		.4byte	.LASF64
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3330 0635 12060000 		.4byte	0x612
  3331 0639 13       		.uleb128 0x13
  3332 063a 84000000 		.4byte	.LASF68
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 88
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 88
 
 
  3333 063e 01       		.byte	0x1
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3387 06aa 13       		.uleb128 0x13
  3388 06ab C0010000 		.4byte	.LASF74
  3389 06af 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 89
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 89
 
 
  3390 06b0 28       		.byte	0x28
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3444 002e 03       		.uleb128 0x3
  3445 002f 0E       		.uleb128 0xe
  3446 0030 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 90
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 90
 
 
  3447 0031 0B       		.uleb128 0xb
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3501 0067 0B       		.uleb128 0xb
  3502 0068 27       		.uleb128 0x27
  3503 0069 0C       		.uleb128 0xc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 91
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 91
 
 
  3504 006a 11       		.uleb128 0x11
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3558 00a0 0E       		.uleb128 0xe
  3559 00a1 3A       		.uleb128 0x3a
  3560 00a2 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 92
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 92
 
 
  3561 00a3 3B       		.uleb128 0x3b
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3615 00d9 0C       		.uleb128 0xc
  3616 00da 03       		.uleb128 0x3
  3617 00db 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 93
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 93
 
 
  3618 00dc 3A       		.uleb128 0x3a
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3672 0112 12       		.uleb128 0x12
  3673 0113 01       		.uleb128 0x1
  3674 0114 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 94
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 94
 
 
  3675 0115 00       		.byte	0x0
@@ -5638,7 +5638,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3723 003b FF000000 		.4byte	0xff
  3724 003f 55415254 		.ascii	"UART_Stop\000"
  3724      5F53746F 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 95
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 95
 
 
  3724      7000
@@ -5698,7 +5698,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3744      5F476574 
  3744      52784275 
  3744      66666572 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 96
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 96
 
 
  3744      53697A65 
@@ -5758,7 +5758,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3762      7300
  3763 0201 20040000 		.4byte	0x420
  3764 0205 55415254 		.ascii	"UART_PutChar\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 97
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 97
 
 
  3764      5F507574 
@@ -5818,7 +5818,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3784      75666665 
  3784      72526561 
  3784      6400
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 98
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 98
 
 
  3785 02de 4B060000 		.4byte	0x64b
@@ -5878,7 +5878,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3816 0038 00000000 		.4byte	.LFB5
  3817 003c 14000000 		.4byte	.LFE5-.LFB5
  3818 0040 00000000 		.4byte	.LFB6
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 99
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 99
 
 
  3819 0044 18000000 		.4byte	.LFE6-.LFB6
@@ -5938,7 +5938,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3873 0004 00000000 		.4byte	.Letext0
  3874 0008 00000000 		.4byte	.LFB0
  3875 000c 2A000000 		.4byte	.LFE0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 100
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 100
 
 
  3876 0010 00000000 		.4byte	.LFB1
@@ -5998,7 +5998,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3930 00e8 00000000 		.4byte	.LFB28
  3931 00ec 78000000 		.4byte	.LFE28
  3932 00f0 00000000 		.4byte	.LFB29
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 101
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 101
 
 
  3933 00f4 CC000000 		.4byte	.LFE29
@@ -6058,7 +6058,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3959              	.LASF44:
  3960 0096 55415254 		.ascii	"UART_EnableTxInt\000"
  3960      5F456E61 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 102
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 102
 
 
  3960      626C6554 
@@ -6118,7 +6118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  3983              	.LASF72:
  3984 014b 55415254 		.ascii	"UART_rxBufferWrite\000"
  3984      5F727842 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 103
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 103
 
 
  3984      75666665 
@@ -6178,7 +6178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  4006      41727261 
  4006      7900
  4007              	.LASF52:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 104
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 104
 
 
  4008 01f6 6C6F635F 		.ascii	"loc_txBufferRead\000"
@@ -6238,7 +6238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  4027      64726573 
  4027      734D6F64 
  4028              	.LASF49:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 105
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 105
 
 
  4029 02d0 55415254 		.ascii	"UART_ReadTxStatus\000"
@@ -6298,7 +6298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  4050              	.LASF1:
  4051 0376 756E7369 		.ascii	"unsigned char\000"
  4051      676E6564 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 106
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 106
 
 
  4051      20636861 
@@ -6358,7 +6358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 1
  4075      74657272 
  4075      75707473 
  4075      00
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpWdi9d.s 			page 107
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccORHDhL.s 			page 107
 
 
  4076              	.LASF66:

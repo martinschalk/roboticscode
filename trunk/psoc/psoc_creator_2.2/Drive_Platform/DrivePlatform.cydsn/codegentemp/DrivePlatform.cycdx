@@ -16,7 +16,7 @@
     <register name="RX_UART_RX_ADDRESS1" address="0x4000652B" bitWidth="8" desc="RX Address1 Register" />
     <register name="RX_UART_RX_ADDRESS2" address="0x4000653B" bitWidth="8" desc="RX Address2 Register" />
     <register name="RX_UART_RX_DATA" address="0x4000654B" bitWidth="8" desc="RX Data Register" />
-    <register name="RX_UART_RX_STATUS" address="0x4000656B" bitWidth="8" desc="RX status register">
+    <register name="RX_UART_RX_STATUS" address="0x40006567" bitWidth="8" desc="RX status register">
       <field name="UART_RX_STS_MRKSPC" from="0" to="0" access="R" resetVal="" desc="" />
       <field name="UART_RX_STS_BREAK" from="1" to="1" access="R" resetVal="" desc="" />
       <field name="UART_RX_STS_PAR_ERROR" from="2" to="2" access="R" resetVal="" desc="" />
@@ -32,15 +32,28 @@
   <block name="Isr_tx" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="Isr_rx" BASE="0x0" SIZE="0x0" desc="" visible="true" />
   <block name="UART_TEST" BASE="0x0" SIZE="0x0" desc="UART" visible="true">
+    <block name="RXInternalInterrupt" BASE="0x0" SIZE="0x0" desc="" visible="true" />
+    <block name="IntClock" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="BUART" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <block name="IntClock" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <register name="TX_UART_TEST_TX_DATA" address="0x40006549" bitWidth="8" desc="TX Data Register" />
-    <register name="TX_UART_TEST_TX_STATUS" address="0x40006569" bitWidth="8" desc="TX status register">
+    <register name="TX_UART_TEST_TX_DATA" address="0x4000644B" bitWidth="8" desc="TX Data Register" />
+    <register name="TX_UART_TEST_TX_STATUS" address="0x4000646B" bitWidth="8" desc="TX status register">
       <field name="UART_TEST_TX_STS_COMPLETE" from="0" to="0" access="R" resetVal="" desc="" />
       <field name="UART_TEST_TX_STS_FIFO_EMPTY" from="1" to="1" access="R" resetVal="" desc="" />
       <field name="UART_TEST_TX_STS_FIFO_FULL" from="2" to="2" access="R" resetVal="" desc="" />
       <field name="UART_TEST_TX_STS_FIFO_NOT_FULL" from="3" to="3" access="R" resetVal="" desc="" />
+    </register>
+    <register name="RX_UART_TEST_RX_ADDRESS1" address="0x40006529" bitWidth="8" desc="RX Address1 Register" />
+    <register name="RX_UART_TEST_RX_ADDRESS2" address="0x40006539" bitWidth="8" desc="RX Address2 Register" />
+    <register name="RX_UART_TEST_RX_DATA" address="0x40006549" bitWidth="8" desc="RX Data Register" />
+    <register name="RX_UART_TEST_RX_STATUS" address="0x40006569" bitWidth="8" desc="RX status register">
+      <field name="UART_TEST_RX_STS_MRKSPC" from="0" to="0" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_BREAK" from="1" to="1" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_PAR_ERROR" from="2" to="2" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_STOP_ERROR" from="3" to="3" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_OVERRUN" from="4" to="4" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_FIFO_NOTEMPTY" from="5" to="5" access="R" resetVal="" desc="" />
+      <field name="UART_TEST_RX_STS_ADDR_MATCH" from="6" to="6" access="R" resetVal="" desc="" />
     </register>
   </block>
   <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
@@ -57,20 +70,20 @@
     <block name="ZeroTerminal_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <register name="TIMER_COUNTER" address="0x40006504" bitWidth="32" desc="UDB.A0 - Current Down Counter Value" />
     <register name="TIMER_PERIOD" address="0x40006524" bitWidth="32" desc="UDB.D0 - Assigned Period" />
-    <register name="TIMER_Control_Reg" address="0x40006574" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
+    <register name="TIMER_Control_Reg" address="0x40006575" bitWidth="8" desc="UDB Control Register - Assigned Control Register Value">
       <field name="CTRL_ENABLE" from="7" to="7" access="RW" resetVal="" desc="Enable the Timer" />
       <field name="CTRL_CMODE" from="6" to="5" access="RW" resetVal="" desc="Capture Mode" />
       <field name="CTRL_TEN" from="4" to="4" access="RW" resetVal="" desc="Trigger Enable Bit" />
       <field name="CTRL_TMODE" from="3" to="2" access="RW" resetVal="" desc="Trigger Mode" />
       <field name="CTRL_IC" from="1" to="0" access="RW" resetVal="" desc="Interrupt Count" />
     </register>
-    <register name="TIMER_STATUS_MASK" address="0x40006587" bitWidth="8" desc="UDB Status bits Interrupt Mask Enable Register">
+    <register name="TIMER_STATUS_MASK" address="0x40006584" bitWidth="8" desc="UDB Status bits Interrupt Mask Enable Register">
       <field name="TIMER_STS_TC" from="0" to="0" access="R" resetVal="" desc="Enables the Interrupt on TC" />
       <field name="TIMER_STS_CAPT" from="1" to="1" access="R" resetVal="" desc="Enables the Interrupt on Capture" />
       <field name="TIMER_STS_FIFO_FULL" from="2" to="2" access="R" resetVal="" desc="FIFO Full Status " />
       <field name="TIMER_STS_FIFO_NEMPTY" from="3" to="3" access="R" resetVal="" desc="FIFO Empty status " />
     </register>
-    <register name="TIMER_STATUS_AUX_CTRL" address="0x40006597" bitWidth="8" desc="UDB Auxilliary Control Register">
+    <register name="TIMER_STATUS_AUX_CTRL" address="0x40006594" bitWidth="8" desc="UDB Auxilliary Control Register">
       <field name="FIFO0_CLR" from="0" to="0" access="RW" resetVal="" desc="FIFO0 clear">
         <value name="E_FIFO_CLR_0" value="0" desc="Normal FIFO operation" />
         <value name="E_FIFO_CLR_1" value="1" desc="Clear FIFO state" />

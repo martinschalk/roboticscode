@@ -37,6 +37,11 @@ int main()
 		
 		/* Timer Handler */
 		TMR_HandleTask();
+
+#ifdef TEST_UART        
+        /* Test Handler */
+        TST_HandleTask();
+#endif
     }
 	
 	(void)status;

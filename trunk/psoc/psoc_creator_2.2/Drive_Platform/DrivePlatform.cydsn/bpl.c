@@ -44,11 +44,11 @@ uint8 BPL_GetMessage(uint8* target)
         return 0;
     
     /* get message length and copy data to target */
-    msgLength = TBTail[0];
-    memcpy(target, TBTail+1, msgLength);
+    msgLength = RBTail[0];
+    memcpy(target, RBTail+1, msgLength);
     
     /* update parameters */
-    TBTail += msgLength + 1;
+    RBTail += msgLength + 1;
     ReceiveMsgCount--;	
     
     return msgLength;
@@ -58,15 +58,15 @@ uint8 BPL_GetMessage(uint8* target)
 STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 {
     /* check if message fits in transmit buffer */
-    if (TransmitBytesCount + msgLength + 1 > RX_BUFFER_SIZE)
+    if (TransmitBytesCount + msgLength + 1 > TX_BUFFER_SIZE)
         return BPL_STATUS_TX_BUFFER_FULL;
 
     /* copy message to transmit buffer, 1st byte = message bytes */
-    RBHead[0] = msgLength;
-    memcpy(RBHead+1, source, msgLength);
+    TBHead[0] = msgLength;
+    memcpy(TBHead+1, source, msgLength);
     
     /* update parameters */
-    RBHead += msgLength + 1;
+    TBHead += msgLength + 1;
     TransmitBytesCount += msgLength + 1;
     TransmitMsgCount++;
 

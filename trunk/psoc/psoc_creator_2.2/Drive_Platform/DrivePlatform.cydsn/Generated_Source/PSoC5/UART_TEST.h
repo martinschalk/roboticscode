@@ -28,10 +28,10 @@
 * Conditional Compilation Parameters
 ***************************************/
 
-#define UART_TEST_RX_ENABLED                     (0u)
+#define UART_TEST_RX_ENABLED                     (1u)
 #define UART_TEST_TX_ENABLED                     (1u)
 #define UART_TEST_HD_ENABLED                     (0u)
-#define UART_TEST_RX_INTERRUPT_ENABLED           (0u)
+#define UART_TEST_RX_INTERRUPT_ENABLED           (1u)
 #define UART_TEST_TX_INTERRUPT_ENABLED           (0u)
 #define UART_TEST_INTERNAL_CLOCK_USED            (1u)
 #define UART_TEST_RXHW_ADDRESS_ENABLED           (0u)
@@ -46,7 +46,7 @@
 #define UART_TEST_FLOW_CONTROL                   (0u)
 #define UART_TEST_CLK_FREQ                       (0u)
 #define UART_TEST_TXBUFFERSIZE                   (4u)
-#define UART_TEST_RXBUFFERSIZE                   (4u)
+#define UART_TEST_RXBUFFERSIZE                   (12u)
 
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
@@ -381,7 +381,7 @@ extern uint8 UART_TEST_initVar;
 #endif /* End EnableHWAddress */
 
 #define UART_TEST_INIT_RX_INTERRUPTS_MASK \
-                                  (uint8)((0 << UART_TEST_RX_STS_FIFO_NOTEMPTY_SHIFT) \
+                                  (uint8)((1 << UART_TEST_RX_STS_FIFO_NOTEMPTY_SHIFT) \
                                         | (0 << UART_TEST_RX_STS_MRKSPC_SHIFT) \
                                         | (0 << UART_TEST_RX_STS_ADDR_MATCH_SHIFT) \
                                         | (0 << UART_TEST_RX_STS_PAR_ERROR_SHIFT) \
@@ -390,7 +390,7 @@ extern uint8 UART_TEST_initVar;
                                         | (0 << UART_TEST_RX_STS_OVERRUN_SHIFT))
 
 #define UART_TEST_INIT_TX_INTERRUPTS_MASK \
-                                  (uint8)((0 << UART_TEST_TX_STS_COMPLETE_SHIFT) \
+                                  (uint8)((1 << UART_TEST_TX_STS_COMPLETE_SHIFT) \
                                         | (0 << UART_TEST_TX_STS_FIFO_EMPTY_SHIFT) \
                                         | (0 << UART_TEST_TX_STS_FIFO_FULL_SHIFT) \
                                         | (0 << UART_TEST_TX_STS_FIFO_NOT_FULL_SHIFT))
