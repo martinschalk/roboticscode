@@ -13,7 +13,7 @@
 #define TEST_BLINK
 
 void TST_Init(void);
-
+void TST_HandleTask(void);
 
 #endif /* TEST_H */
 /* [] END OF FILE */

@@ -12,7 +12,7 @@
       <baseAddress>0x40006449</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x123</size>
+        <size>0x11F</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -94,7 +94,7 @@
         <register>
           <name>RX_UART_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x122</addressOffset>
+          <addressOffset>0x11E</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -156,10 +156,10 @@
     <peripheral>
       <name>UART_TEST</name>
       <description>UART</description>
-      <baseAddress>0x40006549</baseAddress>
+      <baseAddress>0x4000644B</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x21</size>
+        <size>0x11F</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -211,6 +211,93 @@
             </field>
           </fields>
         </register>
+        <register>
+          <name>RX_UART_TEST_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0xDE</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_TEST_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0xEE</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_TEST_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0xFE</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_TEST_RX_STATUS</name>
+          <description>RX status register</description>
+          <addressOffset>0x11E</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>UART_TEST_RX_STS_MRKSPC</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_BREAK</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_PAR_ERROR</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_STOP_ERROR</name>
+              <description>No description available</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_OVERRUN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_FIFO_NOTEMPTY</name>
+              <description>No description available</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TEST_RX_STS_ADDR_MATCH</name>
+              <description>No description available</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
       </registers>
     </peripheral>
     <peripheral>
@@ -219,7 +306,7 @@
       <baseAddress>0x40006504</baseAddress>
       <addressBlock>
         <offset>0</offset>
-        <size>0x94</size>
+        <size>0x91</size>
         <usage>registers</usage>
       </addressBlock>
       <registers>
@@ -244,7 +331,7 @@
         <register>
           <name>TIMER_Control_Reg</name>
           <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x70</addressOffset>
+          <addressOffset>0x71</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -290,7 +377,7 @@
         <register>
           <name>TIMER_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x83</addressOffset>
+          <addressOffset>0x80</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -329,7 +416,7 @@
         <register>
           <name>TIMER_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x93</addressOffset>
+          <addressOffset>0x90</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>

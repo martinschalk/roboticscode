@@ -1,6 +1,6 @@
 // ======================================================================
 // DrivePlatform.v generated from TopDesign.cysch
-// 08/31/2014 at 13:21
+// 10/14/2014 at 23:52
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -198,7 +198,7 @@ endmodule
 `include "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\B_UART_v2_30\B_UART_v2_30.v"
 `endif
 
-// UART_v2_30(Address1=0, Address2=0, BaudRate=115200, BreakBitsRX=13, BreakBitsTX=13, BreakDetect=false, CRCoutputsEn=false, CtrlModeReplacementString=AsyncCtl, Enable_RX=0, Enable_RXIntInterrupt=0, Enable_TX=1, Enable_TXIntInterrupt=0, EnableHWAddress=0, EnIntRXInterrupt=false, EnIntTXInterrupt=false, FlowControl=0, HalfDuplexEn=false, HwTXEnSignal=false, InternalClock=true, InternalClockUsed=1, InterruptOnAddDetect=0, InterruptOnAddressMatch=0, InterruptOnBreak=0, InterruptOnByteRcvd=0, InterruptOnOverrunError=0, InterruptOnParityError=0, InterruptOnStopError=0, InterruptOnTXComplete=false, InterruptOnTXFifoEmpty=false, InterruptOnTXFifoFull=false, InterruptOnTXFifoNotFull=false, IntOnAddressDetect=false, IntOnAddressMatch=false, IntOnBreak=false, IntOnByteRcvd=false, IntOnOverrunError=false, IntOnParityError=false, IntOnStopError=false, NumDataBits=8, NumStopBits=1, OverSamplingRate=8, ParityType=0, ParityTypeSw=false, RequiredClock=921600, RXAddressMode=0, RXBufferSize=4, RxBuffRegSizeReplacementString=uint8, RXEnable=false, TXBitClkGenDP=true, TXBufferSize=4, TxBuffRegSizeReplacementString=uint8, TXEnable=true, Use23Polling=true, CY_COMPONENT_NAME=UART_v2_30, CY_CONTROL_FILE=<:default:>, CY_FITTER_NAME=UART_TEST, CY_INSTANCE_SHORT_NAME=UART_TEST, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=30, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=cydsfit No Version Information Found, INSTANCE_NAME=UART_TEST, )
+// UART_v2_30(Address1=0, Address2=0, BaudRate=115200, BreakBitsRX=13, BreakBitsTX=13, BreakDetect=false, CRCoutputsEn=false, CtrlModeReplacementString=AsyncCtl, Enable_RX=1, Enable_RXIntInterrupt=1, Enable_TX=1, Enable_TXIntInterrupt=0, EnableHWAddress=0, EnIntRXInterrupt=true, EnIntTXInterrupt=false, FlowControl=0, HalfDuplexEn=false, HwTXEnSignal=false, InternalClock=true, InternalClockUsed=1, InterruptOnAddDetect=0, InterruptOnAddressMatch=0, InterruptOnBreak=0, InterruptOnByteRcvd=1, InterruptOnOverrunError=0, InterruptOnParityError=0, InterruptOnStopError=0, InterruptOnTXComplete=true, InterruptOnTXFifoEmpty=false, InterruptOnTXFifoFull=false, InterruptOnTXFifoNotFull=false, IntOnAddressDetect=false, IntOnAddressMatch=false, IntOnBreak=false, IntOnByteRcvd=true, IntOnOverrunError=false, IntOnParityError=false, IntOnStopError=false, NumDataBits=8, NumStopBits=1, OverSamplingRate=8, ParityType=0, ParityTypeSw=false, RequiredClock=921600, RXAddressMode=0, RXBufferSize=12, RxBuffRegSizeReplacementString=uint8, RXEnable=true, TXBitClkGenDP=true, TXBufferSize=4, TxBuffRegSizeReplacementString=uint8, TXEnable=true, Use23Polling=true, CY_COMPONENT_NAME=UART_v2_30, CY_CONTROL_FILE=<:default:>, CY_FITTER_NAME=UART_TEST, CY_INSTANCE_SHORT_NAME=UART_TEST, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=30, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=cydsfit No Version Information Found, INSTANCE_NAME=UART_TEST, )
 module UART_v2_30_1 (
     rx_clk,
     rx_data,
@@ -229,7 +229,7 @@ module UART_v2_30_1 (
 
     parameter Address1 = 0;
     parameter Address2 = 0;
-    parameter EnIntRXInterrupt = 0;
+    parameter EnIntRXInterrupt = 1;
     parameter EnIntTXInterrupt = 0;
     parameter FlowControl = 0;
     parameter HalfDuplexEn = 0;
@@ -237,7 +237,7 @@ module UART_v2_30_1 (
     parameter NumDataBits = 8;
     parameter NumStopBits = 1;
     parameter ParityType = 0;
-    parameter RXEnable = 0;
+    parameter RXEnable = 1;
     parameter TXEnable = 1;
 
           wire  Net_289;
@@ -254,6 +254,13 @@ module UART_v2_30_1 (
 		  .is_digital(1))
 		IntClock
 		 (.clock_out(Net_9));
+
+
+
+	cy_isr_v1_0
+		#(.int_type(2'b10))
+		RXInternalInterrupt
+		 (.int_signal(rx_interrupt));
 
 
 	// VirtualMux_1 (cy_virtualmux_v1_0)
@@ -288,8 +295,8 @@ module UART_v2_30_1 (
     defparam BUART.ParityType = 0;
     defparam BUART.ParityTypeSw = 0;
     defparam BUART.RXAddressMode = 0;
-    defparam BUART.RXEnable = 0;
-    defparam BUART.RXStatusIntEnable = 0;
+    defparam BUART.RXEnable = 1;
+    defparam BUART.RXStatusIntEnable = 1;
     defparam BUART.TXBitClkGenDP = 1;
     defparam BUART.TXEnable = 1;
     defparam BUART.Use23Polling = 1;
@@ -425,14 +432,12 @@ module top ;
           wire  Net_82;
           wire  Net_81;
           wire  Net_80;
-          wire  Net_68;
           wire  Net_66;
           wire  Net_65;
           wire  Net_64;
           wire  Net_63;
           wire  Net_62;
           wire  Net_61;
-          wire  Net_60;
           wire  Net_59;
           wire  Net_58;
           wire  Net_57;
@@ -446,6 +451,7 @@ module top ;
           wire  Net_22;
           wire  Net_72;
           wire  Net_21;
+          wire  Net_60;
           wire  Net_73;
           wire  Net_12;
           wire  Net_10;
@@ -567,7 +573,7 @@ module top ;
         .tx_en(Net_57),
         .clock(1'b0),
         .reset(Net_59),
-        .rx(1'b0),
+        .rx(Net_60),
         .tx_interrupt(Net_61),
         .rx_interrupt(Net_62),
         .tx_data(Net_63),
@@ -576,7 +582,7 @@ module top ;
         .rx_clk(Net_66));
     defparam UART_TEST.Address1 = 0;
     defparam UART_TEST.Address2 = 0;
-    defparam UART_TEST.EnIntRXInterrupt = 0;
+    defparam UART_TEST.EnIntRXInterrupt = 1;
     defparam UART_TEST.EnIntTXInterrupt = 0;
     defparam UART_TEST.FlowControl = 0;
     defparam UART_TEST.HalfDuplexEn = 0;
@@ -584,7 +590,7 @@ module top ;
     defparam UART_TEST.NumDataBits = 8;
     defparam UART_TEST.NumStopBits = 1;
     defparam UART_TEST.ParityType = 0;
-    defparam UART_TEST.RXEnable = 0;
+    defparam UART_TEST.RXEnable = 1;
     defparam UART_TEST.TXEnable = 1;
 
 	wire [0:0] tmpOE__Rx_1_net;
@@ -711,7 +717,7 @@ module top ;
 		  .width(1))
 		Tx_1
 		 (.oe(tmpOE__Tx_1_net),
-		  .y({Net_68}),
+		  .y({Net_60}),
 		  .fb({tmpFB_0__Tx_1_net[0:0]}),
 		  .io({tmpIO_0__Tx_1_net[0:0]}),
 		  .siovref(tmpSIOVREF__Tx_1_net),
@@ -727,7 +733,7 @@ module top ;
 
     UART_v2_30_2 UART (
         .cts_n(1'b0),
-        .tx(Net_68),
+        .tx(Net_60),
         .rts_n(Net_81),
         .tx_en(Net_82),
         .clock(1'b0),
