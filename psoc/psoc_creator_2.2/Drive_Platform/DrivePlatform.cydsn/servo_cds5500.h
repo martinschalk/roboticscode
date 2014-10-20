@@ -148,7 +148,7 @@ typedef struct _servo_msg
 	
     
     
-void Ping(uint8 id);
+void Ping(uint8 motorId);
 STATUS CheckResponse(CDS5500_MSG* response);
 void WritePos(int ID, int pos, int vel);
 void RegWritePos(int ID, int position, int velocity);

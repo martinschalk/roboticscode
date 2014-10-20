@@ -36,6 +36,7 @@ HARDWARE ABSTRACTION LAYER	(HAL)                           <
 #define HAL_TRANSMISSION_READY	0u
 #define HAL_TRANSMISSION_BUSY	1u
 
+
 /* Global functions */
 /*******************************************************/
 STATUS 	HAL_Init(void);
@@ -47,6 +48,10 @@ uint8 	HAL_GetByte();
 STATUS 	HAL_TransmitByte(uint8 value);
 STATUS 	HAL_TransmitArray(const uint8* source, uint8 numBytes);
 
+#ifdef TEST_UART
+    BOOL GetHalBusIdleState(void);
+    void SetHalBusIdleState(BOOL state);
+#endif
 
 #endif /* HAL_H */
 

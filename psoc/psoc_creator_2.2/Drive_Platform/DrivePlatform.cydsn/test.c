@@ -12,11 +12,16 @@
 #include "hal.h"
 #include "bal.h"
 
-#define TST_MSG_BUFFER_SIZE     0xFF
+#define TST_MSG_BUFFER_SIZE     32
 #define TST_MSG_ZERO_COUNT      5
 
-static uint8    TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
+static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
 
+static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
+                            (uint8)(BAL_MSG_ID_ACK),
+                            BAL_MSG_LENGTH_ACK, 
+                            BAL_ACK_OK
+                        };
 /*
 -------------------------------------------
 | id0 | id1 | length | b0 | b1 | ... | bn |
@@ -45,29 +50,36 @@ static void TST_SendTestMsg(void)
 /*******************************************************/
 static void TST_GetMsg(void)
 {
-    int i=0, count=0;
+    uint8 i=0;
+    STATUS status;
     BOOL motorMsg=FALSE;
     
-    do
+    /* disable rx interrupt during data processing */
+    UART_TEST_DisableRxInt();
+    
+    status = UART_TEST_ReadRxStatus();
+    
+    /* if buffer full, parse for 0xff 0xff (only for testing) */
+    if ((status == UART_RX_STS_OVERRUN) || (status == UART_RX_STS_SOFT_BUFF_OVER))
     {
-        TST_MsgBuffer[i] = UART_TEST_GetChar();
-        
-        if (TST_MsgBuffer[i] == 0x00)
-            count++;
-        else
+        while (UART_TEST_GetRxBufferSize() > 0)
         {
-            /* check if message beginns with 0xFF 0xFF */    
-            if ((TST_MsgBuffer[i] == 0xFF) && (i>0))
-            {
-                if (TST_MsgBuffer[i-1] == 0xFF)
-                {
-                    motorMsg = TRUE;
-                }
-            }
+            TST_MsgBuffer[i] = UART_TEST_ReadRxData();
+            if ((TST_MsgBuffer[i] == 0xFF) && (i>0) && (TST_MsgBuffer[i-1] == 0xFF))
+                motorMsg = TRUE;
+            i++;
         }
-        i++;
-    } while (i<TST_MSG_ZERO_COUNT);
-      
+    }
+        
+    /* enable rx interrupt during data processing */
+    UART_TEST_EnableRxInt();  
+    
+
+    /* check if message id is registered and acknowledge*/
+    if (motorMsg == TRUE)
+    {
+        UART_TEST_PutArray(TST_AckOkMsgBuffer, sizeof(TST_AckOkMsgBuffer));
+    }
 }
 
 /*******************************************************/
@@ -101,7 +113,7 @@ void TST_Init(void)
 	
 #ifdef TEST_UART
 	UART_TEST_Start();
-	//UART_TEST_EnableRxInt();
+	UART_TEST_EnableRxInt();
 	//UART_TEST_EnableTxInt();
 	//TMR_SetTimer(TIMER_1, TIMER_1SEC, TST_SendTestMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
     TMR_SetTimer(TIMER_2, TIMER_1SEC, TST_SendMotorMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
@@ -111,8 +123,12 @@ void TST_Init(void)
 /*******************************************************/
 void TST_HandleTask(void)
 {
-    /* analyze received messages */
-    TST_GetMsg();
+    static int i=0;
+    /* analyze received messages each 1000 cycles */
+    if (i%1000==0)
+        TST_GetMsg();
+        
+    i++;
 }
 
 /* [] END OF FILE */

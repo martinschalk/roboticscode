@@ -63,7 +63,7 @@ STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 
     /* copy message to transmit buffer, 1st byte = message bytes */
     TBHead[0] = msgLength;
-    memcpy(TBHead+1, source, msgLength);
+    memcpy(&TBHead[1], source, msgLength);
     
     /* update parameters */
     TBHead += msgLength + 1;
@@ -114,8 +114,15 @@ void BPL_HandleTask(void)
 		else
 		{
 			/* transmit byte */
-			BplStatus = HAL_TransmitArray(TBTail, numBytes);
-			TBTail += + numBytes;
+			BplStatus = HAL_TransmitArray(TBTail+1, numBytes);
+            
+            /* check if message could be sent */
+            if (BplStatus == SUCCESS)
+            {
+    			TBTail += numBytes+1;
+                TransmitBytesCount -= numBytes+1;
+                TransmitMsgCount--;
+            }
 		}
 	}
 	

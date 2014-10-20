@@ -32,6 +32,21 @@ HARDWARE ABSTRACTION LAYER	(HAL)
 #define BAL_MSG_RECEIVE_BUFFER_SIZE	    32
 #define BAL_NODE                        0xF0
 
+#define BAL_ACK_OK                      0x01
+#define BAL_ACK_NOK                     0x02
+
+enum
+{
+    BAL_MSG_ID_ACK = 1,
+    BAL_MSG_ID_1,
+    BAL_MSG_ID_2,
+};
+
+#define BAL_MSG_LENGTH_ACK              1
+#define BAL_MSG_LENGTH_1                1
+#define BAL_MSG_LENGTH_1                1
+
+
 /* message structure */
 typedef struct _bal_msg
 {
@@ -43,8 +58,9 @@ typedef struct _bal_msg
 
 STATUS  BAL_Init(void);
 void    BAL_Handler(void);
-STATUS  BAL_SendMsg(BAL_MSG* msg);
-STATUS  BAL_SendServoMsg(CDS5500_MSG* msg);
+STATUS  BAL_ASendMsg(BAL_MSG* msg);
+STATUS  BAL_ServoMsg(CDS5500_MSG* msg);
+STATUS  BAL_SendAck(uint8 val);
 
 #endif /* BAL_H */
 
