@@ -37,22 +37,24 @@ Does not command any operations. Used for requesting a status
 packet or to check the existence of a CDS55xx servo with a specific 
 ID. 
 **************************************************************************/
-void Ping(uint8 id)
+void Ping(uint8 motorId)
 {
     STATUS status;
 
     CDS5500_MSG msg = { START_BYTE_0_VALUE, 
                         START_BYTE_1_VALUE, 
-                        id,
+                        motorId,
                         INST_PING_LENGTH,
                         {INST_PING},
                         0x00,
                       };
-                      
-    msg.checksum = Checksum(&msg);       
+
     
-    /* 0XFF 0XFF 0X01 0X02 0X01 0XFB */                  
-    status = BAL_SendServoMsg(&msg);
+    msg.checksum = Checksum(&msg);  
+                     
+    
+    /* 0xFF 0xFF 0x01 0x02 0x01 0xFB */                  
+    status = BAL_ServoMsg(&msg);
     (void)status;
 }
 

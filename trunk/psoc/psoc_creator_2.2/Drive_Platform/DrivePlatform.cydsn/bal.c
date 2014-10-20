@@ -16,7 +16,26 @@
 //static uint8 MsgTransmitBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
 
 /*****************************************************************/
-STATUS BAL_SendMsg(BAL_MSG* msg)
+STATUS BAL_ServoMsg(CDS5500_MSG* msg)
+{
+    STATUS status;
+    uint8 buffer[4+msg->length];
+    
+    buffer[0] = msg->startbyte0;
+    buffer[1] = msg->startbyte1;
+    buffer[2] = msg->motorId;
+    buffer[3] = msg->length;
+    memcpy(&buffer[4], msg->instruction, msg->length-1);
+        
+    buffer[4+msg->length-1] = msg->checksum;
+    
+    status = BPL_TransmitMessage(buffer, msg->length + 4);
+    
+	return SUCCESS;
+}
+
+/*****************************************************************/
+STATUS BAL_ASendMsg(BAL_MSG* msg)
 {
     STATUS status;
     uint8 buffer[3+msg->length];
@@ -31,23 +50,20 @@ STATUS BAL_SendMsg(BAL_MSG* msg)
 	return SUCCESS;
 }
 
+
+
 /*****************************************************************/
-STATUS BAL_SendServoMsg(CDS5500_MSG* msg)
+/* range of val: BAL_ACK_OK, BAL_ACK_NOK */
+STATUS BAL_SendAck(uint8 val)
 {
-    STATUS status;
-    uint8 buffer[4+msg->length];
+    uint8 buffer[] = {  (uint8)(BAL_MSG_ID_ACK << 8), 
+                        (uint8)(BAL_MSG_ID_ACK),
+                        BAL_MSG_LENGTH_ACK, 
+                        val
+                     };
     
-    buffer[0] = msg->startbyte0;
-    buffer[1] = msg->startbyte1;
-    buffer[2] = msg->motorId;
-    buffer[3] = msg->length;
-    memcpy(&buffer[4], msg->instruction, msg->length);
-        
-    buffer[4+msg->length] = msg->checksum;
     
-    status = BPL_TransmitMessage(buffer, msg->length + 4);
-    
-	return SUCCESS;
+    return BPL_TransmitMessage(buffer, 4);
 }
 
 /*****************************************************************/

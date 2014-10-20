@@ -11,9 +11,10 @@
 
 
 
-static STATUS HalStatus = HAL_TRANSMISSION_READY;
-static uint8 RxCount;
-static uint8 TxCount;
+static STATUS   HalStatus = HAL_TRANSMISSION_READY;
+static BOOL     HalIsBusIdle = TRUE;
+static uint8    RxCount;
+static uint8    TxCount;
 
 /*******************************************************/
 STATUS HAL_GetHalStatus(void)
@@ -36,9 +37,9 @@ CY_ISR(isr_rx_routine)
 /*******************************************************/
 CY_ISR(isr_tx_routine)
 {
-	TxCount--;
-	if ((TxCount == 0) && (HalStatus == HAL_TRANSMISSION_READY))
-		UART_EnableRxInt();
+	TxCount = 0;
+	HalStatus = HAL_TRANSMISSION_READY;
+	UART_EnableRxInt();
 }
 
 /*******************************************************/
@@ -99,18 +100,26 @@ uint8 	HAL_GetByte()
 /*******************************************************/
 STATUS 	HAL_TransmitByte(uint8 value)
 {
-	UART_DisableRxInt();
-	HalStatus = HAL_TRANSMISSION_BUSY;
-	
-	/* wait until uart read to transmitted */
-	while (UART_ReadTxStatus() != UART_TX_STS_COMPLETE)
-	;
-	TxCount++;
-	UART_WriteTxData(value);
-	
-	HalStatus = HAL_TRANSMISSION_READY;
-	
-	return SUCCESS;
+    /* Check if bus is idle */
+    if (HalIsBusIdle == TRUE)
+    {
+    	UART_DisableRxInt();
+    	HalStatus = HAL_TRANSMISSION_BUSY;
+    	
+    	/* wait until uart read to transmitted */
+    	while (UART_ReadTxStatus() != UART_TX_STS_COMPLETE)
+    	;
+    	TxCount++;
+    	UART_WriteTxData(value);
+    	
+    	HalStatus = HAL_TRANSMISSION_READY;
+        
+        return SUCCESS;
+	}
+	else
+    {
+        return !SUCCESS;
+    }
 }
 
 /*******************************************************/
@@ -125,5 +134,18 @@ STATUS 	HAL_TransmitArray(const uint8* source, uint8 numBytes)
 	return SUCCESS;
 }
 
+/*******************************************************/
+#ifdef TEST_UART
+BOOL GetHalBusIdleState(void)
+{
+    return HalIsBusIdle;
+}
+
+void SetHalBusIdleState(BOOL state)
+{
+    HalIsBusIdle = state;
+}
+
+#endif
 
 /* [] END OF FILE */

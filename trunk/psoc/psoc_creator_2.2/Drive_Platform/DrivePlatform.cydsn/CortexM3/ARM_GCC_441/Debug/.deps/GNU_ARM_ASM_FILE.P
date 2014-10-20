@@ -1,4 +1,0 @@
-X:/roboticscode/trunk/psoc/psoc_creator_2.2/Drive_Platform/DrivePlatform.cydsn/CortexM3/ARM_GCC_441/Debug/CyBootAsmGnu.o : X:/roboticscode/trunk/psoc/psoc_creator_2.2/Drive_Platform/DrivePlatform.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s 
-
-X:/roboticscode/trunk/psoc/psoc_creator_2.2/Drive_Platform/DrivePlatform.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s : 
-
