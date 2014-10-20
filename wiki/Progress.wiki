@@ -15,6 +15,11 @@
 - Servo messages Ping() and CheckResponse() prepared <br>
 - Error codes of Response Packet implemented
 
+==20.10.2014==
+- Transmit chain tested and revised
+- fixed linker problem (BAL_SendMsg = BAL_SendServoMsg)
+
 == TODO ==
 - Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc)
 - implement other servo messages
+- test receive chain
