@@ -11,6 +11,6 @@ http://tortoisesvn.net/downloads.html
 - Solution: Using PsoC Creator 2.2 <br>
 
 ==20.10.2014 - linker problem ==
-- Problem: linker or compiler does not distinguish between 'BAL_SendMsg' and 'BAL_SendServoMsg', calling BAL_SendServoMsg resulted in executing BAL_SendMsg
-- Reason: Unknown, probably function name too long
-- Solution: Renaming functions
+- Problem: linker or compiler does not distinguish between 'BAL_SendMsg' and 'BAL_SendServoMsg', calling BAL_SendServoMsg resulted in executing BAL_SendMsg <br>
+- Reason: Unknown, probably function name too long <br>
+- Solution: Renaming functions <br>
