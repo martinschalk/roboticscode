@@ -9,3 +9,6 @@ http://tortoisesvn.net/downloads.html
 Problem: PsoC Creator 3.0 will not compile device CY8C55*AXI-060 <br>
 Reason: Device no longer supported. (does not appear in device list) <br>
 Solution: Using PsoC Creator 2.2 <br>
+
+==20.10.2014 - linker problem ==
+- linker or compiler does not distinguish between "BAL_SendMsg" and "BAL_SendServoMsg", calling BAL_SendServoMsg resulted in executing BAL_SendMsg
