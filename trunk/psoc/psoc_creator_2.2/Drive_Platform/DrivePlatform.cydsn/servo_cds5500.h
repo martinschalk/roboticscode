@@ -43,6 +43,9 @@ SERVO MESSAGE
 #define ERROR_INPUT_VOLTAGE                 (STATUS)(-8)
 
 /*
+Triggers the action registered by the
+http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
+
 BIT7 0 --- 
 BIT6 Instruction Error Set to 1 if an undefined instruction is sent or an action instruction is 
 sent without a Reg_Write instruction. 
@@ -66,37 +69,47 @@ HEADER ID LENGTH ERROR PARAMETER CHECK SUM
 /*
 HEADER ID LENGTH INSTRUCTION PARAMETER CHECK SUM 
 */  
+/* | startbyte0 | startbyte1 | motorId | length | instrId | instrParams[8] | checksum | 
+     0            1            2         3        4         5                13       
+     length = 1(instrId) + number of instrParams + 1(checksum)
+*/
 typedef struct _servo_msg
 {
 	uint8 startbyte0;
 	uint8 startbyte1;
 	uint8 motorId;			//0-253, 254 is broadcast
-	uint8 length;
-	uint8 instruction[8];
+	uint8 length;           //number of params + 1 (instrId) + 1 (checksum)
+    uint8 instrId;
+	uint8 instrParams[8];
 	uint8 checksum;
 }CDS5500_MSG;
 
 
-//register Address
-#define P_MODEL_NUMBER_L 0
-#define P_MODEL_NUMBER_H 1
-#define P_VERSION 2
-#define P_ID 3
-#define P_BAUD_RATE 4
-#define P_RETURN_DELAY_TIME 5
-#define P_CW_ANGLE_LIMIT_L 6
-#define P_CW_ANGLE_LIMIT_H 7
-#define P_CCW_ANGLE_LIMIT_L 8
-#define P_CCW_ANGLE_LIMIT_H 9
-#define P_SYSTEM_DATA2 10
-#define P_LIMIT_TEMPERATURE 11
-#define P_DOWN_LIMIT_VOLTAGE 12
-#define P_UP_LIMIT_VOLTAGE 13
-#define P_MAX_TORQUE_L 14
-#define P_MAX_TORQUE_H 15
-#define P_RETURN_LEVEL 16
-#define P_ALARM_LED 17
-#define P_ALARM_SHUTDOWN 18
+#define SERVO_1                         0x01
+#define SERVO_2                         0x02
+#define SERVO_3                         0x03
+#define SERVO_4                         0x04
+
+//Register Address
+#define P_MODEL_NUMBER_L                0
+#define P_MODEL_NUMBER_H                1
+#define P_VERSION                       2
+#define P_ID                            3
+#define P_BAUD_RATE                     4
+#define P_RETURN_DELAY_TIME             5
+#define P_CW_ANGLE_LIMIT_L              6
+#define P_CW_ANGLE_LIMIT_H              7
+#define P_CCW_ANGLE_LIMIT_L             8
+#define P_CCW_ANGLE_LIMIT_H             9
+#define P_SYSTEM_DATA2                  10
+#define P_LIMIT_TEMPERATURE             11
+#define P_DOWN_LIMIT_VOLTAGE            12
+#define P_UP_LIMIT_VOLTAGE              13
+#define P_MAX_TORQUE_L                  14
+#define P_MAX_TORQUE_H                  15
+#define P_RETURN_LEVEL                  16
+#define P_ALARM_LED                     17
+#define P_ALARM_SHUTDOWN                18
 #define P_OPERATING_MODE 19
 #define P_DOWN_CALIBRATION_L 20
 #define P_DOWN_CALIBRATION_H 21
@@ -131,25 +144,38 @@ typedef struct _servo_msg
 
 
 //Instructions:
-#define INST_PING 0x01
-#define INST_READ 0x02
-#define INST_WRITE 0x03
-#define INST_REG_WRITE 0x04
-#define INST_ACTION 0x05
-#define INST_RESET 0x06	
-#define INST_DIGITAL_RESET 0x07
-#define INST_SYSTEM_READ 0x0C
-#define INST_SYSTEM_WRITE 0x0D
-#define INST_SYNC_WRITE 0x83
-#define INST_SYNC_REG_WRITE 0x84
+#define INST_PING                       0x01    //No action. Used for obtaining a Status Packet
+#define INST_READ                       0x02    //Reading values in the Control Table
+#define INST_WRITE                      0x03    //Writing values to the Control Table
+#define INST_REG_WRITE                  0x04    //Similar to WRITE_DATA, but stays in standby mode until the ACION instruction is given
+#define INST_ACTION                     0x05    //Triggers the action registered by the REG_WRITE instruction
+#define INST_RESET                      0x06	//Changes the control table values of the CDS55xx servos to the Factory default values 
+#define INST_DIGITAL_RESET              0x07    //
+#define INST_SYSTEM_READ                0x0C    //
+#define INST_SYSTEM_WRITE               0x0D    //
+#define INST_SYNC_WRITE                 0x83    //Used for controlling multiple CDS55xx servos simultaneously
+#define INST_SYNC_REG_WRITE             0x84    //
 
 /* Instruction Length */
-#define INST_PING_LENGTH 0x02
-	
+#define INST_PING_LENGTH                0x00
+#define INST_READ_LENGTH                0x02
+#define INST_WRITE_LENGTH               0x02    //Not less than 2
+#define INST_REG_WRITE_LENGTH           0x02    //Not less than 2
+#define INST_ACTION_LENGTH              0x00
+#define INST_RESET_LENGTH               0x00	
+#define INST_DIGITAL_RESET_LENGTH       0x01
+#define INST_SYSTEM_READ_LENGTH         0x01
+#define INST_SYSTEM_WRITE_LENGTH        0x01
+#define INST_SYNC_WRITE_LENGTH          0x04    //Not less than 4
+#define INST_SYNC_REG_WRITE_LENGTH      0x01	
     
     
-void Ping(uint8 motorId);
+
 STATUS CheckResponse(CDS5500_MSG* response);
+void ServoTest(void);
+
+
+void Ping(uint8 motorId);
 void WritePos(int ID, int pos, int vel);
 void RegWritePos(int ID, int position, int velocity);
 void RegWriteAction();

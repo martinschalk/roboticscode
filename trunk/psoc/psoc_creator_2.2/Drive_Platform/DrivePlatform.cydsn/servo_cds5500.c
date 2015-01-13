@@ -19,18 +19,55 @@ static uint8 Checksum(CDS5500_MSG* msg)
 	uint8 checksum = 0;
     uint8 i;
         
-    /* add first two bytes of motor message */    
-    checksum = msg->motorId + msg->length;
+    /* add first 3 bytes of motor message */    
+    checksum = msg->motorId + msg->length + msg->instrId;
     
-    /* add rest bytes of motor message */   
+    /* add parameter bytes of motor message */   
     for (i=0; i<msg->length-1; i++)
-        checksum += msg->instruction[i];
+        checksum += msg->instrParams[i];
         
     /* invert checksum */    
     checksum = ~checksum & 0xFF; //    printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF)
 		
 	return checksum;
 }
+
+/**************************************************************************/
+static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams)
+{
+    CDS5500_MSG msg;
+    
+    msg.startbyte0      = START_BYTE_0_VALUE;
+    msg.startbyte1      = START_BYTE_1_VALUE;
+    msg.motorId         = ucMotorId;
+    msg.instrId         = ucInstrId;
+    
+    if ((ucNumParams > 0) && (pucInstrParams != NULL))
+        memcpy(msg.instrParams, pucInstrParams, ucNumParams);
+
+    msg.length          = ucNumParams + 2; //number of params + 1 (instrId) + 1 (checksum)
+    msg.checksum        = Checksum(&msg);  
+    
+    return BAL_ServoMsg(&msg);
+}
+
+
+
+/**************************************************************************/
+void ServoTest(void)
+{
+    STATUS status;
+    
+    status = SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      NULL);
+    
+    /*
+                        HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
+            SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 
+            RETURN:     0XFF 0XFF   0X01    0X02        0X00            0XFC
+    */
+
+}
+
 
 /**************************************************************************
 Does not command any operations. Used for requesting a status 
@@ -74,7 +111,7 @@ STATUS CheckResponse(CDS5500_MSG* response)
         return ERROR_RECEIVED_CHECKSUM;
     
     /* check if error bits are set */
-    if (response->instruction[0] & CDS5500_ERROR_INSTRUCTION_BIT) 
+    if (response->instrParams[0] & CDS5500_ERROR_INSTRUCTION_BIT) 
         status = ERROR_INSTRUCTION;
         
     return status;
@@ -222,6 +259,8 @@ void CDS5500::SetTempLimit(int ID, int temperature){
 }
 
 */
+
+
 
 
 
