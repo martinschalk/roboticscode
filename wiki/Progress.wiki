@@ -22,6 +22,11 @@
 ==13.01.2015==
 - structure of motor message revised and adjusted in bal and bpl module (not yet tested)
 
+==20.01.2015==
+- USB to UART Bridge driver installed
+- RealTerm installed and tested
+- Psoc Design adjusted (Test Uart deactivated)
+
 == TODO ==
 - Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc)
 - implement other servo messages
