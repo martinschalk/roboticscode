@@ -12,18 +12,18 @@
 - Bus tests with second uart <br>
 
 ==11.10.2014==
-- Servo messages Ping() and CheckResponse() prepared <br>
+- Servo messages !Ping() and !CheckResponse() prepared <br>
 - Error codes of Response Packet implemented
 
 ==20.10.2014==
 - Transmit chain tested and revised
-- fixed linker problem (BAL_SendMsg = BAL_SendServoMsg)
+- fixed linker problem (!BAL_SendMsg = !BAL_SendServoMsg)
 
 ==13.01.2015==
 - structure of motor message revised and adjusted in bal and bpl module (not yet tested)
 
 ==20.01.2015==
 - USB to UART Bridge driver installed <br>
-- RealTerm installed and tested <br>
+- !RealTerm installed and tested <br>
 - Psoc Design adjusted (Test Uart deactivated, rx-pin configured as input) <br>
-- function HAL_GetByte tested by sending messages with RealTerm --> receiving something different, bit oder inverted? <br>
+- function !HAL_GetByte tested by sending messages with !RealTerm --> receiving something different, bit oder inverted? <br>
