@@ -25,7 +25,7 @@
 ==20.01.2015==
 - USB to UART Bridge driver installed
 - RealTerm installed and tested
-- Psoc Design adjusted (Test Uart deactivated)
+- Psoc Design adjusted (Test Uart deactivated, rx-pin configured as input)
 
 == TODO ==
 - Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc)
