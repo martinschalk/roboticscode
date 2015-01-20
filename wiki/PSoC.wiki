@@ -14,5 +14,6 @@ http://tec.icbuy.com/uploads/2013/1/6/AN77835_-_PSoC%C2%AE_3_to_PSoC_5LP_Migrati
 
 ==Debug Hints==
 
-Showing Stack after exception occured:
--> Breakpoint in CY_ISR(IntDefaultHandler) (Cm3Start.c)
+When debugging, pc starts in __cs3_start_c:
+No reason found.
+workaround: (1) try to go on debugging, (2) if 1 not working program device with other project eg. Design01
