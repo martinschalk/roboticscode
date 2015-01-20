@@ -5,7 +5,14 @@ Add your content here.
 
 = PSoC5 =
 
+==General Remarks==
+
 ||CPU||32-bit ARM Cortex-M3, supported in PSoC Creator by gcc and MDK compilers. CPU is always clocked from bus clock.||
 ||Memory||Up to 288 K flash, 64 K SRAM, 2 K EEPROM||
 
 http://tec.icbuy.com/uploads/2013/1/6/AN77835_-_PSoC%C2%AE_3_to_PSoC_5LP_Migration_Guide.pdf
+
+==Debug Hints==
+
+Showing Stack after exception occured:
+-> Breakpoint in CY_ISR(IntDefaultHandler) (Cm3Start.c)
