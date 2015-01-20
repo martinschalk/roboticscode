@@ -1,5 +1,5 @@
-- Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc)
-- implement other servo messages
-- test receive chain
-- test checksum generation and message transmission due to changes of 13.01.2015
-- 20.01.2015: test HAL_GetByte, maybe use other tool than RealTerm?
+- Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc) <br>
+- implement other servo messages <br>
+- test receive chain <br>
+- test checksum generation and message transmission due to changes of 13.01.2015 <br>
+- 20.01.2015: test HAL_GetByte, maybe use other tool than RealTerm? <br>
