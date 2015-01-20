@@ -19,3 +19,5 @@ http://tortoisesvn.net/downloads.html
 
 - Driver: http://www.silabs.com/products/mcu/Pages/USBtoUARTBridgeVCPDrivers.aspx
 - Manual: http://www.silabs.com/Support%20Documents/TechnicalDocs/an197.pdf
+
+- Terminal-Tool: RealTerm
