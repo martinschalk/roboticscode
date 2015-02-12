@@ -27,3 +27,6 @@
 - !RealTerm installed and tested <br>
 - Psoc Design adjusted (Test Uart deactivated, rx-pin configured as input) <br>
 - function !HAL_GetByte tested by sending messages with !RealTerm --> receiving something different, bit oder inverted? <br>
+
+==12.02.2015==
+- task scheduler implemented
