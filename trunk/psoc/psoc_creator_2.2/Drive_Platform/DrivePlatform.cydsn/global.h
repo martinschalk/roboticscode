@@ -11,7 +11,7 @@
 #include <project.h>
 
 
-#define TEST_UART
+//#define TEST_UART
 
 
 #if (defined(__C51__))
@@ -23,6 +23,7 @@
 	#define lowByte(x) ((uint8)(x))
 	#define highByte(x) ((uint8)(x<<1))
 #endif
+
 
 
 #define SUCCESS	0

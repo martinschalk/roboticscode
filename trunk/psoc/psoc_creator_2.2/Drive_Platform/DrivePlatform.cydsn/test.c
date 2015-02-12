@@ -126,7 +126,9 @@ void TST_HandleTask(void)
     static int i=0;
     /* analyze received messages each 1000 cycles */
     if (i%1000==0)
-        TST_GetMsg();
+    {
+        TST_GetMsg(); 
+    }
         
     i++;
 }

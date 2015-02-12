@@ -11,6 +11,7 @@
 #include <project.h>
 
 
+typedef uint8 uchar;
 typedef uint8 STATUS;
 typedef uint8_t BOOL;
 typedef uint8_t BYTE;

@@ -17,6 +17,7 @@ static BOOL     IsFirstExecution = TRUE;
 static TIMER 	Timer[MAX_TIMERS];
 static uint32	NewTime, OldTime;
 
+
 /*******************************************************/
 CY_ISR(isr_timer_routine)
 {
@@ -36,7 +37,7 @@ STATUS 	TMR_Init(void)
 	TIMER_WritePeriod(TIMER_PERIOD_1000SEC); //clock 1MHz
 	TIMER_Enable();
 	TIMER_CLOCK_Start();
-	
+    
 	return SUCCESS;
 }
 
