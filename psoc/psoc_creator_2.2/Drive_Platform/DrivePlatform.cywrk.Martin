@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform\DrivePlatform\Source Files\hal.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform\DrivePlatform\TopDesign.cysch">
 <ExpandedNodeIds>
 <v>DrivePlatform</v>
 <v>DrivePlatform\DrivePlatform</v>
@@ -252,7 +252,6 @@
 <v>DrivePlatform\DrivePlatform\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_IntClock.lst</v>
 <v>DrivePlatform\DrivePlatform\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_PM.lst</v>
 <v>DrivePlatform\DrivePlatform\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_TEST.lst</v>
-<v>DrivePlatform\DrivePlatform\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_TEST_BOOT.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>

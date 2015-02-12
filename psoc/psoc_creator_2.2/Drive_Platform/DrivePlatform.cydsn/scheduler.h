@@ -18,7 +18,7 @@
 #define SCH_TASK_WAITING        (uchar)(1<<4)
 #define SCH_TASK_TERMINATED     (uchar)(1<<5)
 
-#define SCH_TASK_NUM            4
+//#define SCH_TASK_NUM            5
 
 #define DEP_NONE                NULL
 

@@ -25,7 +25,7 @@
 #endif
 
 
-
+#define SIZE_OF_ARRAY(x)  (sizeof(x) / sizeof(x[0]))
 #define SUCCESS	0
 #define BIT(b) (1UL << (b))
 #define TRUE 0x1

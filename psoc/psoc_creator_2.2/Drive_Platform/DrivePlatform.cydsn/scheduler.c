@@ -12,16 +12,18 @@
 #include "tmr.h"
 #include "bpl.h"
 #include "bal.h"
+#include "test.h"
 
 static int          SCH_TaskIndex = 0;
-static SCH_TASK 	SCH_Task[SCH_TASK_NUM] =
+static SCH_TASK 	SCH_Task[] =
 {
 /*   NAME   STATUS          PRIO    INIT        HANDLER         DEPENDENCY */
 /*   --------------------------------------------------------------------- */
     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,           DEP_NONE},
     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask, DEP_NONE},
     {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask, "HAL"},
-    {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask, "BPL"}
+    {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask, "BPL"},
+    {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL, "TMR"}
 };
 /* currently only one dependency possible */
 
@@ -31,8 +33,9 @@ static uchar SCH_GetTaskIndex(uchar* taskName)
 {
     int i;
     uchar idx = (uchar)(-1);
+    static int x = SIZE_OF_ARRAY(SCH_Task);
     
-    for (i=0; i<SCH_TASK_NUM; i++)
+    for (i=0; i<SIZE_OF_ARRAY(SCH_Task); i++)
     {
         if (0 == strcmp(SCH_Task[SCH_TaskIndex].name, taskName))
             idx = i;
@@ -123,7 +126,7 @@ void SCH_TaskHandler()
     
     SCH_TaskIndex++;
     
-    if (SCH_TaskIndex > SCH_TASK_NUM)
+    if (SCH_TaskIndex > SIZE_OF_ARRAY(SCH_Task))
         SCH_TaskIndex = 0;
 }
 
@@ -141,7 +144,7 @@ void SCH_ShowCurrentTasks(void)
     
     n += sprintf(SCH_TaskBuffer + n, "\n===");
     
-    for (i=0; i<SCH_TASK_NUM; i++)
+    for (i=0; i<sizeof(SCH_Task); i++)
     {
         if (NULL != SCH_Task[i].name)
         {

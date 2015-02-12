@@ -15,6 +15,12 @@
 #define TST_MSG_BUFFER_SIZE     32
 #define TST_MSG_ZERO_COUNT      5
 
+
+//static TEST_FUNC TST_FuncPtr = NULL;
+
+
+static uchar TST_TestCase;
+static BOOL     TST_IsInitialized = FALSE;
 static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
 
 static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
@@ -100,37 +106,53 @@ static void TST_SendMotorMsg(void)
     (void)status;
 }
 
+
+/*******************************************************/
+/*
+void TST_SetModuleTest(TEST_FUNC* testFunction)
+{
+    TST_FuncPtr = testFunction;
+    //TMR_SetTimer(TIMER_4, TIMER_1SEC, TST_FuncPtr, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+}
+*/
+
 /*******************************************************/
 void TST_Init(void)
 {
     /* clear test msg buffer */
-    memset(TST_MsgBuffer, 0x00, TST_MSG_BUFFER_SIZE);
-    
+    //memset(TST_MsgBuffer, 0x00, TST_MSG_BUFFER_SIZE);   
 
 #ifdef TEST_BLINK
 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
 #endif	
-	
-#ifdef TEST_UART
-	UART_TEST_Start();
-	UART_TEST_EnableRxInt();
-	//UART_TEST_EnableTxInt();
-	//TMR_SetTimer(TIMER_1, TIMER_1SEC, TST_SendTestMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-    TMR_SetTimer(TIMER_2, TIMER_1SEC, TST_SendMotorMsg, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-#endif
+
 }
 
 /*******************************************************/
-void TST_HandleTask(void)
+static void TST_HandleTask(void)
 {
-    static int i=0;
+    //static int i=0;
+    /*
+    if (TST_IsInitialized == FALSE)
+    {
+        TST_Init();
+        TST_IsInitialized = TRUE;
+    }
+    
+    if (TST_FuncPtr != NULL)
+        TST_FuncPtr();
+*/
+    
+    
     /* analyze received messages each 1000 cycles */
+    /*
     if (i%1000==0)
     {
         TST_GetMsg(); 
     }
         
     i++;
+    */
 }
 
 /* [] END OF FILE */
