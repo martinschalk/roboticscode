@@ -30,3 +30,5 @@
 
 ==12.02.2015==
 - task scheduler implemented
+- bal test added (ping)
+- error expected in TMR module, probably exceeding number of timers, seems to be a pointer problem
