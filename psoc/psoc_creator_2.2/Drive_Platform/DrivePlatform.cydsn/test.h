@@ -9,7 +9,6 @@
 #define TEST_H
 
 
-#define TEST_UART
 #define TEST_BLINK
 
 void TST_Init(void);

@@ -72,16 +72,28 @@ STATUS BAL_SendAck(uint8 val)
 /*****************************************************************/
 STATUS BAL_Init(void)
 {
-	
-	
+#ifdef BAL_MODULE_TEST
+    //BAL_InitModuleTest(BAL_MODULE_TEST_CASE);
+#endif
+    
 	return SUCCESS;
 }
 
 
 /*****************************************************************/
-void BAL_Handler(void)
+void BAL_HandleTask(void)
 {
 
 }
 
+
+/*****************************************************************/
+#ifdef BAL_MODULE_TEST
+/*    
+void BAL_InitModuleTest(uchar testCase)
+{
+    
+}
+*/
+#endif
 /* [] END OF FILE */

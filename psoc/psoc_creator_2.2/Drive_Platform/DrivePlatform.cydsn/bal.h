@@ -28,6 +28,19 @@ HARDWARE ABSTRACTION LAYER	(HAL)
 #include "types.h"
 #include "servo_cds5500.h"
 
+#define BAL_MODULE_TEST
+
+#ifdef BAL_MODULE_TEST
+    enum 
+    {
+        BAL_MODULE_TEST_CASE_SEND_MSG = 0,
+        BAL_MODULE_TEST_CASE_RECEIVE_MSG,
+    };
+    #define BAL_MODULE_TEST_CASE    BAL_MODULE_TEST_CASE_SEND_MSG
+#endif
+
+
+
 #define BAL_MSG_MAX_DATA_SIZE           10
 #define BAL_MSG_RECEIVE_BUFFER_SIZE	    32
 #define BAL_NODE                        0xF0
@@ -57,7 +70,7 @@ typedef struct _bal_msg
 
 
 STATUS  BAL_Init(void);
-void    BAL_Handler(void);
+void    BAL_HandleTask(void);
 STATUS  BAL_ASendMsg(BAL_MSG* msg);
 STATUS  BAL_ServoMsg(CDS5500_MSG* msg);
 STATUS  BAL_SendAck(uint8 val);

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="us-ascii"?>
+
+<fileSet version="1" anchorPath="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp" xsi:schemaLocation="http://cypress.com/xsd/cypathdictionary cypathdictionary.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://cypress.com/xsd/cypathdictionary">
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyfitter_cfg.h" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyfitter_cfg.c" value="DP8051_C_FILE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\config.hex" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\protect.hex" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cydevice.h" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cydevicekeil.inc" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cydevice_trm.h" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cydevicekeil_trm.inc" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyfitterkeil.inc" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyfitter.h" value="NONE;" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\Counter_1.c" value="DP8051_C_FILE;Counter_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\Counter_1.h" value="NONE;Counter_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\Counter_1_PM.c" value="DP8051_C_FILE;Counter_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\clock_1.c" value="DP8051_C_FILE;clock_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\clock_1.h" value="NONE;clock_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_4.c" value="DP8051_C_FILE;P0_4" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_4.h" value="NONE;P0_4" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_4_aliases.h" value="NONE;P0_4" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_5.c" value="DP8051_C_FILE;P0_5" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_5.h" value="NONE;P0_5" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\P0_5_aliases.h" value="NONE;P0_5" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1.c" value="DP8051_C_FILE;CharLCD_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1.h" value="NONE;CharLCD_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1_PM.c" value="DP8051_C_FILE;CharLCD_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1_CustChars.c" value="DP8051_C_FILE;CharLCD_1" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CounterISR.c" value="DP8051_C_FILE;CounterISR" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CounterISR.h" value="NONE;CounterISR" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1_LCDPort.c" value="DP8051_C_FILE;CharLCD_1_LCDPort" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1_LCDPort.h" value="NONE;CharLCD_1_LCDPort" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CharLCD_1_LCDPort_aliases.h" value="NONE;CharLCD_1_LCDPort" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyBootAsmKeil.a51" value="KEIL_8051_ASM_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyDmac.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyDmac.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyFlash.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyFlash.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyLib.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CyLib.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cymem.a51" value="KEIL_8051_ASM_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cypins.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyPm.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyPm.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CySpc.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\CySpc.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cytypes.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\cyutils.c" value="DP8051_C_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\KeilStart.a51" value="KEIL_8051_ASM_FILE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\PSoC3_8051.h" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\PSoC3_8051.inc" value="NONE;cy_boot" />
+  <file name="X:\roboticscode\trunk\psoc\psoc_creator_2.2\test\Counter01\Counter01.cydsn\codegentemp\project.h" value="NONE;" />
+</fileSet>
