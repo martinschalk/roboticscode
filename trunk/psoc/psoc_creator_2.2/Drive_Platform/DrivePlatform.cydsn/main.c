@@ -31,7 +31,7 @@ int main()
 
 
 #ifdef SCH_DEBUG
-    SCH_ShowCurrentTasks();
+    //SCH_ShowCurrentTasks();
 #endif
 
     for(;;)
@@ -41,7 +41,7 @@ int main()
 #ifdef SCH_DEBUG
         if ((debug == 1) && (++loopCount > 10)) 
         {
-            SCH_ShowCurrentTasks();
+            //SCH_ShowCurrentTasks();
             debug = 0;
         }
 #endif

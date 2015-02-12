@@ -5,16 +5,21 @@
  * of the BSD license.  See the LICENSE file for details.
  */
 
+#include <project.h>
+#include <stdio.h>
 #include "bal.h"
 #include "bpl.h"
+
 #include "servo_cds5500.h"
-#include <project.h>
 #include "global.h"
-#include <stdio.h>
+#include "tmr.h"
 
 //static uint8 MsgReceiveBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
 //static uint8 MsgTransmitBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
 
+#ifdef BAL_MODULE_TEST   
+    static void BAL_ModuleTest();
+#endif
 /*****************************************************************/
 /* | startbyte0 | startbyte1 | motorId | length | instrId | instrParams[8] | checksum | 
      0            1            2         3        4         5                13       
@@ -73,7 +78,8 @@ STATUS BAL_SendAck(uint8 val)
 STATUS BAL_Init(void)
 {
 #ifdef BAL_MODULE_TEST
-    //BAL_InitModuleTest(BAL_MODULE_TEST_CASE);
+    //TST_SetModuleTest(BAL_ModuleTest);
+    TMR_SetTimer(TIMER_4, TIMER_1SEC, BAL_ModuleTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
 #endif
     
 	return SUCCESS;
@@ -88,12 +94,10 @@ void BAL_HandleTask(void)
 
 
 /*****************************************************************/
-#ifdef BAL_MODULE_TEST
-/*    
-void BAL_InitModuleTest(uchar testCase)
+#ifdef BAL_MODULE_TEST   
+static void BAL_ModuleTest(void)
 {
-    
+    Ping(0x01);
 }
-*/
 #endif
 /* [] END OF FILE */
