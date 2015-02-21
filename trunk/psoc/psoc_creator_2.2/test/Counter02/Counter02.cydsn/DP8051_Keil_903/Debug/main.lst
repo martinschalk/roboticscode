@@ -1,0 +1,257 @@
+C51 COMPILER V9.03   MAIN                                                                  02/21/2015 15:43:18 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\DP8051_Keil_903\Debug\main.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe 
+                    -.\main.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051_Keil_903\Debug\main.lst) CD DB NOIP OT(0,SIZE) INCDIR(Generated_Source
+                    -\PSoC3) OJ(.\DP8051_Keil_903\Debug\main.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File: main.c
+   3          * 
+   4          * Version : 1.00
+   5          *
+   6          * Description: 
+   7          *   This is a source code for basic functionality of Counter.
+   8          *
+   9          ********************************************************************************
+  10          * Copyright 2012, Cypress Semiconductor Corporation. All rights reserved.
+  11          * This software is owned by Cypress Semiconductor Corporation and is protected
+  12          * by and subject to worldwide patent and copyright laws and treaties.
+  13          * Therefore, you may use this software only as provided in the license agreement
+  14          * accompanying the software package from which you obtained this software.
+  15          * CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  16          * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
+  17          * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  18          *******************************************************************************/
+  19          #include <device.h>
+  20          
+  21          uint8 interruptCnt;
+  22          
+  23          /*******************************************************************************
+  24          * Interrupt
+  25          ********************************************************************************
+  26          *
+  27          * Summary:
+  28          *  Reads counter status register
+  29          *  Increments interrupt count
+  30          * 
+  31          *******************************************************************************/
+  32          CY_ISR(counterInterrupt)
+  33          {
+  34   1              /* Read Status register in order to clear the sticky Terminal Count (TC) bit 
+  35   1               * in the status register. Note that the function is not called, but rather 
+  36   1               * the status is read directly.
+  37   1               */
+  38   1              Counter_1_STATUS;
+  39   1          
+  40   1              
+  41   1              /* Increment the Counter to indicate the keep track of the number of 
+  42   1           * interrupts received. 
+  43   1               */
+  44   1          interruptCnt++;    
+  45   1      }
+  46          
+  47          
+  48          /*******************************************************************************
+  49          * Function Name: main
+  50          ********************************************************************************
+  51          *
+  52          * Summary:
+  53          *  Main function performs following functions:
+C51 COMPILER V9.03   MAIN                                                                  02/21/2015 15:43:18 PAGE 2   
+
+  54          *   1: Start components
+  55          *   2: Enables global interrupts
+  56          *       3: Print Period,compare and counter value on LCD
+  57          * 
+  58          * Parameters:
+  59          *  None.
+  60          *
+  61          * Return:
+  62          *  None.
+  63          *
+  64          *******************************************************************************/
+  65          void main()
+  66          {
+  67   1          /* Start and assign interrupt handle for interrupt component */
+  68   1          CounterISR_StartEx(counterInterrupt);
+  69   1      
+  70   1          CharLCD_1_Start();
+  71   1          Counter_1_Start();
+  72   1         
+  73   1              /* Enable Global interrupts */
+  74   1          CyGlobalIntEnable;
+  75   1      
+  76   1          CharLCD_1_ClearDisplay();
+  77   1      
+  78   1          CharLCD_1_Position(0u, 0u);
+  79   1          CharLCD_1_PrintString("COUNTER DEMO");
+  80   1         
+  81   1              CharLCD_1_Position(0u, 13u);
+  82   1          CharLCD_1_PrintInt8(Counter_1_ReadPeriod());
+  83   1          
+  84   1              CharLCD_1_Position(1u, 0u);
+  85   1          CharLCD_1_PrintInt8(Counter_1_ReadCompare());
+  86   1              
+  87   1              CharLCD_1_Position(1u, 6u);
+  88   1          CharLCD_1_PrintString("IntCnt:");
+  89   1      
+  90   1          
+  91   1          for(;;)
+  92   1          {
+  93   2              CharLCD_1_Position(1u, 3u);
+  94   2              CharLCD_1_PrintInt8(Counter_1_ReadCounter());
+  95   2              
+  96   2                      CharLCD_1_Position(1u, 13u);
+  97   2              CharLCD_1_PrintInt8(interruptCnt);
+  98   2          }
+  99   1      }
+ 100          
+ 101          
+ 102          /* [] END OF FILE */
+C51 COMPILER V9.03   MAIN                                                                  02/21/2015 15:43:18 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION counterInterrupt (BEGIN)
+0000 C0E0              PUSH    ACC
+0002 C083              PUSH    DPH
+0004 C082              PUSH    DPL
+0006 C085              PUSH    DPH1
+0008 C084              PUSH    DPL1
+000A C086              PUSH    DPS
+000C 758600            MOV     DPS,#00H
+000F C000        E     PUSH    ?C?XPAGE1SFR
+0011 750000      E     MOV     ?C?XPAGE1SFR,#?C?XPAGE1RST
+0014 C0D0              PUSH    PSW
+0016 75D000            MOV     PSW,#00H
+0019 C007              PUSH    AR7
+                                           ; SOURCE LINE # 32
+                                           ; SOURCE LINE # 38
+001B 906465            MOV     DPTR,#06465H
+001E E0                MOVX    A,@DPTR
+001F FF                MOV     R7,A
+                                           ; SOURCE LINE # 44
+0020 900000      R     MOV     DPTR,#interruptCnt
+0023 E0                MOVX    A,@DPTR
+0024 04                INC     A
+0025 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 45
+0026         ?C0001:
+0026 D007              POP     AR7
+0028 D0D0              POP     PSW
+002A D000        E     POP     ?C?XPAGE1SFR
+002C D086              POP     DPS
+002E D084              POP     DPL1
+0030 D085              POP     DPH1
+0032 D082              POP     DPL
+0034 D083              POP     DPH
+0036 D0E0              POP     ACC
+0038 32                RETI    
+             ; FUNCTION counterInterrupt (END)
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 65
+                                           ; SOURCE LINE # 66
+                                           ; SOURCE LINE # 68
+0000 7E00        R     MOV     R6,#HIGH counterInterrupt
+0002 7F00        R     MOV     R7,#LOW counterInterrupt
+0004 120000      E     LCALL   _CounterISR_StartEx
+                                           ; SOURCE LINE # 70
+0007 120000      E     LCALL   CharLCD_1_Start
+                                           ; SOURCE LINE # 71
+000A 120000      E     LCALL   Counter_1_Start
+                                           ; SOURCE LINE # 74
+000D D2AF              SETB    EA
+000F 9044F4            MOV     DPTR,#044F4H
+0012 74FD              MOV     A,#0FDH
+0014 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 76
+0015 7F01              MOV     R7,#01H
+0017 120000      E     LCALL   _CharLCD_1_WriteControl
+                                           ; SOURCE LINE # 78
+001A 7D00              MOV     R5,#00H
+001C 7F00              MOV     R7,#00H
+C51 COMPILER V9.03   MAIN                                                                  02/21/2015 15:43:18 PAGE 4   
+
+001E 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 79
+0021 7BFF              MOV     R3,#0FFH
+0023 7A00        R     MOV     R2,#HIGH ?SC_0
+0025 7900        R     MOV     R1,#LOW ?SC_0
+0027 120000      E     LCALL   _CharLCD_1_PrintString
+                                           ; SOURCE LINE # 81
+002A 7D0D              MOV     R5,#0DH
+002C 7F00              MOV     R7,#00H
+002E 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 82
+0031 120000      E     LCALL   Counter_1_ReadPeriod
+0034 120000      E     LCALL   _CharLCD_1_PrintInt8
+                                           ; SOURCE LINE # 84
+0037 7D00              MOV     R5,#00H
+0039 7F01              MOV     R7,#01H
+003B 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 85
+003E 120000      E     LCALL   Counter_1_ReadCompare
+0041 120000      E     LCALL   _CharLCD_1_PrintInt8
+                                           ; SOURCE LINE # 87
+0044 7D06              MOV     R5,#06H
+0046 7F01              MOV     R7,#01H
+0048 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 88
+004B 7BFF              MOV     R3,#0FFH
+004D 7A00        R     MOV     R2,#HIGH ?SC_13
+004F 7900        R     MOV     R1,#LOW ?SC_13
+0051 120000      E     LCALL   _CharLCD_1_PrintString
+                                           ; SOURCE LINE # 91
+0054         ?C0002:
+                                           ; SOURCE LINE # 92
+                                           ; SOURCE LINE # 93
+0054 7D03              MOV     R5,#03H
+0056 7F01              MOV     R7,#01H
+0058 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 94
+005B 120000      E     LCALL   Counter_1_ReadCounter
+005E 120000      E     LCALL   _CharLCD_1_PrintInt8
+                                           ; SOURCE LINE # 96
+0061 7D0D              MOV     R5,#0DH
+0063 7F01              MOV     R7,#01H
+0065 120000      E     LCALL   _CharLCD_1_Position
+                                           ; SOURCE LINE # 97
+0068 900000      R     MOV     DPTR,#interruptCnt
+006B E0                MOVX    A,@DPTR
+006C FF                MOV     R7,A
+006D 120000      E     LCALL   _CharLCD_1_PrintInt8
+                                           ; SOURCE LINE # 98
+0070 80E2              SJMP    ?C0002
+0072         ?C0003:
+                                           ; SOURCE LINE # 99
+0072         ?C0004:
+0072 22                RET     
+             ; FUNCTION main (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    172    ----
+   CONSTANT SIZE    =     21    ----
+   XDATA SIZE       =      1    ----
+C51 COMPILER V9.03   MAIN                                                                  02/21/2015 15:43:18 PAGE 5   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

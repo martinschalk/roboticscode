@@ -8,13 +8,27 @@
 #include "global.h"
 #include "types.h"
 #include "hal.h"
+#include "error.h"
 
 
 
 static STATUS   HalStatus = HAL_TRANSMISSION_READY;
 static BOOL     HalIsBusIdle = TRUE;
-static uint8    RxCount;
-static uint8    TxCount;
+static uint8    RxCount = 0;
+static uint8    TxCount = 0;
+
+
+/*******************************************************/
+/*
+UART_TX_STS_COMPLETE        If set, indicates byte was transmitted successfully
+UART_TX_STS_FIFO_EMPTY      If set, indicates the TX FIFO is empty
+UART_TX_STS_FIFO_FULL       If set, indicates the TX FIFO is full
+UART_TX_STS_FIFO_NOT_FULL   If set, indicates the FIFO is not full
+*/
+uint8 HAL_GetUartStatus(void)
+{
+    return UART_ReadTxStatus();
+}
 
 /*******************************************************/
 STATUS HAL_GetHalStatus(void)
@@ -45,6 +59,18 @@ CY_ISR(isr_tx_routine)
 /*******************************************************/
 STATUS 	HAL_Init(void)
 {
+#ifdef ERROR_MODULE_ENABLE
+    STATUS idx1, idx2;
+    static tErrVar v1, v2;
+    volatile int test1 = sizeof(int);
+    volatile int test2 = sizeof(tErrVar);
+    (void)test1; (void)test2;
+    v1 = RxCount;
+    v2 = TxCount;
+    idx1 = ERR_RegisterVariable(&v1, "RxCount", 0, 10);
+    idx2 = ERR_RegisterVariable(&v2, "TxCount", 0, 10);
+#endif
+
 	RxCount = 0;
 	UART_Start();
     Isr_rx_Start();
@@ -55,7 +81,7 @@ STATUS 	HAL_Init(void)
 	Isr_tx_Enable();
 	UART_EnableRxInt();
 	UART_EnableTxInt();
-	
+ 
 	return SUCCESS;
 }
 

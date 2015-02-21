@@ -10,6 +10,7 @@
 #include "types.h"
 #include "timer.h"
 #include "tmr.h"
+#include "error.h"
 #include "global.h"
 
 static BOOL 	TimerOverrun = FALSE;
@@ -67,7 +68,7 @@ void TMR_StopTimer(uint8 numTimer)
 
 
 /*******************************************************/
-void TMR_HandleTask(void)
+STATUS TMR_HandleTask(void)
 {
 	uint8 i;
 	uint32 timediff;
@@ -79,7 +80,7 @@ void TMR_HandleTask(void)
     {
         OldTime = NewTime;
         IsFirstExecution = FALSE;
-        return;
+        return SUCCESS;
     }
     
 	/* this variable is set by isr when timer runs over */
@@ -105,7 +106,16 @@ void TMR_HandleTask(void)
 			if (Timer[i].count >= Timer[i].value)
 			{
 				/* call timer down function */
-				Timer[i].func();
+                if (Timer[i].func != NULL)
+                {
+                    Timer[i].func();
+                }
+                else
+                {
+                    ERR_Error(ERROR_WARNING);
+                }
+                
+                
 				if (Timer[i].mode != TIMER_MODE_CONTINUOUS)
 				{
 					Timer[i].status = TIMER_DISABLED;
@@ -115,7 +125,7 @@ void TMR_HandleTask(void)
 		}
 	}
 	
-	
+	return SUCCESS;
 }
 
 

@@ -18,7 +18,7 @@ static uint8 	ReceiveBuffer[RX_BUFFER_SIZE];	//RB
 static uint8 	TransmitBuffer[TX_BUFFER_SIZE];	//TB
 static uint8 	ReceiveMsgCount = 0;
 static uint8 	TransmitMsgCount = 0;
-static uint8    ReceiveBytesCount = 0;
+//static uint8    ReceiveBytesCount = 0;
 static uint8    TransmitBytesCount = 0;
 
 static uint8* 	RBHead = ReceiveBuffer;
@@ -74,7 +74,7 @@ STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 }
 
 /*******************************************************/
-void BPL_HandleTask(void)
+STATUS BPL_HandleTask(void)
 {
 	uint8 numBytes;
 	
@@ -139,6 +139,8 @@ void BPL_HandleTask(void)
 											break;
 		default:							break;
 	}
+    
+    return BplStatus;
 }
 
 /* [] END OF FILE */

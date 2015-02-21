@@ -1,0 +1,182 @@
+C51 COMPILER V9.03   CHARLCD_1_CUSTCHARS                                                   02/21/2015 15:43:18 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE CHARLCD_1_CUSTCHARS
+OBJECT MODULE PLACED IN .\DP8051_Keil_903\Debug\CharLCD_1_CustChars.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe 
+                    -.\Generated_Source\PSoC3\CharLCD_1_CustChars.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051_Keil_903\Debug\CharLCD_1_CustCha
+                    -rs.lst) CD DB NOIP OT(0,SIZE) INCDIR(Generated_Source\PSoC3) OJ(.\DP8051_Keil_903\Debug\CharLCD_1_CustChars.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: CharLCD_1_CustChars.c
+   3          * Version 1.90
+   4          *
+   5          * Description:
+   6          *  This file provides the source code for the Character LCD custom character
+   7          *  API.
+   8          *
+   9          * Note:
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions,
+  14          * disclaimers, and limitations in the end user license agreement accompanying
+  15          * the software package with which this file was provided.
+  16          *******************************************************************************/
+  17          
+  18          #include "CharLCD_1.h"
+  19          
+  20          
+  21          uint8 const CYCODE CharLCD_1_customFonts[] = \
+  22          {
+  23              /* Character CharLCD_1_CUSTOM_0   */
+  24                  0x00u,    0x0Eu,    0x08u,    0x08u,    0x08u,    0x0Eu,    0x00u,    0x00u, \
+  25              /* Character CharLCD_1_CUSTOM_1   */
+  26                  0x00u,    0x0Au,    0x0Au,    0x04u,    0x04u,    0x04u,    0x00u,    0x00u, \
+  27              /* Character CharLCD_1_CUSTOM_2   */
+  28                  0x00u,    0x0Eu,    0x0Au,    0x0Eu,    0x08u,    0x08u,    0x00u,    0x00u, \
+  29              /* Character CharLCD_1_CUSTOM_3   */
+  30                  0x00u,    0x0Eu,    0x0Au,    0x0Cu,    0x0Au,    0x0Au,    0x00u,    0x00u, \
+  31              /* Character CharLCD_1_CUSTOM_4   */
+  32                  0x00u,    0x0Eu,    0x08u,    0x0Cu,    0x08u,    0x0Eu,    0x00u,    0x00u, \
+  33              /* Character CharLCD_1_CUSTOM_5   */
+  34                  0x00u,    0x0Eu,    0x08u,    0x0Eu,    0x02u,    0x0Eu,    0x00u,    0x00u, \
+  35              /* Character CharLCD_1_CUSTOM_6   */
+  36                  0x00u,    0x0Eu,    0x08u,    0x0Eu,    0x02u,    0x0Eu,    0x00u,    0x00u, \
+  37              /* Character CharLCD_1_CUSTOM_7   */
+  38                  0x00u,    0x04u,    0x04u,    0x04u,    0x00u,    0x04u,    0x00u,    0x00u \
+  39           };
+  40          
+  41          
+  42          /*******************************************************************************
+  43          * Function Name: CharLCD_1_LoadCustomFonts
+  44          ********************************************************************************
+  45          *
+  46          * Summary:
+  47          *  Loads 8 custom font characters into the LCD Module for use.  Cannot use
+  48          *  characters from two different font sets at once, but font sets can be
+  49          *  switched out during runtime.
+  50          *
+  51          * Parameters:
+  52          *  customData:  pointer to a constant array of 64 bytes representing 8 custom
+  53          *               font characters.
+C51 COMPILER V9.03   CHARLCD_1_CUSTCHARS                                                   02/21/2015 15:43:18 PAGE 2   
+
+  54          * Return:
+  55          *  None.
+  56          *
+  57          * Theory:
+  58          *  Prior to using this function user need to import the pointer to custom
+  59          *  font array to your project by writting the following in the source code file
+  60          *  where custom font will be used:
+  61          *       extern uint8 const CYCODE LCD_Char_customFonts[];
+  62          *  This function is not automatically called by the Start() routine and must be
+  63          *  called manually by the user.
+  64          *
+  65          *******************************************************************************/
+  66          void CharLCD_1_LoadCustomFonts(uint8 const customData[]) 
+  67          {
+  68   1          uint8 indexU8;
+  69   1      
+  70   1          CharLCD_1_IsReady();
+  71   1      
+  72   1          /* Set starting address in the LCD Module.
+  73   1          * Optionally: Read the current address to restore at a later time.
+  74   1          */
+  75   1          CharLCD_1_WriteControl(CharLCD_1_CGRAM_0);
+  76   1      
+  77   1          /* Load in the 64 bytes of CustomChar Data */
+  78   1          for(indexU8 = 0u; indexU8 < CharLCD_1_CUSTOM_CHAR_SET_LEN; indexU8++)
+  79   1          {
+  80   2              CharLCD_1_WriteData(customData[indexU8]);
+  81   2          }
+  82   1      
+  83   1          CharLCD_1_IsReady();
+  84   1          CharLCD_1_WriteControl(CharLCD_1_DDRAM_0);
+  85   1      }
+  86          
+  87          
+  88          /* [] END OF FILE */
+C51 COMPILER V9.03   CHARLCD_1_CUSTCHARS                                                   02/21/2015 15:43:18 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION _CharLCD_1_LoadCustomFonts (BEGIN)
+                                           ; SOURCE LINE # 66
+0000 900000      R     MOV     DPTR,#customData
+0003 120000      E     LCALL   ?C?PSTXDATA
+                                           ; SOURCE LINE # 67
+                                           ; SOURCE LINE # 70
+0006 120000      E     LCALL   CharLCD_1_IsReady
+                                           ; SOURCE LINE # 75
+0009 7F40              MOV     R7,#040H
+000B 120000      E     LCALL   _CharLCD_1_WriteControl
+                                           ; SOURCE LINE # 78
+000E 900000      R     MOV     DPTR,#indexU8
+0011 E4                CLR     A
+0012 F0                MOVX    @DPTR,A
+0013         ?C0001:
+0013 900000      R     MOV     DPTR,#indexU8
+0016 E0                MOVX    A,@DPTR
+0017 FF                MOV     R7,A
+0018 EF                MOV     A,R7
+0019 C3                CLR     C
+001A 9440              SUBB    A,#040H
+001C 5020              JNC     ?C0002
+                                           ; SOURCE LINE # 79
+                                           ; SOURCE LINE # 80
+001E 900000      R     MOV     DPTR,#customData
+0021 120000      E     LCALL   ?C?PLDXDATA
+0024 900000      R     MOV     DPTR,#indexU8
+0027 E0                MOVX    A,@DPTR
+0028 FF                MOV     R7,A
+0029 E9                MOV     A,R1
+002A 2F                ADD     A,R7
+002B F9                MOV     R1,A
+002C E4                CLR     A
+002D 3A                ADDC    A,R2
+002E FA                MOV     R2,A
+002F 120000      E     LCALL   ?C?CLDPTR
+0032 FF                MOV     R7,A
+0033 120000      E     LCALL   _CharLCD_1_WriteData
+                                           ; SOURCE LINE # 81
+0036         ?C0003:
+0036 900000      R     MOV     DPTR,#indexU8
+0039 E0                MOVX    A,@DPTR
+003A 04                INC     A
+003B F0                MOVX    @DPTR,A
+003C 80D5              SJMP    ?C0001
+003E         ?C0002:
+                                           ; SOURCE LINE # 83
+003E 120000      E     LCALL   CharLCD_1_IsReady
+                                           ; SOURCE LINE # 84
+0041 7F80              MOV     R7,#080H
+0043 120000      E     LCALL   _CharLCD_1_WriteControl
+                                           ; SOURCE LINE # 85
+0046         ?C0004:
+0046 22                RET     
+             ; FUNCTION _CharLCD_1_LoadCustomFonts (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.03   CHARLCD_1_CUSTCHARS                                                   02/21/2015 15:43:18 PAGE 4   
+
+   CODE SIZE        =     71    ----
+   CONSTANT SIZE    =     64    ----
+   XDATA SIZE       =      4    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

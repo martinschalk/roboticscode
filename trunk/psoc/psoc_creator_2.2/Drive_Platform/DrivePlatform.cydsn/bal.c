@@ -42,8 +42,10 @@ STATUS BAL_ServoMsg(CDS5500_MSG* msg)
 	return SUCCESS;
 }
 
+
 /*****************************************************************/
-STATUS BAL_ASendMsg(BAL_MSG* msg)
+#if 0
+STATUS BAL_SendMsg(BAL_MSG* msg)
 {
     STATUS status;
     uint8 buffer[3+msg->length];
@@ -57,6 +59,7 @@ STATUS BAL_ASendMsg(BAL_MSG* msg)
     
 	return SUCCESS;
 }
+#endif
 
 
 
@@ -87,9 +90,9 @@ STATUS BAL_Init(void)
 
 
 /*****************************************************************/
-void BAL_HandleTask(void)
+STATUS BAL_HandleTask(void)
 {
-
+    return SUCCESS;
 }
 
 

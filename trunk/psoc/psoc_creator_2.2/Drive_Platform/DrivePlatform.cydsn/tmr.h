@@ -47,7 +47,7 @@ STATUS 	TMR_Init(void);
 void TMR_SetTimer(uint8 numTimer, uint32 us, TMR_FUNC func, uint8 mode, uint8 status);
 void TMR_StartTimer(uint8 numTimer);
 void TMR_StopTimer(uint8 numTimer);
-void TMR_HandleTask(void);
+STATUS TMR_HandleTask(void);
 
 #endif /* TMR_H */
 

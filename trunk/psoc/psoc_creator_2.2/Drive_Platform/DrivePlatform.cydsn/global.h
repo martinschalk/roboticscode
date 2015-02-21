@@ -25,6 +25,7 @@
 #endif
 
 
+#define NULLPTR ((void *)0)
 #define SIZE_OF_ARRAY(x)  (sizeof(x) / sizeof(x[0]))
 #define SUCCESS	0
 #define BIT(b) (1UL << (b))

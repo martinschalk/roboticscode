@@ -5,6 +5,9 @@
  * of the BSD license.  See the LICENSE file for details.
  */
  
+#ifndef SCHEDULER_H
+#define SCHEDULER_H
+ 
  
 #include "types.h" 
 
@@ -20,7 +23,7 @@
 
 //#define SCH_TASK_NUM            5
 
-#define DEP_NONE                NULL
+#define DEP_NONE                0//""
 
 
 
@@ -42,3 +45,7 @@ typedef struct _scheduler_task
 #ifdef SCH_DEBUG
     void SCH_ShowCurrentTasks(void);
 #endif
+
+void SCH_TaskHandler(void);
+
+#endif /* SCHEDULER_H */

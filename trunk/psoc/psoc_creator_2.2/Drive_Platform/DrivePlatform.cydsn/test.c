@@ -19,8 +19,8 @@
 //static TEST_FUNC TST_FuncPtr = NULL;
 
 
-static uchar TST_TestCase;
-static BOOL     TST_IsInitialized = FALSE;
+//static uchar    TST_TestCase;
+//static BOOL     TST_IsInitialized = FALSE;
 static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
 
 static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
@@ -34,6 +34,7 @@ static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8),
 -------------------------------------------
 */
 /*******************************************************/
+/*
 static void TST_SendTestMsg(void)
 {
 //#define UART_TEST_MSG
@@ -52,20 +53,22 @@ static void TST_SendTestMsg(void)
     (void)status;
 #endif
 }
+*/
 
 /*******************************************************/
+/*
 static void TST_GetMsg(void)
 {
     uint8 i=0;
     STATUS status;
     BOOL motorMsg=FALSE;
     
-    /* disable rx interrupt during data processing */
+    // disable rx interrupt during data processing
     UART_TEST_DisableRxInt();
     
     status = UART_TEST_ReadRxStatus();
     
-    /* if buffer full, parse for 0xff 0xff (only for testing) */
+    // if buffer full, parse for 0xff 0xff (only for testing)
     if ((status == UART_RX_STS_OVERRUN) || (status == UART_RX_STS_SOFT_BUFF_OVER))
     {
         while (UART_TEST_GetRxBufferSize() > 0)
@@ -77,16 +80,17 @@ static void TST_GetMsg(void)
         }
     }
         
-    /* enable rx interrupt during data processing */
+    // enable rx interrupt during data processing
     UART_TEST_EnableRxInt();  
     
 
-    /* check if message id is registered and acknowledge*/
+    // check if message id is registered and acknowledge
     if (motorMsg == TRUE)
     {
         UART_TEST_PutArray(TST_AckOkMsgBuffer, sizeof(TST_AckOkMsgBuffer));
     }
 }
+*/
 
 /*******************************************************/
 static void TST_Blink(void)
@@ -97,6 +101,7 @@ static void TST_Blink(void)
 }
 
 /*******************************************************/
+/*
 static void TST_SendMotorMsg(void)
 {
     STATUS status; 
@@ -105,7 +110,7 @@ static void TST_SendMotorMsg(void)
     
     (void)status;
 }
-
+*/
 
 /*******************************************************/
 /*
@@ -117,7 +122,7 @@ void TST_SetModuleTest(TEST_FUNC* testFunction)
 */
 
 /*******************************************************/
-void TST_Init(void)
+STATUS TST_Init(void)
 {
     /* clear test msg buffer */
     //memset(TST_MsgBuffer, 0x00, TST_MSG_BUFFER_SIZE);   
@@ -126,10 +131,11 @@ void TST_Init(void)
 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
 #endif	
 
+    return SUCCESS;
 }
 
 /*******************************************************/
-static void TST_HandleTask(void)
+STATUS TST_HandleTask(void)
 {
     //static int i=0;
     /*
@@ -153,6 +159,8 @@ static void TST_HandleTask(void)
         
     i++;
     */
+    
+    return SUCCESS;
 }
 
 /* [] END OF FILE */
