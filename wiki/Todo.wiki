@@ -3,4 +3,5 @@
 - test receive chain <br>
 - test checksum generation and message transmission due to changes of 13.01.2015 <br>
 - 20.01.2015: test HAL_GetByte, maybe use other tool than RealTerm? <br>
-- 12.02.2015: solve TMR module problem, probably exceeding number of timers, seems to be a pointer problem
+- 12.02.2015: solve TMR module problem, probably exceeding number of timers, seems to be a pointer problem  <br>
+- 21.02.2015: TxCount suddenly reaches 255 -> find out why this happens
