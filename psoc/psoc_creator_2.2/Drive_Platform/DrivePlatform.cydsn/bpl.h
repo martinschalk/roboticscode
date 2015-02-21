@@ -50,10 +50,10 @@ BUS MESSAGE
 #define BPL_STATUS_TX_DATA_MISMATCH		(uint8)(-3)
 #define BPL_STATUS_     				(uint8)(-4)
 /*******************************************************/
-void BPL_HandleTask(void);
-uint8 BPL_GetReceiveCount(void);
-uint8 BPL_GetMessage(uint8* target);
-STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength);
+extern STATUS BPL_HandleTask(void);
+extern uint8 BPL_GetReceiveCount(void);
+extern uint8 BPL_GetMessage(uint8* target);
+extern STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength);
 
 #endif /* BPL_H */
 

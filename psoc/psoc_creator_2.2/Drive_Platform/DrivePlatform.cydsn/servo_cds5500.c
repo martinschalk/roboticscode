@@ -58,7 +58,7 @@ void ServoTest(void)
 {
     STATUS status;
     
-    status = SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      NULL);
+    status = SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      0);
     
     /*
                         HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
@@ -82,7 +82,8 @@ void Ping(uint8 motorId)
                         START_BYTE_1_VALUE, 
                         motorId,
                         INST_PING_LENGTH,
-                        {INST_PING},
+                        INST_PING,
+                        {0x00},
                         0x00,
                       };
 

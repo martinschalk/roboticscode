@@ -23,63 +23,6 @@
 <v>Counter01\Counter01\Source Files</v>
 <v>Counter01\Counter01\Source Files\main.c</v>
 <v>Counter01\Counter01\Counter.pdf</v>
-<v>Counter01\Counter01\Generated_Source</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1\CharLCD_1.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1\CharLCD_1.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1\CharLCD_1_CustChars.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1\CharLCD_1_PM.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1_LCDPort</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1_LCDPort\CharLCD_1_LCDPort.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1_LCDPort\CharLCD_1_LCDPort.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CharLCD_1_LCDPort\CharLCD_1_LCDPort_aliases.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\clock_1</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\clock_1\clock_1.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\clock_1\clock_1.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\Counter_1</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\Counter_1\Counter_1.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\Counter_1\Counter_1.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\Counter_1\Counter_1_PM.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CounterISR</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CounterISR\CounterISR.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\CounterISR\CounterISR.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyBootAsmKeil.a51</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyDmac.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyDmac.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyFlash.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyFlash.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyLib.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CyLib.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cymem.a51</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cypins.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cyPm.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cyPm.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CySpc.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\CySpc.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cytypes.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\cyutils.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\KeilStart.a51</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\PSoC3_8051.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cy_boot\PSoC3_8051.inc</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_4</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_4\P0_4.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_4\P0_4.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_4\P0_4_aliases.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_5</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_5\P0_5.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_5\P0_5.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\P0_5\P0_5_aliases.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cydevice.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cydevice_trm.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cydevicekeil.inc</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cydevicekeil_trm.inc</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cyfitter.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cyfitter_cfg.c</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cyfitter_cfg.h</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\cyfitterkeil.inc</v>
-<v>Counter01\Counter01\Generated_Source\PSoC3\project.h</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>Counter01</v>
@@ -108,27 +51,7 @@
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_CustChars.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_LCDPort.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_PM.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\clock_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\Counter_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\Counter_1_PM.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CounterISR.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyBootAsmKeil.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyDmac.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyFlash.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyLib.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cymem.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyPm.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CySpc.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyutils.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\KeilStart.lst</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\main.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\P0_4.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\P0_5.lst</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.elf</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.hex</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.map</v>
@@ -142,27 +65,7 @@
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_CustChars.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_LCDPort.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CharLCD_1_PM.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\clock_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\Counter_1.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\Counter_1_PM.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CounterISR.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyBootAsmKeil.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyDmac.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyFlash.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CyLib.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cymem.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyPm.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\CySpc.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\cyutils.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\KeilStart.lst</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\main.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\P0_4.lst</v>
-<v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Listing Files\P0_5.lst</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.elf</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.hex</v>
 <v>Counter01\Counter01\DP8051\DP8051_Keil_903\Debug\Counter01.map</v>

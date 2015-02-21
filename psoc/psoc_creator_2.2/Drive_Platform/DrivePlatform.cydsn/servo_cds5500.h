@@ -143,7 +143,7 @@ typedef struct _servo_msg
 #define P_PUNCH_H (49)
 
 
-//Instructions:
+//Instruction IDs:
 #define INST_PING                       0x01    //No action. Used for obtaining a Status Packet
 #define INST_READ                       0x02    //Reading values in the Control Table
 #define INST_WRITE                      0x03    //Writing values to the Control Table

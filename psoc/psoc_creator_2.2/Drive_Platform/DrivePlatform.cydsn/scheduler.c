@@ -12,18 +12,22 @@
 #include "tmr.h"
 #include "bpl.h"
 #include "bal.h"
+#include "error.h"
 #include "test.h"
 
 static int          SCH_TaskIndex = 0;
 static SCH_TASK 	SCH_Task[] =
 {
-/*   NAME   STATUS          PRIO    INIT        HANDLER         DEPENDENCY */
-/*   --------------------------------------------------------------------- */
-    {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,           DEP_NONE},
-    {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask, DEP_NONE},
-    {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask, "HAL"},
-    {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask, "BPL"},
-    {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL, "TMR"}
+/*   NAME   STATUS          PRIO    INIT        HANDLER             DEPENDENCY */
+/*   ------------------------------------------------------------------------- */
+#ifdef ERROR_MODULE_ENABLE
+    {"ERR", SCH_TASK_NEW,   0,      ERR_Init,   ERR_HandleTask,     {DEP_NONE}},
+#endif
+    {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
+    {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
+    {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask,     "HAL"},
+    {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
+    {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL,               "TMR"},
 };
 /* currently only one dependency possible */
 
@@ -33,11 +37,10 @@ static uchar SCH_GetTaskIndex(uchar* taskName)
 {
     int i;
     uchar idx = (uchar)(-1);
-    static int x = SIZE_OF_ARRAY(SCH_Task);
     
     for (i=0; i<SIZE_OF_ARRAY(SCH_Task); i++)
     {
-        if (0 == strcmp(SCH_Task[SCH_TaskIndex].name, taskName))
+        if (0 == strcmp((char*)SCH_Task[SCH_TaskIndex].name, (char*)taskName))
             idx = i;
     }
     
@@ -46,7 +49,7 @@ static uchar SCH_GetTaskIndex(uchar* taskName)
 
 
 /*****************************************************************/
-void SCH_TaskHandler()
+void SCH_TaskHandler(void)
 {
     STATUS status;
     uchar depTaskIndex;
@@ -142,30 +145,30 @@ void SCH_ShowCurrentTasks(void)
 {
     int i;
     
-    n += sprintf(SCH_TaskBuffer + n, "\n===");
+    n += sprintf((char*)SCH_TaskBuffer + n, "\n===");
     
     for (i=0; i<sizeof(SCH_Task); i++)
     {
         if (NULL != SCH_Task[i].name)
         {
-            n += sprintf(SCH_TaskBuffer + n, "\nTask %i: %s/", i, SCH_Task[i].name);
+            n += sprintf((char*)SCH_TaskBuffer + n, "\nTask %i: %s/", i, SCH_Task[i].name);
         
             switch (SCH_Task[i].status)
             {
-                case SCH_TASK_NEW:          n += sprintf(SCH_TaskBuffer + n, "NEW");
+                case SCH_TASK_NEW:          n += sprintf((char*)SCH_TaskBuffer + n, "NEW");
                                             break;
-                case SCH_TASK_READY:        n += sprintf(SCH_TaskBuffer + n, "READY");
+                case SCH_TASK_READY:        n += sprintf((char*)SCH_TaskBuffer + n, "READY");
                                             break;
-                case SCH_TASK_RUNNING:      n += sprintf(SCH_TaskBuffer + n, "RUNNING");
+                case SCH_TASK_RUNNING:      n += sprintf((char*)SCH_TaskBuffer + n, "RUNNING");
                                             break;
-                case SCH_TASK_WAITING:      n += sprintf(SCH_TaskBuffer + n, "WAITING");
+                case SCH_TASK_WAITING:      n += sprintf((char*)SCH_TaskBuffer + n, "WAITING");
                                             break;
-                case SCH_TASK_TERMINATED:   n += sprintf(SCH_TaskBuffer + n, "TERMINATED");
+                case SCH_TASK_TERMINATED:   n += sprintf((char*)SCH_TaskBuffer + n, "TERMINATED");
                                             break;
                 default:                    break;                                
             }
             
-            n += sprintf(SCH_TaskBuffer + n, " %s\n", SCH_Task[i].dependency);
+            n += sprintf((char*)SCH_TaskBuffer + n, " %s\n", SCH_Task[i].dependency);
             if ((n+64)>1024)
                 n=0;
         }

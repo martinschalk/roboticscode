@@ -15,7 +15,7 @@ typedef uint8 uchar;
 typedef uint8 STATUS;
 typedef uint8_t BOOL;
 typedef uint8_t BYTE;
-typedef unsigned int WORD;
+typedef unsigned int uint;
 
 #endif /* TYPES_H */
 

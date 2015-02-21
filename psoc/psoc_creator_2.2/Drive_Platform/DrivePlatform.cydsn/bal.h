@@ -70,8 +70,8 @@ typedef struct _bal_msg
 
 
 STATUS  BAL_Init(void);
-void    BAL_HandleTask(void);
-STATUS  BAL_ASendMsg(BAL_MSG* msg);
+STATUS  BAL_HandleTask(void);
+//STATUS  BAL_SendMsg(BAL_MSG* msg);
 STATUS  BAL_ServoMsg(CDS5500_MSG* msg);
 STATUS  BAL_SendAck(uint8 val);
 
