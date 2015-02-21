@@ -1,3 +1,5 @@
+#summary Todos, errors, ...
+
 - Hardware TTL for rx,tx necessary? (maybe solution using internal routing of psoc) <br>
 - implement other servo messages <br>
 - test receive chain <br>
