@@ -37,3 +37,6 @@
 - error module created and RxCount, TxCount registered to be observed by error handler <br>
 - compiler warning eliminated (cast) <br>
 - ticket for cm3 reset problem opened at cypress forum: http://www.cypress.com/?app=forum&id=2233&rID=108020 <br>
+
+==23.02.2015==
+- error found! ring buffer overrunning in function BPL_TransmitMessage() <br>
