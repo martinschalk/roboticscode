@@ -285,7 +285,6 @@
 <name v=".\DrivePlatform.cydsn\bus.c" />
 <name v=".\DrivePlatform.cydsn\servo_cds5500.c" />
 <name v=".\DrivePlatform.cydsn\scheduler.c" />
-<name v=".\DrivePlatform.cydsn\main.c" />
 </OpenDocs>
 <config v="" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

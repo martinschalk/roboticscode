@@ -1,0 +1,1527 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"bpl.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 2C010000 		.text
+  20      0200B400 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	ReceiveBuffer:
+  26 0000 00000000 		.space	256
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  27              		.align	2
+  28              	TransmitBuffer:
+  29 0100 00000000 		.space	256
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  30              	ReceiveMsgCount:
+  31 0200 00       		.space	1
+  32              	TransmitMsgCount:
+  33 0201 00       		.space	1
+  34              	TransmitBytesCount:
+  35 0202 00       		.space	1
+  36              		.data
+  37              		.align	2
+  38              		.type	RBHead, %object
+  39              		.size	RBHead, 4
+  40              	RBHead:
+  41 0000 00000000 		.word	ReceiveBuffer
+  42              		.align	2
+  43              		.type	RBTail, %object
+  44              		.size	RBTail, 4
+  45              	RBTail:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 2
+
+
+  46 0004 00000000 		.word	ReceiveBuffer
+  47              		.align	2
+  48              		.type	TBHead, %object
+  49              		.size	TBHead, 4
+  50              	TBHead:
+  51 0008 00010000 		.word	TransmitBuffer
+  52              		.align	2
+  53              		.type	TBTail, %object
+  54              		.size	TBTail, 4
+  55              	TBTail:
+  56 000c 00010000 		.word	TransmitBuffer
+  57              		.bss
+  58              	BplStatus:
+  59 0203 00       		.space	1
+  60              		.section	.text.BPL_GetReceiveMsgCount,"ax",%progbits
+  61              		.align	2
+  62              		.global	BPL_GetReceiveMsgCount
+  63              		.thumb
+  64              		.thumb_func
+  65              		.type	BPL_GetReceiveMsgCount, %function
+  66              	BPL_GetReceiveMsgCount:
+  67              	.LFB29:
+  68              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\bpl.c"
+   1:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  * All rights reserved.
+   3:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  *
+   4:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  * This software may be modified and distributed under the terms
+   5:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  */
+   7:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+   8:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+   9:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #include <project.h>
+  10:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #include "global.h"
+  11:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #include <stdio.h>
+  12:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  13:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #include "hal.h"
+  14:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #include "bpl.h"
+  15:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  16:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /* Ring buffers */
+  17:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8 	ReceiveBuffer[RX_BUFFER_SIZE];	//RB
+  18:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8 	TransmitBuffer[TX_BUFFER_SIZE];	//TB
+  19:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8 	ReceiveMsgCount = 0;
+  20:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8 	TransmitMsgCount = 0;
+  21:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** //static uint8    ReceiveBytesCount = 0;
+  22:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8    TransmitBytesCount = 0;
+  23:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  24:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8* 	RBHead = ReceiveBuffer;
+  25:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8* 	RBTail = ReceiveBuffer;
+  26:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8* 	TBHead = TransmitBuffer;
+  27:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static uint8* 	TBTail = TransmitBuffer;
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  29:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** static STATUS BplStatus = BPL_STATUS_OK;
+  30:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*******************************************************/
+  32:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** uint8 BPL_GetReceiveMsgCount(void)
+  33:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** {
+  69              		.loc 1 33 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 3
+
+
+  70              		.cfi_startproc
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+  73              		@ link register save eliminated.
+  74 0000 80B4     		push	{r7}
+  75              	.LCFI0:
+  76              		.cfi_def_cfa_offset 4
+  77 0002 00AF     		add	r7, sp, #0
+  78              		.cfi_offset 7, -4
+  79              	.LCFI1:
+  80              		.cfi_def_cfa_register 7
+  34:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return ReceiveMsgCount;	
+  81              		.loc 1 34 0
+  82 0004 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+  83 0008 C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+  84 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  35:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
+  85              		.loc 1 35 0
+  86 000e 1846     		mov	r0, r3
+  87 0010 BD46     		mov	sp, r7
+  88 0012 80BC     		pop	{r7}
+  89 0014 7047     		bx	lr
+  90              		.cfi_endproc
+  91              	.LFE29:
+  92              		.size	BPL_GetReceiveMsgCount, .-BPL_GetReceiveMsgCount
+  93 0016 00BF     		.section	.text.BPL_GetMessage,"ax",%progbits
+  94              		.align	2
+  95              		.global	BPL_GetMessage
+  96              		.thumb
+  97              		.thumb_func
+  98              		.type	BPL_GetMessage, %function
+  99              	BPL_GetMessage:
+ 100              	.LFB30:
+  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  37:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*******************************************************/
+  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** uint8 BPL_GetMessage(uint8* target)
+  39:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** {
+ 101              		.loc 1 39 0
+ 102              		.cfi_startproc
+ 103              		@ args = 0, pretend = 0, frame = 16
+ 104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 105 0000 80B5     		push	{r7, lr}
+ 106              	.LCFI2:
+ 107              		.cfi_def_cfa_offset 8
+ 108 0002 84B0     		sub	sp, sp, #16
+ 109              	.LCFI3:
+ 110              		.cfi_def_cfa_offset 24
+ 111 0004 00AF     		add	r7, sp, #0
+ 112              		.cfi_offset 14, -4
+ 113              		.cfi_offset 7, -8
+ 114              	.LCFI4:
+ 115              		.cfi_def_cfa_register 7
+ 116 0006 7860     		str	r0, [r7, #4]
+  40:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     uint8 msgLength;
+  41:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+  42:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* check if messages in pipe */
+  43:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     if (ReceiveMsgCount==0)
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 4
+
+
+ 117              		.loc 1 43 0
+ 118 0008 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ 119 000c C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 120 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 121 0012 002B     		cmp	r3, #0
+ 122 0014 02D1     		bne	.L4
+  44:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         return 0;
+ 123              		.loc 1 44 0
+ 124 0016 4FF00003 		mov	r3, #0
+ 125 001a 2FE0     		b	.L5
+ 126              	.L4:
+  45:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+  46:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* get message length and copy data to target */
+  47:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     msgLength = RBTail[0];
+ 127              		.loc 1 47 0
+ 128 001c 40F20003 		movw	r3, #:lower16:RBTail
+ 129 0020 C0F20003 		movt	r3, #:upper16:RBTail
+ 130 0024 1B68     		ldr	r3, [r3, #0]
+ 131 0026 1B78     		ldrb	r3, [r3, #0]
+ 132 0028 FB73     		strb	r3, [r7, #15]
+  48:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     memcpy(target, RBTail+1, msgLength);
+ 133              		.loc 1 48 0
+ 134 002a 40F20003 		movw	r3, #:lower16:RBTail
+ 135 002e C0F20003 		movt	r3, #:upper16:RBTail
+ 136 0032 1B68     		ldr	r3, [r3, #0]
+ 137 0034 03F10102 		add	r2, r3, #1
+ 138 0038 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 139 003a 7868     		ldr	r0, [r7, #4]
+ 140 003c 1146     		mov	r1, r2
+ 141 003e 1A46     		mov	r2, r3
+ 142 0040 FFF7FEFF 		bl	memcpy
+  49:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+  50:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* update parameters */
+  51:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     RBTail += msgLength + 1;
+ 143              		.loc 1 51 0
+ 144 0044 40F20003 		movw	r3, #:lower16:RBTail
+ 145 0048 C0F20003 		movt	r3, #:upper16:RBTail
+ 146 004c 1A68     		ldr	r2, [r3, #0]
+ 147 004e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 148 0050 03F10103 		add	r3, r3, #1
+ 149 0054 1A44     		add	r2, r2, r3
+ 150 0056 40F20003 		movw	r3, #:lower16:RBTail
+ 151 005a C0F20003 		movt	r3, #:upper16:RBTail
+ 152 005e 1A60     		str	r2, [r3, #0]
+  52:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     ReceiveMsgCount--;	
+ 153              		.loc 1 52 0
+ 154 0060 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ 155 0064 C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 156 0068 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 157 006a 03F1FF33 		add	r3, r3, #-1
+ 158 006e DAB2     		uxtb	r2, r3
+ 159 0070 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ 160 0074 C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 161 0078 1A70     		strb	r2, [r3, #0]
+  53:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return msgLength;
+ 162              		.loc 1 54 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 5
+
+
+ 163 007a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 164              	.L5:
+  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
+ 165              		.loc 1 55 0
+ 166 007c 1846     		mov	r0, r3
+ 167 007e 07F11007 		add	r7, r7, #16
+ 168 0082 BD46     		mov	sp, r7
+ 169 0084 80BD     		pop	{r7, pc}
+ 170              		.cfi_endproc
+ 171              	.LFE30:
+ 172              		.size	BPL_GetMessage, .-BPL_GetMessage
+ 173 0086 00BF     		.section	.text.BPL_TransmitMessage,"ax",%progbits
+ 174              		.align	2
+ 175              		.global	BPL_TransmitMessage
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.type	BPL_TransmitMessage, %function
+ 179              	BPL_TransmitMessage:
+ 180              	.LFB31:
+  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*******************************************************/
+  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
+  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** {
+ 181              		.loc 1 59 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 8
+ 184              		@ frame_needed = 1, uses_anonymous_args = 0
+ 185 0000 80B5     		push	{r7, lr}
+ 186              	.LCFI5:
+ 187              		.cfi_def_cfa_offset 8
+ 188 0002 82B0     		sub	sp, sp, #8
+ 189              	.LCFI6:
+ 190              		.cfi_def_cfa_offset 16
+ 191 0004 00AF     		add	r7, sp, #0
+ 192              		.cfi_offset 14, -4
+ 193              		.cfi_offset 7, -8
+ 194              	.LCFI7:
+ 195              		.cfi_def_cfa_register 7
+ 196 0006 7860     		str	r0, [r7, #4]
+ 197 0008 0B46     		mov	r3, r1
+ 198 000a FB70     		strb	r3, [r7, #3]
+  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* check if message fits in transmit buffer */
+  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     if (TransmitBytesCount + msgLength + 1 > TX_BUFFER_SIZE)
+ 199              		.loc 1 61 0
+ 200 000c 40F20003 		movw	r3, #:lower16:TransmitBytesCount
+ 201 0010 C0F20003 		movt	r3, #:upper16:TransmitBytesCount
+ 202 0014 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 203 0016 1A46     		mov	r2, r3
+ 204 0018 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 205 001a 1344     		add	r3, r2, r3
+ 206 001c 03F10103 		add	r3, r3, #1
+ 207 0020 B3F5807F 		cmp	r3, #256
+ 208 0024 02DD     		ble	.L8
+  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         return BPL_STATUS_TX_BUFFER_FULL;
+ 209              		.loc 1 62 0
+ 210 0026 4FF0FE03 		mov	r3, #254
+ 211 002a 40E0     		b	.L9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 6
+
+
+ 212              	.L8:
+  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* copy message to transmit buffer, 1st byte = message bytes */
+  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     TBHead[0] = msgLength;
+ 213              		.loc 1 65 0
+ 214 002c 40F20003 		movw	r3, #:lower16:TBHead
+ 215 0030 C0F20003 		movt	r3, #:upper16:TBHead
+ 216 0034 1B68     		ldr	r3, [r3, #0]
+ 217 0036 FA78     		ldrb	r2, [r7, #3]
+ 218 0038 1A70     		strb	r2, [r3, #0]
+  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     memcpy(&TBHead[1], source, msgLength);
+ 219              		.loc 1 66 0
+ 220 003a 40F20003 		movw	r3, #:lower16:TBHead
+ 221 003e C0F20003 		movt	r3, #:upper16:TBHead
+ 222 0042 1B68     		ldr	r3, [r3, #0]
+ 223 0044 03F10102 		add	r2, r3, #1
+ 224 0048 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 225 004a 1046     		mov	r0, r2
+ 226 004c 7968     		ldr	r1, [r7, #4]
+ 227 004e 1A46     		mov	r2, r3
+ 228 0050 FFF7FEFF 		bl	memcpy
+  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     /* update parameters */
+  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     TBHead += msgLength + 1;
+ 229              		.loc 1 69 0
+ 230 0054 40F20003 		movw	r3, #:lower16:TBHead
+ 231 0058 C0F20003 		movt	r3, #:upper16:TBHead
+ 232 005c 1A68     		ldr	r2, [r3, #0]
+ 233 005e FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 234 0060 03F10103 		add	r3, r3, #1
+ 235 0064 1A44     		add	r2, r2, r3
+ 236 0066 40F20003 		movw	r3, #:lower16:TBHead
+ 237 006a C0F20003 		movt	r3, #:upper16:TBHead
+ 238 006e 1A60     		str	r2, [r3, #0]
+  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     TransmitBytesCount += msgLength + 1;
+ 239              		.loc 1 70 0
+ 240 0070 40F20003 		movw	r3, #:lower16:TransmitBytesCount
+ 241 0074 C0F20003 		movt	r3, #:upper16:TransmitBytesCount
+ 242 0078 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 243 007a FB78     		ldrb	r3, [r7, #3]
+ 244 007c 1344     		add	r3, r2, r3
+ 245 007e DBB2     		uxtb	r3, r3
+ 246 0080 03F10103 		add	r3, r3, #1
+ 247 0084 DAB2     		uxtb	r2, r3
+ 248 0086 40F20003 		movw	r3, #:lower16:TransmitBytesCount
+ 249 008a C0F20003 		movt	r3, #:upper16:TransmitBytesCount
+ 250 008e 1A70     		strb	r2, [r3, #0]
+  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     TransmitMsgCount++;
+ 251              		.loc 1 71 0
+ 252 0090 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 253 0094 C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 254 0098 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 255 009a 03F10103 		add	r3, r3, #1
+ 256 009e DAB2     		uxtb	r2, r3
+ 257 00a0 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 258 00a4 C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 259 00a8 1A70     		strb	r2, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 7
+
+
+  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return SUCCESS;	
+ 260              		.loc 1 73 0
+ 261 00aa 4FF00003 		mov	r3, #0
+ 262              	.L9:
+  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
+ 263              		.loc 1 74 0
+ 264 00ae 1846     		mov	r0, r3
+ 265 00b0 07F10807 		add	r7, r7, #8
+ 266 00b4 BD46     		mov	sp, r7
+ 267 00b6 80BD     		pop	{r7, pc}
+ 268              		.cfi_endproc
+ 269              	.LFE31:
+ 270              		.size	BPL_TransmitMessage, .-BPL_TransmitMessage
+ 271              		.section	.text.BPL_HandleTask,"ax",%progbits
+ 272              		.align	2
+ 273              		.global	BPL_HandleTask
+ 274              		.thumb
+ 275              		.thumb_func
+ 276              		.type	BPL_HandleTask, %function
+ 277              	BPL_HandleTask:
+ 278              	.LFB32:
+  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*******************************************************/
+  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** STATUS BPL_HandleTask(void)
+  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** {
+ 279              		.loc 1 78 0
+ 280              		.cfi_startproc
+ 281              		@ args = 0, pretend = 0, frame = 8
+ 282              		@ frame_needed = 1, uses_anonymous_args = 0
+ 283 0000 90B5     		push	{r4, r7, lr}
+ 284              	.LCFI8:
+ 285              		.cfi_def_cfa_offset 12
+ 286 0002 83B0     		sub	sp, sp, #12
+ 287              	.LCFI9:
+ 288              		.cfi_def_cfa_offset 24
+ 289 0004 00AF     		add	r7, sp, #0
+ 290              		.cfi_offset 14, -4
+ 291              		.cfi_offset 7, -8
+ 292              		.cfi_offset 4, -12
+ 293              	.LCFI10:
+ 294              		.cfi_def_cfa_register 7
+  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	uint8 numBytes;
+  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	
+  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* Handle received bytes */
+  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* --------------------- */
+  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	while ((HAL_GetRxIsrCount() > 0) && (BplStatus == BPL_STATUS_OK))
+ 295              		.loc 1 83 0
+ 296 0006 48E0     		b	.L12
+ 297              	.L16:
+  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	{
+  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		/* check for buffer overflow */
+  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		if (RBHead+1 == RBTail)
+ 298              		.loc 1 86 0
+ 299 0008 40F20003 		movw	r3, #:lower16:RBHead
+ 300 000c C0F20003 		movt	r3, #:upper16:RBHead
+ 301 0010 1B68     		ldr	r3, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 8
+
+
+ 302 0012 03F10102 		add	r2, r3, #1
+ 303 0016 40F20003 		movw	r3, #:lower16:RBTail
+ 304 001a C0F20003 		movt	r3, #:upper16:RBTail
+ 305 001e 1B68     		ldr	r3, [r3, #0]
+ 306 0020 9A42     		cmp	r2, r3
+ 307 0022 07D1     		bne	.L13
+  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		{
+  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			BplStatus = BPL_STATUS_RX_BUFFER_FULL;
+ 308              		.loc 1 88 0
+ 309 0024 40F20003 		movw	r3, #:lower16:BplStatus
+ 310 0028 C0F20003 		movt	r3, #:upper16:BplStatus
+ 311 002c 4FF0FF32 		mov	r2, #-1
+ 312 0030 1A70     		strb	r2, [r3, #0]
+  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			break;
+ 313              		.loc 1 89 0
+ 314 0032 3EE0     		b	.L14
+ 315              	.L13:
+  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		}
+  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		/* check if passing end of ring buffer */
+  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		if (++RBHead == &ReceiveBuffer[RX_BUFFER_SIZE])
+ 316              		.loc 1 92 0
+ 317 0034 40F20003 		movw	r3, #:lower16:RBHead
+ 318 0038 C0F20003 		movt	r3, #:upper16:RBHead
+ 319 003c 1B68     		ldr	r3, [r3, #0]
+ 320 003e 03F10102 		add	r2, r3, #1
+ 321 0042 40F20003 		movw	r3, #:lower16:RBHead
+ 322 0046 C0F20003 		movt	r3, #:upper16:RBHead
+ 323 004a 1A60     		str	r2, [r3, #0]
+ 324 004c 40F20003 		movw	r3, #:lower16:RBHead
+ 325 0050 C0F20003 		movt	r3, #:upper16:RBHead
+ 326 0054 1A68     		ldr	r2, [r3, #0]
+ 327 0056 734B     		ldr	r3, .L23
+ 328 0058 9A42     		cmp	r2, r3
+ 329 005a 08D1     		bne	.L15
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		{
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			RBHead = &ReceiveBuffer[0];
+ 330              		.loc 1 94 0
+ 331 005c 40F20003 		movw	r3, #:lower16:RBHead
+ 332 0060 C0F20003 		movt	r3, #:upper16:RBHead
+ 333 0064 40F20002 		movw	r2, #:lower16:ReceiveBuffer
+ 334 0068 C0F20002 		movt	r2, #:upper16:ReceiveBuffer
+ 335 006c 1A60     		str	r2, [r3, #0]
+ 336              	.L15:
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		}
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		/* copy byte from rx buffer to ring buffer */
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		*RBHead = HAL_GetByte();
+ 337              		.loc 1 98 0
+ 338 006e 40F20003 		movw	r3, #:lower16:RBHead
+ 339 0072 C0F20003 		movt	r3, #:upper16:RBHead
+ 340 0076 1C68     		ldr	r4, [r3, #0]
+ 341 0078 FFF7FEFF 		bl	HAL_GetByte
+ 342 007c 0346     		mov	r3, r0
+ 343 007e 2370     		strb	r3, [r4, #0]
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		ReceiveMsgCount++;	
+ 344              		.loc 1 99 0
+ 345 0080 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 9
+
+
+ 346 0084 C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 347 0088 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 348 008a 03F10103 		add	r3, r3, #1
+ 349 008e DAB2     		uxtb	r2, r3
+ 350 0090 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ 351 0094 C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 352 0098 1A70     		strb	r2, [r3, #0]
+ 353              	.L12:
+ 354              		.loc 1 83 0
+ 355 009a FFF7FEFF 		bl	HAL_GetRxIsrCount
+ 356 009e 0346     		mov	r3, r0
+ 357 00a0 002B     		cmp	r3, #0
+ 358 00a2 06D0     		beq	.L14
+ 359 00a4 40F20003 		movw	r3, #:lower16:BplStatus
+ 360 00a8 C0F20003 		movt	r3, #:upper16:BplStatus
+ 361 00ac 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 362 00ae 002B     		cmp	r3, #0
+ 363 00b0 AAD0     		beq	.L16
+ 364              	.L14:
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	}
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* Handle transmission of bytes */
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* ---------------------------- */
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	if ((TransmitMsgCount > 0) && (BplStatus == BPL_STATUS_OK))
+ 365              		.loc 1 105 0
+ 366 00b2 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 367 00b6 C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 368 00ba 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 369 00bc 002B     		cmp	r3, #0
+ 370 00be 68D0     		beq	.L17
+ 371 00c0 40F20003 		movw	r3, #:lower16:BplStatus
+ 372 00c4 C0F20003 		movt	r3, #:upper16:BplStatus
+ 373 00c8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 374 00ca 002B     		cmp	r3, #0
+ 375 00cc 61D1     		bne	.L17
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	{
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		numBytes = *TBTail; //message length
+ 376              		.loc 1 107 0
+ 377 00ce 40F20003 		movw	r3, #:lower16:TBTail
+ 378 00d2 C0F20003 		movt	r3, #:upper16:TBTail
+ 379 00d6 1B68     		ldr	r3, [r3, #0]
+ 380 00d8 1B78     		ldrb	r3, [r3, #0]
+ 381 00da FB71     		strb	r3, [r7, #7]
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		
+ 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		/* check for buffer overflow */
+ 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		if (TBTail + numBytes > TBHead)
+ 382              		.loc 1 110 0
+ 383 00dc 40F20003 		movw	r3, #:lower16:TBTail
+ 384 00e0 C0F20003 		movt	r3, #:upper16:TBTail
+ 385 00e4 1A68     		ldr	r2, [r3, #0]
+ 386 00e6 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 387 00e8 1A44     		add	r2, r2, r3
+ 388 00ea 40F20003 		movw	r3, #:lower16:TBHead
+ 389 00ee C0F20003 		movt	r3, #:upper16:TBHead
+ 390 00f2 1B68     		ldr	r3, [r3, #0]
+ 391 00f4 9A42     		cmp	r2, r3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 10
+
+
+ 392 00f6 07D9     		bls	.L18
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		{
+ 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			BplStatus = BPL_STATUS_TX_DATA_MISMATCH;
+ 393              		.loc 1 112 0
+ 394 00f8 40F20003 		movw	r3, #:lower16:BplStatus
+ 395 00fc C0F20003 		movt	r3, #:upper16:BplStatus
+ 396 0100 6FF00202 		mvn	r2, #2
+ 397 0104 1A70     		strb	r2, [r3, #0]
+ 398 0106 44E0     		b	.L17
+ 399              	.L18:
+ 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		}
+ 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		else
+ 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		{
+ 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			/* transmit byte */
+ 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 			BplStatus = HAL_TransmitArray(TBTail+1, numBytes);
+ 400              		.loc 1 117 0
+ 401 0108 40F20003 		movw	r3, #:lower16:TBTail
+ 402 010c C0F20003 		movt	r3, #:upper16:TBTail
+ 403 0110 1B68     		ldr	r3, [r3, #0]
+ 404 0112 03F10102 		add	r2, r3, #1
+ 405 0116 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 406 0118 1046     		mov	r0, r2
+ 407 011a 1946     		mov	r1, r3
+ 408 011c FFF7FEFF 		bl	HAL_TransmitArray
+ 409 0120 0346     		mov	r3, r0
+ 410 0122 1A46     		mov	r2, r3
+ 411 0124 40F20003 		movw	r3, #:lower16:BplStatus
+ 412 0128 C0F20003 		movt	r3, #:upper16:BplStatus
+ 413 012c 1A70     		strb	r2, [r3, #0]
+ 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             
+ 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             /* check if message could be sent */
+ 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             if (BplStatus == SUCCESS)
+ 414              		.loc 1 120 0
+ 415 012e 40F20003 		movw	r3, #:lower16:BplStatus
+ 416 0132 C0F20003 		movt	r3, #:upper16:BplStatus
+ 417 0136 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 418 0138 002B     		cmp	r3, #0
+ 419 013a 2AD1     		bne	.L17
+ 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             {
+ 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     			TBTail += numBytes+1;
+ 420              		.loc 1 122 0
+ 421 013c 40F20003 		movw	r3, #:lower16:TBTail
+ 422 0140 C0F20003 		movt	r3, #:upper16:TBTail
+ 423 0144 1A68     		ldr	r2, [r3, #0]
+ 424 0146 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 425 0148 03F10103 		add	r3, r3, #1
+ 426 014c 1A44     		add	r2, r2, r3
+ 427 014e 40F20003 		movw	r3, #:lower16:TBTail
+ 428 0152 C0F20003 		movt	r3, #:upper16:TBTail
+ 429 0156 1A60     		str	r2, [r3, #0]
+ 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****                 TransmitBytesCount -= numBytes+1;
+ 430              		.loc 1 123 0
+ 431 0158 FB79     		ldrb	r3, [r7, #7]
+ 432 015a 6FEA0303 		mvn	r3, r3
+ 433 015e DAB2     		uxtb	r2, r3
+ 434 0160 40F20003 		movw	r3, #:lower16:TransmitBytesCount
+ 435 0164 C0F20003 		movt	r3, #:upper16:TransmitBytesCount
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 11
+
+
+ 436 0168 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 437 016a 1344     		add	r3, r2, r3
+ 438 016c DAB2     		uxtb	r2, r3
+ 439 016e 40F20003 		movw	r3, #:lower16:TransmitBytesCount
+ 440 0172 C0F20003 		movt	r3, #:upper16:TransmitBytesCount
+ 441 0176 1A70     		strb	r2, [r3, #0]
+ 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****                 TransmitMsgCount--;
+ 442              		.loc 1 124 0
+ 443 0178 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 444 017c C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 445 0180 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 446 0182 03F1FF33 		add	r3, r3, #-1
+ 447 0186 DAB2     		uxtb	r2, r3
+ 448 0188 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 449 018c C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 450 0190 1A70     		strb	r2, [r3, #0]
+ 451              	.L17:
+ 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             }
+ 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		}
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	}
+ 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	
+ 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* Handle errors */
+ 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	/* ------------- */
+ 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	switch (BplStatus)
+ 452              		.loc 1 132 0
+ 453 0192 40F20003 		movw	r3, #:lower16:BplStatus
+ 454 0196 C0F20003 		movt	r3, #:upper16:BplStatus
+ 455 019a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 456 019c FD2B     		cmp	r3, #253
+ 457 019e 1CD0     		beq	.L20
+ 458 01a0 FF2B     		cmp	r3, #255
+ 459 01a2 34D1     		bne	.L19
+ 460              	.L21:
+ 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	{
+ 134:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		case BPL_STATUS_RX_BUFFER_FULL:		RBHead = RBTail = ReceiveBuffer;
+ 461              		.loc 1 134 0
+ 462 01a4 40F20003 		movw	r3, #:lower16:RBTail
+ 463 01a8 C0F20003 		movt	r3, #:upper16:RBTail
+ 464 01ac 40F20002 		movw	r2, #:lower16:ReceiveBuffer
+ 465 01b0 C0F20002 		movt	r2, #:upper16:ReceiveBuffer
+ 466 01b4 1A60     		str	r2, [r3, #0]
+ 467 01b6 40F20003 		movw	r3, #:lower16:RBTail
+ 468 01ba C0F20003 		movt	r3, #:upper16:RBTail
+ 469 01be 1A68     		ldr	r2, [r3, #0]
+ 470 01c0 40F20003 		movw	r3, #:lower16:RBHead
+ 471 01c4 C0F20003 		movt	r3, #:upper16:RBHead
+ 472 01c8 1A60     		str	r2, [r3, #0]
+ 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 											ReceiveMsgCount = 0;
+ 473              		.loc 1 135 0
+ 474 01ca 40F20003 		movw	r3, #:lower16:ReceiveMsgCount
+ 475 01ce C0F20003 		movt	r3, #:upper16:ReceiveMsgCount
+ 476 01d2 4FF00002 		mov	r2, #0
+ 477 01d6 1A70     		strb	r2, [r3, #0]
+ 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 											break;
+ 478              		.loc 1 136 0
+ 479 01d8 19E0     		b	.L19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 12
+
+
+ 480              	.L20:
+ 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		case BPL_STATUS_TX_DATA_MISMATCH:	TBHead = TBTail = TransmitBuffer;
+ 481              		.loc 1 137 0
+ 482 01da 40F20003 		movw	r3, #:lower16:TBTail
+ 483 01de C0F20003 		movt	r3, #:upper16:TBTail
+ 484 01e2 40F20002 		movw	r2, #:lower16:TransmitBuffer
+ 485 01e6 C0F20002 		movt	r2, #:upper16:TransmitBuffer
+ 486 01ea 1A60     		str	r2, [r3, #0]
+ 487 01ec 40F20003 		movw	r3, #:lower16:TBTail
+ 488 01f0 C0F20003 		movt	r3, #:upper16:TBTail
+ 489 01f4 1A68     		ldr	r2, [r3, #0]
+ 490 01f6 40F20003 		movw	r3, #:lower16:TBHead
+ 491 01fa C0F20003 		movt	r3, #:upper16:TBHead
+ 492 01fe 1A60     		str	r2, [r3, #0]
+ 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 											TransmitMsgCount = 0;
+ 493              		.loc 1 138 0
+ 494 0200 40F20003 		movw	r3, #:lower16:TransmitMsgCount
+ 495 0204 C0F20003 		movt	r3, #:upper16:TransmitMsgCount
+ 496 0208 4FF00002 		mov	r2, #0
+ 497 020c 1A70     		strb	r2, [r3, #0]
+ 498              	.L19:
+ 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 											break;
+ 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		default:							break;
+ 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	}
+ 142:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+ 143:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return BplStatus;
+ 499              		.loc 1 143 0
+ 500 020e 40F20003 		movw	r3, #:lower16:BplStatus
+ 501 0212 C0F20003 		movt	r3, #:upper16:BplStatus
+ 502 0216 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 144:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
+ 503              		.loc 1 144 0
+ 504 0218 1846     		mov	r0, r3
+ 505 021a 07F10C07 		add	r7, r7, #12
+ 506 021e BD46     		mov	sp, r7
+ 507 0220 90BD     		pop	{r4, r7, pc}
+ 508              	.L24:
+ 509 0222 00BF     		.align	2
+ 510              	.L23:
+ 511 0224 00010000 		.word	ReceiveBuffer+256
+ 512              		.cfi_endproc
+ 513              	.LFE32:
+ 514              		.size	BPL_HandleTask, .-BPL_HandleTask
+ 515              		.text
+ 516              	.Letext0:
+ 517              		.section	.debug_loc,"",%progbits
+ 518              	.Ldebug_loc0:
+ 519              	.LLST0:
+ 520 0000 00000000 		.4byte	.LFB29
+ 521 0004 02000000 		.4byte	.LCFI0
+ 522 0008 0100     		.2byte	0x1
+ 523 000a 5D       		.byte	0x5d
+ 524 000b 02000000 		.4byte	.LCFI0
+ 525 000f 04000000 		.4byte	.LCFI1
+ 526 0013 0200     		.2byte	0x2
+ 527 0015 7D       		.byte	0x7d
+ 528 0016 04       		.sleb128 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 13
+
+
+ 529 0017 04000000 		.4byte	.LCFI1
+ 530 001b 16000000 		.4byte	.LFE29
+ 531 001f 0200     		.2byte	0x2
+ 532 0021 77       		.byte	0x77
+ 533 0022 04       		.sleb128 4
+ 534 0023 00000000 		.4byte	0x0
+ 535 0027 00000000 		.4byte	0x0
+ 536              	.LLST1:
+ 537 002b 00000000 		.4byte	.LFB30
+ 538 002f 02000000 		.4byte	.LCFI2
+ 539 0033 0100     		.2byte	0x1
+ 540 0035 5D       		.byte	0x5d
+ 541 0036 02000000 		.4byte	.LCFI2
+ 542 003a 04000000 		.4byte	.LCFI3
+ 543 003e 0200     		.2byte	0x2
+ 544 0040 7D       		.byte	0x7d
+ 545 0041 08       		.sleb128 8
+ 546 0042 04000000 		.4byte	.LCFI3
+ 547 0046 06000000 		.4byte	.LCFI4
+ 548 004a 0200     		.2byte	0x2
+ 549 004c 7D       		.byte	0x7d
+ 550 004d 18       		.sleb128 24
+ 551 004e 06000000 		.4byte	.LCFI4
+ 552 0052 86000000 		.4byte	.LFE30
+ 553 0056 0200     		.2byte	0x2
+ 554 0058 77       		.byte	0x77
+ 555 0059 18       		.sleb128 24
+ 556 005a 00000000 		.4byte	0x0
+ 557 005e 00000000 		.4byte	0x0
+ 558              	.LLST2:
+ 559 0062 00000000 		.4byte	.LFB31
+ 560 0066 02000000 		.4byte	.LCFI5
+ 561 006a 0100     		.2byte	0x1
+ 562 006c 5D       		.byte	0x5d
+ 563 006d 02000000 		.4byte	.LCFI5
+ 564 0071 04000000 		.4byte	.LCFI6
+ 565 0075 0200     		.2byte	0x2
+ 566 0077 7D       		.byte	0x7d
+ 567 0078 08       		.sleb128 8
+ 568 0079 04000000 		.4byte	.LCFI6
+ 569 007d 06000000 		.4byte	.LCFI7
+ 570 0081 0200     		.2byte	0x2
+ 571 0083 7D       		.byte	0x7d
+ 572 0084 10       		.sleb128 16
+ 573 0085 06000000 		.4byte	.LCFI7
+ 574 0089 B8000000 		.4byte	.LFE31
+ 575 008d 0200     		.2byte	0x2
+ 576 008f 77       		.byte	0x77
+ 577 0090 10       		.sleb128 16
+ 578 0091 00000000 		.4byte	0x0
+ 579 0095 00000000 		.4byte	0x0
+ 580              	.LLST3:
+ 581 0099 00000000 		.4byte	.LFB32
+ 582 009d 02000000 		.4byte	.LCFI8
+ 583 00a1 0100     		.2byte	0x1
+ 584 00a3 5D       		.byte	0x5d
+ 585 00a4 02000000 		.4byte	.LCFI8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 14
+
+
+ 586 00a8 04000000 		.4byte	.LCFI9
+ 587 00ac 0200     		.2byte	0x2
+ 588 00ae 7D       		.byte	0x7d
+ 589 00af 0C       		.sleb128 12
+ 590 00b0 04000000 		.4byte	.LCFI9
+ 591 00b4 06000000 		.4byte	.LCFI10
+ 592 00b8 0200     		.2byte	0x2
+ 593 00ba 7D       		.byte	0x7d
+ 594 00bb 18       		.sleb128 24
+ 595 00bc 06000000 		.4byte	.LCFI10
+ 596 00c0 28020000 		.4byte	.LFE32
+ 597 00c4 0200     		.2byte	0x2
+ 598 00c6 77       		.byte	0x77
+ 599 00c7 18       		.sleb128 24
+ 600 00c8 00000000 		.4byte	0x0
+ 601 00cc 00000000 		.4byte	0x0
+ 602              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 603              		.file 3 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
+ 604              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+ 605              		.section	.debug_info
+ 606 0000 26020000 		.4byte	0x226
+ 607 0004 0200     		.2byte	0x2
+ 608 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 609 000a 04       		.byte	0x4
+ 610 000b 01       		.uleb128 0x1
+ 611 000c A0010000 		.4byte	.LASF31
+ 612 0010 01       		.byte	0x1
+ 613 0011 0E000000 		.4byte	.LASF32
+ 614 0015 62000000 		.4byte	.LASF33
+ 615 0019 00000000 		.4byte	0x0
+ 616 001d 00000000 		.4byte	0x0
+ 617 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 618 0025 00000000 		.4byte	.Ldebug_line0
+ 619 0029 02       		.uleb128 0x2
+ 620 002a 01       		.byte	0x1
+ 621 002b 06       		.byte	0x6
+ 622 002c 07020000 		.4byte	.LASF0
+ 623 0030 02       		.uleb128 0x2
+ 624 0031 01       		.byte	0x1
+ 625 0032 08       		.byte	0x8
+ 626 0033 3E010000 		.4byte	.LASF1
+ 627 0037 02       		.uleb128 0x2
+ 628 0038 02       		.byte	0x2
+ 629 0039 05       		.byte	0x5
+ 630 003a C3010000 		.4byte	.LASF2
+ 631 003e 02       		.uleb128 0x2
+ 632 003f 02       		.byte	0x2
+ 633 0040 07       		.byte	0x7
+ 634 0041 17010000 		.4byte	.LASF3
+ 635 0045 02       		.uleb128 0x2
+ 636 0046 04       		.byte	0x4
+ 637 0047 05       		.byte	0x5
+ 638 0048 F9010000 		.4byte	.LASF4
+ 639 004c 02       		.uleb128 0x2
+ 640 004d 04       		.byte	0x4
+ 641 004e 07       		.byte	0x7
+ 642 004f 05010000 		.4byte	.LASF5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 15
+
+
+ 643 0053 02       		.uleb128 0x2
+ 644 0054 08       		.byte	0x8
+ 645 0055 05       		.byte	0x5
+ 646 0056 00000000 		.4byte	.LASF6
+ 647 005a 02       		.uleb128 0x2
+ 648 005b 08       		.byte	0x8
+ 649 005c 07       		.byte	0x7
+ 650 005d 67010000 		.4byte	.LASF7
+ 651 0061 03       		.uleb128 0x3
+ 652 0062 04       		.byte	0x4
+ 653 0063 05       		.byte	0x5
+ 654 0064 696E7400 		.ascii	"int\000"
+ 655 0068 02       		.uleb128 0x2
+ 656 0069 04       		.byte	0x4
+ 657 006a 07       		.byte	0x7
+ 658 006b 5A010000 		.4byte	.LASF8
+ 659 006f 04       		.uleb128 0x4
+ 660 0070 DC010000 		.4byte	.LASF12
+ 661 0074 02       		.byte	0x2
+ 662 0075 4C       		.byte	0x4c
+ 663 0076 30000000 		.4byte	0x30
+ 664 007a 02       		.uleb128 0x2
+ 665 007b 04       		.byte	0x4
+ 666 007c 04       		.byte	0x4
+ 667 007d D6000000 		.4byte	.LASF9
+ 668 0081 02       		.uleb128 0x2
+ 669 0082 08       		.byte	0x8
+ 670 0083 04       		.byte	0x4
+ 671 0084 4C010000 		.4byte	.LASF10
+ 672 0088 02       		.uleb128 0x2
+ 673 0089 01       		.byte	0x1
+ 674 008a 08       		.byte	0x8
+ 675 008b 02020000 		.4byte	.LASF11
+ 676 008f 05       		.uleb128 0x5
+ 677 0090 04       		.byte	0x4
+ 678 0091 07       		.byte	0x7
+ 679 0092 04       		.uleb128 0x4
+ 680 0093 EB000000 		.4byte	.LASF13
+ 681 0097 03       		.byte	0x3
+ 682 0098 0F       		.byte	0xf
+ 683 0099 6F000000 		.4byte	0x6f
+ 684 009d 06       		.uleb128 0x6
+ 685 009e 01       		.byte	0x1
+ 686 009f AC010000 		.4byte	.LASF34
+ 687 00a3 01       		.byte	0x1
+ 688 00a4 20       		.byte	0x20
+ 689 00a5 01       		.byte	0x1
+ 690 00a6 6F000000 		.4byte	0x6f
+ 691 00aa 00000000 		.4byte	.LFB29
+ 692 00ae 16000000 		.4byte	.LFE29
+ 693 00b2 00000000 		.4byte	.LLST0
+ 694 00b6 07       		.uleb128 0x7
+ 695 00b7 01       		.byte	0x1
+ 696 00b8 DC000000 		.4byte	.LASF14
+ 697 00bc 01       		.byte	0x1
+ 698 00bd 26       		.byte	0x26
+ 699 00be 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 16
+
+
+ 700 00bf 6F000000 		.4byte	0x6f
+ 701 00c3 00000000 		.4byte	.LFB30
+ 702 00c7 86000000 		.4byte	.LFE30
+ 703 00cb 2B000000 		.4byte	.LLST1
+ 704 00cf F0000000 		.4byte	0xf0
+ 705 00d3 08       		.uleb128 0x8
+ 706 00d4 CF000000 		.4byte	.LASF16
+ 707 00d8 01       		.byte	0x1
+ 708 00d9 26       		.byte	0x26
+ 709 00da F0000000 		.4byte	0xf0
+ 710 00de 02       		.byte	0x2
+ 711 00df 91       		.byte	0x91
+ 712 00e0 6C       		.sleb128 -20
+ 713 00e1 09       		.uleb128 0x9
+ 714 00e2 58000000 		.4byte	.LASF18
+ 715 00e6 01       		.byte	0x1
+ 716 00e7 28       		.byte	0x28
+ 717 00e8 6F000000 		.4byte	0x6f
+ 718 00ec 02       		.byte	0x2
+ 719 00ed 91       		.byte	0x91
+ 720 00ee 77       		.sleb128 -9
+ 721 00ef 00       		.byte	0x0
+ 722 00f0 0A       		.uleb128 0xa
+ 723 00f1 04       		.byte	0x4
+ 724 00f2 6F000000 		.4byte	0x6f
+ 725 00f6 07       		.uleb128 0x7
+ 726 00f7 01       		.byte	0x1
+ 727 00f8 1A020000 		.4byte	.LASF15
+ 728 00fc 01       		.byte	0x1
+ 729 00fd 3A       		.byte	0x3a
+ 730 00fe 01       		.byte	0x1
+ 731 00ff 92000000 		.4byte	0x92
+ 732 0103 00000000 		.4byte	.LFB31
+ 733 0107 B8000000 		.4byte	.LFE31
+ 734 010b 62000000 		.4byte	.LLST2
+ 735 010f 30010000 		.4byte	0x130
+ 736 0113 08       		.uleb128 0x8
+ 737 0114 13020000 		.4byte	.LASF17
+ 738 0118 01       		.byte	0x1
+ 739 0119 3A       		.byte	0x3a
+ 740 011a F0000000 		.4byte	0xf0
+ 741 011e 02       		.byte	0x2
+ 742 011f 91       		.byte	0x91
+ 743 0120 74       		.sleb128 -12
+ 744 0121 08       		.uleb128 0x8
+ 745 0122 58000000 		.4byte	.LASF18
+ 746 0126 01       		.byte	0x1
+ 747 0127 3A       		.byte	0x3a
+ 748 0128 6F000000 		.4byte	0x6f
+ 749 012c 02       		.byte	0x2
+ 750 012d 91       		.byte	0x91
+ 751 012e 73       		.sleb128 -13
+ 752 012f 00       		.byte	0x0
+ 753 0130 07       		.uleb128 0x7
+ 754 0131 01       		.byte	0x1
+ 755 0132 91010000 		.4byte	.LASF19
+ 756 0136 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 17
+
+
+ 757 0137 4D       		.byte	0x4d
+ 758 0138 01       		.byte	0x1
+ 759 0139 92000000 		.4byte	0x92
+ 760 013d 00000000 		.4byte	.LFB32
+ 761 0141 28020000 		.4byte	.LFE32
+ 762 0145 99000000 		.4byte	.LLST3
+ 763 0149 5C010000 		.4byte	0x15c
+ 764 014d 09       		.uleb128 0x9
+ 765 014e 88010000 		.4byte	.LASF20
+ 766 0152 01       		.byte	0x1
+ 767 0153 4F       		.byte	0x4f
+ 768 0154 6F000000 		.4byte	0x6f
+ 769 0158 02       		.byte	0x2
+ 770 0159 91       		.byte	0x91
+ 771 015a 6F       		.sleb128 -17
+ 772 015b 00       		.byte	0x0
+ 773 015c 0B       		.uleb128 0xb
+ 774 015d 6F000000 		.4byte	0x6f
+ 775 0161 6C010000 		.4byte	0x16c
+ 776 0165 0C       		.uleb128 0xc
+ 777 0166 8F000000 		.4byte	0x8f
+ 778 016a FF       		.byte	0xff
+ 779 016b 00       		.byte	0x0
+ 780 016c 09       		.uleb128 0x9
+ 781 016d C1000000 		.4byte	.LASF21
+ 782 0171 01       		.byte	0x1
+ 783 0172 11       		.byte	0x11
+ 784 0173 5C010000 		.4byte	0x15c
+ 785 0177 05       		.byte	0x5
+ 786 0178 03       		.byte	0x3
+ 787 0179 00000000 		.4byte	ReceiveBuffer
+ 788 017d 09       		.uleb128 0x9
+ 789 017e CD010000 		.4byte	.LASF22
+ 790 0182 01       		.byte	0x1
+ 791 0183 12       		.byte	0x12
+ 792 0184 5C010000 		.4byte	0x15c
+ 793 0188 05       		.byte	0x5
+ 794 0189 03       		.byte	0x3
+ 795 018a 00010000 		.4byte	TransmitBuffer
+ 796 018e 09       		.uleb128 0x9
+ 797 018f E9010000 		.4byte	.LASF23
+ 798 0193 01       		.byte	0x1
+ 799 0194 13       		.byte	0x13
+ 800 0195 6F000000 		.4byte	0x6f
+ 801 0199 05       		.byte	0x5
+ 802 019a 03       		.byte	0x3
+ 803 019b 00020000 		.4byte	ReceiveMsgCount
+ 804 019f 09       		.uleb128 0x9
+ 805 01a0 40000000 		.4byte	.LASF24
+ 806 01a4 01       		.byte	0x1
+ 807 01a5 14       		.byte	0x14
+ 808 01a6 6F000000 		.4byte	0x6f
+ 809 01aa 05       		.byte	0x5
+ 810 01ab 03       		.byte	0x3
+ 811 01ac 01020000 		.4byte	TransmitMsgCount
+ 812 01b0 09       		.uleb128 0x9
+ 813 01b1 F2000000 		.4byte	.LASF25
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 18
+
+
+ 814 01b5 01       		.byte	0x1
+ 815 01b6 16       		.byte	0x16
+ 816 01b7 6F000000 		.4byte	0x6f
+ 817 01bb 05       		.byte	0x5
+ 818 01bc 03       		.byte	0x3
+ 819 01bd 02020000 		.4byte	TransmitBytesCount
+ 820 01c1 09       		.uleb128 0x9
+ 821 01c2 2A010000 		.4byte	.LASF26
+ 822 01c6 01       		.byte	0x1
+ 823 01c7 18       		.byte	0x18
+ 824 01c8 F0000000 		.4byte	0xf0
+ 825 01cc 05       		.byte	0x5
+ 826 01cd 03       		.byte	0x3
+ 827 01ce 00000000 		.4byte	RBHead
+ 828 01d2 09       		.uleb128 0x9
+ 829 01d3 E2010000 		.4byte	.LASF27
+ 830 01d7 01       		.byte	0x1
+ 831 01d8 19       		.byte	0x19
+ 832 01d9 F0000000 		.4byte	0xf0
+ 833 01dd 05       		.byte	0x5
+ 834 01de 03       		.byte	0x3
+ 835 01df 04000000 		.4byte	RBTail
+ 836 01e3 09       		.uleb128 0x9
+ 837 01e4 51000000 		.4byte	.LASF28
+ 838 01e8 01       		.byte	0x1
+ 839 01e9 1A       		.byte	0x1a
+ 840 01ea F0000000 		.4byte	0xf0
+ 841 01ee 05       		.byte	0x5
+ 842 01ef 03       		.byte	0x3
+ 843 01f0 08000000 		.4byte	TBHead
+ 844 01f4 09       		.uleb128 0x9
+ 845 01f5 53010000 		.4byte	.LASF29
+ 846 01f9 01       		.byte	0x1
+ 847 01fa 1B       		.byte	0x1b
+ 848 01fb F0000000 		.4byte	0xf0
+ 849 01ff 05       		.byte	0x5
+ 850 0200 03       		.byte	0x3
+ 851 0201 0C000000 		.4byte	TBTail
+ 852 0205 09       		.uleb128 0x9
+ 853 0206 7E010000 		.4byte	.LASF30
+ 854 020a 01       		.byte	0x1
+ 855 020b 1D       		.byte	0x1d
+ 856 020c 92000000 		.4byte	0x92
+ 857 0210 05       		.byte	0x5
+ 858 0211 03       		.byte	0x3
+ 859 0212 03020000 		.4byte	BplStatus
+ 860 0216 0D       		.uleb128 0xd
+ 861 0217 31010000 		.4byte	.LASF35
+ 862 021b 04       		.byte	0x4
+ 863 021c CE06     		.2byte	0x6ce
+ 864 021e 24020000 		.4byte	0x224
+ 865 0222 01       		.byte	0x1
+ 866 0223 01       		.byte	0x1
+ 867 0224 0E       		.uleb128 0xe
+ 868 0225 61000000 		.4byte	0x61
+ 869 0229 00       		.byte	0x0
+ 870              		.section	.debug_abbrev
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 19
+
+
+ 871 0000 01       		.uleb128 0x1
+ 872 0001 11       		.uleb128 0x11
+ 873 0002 01       		.byte	0x1
+ 874 0003 25       		.uleb128 0x25
+ 875 0004 0E       		.uleb128 0xe
+ 876 0005 13       		.uleb128 0x13
+ 877 0006 0B       		.uleb128 0xb
+ 878 0007 03       		.uleb128 0x3
+ 879 0008 0E       		.uleb128 0xe
+ 880 0009 1B       		.uleb128 0x1b
+ 881 000a 0E       		.uleb128 0xe
+ 882 000b 11       		.uleb128 0x11
+ 883 000c 01       		.uleb128 0x1
+ 884 000d 52       		.uleb128 0x52
+ 885 000e 01       		.uleb128 0x1
+ 886 000f 55       		.uleb128 0x55
+ 887 0010 06       		.uleb128 0x6
+ 888 0011 10       		.uleb128 0x10
+ 889 0012 06       		.uleb128 0x6
+ 890 0013 00       		.byte	0x0
+ 891 0014 00       		.byte	0x0
+ 892 0015 02       		.uleb128 0x2
+ 893 0016 24       		.uleb128 0x24
+ 894 0017 00       		.byte	0x0
+ 895 0018 0B       		.uleb128 0xb
+ 896 0019 0B       		.uleb128 0xb
+ 897 001a 3E       		.uleb128 0x3e
+ 898 001b 0B       		.uleb128 0xb
+ 899 001c 03       		.uleb128 0x3
+ 900 001d 0E       		.uleb128 0xe
+ 901 001e 00       		.byte	0x0
+ 902 001f 00       		.byte	0x0
+ 903 0020 03       		.uleb128 0x3
+ 904 0021 24       		.uleb128 0x24
+ 905 0022 00       		.byte	0x0
+ 906 0023 0B       		.uleb128 0xb
+ 907 0024 0B       		.uleb128 0xb
+ 908 0025 3E       		.uleb128 0x3e
+ 909 0026 0B       		.uleb128 0xb
+ 910 0027 03       		.uleb128 0x3
+ 911 0028 08       		.uleb128 0x8
+ 912 0029 00       		.byte	0x0
+ 913 002a 00       		.byte	0x0
+ 914 002b 04       		.uleb128 0x4
+ 915 002c 16       		.uleb128 0x16
+ 916 002d 00       		.byte	0x0
+ 917 002e 03       		.uleb128 0x3
+ 918 002f 0E       		.uleb128 0xe
+ 919 0030 3A       		.uleb128 0x3a
+ 920 0031 0B       		.uleb128 0xb
+ 921 0032 3B       		.uleb128 0x3b
+ 922 0033 0B       		.uleb128 0xb
+ 923 0034 49       		.uleb128 0x49
+ 924 0035 13       		.uleb128 0x13
+ 925 0036 00       		.byte	0x0
+ 926 0037 00       		.byte	0x0
+ 927 0038 05       		.uleb128 0x5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 20
+
+
+ 928 0039 24       		.uleb128 0x24
+ 929 003a 00       		.byte	0x0
+ 930 003b 0B       		.uleb128 0xb
+ 931 003c 0B       		.uleb128 0xb
+ 932 003d 3E       		.uleb128 0x3e
+ 933 003e 0B       		.uleb128 0xb
+ 934 003f 00       		.byte	0x0
+ 935 0040 00       		.byte	0x0
+ 936 0041 06       		.uleb128 0x6
+ 937 0042 2E       		.uleb128 0x2e
+ 938 0043 00       		.byte	0x0
+ 939 0044 3F       		.uleb128 0x3f
+ 940 0045 0C       		.uleb128 0xc
+ 941 0046 03       		.uleb128 0x3
+ 942 0047 0E       		.uleb128 0xe
+ 943 0048 3A       		.uleb128 0x3a
+ 944 0049 0B       		.uleb128 0xb
+ 945 004a 3B       		.uleb128 0x3b
+ 946 004b 0B       		.uleb128 0xb
+ 947 004c 27       		.uleb128 0x27
+ 948 004d 0C       		.uleb128 0xc
+ 949 004e 49       		.uleb128 0x49
+ 950 004f 13       		.uleb128 0x13
+ 951 0050 11       		.uleb128 0x11
+ 952 0051 01       		.uleb128 0x1
+ 953 0052 12       		.uleb128 0x12
+ 954 0053 01       		.uleb128 0x1
+ 955 0054 40       		.uleb128 0x40
+ 956 0055 06       		.uleb128 0x6
+ 957 0056 00       		.byte	0x0
+ 958 0057 00       		.byte	0x0
+ 959 0058 07       		.uleb128 0x7
+ 960 0059 2E       		.uleb128 0x2e
+ 961 005a 01       		.byte	0x1
+ 962 005b 3F       		.uleb128 0x3f
+ 963 005c 0C       		.uleb128 0xc
+ 964 005d 03       		.uleb128 0x3
+ 965 005e 0E       		.uleb128 0xe
+ 966 005f 3A       		.uleb128 0x3a
+ 967 0060 0B       		.uleb128 0xb
+ 968 0061 3B       		.uleb128 0x3b
+ 969 0062 0B       		.uleb128 0xb
+ 970 0063 27       		.uleb128 0x27
+ 971 0064 0C       		.uleb128 0xc
+ 972 0065 49       		.uleb128 0x49
+ 973 0066 13       		.uleb128 0x13
+ 974 0067 11       		.uleb128 0x11
+ 975 0068 01       		.uleb128 0x1
+ 976 0069 12       		.uleb128 0x12
+ 977 006a 01       		.uleb128 0x1
+ 978 006b 40       		.uleb128 0x40
+ 979 006c 06       		.uleb128 0x6
+ 980 006d 01       		.uleb128 0x1
+ 981 006e 13       		.uleb128 0x13
+ 982 006f 00       		.byte	0x0
+ 983 0070 00       		.byte	0x0
+ 984 0071 08       		.uleb128 0x8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 21
+
+
+ 985 0072 05       		.uleb128 0x5
+ 986 0073 00       		.byte	0x0
+ 987 0074 03       		.uleb128 0x3
+ 988 0075 0E       		.uleb128 0xe
+ 989 0076 3A       		.uleb128 0x3a
+ 990 0077 0B       		.uleb128 0xb
+ 991 0078 3B       		.uleb128 0x3b
+ 992 0079 0B       		.uleb128 0xb
+ 993 007a 49       		.uleb128 0x49
+ 994 007b 13       		.uleb128 0x13
+ 995 007c 02       		.uleb128 0x2
+ 996 007d 0A       		.uleb128 0xa
+ 997 007e 00       		.byte	0x0
+ 998 007f 00       		.byte	0x0
+ 999 0080 09       		.uleb128 0x9
+ 1000 0081 34       		.uleb128 0x34
+ 1001 0082 00       		.byte	0x0
+ 1002 0083 03       		.uleb128 0x3
+ 1003 0084 0E       		.uleb128 0xe
+ 1004 0085 3A       		.uleb128 0x3a
+ 1005 0086 0B       		.uleb128 0xb
+ 1006 0087 3B       		.uleb128 0x3b
+ 1007 0088 0B       		.uleb128 0xb
+ 1008 0089 49       		.uleb128 0x49
+ 1009 008a 13       		.uleb128 0x13
+ 1010 008b 02       		.uleb128 0x2
+ 1011 008c 0A       		.uleb128 0xa
+ 1012 008d 00       		.byte	0x0
+ 1013 008e 00       		.byte	0x0
+ 1014 008f 0A       		.uleb128 0xa
+ 1015 0090 0F       		.uleb128 0xf
+ 1016 0091 00       		.byte	0x0
+ 1017 0092 0B       		.uleb128 0xb
+ 1018 0093 0B       		.uleb128 0xb
+ 1019 0094 49       		.uleb128 0x49
+ 1020 0095 13       		.uleb128 0x13
+ 1021 0096 00       		.byte	0x0
+ 1022 0097 00       		.byte	0x0
+ 1023 0098 0B       		.uleb128 0xb
+ 1024 0099 01       		.uleb128 0x1
+ 1025 009a 01       		.byte	0x1
+ 1026 009b 49       		.uleb128 0x49
+ 1027 009c 13       		.uleb128 0x13
+ 1028 009d 01       		.uleb128 0x1
+ 1029 009e 13       		.uleb128 0x13
+ 1030 009f 00       		.byte	0x0
+ 1031 00a0 00       		.byte	0x0
+ 1032 00a1 0C       		.uleb128 0xc
+ 1033 00a2 21       		.uleb128 0x21
+ 1034 00a3 00       		.byte	0x0
+ 1035 00a4 49       		.uleb128 0x49
+ 1036 00a5 13       		.uleb128 0x13
+ 1037 00a6 2F       		.uleb128 0x2f
+ 1038 00a7 0B       		.uleb128 0xb
+ 1039 00a8 00       		.byte	0x0
+ 1040 00a9 00       		.byte	0x0
+ 1041 00aa 0D       		.uleb128 0xd
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 22
+
+
+ 1042 00ab 34       		.uleb128 0x34
+ 1043 00ac 00       		.byte	0x0
+ 1044 00ad 03       		.uleb128 0x3
+ 1045 00ae 0E       		.uleb128 0xe
+ 1046 00af 3A       		.uleb128 0x3a
+ 1047 00b0 0B       		.uleb128 0xb
+ 1048 00b1 3B       		.uleb128 0x3b
+ 1049 00b2 05       		.uleb128 0x5
+ 1050 00b3 49       		.uleb128 0x49
+ 1051 00b4 13       		.uleb128 0x13
+ 1052 00b5 3F       		.uleb128 0x3f
+ 1053 00b6 0C       		.uleb128 0xc
+ 1054 00b7 3C       		.uleb128 0x3c
+ 1055 00b8 0C       		.uleb128 0xc
+ 1056 00b9 00       		.byte	0x0
+ 1057 00ba 00       		.byte	0x0
+ 1058 00bb 0E       		.uleb128 0xe
+ 1059 00bc 35       		.uleb128 0x35
+ 1060 00bd 00       		.byte	0x0
+ 1061 00be 49       		.uleb128 0x49
+ 1062 00bf 13       		.uleb128 0x13
+ 1063 00c0 00       		.byte	0x0
+ 1064 00c1 00       		.byte	0x0
+ 1065 00c2 00       		.byte	0x0
+ 1066              		.section	.debug_pubnames,"",%progbits
+ 1067 0000 67000000 		.4byte	0x67
+ 1068 0004 0200     		.2byte	0x2
+ 1069 0006 00000000 		.4byte	.Ldebug_info0
+ 1070 000a 2A020000 		.4byte	0x22a
+ 1071 000e 9D000000 		.4byte	0x9d
+ 1072 0012 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
+ 1072      47657452 
+ 1072      65636569 
+ 1072      76654D73 
+ 1072      67436F75 
+ 1073 0029 B6000000 		.4byte	0xb6
+ 1074 002d 42504C5F 		.ascii	"BPL_GetMessage\000"
+ 1074      4765744D 
+ 1074      65737361 
+ 1074      676500
+ 1075 003c F6000000 		.4byte	0xf6
+ 1076 0040 42504C5F 		.ascii	"BPL_TransmitMessage\000"
+ 1076      5472616E 
+ 1076      736D6974 
+ 1076      4D657373 
+ 1076      61676500 
+ 1077 0054 30010000 		.4byte	0x130
+ 1078 0058 42504C5F 		.ascii	"BPL_HandleTask\000"
+ 1078      48616E64 
+ 1078      6C655461 
+ 1078      736B00
+ 1079 0067 00000000 		.4byte	0x0
+ 1080              		.section	.debug_aranges,"",%progbits
+ 1081 0000 34000000 		.4byte	0x34
+ 1082 0004 0200     		.2byte	0x2
+ 1083 0006 00000000 		.4byte	.Ldebug_info0
+ 1084 000a 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 23
+
+
+ 1085 000b 00       		.byte	0x0
+ 1086 000c 0000     		.2byte	0x0
+ 1087 000e 0000     		.2byte	0x0
+ 1088 0010 00000000 		.4byte	.LFB29
+ 1089 0014 16000000 		.4byte	.LFE29-.LFB29
+ 1090 0018 00000000 		.4byte	.LFB30
+ 1091 001c 86000000 		.4byte	.LFE30-.LFB30
+ 1092 0020 00000000 		.4byte	.LFB31
+ 1093 0024 B8000000 		.4byte	.LFE31-.LFB31
+ 1094 0028 00000000 		.4byte	.LFB32
+ 1095 002c 28020000 		.4byte	.LFE32-.LFB32
+ 1096 0030 00000000 		.4byte	0x0
+ 1097 0034 00000000 		.4byte	0x0
+ 1098              		.section	.debug_ranges,"",%progbits
+ 1099              	.Ldebug_ranges0:
+ 1100 0000 00000000 		.4byte	.Ltext0
+ 1101 0004 00000000 		.4byte	.Letext0
+ 1102 0008 00000000 		.4byte	.LFB29
+ 1103 000c 16000000 		.4byte	.LFE29
+ 1104 0010 00000000 		.4byte	.LFB30
+ 1105 0014 86000000 		.4byte	.LFE30
+ 1106 0018 00000000 		.4byte	.LFB31
+ 1107 001c B8000000 		.4byte	.LFE31
+ 1108 0020 00000000 		.4byte	.LFB32
+ 1109 0024 28020000 		.4byte	.LFE32
+ 1110 0028 00000000 		.4byte	0x0
+ 1111 002c 00000000 		.4byte	0x0
+ 1112              		.section	.debug_str,"MS",%progbits,1
+ 1113              	.LASF6:
+ 1114 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1114      206C6F6E 
+ 1114      6720696E 
+ 1114      7400
+ 1115              	.LASF32:
+ 1116 000e 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\bp"
+ 1116      2E5C2E2E 
+ 1116      5C447269 
+ 1116      76655F50 
+ 1116      6C617466 
+ 1117 003c 6C2E6300 		.ascii	"l.c\000"
+ 1118              	.LASF24:
+ 1119 0040 5472616E 		.ascii	"TransmitMsgCount\000"
+ 1119      736D6974 
+ 1119      4D736743 
+ 1119      6F756E74 
+ 1119      00
+ 1120              	.LASF28:
+ 1121 0051 54424865 		.ascii	"TBHead\000"
+ 1121      616400
+ 1122              	.LASF18:
+ 1123 0058 6D73674C 		.ascii	"msgLength\000"
+ 1123      656E6774 
+ 1123      6800
+ 1124              	.LASF33:
+ 1125 0062 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
+ 1125      6F626F74 
+ 1125      69637363 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 24
+
+
+ 1125      6F64655C 
+ 1125      7472756E 
+ 1126 0090 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
+ 1126      6C617466 
+ 1126      6F726D32 
+ 1126      5C447269 
+ 1126      7665506C 
+ 1127              	.LASF21:
+ 1128 00c1 52656365 		.ascii	"ReceiveBuffer\000"
+ 1128      69766542 
+ 1128      75666665 
+ 1128      7200
+ 1129              	.LASF16:
+ 1130 00cf 74617267 		.ascii	"target\000"
+ 1130      657400
+ 1131              	.LASF9:
+ 1132 00d6 666C6F61 		.ascii	"float\000"
+ 1132      7400
+ 1133              	.LASF14:
+ 1134 00dc 42504C5F 		.ascii	"BPL_GetMessage\000"
+ 1134      4765744D 
+ 1134      65737361 
+ 1134      676500
+ 1135              	.LASF13:
+ 1136 00eb 53544154 		.ascii	"STATUS\000"
+ 1136      555300
+ 1137              	.LASF25:
+ 1138 00f2 5472616E 		.ascii	"TransmitBytesCount\000"
+ 1138      736D6974 
+ 1138      42797465 
+ 1138      73436F75 
+ 1138      6E7400
+ 1139              	.LASF5:
+ 1140 0105 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1140      20756E73 
+ 1140      69676E65 
+ 1140      6420696E 
+ 1140      7400
+ 1141              	.LASF3:
+ 1142 0117 73686F72 		.ascii	"short unsigned int\000"
+ 1142      7420756E 
+ 1142      7369676E 
+ 1142      65642069 
+ 1142      6E7400
+ 1143              	.LASF26:
+ 1144 012a 52424865 		.ascii	"RBHead\000"
+ 1144      616400
+ 1145              	.LASF35:
+ 1146 0131 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1146      52784275 
+ 1146      66666572 
+ 1146      00
+ 1147              	.LASF1:
+ 1148 013e 756E7369 		.ascii	"unsigned char\000"
+ 1148      676E6564 
+ 1148      20636861 
+ 1148      7200
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 25
+
+
+ 1149              	.LASF10:
+ 1150 014c 646F7562 		.ascii	"double\000"
+ 1150      6C6500
+ 1151              	.LASF29:
+ 1152 0153 54425461 		.ascii	"TBTail\000"
+ 1152      696C00
+ 1153              	.LASF8:
+ 1154 015a 756E7369 		.ascii	"unsigned int\000"
+ 1154      676E6564 
+ 1154      20696E74 
+ 1154      00
+ 1155              	.LASF7:
+ 1156 0167 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1156      206C6F6E 
+ 1156      6720756E 
+ 1156      7369676E 
+ 1156      65642069 
+ 1157              	.LASF30:
+ 1158 017e 42706C53 		.ascii	"BplStatus\000"
+ 1158      74617475 
+ 1158      7300
+ 1159              	.LASF20:
+ 1160 0188 6E756D42 		.ascii	"numBytes\000"
+ 1160      79746573 
+ 1160      00
+ 1161              	.LASF19:
+ 1162 0191 42504C5F 		.ascii	"BPL_HandleTask\000"
+ 1162      48616E64 
+ 1162      6C655461 
+ 1162      736B00
+ 1163              	.LASF31:
+ 1164 01a0 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1164      4320342E 
+ 1164      342E3100 
+ 1165              	.LASF34:
+ 1166 01ac 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
+ 1166      47657452 
+ 1166      65636569 
+ 1166      76654D73 
+ 1166      67436F75 
+ 1167              	.LASF2:
+ 1168 01c3 73686F72 		.ascii	"short int\000"
+ 1168      7420696E 
+ 1168      7400
+ 1169              	.LASF22:
+ 1170 01cd 5472616E 		.ascii	"TransmitBuffer\000"
+ 1170      736D6974 
+ 1170      42756666 
+ 1170      657200
+ 1171              	.LASF12:
+ 1172 01dc 75696E74 		.ascii	"uint8\000"
+ 1172      3800
+ 1173              	.LASF27:
+ 1174 01e2 52425461 		.ascii	"RBTail\000"
+ 1174      696C00
+ 1175              	.LASF23:
+ 1176 01e9 52656365 		.ascii	"ReceiveMsgCount\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEG1HD4.s 			page 26
+
+
+ 1176      6976654D 
+ 1176      7367436F 
+ 1176      756E7400 
+ 1177              	.LASF4:
+ 1178 01f9 6C6F6E67 		.ascii	"long int\000"
+ 1178      20696E74 
+ 1178      00
+ 1179              	.LASF11:
+ 1180 0202 63686172 		.ascii	"char\000"
+ 1180      00
+ 1181              	.LASF0:
+ 1182 0207 7369676E 		.ascii	"signed char\000"
+ 1182      65642063 
+ 1182      68617200 
+ 1183              	.LASF17:
+ 1184 0213 736F7572 		.ascii	"source\000"
+ 1184      636500
+ 1185              	.LASF15:
+ 1186 021a 42504C5F 		.ascii	"BPL_TransmitMessage\000"
+ 1186      5472616E 
+ 1186      736D6974 
+ 1186      4D657373 
+ 1186      61676500 
+ 1187              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

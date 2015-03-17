@@ -1,0 +1,1970 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"scheduler.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 04020000 		.text
+  20      02006F01 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	SCH_TaskIndex:
+  26 0000 00000000 		.space	4
+  27              		.data
+  28              		.align	2
+  29              		.type	SCH_Task, %object
+  30              		.size	SCH_Task, 168
+  31              	SCH_Task:
+  32 0000 45525200 		.ascii	"ERR\000"
+  33 0004 00000000 		.space	4
+  34 0008 02       		.byte	2
+  35 0009 00       		.byte	0
+  36 000a 0000     		.space	2
+  37 000c 00000000 		.word	ERR_Init
+  38 0010 00000000 		.word	ERR_HandleTask
+  39 0014 00       		.byte	0
+  40 0015 00000000 		.space	7
+  40      000000
+  41 001c 48414C00 		.ascii	"HAL\000"
+  42 0020 00000000 		.space	4
+  43 0024 02       		.byte	2
+  44 0025 01       		.byte	1
+  45 0026 0000     		.space	2
+  46 0028 00000000 		.word	HAL_Init
+  47 002c 00000000 		.word	0
+  48 0030 00       		.byte	0
+  49 0031 00000000 		.space	7
+  49      000000
+  50 0038 544D5200 		.ascii	"TMR\000"
+  51 003c 00000000 		.space	4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 2
+
+
+  52 0040 02       		.byte	2
+  53 0041 01       		.byte	1
+  54 0042 0000     		.space	2
+  55 0044 00000000 		.word	TMR_Init
+  56 0048 00000000 		.word	TMR_HandleTask
+  57 004c 00       		.byte	0
+  58 004d 00000000 		.space	7
+  58      000000
+  59 0054 42504C00 		.ascii	"BPL\000"
+  60 0058 00000000 		.space	4
+  61 005c 02       		.byte	2
+  62 005d 02       		.byte	2
+  63 005e 0000     		.space	2
+  64 0060 00000000 		.word	0
+  65 0064 00000000 		.word	BPL_HandleTask
+  66 0068 48414C00 		.ascii	"HAL\000"
+  67 006c 00000000 		.space	4
+  68 0070 42414C00 		.ascii	"BAL\000"
+  69 0074 00000000 		.space	4
+  70 0078 02       		.byte	2
+  71 0079 02       		.byte	2
+  72 007a 0000     		.space	2
+  73 007c 00000000 		.word	BAL_Init
+  74 0080 00000000 		.word	BAL_HandleTask
+  75 0084 42504C00 		.ascii	"BPL\000"
+  76 0088 00000000 		.space	4
+  77 008c 54535400 		.ascii	"TST\000"
+  78 0090 00000000 		.space	4
+  79 0094 02       		.byte	2
+  80 0095 02       		.byte	2
+  81 0096 0000     		.space	2
+  82 0098 00000000 		.word	TST_Init
+  83 009c 00000000 		.word	0
+  84 00a0 544D5200 		.ascii	"TMR\000"
+  85 00a4 00000000 		.space	4
+  86              		.section	.text.SCH_GetTaskIndex,"ax",%progbits
+  87              		.align	2
+  88              		.thumb
+  89              		.thumb_func
+  90              		.type	SCH_GetTaskIndex, %function
+  91              	SCH_GetTaskIndex:
+  92              	.LFB29:
+  93              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\scheduler.c"
+   1:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****  * All rights reserved.
+   3:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****  *
+   4:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****  * This software may be modified and distributed under the terms
+   5:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****  */
+   7:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+   8:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include <project.h>
+   9:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "scheduler.h"
+  10:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  11:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "hal.h"
+  12:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "tmr.h"
+  13:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "bpl.h"
+  14:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "bal.h"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 3
+
+
+  15:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "error.h"
+  16:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "test.h"
+  17:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  18:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** static int          SCH_TaskIndex = 0;
+  19:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** static SCH_TASK 	SCH_Task[] =
+  20:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** {
+  21:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /*   NAME   STATUS          PRIO    INIT        HANDLER             DEPENDENCY */
+  22:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /*   ------------------------------------------------------------------------- */
+  23:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #ifdef ERROR_MODULE_ENABLE
+  24:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"ERR", SCH_TASK_NEW,   0,      ERR_Init,   ERR_HandleTask,     {DEP_NONE}},
+  25:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #endif
+  26:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
+  27:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask,     "HAL"},
+  29:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
+  30:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL,               "TMR"},
+  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** };
+  32:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /* currently only one dependency possible */
+  33:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  34:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  35:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /*****************************************************************/
+  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** static uchar SCH_GetTaskIndex(uchar* taskName)
+  37:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** {
+  94              		.loc 1 37 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 16
+  97              		@ frame_needed = 1, uses_anonymous_args = 0
+  98 0000 80B5     		push	{r7, lr}
+  99              	.LCFI0:
+ 100              		.cfi_def_cfa_offset 8
+ 101 0002 84B0     		sub	sp, sp, #16
+ 102              	.LCFI1:
+ 103              		.cfi_def_cfa_offset 24
+ 104 0004 00AF     		add	r7, sp, #0
+ 105              		.cfi_offset 14, -4
+ 106              		.cfi_offset 7, -8
+ 107              	.LCFI2:
+ 108              		.cfi_def_cfa_register 7
+ 109 0006 7860     		str	r0, [r7, #4]
+  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     int i;
+  39:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     uchar idx = (uchar)(-1);
+ 110              		.loc 1 39 0
+ 111 0008 4FF0FF33 		mov	r3, #-1
+ 112 000c FB73     		strb	r3, [r7, #15]
+  40:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+  41:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     for (i=0; i<SIZE_OF_ARRAY(SCH_Task); i++)
+ 113              		.loc 1 41 0
+ 114 000e 4FF00003 		mov	r3, #0
+ 115 0012 BB60     		str	r3, [r7, #8]
+ 116 0014 1DE0     		b	.L2
+ 117              	.L4:
+  42:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {
+  43:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         if (0 == strcmp((char*)SCH_Task[SCH_TaskIndex].name, (char*)taskName))
+ 118              		.loc 1 43 0
+ 119 0016 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 120 001a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 121 001e 1A68     		ldr	r2, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 4
+
+
+ 122 0020 1346     		mov	r3, r2
+ 123 0022 4FEAC303 		lsl	r3, r3, #3
+ 124 0026 C2EB0303 		rsb	r3, r2, r3
+ 125 002a 4FEA8302 		lsl	r2, r3, #2
+ 126 002e 40F20003 		movw	r3, #:lower16:SCH_Task
+ 127 0032 C0F20003 		movt	r3, #:upper16:SCH_Task
+ 128 0036 1344     		add	r3, r2, r3
+ 129 0038 1846     		mov	r0, r3
+ 130 003a 7968     		ldr	r1, [r7, #4]
+ 131 003c FFF7FEFF 		bl	strcmp
+ 132 0040 0346     		mov	r3, r0
+ 133 0042 002B     		cmp	r3, #0
+ 134 0044 01D1     		bne	.L3
+  44:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             idx = i;
+ 135              		.loc 1 44 0
+ 136 0046 BB68     		ldr	r3, [r7, #8]
+ 137 0048 FB73     		strb	r3, [r7, #15]
+ 138              	.L3:
+ 139              		.loc 1 41 0
+ 140 004a BB68     		ldr	r3, [r7, #8]
+ 141 004c 03F10103 		add	r3, r3, #1
+ 142 0050 BB60     		str	r3, [r7, #8]
+ 143              	.L2:
+ 144 0052 BB68     		ldr	r3, [r7, #8]
+ 145 0054 052B     		cmp	r3, #5
+ 146 0056 DED9     		bls	.L4
+  45:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     }
+  46:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+  47:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     return idx;
+ 147              		.loc 1 47 0
+ 148 0058 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  48:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** }
+ 149              		.loc 1 48 0
+ 150 005a 1846     		mov	r0, r3
+ 151 005c 07F11007 		add	r7, r7, #16
+ 152 0060 BD46     		mov	sp, r7
+ 153 0062 80BD     		pop	{r7, pc}
+ 154              		.cfi_endproc
+ 155              	.LFE29:
+ 156              		.size	SCH_GetTaskIndex, .-SCH_GetTaskIndex
+ 157              		.section	.text.SCH_TaskHandler,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	SCH_TaskHandler
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	SCH_TaskHandler, %function
+ 163              	SCH_TaskHandler:
+ 164              	.LFB30:
+  49:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  50:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  51:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /*****************************************************************/
+  52:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** void SCH_TaskHandler(void)
+  53:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** {
+ 165              		.loc 1 53 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 8
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 5
+
+
+ 169 0000 80B5     		push	{r7, lr}
+ 170              	.LCFI3:
+ 171              		.cfi_def_cfa_offset 8
+ 172 0002 82B0     		sub	sp, sp, #8
+ 173              	.LCFI4:
+ 174              		.cfi_def_cfa_offset 16
+ 175 0004 00AF     		add	r7, sp, #0
+ 176              		.cfi_offset 14, -4
+ 177              		.cfi_offset 7, -8
+ 178              	.LCFI5:
+ 179              		.cfi_def_cfa_register 7
+  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     STATUS status;
+  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     uchar depTaskIndex;
+  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     BOOL taskInitFlag = FALSE;
+ 180              		.loc 1 56 0
+ 181 0006 4FF00003 		mov	r3, #0
+ 182 000a FB71     		strb	r3, [r7, #7]
+  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     //priority not handled yet
+  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     switch(SCH_Task[SCH_TaskIndex].status)
+ 183              		.loc 1 60 0
+ 184 000c 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 185 0010 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 186 0014 1968     		ldr	r1, [r3, #0]
+ 187 0016 40F20002 		movw	r2, #:lower16:SCH_Task
+ 188 001a C0F20002 		movt	r2, #:upper16:SCH_Task
+ 189 001e 0B46     		mov	r3, r1
+ 190 0020 4FEAC303 		lsl	r3, r3, #3
+ 191 0024 C1EB0303 		rsb	r3, r1, r3
+ 192 0028 4FEA8303 		lsl	r3, r3, #2
+ 193 002c 1344     		add	r3, r3, r2
+ 194 002e 03F10803 		add	r3, r3, #8
+ 195 0032 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 196 0034 A3F10203 		sub	r3, r3, #2
+ 197 0038 0E2B     		cmp	r3, #14
+ 198 003a 00F24581 		bhi	.L7
+ 199 003e 01A2     		adr	r2, .L12
+ 200 0040 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 201              		.align	2
+ 202              	.L12:
+ 203 0044 81000000 		.word	.L8+1
+ 204 0048 C9020000 		.word	.L7+1
+ 205 004c DD010000 		.word	.L9+1
+ 206 0050 C9020000 		.word	.L7+1
+ 207 0054 C9020000 		.word	.L7+1
+ 208 0058 C9020000 		.word	.L7+1
+ 209 005c 0B020000 		.word	.L10+1
+ 210 0060 C9020000 		.word	.L7+1
+ 211 0064 C9020000 		.word	.L7+1
+ 212 0068 C9020000 		.word	.L7+1
+ 213 006c C9020000 		.word	.L7+1
+ 214 0070 C9020000 		.word	.L7+1
+ 215 0074 C9020000 		.word	.L7+1
+ 216 0078 C9020000 		.word	.L7+1
+ 217 007c 95020000 		.word	.L11+1
+ 218              	.L8:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 6
+
+
+  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {                               
+  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_NEW:          /* check if current task has a dependency */
+  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     if (DEP_NONE != (SCH_Task[SCH_TaskIndex].dependency)[0])
+ 219              		.loc 1 63 0
+ 220 0080 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 221 0084 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 222 0088 1968     		ldr	r1, [r3, #0]
+ 223 008a 40F20002 		movw	r2, #:lower16:SCH_Task
+ 224 008e C0F20002 		movt	r2, #:upper16:SCH_Task
+ 225 0092 0B46     		mov	r3, r1
+ 226 0094 4FEAC303 		lsl	r3, r3, #3
+ 227 0098 C1EB0303 		rsb	r3, r1, r3
+ 228 009c 4FEA8303 		lsl	r3, r3, #2
+ 229 00a0 1344     		add	r3, r3, r2
+ 230 00a2 03F11003 		add	r3, r3, #16
+ 231 00a6 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 232 00a8 002B     		cmp	r3, #0
+ 233 00aa 2FD0     		beq	.L13
+  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     {
+  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         /* get task index of dependent task and check task status *
+  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         depTaskIndex = SCH_GetTaskIndex(SCH_Task[SCH_TaskIndex].dep
+ 234              		.loc 1 66 0
+ 235 00ac 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 236 00b0 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 237 00b4 1A68     		ldr	r2, [r3, #0]
+ 238 00b6 1346     		mov	r3, r2
+ 239 00b8 4FEAC303 		lsl	r3, r3, #3
+ 240 00bc C2EB0303 		rsb	r3, r2, r3
+ 241 00c0 4FEA8303 		lsl	r3, r3, #2
+ 242 00c4 03F11002 		add	r2, r3, #16
+ 243 00c8 40F20003 		movw	r3, #:lower16:SCH_Task
+ 244 00cc C0F20003 		movt	r3, #:upper16:SCH_Task
+ 245 00d0 1344     		add	r3, r2, r3
+ 246 00d2 03F10403 		add	r3, r3, #4
+ 247 00d6 1846     		mov	r0, r3
+ 248 00d8 FFF7FEFF 		bl	SCH_GetTaskIndex
+ 249 00dc 0346     		mov	r3, r0
+ 250 00de BB71     		strb	r3, [r7, #6]
+  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         
+  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         /* check if dependent task is initialzed */
+  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         if (SCH_Task[depTaskIndex].status != SCH_TASK_NEW)
+ 251              		.loc 1 69 0
+ 252 00e0 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 253 00e2 40F20002 		movw	r2, #:lower16:SCH_Task
+ 254 00e6 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 255 00ea 0B46     		mov	r3, r1
+ 256 00ec 4FEAC303 		lsl	r3, r3, #3
+ 257 00f0 C1EB0303 		rsb	r3, r1, r3
+ 258 00f4 4FEA8303 		lsl	r3, r3, #2
+ 259 00f8 1344     		add	r3, r3, r2
+ 260 00fa 03F10803 		add	r3, r3, #8
+ 261 00fe 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 262 0100 022B     		cmp	r3, #2
+ 263 0102 07D0     		beq	.L23
+  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         {
+  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             /* current task can be initialized */
+  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             taskInitFlag = TRUE;
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 7
+
+
+ 264              		.loc 1 72 0
+ 265 0104 4FF00103 		mov	r3, #1
+ 266 0108 FB71     		strb	r3, [r7, #7]
+ 267 010a 04E0     		b	.L15
+ 268              	.L13:
+  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         }
+  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         else
+  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         {
+  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             /* do nothing */
+  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         }
+  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     }
+  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     else
+  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     {
+  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         /* current task can be initialized */
+  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         taskInitFlag = TRUE;
+ 269              		.loc 1 82 0
+ 270 010c 4FF00103 		mov	r3, #1
+ 271 0110 FB71     		strb	r3, [r7, #7]
+ 272 0112 00E0     		b	.L15
+ 273              	.L23:
+ 274              		.loc 1 72 0
+ 275 0114 00BF     		nop
+ 276              	.L15:
+  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     }
+  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     if (taskInitFlag == TRUE)
+ 277              		.loc 1 88 0
+ 278 0116 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 279 0118 012B     		cmp	r3, #1
+ 280 011a 40F0D280 		bne	.L24
+  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     {
+  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         /* call init function of current task */
+  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         if (NULL != SCH_Task[SCH_TaskIndex].init)
+ 281              		.loc 1 91 0
+ 282 011e 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 283 0122 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 284 0126 1968     		ldr	r1, [r3, #0]
+ 285 0128 40F20002 		movw	r2, #:lower16:SCH_Task
+ 286 012c C0F20002 		movt	r2, #:upper16:SCH_Task
+ 287 0130 0B46     		mov	r3, r1
+ 288 0132 4FEAC303 		lsl	r3, r3, #3
+ 289 0136 C1EB0303 		rsb	r3, r1, r3
+ 290 013a 4FEA8303 		lsl	r3, r3, #2
+ 291 013e 1344     		add	r3, r3, r2
+ 292 0140 03F10C03 		add	r3, r3, #12
+ 293 0144 1B68     		ldr	r3, [r3, #0]
+ 294 0146 002B     		cmp	r3, #0
+ 295 0148 31D0     		beq	.L17
+  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         {
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             status = SCH_Task[SCH_TaskIndex].init();
+ 296              		.loc 1 93 0
+ 297 014a 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 298 014e C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 299 0152 1968     		ldr	r1, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 8
+
+
+ 300 0154 40F20002 		movw	r2, #:lower16:SCH_Task
+ 301 0158 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 302 015c 0B46     		mov	r3, r1
+ 303 015e 4FEAC303 		lsl	r3, r3, #3
+ 304 0162 C1EB0303 		rsb	r3, r1, r3
+ 305 0166 4FEA8303 		lsl	r3, r3, #2
+ 306 016a 1344     		add	r3, r3, r2
+ 307 016c 03F10C03 		add	r3, r3, #12
+ 308 0170 1B68     		ldr	r3, [r3, #0]
+ 309 0172 9847     		blx	r3
+ 310 0174 0346     		mov	r3, r0
+ 311 0176 7B71     		strb	r3, [r7, #5]
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             if (status == SUCCESS)
+ 312              		.loc 1 94 0
+ 313 0178 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 314 017a 002B     		cmp	r3, #0
+ 315 017c 40F0A380 		bne	.L25
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             {
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                                 SCH_Task[SCH_TaskIndex].status = SCH_TASK_READY;
+ 316              		.loc 1 96 0
+ 317 0180 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 318 0184 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 319 0188 1968     		ldr	r1, [r3, #0]
+ 320 018a 40F20002 		movw	r2, #:lower16:SCH_Task
+ 321 018e C0F20002 		movt	r2, #:upper16:SCH_Task
+ 322 0192 0B46     		mov	r3, r1
+ 323 0194 4FEAC303 		lsl	r3, r3, #3
+ 324 0198 C1EB0303 		rsb	r3, r1, r3
+ 325 019c 4FEA8303 		lsl	r3, r3, #2
+ 326 01a0 1344     		add	r3, r3, r2
+ 327 01a2 03F10803 		add	r3, r3, #8
+ 328 01a6 4FF00402 		mov	r2, #4
+ 329 01aa 1A70     		strb	r2, [r3, #0]
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             }
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         }
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         else
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         {
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             SCH_Task[SCH_TaskIndex].status = SCH_TASK_READY;
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         }
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     }
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     break;
+ 330              		.loc 1 106 0
+ 331 01ac 8CE0     		b	.L7
+ 332              	.L17:
+ 333              		.loc 1 101 0
+ 334 01ae 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 335 01b2 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 336 01b6 1968     		ldr	r1, [r3, #0]
+ 337 01b8 40F20002 		movw	r2, #:lower16:SCH_Task
+ 338 01bc C0F20002 		movt	r2, #:upper16:SCH_Task
+ 339 01c0 0B46     		mov	r3, r1
+ 340 01c2 4FEAC303 		lsl	r3, r3, #3
+ 341 01c6 C1EB0303 		rsb	r3, r1, r3
+ 342 01ca 4FEA8303 		lsl	r3, r3, #2
+ 343 01ce 1344     		add	r3, r3, r2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 9
+
+
+ 344 01d0 03F10803 		add	r3, r3, #8
+ 345 01d4 4FF00402 		mov	r2, #4
+ 346 01d8 1A70     		strb	r2, [r3, #0]
+ 347              		.loc 1 106 0
+ 348 01da 75E0     		b	.L7
+ 349              	.L9:
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_READY:        SCH_Task[SCH_TaskIndex].status = SCH_TASK_RUNNING;
+ 350              		.loc 1 108 0
+ 351 01dc 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 352 01e0 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 353 01e4 1968     		ldr	r1, [r3, #0]
+ 354 01e6 40F20002 		movw	r2, #:lower16:SCH_Task
+ 355 01ea C0F20002 		movt	r2, #:upper16:SCH_Task
+ 356 01ee 0B46     		mov	r3, r1
+ 357 01f0 4FEAC303 		lsl	r3, r3, #3
+ 358 01f4 C1EB0303 		rsb	r3, r1, r3
+ 359 01f8 4FEA8303 		lsl	r3, r3, #2
+ 360 01fc 1344     		add	r3, r3, r2
+ 361 01fe 03F10803 		add	r3, r3, #8
+ 362 0202 4FF00802 		mov	r2, #8
+ 363 0206 1A70     		strb	r2, [r3, #0]
+ 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     break;
+ 364              		.loc 1 109 0
+ 365 0208 5EE0     		b	.L7
+ 366              	.L10:
+ 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_RUNNING:      if (NULL != SCH_Task[SCH_TaskIndex].func)
+ 367              		.loc 1 111 0
+ 368 020a 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 369 020e C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 370 0212 1968     		ldr	r1, [r3, #0]
+ 371 0214 40F20002 		movw	r2, #:lower16:SCH_Task
+ 372 0218 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 373 021c 0B46     		mov	r3, r1
+ 374 021e 4FEAC303 		lsl	r3, r3, #3
+ 375 0222 C1EB0303 		rsb	r3, r1, r3
+ 376 0226 4FEA8303 		lsl	r3, r3, #2
+ 377 022a 1344     		add	r3, r3, r2
+ 378 022c 03F11003 		add	r3, r3, #16
+ 379 0230 1B68     		ldr	r3, [r3, #0]
+ 380 0232 002B     		cmp	r3, #0
+ 381 0234 17D0     		beq	.L19
+ 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     {
+ 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         status = SCH_Task[SCH_TaskIndex].func();
+ 382              		.loc 1 113 0
+ 383 0236 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 384 023a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 385 023e 1968     		ldr	r1, [r3, #0]
+ 386 0240 40F20002 		movw	r2, #:lower16:SCH_Task
+ 387 0244 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 388 0248 0B46     		mov	r3, r1
+ 389 024a 4FEAC303 		lsl	r3, r3, #3
+ 390 024e C1EB0303 		rsb	r3, r1, r3
+ 391 0252 4FEA8303 		lsl	r3, r3, #2
+ 392 0256 1344     		add	r3, r3, r2
+ 393 0258 03F11003 		add	r3, r3, #16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 10
+
+
+ 394 025c 1B68     		ldr	r3, [r3, #0]
+ 395 025e 9847     		blx	r3
+ 396 0260 0346     		mov	r3, r0
+ 397 0262 7B71     		strb	r3, [r7, #5]
+ 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     }
+ 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     else
+ 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     {
+ 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         SCH_Task[SCH_TaskIndex].status = SCH_TASK_TERMINATED;
+ 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     }
+ 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     break;
+ 398              		.loc 1 119 0
+ 399 0264 30E0     		b	.L7
+ 400              	.L19:
+ 401              		.loc 1 117 0
+ 402 0266 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 403 026a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 404 026e 1968     		ldr	r1, [r3, #0]
+ 405 0270 40F20002 		movw	r2, #:lower16:SCH_Task
+ 406 0274 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 407 0278 0B46     		mov	r3, r1
+ 408 027a 4FEAC303 		lsl	r3, r3, #3
+ 409 027e C1EB0303 		rsb	r3, r1, r3
+ 410 0282 4FEA8303 		lsl	r3, r3, #2
+ 411 0286 1344     		add	r3, r3, r2
+ 412 0288 03F10803 		add	r3, r3, #8
+ 413 028c 4FF02002 		mov	r2, #32
+ 414 0290 1A70     		strb	r2, [r3, #0]
+ 415              		.loc 1 119 0
+ 416 0292 19E0     		b	.L7
+ 417              	.L11:
+ 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_WAITING:      SCH_Task[SCH_TaskIndex].status = SCH_TASK_RUNNING;
+ 418              		.loc 1 121 0
+ 419 0294 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 420 0298 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 421 029c 1968     		ldr	r1, [r3, #0]
+ 422 029e 40F20002 		movw	r2, #:lower16:SCH_Task
+ 423 02a2 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 424 02a6 0B46     		mov	r3, r1
+ 425 02a8 4FEAC303 		lsl	r3, r3, #3
+ 426 02ac C1EB0303 		rsb	r3, r1, r3
+ 427 02b0 4FEA8303 		lsl	r3, r3, #2
+ 428 02b4 1344     		add	r3, r3, r2
+ 429 02b6 03F10803 		add	r3, r3, #8
+ 430 02ba 4FF00802 		mov	r2, #8
+ 431 02be 1A70     		strb	r2, [r3, #0]
+ 432 02c0 02E0     		b	.L7
+ 433              	.L24:
+ 434              		.loc 1 106 0
+ 435 02c2 00BF     		nop
+ 436 02c4 00E0     		b	.L7
+ 437              	.L25:
+ 438 02c6 00BF     		nop
+ 439              	.L7:
+ 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     break;
+ 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
+ 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_TERMINATED:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 11
+
+
+ 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         default:                    break;
+ 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     }
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+ 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+ 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     SCH_TaskIndex++;
+ 440              		.loc 1 130 0
+ 441 02c8 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 442 02cc C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 443 02d0 1B68     		ldr	r3, [r3, #0]
+ 444 02d2 03F10102 		add	r2, r3, #1
+ 445 02d6 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 446 02da C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 447 02de 1A60     		str	r2, [r3, #0]
+ 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+ 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     if (SCH_TaskIndex > SIZE_OF_ARRAY(SCH_Task))
+ 448              		.loc 1 132 0
+ 449 02e0 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 450 02e4 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 451 02e8 1B68     		ldr	r3, [r3, #0]
+ 452 02ea 062B     		cmp	r3, #6
+ 453 02ec 06D9     		bls	.L22
+ 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         SCH_TaskIndex = 0;
+ 454              		.loc 1 133 0
+ 455 02ee 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 456 02f2 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 457 02f6 4FF00002 		mov	r2, #0
+ 458 02fa 1A60     		str	r2, [r3, #0]
+ 459              	.L22:
+ 134:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** }
+ 460              		.loc 1 134 0
+ 461 02fc 07F10807 		add	r7, r7, #8
+ 462 0300 BD46     		mov	sp, r7
+ 463 0302 80BD     		pop	{r7, pc}
+ 464              		.cfi_endproc
+ 465              	.LFE30:
+ 466              		.size	SCH_TaskHandler, .-SCH_TaskHandler
+ 467              		.bss
+ 468              		.align	2
+ 469              	SCH_TaskBuffer:
+ 470 0004 00000000 		.space	1024
+ 470      00000000 
+ 470      00000000 
+ 470      00000000 
+ 470      00000000 
+ 471              		.align	2
+ 472              	n:
+ 473 0404 00000000 		.space	4
+ 474              		.section	.rodata
+ 475              		.align	2
+ 476              	.LC0:
+ 477 0000 0A3D3D3D 		.ascii	"\012===\000"
+ 477      00
+ 478 0005 000000   		.align	2
+ 479              	.LC1:
+ 480 0008 0A546173 		.ascii	"\012Task %i: %s/\000"
+ 480      6B202569 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 12
+
+
+ 480      3A202573 
+ 480      2F00
+ 481 0016 0000     		.align	2
+ 482              	.LC2:
+ 483 0018 4E455700 		.ascii	"NEW\000"
+ 484              		.align	2
+ 485              	.LC3:
+ 486 001c 52454144 		.ascii	"READY\000"
+ 486      5900
+ 487 0022 0000     		.align	2
+ 488              	.LC4:
+ 489 0024 52554E4E 		.ascii	"RUNNING\000"
+ 489      494E4700 
+ 490              		.align	2
+ 491              	.LC5:
+ 492 002c 57414954 		.ascii	"WAITING\000"
+ 492      494E4700 
+ 493              		.align	2
+ 494              	.LC6:
+ 495 0034 5445524D 		.ascii	"TERMINATED\000"
+ 495      494E4154 
+ 495      454400
+ 496 003f 00       		.align	2
+ 497              	.LC7:
+ 498 0040 2025730A 		.ascii	" %s\012\000"
+ 498      00
+ 499 0045 000000   		.section	.text.SCH_ShowCurrentTasks,"ax",%progbits
+ 500              		.align	2
+ 501              		.global	SCH_ShowCurrentTasks
+ 502              		.thumb
+ 503              		.thumb_func
+ 504              		.type	SCH_ShowCurrentTasks, %function
+ 505              	SCH_ShowCurrentTasks:
+ 506              	.LFB31:
+ 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** /*****************************************************************/
+ 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #ifdef SCH_DEBUG
+ 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include <stdio.h>
+ 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** static uchar SCH_TaskBuffer[1024];
+ 142:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** static int n=0;
+ 143:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** 
+ 144:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** void SCH_ShowCurrentTasks(void)
+ 145:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** {
+ 507              		.loc 1 145 0
+ 508              		.cfi_startproc
+ 509              		@ args = 0, pretend = 0, frame = 8
+ 510              		@ frame_needed = 1, uses_anonymous_args = 0
+ 511 0000 80B5     		push	{r7, lr}
+ 512              	.LCFI6:
+ 513              		.cfi_def_cfa_offset 8
+ 514 0002 82B0     		sub	sp, sp, #8
+ 515              	.LCFI7:
+ 516              		.cfi_def_cfa_offset 16
+ 517 0004 00AF     		add	r7, sp, #0
+ 518              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 13
+
+
+ 519              		.cfi_offset 7, -8
+ 520              	.LCFI8:
+ 521              		.cfi_def_cfa_register 7
+ 146:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     int i;
+ 147:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+ 148:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     n += sprintf((char*)SCH_TaskBuffer + n, "\n===");
+ 522              		.loc 1 148 0
+ 523 0006 40F20003 		movw	r3, #:lower16:n
+ 524 000a C0F20003 		movt	r3, #:upper16:n
+ 525 000e 1B68     		ldr	r3, [r3, #0]
+ 526 0010 1A46     		mov	r2, r3
+ 527 0012 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 528 0016 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 529 001a 1344     		add	r3, r2, r3
+ 530 001c 1846     		mov	r0, r3
+ 531 001e 40F20001 		movw	r1, #:lower16:.LC0
+ 532 0022 C0F20001 		movt	r1, #:upper16:.LC0
+ 533 0026 4FF00502 		mov	r2, #5
+ 534 002a FFF7FEFF 		bl	memcpy
+ 535 002e 40F20003 		movw	r3, #:lower16:n
+ 536 0032 C0F20003 		movt	r3, #:upper16:n
+ 537 0036 1B68     		ldr	r3, [r3, #0]
+ 538 0038 03F10402 		add	r2, r3, #4
+ 539 003c 40F20003 		movw	r3, #:lower16:n
+ 540 0040 C0F20003 		movt	r3, #:upper16:n
+ 541 0044 1A60     		str	r2, [r3, #0]
+ 149:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     
+ 150:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     for (i=0; i<sizeof(SCH_Task); i++)
+ 542              		.loc 1 150 0
+ 543 0046 4FF00003 		mov	r3, #0
+ 544 004a 7B60     		str	r3, [r7, #4]
+ 545 004c 6EE1     		b	.L27
+ 546              	.L36:
+ 151:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {
+ 152:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         if (NULL != SCH_Task[i].name)
+ 153:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         {
+ 154:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             n += sprintf((char*)SCH_TaskBuffer + n, "\nTask %i: %s/", i, SCH_Task[i].name);
+ 547              		.loc 1 154 0
+ 548 004e 40F20003 		movw	r3, #:lower16:n
+ 549 0052 C0F20003 		movt	r3, #:upper16:n
+ 550 0056 1B68     		ldr	r3, [r3, #0]
+ 551 0058 1A46     		mov	r2, r3
+ 552 005a 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 553 005e C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 554 0062 02EB0301 		add	r1, r2, r3
+ 555 0066 7A68     		ldr	r2, [r7, #4]
+ 556 0068 1346     		mov	r3, r2
+ 557 006a 4FEAC303 		lsl	r3, r3, #3
+ 558 006e C2EB0303 		rsb	r3, r2, r3
+ 559 0072 4FEA8302 		lsl	r2, r3, #2
+ 560 0076 40F20003 		movw	r3, #:lower16:SCH_Task
+ 561 007a C0F20003 		movt	r3, #:upper16:SCH_Task
+ 562 007e 1344     		add	r3, r2, r3
+ 563 0080 0846     		mov	r0, r1
+ 564 0082 40F20001 		movw	r1, #:lower16:.LC1
+ 565 0086 C0F20001 		movt	r1, #:upper16:.LC1
+ 566 008a 7A68     		ldr	r2, [r7, #4]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 14
+
+
+ 567 008c FFF7FEFF 		bl	sprintf
+ 568 0090 0346     		mov	r3, r0
+ 569 0092 1A46     		mov	r2, r3
+ 570 0094 40F20003 		movw	r3, #:lower16:n
+ 571 0098 C0F20003 		movt	r3, #:upper16:n
+ 572 009c 1B68     		ldr	r3, [r3, #0]
+ 573 009e 1A44     		add	r2, r2, r3
+ 574 00a0 40F20003 		movw	r3, #:lower16:n
+ 575 00a4 C0F20003 		movt	r3, #:upper16:n
+ 576 00a8 1A60     		str	r2, [r3, #0]
+ 155:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         
+ 156:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             switch (SCH_Task[i].status)
+ 577              		.loc 1 156 0
+ 578 00aa 7968     		ldr	r1, [r7, #4]
+ 579 00ac 40F20002 		movw	r2, #:lower16:SCH_Task
+ 580 00b0 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 581 00b4 0B46     		mov	r3, r1
+ 582 00b6 4FEAC303 		lsl	r3, r3, #3
+ 583 00ba C1EB0303 		rsb	r3, r1, r3
+ 584 00be 4FEA8303 		lsl	r3, r3, #2
+ 585 00c2 1344     		add	r3, r3, r2
+ 586 00c4 03F10803 		add	r3, r3, #8
+ 587 00c8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 588 00ca A3F10203 		sub	r3, r3, #2
+ 589 00ce 1E2B     		cmp	r3, #30
+ 590 00d0 00F2E680 		bhi	.L28
+ 591 00d4 01A2     		adr	r2, .L34
+ 592 00d6 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 593 00da 00BF     		.align	2
+ 594              	.L34:
+ 595 00dc 59010000 		.word	.L29+1
+ 596 00e0 A1020000 		.word	.L28+1
+ 597 00e4 9B010000 		.word	.L30+1
+ 598 00e8 A1020000 		.word	.L28+1
+ 599 00ec A1020000 		.word	.L28+1
+ 600 00f0 A1020000 		.word	.L28+1
+ 601 00f4 DD010000 		.word	.L31+1
+ 602 00f8 A1020000 		.word	.L28+1
+ 603 00fc A1020000 		.word	.L28+1
+ 604 0100 A1020000 		.word	.L28+1
+ 605 0104 A1020000 		.word	.L28+1
+ 606 0108 A1020000 		.word	.L28+1
+ 607 010c A1020000 		.word	.L28+1
+ 608 0110 A1020000 		.word	.L28+1
+ 609 0114 1F020000 		.word	.L32+1
+ 610 0118 A1020000 		.word	.L28+1
+ 611 011c A1020000 		.word	.L28+1
+ 612 0120 A1020000 		.word	.L28+1
+ 613 0124 A1020000 		.word	.L28+1
+ 614 0128 A1020000 		.word	.L28+1
+ 615 012c A1020000 		.word	.L28+1
+ 616 0130 A1020000 		.word	.L28+1
+ 617 0134 A1020000 		.word	.L28+1
+ 618 0138 A1020000 		.word	.L28+1
+ 619 013c A1020000 		.word	.L28+1
+ 620 0140 A1020000 		.word	.L28+1
+ 621 0144 A1020000 		.word	.L28+1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 15
+
+
+ 622 0148 A1020000 		.word	.L28+1
+ 623 014c A1020000 		.word	.L28+1
+ 624 0150 A1020000 		.word	.L28+1
+ 625 0154 61020000 		.word	.L33+1
+ 626              	.L29:
+ 157:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             {
+ 158:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_NEW:          n += sprintf((char*)SCH_TaskBuffer + n, "NEW");
+ 627              		.loc 1 158 0
+ 628 0158 40F20003 		movw	r3, #:lower16:n
+ 629 015c C0F20003 		movt	r3, #:upper16:n
+ 630 0160 1B68     		ldr	r3, [r3, #0]
+ 631 0162 1A46     		mov	r2, r3
+ 632 0164 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 633 0168 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 634 016c 1344     		add	r3, r2, r3
+ 635 016e 1846     		mov	r0, r3
+ 636 0170 40F20001 		movw	r1, #:lower16:.LC2
+ 637 0174 C0F20001 		movt	r1, #:upper16:.LC2
+ 638 0178 4FF00402 		mov	r2, #4
+ 639 017c FFF7FEFF 		bl	memcpy
+ 640 0180 40F20003 		movw	r3, #:lower16:n
+ 641 0184 C0F20003 		movt	r3, #:upper16:n
+ 642 0188 1B68     		ldr	r3, [r3, #0]
+ 643 018a 03F10302 		add	r2, r3, #3
+ 644 018e 40F20003 		movw	r3, #:lower16:n
+ 645 0192 C0F20003 		movt	r3, #:upper16:n
+ 646 0196 1A60     		str	r2, [r3, #0]
+ 159:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             break;
+ 647              		.loc 1 159 0
+ 648 0198 82E0     		b	.L28
+ 649              	.L30:
+ 160:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_READY:        n += sprintf((char*)SCH_TaskBuffer + n, "READY");
+ 650              		.loc 1 160 0
+ 651 019a 40F20003 		movw	r3, #:lower16:n
+ 652 019e C0F20003 		movt	r3, #:upper16:n
+ 653 01a2 1B68     		ldr	r3, [r3, #0]
+ 654 01a4 1A46     		mov	r2, r3
+ 655 01a6 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 656 01aa C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 657 01ae 1344     		add	r3, r2, r3
+ 658 01b0 1846     		mov	r0, r3
+ 659 01b2 40F20001 		movw	r1, #:lower16:.LC3
+ 660 01b6 C0F20001 		movt	r1, #:upper16:.LC3
+ 661 01ba 4FF00602 		mov	r2, #6
+ 662 01be FFF7FEFF 		bl	memcpy
+ 663 01c2 40F20003 		movw	r3, #:lower16:n
+ 664 01c6 C0F20003 		movt	r3, #:upper16:n
+ 665 01ca 1B68     		ldr	r3, [r3, #0]
+ 666 01cc 03F10502 		add	r2, r3, #5
+ 667 01d0 40F20003 		movw	r3, #:lower16:n
+ 668 01d4 C0F20003 		movt	r3, #:upper16:n
+ 669 01d8 1A60     		str	r2, [r3, #0]
+ 161:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             break;
+ 670              		.loc 1 161 0
+ 671 01da 61E0     		b	.L28
+ 672              	.L31:
+ 162:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_RUNNING:      n += sprintf((char*)SCH_TaskBuffer + n, "RUNNING");
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 16
+
+
+ 673              		.loc 1 162 0
+ 674 01dc 40F20003 		movw	r3, #:lower16:n
+ 675 01e0 C0F20003 		movt	r3, #:upper16:n
+ 676 01e4 1B68     		ldr	r3, [r3, #0]
+ 677 01e6 1A46     		mov	r2, r3
+ 678 01e8 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 679 01ec C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 680 01f0 1344     		add	r3, r2, r3
+ 681 01f2 1846     		mov	r0, r3
+ 682 01f4 40F20001 		movw	r1, #:lower16:.LC4
+ 683 01f8 C0F20001 		movt	r1, #:upper16:.LC4
+ 684 01fc 4FF00802 		mov	r2, #8
+ 685 0200 FFF7FEFF 		bl	memcpy
+ 686 0204 40F20003 		movw	r3, #:lower16:n
+ 687 0208 C0F20003 		movt	r3, #:upper16:n
+ 688 020c 1B68     		ldr	r3, [r3, #0]
+ 689 020e 03F10702 		add	r2, r3, #7
+ 690 0212 40F20003 		movw	r3, #:lower16:n
+ 691 0216 C0F20003 		movt	r3, #:upper16:n
+ 692 021a 1A60     		str	r2, [r3, #0]
+ 163:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             break;
+ 693              		.loc 1 163 0
+ 694 021c 40E0     		b	.L28
+ 695              	.L32:
+ 164:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_WAITING:      n += sprintf((char*)SCH_TaskBuffer + n, "WAITING");
+ 696              		.loc 1 164 0
+ 697 021e 40F20003 		movw	r3, #:lower16:n
+ 698 0222 C0F20003 		movt	r3, #:upper16:n
+ 699 0226 1B68     		ldr	r3, [r3, #0]
+ 700 0228 1A46     		mov	r2, r3
+ 701 022a 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 702 022e C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 703 0232 1344     		add	r3, r2, r3
+ 704 0234 1846     		mov	r0, r3
+ 705 0236 40F20001 		movw	r1, #:lower16:.LC5
+ 706 023a C0F20001 		movt	r1, #:upper16:.LC5
+ 707 023e 4FF00802 		mov	r2, #8
+ 708 0242 FFF7FEFF 		bl	memcpy
+ 709 0246 40F20003 		movw	r3, #:lower16:n
+ 710 024a C0F20003 		movt	r3, #:upper16:n
+ 711 024e 1B68     		ldr	r3, [r3, #0]
+ 712 0250 03F10702 		add	r2, r3, #7
+ 713 0254 40F20003 		movw	r3, #:lower16:n
+ 714 0258 C0F20003 		movt	r3, #:upper16:n
+ 715 025c 1A60     		str	r2, [r3, #0]
+ 165:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             break;
+ 716              		.loc 1 165 0
+ 717 025e 1FE0     		b	.L28
+ 718              	.L33:
+ 166:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_TERMINATED:   n += sprintf((char*)SCH_TaskBuffer + n, "TERMINATED");
+ 719              		.loc 1 166 0
+ 720 0260 40F20003 		movw	r3, #:lower16:n
+ 721 0264 C0F20003 		movt	r3, #:upper16:n
+ 722 0268 1B68     		ldr	r3, [r3, #0]
+ 723 026a 1A46     		mov	r2, r3
+ 724 026c 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 725 0270 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 17
+
+
+ 726 0274 1344     		add	r3, r2, r3
+ 727 0276 1846     		mov	r0, r3
+ 728 0278 40F20001 		movw	r1, #:lower16:.LC6
+ 729 027c C0F20001 		movt	r1, #:upper16:.LC6
+ 730 0280 4FF00B02 		mov	r2, #11
+ 731 0284 FFF7FEFF 		bl	memcpy
+ 732 0288 40F20003 		movw	r3, #:lower16:n
+ 733 028c C0F20003 		movt	r3, #:upper16:n
+ 734 0290 1B68     		ldr	r3, [r3, #0]
+ 735 0292 03F10A02 		add	r2, r3, #10
+ 736 0296 40F20003 		movw	r3, #:lower16:n
+ 737 029a C0F20003 		movt	r3, #:upper16:n
+ 738 029e 1A60     		str	r2, [r3, #0]
+ 739              	.L28:
+ 167:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             break;
+ 168:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 default:                    break;                                
+ 169:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             }
+ 170:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             
+ 171:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             n += sprintf((char*)SCH_TaskBuffer + n, " %s\n", SCH_Task[i].dependency);
+ 740              		.loc 1 171 0
+ 741 02a0 40F20003 		movw	r3, #:lower16:n
+ 742 02a4 C0F20003 		movt	r3, #:upper16:n
+ 743 02a8 1B68     		ldr	r3, [r3, #0]
+ 744 02aa 1A46     		mov	r2, r3
+ 745 02ac 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 746 02b0 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 747 02b4 02EB0301 		add	r1, r2, r3
+ 748 02b8 7A68     		ldr	r2, [r7, #4]
+ 749 02ba 1346     		mov	r3, r2
+ 750 02bc 4FEAC303 		lsl	r3, r3, #3
+ 751 02c0 C2EB0303 		rsb	r3, r2, r3
+ 752 02c4 4FEA8303 		lsl	r3, r3, #2
+ 753 02c8 03F11002 		add	r2, r3, #16
+ 754 02cc 40F20003 		movw	r3, #:lower16:SCH_Task
+ 755 02d0 C0F20003 		movt	r3, #:upper16:SCH_Task
+ 756 02d4 1344     		add	r3, r2, r3
+ 757 02d6 03F10403 		add	r3, r3, #4
+ 758 02da 0846     		mov	r0, r1
+ 759 02dc 40F20001 		movw	r1, #:lower16:.LC7
+ 760 02e0 C0F20001 		movt	r1, #:upper16:.LC7
+ 761 02e4 1A46     		mov	r2, r3
+ 762 02e6 FFF7FEFF 		bl	sprintf
+ 763 02ea 0246     		mov	r2, r0
+ 764 02ec 40F20003 		movw	r3, #:lower16:n
+ 765 02f0 C0F20003 		movt	r3, #:upper16:n
+ 766 02f4 1B68     		ldr	r3, [r3, #0]
+ 767 02f6 1A44     		add	r2, r2, r3
+ 768 02f8 40F20003 		movw	r3, #:lower16:n
+ 769 02fc C0F20003 		movt	r3, #:upper16:n
+ 770 0300 1A60     		str	r2, [r3, #0]
+ 172:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****             if ((n+64)>1024)
+ 771              		.loc 1 172 0
+ 772 0302 40F20003 		movw	r3, #:lower16:n
+ 773 0306 C0F20003 		movt	r3, #:upper16:n
+ 774 030a 1B68     		ldr	r3, [r3, #0]
+ 775 030c 03F14003 		add	r3, r3, #64
+ 776 0310 B3F5806F 		cmp	r3, #1024
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 18
+
+
+ 777 0314 06DD     		ble	.L35
+ 173:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 n=0;
+ 778              		.loc 1 173 0
+ 779 0316 40F20003 		movw	r3, #:lower16:n
+ 780 031a C0F20003 		movt	r3, #:upper16:n
+ 781 031e 4FF00002 		mov	r2, #0
+ 782 0322 1A60     		str	r2, [r3, #0]
+ 783              	.L35:
+ 784              		.loc 1 150 0
+ 785 0324 7B68     		ldr	r3, [r7, #4]
+ 786 0326 03F10103 		add	r3, r3, #1
+ 787 032a 7B60     		str	r3, [r7, #4]
+ 788              	.L27:
+ 789 032c 7B68     		ldr	r3, [r7, #4]
+ 790 032e A72B     		cmp	r3, #167
+ 791 0330 7FF68DAE 		bls	.L36
+ 174:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         }
+ 175:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     }
+ 176:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** }
+ 792              		.loc 1 176 0
+ 793 0334 07F10807 		add	r7, r7, #8
+ 794 0338 BD46     		mov	sp, r7
+ 795 033a 80BD     		pop	{r7, pc}
+ 796              		.cfi_endproc
+ 797              	.LFE31:
+ 798              		.size	SCH_ShowCurrentTasks, .-SCH_ShowCurrentTasks
+ 799              		.text
+ 800              	.Letext0:
+ 801              		.section	.debug_loc,"",%progbits
+ 802              	.Ldebug_loc0:
+ 803              	.LLST0:
+ 804 0000 00000000 		.4byte	.LFB29
+ 805 0004 02000000 		.4byte	.LCFI0
+ 806 0008 0100     		.2byte	0x1
+ 807 000a 5D       		.byte	0x5d
+ 808 000b 02000000 		.4byte	.LCFI0
+ 809 000f 04000000 		.4byte	.LCFI1
+ 810 0013 0200     		.2byte	0x2
+ 811 0015 7D       		.byte	0x7d
+ 812 0016 08       		.sleb128 8
+ 813 0017 04000000 		.4byte	.LCFI1
+ 814 001b 06000000 		.4byte	.LCFI2
+ 815 001f 0200     		.2byte	0x2
+ 816 0021 7D       		.byte	0x7d
+ 817 0022 18       		.sleb128 24
+ 818 0023 06000000 		.4byte	.LCFI2
+ 819 0027 64000000 		.4byte	.LFE29
+ 820 002b 0200     		.2byte	0x2
+ 821 002d 77       		.byte	0x77
+ 822 002e 18       		.sleb128 24
+ 823 002f 00000000 		.4byte	0x0
+ 824 0033 00000000 		.4byte	0x0
+ 825              	.LLST1:
+ 826 0037 00000000 		.4byte	.LFB30
+ 827 003b 02000000 		.4byte	.LCFI3
+ 828 003f 0100     		.2byte	0x1
+ 829 0041 5D       		.byte	0x5d
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 19
+
+
+ 830 0042 02000000 		.4byte	.LCFI3
+ 831 0046 04000000 		.4byte	.LCFI4
+ 832 004a 0200     		.2byte	0x2
+ 833 004c 7D       		.byte	0x7d
+ 834 004d 08       		.sleb128 8
+ 835 004e 04000000 		.4byte	.LCFI4
+ 836 0052 06000000 		.4byte	.LCFI5
+ 837 0056 0200     		.2byte	0x2
+ 838 0058 7D       		.byte	0x7d
+ 839 0059 10       		.sleb128 16
+ 840 005a 06000000 		.4byte	.LCFI5
+ 841 005e 04030000 		.4byte	.LFE30
+ 842 0062 0200     		.2byte	0x2
+ 843 0064 77       		.byte	0x77
+ 844 0065 10       		.sleb128 16
+ 845 0066 00000000 		.4byte	0x0
+ 846 006a 00000000 		.4byte	0x0
+ 847              	.LLST2:
+ 848 006e 00000000 		.4byte	.LFB31
+ 849 0072 02000000 		.4byte	.LCFI6
+ 850 0076 0100     		.2byte	0x1
+ 851 0078 5D       		.byte	0x5d
+ 852 0079 02000000 		.4byte	.LCFI6
+ 853 007d 04000000 		.4byte	.LCFI7
+ 854 0081 0200     		.2byte	0x2
+ 855 0083 7D       		.byte	0x7d
+ 856 0084 08       		.sleb128 8
+ 857 0085 04000000 		.4byte	.LCFI7
+ 858 0089 06000000 		.4byte	.LCFI8
+ 859 008d 0200     		.2byte	0x2
+ 860 008f 7D       		.byte	0x7d
+ 861 0090 10       		.sleb128 16
+ 862 0091 06000000 		.4byte	.LCFI8
+ 863 0095 3C030000 		.4byte	.LFE31
+ 864 0099 0200     		.2byte	0x2
+ 865 009b 77       		.byte	0x77
+ 866 009c 10       		.sleb128 16
+ 867 009d 00000000 		.4byte	0x0
+ 868 00a1 00000000 		.4byte	0x0
+ 869              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 870              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 871              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
+ 872              		.file 5 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/scheduler.h"
+ 873              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ 874              		.section	.debug_info
+ 875 0000 79020000 		.4byte	0x279
+ 876 0004 0200     		.2byte	0x2
+ 877 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 878 000a 04       		.byte	0x4
+ 879 000b 01       		.uleb128 0x1
+ 880 000c D5010000 		.4byte	.LASF32
+ 881 0010 01       		.byte	0x1
+ 882 0011 61010000 		.4byte	.LASF33
+ 883 0015 3F000000 		.4byte	.LASF34
+ 884 0019 00000000 		.4byte	0x0
+ 885 001d 00000000 		.4byte	0x0
+ 886 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 20
+
+
+ 887 0025 00000000 		.4byte	.Ldebug_line0
+ 888 0029 02       		.uleb128 0x2
+ 889 002a 01       		.byte	0x1
+ 890 002b 06       		.byte	0x6
+ 891 002c 15020000 		.4byte	.LASF0
+ 892 0030 03       		.uleb128 0x3
+ 893 0031 B0010000 		.4byte	.LASF9
+ 894 0035 02       		.byte	0x2
+ 895 0036 2A       		.byte	0x2a
+ 896 0037 3B000000 		.4byte	0x3b
+ 897 003b 02       		.uleb128 0x2
+ 898 003c 01       		.byte	0x1
+ 899 003d 08       		.byte	0x8
+ 900 003e C2000000 		.4byte	.LASF1
+ 901 0042 02       		.uleb128 0x2
+ 902 0043 02       		.byte	0x2
+ 903 0044 05       		.byte	0x5
+ 904 0045 EF010000 		.4byte	.LASF2
+ 905 0049 02       		.uleb128 0x2
+ 906 004a 02       		.byte	0x2
+ 907 004b 07       		.byte	0x7
+ 908 004c FB000000 		.4byte	.LASF3
+ 909 0050 02       		.uleb128 0x2
+ 910 0051 04       		.byte	0x4
+ 911 0052 05       		.byte	0x5
+ 912 0053 0C020000 		.4byte	.LASF4
+ 913 0057 02       		.uleb128 0x2
+ 914 0058 04       		.byte	0x4
+ 915 0059 07       		.byte	0x7
+ 916 005a E9000000 		.4byte	.LASF5
+ 917 005e 02       		.uleb128 0x2
+ 918 005f 08       		.byte	0x8
+ 919 0060 05       		.byte	0x5
+ 920 0061 00000000 		.4byte	.LASF6
+ 921 0065 02       		.uleb128 0x2
+ 922 0066 08       		.byte	0x8
+ 923 0067 07       		.byte	0x7
+ 924 0068 99010000 		.4byte	.LASF7
+ 925 006c 04       		.uleb128 0x4
+ 926 006d 04       		.byte	0x4
+ 927 006e 05       		.byte	0x5
+ 928 006f 696E7400 		.ascii	"int\000"
+ 929 0073 02       		.uleb128 0x2
+ 930 0074 04       		.byte	0x4
+ 931 0075 07       		.byte	0x7
+ 932 0076 54010000 		.4byte	.LASF8
+ 933 007a 03       		.uleb128 0x3
+ 934 007b F9010000 		.4byte	.LASF10
+ 935 007f 03       		.byte	0x3
+ 936 0080 4C       		.byte	0x4c
+ 937 0081 3B000000 		.4byte	0x3b
+ 938 0085 02       		.uleb128 0x2
+ 939 0086 04       		.byte	0x4
+ 940 0087 04       		.byte	0x4
+ 941 0088 B5000000 		.4byte	.LASF11
+ 942 008c 02       		.uleb128 0x2
+ 943 008d 08       		.byte	0x8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 21
+
+
+ 944 008e 04       		.byte	0x4
+ 945 008f 26010000 		.4byte	.LASF12
+ 946 0093 02       		.uleb128 0x2
+ 947 0094 01       		.byte	0x1
+ 948 0095 08       		.byte	0x8
+ 949 0096 E1010000 		.4byte	.LASF13
+ 950 009a 05       		.uleb128 0x5
+ 951 009b 04       		.byte	0x4
+ 952 009c 07       		.byte	0x7
+ 953 009d 03       		.uleb128 0x3
+ 954 009e 20010000 		.4byte	.LASF14
+ 955 00a2 04       		.byte	0x4
+ 956 00a3 0E       		.byte	0xe
+ 957 00a4 7A000000 		.4byte	0x7a
+ 958 00a8 03       		.uleb128 0x3
+ 959 00a9 BB000000 		.4byte	.LASF15
+ 960 00ad 04       		.byte	0x4
+ 961 00ae 0F       		.byte	0xf
+ 962 00af 7A000000 		.4byte	0x7a
+ 963 00b3 03       		.uleb128 0x3
+ 964 00b4 1B000000 		.4byte	.LASF16
+ 965 00b8 04       		.byte	0x4
+ 966 00b9 10       		.byte	0x10
+ 967 00ba 30000000 		.4byte	0x30
+ 968 00be 03       		.uleb128 0x3
+ 969 00bf C7010000 		.4byte	.LASF17
+ 970 00c3 05       		.byte	0x5
+ 971 00c4 1E       		.byte	0x1e
+ 972 00c5 C9000000 		.4byte	0xc9
+ 973 00c9 06       		.uleb128 0x6
+ 974 00ca 04       		.byte	0x4
+ 975 00cb CF000000 		.4byte	0xcf
+ 976 00cf 07       		.uleb128 0x7
+ 977 00d0 01       		.byte	0x1
+ 978 00d1 A8000000 		.4byte	0xa8
+ 979 00d5 08       		.uleb128 0x8
+ 980 00d6 3B010000 		.4byte	.LASF35
+ 981 00da 1C       		.byte	0x1c
+ 982 00db 05       		.byte	0x5
+ 983 00dc 22       		.byte	0x22
+ 984 00dd 36010000 		.4byte	0x136
+ 985 00e1 09       		.uleb128 0x9
+ 986 00e2 1B010000 		.4byte	.LASF18
+ 987 00e6 05       		.byte	0x5
+ 988 00e7 23       		.byte	0x23
+ 989 00e8 36010000 		.4byte	0x136
+ 990 00ec 02       		.byte	0x2
+ 991 00ed 23       		.byte	0x23
+ 992 00ee 00       		.uleb128 0x0
+ 993 00ef 09       		.uleb128 0x9
+ 994 00f0 9E000000 		.4byte	.LASF19
+ 995 00f4 05       		.byte	0x5
+ 996 00f5 24       		.byte	0x24
+ 997 00f6 9D000000 		.4byte	0x9d
+ 998 00fa 02       		.byte	0x2
+ 999 00fb 23       		.byte	0x23
+ 1000 00fc 08       		.uleb128 0x8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 22
+
+
+ 1001 00fd 09       		.uleb128 0x9
+ 1002 00fe 32010000 		.4byte	.LASF20
+ 1003 0102 05       		.byte	0x5
+ 1004 0103 25       		.byte	0x25
+ 1005 0104 9D000000 		.4byte	0x9d
+ 1006 0108 02       		.byte	0x2
+ 1007 0109 23       		.byte	0x23
+ 1008 010a 09       		.uleb128 0x9
+ 1009 010b 09       		.uleb128 0x9
+ 1010 010c 3A000000 		.4byte	.LASF21
+ 1011 0110 05       		.byte	0x5
+ 1012 0111 26       		.byte	0x26
+ 1013 0112 BE000000 		.4byte	0xbe
+ 1014 0116 02       		.byte	0x2
+ 1015 0117 23       		.byte	0x23
+ 1016 0118 0C       		.uleb128 0xc
+ 1017 0119 09       		.uleb128 0x9
+ 1018 011a 2D010000 		.4byte	.LASF22
+ 1019 011e 05       		.byte	0x5
+ 1020 011f 27       		.byte	0x27
+ 1021 0120 BE000000 		.4byte	0xbe
+ 1022 0124 02       		.byte	0x2
+ 1023 0125 23       		.byte	0x23
+ 1024 0126 10       		.uleb128 0x10
+ 1025 0127 09       		.uleb128 0x9
+ 1026 0128 D0000000 		.4byte	.LASF23
+ 1027 012c 05       		.byte	0x5
+ 1028 012d 28       		.byte	0x28
+ 1029 012e 36010000 		.4byte	0x136
+ 1030 0132 02       		.byte	0x2
+ 1031 0133 23       		.byte	0x23
+ 1032 0134 14       		.uleb128 0x14
+ 1033 0135 00       		.byte	0x0
+ 1034 0136 0A       		.uleb128 0xa
+ 1035 0137 9D000000 		.4byte	0x9d
+ 1036 013b 46010000 		.4byte	0x146
+ 1037 013f 0B       		.uleb128 0xb
+ 1038 0140 9A000000 		.4byte	0x9a
+ 1039 0144 07       		.byte	0x7
+ 1040 0145 00       		.byte	0x0
+ 1041 0146 03       		.uleb128 0x3
+ 1042 0147 4B010000 		.4byte	.LASF24
+ 1043 014b 05       		.byte	0x5
+ 1044 014c 29       		.byte	0x29
+ 1045 014d D5000000 		.4byte	0xd5
+ 1046 0151 0C       		.uleb128 0xc
+ 1047 0152 29000000 		.4byte	.LASF36
+ 1048 0156 01       		.byte	0x1
+ 1049 0157 24       		.byte	0x24
+ 1050 0158 01       		.byte	0x1
+ 1051 0159 9D000000 		.4byte	0x9d
+ 1052 015d 00000000 		.4byte	.LFB29
+ 1053 0161 64000000 		.4byte	.LFE29
+ 1054 0165 00000000 		.4byte	.LLST0
+ 1055 0169 96010000 		.4byte	0x196
+ 1056 016d 0D       		.uleb128 0xd
+ 1057 016e 20000000 		.4byte	.LASF37
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 23
+
+
+ 1058 0172 01       		.byte	0x1
+ 1059 0173 24       		.byte	0x24
+ 1060 0174 96010000 		.4byte	0x196
+ 1061 0178 02       		.byte	0x2
+ 1062 0179 91       		.byte	0x91
+ 1063 017a 6C       		.sleb128 -20
+ 1064 017b 0E       		.uleb128 0xe
+ 1065 017c 6900     		.ascii	"i\000"
+ 1066 017e 01       		.byte	0x1
+ 1067 017f 26       		.byte	0x26
+ 1068 0180 6C000000 		.4byte	0x6c
+ 1069 0184 02       		.byte	0x2
+ 1070 0185 91       		.byte	0x91
+ 1071 0186 70       		.sleb128 -16
+ 1072 0187 0E       		.uleb128 0xe
+ 1073 0188 69647800 		.ascii	"idx\000"
+ 1074 018c 01       		.byte	0x1
+ 1075 018d 27       		.byte	0x27
+ 1076 018e 9D000000 		.4byte	0x9d
+ 1077 0192 02       		.byte	0x2
+ 1078 0193 91       		.byte	0x91
+ 1079 0194 77       		.sleb128 -9
+ 1080 0195 00       		.byte	0x0
+ 1081 0196 06       		.uleb128 0x6
+ 1082 0197 04       		.byte	0x4
+ 1083 0198 9D000000 		.4byte	0x9d
+ 1084 019c 0F       		.uleb128 0xf
+ 1085 019d 01       		.byte	0x1
+ 1086 019e A5000000 		.4byte	.LASF27
+ 1087 01a2 01       		.byte	0x1
+ 1088 01a3 34       		.byte	0x34
+ 1089 01a4 01       		.byte	0x1
+ 1090 01a5 00000000 		.4byte	.LFB30
+ 1091 01a9 04030000 		.4byte	.LFE30
+ 1092 01ad 37000000 		.4byte	.LLST1
+ 1093 01b1 E0010000 		.4byte	0x1e0
+ 1094 01b5 10       		.uleb128 0x10
+ 1095 01b6 9E000000 		.4byte	.LASF19
+ 1096 01ba 01       		.byte	0x1
+ 1097 01bb 36       		.byte	0x36
+ 1098 01bc A8000000 		.4byte	0xa8
+ 1099 01c0 02       		.byte	0x2
+ 1100 01c1 91       		.byte	0x91
+ 1101 01c2 75       		.sleb128 -11
+ 1102 01c3 10       		.uleb128 0x10
+ 1103 01c4 0E000000 		.4byte	.LASF25
+ 1104 01c8 01       		.byte	0x1
+ 1105 01c9 37       		.byte	0x37
+ 1106 01ca 9D000000 		.4byte	0x9d
+ 1107 01ce 02       		.byte	0x2
+ 1108 01cf 91       		.byte	0x91
+ 1109 01d0 76       		.sleb128 -10
+ 1110 01d1 10       		.uleb128 0x10
+ 1111 01d2 FF010000 		.4byte	.LASF26
+ 1112 01d6 01       		.byte	0x1
+ 1113 01d7 38       		.byte	0x38
+ 1114 01d8 B3000000 		.4byte	0xb3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 24
+
+
+ 1115 01dc 02       		.byte	0x2
+ 1116 01dd 91       		.byte	0x91
+ 1117 01de 77       		.sleb128 -9
+ 1118 01df 00       		.byte	0x0
+ 1119 01e0 0F       		.uleb128 0xf
+ 1120 01e1 01       		.byte	0x1
+ 1121 01e2 21020000 		.4byte	.LASF28
+ 1122 01e6 01       		.byte	0x1
+ 1123 01e7 90       		.byte	0x90
+ 1124 01e8 01       		.byte	0x1
+ 1125 01e9 00000000 		.4byte	.LFB31
+ 1126 01ed 3C030000 		.4byte	.LFE31
+ 1127 01f1 6E000000 		.4byte	.LLST2
+ 1128 01f5 06020000 		.4byte	0x206
+ 1129 01f9 0E       		.uleb128 0xe
+ 1130 01fa 6900     		.ascii	"i\000"
+ 1131 01fc 01       		.byte	0x1
+ 1132 01fd 92       		.byte	0x92
+ 1133 01fe 6C000000 		.4byte	0x6c
+ 1134 0202 02       		.byte	0x2
+ 1135 0203 91       		.byte	0x91
+ 1136 0204 74       		.sleb128 -12
+ 1137 0205 00       		.byte	0x0
+ 1138 0206 10       		.uleb128 0x10
+ 1139 0207 DB000000 		.4byte	.LASF29
+ 1140 020b 01       		.byte	0x1
+ 1141 020c 12       		.byte	0x12
+ 1142 020d 6C000000 		.4byte	0x6c
+ 1143 0211 05       		.byte	0x5
+ 1144 0212 03       		.byte	0x3
+ 1145 0213 00000000 		.4byte	SCH_TaskIndex
+ 1146 0217 0A       		.uleb128 0xa
+ 1147 0218 46010000 		.4byte	0x146
+ 1148 021c 27020000 		.4byte	0x227
+ 1149 0220 0B       		.uleb128 0xb
+ 1150 0221 9A000000 		.4byte	0x9a
+ 1151 0225 05       		.byte	0x5
+ 1152 0226 00       		.byte	0x0
+ 1153 0227 10       		.uleb128 0x10
+ 1154 0228 E6010000 		.4byte	.LASF30
+ 1155 022c 01       		.byte	0x1
+ 1156 022d 13       		.byte	0x13
+ 1157 022e 17020000 		.4byte	0x217
+ 1158 0232 05       		.byte	0x5
+ 1159 0233 03       		.byte	0x3
+ 1160 0234 00000000 		.4byte	SCH_Task
+ 1161 0238 0A       		.uleb128 0xa
+ 1162 0239 9D000000 		.4byte	0x9d
+ 1163 023d 49020000 		.4byte	0x249
+ 1164 0241 11       		.uleb128 0x11
+ 1165 0242 9A000000 		.4byte	0x9a
+ 1166 0246 FF03     		.2byte	0x3ff
+ 1167 0248 00       		.byte	0x0
+ 1168 0249 10       		.uleb128 0x10
+ 1169 024a B8010000 		.4byte	.LASF31
+ 1170 024e 01       		.byte	0x1
+ 1171 024f 8D       		.byte	0x8d
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 25
+
+
+ 1172 0250 38020000 		.4byte	0x238
+ 1173 0254 05       		.byte	0x5
+ 1174 0255 03       		.byte	0x3
+ 1175 0256 04000000 		.4byte	SCH_TaskBuffer
+ 1176 025a 0E       		.uleb128 0xe
+ 1177 025b 6E00     		.ascii	"n\000"
+ 1178 025d 01       		.byte	0x1
+ 1179 025e 8E       		.byte	0x8e
+ 1180 025f 6C000000 		.4byte	0x6c
+ 1181 0263 05       		.byte	0x5
+ 1182 0264 03       		.byte	0x3
+ 1183 0265 04040000 		.4byte	n
+ 1184 0269 12       		.uleb128 0x12
+ 1185 026a 0E010000 		.4byte	.LASF38
+ 1186 026e 06       		.byte	0x6
+ 1187 026f CE06     		.2byte	0x6ce
+ 1188 0271 77020000 		.4byte	0x277
+ 1189 0275 01       		.byte	0x1
+ 1190 0276 01       		.byte	0x1
+ 1191 0277 13       		.uleb128 0x13
+ 1192 0278 6C000000 		.4byte	0x6c
+ 1193 027c 00       		.byte	0x0
+ 1194              		.section	.debug_abbrev
+ 1195 0000 01       		.uleb128 0x1
+ 1196 0001 11       		.uleb128 0x11
+ 1197 0002 01       		.byte	0x1
+ 1198 0003 25       		.uleb128 0x25
+ 1199 0004 0E       		.uleb128 0xe
+ 1200 0005 13       		.uleb128 0x13
+ 1201 0006 0B       		.uleb128 0xb
+ 1202 0007 03       		.uleb128 0x3
+ 1203 0008 0E       		.uleb128 0xe
+ 1204 0009 1B       		.uleb128 0x1b
+ 1205 000a 0E       		.uleb128 0xe
+ 1206 000b 11       		.uleb128 0x11
+ 1207 000c 01       		.uleb128 0x1
+ 1208 000d 52       		.uleb128 0x52
+ 1209 000e 01       		.uleb128 0x1
+ 1210 000f 55       		.uleb128 0x55
+ 1211 0010 06       		.uleb128 0x6
+ 1212 0011 10       		.uleb128 0x10
+ 1213 0012 06       		.uleb128 0x6
+ 1214 0013 00       		.byte	0x0
+ 1215 0014 00       		.byte	0x0
+ 1216 0015 02       		.uleb128 0x2
+ 1217 0016 24       		.uleb128 0x24
+ 1218 0017 00       		.byte	0x0
+ 1219 0018 0B       		.uleb128 0xb
+ 1220 0019 0B       		.uleb128 0xb
+ 1221 001a 3E       		.uleb128 0x3e
+ 1222 001b 0B       		.uleb128 0xb
+ 1223 001c 03       		.uleb128 0x3
+ 1224 001d 0E       		.uleb128 0xe
+ 1225 001e 00       		.byte	0x0
+ 1226 001f 00       		.byte	0x0
+ 1227 0020 03       		.uleb128 0x3
+ 1228 0021 16       		.uleb128 0x16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 26
+
+
+ 1229 0022 00       		.byte	0x0
+ 1230 0023 03       		.uleb128 0x3
+ 1231 0024 0E       		.uleb128 0xe
+ 1232 0025 3A       		.uleb128 0x3a
+ 1233 0026 0B       		.uleb128 0xb
+ 1234 0027 3B       		.uleb128 0x3b
+ 1235 0028 0B       		.uleb128 0xb
+ 1236 0029 49       		.uleb128 0x49
+ 1237 002a 13       		.uleb128 0x13
+ 1238 002b 00       		.byte	0x0
+ 1239 002c 00       		.byte	0x0
+ 1240 002d 04       		.uleb128 0x4
+ 1241 002e 24       		.uleb128 0x24
+ 1242 002f 00       		.byte	0x0
+ 1243 0030 0B       		.uleb128 0xb
+ 1244 0031 0B       		.uleb128 0xb
+ 1245 0032 3E       		.uleb128 0x3e
+ 1246 0033 0B       		.uleb128 0xb
+ 1247 0034 03       		.uleb128 0x3
+ 1248 0035 08       		.uleb128 0x8
+ 1249 0036 00       		.byte	0x0
+ 1250 0037 00       		.byte	0x0
+ 1251 0038 05       		.uleb128 0x5
+ 1252 0039 24       		.uleb128 0x24
+ 1253 003a 00       		.byte	0x0
+ 1254 003b 0B       		.uleb128 0xb
+ 1255 003c 0B       		.uleb128 0xb
+ 1256 003d 3E       		.uleb128 0x3e
+ 1257 003e 0B       		.uleb128 0xb
+ 1258 003f 00       		.byte	0x0
+ 1259 0040 00       		.byte	0x0
+ 1260 0041 06       		.uleb128 0x6
+ 1261 0042 0F       		.uleb128 0xf
+ 1262 0043 00       		.byte	0x0
+ 1263 0044 0B       		.uleb128 0xb
+ 1264 0045 0B       		.uleb128 0xb
+ 1265 0046 49       		.uleb128 0x49
+ 1266 0047 13       		.uleb128 0x13
+ 1267 0048 00       		.byte	0x0
+ 1268 0049 00       		.byte	0x0
+ 1269 004a 07       		.uleb128 0x7
+ 1270 004b 15       		.uleb128 0x15
+ 1271 004c 00       		.byte	0x0
+ 1272 004d 27       		.uleb128 0x27
+ 1273 004e 0C       		.uleb128 0xc
+ 1274 004f 49       		.uleb128 0x49
+ 1275 0050 13       		.uleb128 0x13
+ 1276 0051 00       		.byte	0x0
+ 1277 0052 00       		.byte	0x0
+ 1278 0053 08       		.uleb128 0x8
+ 1279 0054 13       		.uleb128 0x13
+ 1280 0055 01       		.byte	0x1
+ 1281 0056 03       		.uleb128 0x3
+ 1282 0057 0E       		.uleb128 0xe
+ 1283 0058 0B       		.uleb128 0xb
+ 1284 0059 0B       		.uleb128 0xb
+ 1285 005a 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 27
+
+
+ 1286 005b 0B       		.uleb128 0xb
+ 1287 005c 3B       		.uleb128 0x3b
+ 1288 005d 0B       		.uleb128 0xb
+ 1289 005e 01       		.uleb128 0x1
+ 1290 005f 13       		.uleb128 0x13
+ 1291 0060 00       		.byte	0x0
+ 1292 0061 00       		.byte	0x0
+ 1293 0062 09       		.uleb128 0x9
+ 1294 0063 0D       		.uleb128 0xd
+ 1295 0064 00       		.byte	0x0
+ 1296 0065 03       		.uleb128 0x3
+ 1297 0066 0E       		.uleb128 0xe
+ 1298 0067 3A       		.uleb128 0x3a
+ 1299 0068 0B       		.uleb128 0xb
+ 1300 0069 3B       		.uleb128 0x3b
+ 1301 006a 0B       		.uleb128 0xb
+ 1302 006b 49       		.uleb128 0x49
+ 1303 006c 13       		.uleb128 0x13
+ 1304 006d 38       		.uleb128 0x38
+ 1305 006e 0A       		.uleb128 0xa
+ 1306 006f 00       		.byte	0x0
+ 1307 0070 00       		.byte	0x0
+ 1308 0071 0A       		.uleb128 0xa
+ 1309 0072 01       		.uleb128 0x1
+ 1310 0073 01       		.byte	0x1
+ 1311 0074 49       		.uleb128 0x49
+ 1312 0075 13       		.uleb128 0x13
+ 1313 0076 01       		.uleb128 0x1
+ 1314 0077 13       		.uleb128 0x13
+ 1315 0078 00       		.byte	0x0
+ 1316 0079 00       		.byte	0x0
+ 1317 007a 0B       		.uleb128 0xb
+ 1318 007b 21       		.uleb128 0x21
+ 1319 007c 00       		.byte	0x0
+ 1320 007d 49       		.uleb128 0x49
+ 1321 007e 13       		.uleb128 0x13
+ 1322 007f 2F       		.uleb128 0x2f
+ 1323 0080 0B       		.uleb128 0xb
+ 1324 0081 00       		.byte	0x0
+ 1325 0082 00       		.byte	0x0
+ 1326 0083 0C       		.uleb128 0xc
+ 1327 0084 2E       		.uleb128 0x2e
+ 1328 0085 01       		.byte	0x1
+ 1329 0086 03       		.uleb128 0x3
+ 1330 0087 0E       		.uleb128 0xe
+ 1331 0088 3A       		.uleb128 0x3a
+ 1332 0089 0B       		.uleb128 0xb
+ 1333 008a 3B       		.uleb128 0x3b
+ 1334 008b 0B       		.uleb128 0xb
+ 1335 008c 27       		.uleb128 0x27
+ 1336 008d 0C       		.uleb128 0xc
+ 1337 008e 49       		.uleb128 0x49
+ 1338 008f 13       		.uleb128 0x13
+ 1339 0090 11       		.uleb128 0x11
+ 1340 0091 01       		.uleb128 0x1
+ 1341 0092 12       		.uleb128 0x12
+ 1342 0093 01       		.uleb128 0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 28
+
+
+ 1343 0094 40       		.uleb128 0x40
+ 1344 0095 06       		.uleb128 0x6
+ 1345 0096 01       		.uleb128 0x1
+ 1346 0097 13       		.uleb128 0x13
+ 1347 0098 00       		.byte	0x0
+ 1348 0099 00       		.byte	0x0
+ 1349 009a 0D       		.uleb128 0xd
+ 1350 009b 05       		.uleb128 0x5
+ 1351 009c 00       		.byte	0x0
+ 1352 009d 03       		.uleb128 0x3
+ 1353 009e 0E       		.uleb128 0xe
+ 1354 009f 3A       		.uleb128 0x3a
+ 1355 00a0 0B       		.uleb128 0xb
+ 1356 00a1 3B       		.uleb128 0x3b
+ 1357 00a2 0B       		.uleb128 0xb
+ 1358 00a3 49       		.uleb128 0x49
+ 1359 00a4 13       		.uleb128 0x13
+ 1360 00a5 02       		.uleb128 0x2
+ 1361 00a6 0A       		.uleb128 0xa
+ 1362 00a7 00       		.byte	0x0
+ 1363 00a8 00       		.byte	0x0
+ 1364 00a9 0E       		.uleb128 0xe
+ 1365 00aa 34       		.uleb128 0x34
+ 1366 00ab 00       		.byte	0x0
+ 1367 00ac 03       		.uleb128 0x3
+ 1368 00ad 08       		.uleb128 0x8
+ 1369 00ae 3A       		.uleb128 0x3a
+ 1370 00af 0B       		.uleb128 0xb
+ 1371 00b0 3B       		.uleb128 0x3b
+ 1372 00b1 0B       		.uleb128 0xb
+ 1373 00b2 49       		.uleb128 0x49
+ 1374 00b3 13       		.uleb128 0x13
+ 1375 00b4 02       		.uleb128 0x2
+ 1376 00b5 0A       		.uleb128 0xa
+ 1377 00b6 00       		.byte	0x0
+ 1378 00b7 00       		.byte	0x0
+ 1379 00b8 0F       		.uleb128 0xf
+ 1380 00b9 2E       		.uleb128 0x2e
+ 1381 00ba 01       		.byte	0x1
+ 1382 00bb 3F       		.uleb128 0x3f
+ 1383 00bc 0C       		.uleb128 0xc
+ 1384 00bd 03       		.uleb128 0x3
+ 1385 00be 0E       		.uleb128 0xe
+ 1386 00bf 3A       		.uleb128 0x3a
+ 1387 00c0 0B       		.uleb128 0xb
+ 1388 00c1 3B       		.uleb128 0x3b
+ 1389 00c2 0B       		.uleb128 0xb
+ 1390 00c3 27       		.uleb128 0x27
+ 1391 00c4 0C       		.uleb128 0xc
+ 1392 00c5 11       		.uleb128 0x11
+ 1393 00c6 01       		.uleb128 0x1
+ 1394 00c7 12       		.uleb128 0x12
+ 1395 00c8 01       		.uleb128 0x1
+ 1396 00c9 40       		.uleb128 0x40
+ 1397 00ca 06       		.uleb128 0x6
+ 1398 00cb 01       		.uleb128 0x1
+ 1399 00cc 13       		.uleb128 0x13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 29
+
+
+ 1400 00cd 00       		.byte	0x0
+ 1401 00ce 00       		.byte	0x0
+ 1402 00cf 10       		.uleb128 0x10
+ 1403 00d0 34       		.uleb128 0x34
+ 1404 00d1 00       		.byte	0x0
+ 1405 00d2 03       		.uleb128 0x3
+ 1406 00d3 0E       		.uleb128 0xe
+ 1407 00d4 3A       		.uleb128 0x3a
+ 1408 00d5 0B       		.uleb128 0xb
+ 1409 00d6 3B       		.uleb128 0x3b
+ 1410 00d7 0B       		.uleb128 0xb
+ 1411 00d8 49       		.uleb128 0x49
+ 1412 00d9 13       		.uleb128 0x13
+ 1413 00da 02       		.uleb128 0x2
+ 1414 00db 0A       		.uleb128 0xa
+ 1415 00dc 00       		.byte	0x0
+ 1416 00dd 00       		.byte	0x0
+ 1417 00de 11       		.uleb128 0x11
+ 1418 00df 21       		.uleb128 0x21
+ 1419 00e0 00       		.byte	0x0
+ 1420 00e1 49       		.uleb128 0x49
+ 1421 00e2 13       		.uleb128 0x13
+ 1422 00e3 2F       		.uleb128 0x2f
+ 1423 00e4 05       		.uleb128 0x5
+ 1424 00e5 00       		.byte	0x0
+ 1425 00e6 00       		.byte	0x0
+ 1426 00e7 12       		.uleb128 0x12
+ 1427 00e8 34       		.uleb128 0x34
+ 1428 00e9 00       		.byte	0x0
+ 1429 00ea 03       		.uleb128 0x3
+ 1430 00eb 0E       		.uleb128 0xe
+ 1431 00ec 3A       		.uleb128 0x3a
+ 1432 00ed 0B       		.uleb128 0xb
+ 1433 00ee 3B       		.uleb128 0x3b
+ 1434 00ef 05       		.uleb128 0x5
+ 1435 00f0 49       		.uleb128 0x49
+ 1436 00f1 13       		.uleb128 0x13
+ 1437 00f2 3F       		.uleb128 0x3f
+ 1438 00f3 0C       		.uleb128 0xc
+ 1439 00f4 3C       		.uleb128 0x3c
+ 1440 00f5 0C       		.uleb128 0xc
+ 1441 00f6 00       		.byte	0x0
+ 1442 00f7 00       		.byte	0x0
+ 1443 00f8 13       		.uleb128 0x13
+ 1444 00f9 35       		.uleb128 0x35
+ 1445 00fa 00       		.byte	0x0
+ 1446 00fb 49       		.uleb128 0x49
+ 1447 00fc 13       		.uleb128 0x13
+ 1448 00fd 00       		.byte	0x0
+ 1449 00fe 00       		.byte	0x0
+ 1450 00ff 00       		.byte	0x0
+ 1451              		.section	.debug_pubnames,"",%progbits
+ 1452 0000 3B000000 		.4byte	0x3b
+ 1453 0004 0200     		.2byte	0x2
+ 1454 0006 00000000 		.4byte	.Ldebug_info0
+ 1455 000a 7D020000 		.4byte	0x27d
+ 1456 000e 9C010000 		.4byte	0x19c
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 30
+
+
+ 1457 0012 5343485F 		.ascii	"SCH_TaskHandler\000"
+ 1457      5461736B 
+ 1457      48616E64 
+ 1457      6C657200 
+ 1458 0022 E0010000 		.4byte	0x1e0
+ 1459 0026 5343485F 		.ascii	"SCH_ShowCurrentTasks\000"
+ 1459      53686F77 
+ 1459      43757272 
+ 1459      656E7454 
+ 1459      61736B73 
+ 1460 003b 00000000 		.4byte	0x0
+ 1461              		.section	.debug_aranges,"",%progbits
+ 1462 0000 2C000000 		.4byte	0x2c
+ 1463 0004 0200     		.2byte	0x2
+ 1464 0006 00000000 		.4byte	.Ldebug_info0
+ 1465 000a 04       		.byte	0x4
+ 1466 000b 00       		.byte	0x0
+ 1467 000c 0000     		.2byte	0x0
+ 1468 000e 0000     		.2byte	0x0
+ 1469 0010 00000000 		.4byte	.LFB29
+ 1470 0014 64000000 		.4byte	.LFE29-.LFB29
+ 1471 0018 00000000 		.4byte	.LFB30
+ 1472 001c 04030000 		.4byte	.LFE30-.LFB30
+ 1473 0020 00000000 		.4byte	.LFB31
+ 1474 0024 3C030000 		.4byte	.LFE31-.LFB31
+ 1475 0028 00000000 		.4byte	0x0
+ 1476 002c 00000000 		.4byte	0x0
+ 1477              		.section	.debug_ranges,"",%progbits
+ 1478              	.Ldebug_ranges0:
+ 1479 0000 00000000 		.4byte	.Ltext0
+ 1480 0004 00000000 		.4byte	.Letext0
+ 1481 0008 00000000 		.4byte	.LFB29
+ 1482 000c 64000000 		.4byte	.LFE29
+ 1483 0010 00000000 		.4byte	.LFB30
+ 1484 0014 04030000 		.4byte	.LFE30
+ 1485 0018 00000000 		.4byte	.LFB31
+ 1486 001c 3C030000 		.4byte	.LFE31
+ 1487 0020 00000000 		.4byte	0x0
+ 1488 0024 00000000 		.4byte	0x0
+ 1489              		.section	.debug_str,"MS",%progbits,1
+ 1490              	.LASF6:
+ 1491 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1491      206C6F6E 
+ 1491      6720696E 
+ 1491      7400
+ 1492              	.LASF25:
+ 1493 000e 64657054 		.ascii	"depTaskIndex\000"
+ 1493      61736B49 
+ 1493      6E646578 
+ 1493      00
+ 1494              	.LASF16:
+ 1495 001b 424F4F4C 		.ascii	"BOOL\000"
+ 1495      00
+ 1496              	.LASF37:
+ 1497 0020 7461736B 		.ascii	"taskName\000"
+ 1497      4E616D65 
+ 1497      00
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 31
+
+
+ 1498              	.LASF36:
+ 1499 0029 5343485F 		.ascii	"SCH_GetTaskIndex\000"
+ 1499      47657454 
+ 1499      61736B49 
+ 1499      6E646578 
+ 1499      00
+ 1500              	.LASF21:
+ 1501 003a 696E6974 		.ascii	"init\000"
+ 1501      00
+ 1502              	.LASF34:
+ 1503 003f 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
+ 1503      6F626F74 
+ 1503      69637363 
+ 1503      6F64655C 
+ 1503      7472756E 
+ 1504 006d 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
+ 1504      6C617466 
+ 1504      6F726D32 
+ 1504      5C447269 
+ 1504      7665506C 
+ 1505              	.LASF19:
+ 1506 009e 73746174 		.ascii	"status\000"
+ 1506      757300
+ 1507              	.LASF27:
+ 1508 00a5 5343485F 		.ascii	"SCH_TaskHandler\000"
+ 1508      5461736B 
+ 1508      48616E64 
+ 1508      6C657200 
+ 1509              	.LASF11:
+ 1510 00b5 666C6F61 		.ascii	"float\000"
+ 1510      7400
+ 1511              	.LASF15:
+ 1512 00bb 53544154 		.ascii	"STATUS\000"
+ 1512      555300
+ 1513              	.LASF1:
+ 1514 00c2 756E7369 		.ascii	"unsigned char\000"
+ 1514      676E6564 
+ 1514      20636861 
+ 1514      7200
+ 1515              	.LASF23:
+ 1516 00d0 64657065 		.ascii	"dependency\000"
+ 1516      6E64656E 
+ 1516      637900
+ 1517              	.LASF29:
+ 1518 00db 5343485F 		.ascii	"SCH_TaskIndex\000"
+ 1518      5461736B 
+ 1518      496E6465 
+ 1518      7800
+ 1519              	.LASF5:
+ 1520 00e9 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1520      20756E73 
+ 1520      69676E65 
+ 1520      6420696E 
+ 1520      7400
+ 1521              	.LASF3:
+ 1522 00fb 73686F72 		.ascii	"short unsigned int\000"
+ 1522      7420756E 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 32
+
+
+ 1522      7369676E 
+ 1522      65642069 
+ 1522      6E7400
+ 1523              	.LASF38:
+ 1524 010e 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1524      52784275 
+ 1524      66666572 
+ 1524      00
+ 1525              	.LASF18:
+ 1526 011b 6E616D65 		.ascii	"name\000"
+ 1526      00
+ 1527              	.LASF14:
+ 1528 0120 75636861 		.ascii	"uchar\000"
+ 1528      7200
+ 1529              	.LASF12:
+ 1530 0126 646F7562 		.ascii	"double\000"
+ 1530      6C6500
+ 1531              	.LASF22:
+ 1532 012d 66756E63 		.ascii	"func\000"
+ 1532      00
+ 1533              	.LASF20:
+ 1534 0132 7072696F 		.ascii	"priority\000"
+ 1534      72697479 
+ 1534      00
+ 1535              	.LASF35:
+ 1536 013b 5F736368 		.ascii	"_scheduler_task\000"
+ 1536      6564756C 
+ 1536      65725F74 
+ 1536      61736B00 
+ 1537              	.LASF24:
+ 1538 014b 5343485F 		.ascii	"SCH_TASK\000"
+ 1538      5441534B 
+ 1538      00
+ 1539              	.LASF8:
+ 1540 0154 756E7369 		.ascii	"unsigned int\000"
+ 1540      676E6564 
+ 1540      20696E74 
+ 1540      00
+ 1541              	.LASF33:
+ 1542 0161 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\sc"
+ 1542      2E5C2E2E 
+ 1542      5C447269 
+ 1542      76655F50 
+ 1542      6C617466 
+ 1543 018f 68656475 		.ascii	"heduler.c\000"
+ 1543      6C65722E 
+ 1543      6300
+ 1544              	.LASF7:
+ 1545 0199 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1545      206C6F6E 
+ 1545      6720756E 
+ 1545      7369676E 
+ 1545      65642069 
+ 1546              	.LASF9:
+ 1547 01b0 75696E74 		.ascii	"uint8_t\000"
+ 1547      385F7400 
+ 1548              	.LASF31:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccxgOT0j.s 			page 33
+
+
+ 1549 01b8 5343485F 		.ascii	"SCH_TaskBuffer\000"
+ 1549      5461736B 
+ 1549      42756666 
+ 1549      657200
+ 1550              	.LASF17:
+ 1551 01c7 5343485F 		.ascii	"SCH_TASK_FUNC\000"
+ 1551      5441534B 
+ 1551      5F46554E 
+ 1551      4300
+ 1552              	.LASF32:
+ 1553 01d5 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1553      4320342E 
+ 1553      342E3100 
+ 1554              	.LASF13:
+ 1555 01e1 63686172 		.ascii	"char\000"
+ 1555      00
+ 1556              	.LASF30:
+ 1557 01e6 5343485F 		.ascii	"SCH_Task\000"
+ 1557      5461736B 
+ 1557      00
+ 1558              	.LASF2:
+ 1559 01ef 73686F72 		.ascii	"short int\000"
+ 1559      7420696E 
+ 1559      7400
+ 1560              	.LASF10:
+ 1561 01f9 75696E74 		.ascii	"uint8\000"
+ 1561      3800
+ 1562              	.LASF26:
+ 1563 01ff 7461736B 		.ascii	"taskInitFlag\000"
+ 1563      496E6974 
+ 1563      466C6167 
+ 1563      00
+ 1564              	.LASF4:
+ 1565 020c 6C6F6E67 		.ascii	"long int\000"
+ 1565      20696E74 
+ 1565      00
+ 1566              	.LASF0:
+ 1567 0215 7369676E 		.ascii	"signed char\000"
+ 1567      65642063 
+ 1567      68617200 
+ 1568              	.LASF28:
+ 1569 0221 5343485F 		.ascii	"SCH_ShowCurrentTasks\000"
+ 1569      53686F77 
+ 1569      43757272 
+ 1569      656E7454 
+ 1569      61736B73 
+ 1570              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

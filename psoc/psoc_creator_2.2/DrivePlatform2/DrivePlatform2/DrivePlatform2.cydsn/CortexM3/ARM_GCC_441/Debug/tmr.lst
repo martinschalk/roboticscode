@@ -1,0 +1,1805 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"tmr.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 FB010000 		.text
+  20      02006301 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              	TimerOverrun:
+  25 0000 00       		.space	1
+  26              		.data
+  27              		.type	IsFirstExecution, %object
+  28              		.size	IsFirstExecution, 1
+  29              	IsFirstExecution:
+  30 0000 01       		.byte	1
+  31              		.bss
+  32 0001 000000   		.align	2
+  33              	Timer:
+  34 0004 00000000 		.space	160
+  34      00000000 
+  34      00000000 
+  34      00000000 
+  34      00000000 
+  35              		.align	2
+  36              	NewTime:
+  37 00a4 00000000 		.space	4
+  38              		.align	2
+  39              	OldTime:
+  40 00a8 00000000 		.space	4
+  41              		.section	.text.isr_timer_routine,"ax",%progbits
+  42              		.align	2
+  43              		.global	isr_timer_routine
+  44              		.thumb
+  45              		.thumb_func
+  46              		.type	isr_timer_routine, %function
+  47              	isr_timer_routine:
+  48              	.LFB29:
+  49              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\tmr.c"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 2
+
+
+   1:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****  * All rights reserved.
+   3:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****  *
+   4:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****  * This software may be modified and distributed under the terms
+   5:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****  */
+   7:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+   8:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+   9:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include <project.h>
+  10:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include "types.h"
+  11:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include "timer.h"
+  12:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include "tmr.h"
+  13:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include "error.h"
+  14:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** #include "global.h"
+  15:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  16:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** static BOOL 	TimerOverrun = FALSE;
+  17:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** static BOOL     IsFirstExecution = TRUE;
+  18:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** static TIMER 	Timer[MAX_TIMERS];
+  19:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** static uint32	NewTime, OldTime;
+  20:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  21:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  22:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  23:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** CY_ISR(isr_timer_routine)
+  24:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+  50              		.loc 1 24 0
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56              	.LCFI0:
+  57              		.cfi_def_cfa_offset 4
+  58 0002 00AF     		add	r7, sp, #0
+  59              		.cfi_offset 7, -4
+  60              	.LCFI1:
+  61              		.cfi_def_cfa_register 7
+  25:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TimerOverrun = TRUE;
+  62              		.loc 1 25 0
+  63 0004 40F20003 		movw	r3, #:lower16:TimerOverrun
+  64 0008 C0F20003 		movt	r3, #:upper16:TimerOverrun
+  65 000c 4FF00102 		mov	r2, #1
+  66 0010 1A70     		strb	r2, [r3, #0]
+  26:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+  67              		.loc 1 26 0
+  68 0012 BD46     		mov	sp, r7
+  69 0014 80BC     		pop	{r7}
+  70 0016 7047     		bx	lr
+  71              		.cfi_endproc
+  72              	.LFE29:
+  73              		.size	isr_timer_routine, .-isr_timer_routine
+  74              		.section	.text.TMR_Init,"ax",%progbits
+  75              		.align	2
+  76              		.global	TMR_Init
+  77              		.thumb
+  78              		.thumb_func
+  79              		.type	TMR_Init, %function
+  80              	TMR_Init:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 3
+
+
+  81              	.LFB30:
+  27:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  29:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  30:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** STATUS 	TMR_Init(void)
+  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+  82              		.loc 1 31 0
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 1, uses_anonymous_args = 0
+  86 0000 80B5     		push	{r7, lr}
+  87              	.LCFI2:
+  88              		.cfi_def_cfa_offset 8
+  89 0002 00AF     		add	r7, sp, #0
+  90              		.cfi_offset 14, -4
+  91              		.cfi_offset 7, -8
+  92              	.LCFI3:
+  93              		.cfi_def_cfa_register 7
+  32:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	NewTime = OldTime = 0;
+  94              		.loc 1 32 0
+  95 0004 40F20003 		movw	r3, #:lower16:OldTime
+  96 0008 C0F20003 		movt	r3, #:upper16:OldTime
+  97 000c 4FF00002 		mov	r2, #0
+  98 0010 1A60     		str	r2, [r3, #0]
+  99 0012 40F20003 		movw	r3, #:lower16:OldTime
+ 100 0016 C0F20003 		movt	r3, #:upper16:OldTime
+ 101 001a 1A68     		ldr	r2, [r3, #0]
+ 102 001c 40F20003 		movw	r3, #:lower16:NewTime
+ 103 0020 C0F20003 		movt	r3, #:upper16:NewTime
+ 104 0024 1A60     		str	r2, [r3, #0]
+  33:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	memset(Timer, 0, sizeof(Timer));
+ 105              		.loc 1 33 0
+ 106 0026 40F20000 		movw	r0, #:lower16:Timer
+ 107 002a C0F20000 		movt	r0, #:upper16:Timer
+ 108 002e 4FF00001 		mov	r1, #0
+ 109 0032 4FF0A002 		mov	r2, #160
+ 110 0036 FFF7FEFF 		bl	memset
+  34:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+  35:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_Init();
+ 111              		.loc 1 35 0
+ 112 003a FFF7FEFF 		bl	TIMER_Init
+  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Isr_timer_SetVector(isr_timer_routine);
+ 113              		.loc 1 36 0
+ 114 003e 40F20000 		movw	r0, #:lower16:isr_timer_routine
+ 115 0042 C0F20000 		movt	r0, #:upper16:isr_timer_routine
+ 116 0046 FFF7FEFF 		bl	Isr_timer_SetVector
+  37:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Isr_timer_Start();
+ 117              		.loc 1 37 0
+ 118 004a FFF7FEFF 		bl	Isr_timer_Start
+  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_WritePeriod(TIMER_PERIOD_1000SEC); //clock 1MHz
+ 119              		.loc 1 38 0
+ 120 004e 4CF60020 		movw	r0, #:lower16:1000000000
+ 121 0052 C3F69A30 		movt	r0, #:upper16:1000000000
+ 122 0056 FFF7FEFF 		bl	TIMER_WritePeriod
+  39:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_Enable();
+ 123              		.loc 1 39 0
+ 124 005a FFF7FEFF 		bl	TIMER_Enable
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 4
+
+
+  40:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_CLOCK_Start();
+ 125              		.loc 1 40 0
+ 126 005e FFF7FEFF 		bl	TIMER_CLOCK_Start
+  41:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****     
+  42:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	return SUCCESS;
+ 127              		.loc 1 42 0
+ 128 0062 4FF00003 		mov	r3, #0
+  43:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+ 129              		.loc 1 43 0
+ 130 0066 1846     		mov	r0, r3
+ 131 0068 80BD     		pop	{r7, pc}
+ 132              		.cfi_endproc
+ 133              	.LFE30:
+ 134              		.size	TMR_Init, .-TMR_Init
+ 135 006a 00BF     		.section	.text.TMR_SetTimer,"ax",%progbits
+ 136              		.align	2
+ 137              		.global	TMR_SetTimer
+ 138              		.thumb
+ 139              		.thumb_func
+ 140              		.type	TMR_SetTimer, %function
+ 141              	TMR_SetTimer:
+ 142              	.LFB31:
+  44:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  45:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  46:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** void TMR_SetTimer(uint8 numTimer, uint32 us, TMR_FUNC func, uint8 mode, uint8 status)
+  47:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+ 143              		.loc 1 47 0
+ 144              		.cfi_startproc
+ 145              		@ args = 4, pretend = 0, frame = 16
+ 146              		@ frame_needed = 1, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 148 0000 80B4     		push	{r7}
+ 149              	.LCFI4:
+ 150              		.cfi_def_cfa_offset 4
+ 151 0002 85B0     		sub	sp, sp, #20
+ 152              	.LCFI5:
+ 153              		.cfi_def_cfa_offset 24
+ 154 0004 00AF     		add	r7, sp, #0
+ 155              		.cfi_offset 7, -4
+ 156              	.LCFI6:
+ 157              		.cfi_def_cfa_register 7
+ 158 0006 B960     		str	r1, [r7, #8]
+ 159 0008 7A60     		str	r2, [r7, #4]
+ 160 000a 0246     		mov	r2, r0
+ 161 000c FA73     		strb	r2, [r7, #15]
+ 162 000e FB70     		strb	r3, [r7, #3]
+  48:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].count = 0;
+ 163              		.loc 1 48 0
+ 164 0010 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 165 0012 40F20003 		movw	r3, #:lower16:Timer
+ 166 0016 C0F20003 		movt	r3, #:upper16:Timer
+ 167 001a 4FEA0212 		lsl	r2, r2, #4
+ 168 001e 1344     		add	r3, r2, r3
+ 169 0020 4FF00002 		mov	r2, #0
+ 170 0024 1A60     		str	r2, [r3, #0]
+  49:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].value = us;
+ 171              		.loc 1 49 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 5
+
+
+ 172 0026 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 173 0028 40F20003 		movw	r3, #:lower16:Timer
+ 174 002c C0F20003 		movt	r3, #:upper16:Timer
+ 175 0030 4FEA0212 		lsl	r2, r2, #4
+ 176 0034 1344     		add	r3, r2, r3
+ 177 0036 03F10403 		add	r3, r3, #4
+ 178 003a BA68     		ldr	r2, [r7, #8]
+ 179 003c 1A60     		str	r2, [r3, #0]
+  50:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].func = func;
+ 180              		.loc 1 50 0
+ 181 003e FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 182 0040 40F20003 		movw	r3, #:lower16:Timer
+ 183 0044 C0F20003 		movt	r3, #:upper16:Timer
+ 184 0048 4FEA4202 		lsl	r2, r2, #1
+ 185 004c 02F10102 		add	r2, r2, #1
+ 186 0050 7968     		ldr	r1, [r7, #4]
+ 187 0052 43F83210 		str	r1, [r3, r2, lsl #3]
+  51:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].mode = mode;
+ 188              		.loc 1 51 0
+ 189 0056 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 190 0058 40F20002 		movw	r2, #:lower16:Timer
+ 191 005c C0F20002 		movt	r2, #:upper16:Timer
+ 192 0060 4FEA4303 		lsl	r3, r3, #1
+ 193 0064 03F10103 		add	r3, r3, #1
+ 194 0068 4FEAC303 		lsl	r3, r3, #3
+ 195 006c 1344     		add	r3, r3, r2
+ 196 006e FA78     		ldrb	r2, [r7, #3]
+ 197 0070 1A71     		strb	r2, [r3, #4]
+  52:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].status = status;
+ 198              		.loc 1 52 0
+ 199 0072 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 200 0074 40F20002 		movw	r2, #:lower16:Timer
+ 201 0078 C0F20002 		movt	r2, #:upper16:Timer
+ 202 007c 4FEA4303 		lsl	r3, r3, #1
+ 203 0080 03F10103 		add	r3, r3, #1
+ 204 0084 4FEAC303 		lsl	r3, r3, #3
+ 205 0088 1344     		add	r3, r3, r2
+ 206 008a 3A7E     		ldrb	r2, [r7, #24]
+ 207 008c 5A71     		strb	r2, [r3, #5]
+  53:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+ 208              		.loc 1 53 0
+ 209 008e 07F11407 		add	r7, r7, #20
+ 210 0092 BD46     		mov	sp, r7
+ 211 0094 80BC     		pop	{r7}
+ 212 0096 7047     		bx	lr
+ 213              		.cfi_endproc
+ 214              	.LFE31:
+ 215              		.size	TMR_SetTimer, .-TMR_SetTimer
+ 216              		.section	.text.TMR_StartTimer,"ax",%progbits
+ 217              		.align	2
+ 218              		.global	TMR_StartTimer
+ 219              		.thumb
+ 220              		.thumb_func
+ 221              		.type	TMR_StartTimer, %function
+ 222              	TMR_StartTimer:
+ 223              	.LFB32:
+  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 6
+
+
+  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** void TMR_StartTimer(uint8 numTimer)
+  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+ 224              		.loc 1 57 0
+ 225              		.cfi_startproc
+ 226              		@ args = 0, pretend = 0, frame = 8
+ 227              		@ frame_needed = 1, uses_anonymous_args = 0
+ 228              		@ link register save eliminated.
+ 229 0000 80B4     		push	{r7}
+ 230              	.LCFI7:
+ 231              		.cfi_def_cfa_offset 4
+ 232 0002 83B0     		sub	sp, sp, #12
+ 233              	.LCFI8:
+ 234              		.cfi_def_cfa_offset 16
+ 235 0004 00AF     		add	r7, sp, #0
+ 236              		.cfi_offset 7, -4
+ 237              	.LCFI9:
+ 238              		.cfi_def_cfa_register 7
+ 239 0006 0346     		mov	r3, r0
+ 240 0008 FB71     		strb	r3, [r7, #7]
+  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].count = 0;
+ 241              		.loc 1 58 0
+ 242 000a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 243 000c 40F20003 		movw	r3, #:lower16:Timer
+ 244 0010 C0F20003 		movt	r3, #:upper16:Timer
+ 245 0014 4FEA0212 		lsl	r2, r2, #4
+ 246 0018 1344     		add	r3, r2, r3
+ 247 001a 4FF00002 		mov	r2, #0
+ 248 001e 1A60     		str	r2, [r3, #0]
+  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].status = TIMER_ENABLED;
+ 249              		.loc 1 59 0
+ 250 0020 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 251 0022 40F20002 		movw	r2, #:lower16:Timer
+ 252 0026 C0F20002 		movt	r2, #:upper16:Timer
+ 253 002a 4FEA4303 		lsl	r3, r3, #1
+ 254 002e 03F10103 		add	r3, r3, #1
+ 255 0032 4FEAC303 		lsl	r3, r3, #3
+ 256 0036 1344     		add	r3, r3, r2
+ 257 0038 4FF00102 		mov	r2, #1
+ 258 003c 5A71     		strb	r2, [r3, #5]
+  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+ 259              		.loc 1 60 0
+ 260 003e 07F10C07 		add	r7, r7, #12
+ 261 0042 BD46     		mov	sp, r7
+ 262 0044 80BC     		pop	{r7}
+ 263 0046 7047     		bx	lr
+ 264              		.cfi_endproc
+ 265              	.LFE32:
+ 266              		.size	TMR_StartTimer, .-TMR_StartTimer
+ 267              		.section	.text.TMR_StopTimer,"ax",%progbits
+ 268              		.align	2
+ 269              		.global	TMR_StopTimer
+ 270              		.thumb
+ 271              		.thumb_func
+ 272              		.type	TMR_StopTimer, %function
+ 273              	TMR_StopTimer:
+ 274              	.LFB33:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 7
+
+
+  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** void TMR_StopTimer(uint8 numTimer)
+  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+ 275              		.loc 1 64 0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 8
+ 278              		@ frame_needed = 1, uses_anonymous_args = 0
+ 279              		@ link register save eliminated.
+ 280 0000 80B4     		push	{r7}
+ 281              	.LCFI10:
+ 282              		.cfi_def_cfa_offset 4
+ 283 0002 83B0     		sub	sp, sp, #12
+ 284              	.LCFI11:
+ 285              		.cfi_def_cfa_offset 16
+ 286 0004 00AF     		add	r7, sp, #0
+ 287              		.cfi_offset 7, -4
+ 288              	.LCFI12:
+ 289              		.cfi_def_cfa_register 7
+ 290 0006 0346     		mov	r3, r0
+ 291 0008 FB71     		strb	r3, [r7, #7]
+  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].count = 0;
+ 292              		.loc 1 65 0
+ 293 000a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 294 000c 40F20003 		movw	r3, #:lower16:Timer
+ 295 0010 C0F20003 		movt	r3, #:upper16:Timer
+ 296 0014 4FEA0212 		lsl	r2, r2, #4
+ 297 0018 1344     		add	r3, r2, r3
+ 298 001a 4FF00002 		mov	r2, #0
+ 299 001e 1A60     		str	r2, [r3, #0]
+  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].status = TIMER_DISABLED;
+ 300              		.loc 1 66 0
+ 301 0020 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 302 0022 40F20002 		movw	r2, #:lower16:Timer
+ 303 0026 C0F20002 		movt	r2, #:upper16:Timer
+ 304 002a 4FEA4303 		lsl	r3, r3, #1
+ 305 002e 03F10103 		add	r3, r3, #1
+ 306 0032 4FEAC303 		lsl	r3, r3, #3
+ 307 0036 1344     		add	r3, r3, r2
+ 308 0038 4FF00002 		mov	r2, #0
+ 309 003c 5A71     		strb	r2, [r3, #5]
+  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+ 310              		.loc 1 67 0
+ 311 003e 07F10C07 		add	r7, r7, #12
+ 312 0042 BD46     		mov	sp, r7
+ 313 0044 80BC     		pop	{r7}
+ 314 0046 7047     		bx	lr
+ 315              		.cfi_endproc
+ 316              	.LFE33:
+ 317              		.size	TMR_StopTimer, .-TMR_StopTimer
+ 318              		.section	.text.TMR_HandleTask,"ax",%progbits
+ 319              		.align	2
+ 320              		.global	TMR_HandleTask
+ 321              		.thumb
+ 322              		.thumb_func
+ 323              		.type	TMR_HandleTask, %function
+ 324              	TMR_HandleTask:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 8
+
+
+ 325              	.LFB34:
+  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
+  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
+  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** STATUS TMR_HandleTask(void)
+  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** {
+ 326              		.loc 1 72 0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 8
+ 329              		@ frame_needed = 1, uses_anonymous_args = 0
+ 330 0000 80B5     		push	{r7, lr}
+ 331              	.LCFI13:
+ 332              		.cfi_def_cfa_offset 8
+ 333 0002 82B0     		sub	sp, sp, #8
+ 334              	.LCFI14:
+ 335              		.cfi_def_cfa_offset 16
+ 336 0004 00AF     		add	r7, sp, #0
+ 337              		.cfi_offset 14, -4
+ 338              		.cfi_offset 7, -8
+ 339              	.LCFI15:
+ 340              		.cfi_def_cfa_register 7
+  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	uint8 i;
+  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	uint32 timediff;
+  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	/* get new time (down counter) */
+  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	NewTime = 0xFFFFFFFF - TIMER_ReadCounter();
+ 341              		.loc 1 77 0
+ 342 0006 FFF7FEFF 		bl	TIMER_ReadCounter
+ 343 000a 0346     		mov	r3, r0
+ 344 000c 6FEA0302 		mvn	r2, r3
+ 345 0010 40F20003 		movw	r3, #:lower16:NewTime
+ 346 0014 C0F20003 		movt	r3, #:upper16:NewTime
+ 347 0018 1A60     		str	r2, [r3, #0]
+  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****     if (IsFirstExecution)
+ 348              		.loc 1 79 0
+ 349 001a 40F20003 		movw	r3, #:lower16:IsFirstExecution
+ 350 001e C0F20003 		movt	r3, #:upper16:IsFirstExecution
+ 351 0022 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 352 0024 002B     		cmp	r3, #0
+ 353 0026 13D0     		beq	.L12
+  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****     {
+  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****         OldTime = NewTime;
+ 354              		.loc 1 81 0
+ 355 0028 40F20003 		movw	r3, #:lower16:NewTime
+ 356 002c C0F20003 		movt	r3, #:upper16:NewTime
+ 357 0030 1A68     		ldr	r2, [r3, #0]
+ 358 0032 40F20003 		movw	r3, #:lower16:OldTime
+ 359 0036 C0F20003 		movt	r3, #:upper16:OldTime
+ 360 003a 1A60     		str	r2, [r3, #0]
+  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****         IsFirstExecution = FALSE;
+ 361              		.loc 1 82 0
+ 362 003c 40F20003 		movw	r3, #:lower16:IsFirstExecution
+ 363 0040 C0F20003 		movt	r3, #:upper16:IsFirstExecution
+ 364 0044 4FF00002 		mov	r2, #0
+ 365 0048 1A70     		strb	r2, [r3, #0]
+  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****         return SUCCESS;
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 9
+
+
+ 366              		.loc 1 83 0
+ 367 004a 4FF00003 		mov	r3, #0
+ 368 004e C5E0     		b	.L13
+ 369              	.L12:
+  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****     }
+  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****     
+  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	/* this variable is set by isr when timer runs over */
+  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	if (TimerOverrun == TRUE)
+ 370              		.loc 1 87 0
+ 371 0050 40F20003 		movw	r3, #:lower16:TimerOverrun
+ 372 0054 C0F20003 		movt	r3, #:upper16:TimerOverrun
+ 373 0058 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 374 005a 012B     		cmp	r3, #1
+ 375 005c 19D1     		bne	.L14
+  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	{
+  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		timediff = TIMER_PERIOD_1000SEC - OldTime + NewTime;
+ 376              		.loc 1 89 0
+ 377 005e 40F20003 		movw	r3, #:lower16:NewTime
+ 378 0062 C0F20003 		movt	r3, #:upper16:NewTime
+ 379 0066 1A68     		ldr	r2, [r3, #0]
+ 380 0068 40F20003 		movw	r3, #:lower16:OldTime
+ 381 006c C0F20003 		movt	r3, #:upper16:OldTime
+ 382 0070 1B68     		ldr	r3, [r3, #0]
+ 383 0072 C3EB0202 		rsb	r2, r3, r2
+ 384 0076 4CF60023 		movw	r3, #:lower16:1000000000
+ 385 007a C3F69A33 		movt	r3, #:upper16:1000000000
+ 386 007e 1344     		add	r3, r2, r3
+ 387 0080 7B60     		str	r3, [r7, #4]
+  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		TimerOverrun = FALSE;
+ 388              		.loc 1 90 0
+ 389 0082 40F20003 		movw	r3, #:lower16:TimerOverrun
+ 390 0086 C0F20003 		movt	r3, #:upper16:TimerOverrun
+ 391 008a 4FF00002 		mov	r2, #0
+ 392 008e 1A70     		strb	r2, [r3, #0]
+ 393 0090 0CE0     		b	.L15
+ 394              	.L14:
+  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	}
+  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	else
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	{
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		timediff = NewTime - OldTime;
+ 395              		.loc 1 94 0
+ 396 0092 40F20003 		movw	r3, #:lower16:NewTime
+ 397 0096 C0F20003 		movt	r3, #:upper16:NewTime
+ 398 009a 1A68     		ldr	r2, [r3, #0]
+ 399 009c 40F20003 		movw	r3, #:lower16:OldTime
+ 400 00a0 C0F20003 		movt	r3, #:upper16:OldTime
+ 401 00a4 1B68     		ldr	r3, [r3, #0]
+ 402 00a6 C3EB0203 		rsb	r3, r3, r2
+ 403 00aa 7B60     		str	r3, [r7, #4]
+ 404              	.L15:
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	}
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	OldTime = NewTime;
+ 405              		.loc 1 97 0
+ 406 00ac 40F20003 		movw	r3, #:lower16:NewTime
+ 407 00b0 C0F20003 		movt	r3, #:upper16:NewTime
+ 408 00b4 1A68     		ldr	r2, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 10
+
+
+ 409 00b6 40F20003 		movw	r3, #:lower16:OldTime
+ 410 00ba C0F20003 		movt	r3, #:upper16:OldTime
+ 411 00be 1A60     		str	r2, [r3, #0]
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	/* update timers */
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	for (i=0; i<MAX_TIMERS; i++)
+ 412              		.loc 1 100 0
+ 413 00c0 4FF00003 		mov	r3, #0
+ 414 00c4 FB70     		strb	r3, [r7, #3]
+ 415 00c6 83E0     		b	.L16
+ 416              	.L21:
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	{
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		if (Timer[i].status == TIMER_ENABLED)
+ 417              		.loc 1 102 0
+ 418 00c8 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 419 00ca 40F20002 		movw	r2, #:lower16:Timer
+ 420 00ce C0F20002 		movt	r2, #:upper16:Timer
+ 421 00d2 4FEA4303 		lsl	r3, r3, #1
+ 422 00d6 03F10103 		add	r3, r3, #1
+ 423 00da 4FEAC303 		lsl	r3, r3, #3
+ 424 00de 1344     		add	r3, r3, r2
+ 425 00e0 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 426 00e2 012B     		cmp	r3, #1
+ 427 00e4 70D1     		bne	.L17
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		{
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 			/* increase timer */
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 			Timer[i].count += timediff;
+ 428              		.loc 1 105 0
+ 429 00e6 F978     		ldrb	r1, [r7, #3]	@ zero_extendqisi2
+ 430 00e8 FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 431 00ea 40F20003 		movw	r3, #:lower16:Timer
+ 432 00ee C0F20003 		movt	r3, #:upper16:Timer
+ 433 00f2 4FEA0212 		lsl	r2, r2, #4
+ 434 00f6 1344     		add	r3, r2, r3
+ 435 00f8 1A68     		ldr	r2, [r3, #0]
+ 436 00fa 7B68     		ldr	r3, [r7, #4]
+ 437 00fc 1A44     		add	r2, r2, r3
+ 438 00fe 40F20003 		movw	r3, #:lower16:Timer
+ 439 0102 C0F20003 		movt	r3, #:upper16:Timer
+ 440 0106 4FEA0111 		lsl	r1, r1, #4
+ 441 010a 0B44     		add	r3, r1, r3
+ 442 010c 1A60     		str	r2, [r3, #0]
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 			if (Timer[i].count >= Timer[i].value)
+ 443              		.loc 1 106 0
+ 444 010e FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 445 0110 40F20003 		movw	r3, #:lower16:Timer
+ 446 0114 C0F20003 		movt	r3, #:upper16:Timer
+ 447 0118 4FEA0212 		lsl	r2, r2, #4
+ 448 011c 1344     		add	r3, r2, r3
+ 449 011e 1A68     		ldr	r2, [r3, #0]
+ 450 0120 F978     		ldrb	r1, [r7, #3]	@ zero_extendqisi2
+ 451 0122 40F20003 		movw	r3, #:lower16:Timer
+ 452 0126 C0F20003 		movt	r3, #:upper16:Timer
+ 453 012a 4FEA0111 		lsl	r1, r1, #4
+ 454 012e 0B44     		add	r3, r1, r3
+ 455 0130 03F10403 		add	r3, r3, #4
+ 456 0134 1B68     		ldr	r3, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 11
+
+
+ 457 0136 9A42     		cmp	r2, r3
+ 458 0138 46D3     		bcc	.L17
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 			{
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 				/* call timer down function */
+ 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 if (Timer[i].func != NULL)
+ 459              		.loc 1 109 0
+ 460 013a FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 461 013c 40F20003 		movw	r3, #:lower16:Timer
+ 462 0140 C0F20003 		movt	r3, #:upper16:Timer
+ 463 0144 4FEA4202 		lsl	r2, r2, #1
+ 464 0148 02F10102 		add	r2, r2, #1
+ 465 014c 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ 466 0150 002B     		cmp	r3, #0
+ 467 0152 0CD0     		beq	.L18
+ 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 {
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                     Timer[i].func();
+ 468              		.loc 1 111 0
+ 469 0154 FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 470 0156 40F20003 		movw	r3, #:lower16:Timer
+ 471 015a C0F20003 		movt	r3, #:upper16:Timer
+ 472 015e 4FEA4202 		lsl	r2, r2, #1
+ 473 0162 02F10102 		add	r2, r2, #1
+ 474 0166 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ 475 016a 9847     		blx	r3
+ 476 016c 03E0     		b	.L19
+ 477              	.L18:
+ 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 }
+ 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 else
+ 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 {
+ 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                     ERR_Error(ERROR_WARNING);
+ 478              		.loc 1 115 0
+ 479 016e 4FF0FD00 		mov	r0, #253
+ 480 0172 FFF7FEFF 		bl	ERR_Error
+ 481              	.L19:
+ 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 }
+ 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 
+ 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****                 
+ 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 				if (Timer[i].mode != TIMER_MODE_CONTINUOUS)
+ 482              		.loc 1 119 0
+ 483 0176 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 484 0178 40F20002 		movw	r2, #:lower16:Timer
+ 485 017c C0F20002 		movt	r2, #:upper16:Timer
+ 486 0180 4FEA4303 		lsl	r3, r3, #1
+ 487 0184 03F10103 		add	r3, r3, #1
+ 488 0188 4FEAC303 		lsl	r3, r3, #3
+ 489 018c 1344     		add	r3, r3, r2
+ 490 018e 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 491 0190 022B     		cmp	r3, #2
+ 492 0192 0ED0     		beq	.L20
+ 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 				{
+ 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 					Timer[i].status = TIMER_DISABLED;
+ 493              		.loc 1 121 0
+ 494 0194 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 495 0196 40F20002 		movw	r2, #:lower16:Timer
+ 496 019a C0F20002 		movt	r2, #:upper16:Timer
+ 497 019e 4FEA4303 		lsl	r3, r3, #1
+ 498 01a2 03F10103 		add	r3, r3, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 12
+
+
+ 499 01a6 4FEAC303 		lsl	r3, r3, #3
+ 500 01aa 1344     		add	r3, r3, r2
+ 501 01ac 4FF00002 		mov	r2, #0
+ 502 01b0 5A71     		strb	r2, [r3, #5]
+ 503              	.L20:
+ 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 				}
+ 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 				Timer[i].count = 0;
+ 504              		.loc 1 123 0
+ 505 01b2 FA78     		ldrb	r2, [r7, #3]	@ zero_extendqisi2
+ 506 01b4 40F20003 		movw	r3, #:lower16:Timer
+ 507 01b8 C0F20003 		movt	r3, #:upper16:Timer
+ 508 01bc 4FEA0212 		lsl	r2, r2, #4
+ 509 01c0 1344     		add	r3, r2, r3
+ 510 01c2 4FF00002 		mov	r2, #0
+ 511 01c6 1A60     		str	r2, [r3, #0]
+ 512              	.L17:
+ 513              		.loc 1 100 0
+ 514 01c8 FB78     		ldrb	r3, [r7, #3]
+ 515 01ca 03F10103 		add	r3, r3, #1
+ 516 01ce FB70     		strb	r3, [r7, #3]
+ 517              	.L16:
+ 518 01d0 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 519 01d2 092B     		cmp	r3, #9
+ 520 01d4 7FF678AF 		bls	.L21
+ 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 			}
+ 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 		}
+ 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	}
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	
+ 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	return SUCCESS;
+ 521              		.loc 1 128 0
+ 522 01d8 4FF00003 		mov	r3, #0
+ 523              	.L13:
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** }
+ 524              		.loc 1 129 0
+ 525 01dc 1846     		mov	r0, r3
+ 526 01de 07F10807 		add	r7, r7, #8
+ 527 01e2 BD46     		mov	sp, r7
+ 528 01e4 80BD     		pop	{r7, pc}
+ 529              		.cfi_endproc
+ 530              	.LFE34:
+ 531              		.size	TMR_HandleTask, .-TMR_HandleTask
+ 532 01e6 00BF     		.text
+ 533              	.Letext0:
+ 534              		.section	.debug_loc,"",%progbits
+ 535              	.Ldebug_loc0:
+ 536              	.LLST0:
+ 537 0000 00000000 		.4byte	.LFB29
+ 538 0004 02000000 		.4byte	.LCFI0
+ 539 0008 0100     		.2byte	0x1
+ 540 000a 5D       		.byte	0x5d
+ 541 000b 02000000 		.4byte	.LCFI0
+ 542 000f 04000000 		.4byte	.LCFI1
+ 543 0013 0200     		.2byte	0x2
+ 544 0015 7D       		.byte	0x7d
+ 545 0016 04       		.sleb128 4
+ 546 0017 04000000 		.4byte	.LCFI1
+ 547 001b 18000000 		.4byte	.LFE29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 13
+
+
+ 548 001f 0200     		.2byte	0x2
+ 549 0021 77       		.byte	0x77
+ 550 0022 04       		.sleb128 4
+ 551 0023 00000000 		.4byte	0x0
+ 552 0027 00000000 		.4byte	0x0
+ 553              	.LLST1:
+ 554 002b 00000000 		.4byte	.LFB30
+ 555 002f 02000000 		.4byte	.LCFI2
+ 556 0033 0100     		.2byte	0x1
+ 557 0035 5D       		.byte	0x5d
+ 558 0036 02000000 		.4byte	.LCFI2
+ 559 003a 04000000 		.4byte	.LCFI3
+ 560 003e 0200     		.2byte	0x2
+ 561 0040 7D       		.byte	0x7d
+ 562 0041 08       		.sleb128 8
+ 563 0042 04000000 		.4byte	.LCFI3
+ 564 0046 6A000000 		.4byte	.LFE30
+ 565 004a 0200     		.2byte	0x2
+ 566 004c 77       		.byte	0x77
+ 567 004d 08       		.sleb128 8
+ 568 004e 00000000 		.4byte	0x0
+ 569 0052 00000000 		.4byte	0x0
+ 570              	.LLST2:
+ 571 0056 00000000 		.4byte	.LFB31
+ 572 005a 02000000 		.4byte	.LCFI4
+ 573 005e 0100     		.2byte	0x1
+ 574 0060 5D       		.byte	0x5d
+ 575 0061 02000000 		.4byte	.LCFI4
+ 576 0065 04000000 		.4byte	.LCFI5
+ 577 0069 0200     		.2byte	0x2
+ 578 006b 7D       		.byte	0x7d
+ 579 006c 04       		.sleb128 4
+ 580 006d 04000000 		.4byte	.LCFI5
+ 581 0071 06000000 		.4byte	.LCFI6
+ 582 0075 0200     		.2byte	0x2
+ 583 0077 7D       		.byte	0x7d
+ 584 0078 18       		.sleb128 24
+ 585 0079 06000000 		.4byte	.LCFI6
+ 586 007d 98000000 		.4byte	.LFE31
+ 587 0081 0200     		.2byte	0x2
+ 588 0083 77       		.byte	0x77
+ 589 0084 18       		.sleb128 24
+ 590 0085 00000000 		.4byte	0x0
+ 591 0089 00000000 		.4byte	0x0
+ 592              	.LLST3:
+ 593 008d 00000000 		.4byte	.LFB32
+ 594 0091 02000000 		.4byte	.LCFI7
+ 595 0095 0100     		.2byte	0x1
+ 596 0097 5D       		.byte	0x5d
+ 597 0098 02000000 		.4byte	.LCFI7
+ 598 009c 04000000 		.4byte	.LCFI8
+ 599 00a0 0200     		.2byte	0x2
+ 600 00a2 7D       		.byte	0x7d
+ 601 00a3 04       		.sleb128 4
+ 602 00a4 04000000 		.4byte	.LCFI8
+ 603 00a8 06000000 		.4byte	.LCFI9
+ 604 00ac 0200     		.2byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 14
+
+
+ 605 00ae 7D       		.byte	0x7d
+ 606 00af 10       		.sleb128 16
+ 607 00b0 06000000 		.4byte	.LCFI9
+ 608 00b4 48000000 		.4byte	.LFE32
+ 609 00b8 0200     		.2byte	0x2
+ 610 00ba 77       		.byte	0x77
+ 611 00bb 10       		.sleb128 16
+ 612 00bc 00000000 		.4byte	0x0
+ 613 00c0 00000000 		.4byte	0x0
+ 614              	.LLST4:
+ 615 00c4 00000000 		.4byte	.LFB33
+ 616 00c8 02000000 		.4byte	.LCFI10
+ 617 00cc 0100     		.2byte	0x1
+ 618 00ce 5D       		.byte	0x5d
+ 619 00cf 02000000 		.4byte	.LCFI10
+ 620 00d3 04000000 		.4byte	.LCFI11
+ 621 00d7 0200     		.2byte	0x2
+ 622 00d9 7D       		.byte	0x7d
+ 623 00da 04       		.sleb128 4
+ 624 00db 04000000 		.4byte	.LCFI11
+ 625 00df 06000000 		.4byte	.LCFI12
+ 626 00e3 0200     		.2byte	0x2
+ 627 00e5 7D       		.byte	0x7d
+ 628 00e6 10       		.sleb128 16
+ 629 00e7 06000000 		.4byte	.LCFI12
+ 630 00eb 48000000 		.4byte	.LFE33
+ 631 00ef 0200     		.2byte	0x2
+ 632 00f1 77       		.byte	0x77
+ 633 00f2 10       		.sleb128 16
+ 634 00f3 00000000 		.4byte	0x0
+ 635 00f7 00000000 		.4byte	0x0
+ 636              	.LLST5:
+ 637 00fb 00000000 		.4byte	.LFB34
+ 638 00ff 02000000 		.4byte	.LCFI13
+ 639 0103 0100     		.2byte	0x1
+ 640 0105 5D       		.byte	0x5d
+ 641 0106 02000000 		.4byte	.LCFI13
+ 642 010a 04000000 		.4byte	.LCFI14
+ 643 010e 0200     		.2byte	0x2
+ 644 0110 7D       		.byte	0x7d
+ 645 0111 08       		.sleb128 8
+ 646 0112 04000000 		.4byte	.LCFI14
+ 647 0116 06000000 		.4byte	.LCFI15
+ 648 011a 0200     		.2byte	0x2
+ 649 011c 7D       		.byte	0x7d
+ 650 011d 10       		.sleb128 16
+ 651 011e 06000000 		.4byte	.LCFI15
+ 652 0122 E6010000 		.4byte	.LFE34
+ 653 0126 0200     		.2byte	0x2
+ 654 0128 77       		.byte	0x77
+ 655 0129 10       		.sleb128 16
+ 656 012a 00000000 		.4byte	0x0
+ 657 012e 00000000 		.4byte	0x0
+ 658              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 659              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 660              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
+ 661              		.file 5 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/tmr.h"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 15
+
+
+ 662              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ 663              		.section	.debug_info
+ 664 0000 B9020000 		.4byte	0x2b9
+ 665 0004 0200     		.2byte	0x2
+ 666 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 667 000a 04       		.byte	0x4
+ 668 000b 01       		.uleb128 0x1
+ 669 000c AC010000 		.4byte	.LASF34
+ 670 0010 01       		.byte	0x1
+ 671 0011 E7010000 		.4byte	.LASF35
+ 672 0015 2E000000 		.4byte	.LASF36
+ 673 0019 00000000 		.4byte	0x0
+ 674 001d 00000000 		.4byte	0x0
+ 675 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 676 0025 00000000 		.4byte	.Ldebug_line0
+ 677 0029 02       		.uleb128 0x2
+ 678 002a 01       		.byte	0x1
+ 679 002b 06       		.byte	0x6
+ 680 002c 22020000 		.4byte	.LASF0
+ 681 0030 03       		.uleb128 0x3
+ 682 0031 7D010000 		.4byte	.LASF9
+ 683 0035 02       		.byte	0x2
+ 684 0036 2A       		.byte	0x2a
+ 685 0037 3B000000 		.4byte	0x3b
+ 686 003b 02       		.uleb128 0x2
+ 687 003c 01       		.byte	0x1
+ 688 003d 08       		.byte	0x8
+ 689 003e B4000000 		.4byte	.LASF1
+ 690 0042 02       		.uleb128 0x2
+ 691 0043 02       		.byte	0x2
+ 692 0044 05       		.byte	0x5
+ 693 0045 D7010000 		.4byte	.LASF2
+ 694 0049 02       		.uleb128 0x2
+ 695 004a 02       		.byte	0x2
+ 696 004b 07       		.byte	0x7
+ 697 004c E2000000 		.4byte	.LASF3
+ 698 0050 02       		.uleb128 0x2
+ 699 0051 04       		.byte	0x4
+ 700 0052 05       		.byte	0x5
+ 701 0053 19020000 		.4byte	.LASF4
+ 702 0057 02       		.uleb128 0x2
+ 703 0058 04       		.byte	0x4
+ 704 0059 07       		.byte	0x7
+ 705 005a D0000000 		.4byte	.LASF5
+ 706 005e 02       		.uleb128 0x2
+ 707 005f 08       		.byte	0x8
+ 708 0060 05       		.byte	0x5
+ 709 0061 00000000 		.4byte	.LASF6
+ 710 0065 02       		.uleb128 0x2
+ 711 0066 08       		.byte	0x8
+ 712 0067 07       		.byte	0x7
+ 713 0068 66010000 		.4byte	.LASF7
+ 714 006c 04       		.uleb128 0x4
+ 715 006d 04       		.byte	0x4
+ 716 006e 05       		.byte	0x5
+ 717 006f 696E7400 		.ascii	"int\000"
+ 718 0073 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 16
+
+
+ 719 0074 04       		.byte	0x4
+ 720 0075 07       		.byte	0x7
+ 721 0076 3F010000 		.4byte	.LASF8
+ 722 007a 03       		.uleb128 0x3
+ 723 007b E1010000 		.4byte	.LASF10
+ 724 007f 03       		.byte	0x3
+ 725 0080 4C       		.byte	0x4c
+ 726 0081 3B000000 		.4byte	0x3b
+ 727 0085 03       		.uleb128 0x3
+ 728 0086 38010000 		.4byte	.LASF11
+ 729 008a 03       		.byte	0x3
+ 730 008b 4E       		.byte	0x4e
+ 731 008c 57000000 		.4byte	0x57
+ 732 0090 02       		.uleb128 0x2
+ 733 0091 04       		.byte	0x4
+ 734 0092 04       		.byte	0x4
+ 735 0093 A7000000 		.4byte	.LASF12
+ 736 0097 02       		.uleb128 0x2
+ 737 0098 08       		.byte	0x8
+ 738 0099 04       		.byte	0x4
+ 739 009a 23010000 		.4byte	.LASF13
+ 740 009e 02       		.uleb128 0x2
+ 741 009f 01       		.byte	0x1
+ 742 00a0 08       		.byte	0x8
+ 743 00a1 C5010000 		.4byte	.LASF14
+ 744 00a5 05       		.uleb128 0x5
+ 745 00a6 04       		.byte	0x4
+ 746 00a7 AB000000 		.4byte	0xab
+ 747 00ab 06       		.uleb128 0x6
+ 748 00ac 01       		.byte	0x1
+ 749 00ad 07       		.uleb128 0x7
+ 750 00ae 04       		.byte	0x4
+ 751 00af 07       		.byte	0x7
+ 752 00b0 03       		.uleb128 0x3
+ 753 00b1 AD000000 		.4byte	.LASF15
+ 754 00b5 04       		.byte	0x4
+ 755 00b6 0F       		.byte	0xf
+ 756 00b7 7A000000 		.4byte	0x7a
+ 757 00bb 03       		.uleb128 0x3
+ 758 00bc 1D000000 		.4byte	.LASF16
+ 759 00c0 04       		.byte	0x4
+ 760 00c1 10       		.byte	0x10
+ 761 00c2 30000000 		.4byte	0x30
+ 762 00c6 03       		.uleb128 0x3
+ 763 00c7 5D010000 		.4byte	.LASF17
+ 764 00cb 05       		.byte	0x5
+ 765 00cc 20       		.byte	0x20
+ 766 00cd A5000000 		.4byte	0xa5
+ 767 00d1 08       		.uleb128 0x8
+ 768 00d2 A5010000 		.4byte	.LASF37
+ 769 00d6 10       		.byte	0x10
+ 770 00d7 05       		.byte	0x5
+ 771 00d8 24       		.byte	0x24
+ 772 00d9 24010000 		.4byte	0x124
+ 773 00dd 09       		.uleb128 0x9
+ 774 00de 28000000 		.4byte	.LASF18
+ 775 00e2 05       		.byte	0x5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 17
+
+
+ 776 00e3 25       		.byte	0x25
+ 777 00e4 85000000 		.4byte	0x85
+ 778 00e8 02       		.byte	0x2
+ 779 00e9 23       		.byte	0x23
+ 780 00ea 00       		.uleb128 0x0
+ 781 00eb 09       		.uleb128 0x9
+ 782 00ec 22000000 		.4byte	.LASF19
+ 783 00f0 05       		.byte	0x5
+ 784 00f1 26       		.byte	0x26
+ 785 00f2 85000000 		.4byte	0x85
+ 786 00f6 02       		.byte	0x2
+ 787 00f7 23       		.byte	0x23
+ 788 00f8 04       		.uleb128 0x4
+ 789 00f9 09       		.uleb128 0x9
+ 790 00fa 2A010000 		.4byte	.LASF20
+ 791 00fe 05       		.byte	0x5
+ 792 00ff 27       		.byte	0x27
+ 793 0100 C6000000 		.4byte	0xc6
+ 794 0104 02       		.byte	0x2
+ 795 0105 23       		.byte	0x23
+ 796 0106 08       		.uleb128 0x8
+ 797 0107 09       		.uleb128 0x9
+ 798 0108 8B010000 		.4byte	.LASF21
+ 799 010c 05       		.byte	0x5
+ 800 010d 28       		.byte	0x28
+ 801 010e 7A000000 		.4byte	0x7a
+ 802 0112 02       		.byte	0x2
+ 803 0113 23       		.byte	0x23
+ 804 0114 0C       		.uleb128 0xc
+ 805 0115 09       		.uleb128 0x9
+ 806 0116 16000000 		.4byte	.LASF22
+ 807 011a 05       		.byte	0x5
+ 808 011b 29       		.byte	0x29
+ 809 011c 7A000000 		.4byte	0x7a
+ 810 0120 02       		.byte	0x2
+ 811 0121 23       		.byte	0x23
+ 812 0122 0D       		.uleb128 0xd
+ 813 0123 00       		.byte	0x0
+ 814 0124 03       		.uleb128 0x3
+ 815 0125 85010000 		.4byte	.LASF23
+ 816 0129 05       		.byte	0x5
+ 817 012a 2A       		.byte	0x2a
+ 818 012b D1000000 		.4byte	0xd1
+ 819 012f 0A       		.uleb128 0xa
+ 820 0130 01       		.byte	0x1
+ 821 0131 F5000000 		.4byte	.LASF38
+ 822 0135 01       		.byte	0x1
+ 823 0136 17       		.byte	0x17
+ 824 0137 01       		.byte	0x1
+ 825 0138 00000000 		.4byte	.LFB29
+ 826 013c 18000000 		.4byte	.LFE29
+ 827 0140 00000000 		.4byte	.LLST0
+ 828 0144 0B       		.uleb128 0xb
+ 829 0145 01       		.byte	0x1
+ 830 0146 2F010000 		.4byte	.LASF39
+ 831 014a 01       		.byte	0x1
+ 832 014b 1E       		.byte	0x1e
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 18
+
+
+ 833 014c 01       		.byte	0x1
+ 834 014d B0000000 		.4byte	0xb0
+ 835 0151 00000000 		.4byte	.LFB30
+ 836 0155 6A000000 		.4byte	.LFE30
+ 837 0159 2B000000 		.4byte	.LLST1
+ 838 015d 0C       		.uleb128 0xc
+ 839 015e 01       		.byte	0x1
+ 840 015f CA010000 		.4byte	.LASF25
+ 841 0163 01       		.byte	0x1
+ 842 0164 2E       		.byte	0x2e
+ 843 0165 01       		.byte	0x1
+ 844 0166 00000000 		.4byte	.LFB31
+ 845 016a 98000000 		.4byte	.LFE31
+ 846 016e 56000000 		.4byte	.LLST2
+ 847 0172 BC010000 		.4byte	0x1bc
+ 848 0176 0D       		.uleb128 0xd
+ 849 0177 9E000000 		.4byte	.LASF24
+ 850 017b 01       		.byte	0x1
+ 851 017c 2E       		.byte	0x2e
+ 852 017d 7A000000 		.4byte	0x7a
+ 853 0181 02       		.byte	0x2
+ 854 0182 91       		.byte	0x91
+ 855 0183 77       		.sleb128 -9
+ 856 0184 0E       		.uleb128 0xe
+ 857 0185 757300   		.ascii	"us\000"
+ 858 0188 01       		.byte	0x1
+ 859 0189 2E       		.byte	0x2e
+ 860 018a 85000000 		.4byte	0x85
+ 861 018e 02       		.byte	0x2
+ 862 018f 91       		.byte	0x91
+ 863 0190 70       		.sleb128 -16
+ 864 0191 0D       		.uleb128 0xd
+ 865 0192 2A010000 		.4byte	.LASF20
+ 866 0196 01       		.byte	0x1
+ 867 0197 2E       		.byte	0x2e
+ 868 0198 C6000000 		.4byte	0xc6
+ 869 019c 02       		.byte	0x2
+ 870 019d 91       		.byte	0x91
+ 871 019e 6C       		.sleb128 -20
+ 872 019f 0D       		.uleb128 0xd
+ 873 01a0 8B010000 		.4byte	.LASF21
+ 874 01a4 01       		.byte	0x1
+ 875 01a5 2E       		.byte	0x2e
+ 876 01a6 7A000000 		.4byte	0x7a
+ 877 01aa 02       		.byte	0x2
+ 878 01ab 91       		.byte	0x91
+ 879 01ac 6B       		.sleb128 -21
+ 880 01ad 0D       		.uleb128 0xd
+ 881 01ae 16000000 		.4byte	.LASF22
+ 882 01b2 01       		.byte	0x1
+ 883 01b3 2E       		.byte	0x2e
+ 884 01b4 7A000000 		.4byte	0x7a
+ 885 01b8 02       		.byte	0x2
+ 886 01b9 91       		.byte	0x91
+ 887 01ba 00       		.sleb128 0
+ 888 01bb 00       		.byte	0x0
+ 889 01bc 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 19
+
+
+ 890 01bd 01       		.byte	0x1
+ 891 01be 96010000 		.4byte	.LASF26
+ 892 01c2 01       		.byte	0x1
+ 893 01c3 38       		.byte	0x38
+ 894 01c4 01       		.byte	0x1
+ 895 01c5 00000000 		.4byte	.LFB32
+ 896 01c9 48000000 		.4byte	.LFE32
+ 897 01cd 8D000000 		.4byte	.LLST3
+ 898 01d1 E4010000 		.4byte	0x1e4
+ 899 01d5 0D       		.uleb128 0xd
+ 900 01d6 9E000000 		.4byte	.LASF24
+ 901 01da 01       		.byte	0x1
+ 902 01db 38       		.byte	0x38
+ 903 01dc 7A000000 		.4byte	0x7a
+ 904 01e0 02       		.byte	0x2
+ 905 01e1 91       		.byte	0x91
+ 906 01e2 77       		.sleb128 -9
+ 907 01e3 00       		.byte	0x0
+ 908 01e4 0C       		.uleb128 0xc
+ 909 01e5 01       		.byte	0x1
+ 910 01e6 C2000000 		.4byte	.LASF27
+ 911 01ea 01       		.byte	0x1
+ 912 01eb 3F       		.byte	0x3f
+ 913 01ec 01       		.byte	0x1
+ 914 01ed 00000000 		.4byte	.LFB33
+ 915 01f1 48000000 		.4byte	.LFE33
+ 916 01f5 C4000000 		.4byte	.LLST4
+ 917 01f9 0C020000 		.4byte	0x20c
+ 918 01fd 0D       		.uleb128 0xd
+ 919 01fe 9E000000 		.4byte	.LASF24
+ 920 0202 01       		.byte	0x1
+ 921 0203 3F       		.byte	0x3f
+ 922 0204 7A000000 		.4byte	0x7a
+ 923 0208 02       		.byte	0x2
+ 924 0209 91       		.byte	0x91
+ 925 020a 77       		.sleb128 -9
+ 926 020b 00       		.byte	0x0
+ 927 020c 0F       		.uleb128 0xf
+ 928 020d 01       		.byte	0x1
+ 929 020e 14010000 		.4byte	.LASF40
+ 930 0212 01       		.byte	0x1
+ 931 0213 47       		.byte	0x47
+ 932 0214 01       		.byte	0x1
+ 933 0215 B0000000 		.4byte	0xb0
+ 934 0219 00000000 		.4byte	.LFB34
+ 935 021d E6010000 		.4byte	.LFE34
+ 936 0221 FB000000 		.4byte	.LLST5
+ 937 0225 44020000 		.4byte	0x244
+ 938 0229 10       		.uleb128 0x10
+ 939 022a 6900     		.ascii	"i\000"
+ 940 022c 01       		.byte	0x1
+ 941 022d 49       		.byte	0x49
+ 942 022e 7A000000 		.4byte	0x7a
+ 943 0232 02       		.byte	0x2
+ 944 0233 91       		.byte	0x91
+ 945 0234 73       		.sleb128 -13
+ 946 0235 11       		.uleb128 0x11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 20
+
+
+ 947 0236 8D000000 		.4byte	.LASF28
+ 948 023a 01       		.byte	0x1
+ 949 023b 4A       		.byte	0x4a
+ 950 023c 85000000 		.4byte	0x85
+ 951 0240 02       		.byte	0x2
+ 952 0241 91       		.byte	0x91
+ 953 0242 74       		.sleb128 -12
+ 954 0243 00       		.byte	0x0
+ 955 0244 11       		.uleb128 0x11
+ 956 0245 B8010000 		.4byte	.LASF29
+ 957 0249 01       		.byte	0x1
+ 958 024a 10       		.byte	0x10
+ 959 024b BB000000 		.4byte	0xbb
+ 960 024f 05       		.byte	0x5
+ 961 0250 03       		.byte	0x3
+ 962 0251 00000000 		.4byte	TimerOverrun
+ 963 0255 11       		.uleb128 0x11
+ 964 0256 4C010000 		.4byte	.LASF30
+ 965 025a 01       		.byte	0x1
+ 966 025b 11       		.byte	0x11
+ 967 025c BB000000 		.4byte	0xbb
+ 968 0260 05       		.byte	0x5
+ 969 0261 03       		.byte	0x3
+ 970 0262 00000000 		.4byte	IsFirstExecution
+ 971 0266 12       		.uleb128 0x12
+ 972 0267 24010000 		.4byte	0x124
+ 973 026b 76020000 		.4byte	0x276
+ 974 026f 13       		.uleb128 0x13
+ 975 0270 AD000000 		.4byte	0xad
+ 976 0274 09       		.byte	0x9
+ 977 0275 00       		.byte	0x0
+ 978 0276 11       		.uleb128 0x11
+ 979 0277 90010000 		.4byte	.LASF31
+ 980 027b 01       		.byte	0x1
+ 981 027c 12       		.byte	0x12
+ 982 027d 66020000 		.4byte	0x266
+ 983 0281 05       		.byte	0x5
+ 984 0282 03       		.byte	0x3
+ 985 0283 04000000 		.4byte	Timer
+ 986 0287 11       		.uleb128 0x11
+ 987 0288 96000000 		.4byte	.LASF32
+ 988 028c 01       		.byte	0x1
+ 989 028d 13       		.byte	0x13
+ 990 028e 85000000 		.4byte	0x85
+ 991 0292 05       		.byte	0x5
+ 992 0293 03       		.byte	0x3
+ 993 0294 A4000000 		.4byte	NewTime
+ 994 0298 11       		.uleb128 0x11
+ 995 0299 0E000000 		.4byte	.LASF33
+ 996 029d 01       		.byte	0x1
+ 997 029e 13       		.byte	0x13
+ 998 029f 85000000 		.4byte	0x85
+ 999 02a3 05       		.byte	0x5
+ 1000 02a4 03       		.byte	0x3
+ 1001 02a5 A8000000 		.4byte	OldTime
+ 1002 02a9 14       		.uleb128 0x14
+ 1003 02aa 07010000 		.4byte	.LASF41
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 21
+
+
+ 1004 02ae 06       		.byte	0x6
+ 1005 02af CE06     		.2byte	0x6ce
+ 1006 02b1 B7020000 		.4byte	0x2b7
+ 1007 02b5 01       		.byte	0x1
+ 1008 02b6 01       		.byte	0x1
+ 1009 02b7 15       		.uleb128 0x15
+ 1010 02b8 6C000000 		.4byte	0x6c
+ 1011 02bc 00       		.byte	0x0
+ 1012              		.section	.debug_abbrev
+ 1013 0000 01       		.uleb128 0x1
+ 1014 0001 11       		.uleb128 0x11
+ 1015 0002 01       		.byte	0x1
+ 1016 0003 25       		.uleb128 0x25
+ 1017 0004 0E       		.uleb128 0xe
+ 1018 0005 13       		.uleb128 0x13
+ 1019 0006 0B       		.uleb128 0xb
+ 1020 0007 03       		.uleb128 0x3
+ 1021 0008 0E       		.uleb128 0xe
+ 1022 0009 1B       		.uleb128 0x1b
+ 1023 000a 0E       		.uleb128 0xe
+ 1024 000b 11       		.uleb128 0x11
+ 1025 000c 01       		.uleb128 0x1
+ 1026 000d 52       		.uleb128 0x52
+ 1027 000e 01       		.uleb128 0x1
+ 1028 000f 55       		.uleb128 0x55
+ 1029 0010 06       		.uleb128 0x6
+ 1030 0011 10       		.uleb128 0x10
+ 1031 0012 06       		.uleb128 0x6
+ 1032 0013 00       		.byte	0x0
+ 1033 0014 00       		.byte	0x0
+ 1034 0015 02       		.uleb128 0x2
+ 1035 0016 24       		.uleb128 0x24
+ 1036 0017 00       		.byte	0x0
+ 1037 0018 0B       		.uleb128 0xb
+ 1038 0019 0B       		.uleb128 0xb
+ 1039 001a 3E       		.uleb128 0x3e
+ 1040 001b 0B       		.uleb128 0xb
+ 1041 001c 03       		.uleb128 0x3
+ 1042 001d 0E       		.uleb128 0xe
+ 1043 001e 00       		.byte	0x0
+ 1044 001f 00       		.byte	0x0
+ 1045 0020 03       		.uleb128 0x3
+ 1046 0021 16       		.uleb128 0x16
+ 1047 0022 00       		.byte	0x0
+ 1048 0023 03       		.uleb128 0x3
+ 1049 0024 0E       		.uleb128 0xe
+ 1050 0025 3A       		.uleb128 0x3a
+ 1051 0026 0B       		.uleb128 0xb
+ 1052 0027 3B       		.uleb128 0x3b
+ 1053 0028 0B       		.uleb128 0xb
+ 1054 0029 49       		.uleb128 0x49
+ 1055 002a 13       		.uleb128 0x13
+ 1056 002b 00       		.byte	0x0
+ 1057 002c 00       		.byte	0x0
+ 1058 002d 04       		.uleb128 0x4
+ 1059 002e 24       		.uleb128 0x24
+ 1060 002f 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 22
+
+
+ 1061 0030 0B       		.uleb128 0xb
+ 1062 0031 0B       		.uleb128 0xb
+ 1063 0032 3E       		.uleb128 0x3e
+ 1064 0033 0B       		.uleb128 0xb
+ 1065 0034 03       		.uleb128 0x3
+ 1066 0035 08       		.uleb128 0x8
+ 1067 0036 00       		.byte	0x0
+ 1068 0037 00       		.byte	0x0
+ 1069 0038 05       		.uleb128 0x5
+ 1070 0039 0F       		.uleb128 0xf
+ 1071 003a 00       		.byte	0x0
+ 1072 003b 0B       		.uleb128 0xb
+ 1073 003c 0B       		.uleb128 0xb
+ 1074 003d 49       		.uleb128 0x49
+ 1075 003e 13       		.uleb128 0x13
+ 1076 003f 00       		.byte	0x0
+ 1077 0040 00       		.byte	0x0
+ 1078 0041 06       		.uleb128 0x6
+ 1079 0042 15       		.uleb128 0x15
+ 1080 0043 00       		.byte	0x0
+ 1081 0044 27       		.uleb128 0x27
+ 1082 0045 0C       		.uleb128 0xc
+ 1083 0046 00       		.byte	0x0
+ 1084 0047 00       		.byte	0x0
+ 1085 0048 07       		.uleb128 0x7
+ 1086 0049 24       		.uleb128 0x24
+ 1087 004a 00       		.byte	0x0
+ 1088 004b 0B       		.uleb128 0xb
+ 1089 004c 0B       		.uleb128 0xb
+ 1090 004d 3E       		.uleb128 0x3e
+ 1091 004e 0B       		.uleb128 0xb
+ 1092 004f 00       		.byte	0x0
+ 1093 0050 00       		.byte	0x0
+ 1094 0051 08       		.uleb128 0x8
+ 1095 0052 13       		.uleb128 0x13
+ 1096 0053 01       		.byte	0x1
+ 1097 0054 03       		.uleb128 0x3
+ 1098 0055 0E       		.uleb128 0xe
+ 1099 0056 0B       		.uleb128 0xb
+ 1100 0057 0B       		.uleb128 0xb
+ 1101 0058 3A       		.uleb128 0x3a
+ 1102 0059 0B       		.uleb128 0xb
+ 1103 005a 3B       		.uleb128 0x3b
+ 1104 005b 0B       		.uleb128 0xb
+ 1105 005c 01       		.uleb128 0x1
+ 1106 005d 13       		.uleb128 0x13
+ 1107 005e 00       		.byte	0x0
+ 1108 005f 00       		.byte	0x0
+ 1109 0060 09       		.uleb128 0x9
+ 1110 0061 0D       		.uleb128 0xd
+ 1111 0062 00       		.byte	0x0
+ 1112 0063 03       		.uleb128 0x3
+ 1113 0064 0E       		.uleb128 0xe
+ 1114 0065 3A       		.uleb128 0x3a
+ 1115 0066 0B       		.uleb128 0xb
+ 1116 0067 3B       		.uleb128 0x3b
+ 1117 0068 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 23
+
+
+ 1118 0069 49       		.uleb128 0x49
+ 1119 006a 13       		.uleb128 0x13
+ 1120 006b 38       		.uleb128 0x38
+ 1121 006c 0A       		.uleb128 0xa
+ 1122 006d 00       		.byte	0x0
+ 1123 006e 00       		.byte	0x0
+ 1124 006f 0A       		.uleb128 0xa
+ 1125 0070 2E       		.uleb128 0x2e
+ 1126 0071 00       		.byte	0x0
+ 1127 0072 3F       		.uleb128 0x3f
+ 1128 0073 0C       		.uleb128 0xc
+ 1129 0074 03       		.uleb128 0x3
+ 1130 0075 0E       		.uleb128 0xe
+ 1131 0076 3A       		.uleb128 0x3a
+ 1132 0077 0B       		.uleb128 0xb
+ 1133 0078 3B       		.uleb128 0x3b
+ 1134 0079 0B       		.uleb128 0xb
+ 1135 007a 27       		.uleb128 0x27
+ 1136 007b 0C       		.uleb128 0xc
+ 1137 007c 11       		.uleb128 0x11
+ 1138 007d 01       		.uleb128 0x1
+ 1139 007e 12       		.uleb128 0x12
+ 1140 007f 01       		.uleb128 0x1
+ 1141 0080 40       		.uleb128 0x40
+ 1142 0081 06       		.uleb128 0x6
+ 1143 0082 00       		.byte	0x0
+ 1144 0083 00       		.byte	0x0
+ 1145 0084 0B       		.uleb128 0xb
+ 1146 0085 2E       		.uleb128 0x2e
+ 1147 0086 00       		.byte	0x0
+ 1148 0087 3F       		.uleb128 0x3f
+ 1149 0088 0C       		.uleb128 0xc
+ 1150 0089 03       		.uleb128 0x3
+ 1151 008a 0E       		.uleb128 0xe
+ 1152 008b 3A       		.uleb128 0x3a
+ 1153 008c 0B       		.uleb128 0xb
+ 1154 008d 3B       		.uleb128 0x3b
+ 1155 008e 0B       		.uleb128 0xb
+ 1156 008f 27       		.uleb128 0x27
+ 1157 0090 0C       		.uleb128 0xc
+ 1158 0091 49       		.uleb128 0x49
+ 1159 0092 13       		.uleb128 0x13
+ 1160 0093 11       		.uleb128 0x11
+ 1161 0094 01       		.uleb128 0x1
+ 1162 0095 12       		.uleb128 0x12
+ 1163 0096 01       		.uleb128 0x1
+ 1164 0097 40       		.uleb128 0x40
+ 1165 0098 06       		.uleb128 0x6
+ 1166 0099 00       		.byte	0x0
+ 1167 009a 00       		.byte	0x0
+ 1168 009b 0C       		.uleb128 0xc
+ 1169 009c 2E       		.uleb128 0x2e
+ 1170 009d 01       		.byte	0x1
+ 1171 009e 3F       		.uleb128 0x3f
+ 1172 009f 0C       		.uleb128 0xc
+ 1173 00a0 03       		.uleb128 0x3
+ 1174 00a1 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 24
+
+
+ 1175 00a2 3A       		.uleb128 0x3a
+ 1176 00a3 0B       		.uleb128 0xb
+ 1177 00a4 3B       		.uleb128 0x3b
+ 1178 00a5 0B       		.uleb128 0xb
+ 1179 00a6 27       		.uleb128 0x27
+ 1180 00a7 0C       		.uleb128 0xc
+ 1181 00a8 11       		.uleb128 0x11
+ 1182 00a9 01       		.uleb128 0x1
+ 1183 00aa 12       		.uleb128 0x12
+ 1184 00ab 01       		.uleb128 0x1
+ 1185 00ac 40       		.uleb128 0x40
+ 1186 00ad 06       		.uleb128 0x6
+ 1187 00ae 01       		.uleb128 0x1
+ 1188 00af 13       		.uleb128 0x13
+ 1189 00b0 00       		.byte	0x0
+ 1190 00b1 00       		.byte	0x0
+ 1191 00b2 0D       		.uleb128 0xd
+ 1192 00b3 05       		.uleb128 0x5
+ 1193 00b4 00       		.byte	0x0
+ 1194 00b5 03       		.uleb128 0x3
+ 1195 00b6 0E       		.uleb128 0xe
+ 1196 00b7 3A       		.uleb128 0x3a
+ 1197 00b8 0B       		.uleb128 0xb
+ 1198 00b9 3B       		.uleb128 0x3b
+ 1199 00ba 0B       		.uleb128 0xb
+ 1200 00bb 49       		.uleb128 0x49
+ 1201 00bc 13       		.uleb128 0x13
+ 1202 00bd 02       		.uleb128 0x2
+ 1203 00be 0A       		.uleb128 0xa
+ 1204 00bf 00       		.byte	0x0
+ 1205 00c0 00       		.byte	0x0
+ 1206 00c1 0E       		.uleb128 0xe
+ 1207 00c2 05       		.uleb128 0x5
+ 1208 00c3 00       		.byte	0x0
+ 1209 00c4 03       		.uleb128 0x3
+ 1210 00c5 08       		.uleb128 0x8
+ 1211 00c6 3A       		.uleb128 0x3a
+ 1212 00c7 0B       		.uleb128 0xb
+ 1213 00c8 3B       		.uleb128 0x3b
+ 1214 00c9 0B       		.uleb128 0xb
+ 1215 00ca 49       		.uleb128 0x49
+ 1216 00cb 13       		.uleb128 0x13
+ 1217 00cc 02       		.uleb128 0x2
+ 1218 00cd 0A       		.uleb128 0xa
+ 1219 00ce 00       		.byte	0x0
+ 1220 00cf 00       		.byte	0x0
+ 1221 00d0 0F       		.uleb128 0xf
+ 1222 00d1 2E       		.uleb128 0x2e
+ 1223 00d2 01       		.byte	0x1
+ 1224 00d3 3F       		.uleb128 0x3f
+ 1225 00d4 0C       		.uleb128 0xc
+ 1226 00d5 03       		.uleb128 0x3
+ 1227 00d6 0E       		.uleb128 0xe
+ 1228 00d7 3A       		.uleb128 0x3a
+ 1229 00d8 0B       		.uleb128 0xb
+ 1230 00d9 3B       		.uleb128 0x3b
+ 1231 00da 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 25
+
+
+ 1232 00db 27       		.uleb128 0x27
+ 1233 00dc 0C       		.uleb128 0xc
+ 1234 00dd 49       		.uleb128 0x49
+ 1235 00de 13       		.uleb128 0x13
+ 1236 00df 11       		.uleb128 0x11
+ 1237 00e0 01       		.uleb128 0x1
+ 1238 00e1 12       		.uleb128 0x12
+ 1239 00e2 01       		.uleb128 0x1
+ 1240 00e3 40       		.uleb128 0x40
+ 1241 00e4 06       		.uleb128 0x6
+ 1242 00e5 01       		.uleb128 0x1
+ 1243 00e6 13       		.uleb128 0x13
+ 1244 00e7 00       		.byte	0x0
+ 1245 00e8 00       		.byte	0x0
+ 1246 00e9 10       		.uleb128 0x10
+ 1247 00ea 34       		.uleb128 0x34
+ 1248 00eb 00       		.byte	0x0
+ 1249 00ec 03       		.uleb128 0x3
+ 1250 00ed 08       		.uleb128 0x8
+ 1251 00ee 3A       		.uleb128 0x3a
+ 1252 00ef 0B       		.uleb128 0xb
+ 1253 00f0 3B       		.uleb128 0x3b
+ 1254 00f1 0B       		.uleb128 0xb
+ 1255 00f2 49       		.uleb128 0x49
+ 1256 00f3 13       		.uleb128 0x13
+ 1257 00f4 02       		.uleb128 0x2
+ 1258 00f5 0A       		.uleb128 0xa
+ 1259 00f6 00       		.byte	0x0
+ 1260 00f7 00       		.byte	0x0
+ 1261 00f8 11       		.uleb128 0x11
+ 1262 00f9 34       		.uleb128 0x34
+ 1263 00fa 00       		.byte	0x0
+ 1264 00fb 03       		.uleb128 0x3
+ 1265 00fc 0E       		.uleb128 0xe
+ 1266 00fd 3A       		.uleb128 0x3a
+ 1267 00fe 0B       		.uleb128 0xb
+ 1268 00ff 3B       		.uleb128 0x3b
+ 1269 0100 0B       		.uleb128 0xb
+ 1270 0101 49       		.uleb128 0x49
+ 1271 0102 13       		.uleb128 0x13
+ 1272 0103 02       		.uleb128 0x2
+ 1273 0104 0A       		.uleb128 0xa
+ 1274 0105 00       		.byte	0x0
+ 1275 0106 00       		.byte	0x0
+ 1276 0107 12       		.uleb128 0x12
+ 1277 0108 01       		.uleb128 0x1
+ 1278 0109 01       		.byte	0x1
+ 1279 010a 49       		.uleb128 0x49
+ 1280 010b 13       		.uleb128 0x13
+ 1281 010c 01       		.uleb128 0x1
+ 1282 010d 13       		.uleb128 0x13
+ 1283 010e 00       		.byte	0x0
+ 1284 010f 00       		.byte	0x0
+ 1285 0110 13       		.uleb128 0x13
+ 1286 0111 21       		.uleb128 0x21
+ 1287 0112 00       		.byte	0x0
+ 1288 0113 49       		.uleb128 0x49
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 26
+
+
+ 1289 0114 13       		.uleb128 0x13
+ 1290 0115 2F       		.uleb128 0x2f
+ 1291 0116 0B       		.uleb128 0xb
+ 1292 0117 00       		.byte	0x0
+ 1293 0118 00       		.byte	0x0
+ 1294 0119 14       		.uleb128 0x14
+ 1295 011a 34       		.uleb128 0x34
+ 1296 011b 00       		.byte	0x0
+ 1297 011c 03       		.uleb128 0x3
+ 1298 011d 0E       		.uleb128 0xe
+ 1299 011e 3A       		.uleb128 0x3a
+ 1300 011f 0B       		.uleb128 0xb
+ 1301 0120 3B       		.uleb128 0x3b
+ 1302 0121 05       		.uleb128 0x5
+ 1303 0122 49       		.uleb128 0x49
+ 1304 0123 13       		.uleb128 0x13
+ 1305 0124 3F       		.uleb128 0x3f
+ 1306 0125 0C       		.uleb128 0xc
+ 1307 0126 3C       		.uleb128 0x3c
+ 1308 0127 0C       		.uleb128 0xc
+ 1309 0128 00       		.byte	0x0
+ 1310 0129 00       		.byte	0x0
+ 1311 012a 15       		.uleb128 0x15
+ 1312 012b 35       		.uleb128 0x35
+ 1313 012c 00       		.byte	0x0
+ 1314 012d 49       		.uleb128 0x49
+ 1315 012e 13       		.uleb128 0x13
+ 1316 012f 00       		.byte	0x0
+ 1317 0130 00       		.byte	0x0
+ 1318 0131 00       		.byte	0x0
+ 1319              		.section	.debug_pubnames,"",%progbits
+ 1320 0000 7A000000 		.4byte	0x7a
+ 1321 0004 0200     		.2byte	0x2
+ 1322 0006 00000000 		.4byte	.Ldebug_info0
+ 1323 000a BD020000 		.4byte	0x2bd
+ 1324 000e 2F010000 		.4byte	0x12f
+ 1325 0012 6973725F 		.ascii	"isr_timer_routine\000"
+ 1325      74696D65 
+ 1325      725F726F 
+ 1325      7574696E 
+ 1325      6500
+ 1326 0024 44010000 		.4byte	0x144
+ 1327 0028 544D525F 		.ascii	"TMR_Init\000"
+ 1327      496E6974 
+ 1327      00
+ 1328 0031 5D010000 		.4byte	0x15d
+ 1329 0035 544D525F 		.ascii	"TMR_SetTimer\000"
+ 1329      53657454 
+ 1329      696D6572 
+ 1329      00
+ 1330 0042 BC010000 		.4byte	0x1bc
+ 1331 0046 544D525F 		.ascii	"TMR_StartTimer\000"
+ 1331      53746172 
+ 1331      7454696D 
+ 1331      657200
+ 1332 0055 E4010000 		.4byte	0x1e4
+ 1333 0059 544D525F 		.ascii	"TMR_StopTimer\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 27
+
+
+ 1333      53746F70 
+ 1333      54696D65 
+ 1333      7200
+ 1334 0067 0C020000 		.4byte	0x20c
+ 1335 006b 544D525F 		.ascii	"TMR_HandleTask\000"
+ 1335      48616E64 
+ 1335      6C655461 
+ 1335      736B00
+ 1336 007a 00000000 		.4byte	0x0
+ 1337              		.section	.debug_aranges,"",%progbits
+ 1338 0000 44000000 		.4byte	0x44
+ 1339 0004 0200     		.2byte	0x2
+ 1340 0006 00000000 		.4byte	.Ldebug_info0
+ 1341 000a 04       		.byte	0x4
+ 1342 000b 00       		.byte	0x0
+ 1343 000c 0000     		.2byte	0x0
+ 1344 000e 0000     		.2byte	0x0
+ 1345 0010 00000000 		.4byte	.LFB29
+ 1346 0014 18000000 		.4byte	.LFE29-.LFB29
+ 1347 0018 00000000 		.4byte	.LFB30
+ 1348 001c 6A000000 		.4byte	.LFE30-.LFB30
+ 1349 0020 00000000 		.4byte	.LFB31
+ 1350 0024 98000000 		.4byte	.LFE31-.LFB31
+ 1351 0028 00000000 		.4byte	.LFB32
+ 1352 002c 48000000 		.4byte	.LFE32-.LFB32
+ 1353 0030 00000000 		.4byte	.LFB33
+ 1354 0034 48000000 		.4byte	.LFE33-.LFB33
+ 1355 0038 00000000 		.4byte	.LFB34
+ 1356 003c E6010000 		.4byte	.LFE34-.LFB34
+ 1357 0040 00000000 		.4byte	0x0
+ 1358 0044 00000000 		.4byte	0x0
+ 1359              		.section	.debug_ranges,"",%progbits
+ 1360              	.Ldebug_ranges0:
+ 1361 0000 00000000 		.4byte	.Ltext0
+ 1362 0004 00000000 		.4byte	.Letext0
+ 1363 0008 00000000 		.4byte	.LFB29
+ 1364 000c 18000000 		.4byte	.LFE29
+ 1365 0010 00000000 		.4byte	.LFB30
+ 1366 0014 6A000000 		.4byte	.LFE30
+ 1367 0018 00000000 		.4byte	.LFB31
+ 1368 001c 98000000 		.4byte	.LFE31
+ 1369 0020 00000000 		.4byte	.LFB32
+ 1370 0024 48000000 		.4byte	.LFE32
+ 1371 0028 00000000 		.4byte	.LFB33
+ 1372 002c 48000000 		.4byte	.LFE33
+ 1373 0030 00000000 		.4byte	.LFB34
+ 1374 0034 E6010000 		.4byte	.LFE34
+ 1375 0038 00000000 		.4byte	0x0
+ 1376 003c 00000000 		.4byte	0x0
+ 1377              		.section	.debug_str,"MS",%progbits,1
+ 1378              	.LASF6:
+ 1379 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1379      206C6F6E 
+ 1379      6720696E 
+ 1379      7400
+ 1380              	.LASF33:
+ 1381 000e 4F6C6454 		.ascii	"OldTime\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 28
+
+
+ 1381      696D6500 
+ 1382              	.LASF22:
+ 1383 0016 73746174 		.ascii	"status\000"
+ 1383      757300
+ 1384              	.LASF16:
+ 1385 001d 424F4F4C 		.ascii	"BOOL\000"
+ 1385      00
+ 1386              	.LASF19:
+ 1387 0022 76616C75 		.ascii	"value\000"
+ 1387      6500
+ 1388              	.LASF18:
+ 1389 0028 636F756E 		.ascii	"count\000"
+ 1389      7400
+ 1390              	.LASF36:
+ 1391 002e 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
+ 1391      6F626F74 
+ 1391      69637363 
+ 1391      6F64655C 
+ 1391      7472756E 
+ 1392 005c 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
+ 1392      6C617466 
+ 1392      6F726D32 
+ 1392      5C447269 
+ 1392      7665506C 
+ 1393              	.LASF28:
+ 1394 008d 74696D65 		.ascii	"timediff\000"
+ 1394      64696666 
+ 1394      00
+ 1395              	.LASF32:
+ 1396 0096 4E657754 		.ascii	"NewTime\000"
+ 1396      696D6500 
+ 1397              	.LASF24:
+ 1398 009e 6E756D54 		.ascii	"numTimer\000"
+ 1398      696D6572 
+ 1398      00
+ 1399              	.LASF12:
+ 1400 00a7 666C6F61 		.ascii	"float\000"
+ 1400      7400
+ 1401              	.LASF15:
+ 1402 00ad 53544154 		.ascii	"STATUS\000"
+ 1402      555300
+ 1403              	.LASF1:
+ 1404 00b4 756E7369 		.ascii	"unsigned char\000"
+ 1404      676E6564 
+ 1404      20636861 
+ 1404      7200
+ 1405              	.LASF27:
+ 1406 00c2 544D525F 		.ascii	"TMR_StopTimer\000"
+ 1406      53746F70 
+ 1406      54696D65 
+ 1406      7200
+ 1407              	.LASF5:
+ 1408 00d0 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1408      20756E73 
+ 1408      69676E65 
+ 1408      6420696E 
+ 1408      7400
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 29
+
+
+ 1409              	.LASF3:
+ 1410 00e2 73686F72 		.ascii	"short unsigned int\000"
+ 1410      7420756E 
+ 1410      7369676E 
+ 1410      65642069 
+ 1410      6E7400
+ 1411              	.LASF38:
+ 1412 00f5 6973725F 		.ascii	"isr_timer_routine\000"
+ 1412      74696D65 
+ 1412      725F726F 
+ 1412      7574696E 
+ 1412      6500
+ 1413              	.LASF41:
+ 1414 0107 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1414      52784275 
+ 1414      66666572 
+ 1414      00
+ 1415              	.LASF40:
+ 1416 0114 544D525F 		.ascii	"TMR_HandleTask\000"
+ 1416      48616E64 
+ 1416      6C655461 
+ 1416      736B00
+ 1417              	.LASF13:
+ 1418 0123 646F7562 		.ascii	"double\000"
+ 1418      6C6500
+ 1419              	.LASF20:
+ 1420 012a 66756E63 		.ascii	"func\000"
+ 1420      00
+ 1421              	.LASF39:
+ 1422 012f 544D525F 		.ascii	"TMR_Init\000"
+ 1422      496E6974 
+ 1422      00
+ 1423              	.LASF11:
+ 1424 0138 75696E74 		.ascii	"uint32\000"
+ 1424      333200
+ 1425              	.LASF8:
+ 1426 013f 756E7369 		.ascii	"unsigned int\000"
+ 1426      676E6564 
+ 1426      20696E74 
+ 1426      00
+ 1427              	.LASF30:
+ 1428 014c 49734669 		.ascii	"IsFirstExecution\000"
+ 1428      72737445 
+ 1428      78656375 
+ 1428      74696F6E 
+ 1428      00
+ 1429              	.LASF17:
+ 1430 015d 544D525F 		.ascii	"TMR_FUNC\000"
+ 1430      46554E43 
+ 1430      00
+ 1431              	.LASF7:
+ 1432 0166 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1432      206C6F6E 
+ 1432      6720756E 
+ 1432      7369676E 
+ 1432      65642069 
+ 1433              	.LASF9:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 30
+
+
+ 1434 017d 75696E74 		.ascii	"uint8_t\000"
+ 1434      385F7400 
+ 1435              	.LASF23:
+ 1436 0185 54494D45 		.ascii	"TIMER\000"
+ 1436      5200
+ 1437              	.LASF21:
+ 1438 018b 6D6F6465 		.ascii	"mode\000"
+ 1438      00
+ 1439              	.LASF31:
+ 1440 0190 54696D65 		.ascii	"Timer\000"
+ 1440      7200
+ 1441              	.LASF26:
+ 1442 0196 544D525F 		.ascii	"TMR_StartTimer\000"
+ 1442      53746172 
+ 1442      7454696D 
+ 1442      657200
+ 1443              	.LASF37:
+ 1444 01a5 5F74696D 		.ascii	"_timer\000"
+ 1444      657200
+ 1445              	.LASF34:
+ 1446 01ac 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1446      4320342E 
+ 1446      342E3100 
+ 1447              	.LASF29:
+ 1448 01b8 54696D65 		.ascii	"TimerOverrun\000"
+ 1448      724F7665 
+ 1448      7272756E 
+ 1448      00
+ 1449              	.LASF14:
+ 1450 01c5 63686172 		.ascii	"char\000"
+ 1450      00
+ 1451              	.LASF25:
+ 1452 01ca 544D525F 		.ascii	"TMR_SetTimer\000"
+ 1452      53657454 
+ 1452      696D6572 
+ 1452      00
+ 1453              	.LASF2:
+ 1454 01d7 73686F72 		.ascii	"short int\000"
+ 1454      7420696E 
+ 1454      7400
+ 1455              	.LASF10:
+ 1456 01e1 75696E74 		.ascii	"uint8\000"
+ 1456      3800
+ 1457              	.LASF35:
+ 1458 01e7 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\tm"
+ 1458      2E5C2E2E 
+ 1458      5C447269 
+ 1458      76655F50 
+ 1458      6C617466 
+ 1459 0215 722E6300 		.ascii	"r.c\000"
+ 1460              	.LASF4:
+ 1461 0219 6C6F6E67 		.ascii	"long int\000"
+ 1461      20696E74 
+ 1461      00
+ 1462              	.LASF0:
+ 1463 0222 7369676E 		.ascii	"signed char\000"
+ 1463      65642063 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 31
+
+
+ 1463      68617200 
+ 1464              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
