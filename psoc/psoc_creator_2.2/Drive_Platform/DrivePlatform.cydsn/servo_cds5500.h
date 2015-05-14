@@ -184,6 +184,9 @@ void SetAngleLimit(int ID, int low, int high);
 void tempMethod();
 void Reset(int ID);
 void SetTempLimit(int ID, int temperature);
+ 
+    
+STATUS CDS5500_SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams);
     
 #endif
 

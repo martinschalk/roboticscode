@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
   15:.\Generated_Source\PSoC5/UART_PM.c **** *******************************************************************************/
   16:.\Generated_Source\PSoC5/UART_PM.c **** 
   17:.\Generated_Source\PSoC5/UART_PM.c **** #include "UART.h"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 2
 
 
   18:.\Generated_Source\PSoC5/UART_PM.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
   60:.\Generated_Source\PSoC5/UART_PM.c ****         #if( (UART_RX_ENABLED) || (UART_HD_ENABLED) )
   61:.\Generated_Source\PSoC5/UART_PM.c ****             UART_backup.rx_period = UART_RXBITCTR_PERIOD_REG;
   48              		.loc 1 61 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 3
 
 
   49 0004 46F28F43 		movw	r3, #:lower16:1073767567
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
   77:.\Generated_Source\PSoC5/UART_PM.c ****         #endif /*End UART_TX_ENABLED */
   78:.\Generated_Source\PSoC5/UART_PM.c **** 
   79:.\Generated_Source\PSoC5/UART_PM.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 4
 
 
   80:.\Generated_Source\PSoC5/UART_PM.c ****     #else /* CY_UDB_V1 */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  110              		.cfi_def_cfa_offset 4
  111 0002 00AF     		add	r7, sp, #0
  112              		.cfi_offset 7, -4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 5
 
 
  113              	.LCFI3:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  143              		.loc 1 135 0
  144 0054 46F28A43 		movw	r3, #:lower16:1073767562
  145 0058 C4F20003 		movt	r3, #:upper16:1073767562
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 6
 
 
  146 005c 40F20002 		movw	r2, #:lower16:UART_backup
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  171:.\Generated_Source\PSoC5/UART_PM.c **** {
  165              		.loc 1 171 0
  166              		.cfi_startproc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 7
 
 
  167              		@ args = 0, pretend = 0, frame = 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  199 0036 FFF7FEFF 		bl	UART_Stop
  194:.\Generated_Source\PSoC5/UART_PM.c ****     UART_SaveConfig();
  200              		.loc 1 194 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 8
 
 
  201 003a FFF7FEFF 		bl	UART_SaveConfig
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  228 0004 FFF7FEFF 		bl	UART_RestoreConfig
  222:.\Generated_Source\PSoC5/UART_PM.c ****     #if( (UART_RX_ENABLED) || (UART_HD_ENABLED) )
  223:.\Generated_Source\PSoC5/UART_PM.c ****         UART_ClearRxBuffer();
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 9
 
 
  229              		.loc 1 223 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  273 0036 02000000 		.4byte	.LCFI2
  274 003a 04000000 		.4byte	.LCFI3
  275 003e 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 10
 
 
  276 0040 7D       		.byte	0x7d
@@ -592,13 +592,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  324 0006 00000000 		.4byte	.Ldebug_abbrev0
  325 000a 04       		.byte	0x4
  326 000b 01       		.uleb128 0x1
- 327 000c F1000000 		.4byte	.LASF24
+ 327 000c 5E010000 		.4byte	.LASF24
  328 0010 01       		.byte	0x1
- 329 0011 A5010000 		.4byte	.LASF25
- 330 0015 FD000000 		.4byte	.LASF26
+ 329 0011 B3010000 		.4byte	.LASF25
+ 330 0015 E1000000 		.4byte	.LASF26
  331 0019 00000000 		.4byte	0x0
  332 001d 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 11
 
 
  333 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
@@ -606,27 +606,27 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  335 0029 02       		.uleb128 0x2
  336 002a 01       		.byte	0x1
  337 002b 06       		.byte	0x6
- 338 002c C8010000 		.4byte	.LASF0
+ 338 002c D6010000 		.4byte	.LASF0
  339 0030 02       		.uleb128 0x2
  340 0031 01       		.byte	0x1
  341 0032 08       		.byte	0x8
- 342 0033 AF000000 		.4byte	.LASF1
+ 342 0033 BB000000 		.4byte	.LASF1
  343 0037 02       		.uleb128 0x2
  344 0038 02       		.byte	0x2
  345 0039 05       		.byte	0x5
- 346 003a 9B010000 		.4byte	.LASF2
+ 346 003a A9010000 		.4byte	.LASF2
  347 003e 02       		.uleb128 0x2
  348 003f 02       		.byte	0x2
  349 0040 07       		.byte	0x7
- 350 0041 5C010000 		.4byte	.LASF3
+ 350 0041 6A010000 		.4byte	.LASF3
  351 0045 02       		.uleb128 0x2
  352 0046 04       		.byte	0x4
  353 0047 05       		.byte	0x5
- 354 0048 E8000000 		.4byte	.LASF4
+ 354 0048 55010000 		.4byte	.LASF4
  355 004c 02       		.uleb128 0x2
  356 004d 04       		.byte	0x4
  357 004e 07       		.byte	0x7
- 358 004f 63000000 		.4byte	.LASF5
+ 358 004f 6F000000 		.4byte	.LASF5
  359 0053 02       		.uleb128 0x2
  360 0054 08       		.byte	0x8
  361 0055 05       		.byte	0x5
@@ -634,7 +634,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  363 005a 02       		.uleb128 0x2
  364 005b 08       		.byte	0x8
  365 005c 07       		.byte	0x7
- 366 005d 7F000000 		.4byte	.LASF7
+ 366 005d 8B000000 		.4byte	.LASF7
  367 0061 03       		.uleb128 0x3
  368 0062 04       		.byte	0x4
  369 0063 05       		.byte	0x5
@@ -644,25 +644,25 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  373 006a 07       		.byte	0x7
  374 006b 1A000000 		.4byte	.LASF8
  375 006f 04       		.uleb128 0x4
- 376 0070 5D000000 		.4byte	.LASF18
+ 376 0070 69000000 		.4byte	.LASF18
  377 0074 03       		.byte	0x3
  378 0075 4C       		.byte	0x4c
  379 0076 30000000 		.4byte	0x30
  380 007a 02       		.uleb128 0x2
  381 007b 04       		.byte	0x4
  382 007c 04       		.byte	0x4
- 383 007d 95010000 		.4byte	.LASF9
+ 383 007d A3010000 		.4byte	.LASF9
  384 0081 02       		.uleb128 0x2
  385 0082 08       		.byte	0x8
  386 0083 04       		.byte	0x4
- 387 0084 E1000000 		.4byte	.LASF10
+ 387 0084 4E010000 		.4byte	.LASF10
  388 0088 02       		.uleb128 0x2
  389 0089 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 12
 
 
  390 008a 08       		.byte	0x8
- 391 008b BD000000 		.4byte	.LASF11
+ 391 008b C9000000 		.4byte	.LASF11
  392 008f 05       		.uleb128 0x5
  393 0090 04       		.byte	0x4
  394 0091 07       		.byte	0x7
@@ -673,7 +673,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  399 0099 46       		.byte	0x46
  400 009a F3000000 		.4byte	0xf3
  401 009e 07       		.uleb128 0x7
- 402 009f D5000000 		.4byte	.LASF12
+ 402 009f 55000000 		.4byte	.LASF12
  403 00a3 02       		.byte	0x2
  404 00a4 47       		.byte	0x47
  405 00a5 6F000000 		.4byte	0x6f
@@ -681,7 +681,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  407 00aa 23       		.byte	0x23
  408 00ab 00       		.uleb128 0x0
  409 00ac 07       		.uleb128 0x7
- 410 00ad 75000000 		.4byte	.LASF13
+ 410 00ad 81000000 		.4byte	.LASF13
  411 00b1 02       		.byte	0x2
  412 00b2 4D       		.byte	0x4d
  413 00b3 6F000000 		.4byte	0x6f
@@ -689,7 +689,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  415 00b8 23       		.byte	0x23
  416 00b9 01       		.uleb128 0x1
  417 00ba 07       		.uleb128 0x7
- 418 00bb 82010000 		.4byte	.LASF14
+ 418 00bb 90010000 		.4byte	.LASF14
  419 00bf 02       		.byte	0x2
  420 00c0 4F       		.byte	0x4f
  421 00c1 6F000000 		.4byte	0x6f
@@ -697,7 +697,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  423 00c6 23       		.byte	0x23
  424 00c7 02       		.uleb128 0x2
  425 00c8 07       		.uleb128 0x7
- 426 00c9 8A010000 		.4byte	.LASF15
+ 426 00c9 98010000 		.4byte	.LASF15
  427 00cd 02       		.byte	0x2
  428 00ce 59       		.byte	0x59
  429 00cf 6F000000 		.4byte	0x6f
@@ -705,7 +705,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  431 00d4 23       		.byte	0x23
  432 00d5 03       		.uleb128 0x3
  433 00d6 07       		.uleb128 0x7
- 434 00d7 A2000000 		.4byte	.LASF16
+ 434 00d7 AE000000 		.4byte	.LASF16
  435 00db 02       		.byte	0x2
  436 00dc 5B       		.byte	0x5b
  437 00dd 6F000000 		.4byte	0x6f
@@ -713,19 +713,19 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  439 00e2 23       		.byte	0x23
  440 00e3 04       		.uleb128 0x4
  441 00e4 07       		.uleb128 0x7
- 442 00e5 55000000 		.4byte	.LASF17
+ 442 00e5 61000000 		.4byte	.LASF17
  443 00e9 02       		.byte	0x2
  444 00ea 61       		.byte	0x61
  445 00eb 6F000000 		.4byte	0x6f
  446 00ef 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 13
 
 
  447 00f0 23       		.byte	0x23
  448 00f1 05       		.uleb128 0x5
  449 00f2 00       		.byte	0x0
  450 00f3 04       		.uleb128 0x4
- 451 00f4 C2000000 		.4byte	.LASF19
+ 451 00f4 CE000000 		.4byte	.LASF19
  452 00f8 02       		.byte	0x2
  453 00f9 64       		.byte	0x64
  454 00fa 92000000 		.4byte	0x92
@@ -740,7 +740,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  463 010f 00000000 		.4byte	.LLST0
  464 0113 08       		.uleb128 0x8
  465 0114 01       		.byte	0x1
- 466 0115 6F010000 		.4byte	.LASF21
+ 466 0115 7D010000 		.4byte	.LASF21
  467 0119 01       		.byte	0x1
  468 011a 6E       		.byte	0x6e
  469 011b 01       		.byte	0x1
@@ -758,7 +758,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  481 0139 56000000 		.4byte	.LLST2
  482 013d 08       		.uleb128 0x8
  483 013e 01       		.byte	0x1
- 484 013f 96000000 		.4byte	.LASF23
+ 484 013f A2000000 		.4byte	.LASF23
  485 0143 01       		.byte	0x1
  486 0144 DB       		.byte	0xdb
  487 0145 01       		.byte	0x1
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  501 0000 01       		.uleb128 0x1
  502 0001 11       		.uleb128 0x11
  503 0002 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 14
 
 
  504 0003 25       		.uleb128 0x25
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  558 0039 24       		.uleb128 0x24
  559 003a 00       		.byte	0x0
  560 003b 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 15
 
 
  561 003c 0B       		.uleb128 0xb
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  615 0072 00       		.byte	0x0
  616 0073 00       		.byte	0x0
  617 0074 09       		.uleb128 0x9
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 16
 
 
  618 0075 34       		.uleb128 0x34
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  661 0028 00000000 		.4byte	.LFB3
  662 002c 24000000 		.4byte	.LFE3-.LFB3
  663 0030 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 17
 
 
  664 0034 00000000 		.4byte	0x0
@@ -1006,117 +1006,121 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 1
  691      6B757053 
  691      74727563 
  691      745F00
- 692              	.LASF17:
- 693 0055 74785F6D 		.ascii	"tx_mask\000"
- 693      61736B00 
- 694              	.LASF18:
- 695 005d 75696E74 		.ascii	"uint8\000"
- 695      3800
- 696              	.LASF5:
- 697 0063 6C6F6E67 		.ascii	"long unsigned int\000"
- 697      20756E73 
- 697      69676E65 
- 697      6420696E 
- 697      7400
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 18
+ 692              	.LASF12:
+ 693 0055 656E6162 		.ascii	"enableState\000"
+ 693      6C655374 
+ 693      61746500 
+ 694              	.LASF17:
+ 695 0061 74785F6D 		.ascii	"tx_mask\000"
+ 695      61736B00 
+ 696              	.LASF18:
+ 697 0069 75696E74 		.ascii	"uint8\000"
+ 697      3800
+ 698              	.LASF5:
+ 699 006f 6C6F6E67 		.ascii	"long unsigned int\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 18
 
 
- 698              	.LASF13:
- 699 0075 72785F70 		.ascii	"rx_period\000"
- 699      6572696F 
- 699      6400
- 700              	.LASF7:
- 701 007f 6C6F6E67 		.ascii	"long long unsigned int\000"
- 701      206C6F6E 
- 701      6720756E 
- 701      7369676E 
- 701      65642069 
- 702              	.LASF23:
- 703 0096 55415254 		.ascii	"UART_Wakeup\000"
- 703      5F57616B 
- 703      65757000 
- 704              	.LASF16:
- 705 00a2 74785F63 		.ascii	"tx_clk_compl\000"
- 705      6C6B5F63 
- 705      6F6D706C 
- 705      00
- 706              	.LASF1:
- 707 00af 756E7369 		.ascii	"unsigned char\000"
- 707      676E6564 
- 707      20636861 
- 707      7200
- 708              	.LASF11:
- 709 00bd 63686172 		.ascii	"char\000"
- 709      00
- 710              	.LASF19:
- 711 00c2 55415254 		.ascii	"UART_BACKUP_STRUCT\000"
- 711      5F424143 
- 711      4B55505F 
- 711      53545255 
- 711      435400
- 712              	.LASF12:
- 713 00d5 656E6162 		.ascii	"enableState\000"
- 713      6C655374 
- 713      61746500 
- 714              	.LASF10:
- 715 00e1 646F7562 		.ascii	"double\000"
- 715      6C6500
- 716              	.LASF4:
- 717 00e8 6C6F6E67 		.ascii	"long int\000"
- 717      20696E74 
- 717      00
- 718              	.LASF24:
- 719 00f1 474E5520 		.ascii	"GNU C 4.4.1\000"
- 719      4320342E 
- 719      342E3100 
- 720              	.LASF26:
- 721 00fd 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
- 721      6F626F74 
- 721      69637363 
- 721      6F64655C 
- 721      7472756E 
- 722 012b 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
- 722      6C617466 
- 722      6F726D32 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpg6yXS.s 			page 19
+ 699      20756E73 
+ 699      69676E65 
+ 699      6420696E 
+ 699      7400
+ 700              	.LASF13:
+ 701 0081 72785F70 		.ascii	"rx_period\000"
+ 701      6572696F 
+ 701      6400
+ 702              	.LASF7:
+ 703 008b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 703      206C6F6E 
+ 703      6720756E 
+ 703      7369676E 
+ 703      65642069 
+ 704              	.LASF23:
+ 705 00a2 55415254 		.ascii	"UART_Wakeup\000"
+ 705      5F57616B 
+ 705      65757000 
+ 706              	.LASF16:
+ 707 00ae 74785F63 		.ascii	"tx_clk_compl\000"
+ 707      6C6B5F63 
+ 707      6F6D706C 
+ 707      00
+ 708              	.LASF1:
+ 709 00bb 756E7369 		.ascii	"unsigned char\000"
+ 709      676E6564 
+ 709      20636861 
+ 709      7200
+ 710              	.LASF11:
+ 711 00c9 63686172 		.ascii	"char\000"
+ 711      00
+ 712              	.LASF19:
+ 713 00ce 55415254 		.ascii	"UART_BACKUP_STRUCT\000"
+ 713      5F424143 
+ 713      4B55505F 
+ 713      53545255 
+ 713      435400
+ 714              	.LASF26:
+ 715 00e1 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 715      69744875 
+ 715      625F726F 
+ 715      626F7469 
+ 715      6373636F 
+ 716 0110 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 716      6F725F32 
+ 716      2E325C44 
+ 716      72697665 
+ 716      506C6174 
+ 717 0140 6174666F 		.ascii	"atform2.cydsn\000"
+ 717      726D322E 
+ 717      63796473 
+ 717      6E00
+ 718              	.LASF10:
+ 719 014e 646F7562 		.ascii	"double\000"
+ 719      6C6500
+ 720              	.LASF4:
+ 721 0155 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccEiNhLk.s 			page 19
 
 
- 722      5C447269 
- 722      7665506C 
- 723              	.LASF3:
- 724 015c 73686F72 		.ascii	"short unsigned int\000"
- 724      7420756E 
- 724      7369676E 
- 724      65642069 
- 724      6E7400
- 725              	.LASF21:
- 726 016f 55415254 		.ascii	"UART_RestoreConfig\000"
- 726      5F526573 
- 726      746F7265 
- 726      436F6E66 
- 726      696700
- 727              	.LASF14:
- 728 0182 72785F6D 		.ascii	"rx_mask\000"
- 728      61736B00 
- 729              	.LASF15:
- 730 018a 74785F63 		.ascii	"tx_clk_ctr\000"
- 730      6C6B5F63 
- 730      747200
- 731              	.LASF9:
- 732 0195 666C6F61 		.ascii	"float\000"
- 732      7400
- 733              	.LASF2:
- 734 019b 73686F72 		.ascii	"short int\000"
- 734      7420696E 
- 734      7400
- 735              	.LASF25:
- 736 01a5 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\UART_PM.c\000"
- 736      6E657261 
- 736      7465645F 
- 736      536F7572 
- 736      63655C50 
- 737              	.LASF0:
- 738 01c8 7369676E 		.ascii	"signed char\000"
- 738      65642063 
- 738      68617200 
- 739              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 721      20696E74 
+ 721      00
+ 722              	.LASF24:
+ 723 015e 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 723      4320342E 
+ 723      342E3100 
+ 724              	.LASF3:
+ 725 016a 73686F72 		.ascii	"short unsigned int\000"
+ 725      7420756E 
+ 725      7369676E 
+ 725      65642069 
+ 725      6E7400
+ 726              	.LASF21:
+ 727 017d 55415254 		.ascii	"UART_RestoreConfig\000"
+ 727      5F526573 
+ 727      746F7265 
+ 727      436F6E66 
+ 727      696700
+ 728              	.LASF14:
+ 729 0190 72785F6D 		.ascii	"rx_mask\000"
+ 729      61736B00 
+ 730              	.LASF15:
+ 731 0198 74785F63 		.ascii	"tx_clk_ctr\000"
+ 731      6C6B5F63 
+ 731      747200
+ 732              	.LASF9:
+ 733 01a3 666C6F61 		.ascii	"float\000"
+ 733      7400
+ 734              	.LASF2:
+ 735 01a9 73686F72 		.ascii	"short int\000"
+ 735      7420696E 
+ 735      7400
+ 736              	.LASF25:
+ 737 01b3 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\UART_PM.c\000"
+ 737      6E657261 
+ 737      7465645F 
+ 737      536F7572 
+ 737      63655C50 
+ 738              	.LASF0:
+ 739 01d6 7369676E 		.ascii	"signed char\000"
+ 739      65642063 
+ 739      68617200 
+ 740              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

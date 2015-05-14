@@ -14,7 +14,7 @@
 /*------------------------ LOCAL FUNCTIONS -------------------------------*/
 
 /**************************************************************************/
-static uint8 Checksum(CDS5500_MSG* msg)
+static uint8 GetChecksum(CDS5500_MSG* msg)
 {
 	uint8 checksum = 0;
     uint8 i;
@@ -33,7 +33,7 @@ static uint8 Checksum(CDS5500_MSG* msg)
 }
 
 /**************************************************************************/
-static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams)
+STATUS CDS5500_SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams)
 {
     CDS5500_MSG msg;
     
@@ -46,7 +46,7 @@ static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, 
         memcpy(msg.instrParams, pucInstrParams, ucNumParams);
 
     msg.length          = ucNumParams + 2; //number of params + 1 (instrId) + 1 (checksum)
-    msg.checksum        = Checksum(&msg);  
+    msg.checksum        = GetChecksum(&msg);  
     
     return BAL_ServoMsg(&msg);
 }
@@ -58,7 +58,7 @@ void ServoTest(void)
 {
     STATUS status;
     
-    status = SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      0);
+    status = CDS5500_SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      0);
     
     /*
                         HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
@@ -88,7 +88,7 @@ void Ping(uint8 motorId)
                       };
 
     
-    msg.checksum = Checksum(&msg);  
+    msg.checksum = GetChecksum(&msg);  
                      
     
     /* 0xFF 0xFF 0x01 0x02 0x01 0xFB */                  
@@ -105,7 +105,7 @@ STATUS CheckResponse(CDS5500_MSG* response)
 {
     STATUS status=SUCCESS;
     uint8 msgCkecksum = response->checksum;
-    uint8 calcChecksum = Checksum(response); 
+    uint8 calcChecksum = GetChecksum(response); 
     
     /* compare calculated with received checksum */
     if (msgCkecksum != calcChecksum)

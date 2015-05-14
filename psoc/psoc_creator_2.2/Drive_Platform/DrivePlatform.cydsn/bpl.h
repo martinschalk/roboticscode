@@ -37,8 +37,8 @@ BUS MESSAGE
 #define BPL_H
 
 /*******************************************************/
-#define TX_BUFFER_SIZE		256
-#define RX_BUFFER_SIZE		256
+#define BPL_TX_BUFFER_SIZE		256
+#define BPL_RX_BUFFER_SIZE		256
 
 
 

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
    7:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** 
    8:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** #include "global.h"
    9:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** #include "types.h"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 2
 
 
   10:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** #include "hal.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
   35:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** {
   74              		.loc 1 35 0
   75              		.cfi_startproc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 3
 
 
   76              		@ args = 0, pretend = 0, frame = 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  123              		.loc 1 42 0
  124 000a 40F20003 		movw	r3, #:lower16:HalStatus
  125 000e C0F20003 		movt	r3, #:upper16:HalStatus
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 4
 
 
  126 0012 FA79     		ldrb	r2, [r7, #7]
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  173              		.align	2
  174              		.global	isr_tx_routine
  175              		.thumb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 5
 
 
  176              		.thumb_func
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  220              		.thumb_func
  221              		.type	HAL_Init, %function
  222              	HAL_Init:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 6
 
 
  223              	.LFB34:
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  264              		.loc 1 70 0
  265 0042 40F20000 		movw	r0, #:lower16:v1.2773
  266 0046 C0F20000 		movt	r0, #:upper16:v1.2773
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 7
 
 
  267 004a 40F20001 		movw	r1, #:lower16:.LC0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
   83:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** 	UART_EnableTxInt();
  309              		.loc 1 83 0
  310 00c0 FFF7FEFF 		bl	UART_EnableTxInt
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 8
 
 
   84:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c ****  
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  356              		.thumb
  357              		.thumb_func
  358              		.type	HAL_GetRxBufferCount, %function
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 9
 
 
  359              	HAL_GetRxBufferCount:
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  400 0004 00AF     		add	r7, sp, #0
  401              		.cfi_offset 14, -4
  402              		.cfi_offset 7, -8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 10
 
 
  403              	.LCFI20:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  438              	HAL_TransmitByte:
  439              	.LFB38:
  125:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 11
 
 
  126:..\..\..\Drive_Platform\DrivePlatform.cydsn/hal.c **** /*******************************************************/
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  481 0042 DAB2     		uxtb	r2, r3
  482 0044 40F20003 		movw	r3, #:lower16:TxCount
  483 0048 C0F20003 		movt	r3, #:upper16:TxCount
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 12
 
 
  484 004c 1A70     		strb	r2, [r3, #0]
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  523              		.cfi_def_cfa_offset 8
  524 0002 82B0     		sub	sp, sp, #8
  525              	.LCFI25:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 13
 
 
  526              		.cfi_def_cfa_offset 16
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  572 005e 00BF     		.bss
  573 0003 00       		.align	2
  574              	v1.2773:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 14
 
 
  575 0004 00000000 		.space	4
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  629 0075 0200     		.2byte	0x2
  630 0077 7D       		.byte	0x7d
  631 0078 10       		.sleb128 16
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 15
 
 
  632 0079 06000000 		.4byte	.LCFI6
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  686 0104 7D       		.byte	0x7d
  687 0105 18       		.sleb128 24
  688 0106 06000000 		.4byte	.LCFI13
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 16
 
 
  689 010a D2000000 		.4byte	.LFE34
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  743 0192 10       		.sleb128 16
  744 0193 06000000 		.4byte	.LCFI20
  745 0197 3C000000 		.4byte	.LFE37
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 17
 
 
  746 019b 0200     		.2byte	0x2
@@ -1018,16 +1018,16 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  800              		.section	.debug_info
  801 0000 D8020000 		.4byte	0x2d8
  802 0004 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 18
 
 
  803 0006 00000000 		.4byte	.Ldebug_abbrev0
  804 000a 04       		.byte	0x4
  805 000b 01       		.uleb128 0x1
- 806 000c CA010000 		.4byte	.LASF39
+ 806 000c D8010000 		.4byte	.LASF39
  807 0010 01       		.byte	0x1
- 808 0011 C5000000 		.4byte	.LASF40
- 809 0015 4E000000 		.4byte	.LASF41
+ 808 0011 66000000 		.4byte	.LASF40
+ 809 0015 FC000000 		.4byte	.LASF41
  810 0019 00000000 		.4byte	0x0
  811 001d 00000000 		.4byte	0x0
  812 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
@@ -1037,18 +1037,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  816 002b 06       		.byte	0x6
  817 002c 0E000000 		.4byte	.LASF0
  818 0030 03       		.uleb128 0x3
- 819 0031 7F010000 		.4byte	.LASF9
+ 819 0031 8D010000 		.4byte	.LASF9
  820 0035 02       		.byte	0x2
  821 0036 2A       		.byte	0x2a
  822 0037 3B000000 		.4byte	0x3b
  823 003b 02       		.uleb128 0x2
  824 003c 01       		.byte	0x1
  825 003d 08       		.byte	0x8
- 826 003e FE000000 		.4byte	.LASF1
+ 826 003e 9F000000 		.4byte	.LASF1
  827 0042 02       		.uleb128 0x2
  828 0043 02       		.byte	0x2
  829 0044 05       		.byte	0x5
- 830 0045 F5010000 		.4byte	.LASF2
+ 830 0045 03020000 		.4byte	.LASF2
  831 0049 02       		.uleb128 0x2
  832 004a 02       		.byte	0x2
  833 004b 07       		.byte	0x7
@@ -1056,11 +1056,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  835 0050 02       		.uleb128 0x2
  836 0051 04       		.byte	0x4
  837 0052 05       		.byte	0x5
- 838 0053 A9010000 		.4byte	.LASF4
+ 838 0053 B7010000 		.4byte	.LASF4
  839 0057 02       		.uleb128 0x2
  840 0058 04       		.byte	0x4
  841 0059 07       		.byte	0x7
- 842 005a 0C010000 		.4byte	.LASF5
+ 842 005a AD000000 		.4byte	.LASF5
  843 005e 02       		.uleb128 0x2
  844 005f 08       		.byte	0x8
  845 0060 05       		.byte	0x5
@@ -1068,7 +1068,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  847 0065 02       		.uleb128 0x2
  848 0066 08       		.byte	0x8
  849 0067 07       		.byte	0x7
- 850 0068 68010000 		.4byte	.LASF7
+ 850 0068 76010000 		.4byte	.LASF7
  851 006c 04       		.uleb128 0x4
  852 006d 04       		.byte	0x4
  853 006e 05       		.byte	0x5
@@ -1076,32 +1076,32 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  855 0073 02       		.uleb128 0x2
  856 0074 04       		.byte	0x4
  857 0075 07       		.byte	0x7
- 858 0076 5B010000 		.4byte	.LASF8
+ 858 0076 69010000 		.4byte	.LASF8
  859 007a 03       		.uleb128 0x3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 19
 
 
- 860 007b FF010000 		.4byte	.LASF10
+ 860 007b 0D020000 		.4byte	.LASF10
  861 007f 03       		.byte	0x3
  862 0080 4C       		.byte	0x4c
  863 0081 3B000000 		.4byte	0x3b
  864 0085 02       		.uleb128 0x2
  865 0086 04       		.byte	0x4
  866 0087 04       		.byte	0x4
- 867 0088 BF000000 		.4byte	.LASF11
+ 867 0088 60000000 		.4byte	.LASF11
  868 008c 02       		.uleb128 0x2
  869 008d 08       		.byte	0x8
  870 008e 04       		.byte	0x4
- 871 008f 54010000 		.4byte	.LASF12
+ 871 008f F5000000 		.4byte	.LASF12
  872 0093 02       		.uleb128 0x2
  873 0094 01       		.byte	0x1
  874 0095 08       		.byte	0x8
- 875 0096 DE010000 		.4byte	.LASF13
+ 875 0096 EC010000 		.4byte	.LASF13
  876 009a 05       		.uleb128 0x5
  877 009b 04       		.byte	0x4
  878 009c 07       		.byte	0x7
  879 009d 03       		.uleb128 0x3
- 880 009e F7000000 		.4byte	.LASF14
+ 880 009e 98000000 		.4byte	.LASF14
  881 00a2 04       		.byte	0x4
  882 00a3 0F       		.byte	0xf
  883 00a4 7A000000 		.4byte	0x7a
@@ -1111,13 +1111,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  887 00ae 10       		.byte	0x10
  888 00af 30000000 		.4byte	0x30
  889 00b3 03       		.uleb128 0x3
- 890 00b4 30010000 		.4byte	.LASF16
+ 890 00b4 D1000000 		.4byte	.LASF16
  891 00b8 05       		.byte	0x5
  892 00b9 1A       		.byte	0x1a
  893 00ba 73000000 		.4byte	0x73
  894 00be 06       		.uleb128 0x6
  895 00bf 01       		.byte	0x1
- 896 00c0 E3010000 		.4byte	.LASF17
+ 896 00c0 F1010000 		.4byte	.LASF17
  897 00c4 01       		.byte	0x1
  898 00c5 1C       		.byte	0x1c
  899 00c6 01       		.byte	0x1
@@ -1127,7 +1127,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  903 00d3 00000000 		.4byte	.LLST0
  904 00d7 06       		.uleb128 0x6
  905 00d8 01       		.byte	0x1
- 906 00d9 18020000 		.4byte	.LASF18
+ 906 00d9 26020000 		.4byte	.LASF18
  907 00dd 01       		.byte	0x1
  908 00de 22       		.byte	0x22
  909 00df 01       		.byte	0x1
@@ -1137,8 +1137,8 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  913 00ec 2B000000 		.4byte	.LLST1
  914 00f0 07       		.uleb128 0x7
  915 00f1 01       		.byte	0x1
- 916 00f2 49020000 		.4byte	.LASF27
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 20
+ 916 00f2 57020000 		.4byte	.LASF27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 20
 
 
  917 00f6 01       		.byte	0x1
@@ -1159,7 +1159,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  932 0117 00       		.byte	0x0
  933 0118 09       		.uleb128 0x9
  934 0119 01       		.byte	0x1
- 935 011a BB010000 		.4byte	.LASF19
+ 935 011a C9010000 		.4byte	.LASF19
  936 011e 01       		.byte	0x1
  937 011f 2E       		.byte	0x2e
  938 0120 01       		.byte	0x1
@@ -1168,7 +1168,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  941 0129 8D000000 		.4byte	.LLST3
  942 012d 09       		.uleb128 0x9
  943 012e 01       		.byte	0x1
- 944 012f 38010000 		.4byte	.LASF20
+ 944 012f D9000000 		.4byte	.LASF20
  945 0133 01       		.byte	0x1
  946 0134 34       		.byte	0x34
  947 0135 01       		.byte	0x1
@@ -1177,7 +1177,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  950 013e B8000000 		.4byte	.LLST4
  951 0142 0A       		.uleb128 0xa
  952 0143 01       		.byte	0x1
- 953 0144 05020000 		.4byte	.LASF30
+ 953 0144 13020000 		.4byte	.LASF30
  954 0148 01       		.byte	0x1
  955 0149 3C       		.byte	0x3c
  956 014a 01       		.byte	0x1
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  971 016e 31000000 		.4byte	.LASF22
  972 0172 01       		.byte	0x1
  973 0173 3F       		.byte	0x3f
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 21
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 21
 
 
  974 0174 9D000000 		.4byte	0x9d
@@ -1222,7 +1222,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  992 0196 03       		.byte	0x3
  993 0197 08000000 		.4byte	v2.2774
  994 019b 0B       		.uleb128 0xb
- 995 019c 5A020000 		.4byte	.LASF23
+ 995 019c 68020000 		.4byte	.LASF23
  996 01a0 01       		.byte	0x1
  997 01a1 41       		.byte	0x41
  998 01a2 B8010000 		.4byte	0x1b8
@@ -1230,7 +1230,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1000 01a7 91       		.byte	0x91
  1001 01a8 70       		.sleb128 -16
  1002 01a9 0B       		.uleb128 0xb
- 1003 01aa 60020000 		.4byte	.LASF24
+ 1003 01aa 6E020000 		.4byte	.LASF24
  1004 01ae 01       		.byte	0x1
  1005 01af 42       		.byte	0x42
  1006 01b0 B8010000 		.4byte	0x1b8
@@ -1242,7 +1242,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1012 01b9 6C000000 		.4byte	0x6c
  1013 01bd 0E       		.uleb128 0xe
  1014 01be 01       		.byte	0x1
- 1015 01bf 1E010000 		.4byte	.LASF25
+ 1015 01bf BF000000 		.4byte	.LASF25
  1016 01c3 01       		.byte	0x1
  1017 01c4 59       		.byte	0x59
  1018 01c5 7A000000 		.4byte	0x7a
@@ -1251,14 +1251,14 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1021 01d1 1A010000 		.4byte	.LLST6
  1022 01d5 0E       		.uleb128 0xe
  1023 01d6 01       		.byte	0x1
- 1024 01d7 94010000 		.4byte	.LASF26
+ 1024 01d7 A2010000 		.4byte	.LASF26
  1025 01db 01       		.byte	0x1
  1026 01dc 5F       		.byte	0x5f
  1027 01dd 7A000000 		.4byte	0x7a
  1028 01e1 00000000 		.4byte	.LFB36
  1029 01e5 0E000000 		.4byte	.LFE36
  1030 01e9 45010000 		.4byte	.LLST7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 22
 
 
  1031 01ed 0F       		.uleb128 0xf
@@ -1282,7 +1282,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1049 0217 00       		.byte	0x0
  1050 0218 0A       		.uleb128 0xa
  1051 0219 01       		.byte	0x1
- 1052 021a 29020000 		.4byte	.LASF31
+ 1052 021a 37020000 		.4byte	.LASF31
  1053 021e 01       		.byte	0x1
  1054 021f 7F       		.byte	0x7f
  1055 0220 01       		.byte	0x1
@@ -1302,7 +1302,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1069 0243 00       		.byte	0x0
  1070 0244 0A       		.uleb128 0xa
  1071 0245 01       		.byte	0x1
- 1072 0246 AD000000 		.4byte	.LASF32
+ 1072 0246 4E000000 		.4byte	.LASF32
  1073 024a 01       		.byte	0x1
  1074 024b 98       		.byte	0x98
  1075 024c 01       		.byte	0x1
@@ -1312,18 +1312,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1079 0259 DE010000 		.4byte	.LLST10
  1080 025d 7E020000 		.4byte	0x27e
  1081 0261 08       		.uleb128 0x8
- 1082 0262 42020000 		.4byte	.LASF33
+ 1082 0262 50020000 		.4byte	.LASF33
  1083 0266 01       		.byte	0x1
  1084 0267 98       		.byte	0x98
  1085 0268 7E020000 		.4byte	0x27e
  1086 026c 02       		.byte	0x2
  1087 026d 91       		.byte	0x91
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 23
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 23
 
 
  1088 026e 74       		.sleb128 -12
  1089 026f 08       		.uleb128 0x8
- 1090 0270 B2010000 		.4byte	.LASF34
+ 1090 0270 C0010000 		.4byte	.LASF34
  1091 0274 01       		.byte	0x1
  1092 0275 98       		.byte	0x98
  1093 0276 7A000000 		.4byte	0x7a
@@ -1337,7 +1337,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1101 0284 11       		.uleb128 0x11
  1102 0285 7A000000 		.4byte	0x7a
  1103 0289 0B       		.uleb128 0xb
- 1104 028a 0E020000 		.4byte	.LASF35
+ 1104 028a 1C020000 		.4byte	.LASF35
  1105 028e 01       		.byte	0x1
  1106 028f 0F       		.byte	0xf
  1107 0290 9D000000 		.4byte	0x9d
@@ -1345,7 +1345,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1109 0295 03       		.byte	0x3
  1110 0296 00000000 		.4byte	HalStatus
  1111 029a 0B       		.uleb128 0xb
- 1112 029b 87010000 		.4byte	.LASF36
+ 1112 029b 95010000 		.4byte	.LASF36
  1113 029f 01       		.byte	0x1
  1114 02a0 10       		.byte	0x10
  1115 02a1 A8000000 		.4byte	0xa8
@@ -1353,7 +1353,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1117 02a6 03       		.byte	0x3
  1118 02a7 00000000 		.4byte	HalIsBusIdle
  1119 02ab 0B       		.uleb128 0xb
- 1120 02ac D6010000 		.4byte	.LASF37
+ 1120 02ac E4010000 		.4byte	.LASF37
  1121 02b0 01       		.byte	0x1
  1122 02b1 11       		.byte	0x11
  1123 02b2 7A000000 		.4byte	0x7a
@@ -1361,7 +1361,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1125 02b7 03       		.byte	0x3
  1126 02b8 01000000 		.4byte	RxCount
  1127 02bc 0B       		.uleb128 0xb
- 1128 02bd 3A020000 		.4byte	.LASF38
+ 1128 02bd 48020000 		.4byte	.LASF38
  1129 02c1 01       		.byte	0x1
  1130 02c2 12       		.byte	0x12
  1131 02c3 7A000000 		.4byte	0x7a
@@ -1369,7 +1369,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1133 02c8 03       		.byte	0x3
  1134 02c9 02000000 		.4byte	TxCount
  1135 02cd 12       		.uleb128 0x12
- 1136 02ce 47010000 		.4byte	.LASF42
+ 1136 02ce E8000000 		.4byte	.LASF42
  1137 02d2 06       		.byte	0x6
  1138 02d3 CE06     		.2byte	0x6ce
  1139 02d5 B8010000 		.4byte	0x1b8
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1142 02db 00       		.byte	0x0
  1143              		.section	.debug_abbrev
  1144 0000 01       		.uleb128 0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 24
 
 
  1145 0001 11       		.uleb128 0x11
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1199 0037 00       		.byte	0x0
  1200 0038 05       		.uleb128 0x5
  1201 0039 24       		.uleb128 0x24
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 25
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 25
 
 
  1202 003a 00       		.byte	0x0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1256 0070 05       		.uleb128 0x5
  1257 0071 00       		.byte	0x0
  1258 0072 03       		.uleb128 0x3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 26
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 26
 
 
  1259 0073 0E       		.uleb128 0xe
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1313 00a9 13       		.uleb128 0x13
  1314 00aa 00       		.byte	0x0
  1315 00ab 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 27
 
 
  1316 00ac 0B       		.uleb128 0xb
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1370 00e2 40       		.uleb128 0x40
  1371 00e3 06       		.uleb128 0x6
  1372 00e4 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 28
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 28
 
 
  1373 00e5 00       		.byte	0x0
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1427 011b 0C       		.uleb128 0xc
  1428 011c 00       		.byte	0x0
  1429 011d 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 29
 
 
  1430 011e 00       		.byte	0x0
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1454 00c0 18020000 		.4byte	0x218
  1455 00c4 48414C5F 		.ascii	"HAL_TransmitByte\000"
  1455      5472616E 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 30
 
 
  1455      736D6974 
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1503 0028 00000000 		.4byte	.LFB33
  1504 002c 26000000 		.4byte	.LFE33
  1505 0030 00000000 		.4byte	.LFB34
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 31
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 31
 
 
  1506 0034 D2000000 		.4byte	.LFE34
@@ -1846,175 +1846,179 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 1
  1535      7369676E 
  1535      65642069 
  1535      6E7400
- 1536              	.LASF41:
- 1537 004e 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
- 1537      6F626F74 
- 1537      69637363 
- 1537      6F64655C 
- 1537      7472756E 
- 1538 007c 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
- 1538      6C617466 
- 1538      6F726D32 
- 1538      5C447269 
- 1538      7665506C 
- 1539              	.LASF32:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 32
+ 1536              	.LASF32:
+ 1537 004e 48414C5F 		.ascii	"HAL_TransmitArray\000"
+ 1537      5472616E 
+ 1537      736D6974 
+ 1537      41727261 
+ 1537      7900
+ 1538              	.LASF11:
+ 1539 0060 666C6F61 		.ascii	"float\000"
+ 1539      7400
+ 1540              	.LASF40:
+ 1541 0066 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\ha"
+ 1541      2E5C2E2E 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 32
 
 
- 1540 00ad 48414C5F 		.ascii	"HAL_TransmitArray\000"
- 1540      5472616E 
- 1540      736D6974 
- 1540      41727261 
- 1540      7900
- 1541              	.LASF11:
- 1542 00bf 666C6F61 		.ascii	"float\000"
- 1542      7400
- 1543              	.LASF40:
- 1544 00c5 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\ha"
- 1544      2E5C2E2E 
- 1544      5C447269 
- 1544      76655F50 
- 1544      6C617466 
- 1545 00f3 6C2E6300 		.ascii	"l.c\000"
- 1546              	.LASF14:
- 1547 00f7 53544154 		.ascii	"STATUS\000"
- 1547      555300
- 1548              	.LASF1:
- 1549 00fe 756E7369 		.ascii	"unsigned char\000"
- 1549      676E6564 
- 1549      20636861 
- 1549      7200
- 1550              	.LASF5:
- 1551 010c 6C6F6E67 		.ascii	"long unsigned int\000"
- 1551      20756E73 
- 1551      69676E65 
- 1551      6420696E 
- 1551      7400
- 1552              	.LASF25:
- 1553 011e 48414C5F 		.ascii	"HAL_GetRxIsrCount\000"
- 1553      47657452 
- 1553      78497372 
- 1553      436F756E 
- 1553      7400
- 1554              	.LASF16:
- 1555 0130 74457272 		.ascii	"tErrVar\000"
- 1555      56617200 
- 1556              	.LASF20:
- 1557 0138 6973725F 		.ascii	"isr_tx_routine\000"
- 1557      74785F72 
- 1557      6F757469 
- 1557      6E6500
- 1558              	.LASF42:
- 1559 0147 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1559      52784275 
- 1559      66666572 
- 1559      00
- 1560              	.LASF12:
- 1561 0154 646F7562 		.ascii	"double\000"
- 1561      6C6500
- 1562              	.LASF8:
- 1563 015b 756E7369 		.ascii	"unsigned int\000"
- 1563      676E6564 
- 1563      20696E74 
- 1563      00
- 1564              	.LASF7:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 33
+ 1541      5C447269 
+ 1541      76655F50 
+ 1541      6C617466 
+ 1542 0094 6C2E6300 		.ascii	"l.c\000"
+ 1543              	.LASF14:
+ 1544 0098 53544154 		.ascii	"STATUS\000"
+ 1544      555300
+ 1545              	.LASF1:
+ 1546 009f 756E7369 		.ascii	"unsigned char\000"
+ 1546      676E6564 
+ 1546      20636861 
+ 1546      7200
+ 1547              	.LASF5:
+ 1548 00ad 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1548      20756E73 
+ 1548      69676E65 
+ 1548      6420696E 
+ 1548      7400
+ 1549              	.LASF25:
+ 1550 00bf 48414C5F 		.ascii	"HAL_GetRxIsrCount\000"
+ 1550      47657452 
+ 1550      78497372 
+ 1550      436F756E 
+ 1550      7400
+ 1551              	.LASF16:
+ 1552 00d1 74457272 		.ascii	"tErrVar\000"
+ 1552      56617200 
+ 1553              	.LASF20:
+ 1554 00d9 6973725F 		.ascii	"isr_tx_routine\000"
+ 1554      74785F72 
+ 1554      6F757469 
+ 1554      6E6500
+ 1555              	.LASF42:
+ 1556 00e8 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1556      52784275 
+ 1556      66666572 
+ 1556      00
+ 1557              	.LASF12:
+ 1558 00f5 646F7562 		.ascii	"double\000"
+ 1558      6C6500
+ 1559              	.LASF41:
+ 1560 00fc 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1560      69744875 
+ 1560      625F726F 
+ 1560      626F7469 
+ 1560      6373636F 
+ 1561 012b 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 1561      6F725F32 
+ 1561      2E325C44 
+ 1561      72697665 
+ 1561      506C6174 
+ 1562 015b 6174666F 		.ascii	"atform2.cydsn\000"
+ 1562      726D322E 
+ 1562      63796473 
+ 1562      6E00
+ 1563              	.LASF8:
+ 1564 0169 756E7369 		.ascii	"unsigned int\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 33
 
 
- 1565 0168 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1565      206C6F6E 
- 1565      6720756E 
- 1565      7369676E 
- 1565      65642069 
- 1566              	.LASF9:
- 1567 017f 75696E74 		.ascii	"uint8_t\000"
- 1567      385F7400 
- 1568              	.LASF36:
- 1569 0187 48616C49 		.ascii	"HalIsBusIdle\000"
- 1569      73427573 
- 1569      49646C65 
- 1569      00
- 1570              	.LASF26:
- 1571 0194 48414C5F 		.ascii	"HAL_GetRxBufferCount\000"
- 1571      47657452 
- 1571      78427566 
- 1571      66657243 
- 1571      6F756E74 
- 1572              	.LASF4:
- 1573 01a9 6C6F6E67 		.ascii	"long int\000"
- 1573      20696E74 
- 1573      00
- 1574              	.LASF34:
- 1575 01b2 6E756D42 		.ascii	"numBytes\000"
- 1575      79746573 
- 1575      00
- 1576              	.LASF19:
- 1577 01bb 6973725F 		.ascii	"isr_rx_routine\000"
- 1577      72785F72 
- 1577      6F757469 
- 1577      6E6500
- 1578              	.LASF39:
- 1579 01ca 474E5520 		.ascii	"GNU C 4.4.1\000"
- 1579      4320342E 
- 1579      342E3100 
- 1580              	.LASF37:
- 1581 01d6 5278436F 		.ascii	"RxCount\000"
- 1581      756E7400 
- 1582              	.LASF13:
- 1583 01de 63686172 		.ascii	"char\000"
- 1583      00
- 1584              	.LASF17:
- 1585 01e3 48414C5F 		.ascii	"HAL_GetUartStatus\000"
- 1585      47657455 
- 1585      61727453 
- 1585      74617475 
- 1585      7300
- 1586              	.LASF2:
- 1587 01f5 73686F72 		.ascii	"short int\000"
- 1587      7420696E 
- 1587      7400
- 1588              	.LASF10:
- 1589 01ff 75696E74 		.ascii	"uint8\000"
- 1589      3800
- 1590              	.LASF30:
- 1591 0205 48414C5F 		.ascii	"HAL_Init\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cclMARtd.s 			page 34
+ 1564      676E6564 
+ 1564      20696E74 
+ 1564      00
+ 1565              	.LASF7:
+ 1566 0176 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1566      206C6F6E 
+ 1566      6720756E 
+ 1566      7369676E 
+ 1566      65642069 
+ 1567              	.LASF9:
+ 1568 018d 75696E74 		.ascii	"uint8_t\000"
+ 1568      385F7400 
+ 1569              	.LASF36:
+ 1570 0195 48616C49 		.ascii	"HalIsBusIdle\000"
+ 1570      73427573 
+ 1570      49646C65 
+ 1570      00
+ 1571              	.LASF26:
+ 1572 01a2 48414C5F 		.ascii	"HAL_GetRxBufferCount\000"
+ 1572      47657452 
+ 1572      78427566 
+ 1572      66657243 
+ 1572      6F756E74 
+ 1573              	.LASF4:
+ 1574 01b7 6C6F6E67 		.ascii	"long int\000"
+ 1574      20696E74 
+ 1574      00
+ 1575              	.LASF34:
+ 1576 01c0 6E756D42 		.ascii	"numBytes\000"
+ 1576      79746573 
+ 1576      00
+ 1577              	.LASF19:
+ 1578 01c9 6973725F 		.ascii	"isr_rx_routine\000"
+ 1578      72785F72 
+ 1578      6F757469 
+ 1578      6E6500
+ 1579              	.LASF39:
+ 1580 01d8 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1580      4320342E 
+ 1580      342E3100 
+ 1581              	.LASF37:
+ 1582 01e4 5278436F 		.ascii	"RxCount\000"
+ 1582      756E7400 
+ 1583              	.LASF13:
+ 1584 01ec 63686172 		.ascii	"char\000"
+ 1584      00
+ 1585              	.LASF17:
+ 1586 01f1 48414C5F 		.ascii	"HAL_GetUartStatus\000"
+ 1586      47657455 
+ 1586      61727453 
+ 1586      74617475 
+ 1586      7300
+ 1587              	.LASF2:
+ 1588 0203 73686F72 		.ascii	"short int\000"
+ 1588      7420696E 
+ 1588      7400
+ 1589              	.LASF10:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cckupd0u.s 			page 34
 
 
- 1591      496E6974 
- 1591      00
- 1592              	.LASF35:
- 1593 020e 48616C53 		.ascii	"HalStatus\000"
- 1593      74617475 
- 1593      7300
- 1594              	.LASF18:
- 1595 0218 48414C5F 		.ascii	"HAL_GetHalStatus\000"
- 1595      47657448 
- 1595      616C5374 
- 1595      61747573 
- 1595      00
- 1596              	.LASF31:
- 1597 0229 48414C5F 		.ascii	"HAL_TransmitByte\000"
- 1597      5472616E 
- 1597      736D6974 
- 1597      42797465 
- 1597      00
- 1598              	.LASF38:
- 1599 023a 5478436F 		.ascii	"TxCount\000"
- 1599      756E7400 
- 1600              	.LASF33:
- 1601 0242 736F7572 		.ascii	"source\000"
- 1601      636500
- 1602              	.LASF27:
- 1603 0249 48414C5F 		.ascii	"HAL_SetHalStatus\000"
- 1603      53657448 
- 1603      616C5374 
- 1603      61747573 
- 1603      00
- 1604              	.LASF23:
- 1605 025a 74657374 		.ascii	"test1\000"
- 1605      3100
- 1606              	.LASF24:
- 1607 0260 74657374 		.ascii	"test2\000"
- 1607      3200
- 1608              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 1590 020d 75696E74 		.ascii	"uint8\000"
+ 1590      3800
+ 1591              	.LASF30:
+ 1592 0213 48414C5F 		.ascii	"HAL_Init\000"
+ 1592      496E6974 
+ 1592      00
+ 1593              	.LASF35:
+ 1594 021c 48616C53 		.ascii	"HalStatus\000"
+ 1594      74617475 
+ 1594      7300
+ 1595              	.LASF18:
+ 1596 0226 48414C5F 		.ascii	"HAL_GetHalStatus\000"
+ 1596      47657448 
+ 1596      616C5374 
+ 1596      61747573 
+ 1596      00
+ 1597              	.LASF31:
+ 1598 0237 48414C5F 		.ascii	"HAL_TransmitByte\000"
+ 1598      5472616E 
+ 1598      736D6974 
+ 1598      42797465 
+ 1598      00
+ 1599              	.LASF38:
+ 1600 0248 5478436F 		.ascii	"TxCount\000"
+ 1600      756E7400 
+ 1601              	.LASF33:
+ 1602 0250 736F7572 		.ascii	"source\000"
+ 1602      636500
+ 1603              	.LASF27:
+ 1604 0257 48414C5F 		.ascii	"HAL_SetHalStatus\000"
+ 1604      53657448 
+ 1604      616C5374 
+ 1604      61747573 
+ 1604      00
+ 1605              	.LASF23:
+ 1606 0268 74657374 		.ascii	"test1\000"
+ 1606      3100
+ 1607              	.LASF24:
+ 1608 026e 74657374 		.ascii	"test2\000"
+ 1608      3200
+ 1609              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
   12:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** 
   13:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** 
   14:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 2
 
 
   15:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** static ERR_VAR Var[ERR_NUM_VARIABLES];
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
   32:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c ****                                     
   33:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c ****         case ERROR_DEBUG:           return;
   34:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c ****                                     break;                                    
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 3
 
 
   35:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c ****                                     
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  112 0014 FFF7FEFF 		bl	memset
   50:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c ****     return SUCCESS; 
  113              		.loc 1 50 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 4
 
 
  114 0018 4FF00003 		mov	r3, #0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  156 0018 03F10103 		add	r3, r3, #1
  157 001c FB75     		strb	r3, [r7, #23]
  158              	.L14:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 5
 
 
  159              		.loc 1 60 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  205 008c F97D     		ldrb	r1, [r7, #23]	@ zero_extendqisi2
  206 008e 40F20002 		movw	r2, #:lower16:Var
  207 0092 C0F20002 		movt	r2, #:upper16:Var
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 6
 
 
  208 0096 0B46     		mov	r3, r1
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
   81:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** 
   82:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** 
   83:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** /*****************************************************************/
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 7
 
 
   84:..\..\..\Drive_Platform\DrivePlatform.cydsn/error.c **** STATUS ERR_HandleTask(void)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  296 004a 3B68     		ldr	r3, [r7, #0]
  297 004c 9A42     		cmp	r2, r3
  298 004e 11D8     		bhi	.L22
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 8
 
 
  299 0050 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  345              		.cfi_endproc
  346              	.LFE32:
  347              		.size	ERR_HandleTask, .-ERR_HandleTask
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 9
 
 
  348 00b6 00BF     		.text
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  402 007d 06000000 		.4byte	.LCFI7
  403 0081 0200     		.2byte	0x2
  404 0083 7D       		.byte	0x7d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 10
 
 
  405 0084 20       		.sleb128 32
@@ -581,10 +581,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  442 0006 00000000 		.4byte	.Ldebug_abbrev0
  443 000a 04       		.byte	0x4
  444 000b 01       		.uleb128 0x1
- 445 000c 48010000 		.4byte	.LASF23
+ 445 000c 56010000 		.4byte	.LASF23
  446 0010 01       		.byte	0x1
- 447 0011 F0000000 		.4byte	.LASF24
- 448 0015 46000000 		.4byte	.LASF25
+ 447 0011 91000000 		.4byte	.LASF24
+ 448 0015 C5000000 		.4byte	.LASF25
  449 0019 00000000 		.4byte	0x0
  450 001d 00000000 		.4byte	0x0
  451 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
@@ -592,18 +592,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  453 0029 02       		.uleb128 0x2
  454 002a 01       		.byte	0x1
  455 002b 06       		.byte	0x6
- 456 002c 99010000 		.4byte	.LASF0
+ 456 002c A7010000 		.4byte	.LASF0
  457 0030 02       		.uleb128 0x2
  458 0031 01       		.byte	0x1
  459 0032 08       		.byte	0x8
- 460 0033 B7000000 		.4byte	.LASF1
+ 460 0033 58000000 		.4byte	.LASF1
  461 0037 02       		.uleb128 0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 11
 
 
  462 0038 02       		.byte	0x2
  463 0039 05       		.byte	0x5
- 464 003a 67010000 		.4byte	.LASF2
+ 464 003a 75010000 		.4byte	.LASF2
  465 003e 02       		.uleb128 0x2
  466 003f 02       		.byte	0x2
  467 0040 07       		.byte	0x7
@@ -611,11 +611,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  469 0045 02       		.uleb128 0x2
  470 0046 04       		.byte	0x4
  471 0047 05       		.byte	0x5
- 472 0048 71010000 		.4byte	.LASF4
+ 472 0048 7F010000 		.4byte	.LASF4
  473 004c 02       		.uleb128 0x2
  474 004d 04       		.byte	0x4
  475 004e 07       		.byte	0x7
- 476 004f DE000000 		.4byte	.LASF5
+ 476 004f 7F000000 		.4byte	.LASF5
  477 0053 02       		.uleb128 0x2
  478 0054 08       		.byte	0x8
  479 0055 05       		.byte	0x5
@@ -623,7 +623,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  481 005a 02       		.uleb128 0x2
  482 005b 08       		.byte	0x8
  483 005c 07       		.byte	0x7
- 484 005d 31010000 		.4byte	.LASF7
+ 484 005d 3F010000 		.4byte	.LASF7
  485 0061 03       		.uleb128 0x3
  486 0062 04       		.byte	0x4
  487 0063 05       		.byte	0x5
@@ -631,24 +631,24 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  489 0068 02       		.uleb128 0x2
  490 0069 04       		.byte	0x4
  491 006a 07       		.byte	0x7
- 492 006b 24010000 		.4byte	.LASF8
+ 492 006b 32010000 		.4byte	.LASF8
  493 006f 04       		.uleb128 0x4
- 494 0070 C5000000 		.4byte	.LASF12
+ 494 0070 66000000 		.4byte	.LASF12
  495 0074 02       		.byte	0x2
  496 0075 4C       		.byte	0x4c
  497 0076 30000000 		.4byte	0x30
  498 007a 02       		.uleb128 0x2
  499 007b 04       		.byte	0x4
  500 007c 04       		.byte	0x4
- 501 007d AA000000 		.4byte	.LASF9
+ 501 007d 4B000000 		.4byte	.LASF9
  502 0081 02       		.uleb128 0x2
  503 0082 08       		.byte	0x8
  504 0083 04       		.byte	0x4
- 505 0084 A5010000 		.4byte	.LASF10
+ 505 0084 B3010000 		.4byte	.LASF10
  506 0088 02       		.uleb128 0x2
  507 0089 01       		.byte	0x1
  508 008a 08       		.byte	0x8
- 509 008b 5D010000 		.4byte	.LASF11
+ 509 008b 6B010000 		.4byte	.LASF11
  510 008f 05       		.uleb128 0x5
  511 0090 04       		.byte	0x4
  512 0091 07       		.byte	0x7
@@ -658,15 +658,15 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  516 0098 07       		.uleb128 0x7
  517 0099 88000000 		.4byte	0x88
  518 009d 04       		.uleb128 0x4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 12
 
 
- 519 009e D8000000 		.4byte	.LASF13
+ 519 009e 79000000 		.4byte	.LASF13
  520 00a2 03       		.byte	0x3
  521 00a3 0E       		.byte	0xe
  522 00a4 6F000000 		.4byte	0x6f
  523 00a8 04       		.uleb128 0x4
- 524 00a9 B0000000 		.4byte	.LASF14
+ 524 00a9 51000000 		.4byte	.LASF14
  525 00ad 03       		.byte	0x3
  526 00ae 0F       		.byte	0xf
  527 00af 6F000000 		.4byte	0x6f
@@ -676,13 +676,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  531 00b9 1A       		.byte	0x1a
  532 00ba 68000000 		.4byte	0x68
  533 00be 08       		.uleb128 0x8
- 534 00bf 89010000 		.4byte	.LASF26
+ 534 00bf 97010000 		.4byte	.LASF26
  535 00c3 14       		.byte	0x14
  536 00c4 04       		.byte	0x4
  537 00c5 1D       		.byte	0x1d
  538 00c6 03010000 		.4byte	0x103
  539 00ca 09       		.uleb128 0x9
- 540 00cb A5000000 		.4byte	.LASF16
+ 540 00cb 46000000 		.4byte	.LASF16
  541 00cf 04       		.byte	0x4
  542 00d0 1E       		.byte	0x1e
  543 00d1 03010000 		.4byte	0x103
@@ -690,7 +690,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  545 00d6 23       		.byte	0x23
  546 00d7 00       		.uleb128 0x0
  547 00d8 09       		.uleb128 0x9
- 548 00d9 B3010000 		.4byte	.LASF17
+ 548 00d9 C1010000 		.4byte	.LASF17
  549 00dd 04       		.byte	0x4
  550 00de 1F       		.byte	0x1f
  551 00df 09010000 		.4byte	0x109
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  573 0104 04       		.byte	0x4
  574 0105 B3000000 		.4byte	0xb3
  575 0109 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 13
 
 
  576 010a 9D000000 		.4byte	0x9d
@@ -734,7 +734,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  586 0120 BE000000 		.4byte	0xbe
  587 0124 0D       		.uleb128 0xd
  588 0125 01       		.byte	0x1
- 589 0126 B8010000 		.4byte	.LASF27
+ 589 0126 C6010000 		.4byte	.LASF27
  590 012a 01       		.byte	0x1
  591 012b 14       		.byte	0x14
  592 012c 01       		.byte	0x1
@@ -743,7 +743,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  595 0135 00000000 		.4byte	.LLST0
  596 0139 4C010000 		.4byte	0x14c
  597 013d 0E       		.uleb128 0xe
- 598 013e 62010000 		.4byte	.LASF19
+ 598 013e 70010000 		.4byte	.LASF19
  599 0142 01       		.byte	0x1
  600 0143 14       		.byte	0x14
  601 0144 9D000000 		.4byte	0x9d
@@ -753,7 +753,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  605 014b 00       		.byte	0x0
  606 014c 0F       		.uleb128 0xf
  607 014d 01       		.byte	0x1
- 608 014e 54010000 		.4byte	.LASF28
+ 608 014e 62010000 		.4byte	.LASF28
  609 0152 01       		.byte	0x1
  610 0153 2F       		.byte	0x2f
  611 0154 01       		.byte	0x1
@@ -773,18 +773,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  625 017a 62000000 		.4byte	.LLST2
  626 017e C9010000 		.4byte	0x1c9
  627 0182 0E       		.uleb128 0xe
- 628 0183 AC010000 		.4byte	.LASF20
+ 628 0183 BA010000 		.4byte	.LASF20
  629 0187 01       		.byte	0x1
  630 0188 37       		.byte	0x37
  631 0189 C9010000 		.4byte	0x1c9
  632 018d 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 14
 
 
  633 018e 91       		.byte	0x91
  634 018f 6C       		.sleb128 -20
  635 0190 0E       		.uleb128 0xe
- 636 0191 B3010000 		.4byte	.LASF17
+ 636 0191 C1010000 		.4byte	.LASF17
  637 0195 01       		.byte	0x1
  638 0196 37       		.byte	0x37
  639 0197 92000000 		.4byte	0x92
@@ -823,7 +823,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  672 01d0 B3000000 		.4byte	0xb3
  673 01d4 10       		.uleb128 0x10
  674 01d5 01       		.byte	0x1
- 675 01d6 7A010000 		.4byte	.LASF22
+ 675 01d6 88010000 		.4byte	.LASF22
  676 01da 01       		.byte	0x1
  677 01db 54       		.byte	0x54
  678 01dc 01       		.byte	0x1
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  687 01f7 56       		.byte	0x56
  688 01f8 9D000000 		.4byte	0x9d
  689 01fc 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 15
 
 
  690 01fd 91       		.byte	0x91
@@ -870,7 +870,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  716 022f 03       		.byte	0x3
  717 0230 00000000 		.4byte	Var
  718 0234 14       		.uleb128 0x14
- 719 0235 CB000000 		.4byte	.LASF29
+ 719 0235 6C000000 		.4byte	.LASF29
  720 0239 05       		.byte	0x5
  721 023a CE06     		.2byte	0x6ce
  722 023c 42020000 		.4byte	0x242
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  744 000f 55       		.uleb128 0x55
  745 0010 06       		.uleb128 0x6
  746 0011 10       		.uleb128 0x10
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 16
 
 
  747 0012 06       		.uleb128 0x6
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  801 0048 00       		.byte	0x0
  802 0049 00       		.byte	0x0
  803 004a 07       		.uleb128 0x7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 17
 
 
  804 004b 26       		.uleb128 0x26
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  858 0081 49       		.uleb128 0x49
  859 0082 13       		.uleb128 0x13
  860 0083 01       		.uleb128 0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 18
 
 
  861 0084 13       		.uleb128 0x13
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  915 00ba 0C       		.uleb128 0xc
  916 00bb 03       		.uleb128 0x3
  917 00bc 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 19
 
 
  918 00bd 3A       		.uleb128 0x3a
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  972 00f3 00       		.byte	0x0
  973 00f4 00       		.byte	0x0
  974 00f5 12       		.uleb128 0x12
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 20
 
 
  975 00f6 34       		.uleb128 0x34
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  1024      52656769 
  1024      73746572 
  1024      56617269 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 21
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 21
 
 
  1024      61626C65 
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  1067              	.LASF3:
  1068 002b 73686F72 		.ascii	"short unsigned int\000"
  1068      7420756E 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 22
 
 
  1068      7369676E 
@@ -1267,120 +1267,124 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 1
  1069              	.LASF18:
  1070 003e 4552525F 		.ascii	"ERR_VAR\000"
  1070      56415200 
- 1071              	.LASF25:
- 1072 0046 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
- 1072      6F626F74 
- 1072      69637363 
- 1072      6F64655C 
- 1072      7472756E 
- 1073 0074 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
- 1073      6C617466 
- 1073      6F726D32 
- 1073      5C447269 
- 1073      7665506C 
- 1074              	.LASF16:
- 1075 00a5 61646472 		.ascii	"addr\000"
- 1075      00
- 1076              	.LASF9:
- 1077 00aa 666C6F61 		.ascii	"float\000"
- 1077      7400
- 1078              	.LASF14:
- 1079 00b0 53544154 		.ascii	"STATUS\000"
- 1079      555300
- 1080              	.LASF1:
- 1081 00b7 756E7369 		.ascii	"unsigned char\000"
- 1081      676E6564 
- 1081      20636861 
- 1081      7200
- 1082              	.LASF12:
- 1083 00c5 75696E74 		.ascii	"uint8\000"
- 1083      3800
- 1084              	.LASF29:
- 1085 00cb 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1085      52784275 
- 1085      66666572 
- 1085      00
- 1086              	.LASF13:
- 1087 00d8 75636861 		.ascii	"uchar\000"
- 1087      7200
- 1088              	.LASF5:
- 1089 00de 6C6F6E67 		.ascii	"long unsigned int\000"
- 1089      20756E73 
- 1089      69676E65 
- 1089      6420696E 
- 1089      7400
- 1090              	.LASF24:
- 1091 00f0 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\er"
- 1091      2E5C2E2E 
- 1091      5C447269 
- 1091      76655F50 
- 1091      6C617466 
- 1092 011e 726F722E 		.ascii	"ror.c\000"
- 1092      6300
- 1093              	.LASF8:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 23
+ 1071              	.LASF16:
+ 1072 0046 61646472 		.ascii	"addr\000"
+ 1072      00
+ 1073              	.LASF9:
+ 1074 004b 666C6F61 		.ascii	"float\000"
+ 1074      7400
+ 1075              	.LASF14:
+ 1076 0051 53544154 		.ascii	"STATUS\000"
+ 1076      555300
+ 1077              	.LASF1:
+ 1078 0058 756E7369 		.ascii	"unsigned char\000"
+ 1078      676E6564 
+ 1078      20636861 
+ 1078      7200
+ 1079              	.LASF12:
+ 1080 0066 75696E74 		.ascii	"uint8\000"
+ 1080      3800
+ 1081              	.LASF29:
+ 1082 006c 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1082      52784275 
+ 1082      66666572 
+ 1082      00
+ 1083              	.LASF13:
+ 1084 0079 75636861 		.ascii	"uchar\000"
+ 1084      7200
+ 1085              	.LASF5:
+ 1086 007f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1086      20756E73 
+ 1086      69676E65 
+ 1086      6420696E 
+ 1086      7400
+ 1087              	.LASF24:
+ 1088 0091 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\er"
+ 1088      2E5C2E2E 
+ 1088      5C447269 
+ 1088      76655F50 
+ 1088      6C617466 
+ 1089 00bf 726F722E 		.ascii	"ror.c\000"
+ 1089      6300
+ 1090              	.LASF25:
+ 1091 00c5 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1091      69744875 
+ 1091      625F726F 
+ 1091      626F7469 
+ 1091      6373636F 
+ 1092 00f4 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 1092      6F725F32 
+ 1092      2E325C44 
+ 1092      72697665 
+ 1092      506C6174 
+ 1093 0124 6174666F 		.ascii	"atform2.cydsn\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 23
 
 
- 1094 0124 756E7369 		.ascii	"unsigned int\000"
- 1094      676E6564 
- 1094      20696E74 
- 1094      00
- 1095              	.LASF7:
- 1096 0131 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1096      206C6F6E 
- 1096      6720756E 
- 1096      7369676E 
- 1096      65642069 
- 1097              	.LASF23:
- 1098 0148 474E5520 		.ascii	"GNU C 4.4.1\000"
- 1098      4320342E 
- 1098      342E3100 
- 1099              	.LASF28:
- 1100 0154 4552525F 		.ascii	"ERR_Init\000"
- 1100      496E6974 
- 1100      00
- 1101              	.LASF11:
- 1102 015d 63686172 		.ascii	"char\000"
- 1102      00
- 1103              	.LASF19:
- 1104 0162 74797065 		.ascii	"type\000"
- 1104      00
- 1105              	.LASF2:
- 1106 0167 73686F72 		.ascii	"short int\000"
- 1106      7420696E 
- 1106      7400
- 1107              	.LASF4:
- 1108 0171 6C6F6E67 		.ascii	"long int\000"
- 1108      20696E74 
- 1108      00
- 1109              	.LASF22:
- 1110 017a 4552525F 		.ascii	"ERR_HandleTask\000"
- 1110      48616E64 
- 1110      6C655461 
- 1110      736B00
- 1111              	.LASF26:
- 1112 0189 5F657272 		.ascii	"_error_variable\000"
- 1112      6F725F76 
- 1112      61726961 
- 1112      626C6500 
- 1113              	.LASF0:
- 1114 0199 7369676E 		.ascii	"signed char\000"
- 1114      65642063 
- 1114      68617200 
- 1115              	.LASF10:
- 1116 01a5 646F7562 		.ascii	"double\000"
- 1116      6C6500
- 1117              	.LASF20:
- 1118 01ac 70747256 		.ascii	"ptrVar\000"
- 1118      617200
- 1119              	.LASF17:
- 1120 01b3 6E616D65 		.ascii	"name\000"
- 1120      00
- 1121              	.LASF27:
- 1122 01b8 4552525F 		.ascii	"ERR_Error\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccsuVfeg.s 			page 24
+ 1093      726D322E 
+ 1093      63796473 
+ 1093      6E00
+ 1094              	.LASF8:
+ 1095 0132 756E7369 		.ascii	"unsigned int\000"
+ 1095      676E6564 
+ 1095      20696E74 
+ 1095      00
+ 1096              	.LASF7:
+ 1097 013f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1097      206C6F6E 
+ 1097      6720756E 
+ 1097      7369676E 
+ 1097      65642069 
+ 1098              	.LASF23:
+ 1099 0156 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1099      4320342E 
+ 1099      342E3100 
+ 1100              	.LASF28:
+ 1101 0162 4552525F 		.ascii	"ERR_Init\000"
+ 1101      496E6974 
+ 1101      00
+ 1102              	.LASF11:
+ 1103 016b 63686172 		.ascii	"char\000"
+ 1103      00
+ 1104              	.LASF19:
+ 1105 0170 74797065 		.ascii	"type\000"
+ 1105      00
+ 1106              	.LASF2:
+ 1107 0175 73686F72 		.ascii	"short int\000"
+ 1107      7420696E 
+ 1107      7400
+ 1108              	.LASF4:
+ 1109 017f 6C6F6E67 		.ascii	"long int\000"
+ 1109      20696E74 
+ 1109      00
+ 1110              	.LASF22:
+ 1111 0188 4552525F 		.ascii	"ERR_HandleTask\000"
+ 1111      48616E64 
+ 1111      6C655461 
+ 1111      736B00
+ 1112              	.LASF26:
+ 1113 0197 5F657272 		.ascii	"_error_variable\000"
+ 1113      6F725F76 
+ 1113      61726961 
+ 1113      626C6500 
+ 1114              	.LASF0:
+ 1115 01a7 7369676E 		.ascii	"signed char\000"
+ 1115      65642063 
+ 1115      68617200 
+ 1116              	.LASF10:
+ 1117 01b3 646F7562 		.ascii	"double\000"
+ 1117      6C6500
+ 1118              	.LASF20:
+ 1119 01ba 70747256 		.ascii	"ptrVar\000"
+ 1119      617200
+ 1120              	.LASF17:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6qkBhi.s 			page 24
 
 
- 1122      4572726F 
- 1122      7200
- 1123              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 1121 01c1 6E616D65 		.ascii	"name\000"
+ 1121      00
+ 1122              	.LASF27:
+ 1123 01c6 4552525F 		.ascii	"ERR_Error\000"
+ 1123      4572726F 
+ 1123      7200
+ 1124              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>176</y>
+      <w>328</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>*BAL*
+Package::Bus
+{Bus Abstraction Layer}
+--
++ BAL_Init ()                                                                : STATUS
++ BAL_HandleTask ()                                                 : STATUS
++ BAL_ServoMsg ()                                                    : STATUS
++ BAL_SendAck (uint8 val)                                         : STATUS
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>72</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*BAL_MSG*
+Package::Bus
+--
+- id           : uint16
+- length    : uint8
+- content  : uint8*</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>72</y>
+      <w>144</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>*CDS5500_MSG*
+Package::Servo
+--
+- startbyte0          : uint8
+- startbyte1          : uint8
+- motorId              : uint8
+- length                : uint8
+- instrId                : uint8
+- instrParams[8]   : uint8
+- checksum          : uint8
+
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>600</x>
+      <y>88</y>
+      <w>176</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>motorId: 0-253, 254 is broadcast
+length:   number of params + 1 
+              (instrId) + 1 (checksum)
+
+
+fg=gray
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>600</x>
+      <y>160</y>
+      <w>176</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>length =      1 (instrId) 
+                + sizeof(instrParams)
+                + 1 (checksum)
+
+fg=gray
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>200</y>
+      <w>96</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>904</x>
+      <y>144</y>
+      <w>72</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>104</y>
+      <w>56</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=.
+group=1</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>144</y>
+      <w>56</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.
+group=1</panel_attributes>
+    <additional_attributes>50.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>232</y>
+      <w>296</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>*CDS5500*
+Package::Servo
+--
+- GetChecksum        (CDS5500_MSG* msg)     : uint8
+--
++ CDS5500_SendServoMsg    (uint8 ucMotorId, 
+                                                  uint8 ucInstrId,
+                                                  uint8 ucNumParams,
+                                                  uint8* pucInstrParams
+                                                  )  : STATUS
+
+
+bg=light_gray
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>832</x>
+      <y>40</y>
+      <w>360</w>
+      <h>664</h>
+    </coordinates>
+    <panel_attributes>Bus</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>352</x>
+      <y>392</y>
+      <w>448</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>System</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>472</y>
+      <w>328</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>*HAL*
+Package::Bus
+{Hardware Abstraction Layer}
+--
+- RxCount : uint8
+- TxCount : uint8
+--
++ HAL_Init                            ()                                   : STATUS
++ HAL_GetHalStatus            ()                                  : STATUS
++ HAL_SetHalStatus            ()                                   : STATUS
++ HAL_GetRxIsrCount         ()                                   : uint8
++ HAL_GetRxBufferCount    ()                                  : uint8
++ HAL_GetByte                    ()                                   : uint8
++ HAL_TransmitByte           (uint8 value)                  : STATUS
++ HAL_TransmitArray          (const uint8* source,
+                                              uint8 numBytes)          : STATUS;
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>304</y>
+      <w>328</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>*BPL*
+Package::Bus
+{Bus Presentation Layer}
+--
+- BPL_TX_BUFFER_SIZE = 256
+- BPL_RX_BUFFER_SIZE = 256
+--
++ BPL_HandleTask           ()                                       : STATUS
++ BPL_GetReceiveCount  ()                                       : uint8
++ BPL_GetMessage          (uint8* target)                    : uint8
++ BPL_TransmitMessage  (uint8* source, 
+                                           uint8 msgLength)             : STATUS
+
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>408</x>
+      <y>40</y>
+      <w>384</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>Servo
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>272</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>440</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>136</x>
+      <y>176</y>
+      <w>208</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>*MOVE*
+Package::Application
+--
++ MOVE_Go        (uint16 uiSpeed, 
+                             uint16 uiAngle
+                             )   : STATUS
++ MOVE_Stop     ()  : STATUS
+bg=pink
+group=4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>584</x>
+      <y>424</y>
+      <w>200</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>*SCHEDULER*
+Package::System
+--
+- SCH_TaskIndex         :  int
+- SCH_Task[]                :  SCH_TASK
+--
++ SCH_TaskHandler    ()
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>120</x>
+      <y>40</y>
+      <w>240</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>Application
+group=4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>136</x>
+      <y>72</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>*WHEEL*
+Package::Application
+--
+- num     :   uint8
+- angle   :   uint16
+- speed  :   uint16
+
+group=4</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>424</y>
+      <w>200</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>*SCH_TASK*
+Package::System
+--
+- name[8]              : uchar
+- status                 : uchar
+- priority                : uchar
+- init                      : SCH_TASK_FUNC
+- func                    : SCH_TASK_FUNC
+- dependency[8]   : uchar
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>584</x>
+      <y>528</y>
+      <w>152</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>typedef STATUS (*SCH_TASK_FUNC)(void);
+
+
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>520</y>
+      <w>40</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>30.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>144</y>
+      <w>24</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+group=4</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>432</y>
+      <w>48</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>128</x>
+      <y>416</y>
+      <w>64</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+Servo 
+Motor 1
+bg=red
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>128</x>
+      <y>488</y>
+      <w>64</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+Servo 
+Motor 3
+bg=red
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>224</x>
+      <y>416</y>
+      <w>64</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+Servo 
+Motor 2
+bg=red
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>224</x>
+      <y>488</y>
+      <w>64</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+Servo 
+Motor 4
+bg=red
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>368</x>
+      <y>608</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+UART
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>120</x>
+      <y>392</y>
+      <w>184</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>Hardware
+group=6</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>552</y>
+      <w>184</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;210.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>240</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>248</y>
+      <w>152</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>624</y>
+      <w>416</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;500.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>696</x>
+      <y>648</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+GPIO
+bg=light_gray
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>592</x>
+      <y>648</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+SPI
+bg=light_gray
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>488</x>
+      <y>648</y>
+      <w>88</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;device&gt;&gt;
+ADC
+bg=light_gray
+fg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>352</x>
+      <y>584</y>
+      <w>448</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Peripherals</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

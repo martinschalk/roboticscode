@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
   47              	isr_timer_routine:
   48              	.LFB29:
   49              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\tmr.c"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 2
 
 
    1:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /* Copyright (C) <2014> <Martin Schalk>
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
   78              		.thumb_func
   79              		.type	TMR_Init, %function
   80              	TMR_Init:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 3
 
 
   81              	.LFB30:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
   39:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_Enable();
  123              		.loc 1 39 0
  124 005a FFF7FEFF 		bl	TIMER_Enable
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 4
 
 
   40:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	TIMER_CLOCK_Start();
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  170 0024 1A60     		str	r2, [r3, #0]
   49:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 	Timer[numTimer].value = us;
  171              		.loc 1 49 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 5
 
 
  172 0026 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  222              	TMR_StartTimer:
  223              	.LFB32:
   54:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 6
 
 
   55:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** /*******************************************************/
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  272              		.type	TMR_StopTimer, %function
  273              	TMR_StopTimer:
  274              	.LFB33:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 7
 
 
   61:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c **** 
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  322              		.thumb_func
  323              		.type	TMR_HandleTask, %function
  324              	TMR_HandleTask:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 8
 
 
  325              	.LFB34:
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  364 0044 4FF00002 		mov	r2, #0
  365 0048 1A70     		strb	r2, [r3, #0]
   83:..\..\..\Drive_Platform\DrivePlatform.cydsn/tmr.c ****         return SUCCESS;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 9
 
 
  366              		.loc 1 83 0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  406 00ac 40F20003 		movw	r3, #:lower16:NewTime
  407 00b0 C0F20003 		movt	r3, #:upper16:NewTime
  408 00b4 1A68     		ldr	r2, [r3, #0]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 10
 
 
  409 00b6 40F20003 		movw	r3, #:lower16:OldTime
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  454 012e 0B44     		add	r3, r1, r3
  455 0130 03F10403 		add	r3, r3, #4
  456 0134 1B68     		ldr	r3, [r3, #0]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 11
 
 
  457 0136 9A42     		cmp	r2, r3
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  496 019a C0F20002 		movt	r2, #:upper16:Timer
  497 019e 4FEA4303 		lsl	r3, r3, #1
  498 01a2 03F10103 		add	r3, r3, #1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 12
 
 
  499 01a6 4FEAC303 		lsl	r3, r3, #3
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  545 0016 04       		.sleb128 4
  546 0017 04000000 		.4byte	.LCFI1
  547 001b 18000000 		.4byte	.LFE29
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 13
 
 
  548 001f 0200     		.2byte	0x2
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  602 00a4 04000000 		.4byte	.LCFI8
  603 00a8 06000000 		.4byte	.LCFI9
  604 00ac 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 14
 
 
  605 00ae 7D       		.byte	0x7d
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  659              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
  660              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
  661              		.file 5 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/tmr.h"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 15
 
 
  662              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
@@ -848,10 +848,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  666 0006 00000000 		.4byte	.Ldebug_abbrev0
  667 000a 04       		.byte	0x4
  668 000b 01       		.uleb128 0x1
- 669 000c AC010000 		.4byte	.LASF34
+ 669 000c B3010000 		.4byte	.LASF34
  670 0010 01       		.byte	0x1
- 671 0011 E7010000 		.4byte	.LASF35
- 672 0015 2E000000 		.4byte	.LASF36
+ 671 0011 F5010000 		.4byte	.LASF35
+ 672 0015 D2000000 		.4byte	.LASF36
  673 0019 00000000 		.4byte	0x0
  674 001d 00000000 		.4byte	0x0
  675 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
@@ -859,32 +859,32 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  677 0029 02       		.uleb128 0x2
  678 002a 01       		.byte	0x1
  679 002b 06       		.byte	0x6
- 680 002c 22020000 		.4byte	.LASF0
+ 680 002c 30020000 		.4byte	.LASF0
  681 0030 03       		.uleb128 0x3
- 682 0031 7D010000 		.4byte	.LASF9
+ 682 0031 84010000 		.4byte	.LASF9
  683 0035 02       		.byte	0x2
  684 0036 2A       		.byte	0x2a
  685 0037 3B000000 		.4byte	0x3b
  686 003b 02       		.uleb128 0x2
  687 003c 01       		.byte	0x1
  688 003d 08       		.byte	0x8
- 689 003e B4000000 		.4byte	.LASF1
+ 689 003e 4E000000 		.4byte	.LASF1
  690 0042 02       		.uleb128 0x2
  691 0043 02       		.byte	0x2
  692 0044 05       		.byte	0x5
- 693 0045 D7010000 		.4byte	.LASF2
+ 693 0045 E5010000 		.4byte	.LASF2
  694 0049 02       		.uleb128 0x2
  695 004a 02       		.byte	0x2
  696 004b 07       		.byte	0x7
- 697 004c E2000000 		.4byte	.LASF3
+ 697 004c 7C000000 		.4byte	.LASF3
  698 0050 02       		.uleb128 0x2
  699 0051 04       		.byte	0x4
  700 0052 05       		.byte	0x5
- 701 0053 19020000 		.4byte	.LASF4
+ 701 0053 27020000 		.4byte	.LASF4
  702 0057 02       		.uleb128 0x2
  703 0058 04       		.byte	0x4
  704 0059 07       		.byte	0x7
- 705 005a D0000000 		.4byte	.LASF5
+ 705 005a 6A000000 		.4byte	.LASF5
  706 005e 02       		.uleb128 0x2
  707 005f 08       		.byte	0x8
  708 0060 05       		.byte	0x5
@@ -892,40 +892,40 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  710 0065 02       		.uleb128 0x2
  711 0066 08       		.byte	0x8
  712 0067 07       		.byte	0x7
- 713 0068 66010000 		.4byte	.LASF7
+ 713 0068 6D010000 		.4byte	.LASF7
  714 006c 04       		.uleb128 0x4
  715 006d 04       		.byte	0x4
  716 006e 05       		.byte	0x5
  717 006f 696E7400 		.ascii	"int\000"
  718 0073 02       		.uleb128 0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 16
 
 
  719 0074 04       		.byte	0x4
  720 0075 07       		.byte	0x7
- 721 0076 3F010000 		.4byte	.LASF8
+ 721 0076 46010000 		.4byte	.LASF8
  722 007a 03       		.uleb128 0x3
- 723 007b E1010000 		.4byte	.LASF10
+ 723 007b EF010000 		.4byte	.LASF10
  724 007f 03       		.byte	0x3
  725 0080 4C       		.byte	0x4c
  726 0081 3B000000 		.4byte	0x3b
  727 0085 03       		.uleb128 0x3
- 728 0086 38010000 		.4byte	.LASF11
+ 728 0086 3F010000 		.4byte	.LASF11
  729 008a 03       		.byte	0x3
  730 008b 4E       		.byte	0x4e
  731 008c 57000000 		.4byte	0x57
  732 0090 02       		.uleb128 0x2
  733 0091 04       		.byte	0x4
  734 0092 04       		.byte	0x4
- 735 0093 A7000000 		.4byte	.LASF12
+ 735 0093 48000000 		.4byte	.LASF12
  736 0097 02       		.uleb128 0x2
  737 0098 08       		.byte	0x8
  738 0099 04       		.byte	0x4
- 739 009a 23010000 		.4byte	.LASF13
+ 739 009a BD000000 		.4byte	.LASF13
  740 009e 02       		.uleb128 0x2
  741 009f 01       		.byte	0x1
  742 00a0 08       		.byte	0x8
- 743 00a1 C5010000 		.4byte	.LASF14
+ 743 00a1 CC010000 		.4byte	.LASF14
  744 00a5 05       		.uleb128 0x5
  745 00a6 04       		.byte	0x4
  746 00a7 AB000000 		.4byte	0xab
@@ -935,30 +935,30 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  750 00ae 04       		.byte	0x4
  751 00af 07       		.byte	0x7
  752 00b0 03       		.uleb128 0x3
- 753 00b1 AD000000 		.4byte	.LASF15
+ 753 00b1 DE010000 		.4byte	.LASF15
  754 00b5 04       		.byte	0x4
  755 00b6 0F       		.byte	0xf
  756 00b7 7A000000 		.4byte	0x7a
  757 00bb 03       		.uleb128 0x3
- 758 00bc 1D000000 		.4byte	.LASF16
+ 758 00bc 29000000 		.4byte	.LASF16
  759 00c0 04       		.byte	0x4
  760 00c1 10       		.byte	0x10
  761 00c2 30000000 		.4byte	0x30
  762 00c6 03       		.uleb128 0x3
- 763 00c7 5D010000 		.4byte	.LASF17
+ 763 00c7 64010000 		.4byte	.LASF17
  764 00cb 05       		.byte	0x5
  765 00cc 20       		.byte	0x20
  766 00cd A5000000 		.4byte	0xa5
  767 00d1 08       		.uleb128 0x8
- 768 00d2 A5010000 		.4byte	.LASF37
+ 768 00d2 AC010000 		.4byte	.LASF37
  769 00d6 10       		.byte	0x10
  770 00d7 05       		.byte	0x5
  771 00d8 24       		.byte	0x24
  772 00d9 24010000 		.4byte	0x124
  773 00dd 09       		.uleb128 0x9
- 774 00de 28000000 		.4byte	.LASF18
+ 774 00de 23000000 		.4byte	.LASF18
  775 00e2 05       		.byte	0x5
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 17
 
 
  776 00e3 25       		.byte	0x25
@@ -967,7 +967,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  779 00e9 23       		.byte	0x23
  780 00ea 00       		.uleb128 0x0
  781 00eb 09       		.uleb128 0x9
- 782 00ec 22000000 		.4byte	.LASF19
+ 782 00ec 1D000000 		.4byte	.LASF19
  783 00f0 05       		.byte	0x5
  784 00f1 26       		.byte	0x26
  785 00f2 85000000 		.4byte	0x85
@@ -975,7 +975,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  787 00f7 23       		.byte	0x23
  788 00f8 04       		.uleb128 0x4
  789 00f9 09       		.uleb128 0x9
- 790 00fa 2A010000 		.4byte	.LASF20
+ 790 00fa C4000000 		.4byte	.LASF20
  791 00fe 05       		.byte	0x5
  792 00ff 27       		.byte	0x27
  793 0100 C6000000 		.4byte	0xc6
@@ -983,7 +983,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  795 0105 23       		.byte	0x23
  796 0106 08       		.uleb128 0x8
  797 0107 09       		.uleb128 0x9
- 798 0108 8B010000 		.4byte	.LASF21
+ 798 0108 92010000 		.4byte	.LASF21
  799 010c 05       		.byte	0x5
  800 010d 28       		.byte	0x28
  801 010e 7A000000 		.4byte	0x7a
@@ -1000,13 +1000,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  812 0122 0D       		.uleb128 0xd
  813 0123 00       		.byte	0x0
  814 0124 03       		.uleb128 0x3
- 815 0125 85010000 		.4byte	.LASF23
+ 815 0125 8C010000 		.4byte	.LASF23
  816 0129 05       		.byte	0x5
  817 012a 2A       		.byte	0x2a
  818 012b D1000000 		.4byte	0xd1
  819 012f 0A       		.uleb128 0xa
  820 0130 01       		.byte	0x1
- 821 0131 F5000000 		.4byte	.LASF38
+ 821 0131 8F000000 		.4byte	.LASF38
  822 0135 01       		.byte	0x1
  823 0136 17       		.byte	0x17
  824 0137 01       		.byte	0x1
@@ -1015,10 +1015,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  827 0140 00000000 		.4byte	.LLST0
  828 0144 0B       		.uleb128 0xb
  829 0145 01       		.byte	0x1
- 830 0146 2F010000 		.4byte	.LASF39
+ 830 0146 C9000000 		.4byte	.LASF39
  831 014a 01       		.byte	0x1
  832 014b 1E       		.byte	0x1e
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 18
 
 
  833 014c 01       		.byte	0x1
@@ -1028,7 +1028,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  837 0159 2B000000 		.4byte	.LLST1
  838 015d 0C       		.uleb128 0xc
  839 015e 01       		.byte	0x1
- 840 015f CA010000 		.4byte	.LASF25
+ 840 015f D1010000 		.4byte	.LASF25
  841 0163 01       		.byte	0x1
  842 0164 2E       		.byte	0x2e
  843 0165 01       		.byte	0x1
@@ -1037,7 +1037,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  846 016e 56000000 		.4byte	.LLST2
  847 0172 BC010000 		.4byte	0x1bc
  848 0176 0D       		.uleb128 0xd
- 849 0177 9E000000 		.4byte	.LASF24
+ 849 0177 3F000000 		.4byte	.LASF24
  850 017b 01       		.byte	0x1
  851 017c 2E       		.byte	0x2e
  852 017d 7A000000 		.4byte	0x7a
@@ -1053,7 +1053,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  862 018f 91       		.byte	0x91
  863 0190 70       		.sleb128 -16
  864 0191 0D       		.uleb128 0xd
- 865 0192 2A010000 		.4byte	.LASF20
+ 865 0192 C4000000 		.4byte	.LASF20
  866 0196 01       		.byte	0x1
  867 0197 2E       		.byte	0x2e
  868 0198 C6000000 		.4byte	0xc6
@@ -1061,7 +1061,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  870 019d 91       		.byte	0x91
  871 019e 6C       		.sleb128 -20
  872 019f 0D       		.uleb128 0xd
- 873 01a0 8B010000 		.4byte	.LASF21
+ 873 01a0 92010000 		.4byte	.LASF21
  874 01a4 01       		.byte	0x1
  875 01a5 2E       		.byte	0x2e
  876 01a6 7A000000 		.4byte	0x7a
@@ -1078,11 +1078,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  887 01ba 00       		.sleb128 0
  888 01bb 00       		.byte	0x0
  889 01bc 0C       		.uleb128 0xc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 19
 
 
  890 01bd 01       		.byte	0x1
- 891 01be 96010000 		.4byte	.LASF26
+ 891 01be 9D010000 		.4byte	.LASF26
  892 01c2 01       		.byte	0x1
  893 01c3 38       		.byte	0x38
  894 01c4 01       		.byte	0x1
@@ -1091,7 +1091,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  897 01cd 8D000000 		.4byte	.LLST3
  898 01d1 E4010000 		.4byte	0x1e4
  899 01d5 0D       		.uleb128 0xd
- 900 01d6 9E000000 		.4byte	.LASF24
+ 900 01d6 3F000000 		.4byte	.LASF24
  901 01da 01       		.byte	0x1
  902 01db 38       		.byte	0x38
  903 01dc 7A000000 		.4byte	0x7a
@@ -1101,7 +1101,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  907 01e3 00       		.byte	0x0
  908 01e4 0C       		.uleb128 0xc
  909 01e5 01       		.byte	0x1
- 910 01e6 C2000000 		.4byte	.LASF27
+ 910 01e6 5C000000 		.4byte	.LASF27
  911 01ea 01       		.byte	0x1
  912 01eb 3F       		.byte	0x3f
  913 01ec 01       		.byte	0x1
@@ -1110,7 +1110,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  916 01f5 C4000000 		.4byte	.LLST4
  917 01f9 0C020000 		.4byte	0x20c
  918 01fd 0D       		.uleb128 0xd
- 919 01fe 9E000000 		.4byte	.LASF24
+ 919 01fe 3F000000 		.4byte	.LASF24
  920 0202 01       		.byte	0x1
  921 0203 3F       		.byte	0x3f
  922 0204 7A000000 		.4byte	0x7a
@@ -1120,7 +1120,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  926 020b 00       		.byte	0x0
  927 020c 0F       		.uleb128 0xf
  928 020d 01       		.byte	0x1
- 929 020e 14010000 		.4byte	.LASF40
+ 929 020e AE000000 		.4byte	.LASF40
  930 0212 01       		.byte	0x1
  931 0213 47       		.byte	0x47
  932 0214 01       		.byte	0x1
@@ -1138,10 +1138,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  944 0233 91       		.byte	0x91
  945 0234 73       		.sleb128 -13
  946 0235 11       		.uleb128 0x11
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 20
 
 
- 947 0236 8D000000 		.4byte	.LASF28
+ 947 0236 2E000000 		.4byte	.LASF28
  948 023a 01       		.byte	0x1
  949 023b 4A       		.byte	0x4a
  950 023c 85000000 		.4byte	0x85
@@ -1150,7 +1150,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  953 0242 74       		.sleb128 -12
  954 0243 00       		.byte	0x0
  955 0244 11       		.uleb128 0x11
- 956 0245 B8010000 		.4byte	.LASF29
+ 956 0245 BF010000 		.4byte	.LASF29
  957 0249 01       		.byte	0x1
  958 024a 10       		.byte	0x10
  959 024b BB000000 		.4byte	0xbb
@@ -1158,7 +1158,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  961 0250 03       		.byte	0x3
  962 0251 00000000 		.4byte	TimerOverrun
  963 0255 11       		.uleb128 0x11
- 964 0256 4C010000 		.4byte	.LASF30
+ 964 0256 53010000 		.4byte	.LASF30
  965 025a 01       		.byte	0x1
  966 025b 11       		.byte	0x11
  967 025c BB000000 		.4byte	0xbb
@@ -1173,7 +1173,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  976 0274 09       		.byte	0x9
  977 0275 00       		.byte	0x0
  978 0276 11       		.uleb128 0x11
- 979 0277 90010000 		.4byte	.LASF31
+ 979 0277 97010000 		.4byte	.LASF31
  980 027b 01       		.byte	0x1
  981 027c 12       		.byte	0x12
  982 027d 66020000 		.4byte	0x266
@@ -1181,7 +1181,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  984 0282 03       		.byte	0x3
  985 0283 04000000 		.4byte	Timer
  986 0287 11       		.uleb128 0x11
- 987 0288 96000000 		.4byte	.LASF32
+ 987 0288 37000000 		.4byte	.LASF32
  988 028c 01       		.byte	0x1
  989 028d 13       		.byte	0x13
  990 028e 85000000 		.4byte	0x85
@@ -1197,8 +1197,8 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1000 02a4 03       		.byte	0x3
  1001 02a5 A8000000 		.4byte	OldTime
  1002 02a9 14       		.uleb128 0x14
- 1003 02aa 07010000 		.4byte	.LASF41
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 21
+ 1003 02aa A1000000 		.4byte	.LASF41
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 21
 
 
  1004 02ae 06       		.byte	0x6
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1058 002d 04       		.uleb128 0x4
  1059 002e 24       		.uleb128 0x24
  1060 002f 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 22
 
 
  1061 0030 0B       		.uleb128 0xb
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1115 0066 0B       		.uleb128 0xb
  1116 0067 3B       		.uleb128 0x3b
  1117 0068 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 23
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 23
 
 
  1118 0069 49       		.uleb128 0x49
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1172 009f 0C       		.uleb128 0xc
  1173 00a0 03       		.uleb128 0x3
  1174 00a1 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 24
 
 
  1175 00a2 3A       		.uleb128 0x3a
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1229 00d8 0B       		.uleb128 0xb
  1230 00d9 3B       		.uleb128 0x3b
  1231 00da 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 25
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 25
 
 
  1232 00db 27       		.uleb128 0x27
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1286 0111 21       		.uleb128 0x21
  1287 0112 00       		.byte	0x0
  1288 0113 49       		.uleb128 0x49
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 26
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 26
 
 
  1289 0114 13       		.uleb128 0x13
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1331      657200
  1332 0055 E4010000 		.4byte	0x1e4
  1333 0059 544D525F 		.ascii	"TMR_StopTimer\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 27
 
 
  1333      53746F70 
@@ -1618,188 +1618,192 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 1
  1379      7400
  1380              	.LASF33:
  1381 000e 4F6C6454 		.ascii	"OldTime\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 28
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 28
 
 
  1381      696D6500 
  1382              	.LASF22:
  1383 0016 73746174 		.ascii	"status\000"
  1383      757300
- 1384              	.LASF16:
- 1385 001d 424F4F4C 		.ascii	"BOOL\000"
- 1385      00
- 1386              	.LASF19:
- 1387 0022 76616C75 		.ascii	"value\000"
- 1387      6500
- 1388              	.LASF18:
- 1389 0028 636F756E 		.ascii	"count\000"
- 1389      7400
- 1390              	.LASF36:
- 1391 002e 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
- 1391      6F626F74 
- 1391      69637363 
- 1391      6F64655C 
- 1391      7472756E 
- 1392 005c 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
- 1392      6C617466 
- 1392      6F726D32 
- 1392      5C447269 
- 1392      7665506C 
- 1393              	.LASF28:
- 1394 008d 74696D65 		.ascii	"timediff\000"
- 1394      64696666 
- 1394      00
- 1395              	.LASF32:
- 1396 0096 4E657754 		.ascii	"NewTime\000"
- 1396      696D6500 
- 1397              	.LASF24:
- 1398 009e 6E756D54 		.ascii	"numTimer\000"
- 1398      696D6572 
- 1398      00
- 1399              	.LASF12:
- 1400 00a7 666C6F61 		.ascii	"float\000"
- 1400      7400
- 1401              	.LASF15:
- 1402 00ad 53544154 		.ascii	"STATUS\000"
- 1402      555300
- 1403              	.LASF1:
- 1404 00b4 756E7369 		.ascii	"unsigned char\000"
- 1404      676E6564 
- 1404      20636861 
- 1404      7200
- 1405              	.LASF27:
- 1406 00c2 544D525F 		.ascii	"TMR_StopTimer\000"
- 1406      53746F70 
- 1406      54696D65 
- 1406      7200
- 1407              	.LASF5:
- 1408 00d0 6C6F6E67 		.ascii	"long unsigned int\000"
- 1408      20756E73 
- 1408      69676E65 
- 1408      6420696E 
- 1408      7400
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 29
+ 1384              	.LASF19:
+ 1385 001d 76616C75 		.ascii	"value\000"
+ 1385      6500
+ 1386              	.LASF18:
+ 1387 0023 636F756E 		.ascii	"count\000"
+ 1387      7400
+ 1388              	.LASF16:
+ 1389 0029 424F4F4C 		.ascii	"BOOL\000"
+ 1389      00
+ 1390              	.LASF28:
+ 1391 002e 74696D65 		.ascii	"timediff\000"
+ 1391      64696666 
+ 1391      00
+ 1392              	.LASF32:
+ 1393 0037 4E657754 		.ascii	"NewTime\000"
+ 1393      696D6500 
+ 1394              	.LASF24:
+ 1395 003f 6E756D54 		.ascii	"numTimer\000"
+ 1395      696D6572 
+ 1395      00
+ 1396              	.LASF12:
+ 1397 0048 666C6F61 		.ascii	"float\000"
+ 1397      7400
+ 1398              	.LASF1:
+ 1399 004e 756E7369 		.ascii	"unsigned char\000"
+ 1399      676E6564 
+ 1399      20636861 
+ 1399      7200
+ 1400              	.LASF27:
+ 1401 005c 544D525F 		.ascii	"TMR_StopTimer\000"
+ 1401      53746F70 
+ 1401      54696D65 
+ 1401      7200
+ 1402              	.LASF5:
+ 1403 006a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1403      20756E73 
+ 1403      69676E65 
+ 1403      6420696E 
+ 1403      7400
+ 1404              	.LASF3:
+ 1405 007c 73686F72 		.ascii	"short unsigned int\000"
+ 1405      7420756E 
+ 1405      7369676E 
+ 1405      65642069 
+ 1405      6E7400
+ 1406              	.LASF38:
+ 1407 008f 6973725F 		.ascii	"isr_timer_routine\000"
+ 1407      74696D65 
+ 1407      725F726F 
+ 1407      7574696E 
+ 1407      6500
+ 1408              	.LASF41:
+ 1409 00a1 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 29
 
 
- 1409              	.LASF3:
- 1410 00e2 73686F72 		.ascii	"short unsigned int\000"
- 1410      7420756E 
- 1410      7369676E 
- 1410      65642069 
- 1410      6E7400
- 1411              	.LASF38:
- 1412 00f5 6973725F 		.ascii	"isr_timer_routine\000"
- 1412      74696D65 
- 1412      725F726F 
- 1412      7574696E 
- 1412      6500
- 1413              	.LASF41:
- 1414 0107 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1414      52784275 
- 1414      66666572 
- 1414      00
- 1415              	.LASF40:
- 1416 0114 544D525F 		.ascii	"TMR_HandleTask\000"
- 1416      48616E64 
- 1416      6C655461 
- 1416      736B00
- 1417              	.LASF13:
- 1418 0123 646F7562 		.ascii	"double\000"
- 1418      6C6500
- 1419              	.LASF20:
- 1420 012a 66756E63 		.ascii	"func\000"
- 1420      00
- 1421              	.LASF39:
- 1422 012f 544D525F 		.ascii	"TMR_Init\000"
- 1422      496E6974 
- 1422      00
- 1423              	.LASF11:
- 1424 0138 75696E74 		.ascii	"uint32\000"
- 1424      333200
- 1425              	.LASF8:
- 1426 013f 756E7369 		.ascii	"unsigned int\000"
- 1426      676E6564 
- 1426      20696E74 
- 1426      00
- 1427              	.LASF30:
- 1428 014c 49734669 		.ascii	"IsFirstExecution\000"
- 1428      72737445 
- 1428      78656375 
- 1428      74696F6E 
- 1428      00
- 1429              	.LASF17:
- 1430 015d 544D525F 		.ascii	"TMR_FUNC\000"
- 1430      46554E43 
- 1430      00
- 1431              	.LASF7:
- 1432 0166 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1432      206C6F6E 
- 1432      6720756E 
- 1432      7369676E 
- 1432      65642069 
- 1433              	.LASF9:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 30
+ 1409      52784275 
+ 1409      66666572 
+ 1409      00
+ 1410              	.LASF40:
+ 1411 00ae 544D525F 		.ascii	"TMR_HandleTask\000"
+ 1411      48616E64 
+ 1411      6C655461 
+ 1411      736B00
+ 1412              	.LASF13:
+ 1413 00bd 646F7562 		.ascii	"double\000"
+ 1413      6C6500
+ 1414              	.LASF20:
+ 1415 00c4 66756E63 		.ascii	"func\000"
+ 1415      00
+ 1416              	.LASF39:
+ 1417 00c9 544D525F 		.ascii	"TMR_Init\000"
+ 1417      496E6974 
+ 1417      00
+ 1418              	.LASF36:
+ 1419 00d2 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1419      69744875 
+ 1419      625F726F 
+ 1419      626F7469 
+ 1419      6373636F 
+ 1420 0101 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 1420      6F725F32 
+ 1420      2E325C44 
+ 1420      72697665 
+ 1420      506C6174 
+ 1421 0131 6174666F 		.ascii	"atform2.cydsn\000"
+ 1421      726D322E 
+ 1421      63796473 
+ 1421      6E00
+ 1422              	.LASF11:
+ 1423 013f 75696E74 		.ascii	"uint32\000"
+ 1423      333200
+ 1424              	.LASF8:
+ 1425 0146 756E7369 		.ascii	"unsigned int\000"
+ 1425      676E6564 
+ 1425      20696E74 
+ 1425      00
+ 1426              	.LASF30:
+ 1427 0153 49734669 		.ascii	"IsFirstExecution\000"
+ 1427      72737445 
+ 1427      78656375 
+ 1427      74696F6E 
+ 1427      00
+ 1428              	.LASF17:
+ 1429 0164 544D525F 		.ascii	"TMR_FUNC\000"
+ 1429      46554E43 
+ 1429      00
+ 1430              	.LASF7:
+ 1431 016d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1431      206C6F6E 
+ 1431      6720756E 
+ 1431      7369676E 
+ 1431      65642069 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 30
 
 
- 1434 017d 75696E74 		.ascii	"uint8_t\000"
- 1434      385F7400 
- 1435              	.LASF23:
- 1436 0185 54494D45 		.ascii	"TIMER\000"
- 1436      5200
- 1437              	.LASF21:
- 1438 018b 6D6F6465 		.ascii	"mode\000"
- 1438      00
- 1439              	.LASF31:
- 1440 0190 54696D65 		.ascii	"Timer\000"
- 1440      7200
- 1441              	.LASF26:
- 1442 0196 544D525F 		.ascii	"TMR_StartTimer\000"
- 1442      53746172 
- 1442      7454696D 
- 1442      657200
- 1443              	.LASF37:
- 1444 01a5 5F74696D 		.ascii	"_timer\000"
- 1444      657200
- 1445              	.LASF34:
- 1446 01ac 474E5520 		.ascii	"GNU C 4.4.1\000"
- 1446      4320342E 
- 1446      342E3100 
- 1447              	.LASF29:
- 1448 01b8 54696D65 		.ascii	"TimerOverrun\000"
- 1448      724F7665 
- 1448      7272756E 
- 1448      00
- 1449              	.LASF14:
- 1450 01c5 63686172 		.ascii	"char\000"
- 1450      00
- 1451              	.LASF25:
- 1452 01ca 544D525F 		.ascii	"TMR_SetTimer\000"
- 1452      53657454 
- 1452      696D6572 
- 1452      00
- 1453              	.LASF2:
- 1454 01d7 73686F72 		.ascii	"short int\000"
- 1454      7420696E 
- 1454      7400
- 1455              	.LASF10:
- 1456 01e1 75696E74 		.ascii	"uint8\000"
- 1456      3800
- 1457              	.LASF35:
- 1458 01e7 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\tm"
- 1458      2E5C2E2E 
- 1458      5C447269 
- 1458      76655F50 
- 1458      6C617466 
- 1459 0215 722E6300 		.ascii	"r.c\000"
- 1460              	.LASF4:
- 1461 0219 6C6F6E67 		.ascii	"long int\000"
- 1461      20696E74 
- 1461      00
- 1462              	.LASF0:
- 1463 0222 7369676E 		.ascii	"signed char\000"
- 1463      65642063 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccPvXonC.s 			page 31
+ 1432              	.LASF9:
+ 1433 0184 75696E74 		.ascii	"uint8_t\000"
+ 1433      385F7400 
+ 1434              	.LASF23:
+ 1435 018c 54494D45 		.ascii	"TIMER\000"
+ 1435      5200
+ 1436              	.LASF21:
+ 1437 0192 6D6F6465 		.ascii	"mode\000"
+ 1437      00
+ 1438              	.LASF31:
+ 1439 0197 54696D65 		.ascii	"Timer\000"
+ 1439      7200
+ 1440              	.LASF26:
+ 1441 019d 544D525F 		.ascii	"TMR_StartTimer\000"
+ 1441      53746172 
+ 1441      7454696D 
+ 1441      657200
+ 1442              	.LASF37:
+ 1443 01ac 5F74696D 		.ascii	"_timer\000"
+ 1443      657200
+ 1444              	.LASF34:
+ 1445 01b3 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1445      4320342E 
+ 1445      342E3100 
+ 1446              	.LASF29:
+ 1447 01bf 54696D65 		.ascii	"TimerOverrun\000"
+ 1447      724F7665 
+ 1447      7272756E 
+ 1447      00
+ 1448              	.LASF14:
+ 1449 01cc 63686172 		.ascii	"char\000"
+ 1449      00
+ 1450              	.LASF25:
+ 1451 01d1 544D525F 		.ascii	"TMR_SetTimer\000"
+ 1451      53657454 
+ 1451      696D6572 
+ 1451      00
+ 1452              	.LASF15:
+ 1453 01de 53544154 		.ascii	"STATUS\000"
+ 1453      555300
+ 1454              	.LASF2:
+ 1455 01e5 73686F72 		.ascii	"short int\000"
+ 1455      7420696E 
+ 1455      7400
+ 1456              	.LASF10:
+ 1457 01ef 75696E74 		.ascii	"uint8\000"
+ 1457      3800
+ 1458              	.LASF35:
+ 1459 01f5 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\tm"
+ 1459      2E5C2E2E 
+ 1459      5C447269 
+ 1459      76655F50 
+ 1459      6C617466 
+ 1460 0223 722E6300 		.ascii	"r.c\000"
+ 1461              	.LASF4:
+ 1462 0227 6C6F6E67 		.ascii	"long int\000"
+ 1462      20696E74 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc8fNUTZ.s 			page 31
 
 
- 1463      68617200 
- 1464              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 1462      00
+ 1463              	.LASF0:
+ 1464 0230 7369676E 		.ascii	"signed char\000"
+ 1464      65642063 
+ 1464      68617200 
+ 1465              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

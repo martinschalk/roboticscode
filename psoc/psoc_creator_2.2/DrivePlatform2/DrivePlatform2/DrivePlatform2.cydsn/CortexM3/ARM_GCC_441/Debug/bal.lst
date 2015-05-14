@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
   20:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #ifdef BAL_MODULE_TEST   
   21:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     static void BAL_ModuleTest();
   22:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #endif
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 2
 
 
   23:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
   65 002c 80BD     		pop	{r7, pc}
   66              		.cfi_endproc
   67              	.LFE29:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 3
 
 
   68              		.size	BAL_ServoMsg, .-BAL_ServoMsg
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
   72:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                         BAL_MSG_LENGTH_ACK, 
   73:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                         val
   74:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                      };
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 4
 
 
   94              		.loc 1 74 0
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
   83:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #ifdef BAL_MODULE_TEST
   84:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     //TST_SetModuleTest(BAL_ModuleTest);
   85:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     TMR_SetTimer(TIMER_4, TIMER_1SEC, BAL_ModuleTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 5
 
 
  140              		.loc 1 85 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  183 0008 1846     		mov	r0, r3
  184 000a BD46     		mov	sp, r7
  185 000c 80BC     		pop	{r7}
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 6
 
 
  186 000e 7047     		bx	lr
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  232 001b 06000000 		.4byte	.LCFI2
  233 001f 0200     		.2byte	0x2
  234 0021 7D       		.byte	0x7d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 7
 
 
  235 0022 18       		.sleb128 24
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  289 00a9 02000000 		.4byte	.LCFI9
  290 00ad 0100     		.2byte	0x1
  291 00af 5D       		.byte	0x5d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 8
 
 
  292 00b0 02000000 		.4byte	.LCFI9
@@ -461,10 +461,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  329 0006 00000000 		.4byte	.Ldebug_abbrev0
  330 000a 04       		.byte	0x4
  331 000b 01       		.uleb128 0x1
- 332 000c D9010000 		.4byte	.LASF31
+ 332 000c E7010000 		.4byte	.LASF31
  333 0010 01       		.byte	0x1
  334 0011 2F000000 		.4byte	.LASF32
- 335 0015 68000000 		.4byte	.LASF33
+ 335 0015 0E010000 		.4byte	.LASF33
  336 0019 00000000 		.4byte	0x0
  337 001d 00000000 		.4byte	0x0
  338 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
@@ -472,30 +472,30 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  340 0029 02       		.uleb128 0x2
  341 002a 01       		.byte	0x1
  342 002b 06       		.byte	0x6
- 343 002c 0A020000 		.4byte	.LASF0
+ 343 002c 18020000 		.4byte	.LASF0
  344 0030 02       		.uleb128 0x2
  345 0031 01       		.byte	0x1
  346 0032 08       		.byte	0x8
- 347 0033 FD000000 		.4byte	.LASF1
+ 347 0033 9E000000 		.4byte	.LASF1
  348 0037 02       		.uleb128 0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 9
 
 
  349 0038 02       		.byte	0x2
  350 0039 05       		.byte	0x5
- 351 003a EA010000 		.4byte	.LASF2
+ 351 003a F8010000 		.4byte	.LASF2
  352 003e 02       		.uleb128 0x2
  353 003f 02       		.byte	0x2
  354 0040 07       		.byte	0x7
- 355 0041 17010000 		.4byte	.LASF3
+ 355 0041 B8000000 		.4byte	.LASF3
  356 0045 02       		.uleb128 0x2
  357 0046 04       		.byte	0x4
  358 0047 05       		.byte	0x5
- 359 0048 01020000 		.4byte	.LASF4
+ 359 0048 0F020000 		.4byte	.LASF4
  360 004c 02       		.uleb128 0x2
  361 004d 04       		.byte	0x4
  362 004e 07       		.byte	0x7
- 363 004f 44010000 		.4byte	.LASF5
+ 363 004f E5000000 		.4byte	.LASF5
  364 0053 02       		.uleb128 0x2
  365 0054 08       		.byte	0x8
  366 0055 05       		.byte	0x5
@@ -503,7 +503,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  368 005a 02       		.uleb128 0x2
  369 005b 08       		.byte	0x8
  370 005c 07       		.byte	0x7
- 371 005d 91010000 		.4byte	.LASF7
+ 371 005d 9F010000 		.4byte	.LASF7
  372 0061 03       		.uleb128 0x3
  373 0062 04       		.byte	0x4
  374 0063 05       		.byte	0x5
@@ -511,16 +511,16 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  376 0068 02       		.uleb128 0x2
  377 0069 04       		.byte	0x4
  378 006a 07       		.byte	0x7
- 379 006b 84010000 		.4byte	.LASF8
+ 379 006b 92010000 		.4byte	.LASF8
  380 006f 04       		.uleb128 0x4
- 381 0070 FB010000 		.4byte	.LASF12
+ 381 0070 09020000 		.4byte	.LASF12
  382 0074 02       		.byte	0x2
  383 0075 4C       		.byte	0x4c
  384 0076 30000000 		.4byte	0x30
  385 007a 02       		.uleb128 0x2
  386 007b 04       		.byte	0x4
  387 007c 04       		.byte	0x4
- 388 007d DA000000 		.4byte	.LASF9
+ 388 007d 7B000000 		.4byte	.LASF9
  389 0081 02       		.uleb128 0x2
  390 0082 08       		.byte	0x8
  391 0083 04       		.byte	0x4
@@ -528,7 +528,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  393 0088 02       		.uleb128 0x2
  394 0089 01       		.byte	0x1
  395 008a 08       		.byte	0x8
- 396 008b E5010000 		.4byte	.LASF11
+ 396 008b F3010000 		.4byte	.LASF11
  397 008f 05       		.uleb128 0x5
  398 0090 04       		.byte	0x4
  399 0091 07       		.byte	0x7
@@ -538,23 +538,23 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  403 009b 07       		.uleb128 0x7
  404 009c 8F000000 		.4byte	0x8f
  405 00a0 03       		.byte	0x3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 10
 
 
  406 00a1 00       		.byte	0x0
  407 00a2 04       		.uleb128 0x4
- 408 00a3 F6000000 		.4byte	.LASF13
+ 408 00a3 97000000 		.4byte	.LASF13
  409 00a7 03       		.byte	0x3
  410 00a8 0F       		.byte	0xf
  411 00a9 6F000000 		.4byte	0x6f
  412 00ad 08       		.uleb128 0x8
- 413 00ae 79010000 		.4byte	.LASF34
+ 413 00ae 87010000 		.4byte	.LASF34
  414 00b2 0E       		.byte	0xe
  415 00b3 04       		.byte	0x4
  416 00b4 4D       		.byte	0x4d
  417 00b5 1C010000 		.4byte	0x11c
  418 00b9 09       		.uleb128 0x9
- 419 00ba E0000000 		.4byte	.LASF14
+ 419 00ba 81000000 		.4byte	.LASF14
  420 00be 04       		.byte	0x4
  421 00bf 4E       		.byte	0x4e
  422 00c0 6F000000 		.4byte	0x6f
@@ -562,7 +562,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  424 00c5 23       		.byte	0x23
  425 00c6 00       		.uleb128 0x0
  426 00c7 09       		.uleb128 0x9
- 427 00c8 EB000000 		.4byte	.LASF15
+ 427 00c8 8C000000 		.4byte	.LASF15
  428 00cc 04       		.byte	0x4
  429 00cd 4F       		.byte	0x4f
  430 00ce 6F000000 		.4byte	0x6f
@@ -570,7 +570,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  432 00d3 23       		.byte	0x23
  433 00d4 01       		.uleb128 0x1
  434 00d5 09       		.uleb128 0x9
- 435 00d6 56010000 		.4byte	.LASF16
+ 435 00d6 F7000000 		.4byte	.LASF16
  436 00da 04       		.byte	0x4
  437 00db 50       		.byte	0x50
  438 00dc 6F000000 		.4byte	0x6f
@@ -578,7 +578,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  440 00e1 23       		.byte	0x23
  441 00e2 02       		.uleb128 0x2
  442 00e3 09       		.uleb128 0x9
- 443 00e4 16020000 		.4byte	.LASF17
+ 443 00e4 24020000 		.4byte	.LASF17
  444 00e8 04       		.byte	0x4
  445 00e9 51       		.byte	0x51
  446 00ea 6F000000 		.4byte	0x6f
@@ -586,7 +586,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  448 00ef 23       		.byte	0x23
  449 00f0 03       		.uleb128 0x3
  450 00f1 09       		.uleb128 0x9
- 451 00f2 D1010000 		.4byte	.LASF18
+ 451 00f2 DF010000 		.4byte	.LASF18
  452 00f6 04       		.byte	0x4
  453 00f7 52       		.byte	0x52
  454 00f8 6F000000 		.4byte	0x6f
@@ -594,11 +594,11 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  456 00fd 23       		.byte	0x23
  457 00fe 04       		.uleb128 0x4
  458 00ff 09       		.uleb128 0x9
- 459 0100 6D010000 		.4byte	.LASF19
+ 459 0100 7B010000 		.4byte	.LASF19
  460 0104 04       		.byte	0x4
  461 0105 53       		.byte	0x53
  462 0106 1C010000 		.4byte	0x11c
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 11
 
 
  463 010a 02       		.byte	0x2
@@ -621,7 +621,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  480 012a 07       		.byte	0x7
  481 012b 00       		.byte	0x0
  482 012c 04       		.uleb128 0x4
- 483 012d CE000000 		.4byte	.LASF21
+ 483 012d 6F000000 		.4byte	.LASF21
  484 0131 04       		.byte	0x4
  485 0132 55       		.byte	0x55
  486 0133 AD000000 		.4byte	0xad
@@ -631,18 +631,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  490 013a 34       		.byte	0x34
  491 013b 52010000 		.4byte	0x152
  492 013f 0B       		.uleb128 0xb
- 493 0140 5E010000 		.4byte	.LASF22
+ 493 0140 FF000000 		.4byte	.LASF22
  494 0144 01       		.sleb128 1
  495 0145 0B       		.uleb128 0xb
- 496 0146 B7010000 		.4byte	.LASF23
+ 496 0146 C5010000 		.4byte	.LASF23
  497 014a 02       		.sleb128 2
  498 014b 0B       		.uleb128 0xb
- 499 014c C4010000 		.4byte	.LASF24
+ 499 014c D2010000 		.4byte	.LASF24
  500 0150 03       		.sleb128 3
  501 0151 00       		.byte	0x0
  502 0152 0C       		.uleb128 0xc
  503 0153 01       		.byte	0x1
- 504 0154 37010000 		.4byte	.LASF25
+ 504 0154 D8000000 		.4byte	.LASF25
  505 0158 01       		.byte	0x1
  506 0159 1C       		.byte	0x1c
  507 015a 01       		.byte	0x1
@@ -658,12 +658,12 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  517 0176 8C010000 		.4byte	0x18c
  518 017a 02       		.byte	0x2
  519 017b 91       		.byte	0x91
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 12
 
 
  520 017c 6C       		.sleb128 -20
  521 017d 0E       		.uleb128 0xe
- 522 017e C7000000 		.4byte	.LASF27
+ 522 017e 68000000 		.4byte	.LASF27
  523 0182 01       		.byte	0x1
  524 0183 1E       		.byte	0x1e
  525 0184 A2000000 		.4byte	0xa2
@@ -676,7 +676,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  532 018e 2C010000 		.4byte	0x12c
  533 0192 0C       		.uleb128 0xc
  534 0193 01       		.byte	0x1
- 535 0194 0B010000 		.4byte	.LASF26
+ 535 0194 AC000000 		.4byte	.LASF26
  536 0198 01       		.byte	0x1
  537 0199 44       		.byte	0x44
  538 019a 01       		.byte	0x1
@@ -694,7 +694,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  550 01bb 91       		.byte	0x91
  551 01bc 6F       		.sleb128 -17
  552 01bd 0E       		.uleb128 0xe
- 553 01be F4010000 		.4byte	.LASF28
+ 553 01be 02020000 		.4byte	.LASF28
  554 01c2 01       		.byte	0x1
  555 01c3 46       		.byte	0x46
  556 01c4 92000000 		.4byte	0x92
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  574 01eb 01       		.byte	0x1
  575 01ec 5D       		.byte	0x5d
  576 01ed 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 13
 
 
  577 01ee A2000000 		.4byte	0xa2
@@ -726,7 +726,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  579 01f6 10000000 		.4byte	.LFE32
  580 01fa A5000000 		.4byte	.LLST3
  581 01fe 11       		.uleb128 0x11
- 582 01ff A8010000 		.4byte	.LASF35
+ 582 01ff B6010000 		.4byte	.LASF35
  583 0203 01       		.byte	0x1
  584 0204 65       		.byte	0x65
  585 0205 01       		.byte	0x1
@@ -734,7 +734,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  587 020a 0E000000 		.4byte	.LFE33
  588 020e D0000000 		.4byte	.LLST4
  589 0212 12       		.uleb128 0x12
- 590 0213 2A010000 		.4byte	.LASF36
+ 590 0213 CB000000 		.4byte	.LASF36
  591 0217 06       		.byte	0x6
  592 0218 CE06     		.2byte	0x6ce
  593 021a 20020000 		.4byte	0x220
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  631 001f 00       		.byte	0x0
  632 0020 03       		.uleb128 0x3
  633 0021 24       		.uleb128 0x24
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 14
 
 
  634 0022 00       		.byte	0x0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  688 0058 0B       		.uleb128 0xb
  689 0059 0B       		.uleb128 0xb
  690 005a 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 15
 
 
  691 005b 0B       		.uleb128 0xb
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  745 0091 0B       		.uleb128 0xb
  746 0092 27       		.uleb128 0x27
  747 0093 0C       		.uleb128 0xc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 16
 
 
  748 0094 49       		.uleb128 0x49
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  802 00ca 3F       		.uleb128 0x3f
  803 00cb 0C       		.uleb128 0xc
  804 00cc 03       		.uleb128 0x3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 17
 
 
  805 00cd 0E       		.uleb128 0xe
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  859 0103 35       		.uleb128 0x35
  860 0104 00       		.byte	0x0
  861 0105 49       		.uleb128 0x49
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 18
 
 
  862 0106 13       		.uleb128 0x13
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  906 0010 00000000 		.4byte	.LFB30
  907 0014 3A000000 		.4byte	.LFE30
  908 0018 00000000 		.4byte	.LFB31
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 19
 
 
  909 001c 34000000 		.4byte	.LFE31
@@ -1117,149 +1117,153 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 1
  928              	.LASF10:
  929 0061 646F7562 		.ascii	"double\000"
  929      6C6500
- 930              	.LASF33:
- 931 0068 583A5C72 		.ascii	"X:\\roboticscode\\trunk\\psoc\\psoc_creator_2.2\\Dr"
- 931      6F626F74 
- 931      69637363 
- 931      6F64655C 
- 931      7472756E 
- 932 0096 69766550 		.ascii	"ivePlatform2\\DrivePlatform2\\DrivePlatform2.cydsn\000"
- 932      6C617466 
- 932      6F726D32 
- 932      5C447269 
- 932      7665506C 
- 933              	.LASF27:
- 934 00c7 73746174 		.ascii	"status\000"
- 934      757300
- 935              	.LASF21:
- 936 00ce 43445335 		.ascii	"CDS5500_MSG\000"
- 936      3530305F 
- 936      4D534700 
- 937              	.LASF9:
- 938 00da 666C6F61 		.ascii	"float\000"
- 938      7400
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 20
+ 930              	.LASF27:
+ 931 0068 73746174 		.ascii	"status\000"
+ 931      757300
+ 932              	.LASF21:
+ 933 006f 43445335 		.ascii	"CDS5500_MSG\000"
+ 933      3530305F 
+ 933      4D534700 
+ 934              	.LASF9:
+ 935 007b 666C6F61 		.ascii	"float\000"
+ 935      7400
+ 936              	.LASF14:
+ 937 0081 73746172 		.ascii	"startbyte0\000"
+ 937      74627974 
+ 937      653000
+ 938              	.LASF15:
+ 939 008c 73746172 		.ascii	"startbyte1\000"
+ 939      74627974 
+ 939      653100
+ 940              	.LASF13:
+ 941 0097 53544154 		.ascii	"STATUS\000"
+ 941      555300
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 20
 
 
- 939              	.LASF14:
- 940 00e0 73746172 		.ascii	"startbyte0\000"
- 940      74627974 
- 940      653000
- 941              	.LASF15:
- 942 00eb 73746172 		.ascii	"startbyte1\000"
- 942      74627974 
- 942      653100
- 943              	.LASF13:
- 944 00f6 53544154 		.ascii	"STATUS\000"
- 944      555300
- 945              	.LASF1:
- 946 00fd 756E7369 		.ascii	"unsigned char\000"
- 946      676E6564 
- 946      20636861 
- 946      7200
- 947              	.LASF26:
- 948 010b 42414C5F 		.ascii	"BAL_SendAck\000"
- 948      53656E64 
- 948      41636B00 
- 949              	.LASF3:
- 950 0117 73686F72 		.ascii	"short unsigned int\000"
- 950      7420756E 
- 950      7369676E 
- 950      65642069 
- 950      6E7400
- 951              	.LASF36:
- 952 012a 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 952      52784275 
- 952      66666572 
- 952      00
- 953              	.LASF25:
- 954 0137 42414C5F 		.ascii	"BAL_ServoMsg\000"
- 954      53657276 
- 954      6F4D7367 
- 954      00
- 955              	.LASF5:
- 956 0144 6C6F6E67 		.ascii	"long unsigned int\000"
- 956      20756E73 
- 956      69676E65 
- 956      6420696E 
- 956      7400
- 957              	.LASF16:
- 958 0156 6D6F746F 		.ascii	"motorId\000"
- 958      72496400 
- 959              	.LASF22:
- 960 015e 42414C5F 		.ascii	"BAL_MSG_ID_ACK\000"
- 960      4D53475F 
- 960      49445F41 
- 960      434B00
- 961              	.LASF19:
- 962 016d 696E7374 		.ascii	"instrParams\000"
- 962      72506172 
- 962      616D7300 
- 963              	.LASF34:
- 964 0179 5F736572 		.ascii	"_servo_msg\000"
- 964      766F5F6D 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 21
+ 942              	.LASF1:
+ 943 009e 756E7369 		.ascii	"unsigned char\000"
+ 943      676E6564 
+ 943      20636861 
+ 943      7200
+ 944              	.LASF26:
+ 945 00ac 42414C5F 		.ascii	"BAL_SendAck\000"
+ 945      53656E64 
+ 945      41636B00 
+ 946              	.LASF3:
+ 947 00b8 73686F72 		.ascii	"short unsigned int\000"
+ 947      7420756E 
+ 947      7369676E 
+ 947      65642069 
+ 947      6E7400
+ 948              	.LASF36:
+ 949 00cb 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 949      52784275 
+ 949      66666572 
+ 949      00
+ 950              	.LASF25:
+ 951 00d8 42414C5F 		.ascii	"BAL_ServoMsg\000"
+ 951      53657276 
+ 951      6F4D7367 
+ 951      00
+ 952              	.LASF5:
+ 953 00e5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 953      20756E73 
+ 953      69676E65 
+ 953      6420696E 
+ 953      7400
+ 954              	.LASF16:
+ 955 00f7 6D6F746F 		.ascii	"motorId\000"
+ 955      72496400 
+ 956              	.LASF22:
+ 957 00ff 42414C5F 		.ascii	"BAL_MSG_ID_ACK\000"
+ 957      4D53475F 
+ 957      49445F41 
+ 957      434B00
+ 958              	.LASF33:
+ 959 010e 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 959      69744875 
+ 959      625F726F 
+ 959      626F7469 
+ 959      6373636F 
+ 960 013d 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 960      6F725F32 
+ 960      2E325C44 
+ 960      72697665 
+ 960      506C6174 
+ 961 016d 6174666F 		.ascii	"atform2.cydsn\000"
+ 961      726D322E 
+ 961      63796473 
+ 961      6E00
+ 962              	.LASF19:
+ 963 017b 696E7374 		.ascii	"instrParams\000"
+ 963      72506172 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 21
 
 
- 964      736700
- 965              	.LASF8:
- 966 0184 756E7369 		.ascii	"unsigned int\000"
- 966      676E6564 
- 966      20696E74 
- 966      00
- 967              	.LASF7:
- 968 0191 6C6F6E67 		.ascii	"long long unsigned int\000"
- 968      206C6F6E 
- 968      6720756E 
- 968      7369676E 
- 968      65642069 
- 969              	.LASF35:
- 970 01a8 42414C5F 		.ascii	"BAL_ModuleTest\000"
- 970      4D6F6475 
- 970      6C655465 
- 970      737400
- 971              	.LASF23:
- 972 01b7 42414C5F 		.ascii	"BAL_MSG_ID_1\000"
- 972      4D53475F 
- 972      49445F31 
- 972      00
- 973              	.LASF24:
- 974 01c4 42414C5F 		.ascii	"BAL_MSG_ID_2\000"
- 974      4D53475F 
- 974      49445F32 
- 974      00
- 975              	.LASF18:
- 976 01d1 696E7374 		.ascii	"instrId\000"
- 976      72496400 
- 977              	.LASF31:
- 978 01d9 474E5520 		.ascii	"GNU C 4.4.1\000"
- 978      4320342E 
- 978      342E3100 
- 979              	.LASF11:
- 980 01e5 63686172 		.ascii	"char\000"
- 980      00
- 981              	.LASF2:
- 982 01ea 73686F72 		.ascii	"short int\000"
- 982      7420696E 
- 982      7400
- 983              	.LASF28:
- 984 01f4 62756666 		.ascii	"buffer\000"
- 984      657200
- 985              	.LASF12:
- 986 01fb 75696E74 		.ascii	"uint8\000"
- 986      3800
- 987              	.LASF4:
- 988 0201 6C6F6E67 		.ascii	"long int\000"
- 988      20696E74 
- 988      00
- 989              	.LASF0:
- 990 020a 7369676E 		.ascii	"signed char\000"
- 990      65642063 
- 990      68617200 
- 991              	.LASF17:
- 992 0216 6C656E67 		.ascii	"length\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccSzAha1.s 			page 22
+ 963      616D7300 
+ 964              	.LASF34:
+ 965 0187 5F736572 		.ascii	"_servo_msg\000"
+ 965      766F5F6D 
+ 965      736700
+ 966              	.LASF8:
+ 967 0192 756E7369 		.ascii	"unsigned int\000"
+ 967      676E6564 
+ 967      20696E74 
+ 967      00
+ 968              	.LASF7:
+ 969 019f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 969      206C6F6E 
+ 969      6720756E 
+ 969      7369676E 
+ 969      65642069 
+ 970              	.LASF35:
+ 971 01b6 42414C5F 		.ascii	"BAL_ModuleTest\000"
+ 971      4D6F6475 
+ 971      6C655465 
+ 971      737400
+ 972              	.LASF23:
+ 973 01c5 42414C5F 		.ascii	"BAL_MSG_ID_1\000"
+ 973      4D53475F 
+ 973      49445F31 
+ 973      00
+ 974              	.LASF24:
+ 975 01d2 42414C5F 		.ascii	"BAL_MSG_ID_2\000"
+ 975      4D53475F 
+ 975      49445F32 
+ 975      00
+ 976              	.LASF18:
+ 977 01df 696E7374 		.ascii	"instrId\000"
+ 977      72496400 
+ 978              	.LASF31:
+ 979 01e7 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 979      4320342E 
+ 979      342E3100 
+ 980              	.LASF11:
+ 981 01f3 63686172 		.ascii	"char\000"
+ 981      00
+ 982              	.LASF2:
+ 983 01f8 73686F72 		.ascii	"short int\000"
+ 983      7420696E 
+ 983      7400
+ 984              	.LASF28:
+ 985 0202 62756666 		.ascii	"buffer\000"
+ 985      657200
+ 986              	.LASF12:
+ 987 0209 75696E74 		.ascii	"uint8\000"
+ 987      3800
+ 988              	.LASF4:
+ 989 020f 6C6F6E67 		.ascii	"long int\000"
+ 989      20696E74 
+ 989      00
+ 990              	.LASF0:
+ 991 0218 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccJnaifQ.s 			page 22
 
 
- 992      746800
- 993              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 991      65642063 
+ 991      68617200 
+ 992              	.LASF17:
+ 993 0224 6C656E67 		.ascii	"length\000"
+ 993      746800
+ 994              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

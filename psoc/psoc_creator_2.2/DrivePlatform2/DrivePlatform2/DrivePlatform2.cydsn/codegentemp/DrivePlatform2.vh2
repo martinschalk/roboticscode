@@ -2,7 +2,7 @@
 --	Conversion of DrivePlatform2.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Sat Feb 21 23:40:20 2015
+--	Thu May 14 16:03:48 2015
 --
 
 USE cypress.cypress.all;
