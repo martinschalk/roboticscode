@@ -61,14 +61,8 @@ STATUS 	HAL_Init(void)
 {
 #ifdef ERROR_MODULE_ENABLE
     STATUS idx1, idx2;
-    static tErrVar v1, v2;
-    volatile int test1 = sizeof(int);
-    volatile int test2 = sizeof(tErrVar);
-    (void)test1; (void)test2;
-    v1 = RxCount;
-    v2 = TxCount;
-    idx1 = ERR_RegisterVariable(&v1, "RxCount", 0, 10);
-    idx2 = ERR_RegisterVariable(&v2, "TxCount", 0, 10);
+    idx1 = ERR_RegisterUcVariable(&RxCount, "RxCount", 0, 20);
+    idx2 = ERR_RegisterUcVariable(&TxCount, "TxCount", 0, 20);
 #endif
 
 	RxCount = 0;

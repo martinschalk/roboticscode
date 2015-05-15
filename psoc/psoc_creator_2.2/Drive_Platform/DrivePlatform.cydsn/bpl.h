@@ -31,10 +31,14 @@ BUS MESSAGE
 -------------------------------------------
 | id0 | id1 | length | b0 | b1 | ... | bn |
 -------------------------------------------
+(b_i containing check sum)
 */
 
 #ifndef BPL_H
 #define BPL_H
+
+#define BPL_DEBUG
+
 
 /*******************************************************/
 #define BPL_TX_BUFFER_SIZE		256
@@ -50,6 +54,7 @@ BUS MESSAGE
 #define BPL_STATUS_TX_DATA_MISMATCH		(uint8)(-3)
 #define BPL_STATUS_     				(uint8)(-4)
 /*******************************************************/
+extern STATUS BPL_Init(void);
 extern STATUS BPL_HandleTask(void);
 extern uint8 BPL_GetReceiveCount(void);
 extern uint8 BPL_GetMessage(uint8* target);

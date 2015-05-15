@@ -12,9 +12,9 @@
 
 
 
-static ERR_VAR Var[ERR_NUM_VARIABLES];
-
-
+static ERR_UC_VAR UcVar[ERR_NUM_UC_VARIABLES];
+static ERR_UI_VAR UiVar[ERR_NUM_UI_VARIABLES];
+//static ERR_UL_VAR UlVar[ERR_NUM_UL_VARIABLES];
 
 /*****************************************************************/
 void ERR_Error(uchar type)
@@ -46,29 +46,60 @@ void ERR_Error(uchar type)
 /*****************************************************************/
 STATUS ERR_Init(void)
 {  
-    memset(Var, 0x00, sizeof(Var));
+    memset(UcVar, 0x00, sizeof(UcVar));
+    memset(UiVar, 0x00, sizeof(UcVar));
+    //memset(UlVar, 0x00, sizeof(UcVar));
+    
     return SUCCESS; 
 }
 
 
 /*****************************************************************/
-uchar ERR_RegisterVariable(const tErrVar* ptrVar, const char* name, const tErrVar min, const tErrVar max)
+uchar ERR_RegisterUcVariable(const uint8* ptrUcVar, const char* name, const uint8 min, const uint8 max)
 {  
     uchar idx = 0;
     
     /* search for free index */
-    while ((Var[idx].addr != NULL) && (idx < ERR_NUM_VARIABLES))
+    while ((UcVar[idx].ucAddr != NULL) && (idx < ERR_NUM_UC_VARIABLES))
     {
         idx++;
     }
     
     /* if free index available, save variable pointer */
-    if (idx < ERR_NUM_VARIABLES)
+    if (idx < ERR_NUM_UC_VARIABLES)
     {
-        Var[idx].addr = ptrVar;  
-        strncpy(Var[idx].name, name, 8);
-        Var[idx].min = min;
-        Var[idx].max = max;
+        UcVar[idx].ucAddr = ptrUcVar;
+        strncpy(UcVar[idx].ucName, name, ERR_NAME_LENGTH);
+        UcVar[idx].ucMin = min;
+        UcVar[idx].ucMax = max;
+    }
+    /* if not return !SUCCESS */
+    else
+    {
+        idx = !SUCCESS;
+    }
+    
+    return idx;
+}
+
+/*****************************************************************/
+uchar ERR_RegisterUiVariable(const uint16* ptrUiVar, const char* name, const uint16 min, const uint16 max)
+{  
+    uchar idx = 0;
+    
+    /* search for free index */
+    while ((UiVar[idx].uiAddr != NULL) && (idx < ERR_NUM_UI_VARIABLES))
+    {
+        idx++;
+    }
+    
+    /* if free index available, save variable pointer */
+    if (idx < ERR_NUM_UI_VARIABLES)
+    {
+        UiVar[idx].uiAddr = ptrUiVar;
+        strncpy(UiVar[idx].ucName, name, ERR_NAME_LENGTH);
+        UiVar[idx].uiMin = min;
+        UiVar[idx].uiMax = max;
     }
     /* if not return !SUCCESS */
     else
@@ -80,17 +111,30 @@ uchar ERR_RegisterVariable(const tErrVar* ptrVar, const char* name, const tErrVa
 }
 
 
+
 /*****************************************************************/
 STATUS ERR_HandleTask(void)
 {
     uchar idx = 0;
-    volatile tErrVar val;
+    uint8 ucVal;
+    uint16 uiVal;
     
-    /* check variables */
-    while ((Var[idx].addr != NULL) && (idx < ERR_NUM_VARIABLES))
+    /* check uc variables */
+    while ((UcVar[idx].ucAddr != NULL) && (idx < ERR_NUM_UC_VARIABLES))
     {
-        val = *(Var[idx].addr);
-        if ((val < Var[idx].min) || (val > Var[idx].max))
+        ucVal = *(UcVar[idx].ucAddr);
+        if ((ucVal < UcVar[idx].ucMin) || (ucVal > UcVar[idx].ucMax))
+        {
+            ERR_Error(ERROR_MEMORY);
+        }
+        idx++;
+    }
+    
+    /* check ui variables */
+    while ((UiVar[idx].uiAddr != NULL) && (idx < ERR_NUM_UI_VARIABLES))
+    {
+        uiVal = *(UiVar[idx].uiAddr);
+        if ((uiVal < UiVar[idx].uiMin) || (uiVal > UiVar[idx].uiMax))
         {
             ERR_Error(ERROR_MEMORY);
         }

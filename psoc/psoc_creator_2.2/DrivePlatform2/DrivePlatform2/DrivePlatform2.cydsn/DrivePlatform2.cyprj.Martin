@@ -12,6 +12,97 @@
 <CyGuid_f44455c5-3770-4452-b988-0a7a7ff46256 type_name="CyDesigner.Common.ProjMgmt.Model.CyConfigDependencies" version="1">
 <dependency_info name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" xml_contents_version="2">
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
+<file name=".\CortexM3\ARM_GCC_441\Debug\bpl.o">
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
+<dep name=".\Generated_Source\PSoC5\UART.h" />
+<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\bpl.h" />
+<dep name=".\error.h" />
+<dep name=".\global.h" />
+<dep name=".\hal.h" />
+<dep name=".\types.h" />
+<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
+</file>
+<file name=".\Generated_Source\PSoC5\CyDmac.h" />
+<file name=".\Generated_Source\PSoC5\CyFlash.h" />
+<file name=".\Generated_Source\PSoC5\CyLib.h" />
+<file name=".\Generated_Source\PSoC5\CySpc.h" />
+<file name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
+<file name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
+<file name=".\Generated_Source\PSoC5\Isr_rx.h" />
+<file name=".\Generated_Source\PSoC5\Isr_timer.h" />
+<file name=".\Generated_Source\PSoC5\Isr_tx.h" />
+<file name=".\Generated_Source\PSoC5\TIMER.h" />
+<file name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
+<file name=".\Generated_Source\PSoC5\UART.h" />
+<file name=".\Generated_Source\PSoC5\UART_IntClock.h" />
+<file name=".\Generated_Source\PSoC5\core_cm3.h" />
+<file name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<file name=".\Generated_Source\PSoC5\cyPm.h" />
+<file name=".\Generated_Source\PSoC5\cydevice.h" />
+<file name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<file name=".\Generated_Source\PSoC5\cyfitter.h" />
+<file name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<file name=".\Generated_Source\PSoC5\cypins.h" />
+<file name=".\Generated_Source\PSoC5\cytypes.h" />
+<file name=".\Generated_Source\PSoC5\project.h" />
+<file name=".\bpl.h" />
+<file name=".\error.h" />
+<file name=".\global.h" />
+<file name=".\hal.h" />
+<file name=".\types.h" />
+<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
+<file name=".\CortexM3\ARM_GCC_441\Debug\hal.o">
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
+<dep name=".\Generated_Source\PSoC5\UART.h" />
+<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\error.h" />
+<dep name=".\global.h" />
+<dep name=".\hal.h" />
+<dep name=".\types.h" />
+<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
+</file>
+<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
 <file name=".\CortexM3\ARM_GCC_441\Debug\bal.o">
 <dep name=".\Generated_Source\PSoC5\CyDmac.h" />
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
@@ -44,36 +135,79 @@
 <dep name=".\types.h" />
 <dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" />
 </file>
-<file name=".\Generated_Source\PSoC5\CyDmac.h" />
-<file name=".\Generated_Source\PSoC5\CyFlash.h" />
-<file name=".\Generated_Source\PSoC5\CyLib.h" />
-<file name=".\Generated_Source\PSoC5\CySpc.h" />
-<file name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
-<file name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
-<file name=".\Generated_Source\PSoC5\Isr_rx.h" />
-<file name=".\Generated_Source\PSoC5\Isr_timer.h" />
-<file name=".\Generated_Source\PSoC5\Isr_tx.h" />
-<file name=".\Generated_Source\PSoC5\TIMER.h" />
-<file name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
-<file name=".\Generated_Source\PSoC5\UART.h" />
-<file name=".\Generated_Source\PSoC5\UART_IntClock.h" />
-<file name=".\Generated_Source\PSoC5\core_cm3.h" />
-<file name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<file name=".\Generated_Source\PSoC5\cyPm.h" />
-<file name=".\Generated_Source\PSoC5\cydevice.h" />
-<file name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<file name=".\Generated_Source\PSoC5\cyfitter.h" />
-<file name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<file name=".\Generated_Source\PSoC5\cypins.h" />
-<file name=".\Generated_Source\PSoC5\cytypes.h" />
-<file name=".\Generated_Source\PSoC5\project.h" />
 <file name=".\bal.h" />
-<file name=".\bpl.h" />
-<file name=".\global.h" />
 <file name=".\servo_cds5500.h" />
 <file name=".\tmr.h" />
-<file name=".\types.h" />
 <file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" />
+<file name=".\CortexM3\ARM_GCC_441\Debug\error.o">
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
+<dep name=".\Generated_Source\PSoC5\UART.h" />
+<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\error.h" />
+<dep name=".\global.h" />
+<dep name=".\types.h" />
+<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
+</file>
+<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
+<file name=".\CortexM3\ARM_GCC_441\Debug\scheduler.o">
+<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
+<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
+<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER.h" />
+<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
+<dep name=".\Generated_Source\PSoC5\UART.h" />
+<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
+<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+<dep name=".\Generated_Source\PSoC5\project.h" />
+<dep name=".\bal.h" />
+<dep name=".\bpl.h" />
+<dep name=".\error.h" />
+<dep name=".\global.h" />
+<dep name=".\hal.h" />
+<dep name=".\scheduler.h" />
+<dep name=".\servo_cds5500.h" />
+<dep name=".\test.h" />
+<dep name=".\tmr.h" />
+<dep name=".\types.h" />
+<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c" />
+</file>
+<file name=".\scheduler.h" />
+<file name=".\test.h" />
+<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c" />
 <file name=".\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o">
 <dep name=".\Generated_Source\PSoC5\CyDmac.h" />
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
@@ -140,41 +274,7 @@
 <dep name=".\tmr.h" />
 <dep name=".\types.h" />
 </file>
-<file name=".\hal.h" />
 <file name=".\main.c" />
-<file name=".\scheduler.h" />
-<file name=".\test.h" />
-<file name=".\CortexM3\ARM_GCC_441\Debug\bpl.o">
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
-<dep name=".\Generated_Source\PSoC5\UART.h" />
-<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\bpl.h" />
-<dep name=".\global.h" />
-<dep name=".\hal.h" />
-<dep name=".\types.h" />
-<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
-</file>
-<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
 <file name=".\CortexM3\ARM_GCC_441\Debug\bus.o">
 <dep name=".\Generated_Source\PSoC5\CyDmac.h" />
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
@@ -206,105 +306,6 @@
 </file>
 <file name=".\bus.h" />
 <file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\bus.c" />
-<file name=".\CortexM3\ARM_GCC_441\Debug\error.o">
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
-<dep name=".\Generated_Source\PSoC5\UART.h" />
-<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\error.h" />
-<dep name=".\global.h" />
-<dep name=".\types.h" />
-<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
-</file>
-<file name=".\error.h" />
-<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
-<file name=".\CortexM3\ARM_GCC_441\Debug\hal.o">
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
-<dep name=".\Generated_Source\PSoC5\UART.h" />
-<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\error.h" />
-<dep name=".\global.h" />
-<dep name=".\hal.h" />
-<dep name=".\types.h" />
-<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
-</file>
-<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
-<file name=".\CortexM3\ARM_GCC_441\Debug\scheduler.o">
-<dep name=".\Generated_Source\PSoC5\CyDmac.h" />
-<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
-<dep name=".\Generated_Source\PSoC5\CyLib.h" />
-<dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1.h" />
-<dep name=".\Generated_Source\PSoC5\DEBUG_LED_1_aliases.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_rx.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_timer.h" />
-<dep name=".\Generated_Source\PSoC5\Isr_tx.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER.h" />
-<dep name=".\Generated_Source\PSoC5\TIMER_CLOCK.h" />
-<dep name=".\Generated_Source\PSoC5\UART.h" />
-<dep name=".\Generated_Source\PSoC5\UART_IntClock.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3.h" />
-<dep name=".\Generated_Source\PSoC5\core_cm3_psoc5.h" />
-<dep name=".\Generated_Source\PSoC5\cyPm.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice.h" />
-<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
-<dep name=".\Generated_Source\PSoC5\cyfitter_cfg.h" />
-<dep name=".\Generated_Source\PSoC5\cypins.h" />
-<dep name=".\Generated_Source\PSoC5\cytypes.h" />
-<dep name=".\Generated_Source\PSoC5\project.h" />
-<dep name=".\bal.h" />
-<dep name=".\bpl.h" />
-<dep name=".\error.h" />
-<dep name=".\global.h" />
-<dep name=".\hal.h" />
-<dep name=".\scheduler.h" />
-<dep name=".\servo_cds5500.h" />
-<dep name=".\test.h" />
-<dep name=".\tmr.h" />
-<dep name=".\types.h" />
-<dep name="..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c" />
-</file>
-<file name="..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c" />
 <file name=".\CortexM3\ARM_GCC_441\Debug\test.o">
 <dep name=".\Generated_Source\PSoC5\CyDmac.h" />
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
@@ -1081,6 +1082,12 @@
 <dataGuid v="bf610382-39c6-441f-80b8-b04622ea7845">
 <CyGuid_bf610382-39c6-441f-80b8-b04622ea7845 type_name="CyDesigner.Common.Debugger.CyWatchedVariableList" version="1">
 <debugger_watch_list>
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="ucVal" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="idx" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="UcVar" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="RxCount" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="TxCount" radix="Default" />
+<CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="TransmitBytesCount" radix="Default" />
 <CyGuid_ccf7a56e-c00d-460c-82dd-56c8f54feb7f type_name="CyDesigner.Common.Debugger.CyWatchedVariableList+CyWatchedItem" version="1" window="0" name="msg" radix="Default" />
 </debugger_watch_list>
 </CyGuid_bf610382-39c6-441f-80b8-b04622ea7845>
@@ -1088,11 +1095,10 @@
 <dataGuid v="504337dd-7d07-4bc7-9057-90e60cf6c469">
 <CyGuid_504337dd-7d07-4bc7-9057-90e60cf6c469 type_name="CyDesigner.Common.Debugger.CyBreakpointList" version="1">
 <debugger_breakpoint_list>
-<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c" linenumber="22" />
 <CyGuid_da1648eb-f713-4789-813b-89e33e3769c0 type_name="CyDesigner.Common.Debugger.CyWatchpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" variable="Var[0].min" access="WRITE" />
-<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\drive_platform\driveplatform.cydsn\error.c" linenumber="95" />
-<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" linenumber="42" />
-<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" linenumber="73" />
+<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" linenumber="87" />
+<CyGuid_da1648eb-f713-4789-813b-89e33e3769c0 type_name="CyDesigner.Common.Debugger.CyWatchpoint" version="1" hitcount="0" condition="" enabled="False" hardware="True" temparary="False" variable="TransmitBytesCount" access="WRITE" />
+<CyGuid_76464711-0ae1-4583-b869-f07a0403fc6e type_name="CyDesigner.Common.Debugger.CyFileLineBreakpoint" version="1" hitcount="0" condition="" enabled="True" hardware="True" temparary="False" filename="..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" linenumber="137" />
 </debugger_breakpoint_list>
 </CyGuid_504337dd-7d07-4bc7-9057-90e60cf6c469>
 </dataGuid>

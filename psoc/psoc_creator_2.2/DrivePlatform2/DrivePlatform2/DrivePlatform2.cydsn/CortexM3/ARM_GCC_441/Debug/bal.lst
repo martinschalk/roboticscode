@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
   20:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #ifdef BAL_MODULE_TEST   
   21:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     static void BAL_ModuleTest();
   22:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #endif
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 2
 
 
   23:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
@@ -118,18 +118,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
   72 002e 03D1     		bne	.L5
   37:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****         status = CDS5500_ERROR_INSTR_ID;
   73              		.loc 1 37 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 3
 
 
   74 0030 6FF00B03 		mvn	r3, #11
   75 0034 FB73     		strb	r3, [r7, #15]
   76 0036 18E0     		b	.L3
   77              	.L5:
-  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     else  if ((msg->instrParams)[msg->length - CDS5500_INST_LENGTH_MAX] == 0) 
+  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     else  if ((msg->instrParams)[msg->length - CDS5500_COMPLEMENTARY_BYTES] == 0) 
   78              		.loc 1 38 0
   79 0038 7B68     		ldr	r3, [r7, #4]
   80 003a DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
-  81 003c A3F10A02 		sub	r2, r3, #10
+  81 003c A3F10202 		sub	r2, r3, #2
   82 0040 7B68     		ldr	r3, [r7, #4]
   83 0042 1344     		add	r3, r2, r3
   84 0044 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  117              		.thumb
  118              		.thumb_func
  119              		.type	BAL_SendAck, %function
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 4
 
 
  120              	BAL_SendAck:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
   84:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                         val
   85:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                      };
  139              		.loc 1 85 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 5
 
 
  140 000a 4FF00003 		mov	r3, #0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
   95:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     //TST_SetModuleTest(BAL_ModuleTest);
   96:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     TMR_SetTimer(TIMER_4, TIMER_1SEC, BAL_ModuleTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
  185              		.loc 1 96 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 6
 
 
  186 0006 40F20003 		movw	r3, #:lower16:BAL_ModuleTest
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  229 000a BD46     		mov	sp, r7
  230 000c 80BC     		pop	{r7}
  231 000e 7047     		bx	lr
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 7
 
 
  232              		.cfi_endproc
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  278 001f 0200     		.2byte	0x2
  279 0021 7D       		.byte	0x7d
  280 0022 18       		.sleb128 24
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 8
 
 
  281 0023 06000000 		.4byte	.LCFI2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  335 00ad 0100     		.2byte	0x1
  336 00af 5D       		.byte	0x5d
  337 00b0 02000000 		.4byte	.LCFI9
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 9
 
 
  338 00b4 04000000 		.4byte	.LCFI10
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  392 0033 9E000000 		.4byte	.LASF1
  393 0037 02       		.uleb128 0x2
  394 0038 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 10
 
 
  395 0039 05       		.byte	0x5
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  449 009c 8F000000 		.4byte	0x8f
  450 00a0 03       		.byte	0x3
  451 00a1 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 11
 
 
  452 00a2 04       		.uleb128 0x4
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  506 0105 58       		.byte	0x58
  507 0106 1C010000 		.4byte	0x11c
  508 010a 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 12
 
 
  509 010b 23       		.byte	0x23
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  563 017a 02       		.byte	0x2
  564 017b 91       		.byte	0x91
  565 017c 6C       		.sleb128 -20
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 13
 
 
  566 017d 0E       		.uleb128 0xe
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  620 01ec 68       		.byte	0x68
  621 01ed 01       		.byte	0x1
  622 01ee A2000000 		.4byte	0xa2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 14
 
 
  623 01f2 00000000 		.4byte	.LFB32
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  677 0020 03       		.uleb128 0x3
  678 0021 24       		.uleb128 0x24
  679 0022 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 15
 
 
  680 0023 0B       		.uleb128 0xb
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  734 0059 0B       		.uleb128 0xb
  735 005a 3A       		.uleb128 0x3a
  736 005b 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 16
 
 
  737 005c 3B       		.uleb128 0x3b
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  791 0092 27       		.uleb128 0x27
  792 0093 0C       		.uleb128 0xc
  793 0094 49       		.uleb128 0x49
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 17
 
 
  794 0095 13       		.uleb128 0x13
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  848 00cb 0C       		.uleb128 0xc
  849 00cc 03       		.uleb128 0x3
  850 00cd 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 18
 
 
  851 00ce 3A       		.uleb128 0x3a
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  905 0104 00       		.byte	0x0
  906 0105 49       		.uleb128 0x49
  907 0106 13       		.uleb128 0x13
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 19
 
 
  908 0107 00       		.byte	0x0
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  952 0014 3A000000 		.4byte	.LFE30
  953 0018 00000000 		.4byte	.LFB31
  954 001c 34000000 		.4byte	.LFE31
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 20
 
 
  955 0020 00000000 		.4byte	.LFB32
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  986 0097 53544154 		.ascii	"STATUS\000"
  986      555300
  987              	.LASF1:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 21
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 21
 
 
  988 009e 756E7369 		.ascii	"unsigned char\000"
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  1008 017b 696E7374 		.ascii	"instrParams\000"
  1008      72506172 
  1008      616D7300 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 22
 
 
  1009              	.LASF8:
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 1
  1034      00
  1035              	.LASF0:
  1036 021a 7369676E 		.ascii	"signed char\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccr83u9j.s 			page 23
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccNXxnf2.s 			page 23
 
 
  1036      65642063 

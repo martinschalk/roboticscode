@@ -35,7 +35,7 @@ STATUS BAL_ServoMsg(CDS5500_MSG* msg)
         status = CDS5500_ERROR_LENGTH;
     else  if (msg->instrId == 0) 
         status = CDS5500_ERROR_INSTR_ID;
-    else  if ((msg->instrParams)[msg->length - CDS5500_INST_LENGTH_MAX] == 0) 
+    else  if ((msg->instrParams)[msg->length - CDS5500_COMPLEMENTARY_BYTES] == 0) 
         status = CDS5500_ERROR_CHKSUM;
     else
     {

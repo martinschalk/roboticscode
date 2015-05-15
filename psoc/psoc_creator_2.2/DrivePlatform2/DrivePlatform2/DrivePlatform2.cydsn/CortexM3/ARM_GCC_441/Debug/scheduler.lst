@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
   49      000000
   50 0038 544D5200 		.ascii	"TMR\000"
   51 003c 00000000 		.space	4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 2
 
 
   52 0040 02       		.byte	2
@@ -74,7 +74,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
   61 005c 02       		.byte	2
   62 005d 02       		.byte	2
   63 005e 0000     		.space	2
-  64 0060 00000000 		.word	0
+  64 0060 00000000 		.word	BPL_Init
   65 0064 00000000 		.word	BPL_HandleTask
   66 0068 48414C00 		.ascii	"HAL\000"
   67 006c 00000000 		.space	4
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
   12:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "tmr.h"
   13:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "bpl.h"
   14:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "bal.h"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 3
 
 
   15:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #include "error.h"
@@ -134,7 +134,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
   25:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** #endif
   26:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
   27:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
-  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask,     "HAL"},
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
   29:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
   30:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL,               "TMR"},
   31:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c **** };
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  119 0016 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
  120 001a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
  121 001e 1A68     		ldr	r2, [r3, #0]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 4
 
 
  122 0020 1346     		mov	r3, r2
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  166              		.cfi_startproc
  167              		@ args = 0, pretend = 0, frame = 8
  168              		@ frame_needed = 1, uses_anonymous_args = 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 5
 
 
  169 0000 80B5     		push	{r7, lr}
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  216 0078 C9020000 		.word	.L7+1
  217 007c 95020000 		.word	.L11+1
  218              	.L8:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 6
 
 
   61:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****     {                               
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
   70:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                         {
   71:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             /* current task can be initialized */
   72:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                             taskInitFlag = TRUE;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 7
 
 
  264              		.loc 1 72 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  297 014a 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
  298 014e C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
  299 0152 1968     		ldr	r1, [r3, #0]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 8
 
 
  300 0154 40F20002 		movw	r2, #:lower16:SCH_Task
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  341 01c6 C1EB0303 		rsb	r3, r1, r3
  342 01ca 4FEA8303 		lsl	r3, r3, #2
  343 01ce 1344     		add	r3, r3, r2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 9
 
 
  344 01d0 03F10803 		add	r3, r3, #8
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  391 0252 4FEA8303 		lsl	r3, r3, #2
  392 0256 1344     		add	r3, r3, r2
  393 0258 03F11003 		add	r3, r3, #16
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 10
 
 
  394 025c 1B68     		ldr	r3, [r3, #0]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  122:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     break;
  123:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                                     
  124:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         case SCH_TASK_TERMINATED:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 11
 
 
  125:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****         default:                    break;
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  479              	.LC1:
  480 0008 0A546173 		.ascii	"\012Task %i: %s/\000"
  480      6B202569 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 12
 
 
  480      3A202573 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  516              		.cfi_def_cfa_offset 16
  517 0004 00AF     		add	r7, sp, #0
  518              		.cfi_offset 14, -4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 13
 
 
  519              		.cfi_offset 7, -8
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  564 0082 40F20001 		movw	r1, #:lower16:.LC1
  565 0086 C0F20001 		movt	r1, #:upper16:.LC1
  566 008a 7A68     		ldr	r2, [r7, #4]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 14
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 14
 
 
  567 008c FFF7FEFF 		bl	sprintf
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  619 013c A1020000 		.word	.L28+1
  620 0140 A1020000 		.word	.L28+1
  621 0144 A1020000 		.word	.L28+1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 15
 
 
  622 0148 A1020000 		.word	.L28+1
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  671 01da 61E0     		b	.L28
  672              	.L31:
  162:..\..\..\Drive_Platform\DrivePlatform.cydsn/scheduler.c ****                 case SCH_TASK_RUNNING:      n += sprintf((char*)SCH_TaskBuffer + n, "RUNNING");
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 16
 
 
  673              		.loc 1 162 0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  723 026a 1A46     		mov	r2, r3
  724 026c 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
  725 0270 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 17
 
 
  726 0274 1344     		add	r3, r2, r3
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  774 030a 1B68     		ldr	r3, [r3, #0]
  775 030c 03F14003 		add	r3, r3, #64
  776 0310 B3F5806F 		cmp	r3, #1024
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 18
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 18
 
 
  777 0314 06DD     		ble	.L35
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  827 003b 02000000 		.4byte	.LCFI3
  828 003f 0100     		.2byte	0x1
  829 0041 5D       		.byte	0x5d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 19
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 19
 
 
  830 0042 02000000 		.4byte	.LCFI3
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  884 0019 00000000 		.4byte	0x0
  885 001d 00000000 		.4byte	0x0
  886 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 20
 
 
  887 0025 00000000 		.4byte	.Ldebug_line0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  941 0088 5B000000 		.4byte	.LASF11
  942 008c 02       		.uleb128 0x2
  943 008d 08       		.byte	0x8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 21
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 21
 
 
  944 008e 04       		.byte	0x4
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  998 00fa 02       		.byte	0x2
  999 00fb 23       		.byte	0x23
  1000 00fc 08       		.uleb128 0x8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 22
 
 
  1001 00fd 09       		.uleb128 0x9
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1055 0169 96010000 		.4byte	0x196
  1056 016d 0D       		.uleb128 0xd
  1057 016e 20000000 		.4byte	.LASF37
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 23
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 23
 
 
  1058 0172 01       		.byte	0x1
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1112 01d6 01       		.byte	0x1
  1113 01d7 38       		.byte	0x38
  1114 01d8 B3000000 		.4byte	0xb3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 24
 
 
  1115 01dc 02       		.byte	0x2
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1169 024a C6010000 		.4byte	.LASF31
  1170 024e 01       		.byte	0x1
  1171 024f 8D       		.byte	0x8d
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 25
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 25
 
 
  1172 0250 38020000 		.4byte	0x238
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1226 001f 00       		.byte	0x0
  1227 0020 03       		.uleb128 0x3
  1228 0021 16       		.uleb128 0x16
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 26
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 26
 
 
  1229 0022 00       		.byte	0x0
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1283 0058 0B       		.uleb128 0xb
  1284 0059 0B       		.uleb128 0xb
  1285 005a 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 27
 
 
  1286 005b 0B       		.uleb128 0xb
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1340 0091 01       		.uleb128 0x1
  1341 0092 12       		.uleb128 0x12
  1342 0093 01       		.uleb128 0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 28
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 28
 
 
  1343 0094 40       		.uleb128 0x40
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1397 00ca 06       		.uleb128 0x6
  1398 00cb 01       		.uleb128 0x1
  1399 00cc 13       		.uleb128 0x13
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 29
 
 
  1400 00cd 00       		.byte	0x0
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1454 0006 00000000 		.4byte	.Ldebug_info0
  1455 000a 7D020000 		.4byte	0x27d
  1456 000e 9C010000 		.4byte	0x19c
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 30
 
 
  1457 0012 5343485F 		.ascii	"SCH_TaskHandler\000"
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1497 0020 7461736B 		.ascii	"taskName\000"
  1497      4E616D65 
  1497      00
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 31
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 31
 
 
  1498              	.LASF36:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1523      52784275 
  1523      66666572 
  1523      00
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 32
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 32
 
 
  1524              	.LASF14:
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 1
  1546      6720756E 
  1546      7369676E 
  1546      65642069 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cceNkEZB.s 			page 33
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc2JtdrM.s 			page 33
 
 
  1547              	.LASF9:

@@ -12,6 +12,7 @@
 
 #include "hal.h"
 #include "bpl.h"
+#include "error.h"
 
 /* Ring buffers */
 static uint8 	ReceiveBuffer[BPL_RX_BUFFER_SIZE];	//RB
@@ -27,6 +28,19 @@ static uint8* 	TBHead = TransmitBuffer;
 static uint8* 	TBTail = TransmitBuffer;
 
 static STATUS BplStatus = BPL_STATUS_OK;
+
+
+/*******************************************************/
+STATUS BPL_Init(void)
+{
+#if defined(BPL_DEBUG) && defined(ERROR_MODULE_ENABLE)
+    uchar idx1 = ERR_RegisterUcVariable(&TransmitBytesCount, "TraByCnt", 0, 10);
+    (void)idx1;
+#endif
+
+    return SUCCESS;	
+}
+
 
 /*******************************************************/
 uint8 BPL_GetReceiveMsgCount(void)
@@ -74,7 +88,7 @@ STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 
     /* copy message to transmit buffer, 1st byte = message bytes */
     TBHead[0] = msgLength;
-    memcpy(&TBHead[1], source, msgLength);
+    memcpy(&TBHead[1], source, msgLength); //TODO: Error found! ring buffer overflow
     
     /* update parameters */
     TBHead += msgLength + 1;
@@ -131,6 +145,8 @@ STATUS BPL_HandleTask(void)
             if (BplStatus == SUCCESS)
             {
     			TBTail += numBytes+1;
+                if (TransmitBytesCount < numBytes+1)
+                    ERROR(ERROR_DEBUG);
                 TransmitBytesCount -= numBytes+1;
                 TransmitMsgCount--;
             }

@@ -25,7 +25,7 @@ static SCH_TASK 	SCH_Task[] =
 #endif
     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
-    {"BPL", SCH_TASK_NEW,   2,      NULL,       BPL_HandleTask,     "HAL"},
+    {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
     {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL,               "TMR"},
 };
