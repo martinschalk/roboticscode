@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 1
 
 
    1              		.syntax unified
@@ -20,7 +20,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
   17              	.Ldebug_info0:
   18              		.section	.debug_line,"",%progbits
   19              	.Ldebug_line0:
-  20 0000 5E010000 		.text
+  20 0000 5F010000 		.text
   20      0200D300 
   20      00000201 
   20      FB0E0D00 
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
   33              		@ args = 0, pretend = 0, frame = 16
   34              		@ frame_needed = 1, uses_anonymous_args = 0
   35              		@ link register save eliminated.
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 2
 
 
   36 0000 80B4     		push	{r7}
@@ -93,7 +93,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
   60 0020 BB73     		strb	r3, [r7, #14]
   24:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
   25:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* add parameter bytes of motor message */   
-  26:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     for (i=0; i<msg->length-1; i++)
+  26:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     for (i=0; i<msg->length-CDS5500_COMPLEMENTARY_BYTES; i++)
   61              		.loc 1 26 0
   62 0022 4FF00003 		mov	r3, #0
   63 0026 FB73     		strb	r3, [r7, #15]
@@ -116,20 +116,20 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
   79 0040 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
   80 0042 7B68     		ldr	r3, [r7, #4]
   81 0044 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
-  82 0046 03F1FF33 		add	r3, r3, #-1
+  82 0046 A3F10203 		sub	r3, r3, #2
   83 004a 9A42     		cmp	r2, r3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 3
 
 
   84 004c EDDB     		blt	.L3
-  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****       
   29:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* invert checksum */    
   30:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     checksum = ~checksum & 0xFF; //    printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITIO
   85              		.loc 1 30 0
   86 004e BB7B     		ldrb	r3, [r7, #14]
   87 0050 6FEA0303 		mvn	r3, r3
   88 0054 BB73     		strb	r3, [r7, #14]
-  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 		
+  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	
   32:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	return checksum;
   89              		.loc 1 32 0
   90 0056 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
@@ -143,1564 +143,1701 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 1
   97              		.cfi_endproc
   98              	.LFE29:
   99              		.size	GetChecksum, .-GetChecksum
- 100              		.section	.text.CDS5500_SendServoMsg,"ax",%progbits
+ 100              		.section	.text.SendServoMsg,"ax",%progbits
  101              		.align	2
- 102              		.global	CDS5500_SendServoMsg
- 103              		.thumb
- 104              		.thumb_func
- 105              		.type	CDS5500_SendServoMsg, %function
- 106              	CDS5500_SendServoMsg:
- 107              	.LFB30:
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.type	SendServoMsg, %function
+ 105              	SendServoMsg:
+ 106              	.LFB30:
   34:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
   35:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************/
-  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** STATUS CDS5500_SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrPar
+  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrPara
   37:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
- 108              		.loc 1 37 0
- 109              		.cfi_startproc
- 110              		@ args = 0, pretend = 0, frame = 24
- 111              		@ frame_needed = 1, uses_anonymous_args = 0
- 112 0000 80B5     		push	{r7, lr}
- 113              	.LCFI3:
- 114              		.cfi_def_cfa_offset 8
- 115 0002 86B0     		sub	sp, sp, #24
- 116              	.LCFI4:
- 117              		.cfi_def_cfa_offset 32
- 118 0004 00AF     		add	r7, sp, #0
- 119              		.cfi_offset 14, -4
- 120              		.cfi_offset 7, -8
- 121              	.LCFI5:
- 122              		.cfi_def_cfa_register 7
- 123 0006 3B60     		str	r3, [r7, #0]
- 124 0008 0346     		mov	r3, r0
- 125 000a FB71     		strb	r3, [r7, #7]
- 126 000c 0B46     		mov	r3, r1
- 127 000e BB71     		strb	r3, [r7, #6]
- 128 0010 1346     		mov	r3, r2
- 129 0012 7B71     		strb	r3, [r7, #5]
+ 107              		.loc 1 37 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 24
+ 110              		@ frame_needed = 1, uses_anonymous_args = 0
+ 111 0000 80B5     		push	{r7, lr}
+ 112              	.LCFI3:
+ 113              		.cfi_def_cfa_offset 8
+ 114 0002 86B0     		sub	sp, sp, #24
+ 115              	.LCFI4:
+ 116              		.cfi_def_cfa_offset 32
+ 117 0004 00AF     		add	r7, sp, #0
+ 118              		.cfi_offset 14, -4
+ 119              		.cfi_offset 7, -8
+ 120              	.LCFI5:
+ 121              		.cfi_def_cfa_register 7
+ 122 0006 3B60     		str	r3, [r7, #0]
+ 123 0008 0346     		mov	r3, r0
+ 124 000a FB71     		strb	r3, [r7, #7]
+ 125 000c 0B46     		mov	r3, r1
+ 126 000e BB71     		strb	r3, [r7, #6]
+ 127 0010 1346     		mov	r3, r2
+ 128 0012 7B71     		strb	r3, [r7, #5]
   38:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     CDS5500_MSG msg;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 4
-
-
   39:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 4
+
+
   40:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.startbyte0      = START_BYTE_0_VALUE;
- 130              		.loc 1 40 0
- 131 0014 4FF0FF33 		mov	r3, #-1
- 132 0018 3B72     		strb	r3, [r7, #8]
+ 129              		.loc 1 40 0
+ 130 0014 4FF0FF33 		mov	r3, #-1
+ 131 0018 3B72     		strb	r3, [r7, #8]
   41:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.startbyte1      = START_BYTE_1_VALUE;
- 133              		.loc 1 41 0
- 134 001a 4FF0FF33 		mov	r3, #-1
- 135 001e 7B72     		strb	r3, [r7, #9]
+ 132              		.loc 1 41 0
+ 133 001a 4FF0FF33 		mov	r3, #-1
+ 134 001e 7B72     		strb	r3, [r7, #9]
   42:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.motorId         = ucMotorId;
- 136              		.loc 1 42 0
- 137 0020 FB79     		ldrb	r3, [r7, #7]
- 138 0022 BB72     		strb	r3, [r7, #10]
+ 135              		.loc 1 42 0
+ 136 0020 FB79     		ldrb	r3, [r7, #7]
+ 137 0022 BB72     		strb	r3, [r7, #10]
   43:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.instrId         = ucInstrId;
- 139              		.loc 1 43 0
- 140 0024 BB79     		ldrb	r3, [r7, #6]
- 141 0026 3B73     		strb	r3, [r7, #12]
+ 138              		.loc 1 43 0
+ 139 0024 BB79     		ldrb	r3, [r7, #6]
+ 140 0026 3B73     		strb	r3, [r7, #12]
   44:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
   45:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     if ((ucNumParams > 0) && (pucInstrParams != NULL))
- 142              		.loc 1 45 0
- 143 0028 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
- 144 002a 002B     		cmp	r3, #0
- 145 002c 0CD0     		beq	.L6
- 146 002e 3B68     		ldr	r3, [r7, #0]
- 147 0030 002B     		cmp	r3, #0
- 148 0032 09D0     		beq	.L6
+ 141              		.loc 1 45 0
+ 142 0028 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 143 002a 002B     		cmp	r3, #0
+ 144 002c 0CD0     		beq	.L6
+ 145 002e 3B68     		ldr	r3, [r7, #0]
+ 146 0030 002B     		cmp	r3, #0
+ 147 0032 09D0     		beq	.L6
   46:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         memcpy(msg.instrParams, pucInstrParams, ucNumParams);
- 149              		.loc 1 46 0
- 150 0034 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
- 151 0036 07F10802 		add	r2, r7, #8
- 152 003a 02F10502 		add	r2, r2, #5
- 153 003e 1046     		mov	r0, r2
- 154 0040 3968     		ldr	r1, [r7, #0]
- 155 0042 1A46     		mov	r2, r3
- 156 0044 FFF7FEFF 		bl	memcpy
- 157              	.L6:
+ 148              		.loc 1 46 0
+ 149 0034 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 150 0036 07F10802 		add	r2, r7, #8
+ 151 003a 02F10502 		add	r2, r2, #5
+ 152 003e 1046     		mov	r0, r2
+ 153 0040 3968     		ldr	r1, [r7, #0]
+ 154 0042 1A46     		mov	r2, r3
+ 155 0044 FFF7FEFF 		bl	memcpy
+ 156              	.L6:
   47:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
   48:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.length          = ucNumParams + 2; //number of params + 1 (instrId) + 1 (checksum)
- 158              		.loc 1 48 0
- 159 0048 7B79     		ldrb	r3, [r7, #5]
- 160 004a 03F10203 		add	r3, r3, #2
- 161 004e DBB2     		uxtb	r3, r3
- 162 0050 FB72     		strb	r3, [r7, #11]
+ 157              		.loc 1 48 0
+ 158 0048 7B79     		ldrb	r3, [r7, #5]
+ 159 004a 03F10203 		add	r3, r3, #2
+ 160 004e DBB2     		uxtb	r3, r3
+ 161 0050 FB72     		strb	r3, [r7, #11]
   49:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.checksum        = GetChecksum(&msg);  
- 163              		.loc 1 49 0
- 164 0052 07F10803 		add	r3, r7, #8
- 165 0056 1846     		mov	r0, r3
- 166 0058 FFF7FEFF 		bl	GetChecksum
- 167 005c 0346     		mov	r3, r0
- 168 005e 7B75     		strb	r3, [r7, #21]
+ 162              		.loc 1 49 0
+ 163 0052 07F10803 		add	r3, r7, #8
+ 164 0056 1846     		mov	r0, r3
+ 165 0058 FFF7FEFF 		bl	GetChecksum
+ 166 005c 0346     		mov	r3, r0
+ 167 005e 7B75     		strb	r3, [r7, #21]
   50:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
   51:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     return BAL_ServoMsg(&msg);
- 169              		.loc 1 51 0
- 170 0060 07F10803 		add	r3, r7, #8
- 171 0064 1846     		mov	r0, r3
- 172 0066 FFF7FEFF 		bl	BAL_ServoMsg
- 173 006a 0346     		mov	r3, r0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 5
-
-
+ 168              		.loc 1 51 0
+ 169 0060 07F10803 		add	r3, r7, #8
+ 170 0064 1846     		mov	r0, r3
+ 171 0066 FFF7FEFF 		bl	BAL_ServoMsg
+ 172 006a 0346     		mov	r3, r0
   52:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
- 174              		.loc 1 52 0
- 175 006c 1846     		mov	r0, r3
- 176 006e 07F11807 		add	r7, r7, #24
- 177 0072 BD46     		mov	sp, r7
- 178 0074 80BD     		pop	{r7, pc}
- 179              		.cfi_endproc
- 180              	.LFE30:
- 181              		.size	CDS5500_SendServoMsg, .-CDS5500_SendServoMsg
- 182 0076 00BF     		.section	.text.ServoTest,"ax",%progbits
- 183              		.align	2
- 184              		.global	ServoTest
- 185              		.thumb
- 186              		.thumb_func
- 187              		.type	ServoTest, %function
- 188              	ServoTest:
- 189              	.LFB31:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 5
+
+
+ 173              		.loc 1 52 0
+ 174 006c 1846     		mov	r0, r3
+ 175 006e 07F11807 		add	r7, r7, #24
+ 176 0072 BD46     		mov	sp, r7
+ 177 0074 80BD     		pop	{r7, pc}
+ 178              		.cfi_endproc
+ 179              	.LFE30:
+ 180              		.size	SendServoMsg, .-SendServoMsg
+ 181 0076 00BF     		.section	.text.CheckResponse,"ax",%progbits
+ 182              		.align	2
+ 183              		.global	CheckResponse
+ 184              		.thumb
+ 185              		.thumb_func
+ 186              		.type	CheckResponse, %function
+ 187              	CheckResponse:
+ 188              	.LFB31:
   53:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************/
-  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void ServoTest(void)
-  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
- 190              		.loc 1 58 0
- 191              		.cfi_startproc
- 192              		@ args = 0, pretend = 0, frame = 8
- 193              		@ frame_needed = 1, uses_anonymous_args = 0
- 194 0000 80B5     		push	{r7, lr}
- 195              	.LCFI6:
- 196              		.cfi_def_cfa_offset 8
- 197 0002 82B0     		sub	sp, sp, #8
- 198              	.LCFI7:
- 199              		.cfi_def_cfa_offset 16
- 200 0004 00AF     		add	r7, sp, #0
- 201              		.cfi_offset 14, -4
- 202              		.cfi_offset 7, -8
- 203              	.LCFI8:
- 204              		.cfi_def_cfa_register 7
-  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status;
-  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
-  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     status = CDS5500_SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      0);
+  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
+  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** CheckResponse
+  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
+  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** HEADER ID LENGTH ERROR PARAMETER CHECK SUM
+  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
+  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** STATUS CheckResponse(CDS5500_MSG* response)
+  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
+ 189              		.loc 1 60 0
+ 190              		.cfi_startproc
+ 191              		@ args = 0, pretend = 0, frame = 16
+ 192              		@ frame_needed = 1, uses_anonymous_args = 0
+ 193 0000 80B5     		push	{r7, lr}
+ 194              	.LCFI6:
+ 195              		.cfi_def_cfa_offset 8
+ 196 0002 84B0     		sub	sp, sp, #16
+ 197              	.LCFI7:
+ 198              		.cfi_def_cfa_offset 24
+ 199 0004 00AF     		add	r7, sp, #0
+ 200              		.cfi_offset 14, -4
+ 201              		.cfi_offset 7, -8
+ 202              	.LCFI8:
+ 203              		.cfi_def_cfa_register 7
+ 204 0006 7860     		str	r0, [r7, #4]
+  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status=SUCCESS;
  205              		.loc 1 61 0
- 206 0006 4FF00100 		mov	r0, #1
- 207 000a 4FF00001 		mov	r1, #0
- 208 000e 4FF00102 		mov	r2, #1
- 209 0012 4FF00003 		mov	r3, #0
- 210 0016 FFF7FEFF 		bl	CDS5500_SendServoMsg
- 211 001a 0346     		mov	r3, r0
- 212 001c FB71     		strb	r3, [r7, #7]
-  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
-  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /*
-  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
-  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****             SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 
-  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****             RETURN:     0XFF 0XFF   0X01    0X02        0X00            0XFC
-  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     */
-  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 6
+ 206 0008 4FF00003 		mov	r3, #0
+ 207 000c 7B73     		strb	r3, [r7, #13]
+  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     uint8 msgCkecksum = response->checksum;
+ 208              		.loc 1 62 0
+ 209 000e 7B68     		ldr	r3, [r7, #4]
+ 210 0010 5B7B     		ldrb	r3, [r3, #13]
+ 211 0012 BB73     		strb	r3, [r7, #14]
+  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     uint8 calcChecksum = GetChecksum(response); 
+ 212              		.loc 1 63 0
+ 213 0014 7868     		ldr	r0, [r7, #4]
+ 214 0016 FFF7FEFF 		bl	GetChecksum
+ 215 001a 0346     		mov	r3, r0
+ 216 001c FB73     		strb	r3, [r7, #15]
+  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
+  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* compare calculated with received checksum */
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 6
 
 
- 213              		.loc 1 69 0
- 214 001e 07F10807 		add	r7, r7, #8
- 215 0022 BD46     		mov	sp, r7
- 216 0024 80BD     		pop	{r7, pc}
- 217              		.cfi_endproc
- 218              	.LFE31:
- 219              		.size	ServoTest, .-ServoTest
- 220 0026 00BF     		.section	.text.Ping,"ax",%progbits
- 221              		.align	2
- 222              		.global	Ping
- 223              		.thumb
- 224              		.thumb_func
- 225              		.type	Ping, %function
- 226              	Ping:
- 227              	.LFB32:
-  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
-  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** Does not command any operations. Used for requesting a status 
-  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** packet or to check the existence of a CDS55xx servo with a specific 
-  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** ID. 
-  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
-  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void Ping(uint8 motorId)
-  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
- 228              		.loc 1 78 0
- 229              		.cfi_startproc
- 230              		@ args = 0, pretend = 0, frame = 24
- 231              		@ frame_needed = 1, uses_anonymous_args = 0
- 232 0000 80B5     		push	{r7, lr}
- 233              	.LCFI9:
- 234              		.cfi_def_cfa_offset 8
- 235 0002 86B0     		sub	sp, sp, #24
- 236              	.LCFI10:
- 237              		.cfi_def_cfa_offset 32
- 238 0004 00AF     		add	r7, sp, #0
- 239              		.cfi_offset 14, -4
- 240              		.cfi_offset 7, -8
- 241              	.LCFI11:
- 242              		.cfi_def_cfa_register 7
- 243 0006 0346     		mov	r3, r0
- 244 0008 FB71     		strb	r3, [r7, #7]
-  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status;
-  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     CDS5500_MSG msg = { START_BYTE_0_VALUE, 
-  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         START_BYTE_1_VALUE, 
-  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         motorId,
-  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         INST_PING_LENGTH,
-  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         INST_PING,
-  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         {0x00},
-  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         0x00,
-  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                       };
- 245              		.loc 1 88 0
- 246 000a 07F10803 		add	r3, r7, #8
- 247 000e 4FF00002 		mov	r2, #0
- 248 0012 1A60     		str	r2, [r3, #0]
- 249 0014 03F10403 		add	r3, r3, #4
- 250 0018 4FF00002 		mov	r2, #0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 7
+  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     if (msgCkecksum != calcChecksum)
+ 217              		.loc 1 66 0
+ 218 001e BA7B     		ldrb	r2, [r7, #14]	@ zero_extendqisi2
+ 219 0020 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 220 0022 9A42     		cmp	r2, r3
+ 221 0024 02D0     		beq	.L9
+  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         return CDS5500_ERROR_RECEIVED_CHECKSUM;
+ 222              		.loc 1 67 0
+ 223 0026 4FF0FE03 		mov	r3, #254
+ 224 002a 09E0     		b	.L10
+ 225              	.L9:
+  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
+  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* check if error bits are set */
+  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     if (response->instrParams[0] & CDS5500_ERROR_INSTRUCTION_BIT) 
+ 226              		.loc 1 70 0
+ 227 002c 7B68     		ldr	r3, [r7, #4]
+ 228 002e 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 229 0030 03F04003 		and	r3, r3, #64
+ 230 0034 002B     		cmp	r3, #0
+ 231 0036 02D0     		beq	.L11
+  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         status = CDS5500_ERROR_INSTRUCTION;
+ 232              		.loc 1 71 0
+ 233 0038 4FF0FF33 		mov	r3, #-1
+ 234 003c 7B73     		strb	r3, [r7, #13]
+ 235              	.L11:
+  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         
+  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     return status;
+ 236              		.loc 1 73 0
+ 237 003e 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 238              	.L10:
+  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 239              		.loc 1 74 0
+ 240 0040 1846     		mov	r0, r3
+ 241 0042 07F11007 		add	r7, r7, #16
+ 242 0046 BD46     		mov	sp, r7
+ 243 0048 80BD     		pop	{r7, pc}
+ 244              		.cfi_endproc
+ 245              	.LFE31:
+ 246              		.size	CheckResponse, .-CheckResponse
+ 247 004a 00BF     		.section	.text.CDS5500_Ping,"ax",%progbits
+ 248              		.align	2
+ 249              		.global	CDS5500_Ping
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.type	CDS5500_Ping, %function
+ 253              	CDS5500_Ping:
+ 254              	.LFB32:
+  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
+  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** Does not command any operations. Used for requesting a status 
+  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** packet or to check the existence of a CDS55xx servo with a specific 
+  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** ID. 
+  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
+  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500_Ping(uint8 motorId)
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 7
 
 
- 251 001c 1A60     		str	r2, [r3, #0]
- 252 001e 03F10403 		add	r3, r3, #4
- 253 0022 4FF00002 		mov	r2, #0
- 254 0026 1A60     		str	r2, [r3, #0]
- 255 0028 03F10403 		add	r3, r3, #4
- 256 002c 4FF00002 		mov	r2, #0
- 257 0030 1A80     		strh	r2, [r3, #0]	@ movhi
- 258 0032 03F10203 		add	r3, r3, #2
- 259 0036 4FF0FF33 		mov	r3, #-1
- 260 003a 3B72     		strb	r3, [r7, #8]
- 261 003c 4FF0FF33 		mov	r3, #-1
- 262 0040 7B72     		strb	r3, [r7, #9]
- 263 0042 FB79     		ldrb	r3, [r7, #7]
- 264 0044 BB72     		strb	r3, [r7, #10]
- 265 0046 4FF00103 		mov	r3, #1
- 266 004a 3B73     		strb	r3, [r7, #12]
-  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
-  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.checksum = GetChecksum(&msg);  
- 267              		.loc 1 91 0
- 268 004c 07F10803 		add	r3, r7, #8
- 269 0050 1846     		mov	r0, r3
- 270 0052 FFF7FEFF 		bl	GetChecksum
- 271 0056 0346     		mov	r3, r0
- 272 0058 7B75     		strb	r3, [r7, #21]
-  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                      
-  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
-  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* 0xFF 0xFF 0x01 0x02 0x01 0xFB */                  
-  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     status = BAL_ServoMsg(&msg);
+  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
+ 255              		.loc 1 85 0
+ 256              		.cfi_startproc
+ 257              		@ args = 0, pretend = 0, frame = 24
+ 258              		@ frame_needed = 1, uses_anonymous_args = 0
+ 259 0000 90B5     		push	{r4, r7, lr}
+ 260              	.LCFI9:
+ 261              		.cfi_def_cfa_offset 12
+ 262 0002 87B0     		sub	sp, sp, #28
+ 263              	.LCFI10:
+ 264              		.cfi_def_cfa_offset 40
+ 265 0004 00AF     		add	r7, sp, #0
+ 266              		.cfi_offset 14, -4
+ 267              		.cfi_offset 7, -8
+ 268              		.cfi_offset 4, -12
+ 269              	.LCFI11:
+ 270              		.cfi_def_cfa_register 7
+ 271 0006 0346     		mov	r3, r0
+ 272 0008 FB71     		strb	r3, [r7, #7]
+  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status;
+  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     CDS5500_MSG msg = { START_BYTE_0_VALUE, 
+  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         START_BYTE_1_VALUE, 
+  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         motorId,
+  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         CDS5500_MSG_LENGTH_PING,
+  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         CDS5500_INST_ID_PING,
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         {0x00},
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         0x00,
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                       };
  273              		.loc 1 95 0
- 274 005a 07F10803 		add	r3, r7, #8
- 275 005e 1846     		mov	r0, r3
- 276 0060 FFF7FEFF 		bl	BAL_ServoMsg
- 277 0064 0346     		mov	r3, r0
- 278 0066 FB75     		strb	r3, [r7, #23]
-  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     (void)status;
-  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
- 279              		.loc 1 97 0
- 280 0068 07F11807 		add	r7, r7, #24
- 281 006c BD46     		mov	sp, r7
- 282 006e 80BD     		pop	{r7, pc}
- 283              		.cfi_endproc
- 284              	.LFE32:
- 285              		.size	Ping, .-Ping
- 286              		.section	.text.CheckResponse,"ax",%progbits
- 287              		.align	2
- 288              		.global	CheckResponse
- 289              		.thumb
- 290              		.thumb_func
- 291              		.type	CheckResponse, %function
- 292              	CheckResponse:
- 293              	.LFB33:
-  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
-  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
- 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** CheckResponse
- 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
- 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** HEADER ID LENGTH ERROR PARAMETER CHECK SUM
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 8
+ 274 000a 07F10803 		add	r3, r7, #8
+ 275 000e 4FF00002 		mov	r2, #0
+ 276 0012 1A60     		str	r2, [r3, #0]
+ 277 0014 03F10403 		add	r3, r3, #4
+ 278 0018 4FF00002 		mov	r2, #0
+ 279 001c 1A60     		str	r2, [r3, #0]
+ 280 001e 03F10403 		add	r3, r3, #4
+ 281 0022 4FF00002 		mov	r2, #0
+ 282 0026 1A60     		str	r2, [r3, #0]
+ 283 0028 03F10403 		add	r3, r3, #4
+ 284 002c 4FF00002 		mov	r2, #0
+ 285 0030 1A80     		strh	r2, [r3, #0]	@ movhi
+ 286 0032 03F10203 		add	r3, r3, #2
+ 287 0036 4FF0FF33 		mov	r3, #-1
+ 288 003a 3B72     		strb	r3, [r7, #8]
+ 289 003c 4FF0FF33 		mov	r3, #-1
+ 290 0040 7B72     		strb	r3, [r7, #9]
+ 291 0042 FB79     		ldrb	r3, [r7, #7]
+ 292 0044 BB72     		strb	r3, [r7, #10]
+ 293 0046 4FF00203 		mov	r3, #2
+ 294 004a FB72     		strb	r3, [r7, #11]
+ 295 004c 4FF00103 		mov	r3, #1
+ 296 0050 3B73     		strb	r3, [r7, #12]
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     //msg.checksum = GetChecksum(&msg);
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     msg.instrParams[msg.length - CDS5500_COMPLEMENTARY_BYTES] = GetChecksum(&msg);
+ 297              		.loc 1 98 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 8
 
 
- 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
- 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** STATUS CheckResponse(CDS5500_MSG* response)
- 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
- 294              		.loc 1 105 0
- 295              		.cfi_startproc
- 296              		@ args = 0, pretend = 0, frame = 16
- 297              		@ frame_needed = 1, uses_anonymous_args = 0
- 298 0000 80B5     		push	{r7, lr}
- 299              	.LCFI12:
- 300              		.cfi_def_cfa_offset 8
- 301 0002 84B0     		sub	sp, sp, #16
- 302              	.LCFI13:
- 303              		.cfi_def_cfa_offset 24
- 304 0004 00AF     		add	r7, sp, #0
- 305              		.cfi_offset 14, -4
- 306              		.cfi_offset 7, -8
- 307              	.LCFI14:
- 308              		.cfi_def_cfa_register 7
- 309 0006 7860     		str	r0, [r7, #4]
- 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status=SUCCESS;
- 310              		.loc 1 106 0
- 311 0008 4FF00003 		mov	r3, #0
- 312 000c 7B73     		strb	r3, [r7, #13]
- 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     uint8 msgCkecksum = response->checksum;
- 313              		.loc 1 107 0
- 314 000e 7B68     		ldr	r3, [r7, #4]
- 315 0010 5B7B     		ldrb	r3, [r3, #13]
- 316 0012 BB73     		strb	r3, [r7, #14]
- 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     uint8 calcChecksum = GetChecksum(response); 
- 317              		.loc 1 108 0
- 318 0014 7868     		ldr	r0, [r7, #4]
- 319 0016 FFF7FEFF 		bl	GetChecksum
- 320 001a 0346     		mov	r3, r0
- 321 001c FB73     		strb	r3, [r7, #15]
- 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
- 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* compare calculated with received checksum */
- 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     if (msgCkecksum != calcChecksum)
- 322              		.loc 1 111 0
- 323 001e BA7B     		ldrb	r2, [r7, #14]	@ zero_extendqisi2
- 324 0020 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
- 325 0022 9A42     		cmp	r2, r3
- 326 0024 02D0     		beq	.L13
- 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         return ERROR_RECEIVED_CHECKSUM;
- 327              		.loc 1 112 0
- 328 0026 4FF0FE03 		mov	r3, #254
- 329 002a 09E0     		b	.L14
- 330              	.L13:
- 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
- 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /* check if error bits are set */
- 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     if (response->instrParams[0] & CDS5500_ERROR_INSTRUCTION_BIT) 
- 331              		.loc 1 115 0
- 332 002c 7B68     		ldr	r3, [r7, #4]
- 333 002e 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
- 334 0030 03F04003 		and	r3, r3, #64
- 335 0034 002B     		cmp	r3, #0
- 336 0036 02D0     		beq	.L15
- 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         status = ERROR_INSTRUCTION;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 9
+ 298 0052 FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 299 0054 A3F10204 		sub	r4, r3, #2
+ 300 0058 07F10803 		add	r3, r7, #8
+ 301 005c 1846     		mov	r0, r3
+ 302 005e FFF7FEFF 		bl	GetChecksum
+ 303 0062 0346     		mov	r3, r0
+ 304 0064 1A46     		mov	r2, r3
+ 305 0066 07F11801 		add	r1, r7, #24
+ 306 006a 01EB0403 		add	r3, r1, r4
+ 307 006e 03F80B2C 		strb	r2, [r3, #-11]
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                 
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     // SB0  SB1  MID  LEN  INID PAR CHKS
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     // 0xFF 0xFF 0x01 0x02 0x01 -   0xFB                 
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     status = BAL_ServoMsg(&msg);
+ 308              		.loc 1 102 0
+ 309 0072 07F10803 		add	r3, r7, #8
+ 310 0076 1846     		mov	r0, r3
+ 311 0078 FFF7FEFF 		bl	BAL_ServoMsg
+ 312 007c 0346     		mov	r3, r0
+ 313 007e FB75     		strb	r3, [r7, #23]
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     (void)status;
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 314              		.loc 1 105 0
+ 315 0080 07F11C07 		add	r7, r7, #28
+ 316 0084 BD46     		mov	sp, r7
+ 317 0086 90BD     		pop	{r4, r7, pc}
+ 318              		.cfi_endproc
+ 319              	.LFE32:
+ 320              		.size	CDS5500_Ping, .-CDS5500_Ping
+ 321              		.section	.text.CDS5500_WritePos,"ax",%progbits
+ 322              		.align	2
+ 323              		.global	CDS5500_WritePos
+ 324              		.thumb
+ 325              		.thumb_func
+ 326              		.type	CDS5500_WritePos, %function
+ 327              	CDS5500_WritePos:
+ 328              	.LFB33:
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
+ 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500_WritePos(int id, int position, int velocity)
+ 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
+ 329              		.loc 1 112 0
+ 330              		.cfi_startproc
+ 331              		@ args = 0, pretend = 0, frame = 24
+ 332              		@ frame_needed = 1, uses_anonymous_args = 0
+ 333              		@ link register save eliminated.
+ 334 0000 80B4     		push	{r7}
+ 335              	.LCFI12:
+ 336              		.cfi_def_cfa_offset 4
+ 337 0002 87B0     		sub	sp, sp, #28
+ 338              	.LCFI13:
+ 339              		.cfi_def_cfa_offset 32
+ 340 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 9
 
 
- 337              		.loc 1 116 0
- 338 0038 4FF0FF33 		mov	r3, #-1
- 339 003c 7B73     		strb	r3, [r7, #13]
- 340              	.L15:
- 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****         
- 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     return status;
- 341              		.loc 1 118 0
- 342 003e 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
- 343              	.L14:
- 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
- 344              		.loc 1 119 0
- 345 0040 1846     		mov	r0, r3
- 346 0042 07F11007 		add	r7, r7, #16
- 347 0046 BD46     		mov	sp, r7
- 348 0048 80BD     		pop	{r7, pc}
- 349              		.cfi_endproc
- 350              	.LFE33:
- 351              		.size	CheckResponse, .-CheckResponse
- 352 004a 00BF     		.section	.text.WritePos,"ax",%progbits
- 353              		.align	2
- 354              		.global	WritePos
- 355              		.thumb
- 356              		.thumb_func
- 357              		.type	WritePos, %function
- 358              	WritePos:
- 359              	.LFB34:
- 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
- 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
- 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
- 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void WritePos(int id, int position, int velocity)
- 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
- 360              		.loc 1 124 0
- 361              		.cfi_startproc
- 362              		@ args = 0, pretend = 0, frame = 24
- 363              		@ frame_needed = 1, uses_anonymous_args = 0
- 364              		@ link register save eliminated.
- 365 0000 80B4     		push	{r7}
- 366              	.LCFI15:
- 367              		.cfi_def_cfa_offset 4
- 368 0002 87B0     		sub	sp, sp, #28
- 369              	.LCFI16:
- 370              		.cfi_def_cfa_offset 32
- 371 0004 00AF     		add	r7, sp, #0
- 372              		.cfi_offset 7, -4
- 373              	.LCFI17:
- 374              		.cfi_def_cfa_register 7
- 375 0006 F860     		str	r0, [r7, #12]
- 376 0008 B960     		str	r1, [r7, #8]
- 377 000a 7A60     		str	r2, [r7, #4]
- 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 7;
- 378              		.loc 1 125 0
- 379 000c 4FF00703 		mov	r3, #7
- 380 0010 7B61     		str	r3, [r7, #20]
- 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     (void)messageLength;
- 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
- 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	/*
- 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte0);              // send some data
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 10
+ 341              		.cfi_offset 7, -4
+ 342              	.LCFI14:
+ 343              		.cfi_def_cfa_register 7
+ 344 0006 F860     		str	r0, [r7, #12]
+ 345 0008 B960     		str	r1, [r7, #8]
+ 346 000a 7A60     		str	r2, [r7, #4]
+ 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 7;
+ 347              		.loc 1 113 0
+ 348 000c 4FF00703 		mov	r3, #7
+ 349 0010 7B61     		str	r3, [r7, #20]
+ 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     (void)messageLength;
+ 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	/*
+ 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte0);              // send some data
+ 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte1);
+ 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(id);
+ 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
+ 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_WRITE);
+ 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(P_GOAL_POSITION_L);
+ 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos);
+ 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos2);
+ 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(vel);
+ 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(vel2);
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF);
+ 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	*/
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 350              		.loc 1 129 0
+ 351 0012 07F11C07 		add	r7, r7, #28
+ 352 0016 BD46     		mov	sp, r7
+ 353 0018 80BC     		pop	{r7}
+ 354 001a 7047     		bx	lr
+ 355              		.cfi_endproc
+ 356              	.LFE33:
+ 357              		.size	CDS5500_WritePos, .-CDS5500_WritePos
+ 358              		.section	.text.ServoTest,"ax",%progbits
+ 359              		.align	2
+ 360              		.global	ServoTest
+ 361              		.thumb
+ 362              		.thumb_func
+ 363              		.type	ServoTest, %function
+ 364              	ServoTest:
+ 365              	.LFB34:
+ 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************
+ 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** **************************************************************************/
+ 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /*
+ 134:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: RegWritePos(int ID, int position, int velocity){
+ 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 5;
+ 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte pos2 =  position/255;
+ 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte pos =  position%255;	
+ 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	
+ 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte vel2 =  velocity/255;
+ 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte vel =  velocity%255;
+ 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 142:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 143:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 144:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 10
 
 
- 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte1);
- 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(id);
- 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
- 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_WRITE);
- 134:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(P_GOAL_POSITION_L);
- 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos);
- 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos2);
- 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(vel);
- 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(vel2);
- 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF);
- 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	*/
- 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
- 381              		.loc 1 141 0
- 382 0012 07F11C07 		add	r7, r7, #28
- 383 0016 BD46     		mov	sp, r7
- 384 0018 80BC     		pop	{r7}
- 385 001a 7047     		bx	lr
- 386              		.cfi_endproc
- 387              	.LFE34:
- 388              		.size	WritePos, .-WritePos
- 389              		.text
- 390              	.Letext0:
- 391              		.section	.debug_loc,"",%progbits
- 392              	.Ldebug_loc0:
- 393              	.LLST0:
- 394 0000 00000000 		.4byte	.LFB29
- 395 0004 02000000 		.4byte	.LCFI0
- 396 0008 0100     		.2byte	0x1
- 397 000a 5D       		.byte	0x5d
- 398 000b 02000000 		.4byte	.LCFI0
- 399 000f 04000000 		.4byte	.LCFI1
- 400 0013 0200     		.2byte	0x2
- 401 0015 7D       		.byte	0x7d
- 402 0016 04       		.sleb128 4
- 403 0017 04000000 		.4byte	.LCFI1
- 404 001b 06000000 		.4byte	.LCFI2
- 405 001f 0200     		.2byte	0x2
- 406 0021 7D       		.byte	0x7d
- 407 0022 18       		.sleb128 24
- 408 0023 06000000 		.4byte	.LCFI2
- 409 0027 64000000 		.4byte	.LFE29
- 410 002b 0200     		.2byte	0x2
- 411 002d 77       		.byte	0x77
- 412 002e 18       		.sleb128 24
- 413 002f 00000000 		.4byte	0x0
- 414 0033 00000000 		.4byte	0x0
- 415              	.LLST1:
- 416 0037 00000000 		.4byte	.LFB30
- 417 003b 02000000 		.4byte	.LCFI3
- 418 003f 0100     		.2byte	0x1
- 419 0041 5D       		.byte	0x5d
- 420 0042 02000000 		.4byte	.LCFI3
- 421 0046 04000000 		.4byte	.LCFI4
- 422 004a 0200     		.2byte	0x2
- 423 004c 7D       		.byte	0x7d
- 424 004d 08       		.sleb128 8
- 425 004e 04000000 		.4byte	.LCFI4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 11
+ 145:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
+ 146:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_REG_WRITE);
+ 147:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(P_GOAL_POSITION_L);
+ 148:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos);
+ 149:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(pos2);
+ 150:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //	printf(vel);
+ 151:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //	printf(vel2);
+ 152:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF);
+ 153:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 154:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 155:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: RegWriteAction(){
+ 156:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 2;
+ 157:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte ID =  0xFE; 
+ 158:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 159:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 160:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 161:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ 162:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
+ 163:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_ACTION);
+ 164:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_ACTION))&0xFF);
+ 165:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 166:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 167:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 168:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 169:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 170:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: SetID(int ID, int newID){
+ 171:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 4;
+ 172:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 173:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 174:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ 175:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
+ 176:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_WRITE);
+ 177:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(P_ID);
+ 178:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(newID);
+ 179:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE+ P_ID + newID))&0xFF);
+ 180:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 181:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 182:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: SetAngleLimit(int ID, int lowerLimit, int upperLimit){
+ 183:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	int messageLength = 8;
+ 184:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte lowerLimitB = lowerLimit%255;
+ 185:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte lowerLimitS = lowerLimit/255;
+ 186:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte upperLimitB = upperLimit%255;
+ 187:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	byte upperLimitS = upperLimit/255;
+ 188:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 189:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 190:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ 191:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(messageLength);
+ 192:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(INST_WRITE);
+ 193:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x08);
+ 194:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(upperLimitB);
+ 195:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x09);
+ 196:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(upperLimitS);
+ 197:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x06);
+ 198:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(lowerLimitB);
+ 199:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x07);
+ 200:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(lowerLimitS);	
+ 201:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + (messageLength) + INST_WRITE+ 0x08 + 0x09 + 0x06 + 0x07 + upperLimitB+ upperLimitS+
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 11
 
 
- 426 0052 06000000 		.4byte	.LCFI5
- 427 0056 0200     		.2byte	0x2
- 428 0058 7D       		.byte	0x7d
- 429 0059 20       		.sleb128 32
- 430 005a 06000000 		.4byte	.LCFI5
- 431 005e 76000000 		.4byte	.LFE30
- 432 0062 0200     		.2byte	0x2
- 433 0064 77       		.byte	0x77
- 434 0065 20       		.sleb128 32
- 435 0066 00000000 		.4byte	0x0
- 436 006a 00000000 		.4byte	0x0
- 437              	.LLST2:
- 438 006e 00000000 		.4byte	.LFB31
- 439 0072 02000000 		.4byte	.LCFI6
- 440 0076 0100     		.2byte	0x1
- 441 0078 5D       		.byte	0x5d
- 442 0079 02000000 		.4byte	.LCFI6
- 443 007d 04000000 		.4byte	.LCFI7
- 444 0081 0200     		.2byte	0x2
- 445 0083 7D       		.byte	0x7d
- 446 0084 08       		.sleb128 8
- 447 0085 04000000 		.4byte	.LCFI7
- 448 0089 06000000 		.4byte	.LCFI8
- 449 008d 0200     		.2byte	0x2
- 450 008f 7D       		.byte	0x7d
- 451 0090 10       		.sleb128 16
- 452 0091 06000000 		.4byte	.LCFI8
- 453 0095 26000000 		.4byte	.LFE31
- 454 0099 0200     		.2byte	0x2
- 455 009b 77       		.byte	0x77
- 456 009c 10       		.sleb128 16
- 457 009d 00000000 		.4byte	0x0
- 458 00a1 00000000 		.4byte	0x0
- 459              	.LLST3:
- 460 00a5 00000000 		.4byte	.LFB32
- 461 00a9 02000000 		.4byte	.LCFI9
- 462 00ad 0100     		.2byte	0x1
- 463 00af 5D       		.byte	0x5d
- 464 00b0 02000000 		.4byte	.LCFI9
- 465 00b4 04000000 		.4byte	.LCFI10
- 466 00b8 0200     		.2byte	0x2
- 467 00ba 7D       		.byte	0x7d
- 468 00bb 08       		.sleb128 8
- 469 00bc 04000000 		.4byte	.LCFI10
- 470 00c0 06000000 		.4byte	.LCFI11
- 471 00c4 0200     		.2byte	0x2
- 472 00c6 7D       		.byte	0x7d
- 473 00c7 20       		.sleb128 32
- 474 00c8 06000000 		.4byte	.LCFI11
- 475 00cc 70000000 		.4byte	.LFE32
- 476 00d0 0200     		.2byte	0x2
- 477 00d2 77       		.byte	0x77
- 478 00d3 20       		.sleb128 32
- 479 00d4 00000000 		.4byte	0x0
- 480 00d8 00000000 		.4byte	0x0
- 481              	.LLST4:
- 482 00dc 00000000 		.4byte	.LFB33
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 12
+ 202:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 					 lowerLimitB + lowerLimitS))&0xFF);
+ 203:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 204:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 205:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //void CDS5500:: SyncWritePos(int[] ID, int[] pos; int[] vel){
+ 206:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //	int messageLength = ()*sizeof(ID);
+ 207:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //}
+ 208:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //
+ 209:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //
+ 210:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //void CDS5500:: SyncWritePos(int[] ID, int pos; int vel){
+ 211:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //	
+ 212:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //}
+ 213:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** //
+ 214:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 215:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: tempMethod(){
+ 216:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	
+ 217:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 218:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 219:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x01);
+ 220:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x05);
+ 221:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x03);
+ 222:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x08);
+ 223:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0xFF);
+ 224:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x01);
+ 225:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0xF4);
+ 226:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0xef);
+ 227:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	
+ 228:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 229:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 230:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500:: Reset(int ID){
+ 231:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 232:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 233:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ 234:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x02);
+ 235:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x06);
+ 236:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + 0x02 +0x06))&0xFF);
+ 237:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 238:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 239:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void CDS5500::SetTempLimit(int ID, int temperature){
+ 240:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);              // send some data
+ 241:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(startByte);
+ 242:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(ID);
+ 243:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x04);
+ 244:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x03);
+ 245:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(0x0B);
+ 246:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf(temperature);
+ 247:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 	printf((~(ID + 0x04 +0x03 + 0x0B + temperature))&0xFF);
+ 248:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 249:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 250:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** */
+ 251:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 252:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** /**************************************************************************/
+ 253:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** void ServoTest(void)
+ 254:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** {
+ 366              		.loc 1 254 0
+ 367              		.cfi_startproc
+ 368              		@ args = 0, pretend = 0, frame = 8
+ 369              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 12
 
 
- 483 00e0 02000000 		.4byte	.LCFI12
- 484 00e4 0100     		.2byte	0x1
- 485 00e6 5D       		.byte	0x5d
- 486 00e7 02000000 		.4byte	.LCFI12
- 487 00eb 04000000 		.4byte	.LCFI13
- 488 00ef 0200     		.2byte	0x2
- 489 00f1 7D       		.byte	0x7d
- 490 00f2 08       		.sleb128 8
- 491 00f3 04000000 		.4byte	.LCFI13
- 492 00f7 06000000 		.4byte	.LCFI14
- 493 00fb 0200     		.2byte	0x2
- 494 00fd 7D       		.byte	0x7d
- 495 00fe 18       		.sleb128 24
- 496 00ff 06000000 		.4byte	.LCFI14
- 497 0103 4A000000 		.4byte	.LFE33
- 498 0107 0200     		.2byte	0x2
- 499 0109 77       		.byte	0x77
- 500 010a 18       		.sleb128 24
- 501 010b 00000000 		.4byte	0x0
- 502 010f 00000000 		.4byte	0x0
- 503              	.LLST5:
- 504 0113 00000000 		.4byte	.LFB34
- 505 0117 02000000 		.4byte	.LCFI15
- 506 011b 0100     		.2byte	0x1
- 507 011d 5D       		.byte	0x5d
- 508 011e 02000000 		.4byte	.LCFI15
- 509 0122 04000000 		.4byte	.LCFI16
- 510 0126 0200     		.2byte	0x2
- 511 0128 7D       		.byte	0x7d
- 512 0129 04       		.sleb128 4
- 513 012a 04000000 		.4byte	.LCFI16
- 514 012e 06000000 		.4byte	.LCFI17
- 515 0132 0200     		.2byte	0x2
- 516 0134 7D       		.byte	0x7d
- 517 0135 20       		.sleb128 32
- 518 0136 06000000 		.4byte	.LCFI17
- 519 013a 1C000000 		.4byte	.LFE34
- 520 013e 0200     		.2byte	0x2
- 521 0140 77       		.byte	0x77
- 522 0141 20       		.sleb128 32
- 523 0142 00000000 		.4byte	0x0
- 524 0146 00000000 		.4byte	0x0
- 525              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
- 526              		.file 3 "./types.h"
- 527              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/servo_cds5500.h"
- 528              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
- 529              		.section	.debug_info
- 530 0000 FF020000 		.4byte	0x2ff
- 531 0004 0200     		.2byte	0x2
- 532 0006 00000000 		.4byte	.Ldebug_abbrev0
- 533 000a 04       		.byte	0x4
- 534 000b 01       		.uleb128 0x1
- 535 000c 01020000 		.4byte	.LASF38
- 536 0010 01       		.byte	0x1
- 537 0011 8D000000 		.4byte	.LASF39
- 538 0015 2B010000 		.4byte	.LASF40
- 539 0019 00000000 		.4byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 13
+ 370 0000 80B5     		push	{r7, lr}
+ 371              	.LCFI15:
+ 372              		.cfi_def_cfa_offset 8
+ 373 0002 82B0     		sub	sp, sp, #8
+ 374              	.LCFI16:
+ 375              		.cfi_def_cfa_offset 16
+ 376 0004 00AF     		add	r7, sp, #0
+ 377              		.cfi_offset 14, -4
+ 378              		.cfi_offset 7, -8
+ 379              	.LCFI17:
+ 380              		.cfi_def_cfa_register 7
+ 255:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     STATUS status;
+ 256:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     
+ 257:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     status = SendServoMsg(  CDS5500_SERVO_1,    CDS5500_INST_LENGTH_PING,   CDS5500_INST_ID_PING,  
+ 381              		.loc 1 257 0
+ 382 0006 4FF00100 		mov	r0, #1
+ 383 000a 4FF00001 		mov	r1, #0
+ 384 000e 4FF00102 		mov	r2, #1
+ 385 0012 4FF00003 		mov	r3, #0
+ 386 0016 FFF7FEFF 		bl	SendServoMsg
+ 387 001a 0346     		mov	r3, r0
+ 388 001c FB71     		strb	r3, [r7, #7]
+ 258:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     /*
+ 259:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****                         HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
+ 260:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****             SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 
+ 261:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****             RETURN:     0XFF 0XFF   0X01    0X02        0X00            0XFC
+ 262:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c ****     */
+ 263:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** 
+ 264:..\..\..\Drive_Platform\DrivePlatform.cydsn/servo_cds5500.c **** }
+ 389              		.loc 1 264 0
+ 390 001e 07F10807 		add	r7, r7, #8
+ 391 0022 BD46     		mov	sp, r7
+ 392 0024 80BD     		pop	{r7, pc}
+ 393              		.cfi_endproc
+ 394              	.LFE34:
+ 395              		.size	ServoTest, .-ServoTest
+ 396 0026 00BF     		.text
+ 397              	.Letext0:
+ 398              		.section	.debug_loc,"",%progbits
+ 399              	.Ldebug_loc0:
+ 400              	.LLST0:
+ 401 0000 00000000 		.4byte	.LFB29
+ 402 0004 02000000 		.4byte	.LCFI0
+ 403 0008 0100     		.2byte	0x1
+ 404 000a 5D       		.byte	0x5d
+ 405 000b 02000000 		.4byte	.LCFI0
+ 406 000f 04000000 		.4byte	.LCFI1
+ 407 0013 0200     		.2byte	0x2
+ 408 0015 7D       		.byte	0x7d
+ 409 0016 04       		.sleb128 4
+ 410 0017 04000000 		.4byte	.LCFI1
+ 411 001b 06000000 		.4byte	.LCFI2
+ 412 001f 0200     		.2byte	0x2
+ 413 0021 7D       		.byte	0x7d
+ 414 0022 18       		.sleb128 24
+ 415 0023 06000000 		.4byte	.LCFI2
+ 416 0027 64000000 		.4byte	.LFE29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 13
 
 
- 540 001d 00000000 		.4byte	0x0
- 541 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
- 542 0025 00000000 		.4byte	.Ldebug_line0
- 543 0029 02       		.uleb128 0x2
- 544 002a 01       		.byte	0x1
- 545 002b 06       		.byte	0x6
- 546 002c EE000000 		.4byte	.LASF0
- 547 0030 02       		.uleb128 0x2
- 548 0031 01       		.byte	0x1
- 549 0032 08       		.byte	0x8
- 550 0033 7F000000 		.4byte	.LASF1
- 551 0037 02       		.uleb128 0x2
- 552 0038 02       		.byte	0x2
- 553 0039 05       		.byte	0x5
- 554 003a 21000000 		.4byte	.LASF2
- 555 003e 02       		.uleb128 0x2
- 556 003f 02       		.byte	0x2
- 557 0040 07       		.byte	0x7
- 558 0041 DB000000 		.4byte	.LASF3
- 559 0045 02       		.uleb128 0x2
- 560 0046 04       		.byte	0x4
- 561 0047 05       		.byte	0x5
- 562 0048 42020000 		.4byte	.LASF4
- 563 004c 02       		.uleb128 0x2
- 564 004d 04       		.byte	0x4
- 565 004e 07       		.byte	0x7
- 566 004f C9000000 		.4byte	.LASF5
- 567 0053 02       		.uleb128 0x2
- 568 0054 08       		.byte	0x8
- 569 0055 05       		.byte	0x5
- 570 0056 00000000 		.4byte	.LASF6
- 571 005a 02       		.uleb128 0x2
- 572 005b 08       		.byte	0x8
- 573 005c 07       		.byte	0x7
- 574 005d BC010000 		.4byte	.LASF7
- 575 0061 03       		.uleb128 0x3
- 576 0062 04       		.byte	0x4
- 577 0063 05       		.byte	0x5
- 578 0064 696E7400 		.ascii	"int\000"
- 579 0068 02       		.uleb128 0x2
- 580 0069 04       		.byte	0x4
- 581 006a 07       		.byte	0x7
- 582 006b AF010000 		.4byte	.LASF8
- 583 006f 04       		.uleb128 0x4
- 584 0070 27020000 		.4byte	.LASF12
- 585 0074 02       		.byte	0x2
- 586 0075 4C       		.byte	0x4c
- 587 0076 30000000 		.4byte	0x30
- 588 007a 02       		.uleb128 0x2
- 589 007b 04       		.byte	0x4
- 590 007c 04       		.byte	0x4
- 591 007d 54000000 		.4byte	.LASF9
- 592 0081 02       		.uleb128 0x2
- 593 0082 08       		.byte	0x8
- 594 0083 04       		.byte	0x4
- 595 0084 13010000 		.4byte	.LASF10
- 596 0088 02       		.uleb128 0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 14
+ 417 002b 0200     		.2byte	0x2
+ 418 002d 77       		.byte	0x77
+ 419 002e 18       		.sleb128 24
+ 420 002f 00000000 		.4byte	0x0
+ 421 0033 00000000 		.4byte	0x0
+ 422              	.LLST1:
+ 423 0037 00000000 		.4byte	.LFB30
+ 424 003b 02000000 		.4byte	.LCFI3
+ 425 003f 0100     		.2byte	0x1
+ 426 0041 5D       		.byte	0x5d
+ 427 0042 02000000 		.4byte	.LCFI3
+ 428 0046 04000000 		.4byte	.LCFI4
+ 429 004a 0200     		.2byte	0x2
+ 430 004c 7D       		.byte	0x7d
+ 431 004d 08       		.sleb128 8
+ 432 004e 04000000 		.4byte	.LCFI4
+ 433 0052 06000000 		.4byte	.LCFI5
+ 434 0056 0200     		.2byte	0x2
+ 435 0058 7D       		.byte	0x7d
+ 436 0059 20       		.sleb128 32
+ 437 005a 06000000 		.4byte	.LCFI5
+ 438 005e 76000000 		.4byte	.LFE30
+ 439 0062 0200     		.2byte	0x2
+ 440 0064 77       		.byte	0x77
+ 441 0065 20       		.sleb128 32
+ 442 0066 00000000 		.4byte	0x0
+ 443 006a 00000000 		.4byte	0x0
+ 444              	.LLST2:
+ 445 006e 00000000 		.4byte	.LFB31
+ 446 0072 02000000 		.4byte	.LCFI6
+ 447 0076 0100     		.2byte	0x1
+ 448 0078 5D       		.byte	0x5d
+ 449 0079 02000000 		.4byte	.LCFI6
+ 450 007d 04000000 		.4byte	.LCFI7
+ 451 0081 0200     		.2byte	0x2
+ 452 0083 7D       		.byte	0x7d
+ 453 0084 08       		.sleb128 8
+ 454 0085 04000000 		.4byte	.LCFI7
+ 455 0089 06000000 		.4byte	.LCFI8
+ 456 008d 0200     		.2byte	0x2
+ 457 008f 7D       		.byte	0x7d
+ 458 0090 18       		.sleb128 24
+ 459 0091 06000000 		.4byte	.LCFI8
+ 460 0095 4A000000 		.4byte	.LFE31
+ 461 0099 0200     		.2byte	0x2
+ 462 009b 77       		.byte	0x77
+ 463 009c 18       		.sleb128 24
+ 464 009d 00000000 		.4byte	0x0
+ 465 00a1 00000000 		.4byte	0x0
+ 466              	.LLST3:
+ 467 00a5 00000000 		.4byte	.LFB32
+ 468 00a9 02000000 		.4byte	.LCFI9
+ 469 00ad 0100     		.2byte	0x1
+ 470 00af 5D       		.byte	0x5d
+ 471 00b0 02000000 		.4byte	.LCFI9
+ 472 00b4 04000000 		.4byte	.LCFI10
+ 473 00b8 0200     		.2byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 14
 
 
- 597 0089 01       		.byte	0x1
- 598 008a 08       		.byte	0x8
- 599 008b 0D020000 		.4byte	.LASF11
- 600 008f 05       		.uleb128 0x5
- 601 0090 04       		.byte	0x4
- 602 0091 07       		.byte	0x7
- 603 0092 04       		.uleb128 0x4
- 604 0093 20020000 		.4byte	.LASF13
- 605 0097 03       		.byte	0x3
- 606 0098 0F       		.byte	0xf
- 607 0099 6F000000 		.4byte	0x6f
- 608 009d 06       		.uleb128 0x6
- 609 009e A4010000 		.4byte	.LASF41
- 610 00a2 0E       		.byte	0xe
- 611 00a3 04       		.byte	0x4
- 612 00a4 4D       		.byte	0x4d
- 613 00a5 0C010000 		.4byte	0x10c
- 614 00a9 07       		.uleb128 0x7
- 615 00aa 5A000000 		.4byte	.LASF14
- 616 00ae 04       		.byte	0x4
- 617 00af 4E       		.byte	0x4e
- 618 00b0 6F000000 		.4byte	0x6f
- 619 00b4 02       		.byte	0x2
- 620 00b5 23       		.byte	0x23
- 621 00b6 00       		.uleb128 0x0
- 622 00b7 07       		.uleb128 0x7
- 623 00b8 65000000 		.4byte	.LASF15
- 624 00bc 04       		.byte	0x4
- 625 00bd 4F       		.byte	0x4f
- 626 00be 6F000000 		.4byte	0x6f
- 627 00c2 02       		.byte	0x2
- 628 00c3 23       		.byte	0x23
- 629 00c4 01       		.uleb128 0x1
- 630 00c5 07       		.uleb128 0x7
- 631 00c6 1A010000 		.4byte	.LASF16
- 632 00ca 04       		.byte	0x4
- 633 00cb 50       		.byte	0x50
- 634 00cc 6F000000 		.4byte	0x6f
- 635 00d0 02       		.byte	0x2
- 636 00d1 23       		.byte	0x23
- 637 00d2 02       		.uleb128 0x2
- 638 00d3 07       		.uleb128 0x7
- 639 00d4 76020000 		.4byte	.LASF17
- 640 00d8 04       		.byte	0x4
- 641 00d9 51       		.byte	0x51
- 642 00da 6F000000 		.4byte	0x6f
- 643 00de 02       		.byte	0x2
- 644 00df 23       		.byte	0x23
- 645 00e0 03       		.uleb128 0x3
- 646 00e1 07       		.uleb128 0x7
- 647 00e2 F9010000 		.4byte	.LASF18
- 648 00e6 04       		.byte	0x4
- 649 00e7 52       		.byte	0x52
- 650 00e8 6F000000 		.4byte	0x6f
- 651 00ec 02       		.byte	0x2
- 652 00ed 23       		.byte	0x23
- 653 00ee 04       		.uleb128 0x4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 15
+ 474 00ba 7D       		.byte	0x7d
+ 475 00bb 0C       		.sleb128 12
+ 476 00bc 04000000 		.4byte	.LCFI10
+ 477 00c0 06000000 		.4byte	.LCFI11
+ 478 00c4 0200     		.2byte	0x2
+ 479 00c6 7D       		.byte	0x7d
+ 480 00c7 28       		.sleb128 40
+ 481 00c8 06000000 		.4byte	.LCFI11
+ 482 00cc 88000000 		.4byte	.LFE32
+ 483 00d0 0200     		.2byte	0x2
+ 484 00d2 77       		.byte	0x77
+ 485 00d3 28       		.sleb128 40
+ 486 00d4 00000000 		.4byte	0x0
+ 487 00d8 00000000 		.4byte	0x0
+ 488              	.LLST4:
+ 489 00dc 00000000 		.4byte	.LFB33
+ 490 00e0 02000000 		.4byte	.LCFI12
+ 491 00e4 0100     		.2byte	0x1
+ 492 00e6 5D       		.byte	0x5d
+ 493 00e7 02000000 		.4byte	.LCFI12
+ 494 00eb 04000000 		.4byte	.LCFI13
+ 495 00ef 0200     		.2byte	0x2
+ 496 00f1 7D       		.byte	0x7d
+ 497 00f2 04       		.sleb128 4
+ 498 00f3 04000000 		.4byte	.LCFI13
+ 499 00f7 06000000 		.4byte	.LCFI14
+ 500 00fb 0200     		.2byte	0x2
+ 501 00fd 7D       		.byte	0x7d
+ 502 00fe 20       		.sleb128 32
+ 503 00ff 06000000 		.4byte	.LCFI14
+ 504 0103 1C000000 		.4byte	.LFE33
+ 505 0107 0200     		.2byte	0x2
+ 506 0109 77       		.byte	0x77
+ 507 010a 20       		.sleb128 32
+ 508 010b 00000000 		.4byte	0x0
+ 509 010f 00000000 		.4byte	0x0
+ 510              	.LLST5:
+ 511 0113 00000000 		.4byte	.LFB34
+ 512 0117 02000000 		.4byte	.LCFI15
+ 513 011b 0100     		.2byte	0x1
+ 514 011d 5D       		.byte	0x5d
+ 515 011e 02000000 		.4byte	.LCFI15
+ 516 0122 04000000 		.4byte	.LCFI16
+ 517 0126 0200     		.2byte	0x2
+ 518 0128 7D       		.byte	0x7d
+ 519 0129 08       		.sleb128 8
+ 520 012a 04000000 		.4byte	.LCFI16
+ 521 012e 06000000 		.4byte	.LCFI17
+ 522 0132 0200     		.2byte	0x2
+ 523 0134 7D       		.byte	0x7d
+ 524 0135 10       		.sleb128 16
+ 525 0136 06000000 		.4byte	.LCFI17
+ 526 013a 26000000 		.4byte	.LFE34
+ 527 013e 0200     		.2byte	0x2
+ 528 0140 77       		.byte	0x77
+ 529 0141 10       		.sleb128 16
+ 530 0142 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 15
 
 
- 654 00ef 07       		.uleb128 0x7
- 655 00f0 98010000 		.4byte	.LASF19
- 656 00f4 04       		.byte	0x4
- 657 00f5 53       		.byte	0x53
- 658 00f6 0C010000 		.4byte	0x10c
- 659 00fa 02       		.byte	0x2
- 660 00fb 23       		.byte	0x23
- 661 00fc 05       		.uleb128 0x5
- 662 00fd 07       		.uleb128 0x7
- 663 00fe 0E000000 		.4byte	.LASF20
- 664 0102 04       		.byte	0x4
- 665 0103 54       		.byte	0x54
- 666 0104 6F000000 		.4byte	0x6f
- 667 0108 02       		.byte	0x2
- 668 0109 23       		.byte	0x23
- 669 010a 0D       		.uleb128 0xd
- 670 010b 00       		.byte	0x0
- 671 010c 08       		.uleb128 0x8
- 672 010d 6F000000 		.4byte	0x6f
- 673 0111 1C010000 		.4byte	0x11c
- 674 0115 09       		.uleb128 0x9
- 675 0116 8F000000 		.4byte	0x8f
- 676 011a 07       		.byte	0x7
- 677 011b 00       		.byte	0x0
- 678 011c 04       		.uleb128 0x4
- 679 011d 48000000 		.4byte	.LASF21
- 680 0121 04       		.byte	0x4
- 681 0122 55       		.byte	0x55
- 682 0123 9D000000 		.4byte	0x9d
- 683 0127 0A       		.uleb128 0xa
- 684 0128 04       		.byte	0x4
- 685 0129 6F000000 		.4byte	0x6f
- 686 012d 0B       		.uleb128 0xb
- 687 012e 54020000 		.4byte	.LASF42
- 688 0132 01       		.byte	0x1
- 689 0133 11       		.byte	0x11
- 690 0134 01       		.byte	0x1
- 691 0135 6F000000 		.4byte	0x6f
- 692 0139 00000000 		.4byte	.LFB29
- 693 013d 64000000 		.4byte	.LFE29
- 694 0141 00000000 		.4byte	.LLST0
- 695 0145 72010000 		.4byte	0x172
- 696 0149 0C       		.uleb128 0xc
- 697 014a 6D736700 		.ascii	"msg\000"
- 698 014e 01       		.byte	0x1
- 699 014f 11       		.byte	0x11
- 700 0150 72010000 		.4byte	0x172
- 701 0154 02       		.byte	0x2
- 702 0155 91       		.byte	0x91
- 703 0156 6C       		.sleb128 -20
- 704 0157 0D       		.uleb128 0xd
- 705 0158 0E000000 		.4byte	.LASF20
- 706 015c 01       		.byte	0x1
- 707 015d 13       		.byte	0x13
- 708 015e 6F000000 		.4byte	0x6f
- 709 0162 02       		.byte	0x2
- 710 0163 91       		.byte	0x91
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 16
+ 531 0146 00000000 		.4byte	0x0
+ 532              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 533              		.file 3 "./types.h"
+ 534              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/servo_cds5500.h"
+ 535              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 536              		.section	.debug_info
+ 537 0000 FE020000 		.4byte	0x2fe
+ 538 0004 0200     		.2byte	0x2
+ 539 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 540 000a 04       		.byte	0x4
+ 541 000b 01       		.uleb128 0x1
+ 542 000c 02020000 		.4byte	.LASF38
+ 543 0010 01       		.byte	0x1
+ 544 0011 91000000 		.4byte	.LASF39
+ 545 0015 2F010000 		.4byte	.LASF40
+ 546 0019 00000000 		.4byte	0x0
+ 547 001d 00000000 		.4byte	0x0
+ 548 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 549 0025 00000000 		.4byte	.Ldebug_line0
+ 550 0029 02       		.uleb128 0x2
+ 551 002a 01       		.byte	0x1
+ 552 002b 06       		.byte	0x6
+ 553 002c F2000000 		.4byte	.LASF0
+ 554 0030 02       		.uleb128 0x2
+ 555 0031 01       		.byte	0x1
+ 556 0032 08       		.byte	0x8
+ 557 0033 83000000 		.4byte	.LASF1
+ 558 0037 02       		.uleb128 0x2
+ 559 0038 02       		.byte	0x2
+ 560 0039 05       		.byte	0x5
+ 561 003a 2E000000 		.4byte	.LASF2
+ 562 003e 02       		.uleb128 0x2
+ 563 003f 02       		.byte	0x2
+ 564 0040 07       		.byte	0x7
+ 565 0041 DF000000 		.4byte	.LASF3
+ 566 0045 02       		.uleb128 0x2
+ 567 0046 04       		.byte	0x4
+ 568 0047 05       		.byte	0x5
+ 569 0048 3F020000 		.4byte	.LASF4
+ 570 004c 02       		.uleb128 0x2
+ 571 004d 04       		.byte	0x4
+ 572 004e 07       		.byte	0x7
+ 573 004f CD000000 		.4byte	.LASF5
+ 574 0053 02       		.uleb128 0x2
+ 575 0054 08       		.byte	0x8
+ 576 0055 05       		.byte	0x5
+ 577 0056 00000000 		.4byte	.LASF6
+ 578 005a 02       		.uleb128 0x2
+ 579 005b 08       		.byte	0x8
+ 580 005c 07       		.byte	0x7
+ 581 005d C2010000 		.4byte	.LASF7
+ 582 0061 03       		.uleb128 0x3
+ 583 0062 04       		.byte	0x4
+ 584 0063 05       		.byte	0x5
+ 585 0064 696E7400 		.ascii	"int\000"
+ 586 0068 02       		.uleb128 0x2
+ 587 0069 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 16
 
 
- 711 0164 76       		.sleb128 -10
- 712 0165 0E       		.uleb128 0xe
- 713 0166 6900     		.ascii	"i\000"
- 714 0168 01       		.byte	0x1
- 715 0169 14       		.byte	0x14
- 716 016a 6F000000 		.4byte	0x6f
- 717 016e 02       		.byte	0x2
- 718 016f 91       		.byte	0x91
- 719 0170 77       		.sleb128 -9
- 720 0171 00       		.byte	0x0
- 721 0172 0A       		.uleb128 0xa
- 722 0173 04       		.byte	0x4
- 723 0174 1C010000 		.4byte	0x11c
- 724 0178 0F       		.uleb128 0xf
- 725 0179 01       		.byte	0x1
- 726 017a 2D020000 		.4byte	.LASF29
- 727 017e 01       		.byte	0x1
- 728 017f 24       		.byte	0x24
- 729 0180 01       		.byte	0x1
- 730 0181 92000000 		.4byte	0x92
- 731 0185 00000000 		.4byte	.LFB30
- 732 0189 76000000 		.4byte	.LFE30
- 733 018d 37000000 		.4byte	.LLST1
- 734 0191 DC010000 		.4byte	0x1dc
- 735 0195 10       		.uleb128 0x10
- 736 0196 60020000 		.4byte	.LASF22
- 737 019a 01       		.byte	0x1
- 738 019b 24       		.byte	0x24
- 739 019c 6F000000 		.4byte	0x6f
- 740 01a0 02       		.byte	0x2
- 741 01a1 91       		.byte	0x91
- 742 01a2 67       		.sleb128 -25
- 743 01a3 10       		.uleb128 0x10
- 744 01a4 17000000 		.4byte	.LASF23
- 745 01a8 01       		.byte	0x1
- 746 01a9 24       		.byte	0x24
- 747 01aa 6F000000 		.4byte	0x6f
- 748 01ae 02       		.byte	0x2
- 749 01af 91       		.byte	0x91
- 750 01b0 66       		.sleb128 -26
- 751 01b1 10       		.uleb128 0x10
- 752 01b2 07010000 		.4byte	.LASF24
- 753 01b6 01       		.byte	0x1
- 754 01b7 24       		.byte	0x24
- 755 01b8 6F000000 		.4byte	0x6f
- 756 01bc 02       		.byte	0x2
- 757 01bd 91       		.byte	0x91
- 758 01be 65       		.sleb128 -27
- 759 01bf 10       		.uleb128 0x10
- 760 01c0 70000000 		.4byte	.LASF25
- 761 01c4 01       		.byte	0x1
- 762 01c5 24       		.byte	0x24
- 763 01c6 27010000 		.4byte	0x127
- 764 01ca 02       		.byte	0x2
- 765 01cb 91       		.byte	0x91
- 766 01cc 60       		.sleb128 -32
- 767 01cd 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 17
+ 588 006a 07       		.byte	0x7
+ 589 006b A8010000 		.4byte	.LASF8
+ 590 006f 04       		.uleb128 0x4
+ 591 0070 28020000 		.4byte	.LASF12
+ 592 0074 02       		.byte	0x2
+ 593 0075 4C       		.byte	0x4c
+ 594 0076 30000000 		.4byte	0x30
+ 595 007a 02       		.uleb128 0x2
+ 596 007b 04       		.byte	0x4
+ 597 007c 04       		.byte	0x4
+ 598 007d 58000000 		.4byte	.LASF9
+ 599 0081 02       		.uleb128 0x2
+ 600 0082 08       		.byte	0x8
+ 601 0083 04       		.byte	0x4
+ 602 0084 17010000 		.4byte	.LASF10
+ 603 0088 02       		.uleb128 0x2
+ 604 0089 01       		.byte	0x1
+ 605 008a 08       		.byte	0x8
+ 606 008b 0E020000 		.4byte	.LASF11
+ 607 008f 05       		.uleb128 0x5
+ 608 0090 04       		.byte	0x4
+ 609 0091 07       		.byte	0x7
+ 610 0092 04       		.uleb128 0x4
+ 611 0093 21020000 		.4byte	.LASF13
+ 612 0097 03       		.byte	0x3
+ 613 0098 0F       		.byte	0xf
+ 614 0099 6F000000 		.4byte	0x6f
+ 615 009d 06       		.uleb128 0x6
+ 616 009e B5010000 		.4byte	.LASF41
+ 617 00a2 0E       		.byte	0xe
+ 618 00a3 04       		.byte	0x4
+ 619 00a4 52       		.byte	0x52
+ 620 00a5 0C010000 		.4byte	0x10c
+ 621 00a9 07       		.uleb128 0x7
+ 622 00aa 5E000000 		.4byte	.LASF14
+ 623 00ae 04       		.byte	0x4
+ 624 00af 53       		.byte	0x53
+ 625 00b0 6F000000 		.4byte	0x6f
+ 626 00b4 02       		.byte	0x2
+ 627 00b5 23       		.byte	0x23
+ 628 00b6 00       		.uleb128 0x0
+ 629 00b7 07       		.uleb128 0x7
+ 630 00b8 69000000 		.4byte	.LASF15
+ 631 00bc 04       		.byte	0x4
+ 632 00bd 54       		.byte	0x54
+ 633 00be 6F000000 		.4byte	0x6f
+ 634 00c2 02       		.byte	0x2
+ 635 00c3 23       		.byte	0x23
+ 636 00c4 01       		.uleb128 0x1
+ 637 00c5 07       		.uleb128 0x7
+ 638 00c6 1E010000 		.4byte	.LASF16
+ 639 00ca 04       		.byte	0x4
+ 640 00cb 55       		.byte	0x55
+ 641 00cc 6F000000 		.4byte	0x6f
+ 642 00d0 02       		.byte	0x2
+ 643 00d1 23       		.byte	0x23
+ 644 00d2 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 17
 
 
- 768 01ce 6D736700 		.ascii	"msg\000"
- 769 01d2 01       		.byte	0x1
- 770 01d3 26       		.byte	0x26
- 771 01d4 1C010000 		.4byte	0x11c
- 772 01d8 02       		.byte	0x2
- 773 01d9 91       		.byte	0x91
- 774 01da 68       		.sleb128 -24
- 775 01db 00       		.byte	0x0
- 776 01dc 11       		.uleb128 0x11
- 777 01dd 01       		.byte	0x1
- 778 01de D3010000 		.4byte	.LASF27
- 779 01e2 01       		.byte	0x1
- 780 01e3 39       		.byte	0x39
- 781 01e4 01       		.byte	0x1
- 782 01e5 00000000 		.4byte	.LFB31
- 783 01e9 26000000 		.4byte	.LFE31
- 784 01ed 6E000000 		.4byte	.LLST2
- 785 01f1 04020000 		.4byte	0x204
- 786 01f5 0D       		.uleb128 0xd
- 787 01f6 2B000000 		.4byte	.LASF26
- 788 01fa 01       		.byte	0x1
- 789 01fb 3B       		.byte	0x3b
- 790 01fc 92000000 		.4byte	0x92
- 791 0200 02       		.byte	0x2
- 792 0201 91       		.byte	0x91
- 793 0202 77       		.sleb128 -9
- 794 0203 00       		.byte	0x0
- 795 0204 11       		.uleb128 0x11
- 796 0205 01       		.byte	0x1
- 797 0206 E6010000 		.4byte	.LASF28
- 798 020a 01       		.byte	0x1
- 799 020b 4D       		.byte	0x4d
- 800 020c 01       		.byte	0x1
- 801 020d 00000000 		.4byte	.LFB32
- 802 0211 70000000 		.4byte	.LFE32
- 803 0215 A5000000 		.4byte	.LLST3
- 804 0219 48020000 		.4byte	0x248
- 805 021d 10       		.uleb128 0x10
- 806 021e 1A010000 		.4byte	.LASF16
- 807 0222 01       		.byte	0x1
- 808 0223 4D       		.byte	0x4d
- 809 0224 6F000000 		.4byte	0x6f
- 810 0228 02       		.byte	0x2
- 811 0229 91       		.byte	0x91
- 812 022a 67       		.sleb128 -25
- 813 022b 0D       		.uleb128 0xd
- 814 022c 2B000000 		.4byte	.LASF26
- 815 0230 01       		.byte	0x1
- 816 0231 4F       		.byte	0x4f
- 817 0232 92000000 		.4byte	0x92
- 818 0236 02       		.byte	0x2
- 819 0237 91       		.byte	0x91
- 820 0238 77       		.sleb128 -9
- 821 0239 0E       		.uleb128 0xe
- 822 023a 6D736700 		.ascii	"msg\000"
- 823 023e 01       		.byte	0x1
- 824 023f 51       		.byte	0x51
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 18
+ 645 00d3 07       		.uleb128 0x7
+ 646 00d4 73020000 		.4byte	.LASF17
+ 647 00d8 04       		.byte	0x4
+ 648 00d9 56       		.byte	0x56
+ 649 00da 6F000000 		.4byte	0x6f
+ 650 00de 02       		.byte	0x2
+ 651 00df 23       		.byte	0x23
+ 652 00e0 03       		.uleb128 0x3
+ 653 00e1 07       		.uleb128 0x7
+ 654 00e2 FA010000 		.4byte	.LASF18
+ 655 00e6 04       		.byte	0x4
+ 656 00e7 57       		.byte	0x57
+ 657 00e8 6F000000 		.4byte	0x6f
+ 658 00ec 02       		.byte	0x2
+ 659 00ed 23       		.byte	0x23
+ 660 00ee 04       		.uleb128 0x4
+ 661 00ef 07       		.uleb128 0x7
+ 662 00f0 9C010000 		.4byte	.LASF19
+ 663 00f4 04       		.byte	0x4
+ 664 00f5 58       		.byte	0x58
+ 665 00f6 0C010000 		.4byte	0x10c
+ 666 00fa 02       		.byte	0x2
+ 667 00fb 23       		.byte	0x23
+ 668 00fc 05       		.uleb128 0x5
+ 669 00fd 07       		.uleb128 0x7
+ 670 00fe 0E000000 		.4byte	.LASF20
+ 671 0102 04       		.byte	0x4
+ 672 0103 59       		.byte	0x59
+ 673 0104 6F000000 		.4byte	0x6f
+ 674 0108 02       		.byte	0x2
+ 675 0109 23       		.byte	0x23
+ 676 010a 0D       		.uleb128 0xd
+ 677 010b 00       		.byte	0x0
+ 678 010c 08       		.uleb128 0x8
+ 679 010d 6F000000 		.4byte	0x6f
+ 680 0111 1C010000 		.4byte	0x11c
+ 681 0115 09       		.uleb128 0x9
+ 682 0116 8F000000 		.4byte	0x8f
+ 683 011a 07       		.byte	0x7
+ 684 011b 00       		.byte	0x0
+ 685 011c 04       		.uleb128 0x4
+ 686 011d 4C000000 		.4byte	.LASF21
+ 687 0121 04       		.byte	0x4
+ 688 0122 5A       		.byte	0x5a
+ 689 0123 9D000000 		.4byte	0x9d
+ 690 0127 0A       		.uleb128 0xa
+ 691 0128 04       		.byte	0x4
+ 692 0129 6F000000 		.4byte	0x6f
+ 693 012d 0B       		.uleb128 0xb
+ 694 012e 51020000 		.4byte	.LASF22
+ 695 0132 01       		.byte	0x1
+ 696 0133 11       		.byte	0x11
+ 697 0134 01       		.byte	0x1
+ 698 0135 6F000000 		.4byte	0x6f
+ 699 0139 00000000 		.4byte	.LFB29
+ 700 013d 64000000 		.4byte	.LFE29
+ 701 0141 00000000 		.4byte	.LLST0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 18
 
 
- 825 0240 1C010000 		.4byte	0x11c
- 826 0244 02       		.byte	0x2
- 827 0245 91       		.byte	0x91
- 828 0246 68       		.sleb128 -24
- 829 0247 00       		.byte	0x0
- 830 0248 0F       		.uleb128 0xf
- 831 0249 01       		.byte	0x1
- 832 024a 12020000 		.4byte	.LASF30
- 833 024e 01       		.byte	0x1
- 834 024f 68       		.byte	0x68
- 835 0250 01       		.byte	0x1
- 836 0251 92000000 		.4byte	0x92
- 837 0255 00000000 		.4byte	.LFB33
- 838 0259 4A000000 		.4byte	.LFE33
- 839 025d DC000000 		.4byte	.LLST4
- 840 0261 9E020000 		.4byte	0x29e
- 841 0265 10       		.uleb128 0x10
- 842 0266 DD010000 		.4byte	.LASF31
- 843 026a 01       		.byte	0x1
- 844 026b 68       		.byte	0x68
- 845 026c 72010000 		.4byte	0x172
- 846 0270 02       		.byte	0x2
- 847 0271 91       		.byte	0x91
- 848 0272 6C       		.sleb128 -20
- 849 0273 0D       		.uleb128 0xd
- 850 0274 2B000000 		.4byte	.LASF26
- 851 0278 01       		.byte	0x1
- 852 0279 6A       		.byte	0x6a
- 853 027a 92000000 		.4byte	0x92
- 854 027e 02       		.byte	0x2
- 855 027f 91       		.byte	0x91
- 856 0280 75       		.sleb128 -11
- 857 0281 0D       		.uleb128 0xd
- 858 0282 6A020000 		.4byte	.LASF32
- 859 0286 01       		.byte	0x1
- 860 0287 6B       		.byte	0x6b
- 861 0288 6F000000 		.4byte	0x6f
- 862 028c 02       		.byte	0x2
- 863 028d 91       		.byte	0x91
- 864 028e 76       		.sleb128 -10
- 865 028f 0D       		.uleb128 0xd
- 866 0290 3B000000 		.4byte	.LASF33
- 867 0294 01       		.byte	0x1
- 868 0295 6C       		.byte	0x6c
- 869 0296 6F000000 		.4byte	0x6f
- 870 029a 02       		.byte	0x2
- 871 029b 91       		.byte	0x91
- 872 029c 77       		.sleb128 -9
- 873 029d 00       		.byte	0x0
- 874 029e 11       		.uleb128 0x11
- 875 029f 01       		.byte	0x1
- 876 02a0 32000000 		.4byte	.LASF34
- 877 02a4 01       		.byte	0x1
- 878 02a5 7B       		.byte	0x7b
- 879 02a6 01       		.byte	0x1
- 880 02a7 00000000 		.4byte	.LFB34
- 881 02ab 1C000000 		.4byte	.LFE34
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 19
+ 702 0145 72010000 		.4byte	0x172
+ 703 0149 0C       		.uleb128 0xc
+ 704 014a 6D736700 		.ascii	"msg\000"
+ 705 014e 01       		.byte	0x1
+ 706 014f 11       		.byte	0x11
+ 707 0150 72010000 		.4byte	0x172
+ 708 0154 02       		.byte	0x2
+ 709 0155 91       		.byte	0x91
+ 710 0156 6C       		.sleb128 -20
+ 711 0157 0D       		.uleb128 0xd
+ 712 0158 0E000000 		.4byte	.LASF20
+ 713 015c 01       		.byte	0x1
+ 714 015d 13       		.byte	0x13
+ 715 015e 6F000000 		.4byte	0x6f
+ 716 0162 02       		.byte	0x2
+ 717 0163 91       		.byte	0x91
+ 718 0164 76       		.sleb128 -10
+ 719 0165 0E       		.uleb128 0xe
+ 720 0166 6900     		.ascii	"i\000"
+ 721 0168 01       		.byte	0x1
+ 722 0169 14       		.byte	0x14
+ 723 016a 6F000000 		.4byte	0x6f
+ 724 016e 02       		.byte	0x2
+ 725 016f 91       		.byte	0x91
+ 726 0170 77       		.sleb128 -9
+ 727 0171 00       		.byte	0x0
+ 728 0172 0A       		.uleb128 0xa
+ 729 0173 04       		.byte	0x4
+ 730 0174 1C010000 		.4byte	0x11c
+ 731 0178 0B       		.uleb128 0xb
+ 732 0179 17000000 		.4byte	.LASF23
+ 733 017d 01       		.byte	0x1
+ 734 017e 24       		.byte	0x24
+ 735 017f 01       		.byte	0x1
+ 736 0180 92000000 		.4byte	0x92
+ 737 0184 00000000 		.4byte	.LFB30
+ 738 0188 76000000 		.4byte	.LFE30
+ 739 018c 37000000 		.4byte	.LLST1
+ 740 0190 DB010000 		.4byte	0x1db
+ 741 0194 0F       		.uleb128 0xf
+ 742 0195 5D020000 		.4byte	.LASF24
+ 743 0199 01       		.byte	0x1
+ 744 019a 24       		.byte	0x24
+ 745 019b 6F000000 		.4byte	0x6f
+ 746 019f 02       		.byte	0x2
+ 747 01a0 91       		.byte	0x91
+ 748 01a1 67       		.sleb128 -25
+ 749 01a2 0F       		.uleb128 0xf
+ 750 01a3 24000000 		.4byte	.LASF25
+ 751 01a7 01       		.byte	0x1
+ 752 01a8 24       		.byte	0x24
+ 753 01a9 6F000000 		.4byte	0x6f
+ 754 01ad 02       		.byte	0x2
+ 755 01ae 91       		.byte	0x91
+ 756 01af 66       		.sleb128 -26
+ 757 01b0 0F       		.uleb128 0xf
+ 758 01b1 0B010000 		.4byte	.LASF26
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 19
 
 
- 882 02af 13010000 		.4byte	.LLST5
- 883 02b3 EF020000 		.4byte	0x2ef
- 884 02b7 0C       		.uleb128 0xc
- 885 02b8 696400   		.ascii	"id\000"
- 886 02bb 01       		.byte	0x1
- 887 02bc 7B       		.byte	0x7b
- 888 02bd 61000000 		.4byte	0x61
- 889 02c1 02       		.byte	0x2
- 890 02c2 91       		.byte	0x91
- 891 02c3 6C       		.sleb128 -20
- 892 02c4 10       		.uleb128 0x10
- 893 02c5 22010000 		.4byte	.LASF35
- 894 02c9 01       		.byte	0x1
- 895 02ca 7B       		.byte	0x7b
- 896 02cb 61000000 		.4byte	0x61
- 897 02cf 02       		.byte	0x2
- 898 02d0 91       		.byte	0x91
- 899 02d1 68       		.sleb128 -24
- 900 02d2 10       		.uleb128 0x10
- 901 02d3 4B020000 		.4byte	.LASF36
- 902 02d7 01       		.byte	0x1
- 903 02d8 7B       		.byte	0x7b
- 904 02d9 61000000 		.4byte	0x61
- 905 02dd 02       		.byte	0x2
- 906 02de 91       		.byte	0x91
- 907 02df 64       		.sleb128 -28
- 908 02e0 0D       		.uleb128 0xd
- 909 02e1 EB010000 		.4byte	.LASF37
- 910 02e5 01       		.byte	0x1
- 911 02e6 7D       		.byte	0x7d
- 912 02e7 61000000 		.4byte	0x61
- 913 02eb 02       		.byte	0x2
- 914 02ec 91       		.byte	0x91
- 915 02ed 74       		.sleb128 -12
- 916 02ee 00       		.byte	0x0
- 917 02ef 12       		.uleb128 0x12
- 918 02f0 FA000000 		.4byte	.LASF43
- 919 02f4 05       		.byte	0x5
- 920 02f5 CE06     		.2byte	0x6ce
- 921 02f7 FD020000 		.4byte	0x2fd
- 922 02fb 01       		.byte	0x1
- 923 02fc 01       		.byte	0x1
- 924 02fd 13       		.uleb128 0x13
- 925 02fe 61000000 		.4byte	0x61
- 926 0302 00       		.byte	0x0
- 927              		.section	.debug_abbrev
- 928 0000 01       		.uleb128 0x1
- 929 0001 11       		.uleb128 0x11
- 930 0002 01       		.byte	0x1
- 931 0003 25       		.uleb128 0x25
- 932 0004 0E       		.uleb128 0xe
- 933 0005 13       		.uleb128 0x13
- 934 0006 0B       		.uleb128 0xb
- 935 0007 03       		.uleb128 0x3
- 936 0008 0E       		.uleb128 0xe
- 937 0009 1B       		.uleb128 0x1b
- 938 000a 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 20
+ 759 01b5 01       		.byte	0x1
+ 760 01b6 24       		.byte	0x24
+ 761 01b7 6F000000 		.4byte	0x6f
+ 762 01bb 02       		.byte	0x2
+ 763 01bc 91       		.byte	0x91
+ 764 01bd 65       		.sleb128 -27
+ 765 01be 0F       		.uleb128 0xf
+ 766 01bf 74000000 		.4byte	.LASF27
+ 767 01c3 01       		.byte	0x1
+ 768 01c4 24       		.byte	0x24
+ 769 01c5 27010000 		.4byte	0x127
+ 770 01c9 02       		.byte	0x2
+ 771 01ca 91       		.byte	0x91
+ 772 01cb 60       		.sleb128 -32
+ 773 01cc 0E       		.uleb128 0xe
+ 774 01cd 6D736700 		.ascii	"msg\000"
+ 775 01d1 01       		.byte	0x1
+ 776 01d2 26       		.byte	0x26
+ 777 01d3 1C010000 		.4byte	0x11c
+ 778 01d7 02       		.byte	0x2
+ 779 01d8 91       		.byte	0x91
+ 780 01d9 68       		.sleb128 -24
+ 781 01da 00       		.byte	0x0
+ 782 01db 10       		.uleb128 0x10
+ 783 01dc 01       		.byte	0x1
+ 784 01dd 13020000 		.4byte	.LASF42
+ 785 01e1 01       		.byte	0x1
+ 786 01e2 3B       		.byte	0x3b
+ 787 01e3 01       		.byte	0x1
+ 788 01e4 92000000 		.4byte	0x92
+ 789 01e8 00000000 		.4byte	.LFB31
+ 790 01ec 4A000000 		.4byte	.LFE31
+ 791 01f0 6E000000 		.4byte	.LLST2
+ 792 01f4 31020000 		.4byte	0x231
+ 793 01f8 0F       		.uleb128 0xf
+ 794 01f9 E3010000 		.4byte	.LASF28
+ 795 01fd 01       		.byte	0x1
+ 796 01fe 3B       		.byte	0x3b
+ 797 01ff 72010000 		.4byte	0x172
+ 798 0203 02       		.byte	0x2
+ 799 0204 91       		.byte	0x91
+ 800 0205 6C       		.sleb128 -20
+ 801 0206 0D       		.uleb128 0xd
+ 802 0207 38000000 		.4byte	.LASF29
+ 803 020b 01       		.byte	0x1
+ 804 020c 3D       		.byte	0x3d
+ 805 020d 92000000 		.4byte	0x92
+ 806 0211 02       		.byte	0x2
+ 807 0212 91       		.byte	0x91
+ 808 0213 75       		.sleb128 -11
+ 809 0214 0D       		.uleb128 0xd
+ 810 0215 67020000 		.4byte	.LASF30
+ 811 0219 01       		.byte	0x1
+ 812 021a 3E       		.byte	0x3e
+ 813 021b 6F000000 		.4byte	0x6f
+ 814 021f 02       		.byte	0x2
+ 815 0220 91       		.byte	0x91
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 20
 
 
- 939 000b 11       		.uleb128 0x11
- 940 000c 01       		.uleb128 0x1
- 941 000d 52       		.uleb128 0x52
- 942 000e 01       		.uleb128 0x1
- 943 000f 55       		.uleb128 0x55
- 944 0010 06       		.uleb128 0x6
- 945 0011 10       		.uleb128 0x10
- 946 0012 06       		.uleb128 0x6
- 947 0013 00       		.byte	0x0
- 948 0014 00       		.byte	0x0
- 949 0015 02       		.uleb128 0x2
- 950 0016 24       		.uleb128 0x24
- 951 0017 00       		.byte	0x0
- 952 0018 0B       		.uleb128 0xb
- 953 0019 0B       		.uleb128 0xb
- 954 001a 3E       		.uleb128 0x3e
- 955 001b 0B       		.uleb128 0xb
- 956 001c 03       		.uleb128 0x3
- 957 001d 0E       		.uleb128 0xe
- 958 001e 00       		.byte	0x0
- 959 001f 00       		.byte	0x0
- 960 0020 03       		.uleb128 0x3
- 961 0021 24       		.uleb128 0x24
- 962 0022 00       		.byte	0x0
- 963 0023 0B       		.uleb128 0xb
- 964 0024 0B       		.uleb128 0xb
- 965 0025 3E       		.uleb128 0x3e
- 966 0026 0B       		.uleb128 0xb
- 967 0027 03       		.uleb128 0x3
- 968 0028 08       		.uleb128 0x8
- 969 0029 00       		.byte	0x0
- 970 002a 00       		.byte	0x0
- 971 002b 04       		.uleb128 0x4
- 972 002c 16       		.uleb128 0x16
- 973 002d 00       		.byte	0x0
- 974 002e 03       		.uleb128 0x3
- 975 002f 0E       		.uleb128 0xe
- 976 0030 3A       		.uleb128 0x3a
- 977 0031 0B       		.uleb128 0xb
- 978 0032 3B       		.uleb128 0x3b
- 979 0033 0B       		.uleb128 0xb
- 980 0034 49       		.uleb128 0x49
- 981 0035 13       		.uleb128 0x13
- 982 0036 00       		.byte	0x0
- 983 0037 00       		.byte	0x0
- 984 0038 05       		.uleb128 0x5
- 985 0039 24       		.uleb128 0x24
- 986 003a 00       		.byte	0x0
- 987 003b 0B       		.uleb128 0xb
- 988 003c 0B       		.uleb128 0xb
- 989 003d 3E       		.uleb128 0x3e
- 990 003e 0B       		.uleb128 0xb
- 991 003f 00       		.byte	0x0
- 992 0040 00       		.byte	0x0
- 993 0041 06       		.uleb128 0x6
- 994 0042 13       		.uleb128 0x13
- 995 0043 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 21
+ 816 0221 76       		.sleb128 -10
+ 817 0222 0D       		.uleb128 0xd
+ 818 0223 3F000000 		.4byte	.LASF31
+ 819 0227 01       		.byte	0x1
+ 820 0228 3F       		.byte	0x3f
+ 821 0229 6F000000 		.4byte	0x6f
+ 822 022d 02       		.byte	0x2
+ 823 022e 91       		.byte	0x91
+ 824 022f 77       		.sleb128 -9
+ 825 0230 00       		.byte	0x0
+ 826 0231 11       		.uleb128 0x11
+ 827 0232 01       		.byte	0x1
+ 828 0233 7A020000 		.4byte	.LASF32
+ 829 0237 01       		.byte	0x1
+ 830 0238 54       		.byte	0x54
+ 831 0239 01       		.byte	0x1
+ 832 023a 00000000 		.4byte	.LFB32
+ 833 023e 88000000 		.4byte	.LFE32
+ 834 0242 A5000000 		.4byte	.LLST3
+ 835 0246 75020000 		.4byte	0x275
+ 836 024a 0F       		.uleb128 0xf
+ 837 024b 1E010000 		.4byte	.LASF16
+ 838 024f 01       		.byte	0x1
+ 839 0250 54       		.byte	0x54
+ 840 0251 6F000000 		.4byte	0x6f
+ 841 0255 02       		.byte	0x2
+ 842 0256 91       		.byte	0x91
+ 843 0257 5F       		.sleb128 -33
+ 844 0258 0D       		.uleb128 0xd
+ 845 0259 38000000 		.4byte	.LASF29
+ 846 025d 01       		.byte	0x1
+ 847 025e 56       		.byte	0x56
+ 848 025f 92000000 		.4byte	0x92
+ 849 0263 02       		.byte	0x2
+ 850 0264 91       		.byte	0x91
+ 851 0265 6F       		.sleb128 -17
+ 852 0266 0E       		.uleb128 0xe
+ 853 0267 6D736700 		.ascii	"msg\000"
+ 854 026b 01       		.byte	0x1
+ 855 026c 58       		.byte	0x58
+ 856 026d 1C010000 		.4byte	0x11c
+ 857 0271 02       		.byte	0x2
+ 858 0272 91       		.byte	0x91
+ 859 0273 60       		.sleb128 -32
+ 860 0274 00       		.byte	0x0
+ 861 0275 11       		.uleb128 0x11
+ 862 0276 01       		.byte	0x1
+ 863 0277 2E020000 		.4byte	.LASF33
+ 864 027b 01       		.byte	0x1
+ 865 027c 6F       		.byte	0x6f
+ 866 027d 01       		.byte	0x1
+ 867 027e 00000000 		.4byte	.LFB33
+ 868 0282 1C000000 		.4byte	.LFE33
+ 869 0286 DC000000 		.4byte	.LLST4
+ 870 028a C6020000 		.4byte	0x2c6
+ 871 028e 0C       		.uleb128 0xc
+ 872 028f 696400   		.ascii	"id\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 21
 
 
- 996 0044 03       		.uleb128 0x3
- 997 0045 0E       		.uleb128 0xe
- 998 0046 0B       		.uleb128 0xb
- 999 0047 0B       		.uleb128 0xb
- 1000 0048 3A       		.uleb128 0x3a
- 1001 0049 0B       		.uleb128 0xb
- 1002 004a 3B       		.uleb128 0x3b
- 1003 004b 0B       		.uleb128 0xb
- 1004 004c 01       		.uleb128 0x1
- 1005 004d 13       		.uleb128 0x13
- 1006 004e 00       		.byte	0x0
- 1007 004f 00       		.byte	0x0
- 1008 0050 07       		.uleb128 0x7
- 1009 0051 0D       		.uleb128 0xd
- 1010 0052 00       		.byte	0x0
- 1011 0053 03       		.uleb128 0x3
- 1012 0054 0E       		.uleb128 0xe
- 1013 0055 3A       		.uleb128 0x3a
- 1014 0056 0B       		.uleb128 0xb
- 1015 0057 3B       		.uleb128 0x3b
- 1016 0058 0B       		.uleb128 0xb
- 1017 0059 49       		.uleb128 0x49
- 1018 005a 13       		.uleb128 0x13
- 1019 005b 38       		.uleb128 0x38
- 1020 005c 0A       		.uleb128 0xa
- 1021 005d 00       		.byte	0x0
- 1022 005e 00       		.byte	0x0
- 1023 005f 08       		.uleb128 0x8
- 1024 0060 01       		.uleb128 0x1
- 1025 0061 01       		.byte	0x1
- 1026 0062 49       		.uleb128 0x49
- 1027 0063 13       		.uleb128 0x13
- 1028 0064 01       		.uleb128 0x1
- 1029 0065 13       		.uleb128 0x13
- 1030 0066 00       		.byte	0x0
- 1031 0067 00       		.byte	0x0
- 1032 0068 09       		.uleb128 0x9
- 1033 0069 21       		.uleb128 0x21
- 1034 006a 00       		.byte	0x0
- 1035 006b 49       		.uleb128 0x49
- 1036 006c 13       		.uleb128 0x13
- 1037 006d 2F       		.uleb128 0x2f
- 1038 006e 0B       		.uleb128 0xb
- 1039 006f 00       		.byte	0x0
- 1040 0070 00       		.byte	0x0
- 1041 0071 0A       		.uleb128 0xa
- 1042 0072 0F       		.uleb128 0xf
- 1043 0073 00       		.byte	0x0
- 1044 0074 0B       		.uleb128 0xb
- 1045 0075 0B       		.uleb128 0xb
- 1046 0076 49       		.uleb128 0x49
- 1047 0077 13       		.uleb128 0x13
- 1048 0078 00       		.byte	0x0
- 1049 0079 00       		.byte	0x0
- 1050 007a 0B       		.uleb128 0xb
- 1051 007b 2E       		.uleb128 0x2e
- 1052 007c 01       		.byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 22
+ 873 0292 01       		.byte	0x1
+ 874 0293 6F       		.byte	0x6f
+ 875 0294 61000000 		.4byte	0x61
+ 876 0298 02       		.byte	0x2
+ 877 0299 91       		.byte	0x91
+ 878 029a 6C       		.sleb128 -20
+ 879 029b 0F       		.uleb128 0xf
+ 880 029c 26010000 		.4byte	.LASF34
+ 881 02a0 01       		.byte	0x1
+ 882 02a1 6F       		.byte	0x6f
+ 883 02a2 61000000 		.4byte	0x61
+ 884 02a6 02       		.byte	0x2
+ 885 02a7 91       		.byte	0x91
+ 886 02a8 68       		.sleb128 -24
+ 887 02a9 0F       		.uleb128 0xf
+ 888 02aa 48020000 		.4byte	.LASF35
+ 889 02ae 01       		.byte	0x1
+ 890 02af 6F       		.byte	0x6f
+ 891 02b0 61000000 		.4byte	0x61
+ 892 02b4 02       		.byte	0x2
+ 893 02b5 91       		.byte	0x91
+ 894 02b6 64       		.sleb128 -28
+ 895 02b7 0D       		.uleb128 0xd
+ 896 02b8 EC010000 		.4byte	.LASF36
+ 897 02bc 01       		.byte	0x1
+ 898 02bd 71       		.byte	0x71
+ 899 02be 61000000 		.4byte	0x61
+ 900 02c2 02       		.byte	0x2
+ 901 02c3 91       		.byte	0x91
+ 902 02c4 74       		.sleb128 -12
+ 903 02c5 00       		.byte	0x0
+ 904 02c6 11       		.uleb128 0x11
+ 905 02c7 01       		.byte	0x1
+ 906 02c8 D9010000 		.4byte	.LASF37
+ 907 02cc 01       		.byte	0x1
+ 908 02cd FD       		.byte	0xfd
+ 909 02ce 01       		.byte	0x1
+ 910 02cf 00000000 		.4byte	.LFB34
+ 911 02d3 26000000 		.4byte	.LFE34
+ 912 02d7 13010000 		.4byte	.LLST5
+ 913 02db EE020000 		.4byte	0x2ee
+ 914 02df 0D       		.uleb128 0xd
+ 915 02e0 38000000 		.4byte	.LASF29
+ 916 02e4 01       		.byte	0x1
+ 917 02e5 FF       		.byte	0xff
+ 918 02e6 92000000 		.4byte	0x92
+ 919 02ea 02       		.byte	0x2
+ 920 02eb 91       		.byte	0x91
+ 921 02ec 77       		.sleb128 -9
+ 922 02ed 00       		.byte	0x0
+ 923 02ee 12       		.uleb128 0x12
+ 924 02ef FE000000 		.4byte	.LASF43
+ 925 02f3 05       		.byte	0x5
+ 926 02f4 CE06     		.2byte	0x6ce
+ 927 02f6 FC020000 		.4byte	0x2fc
+ 928 02fa 01       		.byte	0x1
+ 929 02fb 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 22
 
 
- 1053 007d 03       		.uleb128 0x3
- 1054 007e 0E       		.uleb128 0xe
- 1055 007f 3A       		.uleb128 0x3a
- 1056 0080 0B       		.uleb128 0xb
- 1057 0081 3B       		.uleb128 0x3b
- 1058 0082 0B       		.uleb128 0xb
- 1059 0083 27       		.uleb128 0x27
- 1060 0084 0C       		.uleb128 0xc
- 1061 0085 49       		.uleb128 0x49
- 1062 0086 13       		.uleb128 0x13
- 1063 0087 11       		.uleb128 0x11
- 1064 0088 01       		.uleb128 0x1
- 1065 0089 12       		.uleb128 0x12
- 1066 008a 01       		.uleb128 0x1
- 1067 008b 40       		.uleb128 0x40
- 1068 008c 06       		.uleb128 0x6
- 1069 008d 01       		.uleb128 0x1
- 1070 008e 13       		.uleb128 0x13
- 1071 008f 00       		.byte	0x0
- 1072 0090 00       		.byte	0x0
- 1073 0091 0C       		.uleb128 0xc
- 1074 0092 05       		.uleb128 0x5
- 1075 0093 00       		.byte	0x0
- 1076 0094 03       		.uleb128 0x3
- 1077 0095 08       		.uleb128 0x8
- 1078 0096 3A       		.uleb128 0x3a
- 1079 0097 0B       		.uleb128 0xb
- 1080 0098 3B       		.uleb128 0x3b
- 1081 0099 0B       		.uleb128 0xb
- 1082 009a 49       		.uleb128 0x49
- 1083 009b 13       		.uleb128 0x13
- 1084 009c 02       		.uleb128 0x2
- 1085 009d 0A       		.uleb128 0xa
- 1086 009e 00       		.byte	0x0
- 1087 009f 00       		.byte	0x0
- 1088 00a0 0D       		.uleb128 0xd
- 1089 00a1 34       		.uleb128 0x34
- 1090 00a2 00       		.byte	0x0
- 1091 00a3 03       		.uleb128 0x3
- 1092 00a4 0E       		.uleb128 0xe
- 1093 00a5 3A       		.uleb128 0x3a
- 1094 00a6 0B       		.uleb128 0xb
- 1095 00a7 3B       		.uleb128 0x3b
- 1096 00a8 0B       		.uleb128 0xb
- 1097 00a9 49       		.uleb128 0x49
- 1098 00aa 13       		.uleb128 0x13
- 1099 00ab 02       		.uleb128 0x2
- 1100 00ac 0A       		.uleb128 0xa
- 1101 00ad 00       		.byte	0x0
- 1102 00ae 00       		.byte	0x0
- 1103 00af 0E       		.uleb128 0xe
- 1104 00b0 34       		.uleb128 0x34
- 1105 00b1 00       		.byte	0x0
- 1106 00b2 03       		.uleb128 0x3
- 1107 00b3 08       		.uleb128 0x8
- 1108 00b4 3A       		.uleb128 0x3a
- 1109 00b5 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 23
+ 930 02fc 13       		.uleb128 0x13
+ 931 02fd 61000000 		.4byte	0x61
+ 932 0301 00       		.byte	0x0
+ 933              		.section	.debug_abbrev
+ 934 0000 01       		.uleb128 0x1
+ 935 0001 11       		.uleb128 0x11
+ 936 0002 01       		.byte	0x1
+ 937 0003 25       		.uleb128 0x25
+ 938 0004 0E       		.uleb128 0xe
+ 939 0005 13       		.uleb128 0x13
+ 940 0006 0B       		.uleb128 0xb
+ 941 0007 03       		.uleb128 0x3
+ 942 0008 0E       		.uleb128 0xe
+ 943 0009 1B       		.uleb128 0x1b
+ 944 000a 0E       		.uleb128 0xe
+ 945 000b 11       		.uleb128 0x11
+ 946 000c 01       		.uleb128 0x1
+ 947 000d 52       		.uleb128 0x52
+ 948 000e 01       		.uleb128 0x1
+ 949 000f 55       		.uleb128 0x55
+ 950 0010 06       		.uleb128 0x6
+ 951 0011 10       		.uleb128 0x10
+ 952 0012 06       		.uleb128 0x6
+ 953 0013 00       		.byte	0x0
+ 954 0014 00       		.byte	0x0
+ 955 0015 02       		.uleb128 0x2
+ 956 0016 24       		.uleb128 0x24
+ 957 0017 00       		.byte	0x0
+ 958 0018 0B       		.uleb128 0xb
+ 959 0019 0B       		.uleb128 0xb
+ 960 001a 3E       		.uleb128 0x3e
+ 961 001b 0B       		.uleb128 0xb
+ 962 001c 03       		.uleb128 0x3
+ 963 001d 0E       		.uleb128 0xe
+ 964 001e 00       		.byte	0x0
+ 965 001f 00       		.byte	0x0
+ 966 0020 03       		.uleb128 0x3
+ 967 0021 24       		.uleb128 0x24
+ 968 0022 00       		.byte	0x0
+ 969 0023 0B       		.uleb128 0xb
+ 970 0024 0B       		.uleb128 0xb
+ 971 0025 3E       		.uleb128 0x3e
+ 972 0026 0B       		.uleb128 0xb
+ 973 0027 03       		.uleb128 0x3
+ 974 0028 08       		.uleb128 0x8
+ 975 0029 00       		.byte	0x0
+ 976 002a 00       		.byte	0x0
+ 977 002b 04       		.uleb128 0x4
+ 978 002c 16       		.uleb128 0x16
+ 979 002d 00       		.byte	0x0
+ 980 002e 03       		.uleb128 0x3
+ 981 002f 0E       		.uleb128 0xe
+ 982 0030 3A       		.uleb128 0x3a
+ 983 0031 0B       		.uleb128 0xb
+ 984 0032 3B       		.uleb128 0x3b
+ 985 0033 0B       		.uleb128 0xb
+ 986 0034 49       		.uleb128 0x49
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 23
 
 
- 1110 00b6 3B       		.uleb128 0x3b
- 1111 00b7 0B       		.uleb128 0xb
- 1112 00b8 49       		.uleb128 0x49
- 1113 00b9 13       		.uleb128 0x13
- 1114 00ba 02       		.uleb128 0x2
- 1115 00bb 0A       		.uleb128 0xa
- 1116 00bc 00       		.byte	0x0
- 1117 00bd 00       		.byte	0x0
- 1118 00be 0F       		.uleb128 0xf
- 1119 00bf 2E       		.uleb128 0x2e
- 1120 00c0 01       		.byte	0x1
- 1121 00c1 3F       		.uleb128 0x3f
- 1122 00c2 0C       		.uleb128 0xc
- 1123 00c3 03       		.uleb128 0x3
- 1124 00c4 0E       		.uleb128 0xe
- 1125 00c5 3A       		.uleb128 0x3a
- 1126 00c6 0B       		.uleb128 0xb
- 1127 00c7 3B       		.uleb128 0x3b
- 1128 00c8 0B       		.uleb128 0xb
- 1129 00c9 27       		.uleb128 0x27
- 1130 00ca 0C       		.uleb128 0xc
- 1131 00cb 49       		.uleb128 0x49
- 1132 00cc 13       		.uleb128 0x13
- 1133 00cd 11       		.uleb128 0x11
- 1134 00ce 01       		.uleb128 0x1
- 1135 00cf 12       		.uleb128 0x12
- 1136 00d0 01       		.uleb128 0x1
- 1137 00d1 40       		.uleb128 0x40
- 1138 00d2 06       		.uleb128 0x6
- 1139 00d3 01       		.uleb128 0x1
- 1140 00d4 13       		.uleb128 0x13
- 1141 00d5 00       		.byte	0x0
- 1142 00d6 00       		.byte	0x0
- 1143 00d7 10       		.uleb128 0x10
- 1144 00d8 05       		.uleb128 0x5
- 1145 00d9 00       		.byte	0x0
- 1146 00da 03       		.uleb128 0x3
- 1147 00db 0E       		.uleb128 0xe
- 1148 00dc 3A       		.uleb128 0x3a
- 1149 00dd 0B       		.uleb128 0xb
- 1150 00de 3B       		.uleb128 0x3b
- 1151 00df 0B       		.uleb128 0xb
- 1152 00e0 49       		.uleb128 0x49
- 1153 00e1 13       		.uleb128 0x13
- 1154 00e2 02       		.uleb128 0x2
- 1155 00e3 0A       		.uleb128 0xa
- 1156 00e4 00       		.byte	0x0
- 1157 00e5 00       		.byte	0x0
- 1158 00e6 11       		.uleb128 0x11
- 1159 00e7 2E       		.uleb128 0x2e
- 1160 00e8 01       		.byte	0x1
- 1161 00e9 3F       		.uleb128 0x3f
- 1162 00ea 0C       		.uleb128 0xc
- 1163 00eb 03       		.uleb128 0x3
- 1164 00ec 0E       		.uleb128 0xe
- 1165 00ed 3A       		.uleb128 0x3a
- 1166 00ee 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 24
+ 987 0035 13       		.uleb128 0x13
+ 988 0036 00       		.byte	0x0
+ 989 0037 00       		.byte	0x0
+ 990 0038 05       		.uleb128 0x5
+ 991 0039 24       		.uleb128 0x24
+ 992 003a 00       		.byte	0x0
+ 993 003b 0B       		.uleb128 0xb
+ 994 003c 0B       		.uleb128 0xb
+ 995 003d 3E       		.uleb128 0x3e
+ 996 003e 0B       		.uleb128 0xb
+ 997 003f 00       		.byte	0x0
+ 998 0040 00       		.byte	0x0
+ 999 0041 06       		.uleb128 0x6
+ 1000 0042 13       		.uleb128 0x13
+ 1001 0043 01       		.byte	0x1
+ 1002 0044 03       		.uleb128 0x3
+ 1003 0045 0E       		.uleb128 0xe
+ 1004 0046 0B       		.uleb128 0xb
+ 1005 0047 0B       		.uleb128 0xb
+ 1006 0048 3A       		.uleb128 0x3a
+ 1007 0049 0B       		.uleb128 0xb
+ 1008 004a 3B       		.uleb128 0x3b
+ 1009 004b 0B       		.uleb128 0xb
+ 1010 004c 01       		.uleb128 0x1
+ 1011 004d 13       		.uleb128 0x13
+ 1012 004e 00       		.byte	0x0
+ 1013 004f 00       		.byte	0x0
+ 1014 0050 07       		.uleb128 0x7
+ 1015 0051 0D       		.uleb128 0xd
+ 1016 0052 00       		.byte	0x0
+ 1017 0053 03       		.uleb128 0x3
+ 1018 0054 0E       		.uleb128 0xe
+ 1019 0055 3A       		.uleb128 0x3a
+ 1020 0056 0B       		.uleb128 0xb
+ 1021 0057 3B       		.uleb128 0x3b
+ 1022 0058 0B       		.uleb128 0xb
+ 1023 0059 49       		.uleb128 0x49
+ 1024 005a 13       		.uleb128 0x13
+ 1025 005b 38       		.uleb128 0x38
+ 1026 005c 0A       		.uleb128 0xa
+ 1027 005d 00       		.byte	0x0
+ 1028 005e 00       		.byte	0x0
+ 1029 005f 08       		.uleb128 0x8
+ 1030 0060 01       		.uleb128 0x1
+ 1031 0061 01       		.byte	0x1
+ 1032 0062 49       		.uleb128 0x49
+ 1033 0063 13       		.uleb128 0x13
+ 1034 0064 01       		.uleb128 0x1
+ 1035 0065 13       		.uleb128 0x13
+ 1036 0066 00       		.byte	0x0
+ 1037 0067 00       		.byte	0x0
+ 1038 0068 09       		.uleb128 0x9
+ 1039 0069 21       		.uleb128 0x21
+ 1040 006a 00       		.byte	0x0
+ 1041 006b 49       		.uleb128 0x49
+ 1042 006c 13       		.uleb128 0x13
+ 1043 006d 2F       		.uleb128 0x2f
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 24
 
 
- 1167 00ef 3B       		.uleb128 0x3b
- 1168 00f0 0B       		.uleb128 0xb
- 1169 00f1 27       		.uleb128 0x27
- 1170 00f2 0C       		.uleb128 0xc
- 1171 00f3 11       		.uleb128 0x11
- 1172 00f4 01       		.uleb128 0x1
- 1173 00f5 12       		.uleb128 0x12
- 1174 00f6 01       		.uleb128 0x1
- 1175 00f7 40       		.uleb128 0x40
- 1176 00f8 06       		.uleb128 0x6
- 1177 00f9 01       		.uleb128 0x1
- 1178 00fa 13       		.uleb128 0x13
- 1179 00fb 00       		.byte	0x0
- 1180 00fc 00       		.byte	0x0
- 1181 00fd 12       		.uleb128 0x12
- 1182 00fe 34       		.uleb128 0x34
- 1183 00ff 00       		.byte	0x0
- 1184 0100 03       		.uleb128 0x3
- 1185 0101 0E       		.uleb128 0xe
- 1186 0102 3A       		.uleb128 0x3a
- 1187 0103 0B       		.uleb128 0xb
- 1188 0104 3B       		.uleb128 0x3b
- 1189 0105 05       		.uleb128 0x5
- 1190 0106 49       		.uleb128 0x49
- 1191 0107 13       		.uleb128 0x13
- 1192 0108 3F       		.uleb128 0x3f
- 1193 0109 0C       		.uleb128 0xc
- 1194 010a 3C       		.uleb128 0x3c
- 1195 010b 0C       		.uleb128 0xc
- 1196 010c 00       		.byte	0x0
- 1197 010d 00       		.byte	0x0
- 1198 010e 13       		.uleb128 0x13
- 1199 010f 35       		.uleb128 0x35
- 1200 0110 00       		.byte	0x0
- 1201 0111 49       		.uleb128 0x49
- 1202 0112 13       		.uleb128 0x13
- 1203 0113 00       		.byte	0x0
- 1204 0114 00       		.byte	0x0
- 1205 0115 00       		.byte	0x0
- 1206              		.section	.debug_pubnames,"",%progbits
- 1207 0000 5D000000 		.4byte	0x5d
- 1208 0004 0200     		.2byte	0x2
- 1209 0006 00000000 		.4byte	.Ldebug_info0
- 1210 000a 03030000 		.4byte	0x303
- 1211 000e 78010000 		.4byte	0x178
- 1212 0012 43445335 		.ascii	"CDS5500_SendServoMsg\000"
- 1212      3530305F 
- 1212      53656E64 
- 1212      53657276 
- 1212      6F4D7367 
- 1213 0027 DC010000 		.4byte	0x1dc
- 1214 002b 53657276 		.ascii	"ServoTest\000"
- 1214      6F546573 
- 1214      7400
- 1215 0035 04020000 		.4byte	0x204
- 1216 0039 50696E67 		.ascii	"Ping\000"
- 1216      00
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 25
+ 1044 006e 0B       		.uleb128 0xb
+ 1045 006f 00       		.byte	0x0
+ 1046 0070 00       		.byte	0x0
+ 1047 0071 0A       		.uleb128 0xa
+ 1048 0072 0F       		.uleb128 0xf
+ 1049 0073 00       		.byte	0x0
+ 1050 0074 0B       		.uleb128 0xb
+ 1051 0075 0B       		.uleb128 0xb
+ 1052 0076 49       		.uleb128 0x49
+ 1053 0077 13       		.uleb128 0x13
+ 1054 0078 00       		.byte	0x0
+ 1055 0079 00       		.byte	0x0
+ 1056 007a 0B       		.uleb128 0xb
+ 1057 007b 2E       		.uleb128 0x2e
+ 1058 007c 01       		.byte	0x1
+ 1059 007d 03       		.uleb128 0x3
+ 1060 007e 0E       		.uleb128 0xe
+ 1061 007f 3A       		.uleb128 0x3a
+ 1062 0080 0B       		.uleb128 0xb
+ 1063 0081 3B       		.uleb128 0x3b
+ 1064 0082 0B       		.uleb128 0xb
+ 1065 0083 27       		.uleb128 0x27
+ 1066 0084 0C       		.uleb128 0xc
+ 1067 0085 49       		.uleb128 0x49
+ 1068 0086 13       		.uleb128 0x13
+ 1069 0087 11       		.uleb128 0x11
+ 1070 0088 01       		.uleb128 0x1
+ 1071 0089 12       		.uleb128 0x12
+ 1072 008a 01       		.uleb128 0x1
+ 1073 008b 40       		.uleb128 0x40
+ 1074 008c 06       		.uleb128 0x6
+ 1075 008d 01       		.uleb128 0x1
+ 1076 008e 13       		.uleb128 0x13
+ 1077 008f 00       		.byte	0x0
+ 1078 0090 00       		.byte	0x0
+ 1079 0091 0C       		.uleb128 0xc
+ 1080 0092 05       		.uleb128 0x5
+ 1081 0093 00       		.byte	0x0
+ 1082 0094 03       		.uleb128 0x3
+ 1083 0095 08       		.uleb128 0x8
+ 1084 0096 3A       		.uleb128 0x3a
+ 1085 0097 0B       		.uleb128 0xb
+ 1086 0098 3B       		.uleb128 0x3b
+ 1087 0099 0B       		.uleb128 0xb
+ 1088 009a 49       		.uleb128 0x49
+ 1089 009b 13       		.uleb128 0x13
+ 1090 009c 02       		.uleb128 0x2
+ 1091 009d 0A       		.uleb128 0xa
+ 1092 009e 00       		.byte	0x0
+ 1093 009f 00       		.byte	0x0
+ 1094 00a0 0D       		.uleb128 0xd
+ 1095 00a1 34       		.uleb128 0x34
+ 1096 00a2 00       		.byte	0x0
+ 1097 00a3 03       		.uleb128 0x3
+ 1098 00a4 0E       		.uleb128 0xe
+ 1099 00a5 3A       		.uleb128 0x3a
+ 1100 00a6 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 25
 
 
- 1217 003e 48020000 		.4byte	0x248
- 1218 0042 43686563 		.ascii	"CheckResponse\000"
+ 1101 00a7 3B       		.uleb128 0x3b
+ 1102 00a8 0B       		.uleb128 0xb
+ 1103 00a9 49       		.uleb128 0x49
+ 1104 00aa 13       		.uleb128 0x13
+ 1105 00ab 02       		.uleb128 0x2
+ 1106 00ac 0A       		.uleb128 0xa
+ 1107 00ad 00       		.byte	0x0
+ 1108 00ae 00       		.byte	0x0
+ 1109 00af 0E       		.uleb128 0xe
+ 1110 00b0 34       		.uleb128 0x34
+ 1111 00b1 00       		.byte	0x0
+ 1112 00b2 03       		.uleb128 0x3
+ 1113 00b3 08       		.uleb128 0x8
+ 1114 00b4 3A       		.uleb128 0x3a
+ 1115 00b5 0B       		.uleb128 0xb
+ 1116 00b6 3B       		.uleb128 0x3b
+ 1117 00b7 0B       		.uleb128 0xb
+ 1118 00b8 49       		.uleb128 0x49
+ 1119 00b9 13       		.uleb128 0x13
+ 1120 00ba 02       		.uleb128 0x2
+ 1121 00bb 0A       		.uleb128 0xa
+ 1122 00bc 00       		.byte	0x0
+ 1123 00bd 00       		.byte	0x0
+ 1124 00be 0F       		.uleb128 0xf
+ 1125 00bf 05       		.uleb128 0x5
+ 1126 00c0 00       		.byte	0x0
+ 1127 00c1 03       		.uleb128 0x3
+ 1128 00c2 0E       		.uleb128 0xe
+ 1129 00c3 3A       		.uleb128 0x3a
+ 1130 00c4 0B       		.uleb128 0xb
+ 1131 00c5 3B       		.uleb128 0x3b
+ 1132 00c6 0B       		.uleb128 0xb
+ 1133 00c7 49       		.uleb128 0x49
+ 1134 00c8 13       		.uleb128 0x13
+ 1135 00c9 02       		.uleb128 0x2
+ 1136 00ca 0A       		.uleb128 0xa
+ 1137 00cb 00       		.byte	0x0
+ 1138 00cc 00       		.byte	0x0
+ 1139 00cd 10       		.uleb128 0x10
+ 1140 00ce 2E       		.uleb128 0x2e
+ 1141 00cf 01       		.byte	0x1
+ 1142 00d0 3F       		.uleb128 0x3f
+ 1143 00d1 0C       		.uleb128 0xc
+ 1144 00d2 03       		.uleb128 0x3
+ 1145 00d3 0E       		.uleb128 0xe
+ 1146 00d4 3A       		.uleb128 0x3a
+ 1147 00d5 0B       		.uleb128 0xb
+ 1148 00d6 3B       		.uleb128 0x3b
+ 1149 00d7 0B       		.uleb128 0xb
+ 1150 00d8 27       		.uleb128 0x27
+ 1151 00d9 0C       		.uleb128 0xc
+ 1152 00da 49       		.uleb128 0x49
+ 1153 00db 13       		.uleb128 0x13
+ 1154 00dc 11       		.uleb128 0x11
+ 1155 00dd 01       		.uleb128 0x1
+ 1156 00de 12       		.uleb128 0x12
+ 1157 00df 01       		.uleb128 0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 26
+
+
+ 1158 00e0 40       		.uleb128 0x40
+ 1159 00e1 06       		.uleb128 0x6
+ 1160 00e2 01       		.uleb128 0x1
+ 1161 00e3 13       		.uleb128 0x13
+ 1162 00e4 00       		.byte	0x0
+ 1163 00e5 00       		.byte	0x0
+ 1164 00e6 11       		.uleb128 0x11
+ 1165 00e7 2E       		.uleb128 0x2e
+ 1166 00e8 01       		.byte	0x1
+ 1167 00e9 3F       		.uleb128 0x3f
+ 1168 00ea 0C       		.uleb128 0xc
+ 1169 00eb 03       		.uleb128 0x3
+ 1170 00ec 0E       		.uleb128 0xe
+ 1171 00ed 3A       		.uleb128 0x3a
+ 1172 00ee 0B       		.uleb128 0xb
+ 1173 00ef 3B       		.uleb128 0x3b
+ 1174 00f0 0B       		.uleb128 0xb
+ 1175 00f1 27       		.uleb128 0x27
+ 1176 00f2 0C       		.uleb128 0xc
+ 1177 00f3 11       		.uleb128 0x11
+ 1178 00f4 01       		.uleb128 0x1
+ 1179 00f5 12       		.uleb128 0x12
+ 1180 00f6 01       		.uleb128 0x1
+ 1181 00f7 40       		.uleb128 0x40
+ 1182 00f8 06       		.uleb128 0x6
+ 1183 00f9 01       		.uleb128 0x1
+ 1184 00fa 13       		.uleb128 0x13
+ 1185 00fb 00       		.byte	0x0
+ 1186 00fc 00       		.byte	0x0
+ 1187 00fd 12       		.uleb128 0x12
+ 1188 00fe 34       		.uleb128 0x34
+ 1189 00ff 00       		.byte	0x0
+ 1190 0100 03       		.uleb128 0x3
+ 1191 0101 0E       		.uleb128 0xe
+ 1192 0102 3A       		.uleb128 0x3a
+ 1193 0103 0B       		.uleb128 0xb
+ 1194 0104 3B       		.uleb128 0x3b
+ 1195 0105 05       		.uleb128 0x5
+ 1196 0106 49       		.uleb128 0x49
+ 1197 0107 13       		.uleb128 0x13
+ 1198 0108 3F       		.uleb128 0x3f
+ 1199 0109 0C       		.uleb128 0xc
+ 1200 010a 3C       		.uleb128 0x3c
+ 1201 010b 0C       		.uleb128 0xc
+ 1202 010c 00       		.byte	0x0
+ 1203 010d 00       		.byte	0x0
+ 1204 010e 13       		.uleb128 0x13
+ 1205 010f 35       		.uleb128 0x35
+ 1206 0110 00       		.byte	0x0
+ 1207 0111 49       		.uleb128 0x49
+ 1208 0112 13       		.uleb128 0x13
+ 1209 0113 00       		.byte	0x0
+ 1210 0114 00       		.byte	0x0
+ 1211 0115 00       		.byte	0x0
+ 1212              		.section	.debug_pubnames,"",%progbits
+ 1213 0000 54000000 		.4byte	0x54
+ 1214 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 27
+
+
+ 1215 0006 00000000 		.4byte	.Ldebug_info0
+ 1216 000a 02030000 		.4byte	0x302
+ 1217 000e DB010000 		.4byte	0x1db
+ 1218 0012 43686563 		.ascii	"CheckResponse\000"
  1218      6B526573 
  1218      706F6E73 
  1218      6500
- 1219 0050 9E020000 		.4byte	0x29e
- 1220 0054 57726974 		.ascii	"WritePos\000"
- 1220      65506F73 
+ 1219 0020 31020000 		.4byte	0x231
+ 1220 0024 43445335 		.ascii	"CDS5500_Ping\000"
+ 1220      3530305F 
+ 1220      50696E67 
  1220      00
- 1221 005d 00000000 		.4byte	0x0
- 1222              		.section	.debug_aranges,"",%progbits
- 1223 0000 44000000 		.4byte	0x44
- 1224 0004 0200     		.2byte	0x2
- 1225 0006 00000000 		.4byte	.Ldebug_info0
- 1226 000a 04       		.byte	0x4
- 1227 000b 00       		.byte	0x0
- 1228 000c 0000     		.2byte	0x0
- 1229 000e 0000     		.2byte	0x0
- 1230 0010 00000000 		.4byte	.LFB29
- 1231 0014 64000000 		.4byte	.LFE29-.LFB29
- 1232 0018 00000000 		.4byte	.LFB30
- 1233 001c 76000000 		.4byte	.LFE30-.LFB30
- 1234 0020 00000000 		.4byte	.LFB31
- 1235 0024 26000000 		.4byte	.LFE31-.LFB31
- 1236 0028 00000000 		.4byte	.LFB32
- 1237 002c 70000000 		.4byte	.LFE32-.LFB32
- 1238 0030 00000000 		.4byte	.LFB33
- 1239 0034 4A000000 		.4byte	.LFE33-.LFB33
- 1240 0038 00000000 		.4byte	.LFB34
- 1241 003c 1C000000 		.4byte	.LFE34-.LFB34
- 1242 0040 00000000 		.4byte	0x0
- 1243 0044 00000000 		.4byte	0x0
- 1244              		.section	.debug_ranges,"",%progbits
- 1245              	.Ldebug_ranges0:
- 1246 0000 00000000 		.4byte	.Ltext0
- 1247 0004 00000000 		.4byte	.Letext0
- 1248 0008 00000000 		.4byte	.LFB29
- 1249 000c 64000000 		.4byte	.LFE29
- 1250 0010 00000000 		.4byte	.LFB30
- 1251 0014 76000000 		.4byte	.LFE30
- 1252 0018 00000000 		.4byte	.LFB31
- 1253 001c 26000000 		.4byte	.LFE31
- 1254 0020 00000000 		.4byte	.LFB32
- 1255 0024 70000000 		.4byte	.LFE32
- 1256 0028 00000000 		.4byte	.LFB33
- 1257 002c 4A000000 		.4byte	.LFE33
- 1258 0030 00000000 		.4byte	.LFB34
- 1259 0034 1C000000 		.4byte	.LFE34
- 1260 0038 00000000 		.4byte	0x0
- 1261 003c 00000000 		.4byte	0x0
- 1262              		.section	.debug_str,"MS",%progbits,1
- 1263              	.LASF6:
- 1264 0000 6C6F6E67 		.ascii	"long long int\000"
- 1264      206C6F6E 
- 1264      6720696E 
- 1264      7400
- 1265              	.LASF20:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 26
+ 1221 0031 75020000 		.4byte	0x275
+ 1222 0035 43445335 		.ascii	"CDS5500_WritePos\000"
+ 1222      3530305F 
+ 1222      57726974 
+ 1222      65506F73 
+ 1222      00
+ 1223 0046 C6020000 		.4byte	0x2c6
+ 1224 004a 53657276 		.ascii	"ServoTest\000"
+ 1224      6F546573 
+ 1224      7400
+ 1225 0054 00000000 		.4byte	0x0
+ 1226              		.section	.debug_aranges,"",%progbits
+ 1227 0000 44000000 		.4byte	0x44
+ 1228 0004 0200     		.2byte	0x2
+ 1229 0006 00000000 		.4byte	.Ldebug_info0
+ 1230 000a 04       		.byte	0x4
+ 1231 000b 00       		.byte	0x0
+ 1232 000c 0000     		.2byte	0x0
+ 1233 000e 0000     		.2byte	0x0
+ 1234 0010 00000000 		.4byte	.LFB29
+ 1235 0014 64000000 		.4byte	.LFE29-.LFB29
+ 1236 0018 00000000 		.4byte	.LFB30
+ 1237 001c 76000000 		.4byte	.LFE30-.LFB30
+ 1238 0020 00000000 		.4byte	.LFB31
+ 1239 0024 4A000000 		.4byte	.LFE31-.LFB31
+ 1240 0028 00000000 		.4byte	.LFB32
+ 1241 002c 88000000 		.4byte	.LFE32-.LFB32
+ 1242 0030 00000000 		.4byte	.LFB33
+ 1243 0034 1C000000 		.4byte	.LFE33-.LFB33
+ 1244 0038 00000000 		.4byte	.LFB34
+ 1245 003c 26000000 		.4byte	.LFE34-.LFB34
+ 1246 0040 00000000 		.4byte	0x0
+ 1247 0044 00000000 		.4byte	0x0
+ 1248              		.section	.debug_ranges,"",%progbits
+ 1249              	.Ldebug_ranges0:
+ 1250 0000 00000000 		.4byte	.Ltext0
+ 1251 0004 00000000 		.4byte	.Letext0
+ 1252 0008 00000000 		.4byte	.LFB29
+ 1253 000c 64000000 		.4byte	.LFE29
+ 1254 0010 00000000 		.4byte	.LFB30
+ 1255 0014 76000000 		.4byte	.LFE30
+ 1256 0018 00000000 		.4byte	.LFB31
+ 1257 001c 4A000000 		.4byte	.LFE31
+ 1258 0020 00000000 		.4byte	.LFB32
+ 1259 0024 88000000 		.4byte	.LFE32
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 28
 
 
- 1266 000e 63686563 		.ascii	"checksum\000"
- 1266      6B73756D 
- 1266      00
- 1267              	.LASF23:
- 1268 0017 7563496E 		.ascii	"ucInstrId\000"
- 1268      73747249 
- 1268      6400
- 1269              	.LASF2:
- 1270 0021 73686F72 		.ascii	"short int\000"
- 1270      7420696E 
- 1270      7400
- 1271              	.LASF26:
- 1272 002b 73746174 		.ascii	"status\000"
- 1272      757300
- 1273              	.LASF34:
- 1274 0032 57726974 		.ascii	"WritePos\000"
- 1274      65506F73 
- 1274      00
- 1275              	.LASF33:
- 1276 003b 63616C63 		.ascii	"calcChecksum\000"
- 1276      43686563 
- 1276      6B73756D 
- 1276      00
- 1277              	.LASF21:
- 1278 0048 43445335 		.ascii	"CDS5500_MSG\000"
- 1278      3530305F 
- 1278      4D534700 
- 1279              	.LASF9:
- 1280 0054 666C6F61 		.ascii	"float\000"
- 1280      7400
- 1281              	.LASF14:
- 1282 005a 73746172 		.ascii	"startbyte0\000"
- 1282      74627974 
- 1282      653000
- 1283              	.LASF15:
- 1284 0065 73746172 		.ascii	"startbyte1\000"
- 1284      74627974 
- 1284      653100
- 1285              	.LASF25:
- 1286 0070 70756349 		.ascii	"pucInstrParams\000"
- 1286      6E737472 
- 1286      50617261 
- 1286      6D7300
- 1287              	.LASF1:
- 1288 007f 756E7369 		.ascii	"unsigned char\000"
- 1288      676E6564 
- 1288      20636861 
- 1288      7200
- 1289              	.LASF39:
- 1290 008d 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\se"
- 1290      2E5C2E2E 
- 1290      5C447269 
- 1290      76655F50 
- 1290      6C617466 
- 1291 00bb 72766F5F 		.ascii	"rvo_cds5500.c\000"
- 1291      63647335 
- 1291      3530302E 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 27
+ 1260 0028 00000000 		.4byte	.LFB33
+ 1261 002c 1C000000 		.4byte	.LFE33
+ 1262 0030 00000000 		.4byte	.LFB34
+ 1263 0034 26000000 		.4byte	.LFE34
+ 1264 0038 00000000 		.4byte	0x0
+ 1265 003c 00000000 		.4byte	0x0
+ 1266              		.section	.debug_str,"MS",%progbits,1
+ 1267              	.LASF6:
+ 1268 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1268      206C6F6E 
+ 1268      6720696E 
+ 1268      7400
+ 1269              	.LASF20:
+ 1270 000e 63686563 		.ascii	"checksum\000"
+ 1270      6B73756D 
+ 1270      00
+ 1271              	.LASF23:
+ 1272 0017 53656E64 		.ascii	"SendServoMsg\000"
+ 1272      53657276 
+ 1272      6F4D7367 
+ 1272      00
+ 1273              	.LASF25:
+ 1274 0024 7563496E 		.ascii	"ucInstrId\000"
+ 1274      73747249 
+ 1274      6400
+ 1275              	.LASF2:
+ 1276 002e 73686F72 		.ascii	"short int\000"
+ 1276      7420696E 
+ 1276      7400
+ 1277              	.LASF29:
+ 1278 0038 73746174 		.ascii	"status\000"
+ 1278      757300
+ 1279              	.LASF31:
+ 1280 003f 63616C63 		.ascii	"calcChecksum\000"
+ 1280      43686563 
+ 1280      6B73756D 
+ 1280      00
+ 1281              	.LASF21:
+ 1282 004c 43445335 		.ascii	"CDS5500_MSG\000"
+ 1282      3530305F 
+ 1282      4D534700 
+ 1283              	.LASF9:
+ 1284 0058 666C6F61 		.ascii	"float\000"
+ 1284      7400
+ 1285              	.LASF14:
+ 1286 005e 73746172 		.ascii	"startbyte0\000"
+ 1286      74627974 
+ 1286      653000
+ 1287              	.LASF15:
+ 1288 0069 73746172 		.ascii	"startbyte1\000"
+ 1288      74627974 
+ 1288      653100
+ 1289              	.LASF27:
+ 1290 0074 70756349 		.ascii	"pucInstrParams\000"
+ 1290      6E737472 
+ 1290      50617261 
+ 1290      6D7300
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 29
 
 
- 1291      6300
- 1292              	.LASF5:
- 1293 00c9 6C6F6E67 		.ascii	"long unsigned int\000"
- 1293      20756E73 
- 1293      69676E65 
- 1293      6420696E 
- 1293      7400
- 1294              	.LASF3:
- 1295 00db 73686F72 		.ascii	"short unsigned int\000"
- 1295      7420756E 
- 1295      7369676E 
- 1295      65642069 
- 1295      6E7400
- 1296              	.LASF0:
- 1297 00ee 7369676E 		.ascii	"signed char\000"
- 1297      65642063 
- 1297      68617200 
- 1298              	.LASF43:
- 1299 00fa 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1299      52784275 
- 1299      66666572 
- 1299      00
- 1300              	.LASF24:
- 1301 0107 75634E75 		.ascii	"ucNumParams\000"
- 1301      6D506172 
- 1301      616D7300 
- 1302              	.LASF10:
- 1303 0113 646F7562 		.ascii	"double\000"
- 1303      6C6500
- 1304              	.LASF16:
- 1305 011a 6D6F746F 		.ascii	"motorId\000"
- 1305      72496400 
- 1306              	.LASF35:
- 1307 0122 706F7369 		.ascii	"position\000"
- 1307      74696F6E 
- 1307      00
- 1308              	.LASF40:
- 1309 012b 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
- 1309      69744875 
- 1309      625F726F 
- 1309      626F7469 
- 1309      6373636F 
- 1310 015a 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
- 1310      6F725F32 
- 1310      2E325C44 
- 1310      72697665 
- 1310      506C6174 
- 1311 018a 6174666F 		.ascii	"atform2.cydsn\000"
- 1311      726D322E 
- 1311      63796473 
- 1311      6E00
- 1312              	.LASF19:
- 1313 0198 696E7374 		.ascii	"instrParams\000"
- 1313      72506172 
- 1313      616D7300 
- 1314              	.LASF41:
- 1315 01a4 5F736572 		.ascii	"_servo_msg\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 28
+ 1291              	.LASF1:
+ 1292 0083 756E7369 		.ascii	"unsigned char\000"
+ 1292      676E6564 
+ 1292      20636861 
+ 1292      7200
+ 1293              	.LASF39:
+ 1294 0091 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\se"
+ 1294      2E5C2E2E 
+ 1294      5C447269 
+ 1294      76655F50 
+ 1294      6C617466 
+ 1295 00bf 72766F5F 		.ascii	"rvo_cds5500.c\000"
+ 1295      63647335 
+ 1295      3530302E 
+ 1295      6300
+ 1296              	.LASF5:
+ 1297 00cd 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1297      20756E73 
+ 1297      69676E65 
+ 1297      6420696E 
+ 1297      7400
+ 1298              	.LASF3:
+ 1299 00df 73686F72 		.ascii	"short unsigned int\000"
+ 1299      7420756E 
+ 1299      7369676E 
+ 1299      65642069 
+ 1299      6E7400
+ 1300              	.LASF0:
+ 1301 00f2 7369676E 		.ascii	"signed char\000"
+ 1301      65642063 
+ 1301      68617200 
+ 1302              	.LASF43:
+ 1303 00fe 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1303      52784275 
+ 1303      66666572 
+ 1303      00
+ 1304              	.LASF26:
+ 1305 010b 75634E75 		.ascii	"ucNumParams\000"
+ 1305      6D506172 
+ 1305      616D7300 
+ 1306              	.LASF10:
+ 1307 0117 646F7562 		.ascii	"double\000"
+ 1307      6C6500
+ 1308              	.LASF16:
+ 1309 011e 6D6F746F 		.ascii	"motorId\000"
+ 1309      72496400 
+ 1310              	.LASF34:
+ 1311 0126 706F7369 		.ascii	"position\000"
+ 1311      74696F6E 
+ 1311      00
+ 1312              	.LASF40:
+ 1313 012f 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1313      69744875 
+ 1313      625F726F 
+ 1313      626F7469 
+ 1313      6373636F 
+ 1314 015e 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 30
 
 
- 1315      766F5F6D 
- 1315      736700
- 1316              	.LASF8:
- 1317 01af 756E7369 		.ascii	"unsigned int\000"
- 1317      676E6564 
- 1317      20696E74 
- 1317      00
- 1318              	.LASF7:
- 1319 01bc 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1319      206C6F6E 
- 1319      6720756E 
- 1319      7369676E 
- 1319      65642069 
- 1320              	.LASF27:
- 1321 01d3 53657276 		.ascii	"ServoTest\000"
- 1321      6F546573 
- 1321      7400
- 1322              	.LASF31:
- 1323 01dd 72657370 		.ascii	"response\000"
- 1323      6F6E7365 
- 1323      00
- 1324              	.LASF28:
- 1325 01e6 50696E67 		.ascii	"Ping\000"
- 1325      00
- 1326              	.LASF37:
- 1327 01eb 6D657373 		.ascii	"messageLength\000"
- 1327      6167654C 
- 1327      656E6774 
- 1327      6800
- 1328              	.LASF18:
- 1329 01f9 696E7374 		.ascii	"instrId\000"
- 1329      72496400 
- 1330              	.LASF38:
- 1331 0201 474E5520 		.ascii	"GNU C 4.4.1\000"
- 1331      4320342E 
- 1331      342E3100 
- 1332              	.LASF11:
- 1333 020d 63686172 		.ascii	"char\000"
- 1333      00
- 1334              	.LASF30:
- 1335 0212 43686563 		.ascii	"CheckResponse\000"
- 1335      6B526573 
- 1335      706F6E73 
- 1335      6500
- 1336              	.LASF13:
- 1337 0220 53544154 		.ascii	"STATUS\000"
- 1337      555300
- 1338              	.LASF12:
- 1339 0227 75696E74 		.ascii	"uint8\000"
- 1339      3800
- 1340              	.LASF29:
- 1341 022d 43445335 		.ascii	"CDS5500_SendServoMsg\000"
- 1341      3530305F 
- 1341      53656E64 
- 1341      53657276 
- 1341      6F4D7367 
- 1342              	.LASF4:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc6MGj55.s 			page 29
+ 1314      6F725F32 
+ 1314      2E325C44 
+ 1314      72697665 
+ 1314      506C6174 
+ 1315 018e 6174666F 		.ascii	"atform2.cydsn\000"
+ 1315      726D322E 
+ 1315      63796473 
+ 1315      6E00
+ 1316              	.LASF19:
+ 1317 019c 696E7374 		.ascii	"instrParams\000"
+ 1317      72506172 
+ 1317      616D7300 
+ 1318              	.LASF8:
+ 1319 01a8 756E7369 		.ascii	"unsigned int\000"
+ 1319      676E6564 
+ 1319      20696E74 
+ 1319      00
+ 1320              	.LASF41:
+ 1321 01b5 5F636473 		.ascii	"_cds5500_msg\000"
+ 1321      35353030 
+ 1321      5F6D7367 
+ 1321      00
+ 1322              	.LASF7:
+ 1323 01c2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1323      206C6F6E 
+ 1323      6720756E 
+ 1323      7369676E 
+ 1323      65642069 
+ 1324              	.LASF37:
+ 1325 01d9 53657276 		.ascii	"ServoTest\000"
+ 1325      6F546573 
+ 1325      7400
+ 1326              	.LASF28:
+ 1327 01e3 72657370 		.ascii	"response\000"
+ 1327      6F6E7365 
+ 1327      00
+ 1328              	.LASF36:
+ 1329 01ec 6D657373 		.ascii	"messageLength\000"
+ 1329      6167654C 
+ 1329      656E6774 
+ 1329      6800
+ 1330              	.LASF18:
+ 1331 01fa 696E7374 		.ascii	"instrId\000"
+ 1331      72496400 
+ 1332              	.LASF38:
+ 1333 0202 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1333      4320342E 
+ 1333      342E3100 
+ 1334              	.LASF11:
+ 1335 020e 63686172 		.ascii	"char\000"
+ 1335      00
+ 1336              	.LASF42:
+ 1337 0213 43686563 		.ascii	"CheckResponse\000"
+ 1337      6B526573 
+ 1337      706F6E73 
+ 1337      6500
+ 1338              	.LASF13:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cch3o5tR.s 			page 31
 
 
- 1343 0242 6C6F6E67 		.ascii	"long int\000"
- 1343      20696E74 
+ 1339 0221 53544154 		.ascii	"STATUS\000"
+ 1339      555300
+ 1340              	.LASF12:
+ 1341 0228 75696E74 		.ascii	"uint8\000"
+ 1341      3800
+ 1342              	.LASF33:
+ 1343 022e 43445335 		.ascii	"CDS5500_WritePos\000"
+ 1343      3530305F 
+ 1343      57726974 
+ 1343      65506F73 
  1343      00
- 1344              	.LASF36:
- 1345 024b 76656C6F 		.ascii	"velocity\000"
- 1345      63697479 
+ 1344              	.LASF4:
+ 1345 023f 6C6F6E67 		.ascii	"long int\000"
+ 1345      20696E74 
  1345      00
- 1346              	.LASF42:
- 1347 0254 47657443 		.ascii	"GetChecksum\000"
- 1347      6865636B 
- 1347      73756D00 
+ 1346              	.LASF35:
+ 1347 0248 76656C6F 		.ascii	"velocity\000"
+ 1347      63697479 
+ 1347      00
  1348              	.LASF22:
- 1349 0260 75634D6F 		.ascii	"ucMotorId\000"
- 1349      746F7249 
- 1349      6400
- 1350              	.LASF32:
- 1351 026a 6D736743 		.ascii	"msgCkecksum\000"
- 1351      6B65636B 
- 1351      73756D00 
- 1352              	.LASF17:
- 1353 0276 6C656E67 		.ascii	"length\000"
- 1353      746800
- 1354              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 1349 0251 47657443 		.ascii	"GetChecksum\000"
+ 1349      6865636B 
+ 1349      73756D00 
+ 1350              	.LASF24:
+ 1351 025d 75634D6F 		.ascii	"ucMotorId\000"
+ 1351      746F7249 
+ 1351      6400
+ 1352              	.LASF30:
+ 1353 0267 6D736743 		.ascii	"msgCkecksum\000"
+ 1353      6B65636B 
+ 1353      73756D00 
+ 1354              	.LASF17:
+ 1355 0273 6C656E67 		.ascii	"length\000"
+ 1355      746800
+ 1356              	.LASF32:
+ 1357 027a 43445335 		.ascii	"CDS5500_Ping\000"
+ 1357      3530305F 
+ 1357      50696E67 
+ 1357      00
+ 1358              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

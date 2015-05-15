@@ -23,17 +23,17 @@ static uint8 GetChecksum(CDS5500_MSG* msg)
     checksum = msg->motorId + msg->length + msg->instrId;
     
     /* add parameter bytes of motor message */   
-    for (i=0; i<msg->length-1; i++)
+    for (i=0; i<msg->length-CDS5500_COMPLEMENTARY_BYTES; i++)
         checksum += msg->instrParams[i];
-        
+      
     /* invert checksum */    
     checksum = ~checksum & 0xFF; //    printf((~(ID + (messageLength) + INST_WRITE + P_GOAL_POSITION_L + pos + pos2 + vel + vel2))&0xFF)
-		
+	
 	return checksum;
 }
 
 /**************************************************************************/
-STATUS CDS5500_SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams)
+static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, uint8* pucInstrParams)
 {
     CDS5500_MSG msg;
     
@@ -51,51 +51,6 @@ STATUS CDS5500_SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams,
     return BAL_ServoMsg(&msg);
 }
 
-
-
-/**************************************************************************/
-void ServoTest(void)
-{
-    STATUS status;
-    
-    status = CDS5500_SendServoMsg(  SERVO_1,    INST_PING_LENGTH,   INST_PING,      0);
-    
-    /*
-                        HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
-            SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 
-            RETURN:     0XFF 0XFF   0X01    0X02        0X00            0XFC
-    */
-
-}
-
-
-/**************************************************************************
-Does not command any operations. Used for requesting a status 
-packet or to check the existence of a CDS55xx servo with a specific 
-ID. 
-**************************************************************************/
-void Ping(uint8 motorId)
-{
-    STATUS status;
-
-    CDS5500_MSG msg = { START_BYTE_0_VALUE, 
-                        START_BYTE_1_VALUE, 
-                        motorId,
-                        INST_PING_LENGTH,
-                        INST_PING,
-                        {0x00},
-                        0x00,
-                      };
-
-    
-    msg.checksum = GetChecksum(&msg);  
-                     
-    
-    /* 0xFF 0xFF 0x01 0x02 0x01 0xFB */                  
-    status = BAL_ServoMsg(&msg);
-    (void)status;
-}
-
 /**************************************************************************
 CheckResponse
 //http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
@@ -109,18 +64,51 @@ STATUS CheckResponse(CDS5500_MSG* response)
     
     /* compare calculated with received checksum */
     if (msgCkecksum != calcChecksum)
-        return ERROR_RECEIVED_CHECKSUM;
+        return CDS5500_ERROR_RECEIVED_CHECKSUM;
     
     /* check if error bits are set */
     if (response->instrParams[0] & CDS5500_ERROR_INSTRUCTION_BIT) 
-        status = ERROR_INSTRUCTION;
+        status = CDS5500_ERROR_INSTRUCTION;
         
     return status;
 }
 
+
+
+
+/**************************************************************************
+Does not command any operations. Used for requesting a status 
+packet or to check the existence of a CDS55xx servo with a specific 
+ID. 
+**************************************************************************/
+void CDS5500_Ping(uint8 motorId)
+{
+    STATUS status;
+
+    CDS5500_MSG msg = { START_BYTE_0_VALUE, 
+                        START_BYTE_1_VALUE, 
+                        motorId,
+                        CDS5500_MSG_LENGTH_PING,
+                        CDS5500_INST_ID_PING,
+                        {0x00},
+                        0x00,
+                      };
+    
+    //msg.checksum = GetChecksum(&msg);
+    msg.instrParams[msg.length - CDS5500_COMPLEMENTARY_BYTES] = GetChecksum(&msg);
+                
+    // SB0  SB1  MID  LEN  INID PAR CHKS
+    // 0xFF 0xFF 0x01 0x02 0x01 -   0xFB                 
+    status = BAL_ServoMsg(&msg);
+
+    (void)status;
+}
+
+
+
 /**************************************************************************
 **************************************************************************/
-void WritePos(int id, int position, int velocity)
+void CDS5500_WritePos(int id, int position, int velocity)
 {
 	int messageLength = 7;
     (void)messageLength;
@@ -261,8 +249,19 @@ void CDS5500::SetTempLimit(int ID, int temperature){
 
 */
 
+/**************************************************************************/
+void ServoTest(void)
+{
+    STATUS status;
+    
+    status = SendServoMsg(  CDS5500_SERVO_1,    CDS5500_INST_LENGTH_PING,   CDS5500_INST_ID_PING,      0);
+    /*
+                        HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
+            SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 
+            RETURN:     0XFF 0XFF   0X01    0X02        0X00            0XFC
+    */
 
-
+}
 
 
 /* [] END OF FILE */

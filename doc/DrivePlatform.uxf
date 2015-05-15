@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>168</y>
+      <x>760</x>
+      <y>152</y>
       <w>328</w>
       <h>104</h>
     </coordinates>
@@ -23,8 +23,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>64</y>
+      <x>760</x>
+      <y>48</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
@@ -39,10 +39,10 @@ Package::Bus
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>344</x>
-      <y>64</y>
-      <w>144</w>
-      <h>136</h>
+      <x>272</x>
+      <y>48</y>
+      <w>128</w>
+      <h>128</h>
     </coordinates>
     <panel_attributes>*CDS5500_MSG*
 Package::Servo
@@ -54,60 +54,56 @@ Package::Servo
 - instrId                : uint8
 - instrParams[8]   : uint8
 - checksum          : uint8
-
-group=1</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>520</x>
-      <y>80</y>
-      <w>176</w>
-      <h>56</h>
+      <x>272</x>
+      <y>192</y>
+      <w>128</w>
+      <h>80</h>
     </coordinates>
-    <panel_attributes>motorId: 0-253, 254 is broadcast
-length:   number of params + 1 
-              (instrId) + 1 (checksum)
-
-
-fg=gray
-group=1</panel_attributes>
+    <panel_attributes>motorId: 0-253, 254 
+              is broadcast
+length:   nr of params 
+          + 1 (instrId) 
+          + 1 (checksum)
+fg=gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>520</x>
-      <y>152</y>
-      <w>176</w>
-      <h>48</h>
+      <x>272</x>
+      <y>280</y>
+      <w>128</w>
+      <h>56</h>
     </coordinates>
     <panel_attributes>length =      1 (instrId) 
                 + sizeof(instrParams)
                 + 1 (checksum)
 
-fg=gray
-group=1</panel_attributes>
+fg=gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>416</x>
-      <y>192</y>
-      <w>96</w>
-      <h>48</h>
+      <x>392</x>
+      <y>56</y>
+      <w>40</w>
+      <h>88</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-group=1</panel_attributes>
-    <additional_attributes>10.0;10.0;100.0;40.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;30.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>824</x>
-      <y>136</y>
+      <x>816</x>
+      <y>120</y>
       <w>72</w>
       <h>48</h>
     </coordinates>
@@ -117,56 +113,51 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>96</y>
-      <w>56</w>
-      <h>48</h>
+      <x>288</x>
+      <y>168</y>
+      <w>24</w>
+      <h>40</h>
     </coordinates>
-    <panel_attributes>lt=.
-group=1</panel_attributes>
-    <additional_attributes>50.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>480</x>
-      <y>136</y>
-      <w>56</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>lt=.
-group=1</panel_attributes>
-    <additional_attributes>50.0;50.0;10.0;10.0</additional_attributes>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>344</x>
-      <y>224</y>
-      <w>296</w>
-      <h>128</h>
+      <x>416</x>
+      <y>48</y>
+      <w>288</w>
+      <h>248</h>
     </coordinates>
     <panel_attributes>*CDS5500*
 Package::Servo
 --
 - GetChecksum        (CDS5500_MSG* msg)     : uint8
---
-+ CDS5500_SendServoMsg    (uint8 ucMotorId, 
+- SendServoMsg    (uint8 ucMotorId, 
                                                   uint8 ucInstrId,
                                                   uint8 ucNumParams,
                                                   uint8* pucInstrParams
                                                   )  : STATUS
+--
++ CDS5500_Ping                         (uint8 motorId)
++ CDS5500_WritePos                  (int ID, int pos, int vel)
++ CDS5500_RegWritePos           (int ID, int position, 
+                                                      int velocity)
++ CDS5500_RegWriteAction       ()
++ CDS5500_SetID                       (int defaultID, int newID)
++ CDS5500_SetAngleLimit          (int ID, int low, int high)
++ CDS5500_tempMethod            ()
++ CDS5500_Reset                       (int ID)
++ CDS5500_SetTempLimit          (int ID, int temperature)
 
-
-bg=light_gray
-group=1</panel_attributes>
+bg=light_gray</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>752</x>
-      <y>32</y>
+      <x>744</x>
+      <y>16</y>
       <w>360</w>
       <h>664</h>
     </coordinates>
@@ -176,9 +167,9 @@ group=1</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>272</x>
-      <y>384</y>
-      <w>448</w>
+      <x>256</x>
+      <y>368</y>
+      <w>464</w>
       <h>176</h>
     </coordinates>
     <panel_attributes>System</panel_attributes>
@@ -187,8 +178,8 @@ group=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>464</y>
+      <x>760</x>
+      <y>448</y>
       <w>328</w>
       <h>200</h>
     </coordinates>
@@ -214,8 +205,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>296</y>
+      <x>760</x>
+      <y>280</y>
       <w>328</w>
       <h>144</h>
     </coordinates>
@@ -238,20 +229,19 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>328</x>
-      <y>32</y>
-      <w>384</w>
+      <x>256</x>
+      <y>16</y>
+      <w>464</w>
       <h>336</h>
     </coordinates>
-    <panel_attributes>Servo
-group=1</panel_attributes>
+    <panel_attributes>Servo</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>264</y>
+      <x>912</x>
+      <y>248</y>
       <w>24</w>
       <h>48</h>
     </coordinates>
@@ -261,8 +251,8 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>432</y>
+      <x>912</x>
+      <y>416</y>
       <w>24</w>
       <h>48</h>
     </coordinates>
@@ -272,9 +262,9 @@ group=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>56</x>
-      <y>168</y>
-      <w>208</w>
+      <x>48</x>
+      <y>152</y>
+      <w>176</w>
       <h>96</h>
     </coordinates>
     <panel_attributes>*MOVE*
@@ -284,15 +274,14 @@ Package::Application
                              uint16 uiAngle
                              )   : STATUS
 + MOVE_Stop     ()  : STATUS
-bg=pink
-group=4</panel_attributes>
+bg=pink</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>504</x>
-      <y>416</y>
+      <x>496</x>
+      <y>400</y>
       <w>200</w>
       <h>96</h>
     </coordinates>
@@ -309,20 +298,19 @@ bg=green</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>40</x>
-      <y>32</y>
-      <w>240</w>
+      <x>32</x>
+      <y>16</y>
+      <w>208</w>
       <h>248</h>
     </coordinates>
-    <panel_attributes>Application
-group=4</panel_attributes>
+    <panel_attributes>Application</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>56</x>
-      <y>64</y>
+      <x>48</x>
+      <y>48</y>
       <w>120</w>
       <h>80</h>
     </coordinates>
@@ -332,15 +320,14 @@ Package::Application
 - num     :   uint8
 - angle   :   uint16
 - speed  :   uint16
-
-group=4</panel_attributes>
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>288</x>
-      <y>416</y>
+      <x>280</x>
+      <y>400</y>
       <w>200</w>
       <h>120</h>
     </coordinates>
@@ -359,8 +346,8 @@ Package::System
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>504</x>
-      <y>520</y>
+      <x>496</x>
+      <y>504</y>
       <w>152</w>
       <h>32</h>
     </coordinates>
@@ -373,8 +360,8 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>512</y>
+      <x>472</x>
+      <y>496</y>
       <w>40</w>
       <h>40</h>
     </coordinates>
@@ -384,20 +371,19 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>112</x>
-      <y>136</y>
+      <x>104</x>
+      <y>120</y>
       <w>24</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
-group=4</panel_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>472</x>
-      <y>424</y>
+      <x>464</x>
+      <y>408</y>
       <w>48</w>
       <h>24</h>
     </coordinates>
@@ -407,8 +393,8 @@ group=4</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>48</x>
-      <y>408</y>
+      <x>40</x>
+      <y>392</y>
       <w>64</w>
       <h>56</h>
     </coordinates>
@@ -422,8 +408,8 @@ group=6</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>48</x>
-      <y>480</y>
+      <x>40</x>
+      <y>464</y>
       <w>64</w>
       <h>56</h>
     </coordinates>
@@ -437,8 +423,8 @@ group=6</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>144</x>
-      <y>408</y>
+      <x>136</x>
+      <y>392</y>
       <w>64</w>
       <h>56</h>
     </coordinates>
@@ -452,8 +438,8 @@ group=6</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>144</x>
-      <y>480</y>
+      <x>136</x>
+      <y>464</y>
       <w>64</w>
       <h>56</h>
     </coordinates>
@@ -467,8 +453,8 @@ group=6</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>288</x>
-      <y>600</y>
+      <x>280</x>
+      <y>584</y>
       <w>88</w>
       <h>48</h>
     </coordinates>
@@ -480,8 +466,8 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>40</x>
-      <y>384</y>
+      <x>32</x>
+      <y>368</y>
       <w>184</w>
       <h>168</h>
     </coordinates>
@@ -492,8 +478,8 @@ group=6</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>120</x>
-      <y>544</y>
+      <x>112</x>
+      <y>528</y>
       <w>184</w>
       <h>96</h>
     </coordinates>
@@ -504,30 +490,30 @@ m1=0..n</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>256</x>
-      <y>232</y>
-      <w>104</w>
+      <x>216</x>
+      <y>176</y>
+      <w>216</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>250.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>632</x>
-      <y>240</y>
-      <w>152</w>
+      <x>696</x>
+      <y>224</y>
+      <w>80</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>368</x>
-      <y>616</y>
+      <x>360</x>
+      <y>600</y>
       <w>416</w>
       <h>24</h>
     </coordinates>
@@ -537,8 +523,8 @@ m1=0..n</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>616</x>
-      <y>640</y>
+      <x>608</x>
+      <y>624</y>
       <w>88</w>
       <h>48</h>
     </coordinates>
@@ -551,8 +537,8 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>512</x>
-      <y>640</y>
+      <x>504</x>
+      <y>624</y>
       <w>88</w>
       <h>48</h>
     </coordinates>
@@ -565,8 +551,8 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>408</x>
-      <y>640</y>
+      <x>400</x>
+      <y>624</y>
       <w>88</w>
       <h>48</h>
     </coordinates>
@@ -579,12 +565,23 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>272</x>
-      <y>576</y>
-      <w>448</w>
+      <x>256</x>
+      <y>560</y>
+      <w>464</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>Peripherals</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>264</y>
+      <w>24</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;20.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>

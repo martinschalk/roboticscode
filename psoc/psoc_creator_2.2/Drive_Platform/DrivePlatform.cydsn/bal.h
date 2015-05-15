@@ -48,6 +48,8 @@ HARDWARE ABSTRACTION LAYER	(HAL)
 #define BAL_ACK_OK                      0x01
 #define BAL_ACK_NOK                     0x02
 
+#define BAL_MSG_
+
 enum
 {
     BAL_MSG_ID_ACK = 1,

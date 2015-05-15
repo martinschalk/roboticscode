@@ -23,28 +23,40 @@
 /*****************************************************************/
 /* | startbyte0 | startbyte1 | motorId | length | instrId | instrParams[8] | checksum | 
      0            1            2         3        4         5                13       
-     length = 1(instrId) + number of instrParams + 1(checksum)
+     length = 1(instrId) + sizeof(instrParams) + 1(checksum)
 */
 STATUS BAL_ServoMsg(CDS5500_MSG* msg)
 {
     STATUS status;
-    /*
-    uint8 buffer[4+msg->length];
+            
+    if (msg->motorId > 254)
+        status = CDS5500_ERROR_MOTOR_ID;
+    else  if (msg->length > CDS5500_INST_LENGTH_MAX) 
+        status = CDS5500_ERROR_LENGTH;
+    else  if (msg->instrId == 0) 
+        status = CDS5500_ERROR_INSTR_ID;
+    else  if ((msg->instrParams)[msg->length - CDS5500_INST_LENGTH_MAX] == 0) 
+        status = CDS5500_ERROR_CHKSUM;
+    else
+    {
+        status = BPL_TransmitMessage((uint8*)msg, msg->length + 4); 
+        // 1(startbyte0) + 1(startbyte1) + 1(motorId) + 1(length) = +4
+        // 1(instrId) + 1(checksum) = +2
+    }
     
-    memcpy[&buffer[0], &msg[0], 5]; //copy startbyte0, startbyte1, motorId, length, instrId
-    memcpy(&buffer[5], msg->instrParams, msg->length-1); // copy instrParams and checksum 
-    buffer[4+msg->length-1] = msg->checksum;
-    status = BPL_TransmitMessage(buffer, msg->length + 4);
-    */
-    
-    status = BPL_TransmitMessage((uint8*)msg, msg->length + 4);
-    
-	return SUCCESS;
+	return status;
 }
 
 
 /*****************************************************************/
-#if 0
+/* | id0 | id1 | length | *content | 
+     0     1     2        3     
+     length = sizeof(content)
+*/
+/*
+!!!  if compiled, calling BAL_ServoMsg causes call of BAL_SendMsg instead 
+       reason not yet found !!!
+
 STATUS BAL_SendMsg(BAL_MSG* msg)
 {
     STATUS status;
@@ -59,8 +71,7 @@ STATUS BAL_SendMsg(BAL_MSG* msg)
     
 	return SUCCESS;
 }
-#endif
-
+*/
 
 
 /*****************************************************************/
@@ -100,7 +111,7 @@ STATUS BAL_HandleTask(void)
 #ifdef BAL_MODULE_TEST   
 static void BAL_ModuleTest(void)
 {
-    Ping(0x01);
+    CDS5500_Ping(0x01);
 }
 #endif
 /* [] END OF FILE */

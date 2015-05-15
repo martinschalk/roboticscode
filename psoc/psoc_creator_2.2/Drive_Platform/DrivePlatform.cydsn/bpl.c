@@ -14,8 +14,8 @@
 #include "bpl.h"
 
 /* Ring buffers */
-static uint8 	ReceiveBuffer[RX_BUFFER_SIZE];	//RB
-static uint8 	TransmitBuffer[TX_BUFFER_SIZE];	//TB
+static uint8 	ReceiveBuffer[BPL_RX_BUFFER_SIZE];	//RB
+static uint8 	TransmitBuffer[BPL_TX_BUFFER_SIZE];	//TB
 static uint8 	ReceiveMsgCount = 0;
 static uint8 	TransmitMsgCount = 0;
 //static uint8    ReceiveBytesCount = 0;
@@ -55,10 +55,21 @@ uint8 BPL_GetMessage(uint8* target)
 }
 
 /*******************************************************/
+/**
+    Example:    Transmit servo message "CDS5500_INST_PING"
+    
+        BAL message                              BPL message:
+        
+        SB0  SB1  MID  LEN  INID PAR CHKS        LEN  SRC
+        ---------------------------------   ==>  ----------------------------------
+        0xFF 0xFF 0x01 0x02 0x01 -   0xFB        0x06 0xFF 0xFF 0x01 0x02 0x01 0xFB 
+    
+        -> msgLength = 6
+*/
 STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 {
     /* check if message fits in transmit buffer */
-    if (TransmitBytesCount + msgLength + 1 > TX_BUFFER_SIZE)
+    if (TransmitBytesCount + msgLength + 1 > BPL_TX_BUFFER_SIZE)
         return BPL_STATUS_TX_BUFFER_FULL;
 
     /* copy message to transmit buffer, 1st byte = message bytes */
@@ -89,7 +100,7 @@ STATUS BPL_HandleTask(void)
 			break;
 		}
 		/* check if passing end of ring buffer */
-		if (++RBHead == &ReceiveBuffer[RX_BUFFER_SIZE])
+		if (++RBHead == &ReceiveBuffer[BPL_RX_BUFFER_SIZE])
 		{
 			RBHead = &ReceiveBuffer[0];
 		}
