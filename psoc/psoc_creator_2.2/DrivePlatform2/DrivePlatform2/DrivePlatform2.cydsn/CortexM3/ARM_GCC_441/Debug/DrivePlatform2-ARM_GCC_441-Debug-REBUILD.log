@@ -1,3 +1,7 @@
---------------- Rebuild Started: 05/15/2015 02:46:21 Project: servo_cds5500.c, Configuration: ARM GCC 4.4.1 Debug ---------------
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\servo_cds5500.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.c -o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
---------------- Rebuild Succeeded: 05/15/2015 02:46:22 ---------------
+--------------- Rebuild Started: 05/20/2015 23:53:28 Project: ring_buffer.c, Configuration: ARM GCC 4.4.1 Debug ---------------
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\ring_buffer.lst -ffunction-sections -c .\ring_buffer.c -o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+.\ring_buffer.c:27: warning: 'IncHead' defined but not used
+.\ring_buffer.c:46: warning: 'DecHead' defined but not used
+.\ring_buffer.c:67: warning: 'IncTail' defined but not used
+.\ring_buffer.c:86: warning: 'DecTail' defined but not used
+--------------- Rebuild Succeeded: 05/20/2015 23:53:29 ---------------

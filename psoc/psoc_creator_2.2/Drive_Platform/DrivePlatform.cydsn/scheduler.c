@@ -13,6 +13,7 @@
 #include "bpl.h"
 #include "bal.h"
 #include "error.h"
+#include "ring_buffer.h"
 #include "test.h"
 
 static int          SCH_TaskIndex = 0;
@@ -23,6 +24,7 @@ static SCH_TASK 	SCH_Task[] =
 #ifdef ERROR_MODULE_ENABLE
     {"ERR", SCH_TASK_NEW,   0,      ERR_Init,   ERR_HandleTask,     {DEP_NONE}},
 #endif
+    {"RBF", SCH_TASK_NEW,   1,      RBF_sInit,   NULL,               {DEP_NONE}},
     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
     {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
