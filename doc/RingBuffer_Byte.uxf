@@ -334,18 +334,18 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>630</x>
-      <y>200</y>
+      <y>230</y>
       <w>160</w>
-      <h>70</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>140.0;10.0;140.0;50.0;10.0;50.0</additional_attributes>
+    <additional_attributes>140.0;10.0;140.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
       <x>690</x>
-      <y>150</y>
+      <y>180</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -379,7 +379,7 @@ bg=pink</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>690</x>
-      <y>180</y>
+      <y>210</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -492,18 +492,18 @@ fg=gray</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>980</x>
-      <y>200</y>
+      <y>230</y>
       <w>160</w>
-      <h>70</h>
+      <h>40</h>
     </coordinates>
     <panel_attributes>lt=-&gt;</panel_attributes>
-    <additional_attributes>140.0;10.0;140.0;50.0;10.0;50.0</additional_attributes>
+    <additional_attributes>140.0;10.0;140.0;20.0;10.0;20.0</additional_attributes>
   </element>
   <element>
     <id>UMLState</id>
     <coordinates>
       <x>1040</x>
-      <y>150</y>
+      <y>180</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
@@ -537,12 +537,34 @@ bg=pink</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1040</x>
-      <y>180</y>
+      <y>210</y>
       <w>160</w>
       <h>30</h>
     </coordinates>
     <panel_attributes>status = SUCCESS
 bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>690</x>
+      <y>150</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>address[head] = 0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>1040</x>
+      <y>150</y>
+      <w>160</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>address[tail] = 0</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
