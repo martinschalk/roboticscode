@@ -1,18 +1,11 @@
---------------- Build Started: 05/24/2015 21:35:09 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
+--------------- Build Started: 05/25/2015 12:49:44 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\ring_buffer.lst -ffunction-sections -c .\ring_buffer.c -o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
-.\ring_buffer.c: In function 'RBF_ucFirstMsgOut':
-.\ring_buffer.c:271: error: array subscript is not an integer
-.\ring_buffer.c:303: error: 'RBF_RROR' undeclared (first use in this function)
-.\ring_buffer.c: In function 'RBF_ucLastMsgOut':
-.\ring_buffer.c:339: warning: passing argument 2 of 'RBF_ucLastByteOut' from incompatible pointer type
-.\ring_buffer.c:166: note: expected 'uint8_t *' but argument is of type 'uint8_t **'
-.\ring_buffer.c:339: error: too many arguments to function 'RBF_ucLastByteOut'
-.\ring_buffer.c:353: error: 'RBF_RROR' undeclared (first use in this function)
-.\ring_buffer.c: In function 'RBF_ucTest':
-.\ring_buffer.c:547: warning: passing argument 3 of 'RBF_ucFirstMsgOut' from incompatible pointer type
-.\ring_buffer.c:264: note: expected 'uint8_t *' but argument is of type 'uint16_t *'
-.\ring_buffer.c:548: warning: pointer targets in passing argument 2 of 'RBF_ucMsgIn' differ in signedness
-.\ring_buffer.c:191: note: expected 'uint8_t *' but argument is of type 'char *'
-.\ring_buffer.c:550: warning: passing argument 3 of 'RBF_ucLastMsgOut' from incompatible pointer type
---------------- Build Failed: 05/24/2015 21:35:10 ---------------
+arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a .\CortexM3\ARM_GCC_441\Debug\UART.o .\CortexM3\ARM_GCC_441\Debug\UART_PM.o .\CortexM3\ARM_GCC_441\Debug\UART_INT.o .\CortexM3\ARM_GCC_441\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_441\Debug\TIMER.o .\CortexM3\ARM_GCC_441\Debug\TIMER_PM.o .\CortexM3\ARM_GCC_441\Debug\isr_tx.o .\CortexM3\ARM_GCC_441\Debug\isr_rx.o .\CortexM3\ARM_GCC_441\Debug\TIMER_CLOCK.o .\CortexM3\ARM_GCC_441\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o .\CortexM3\ARM_GCC_441\Debug\CyLib.o .\CortexM3\ARM_GCC_441\Debug\cyPm.o .\CortexM3\ARM_GCC_441\Debug\CySpc.o .\CortexM3\ARM_GCC_441\Debug\cyutils.o .\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.o .\CortexM3\ARM_GCC_441\Debug\Isr_timer.o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
+arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a
+arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g -Wl,-Map,.\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.map -Wl,--gc-sections -Wl,--start-group -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\main.o .\CortexM3\ARM_GCC_441\Debug\bal.o .\CortexM3\ARM_GCC_441\Debug\bpl.o .\CortexM3\ARM_GCC_441\Debug\bus.o .\CortexM3\ARM_GCC_441\Debug\error.o .\CortexM3\ARM_GCC_441\Debug\hal.o .\CortexM3\ARM_GCC_441\Debug\scheduler.o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o .\CortexM3\ARM_GCC_441\Debug\test.o .\CortexM3\ARM_GCC_441\Debug\tmr.o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_441\Debug\CyComponentLibrary.a" -Wl,--end-group
+arm-none-eabi-objcopy.exe -O ihex .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx
+cyhextool -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.hex -f .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx -prot .\Generated_Source\PSoC5\protect.hex -id E13C069 -a EEPROM=90200000:800,PROGRAM=00000000:40000,CONFIG=80000000:8000,PROTECT=90400000:100 -meta 0101 -cunv 00000006 -wonv BC90ACAF -ecc .\Generated_Source\PSoC5\config.hex
+Flash used: 10088 of 262144 bytes (3,8%).
+SRAM used: 2604 of 65536 bytes (4,0%).
+--------------- Build Succeeded: 05/25/2015 12:49:45 ---------------
