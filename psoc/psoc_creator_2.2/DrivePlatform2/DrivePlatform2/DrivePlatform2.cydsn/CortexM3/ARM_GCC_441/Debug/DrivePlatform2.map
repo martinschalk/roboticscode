@@ -200,13 +200,15 @@ Discarded input sections
                 0x00000000      0x120 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text.RBF_ucLastMsgOut
                 0x00000000      0x114 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .text.RBF_GetMsgCount
+ .text.RBF_ucGetMsgCount
                 0x00000000       0x34 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .text.RBF_ucGetByteCount
+                0x00000000      0x12c .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text.IncHead  0x00000000       0xa4 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text.DecHead  0x00000000       0xe8 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text.IncTail  0x00000000       0xa4 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text.RBF_ucTest
-                0x00000000      0x2e8 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+                0x00000000      0x340 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .text          0x00000000        0x0 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
  .data          0x00000000        0x0 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
  .bss           0x00000000        0x0 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
@@ -1282,7 +1284,7 @@ END GROUP
  .comment       0x00000408       0x2b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
  .comment       0x00000433       0x2b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
-.debug_aranges  0x00000000      0xb48
+.debug_aranges  0x00000000      0xb50
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 .\CortexM3\ARM_GCC_441\Debug\main.o
@@ -1303,42 +1305,42 @@ END GROUP
  .debug_aranges
                 0x000001f8       0x48 .\CortexM3\ARM_GCC_441\Debug\tmr.o
  .debug_aranges
-                0x00000240       0x90 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+                0x00000240       0x98 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .debug_aranges
-                0x000002d0       0x30 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+                0x000002d8       0x30 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
  .debug_aranges
-                0x00000300      0x110 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+                0x00000308      0x110 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
  .debug_aranges
-                0x00000410       0x28 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+                0x00000418       0x28 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
  .debug_aranges
-                0x00000438       0x90 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+                0x00000440       0x90 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
  .debug_aranges
-                0x000004c8       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+                0x000004d0       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
  .debug_aranges
-                0x00000548       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+                0x00000550       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
  .debug_aranges
-                0x000005c8       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+                0x000005d0       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
  .debug_aranges
-                0x00000630       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+                0x00000638       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
  .debug_aranges
-                0x00000698       0x20 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
+                0x000006a0       0x20 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
  .debug_aranges
-                0x000006b8      0x1e0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+                0x000006c0      0x1e0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
  .debug_aranges
-                0x00000898       0xb8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+                0x000008a0       0xb8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
  .debug_aranges
-                0x00000950       0x38 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+                0x00000958       0x38 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
  .debug_aranges
-                0x00000988       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+                0x00000990       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
  .debug_aranges
-                0x00000a08       0x70 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+                0x00000a10       0x70 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
  .debug_aranges
-                0x00000a78       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+                0x00000a80       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
  .debug_aranges
-                0x00000ae0       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+                0x00000ae8       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
 .debug_pubnames
-                0x00000000     0x1800
+                0x00000000     0x1819
  *(.debug_pubnames)
  .debug_pubnames
                 0x00000000       0x1b .\CortexM3\ARM_GCC_441\Debug\main.o
@@ -1359,39 +1361,39 @@ END GROUP
  .debug_pubnames
                 0x00000314       0x7e .\CortexM3\ARM_GCC_441\Debug\tmr.o
  .debug_pubnames
-                0x00000392      0x106 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+                0x00000392      0x11f .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
  .debug_pubnames
-                0x00000498       0x66 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+                0x000004b1       0x66 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
  .debug_pubnames
-                0x000004fe      0x36e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+                0x00000517      0x36e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
  .debug_pubnames
-                0x0000086c       0x30 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+                0x00000885       0x30 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
  .debug_pubnames
-                0x0000089c      0x174 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+                0x000008b5      0x174 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
  .debug_pubnames
-                0x00000a10      0x11a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+                0x00000a29      0x11a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
  .debug_pubnames
-                0x00000b2a      0x11a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+                0x00000b43      0x11a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
  .debug_pubnames
-                0x00000c44      0x146 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+                0x00000c5d      0x146 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
  .debug_pubnames
-                0x00000d8a      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+                0x00000da3      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
  .debug_pubnames
-                0x00000ee4      0x4be .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+                0x00000efd      0x4be .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
  .debug_pubnames
-                0x000013a2       0xbb .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+                0x000013bb       0xbb .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
  .debug_pubnames
-                0x0000145d       0x76 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+                0x00001476       0x76 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
  .debug_pubnames
-                0x000014d3      0x141 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+                0x000014ec      0x141 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
  .debug_pubnames
-                0x00001614       0x3d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+                0x0000162d       0x3d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
  .debug_pubnames
-                0x00001651       0xdf .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+                0x0000166a       0xdf .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
  .debug_pubnames
-                0x00001730       0xd0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+                0x00001749       0xd0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
-.debug_info     0x00000000     0x525b
+.debug_info     0x00000000     0x52aa
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x103 .\CortexM3\ARM_GCC_441\Debug\main.o
  .debug_info    0x00000103      0x226 .\CortexM3\ARM_GCC_441\Debug\bal.o
@@ -1403,23 +1405,23 @@ END GROUP
  .debug_info    0x00000e6a      0x302 .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
  .debug_info    0x0000116c      0x14f .\CortexM3\ARM_GCC_441\Debug\test.o
  .debug_info    0x000012bb      0x2bd .\CortexM3\ARM_GCC_441\Debug\tmr.o
- .debug_info    0x00001578      0x6ce .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .debug_info    0x00001c46      0x168 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
- .debug_info    0x00001dae      0x6bd .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
- .debug_info    0x0000246b      0x16d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
- .debug_info    0x000025d8      0x26d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
- .debug_info    0x00002845      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
- .debug_info    0x00002a80      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
- .debug_info    0x00002cbb      0x237 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
- .debug_info    0x00002ef2      0x237 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
- .debug_info    0x00003129       0xbe .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
- .debug_info    0x000031e7      0xbce .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
- .debug_info    0x00003db5      0x63e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
- .debug_info    0x000043f3      0x120 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
- .debug_info    0x00004513      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
- .debug_info    0x0000474e      0x459 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
- .debug_info    0x00004ba7      0x308 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
- .debug_info    0x00004eaf      0x3ac .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_info    0x00001578      0x71d .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .debug_info    0x00001c95      0x168 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_info    0x00001dfd      0x6bd .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_info    0x000024ba      0x16d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_info    0x00002627      0x26d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_info    0x00002894      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_info    0x00002acf      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_info    0x00002d0a      0x237 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_info    0x00002f41      0x237 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_info    0x00003178       0xbe .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
+ .debug_info    0x00003236      0xbce .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_info    0x00003e04      0x63e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_info    0x00004442      0x120 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_info    0x00004562      0x23b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_info    0x0000479d      0x459 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_info    0x00004bf6      0x308 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_info    0x00004efe      0x3ac .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
 .debug_abbrev   0x00000000     0x1914
  *(.debug_abbrev)
@@ -1451,7 +1453,7 @@ END GROUP
  .debug_abbrev  0x000016bc      0x14a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
  .debug_abbrev  0x00001806      0x10e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
-.debug_line     0x00000000     0x2d9d
+.debug_line     0x00000000     0x2dbc
  *(.debug_line)
  .debug_line    0x00000000       0x85 .\CortexM3\ARM_GCC_441\Debug\main.o
  .debug_line    0x00000085      0x13f .\CortexM3\ARM_GCC_441\Debug\bal.o
@@ -1463,25 +1465,25 @@ END GROUP
  .debug_line    0x000008f2      0x163 .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
  .debug_line    0x00000a55       0xfa .\CortexM3\ARM_GCC_441\Debug\test.o
  .debug_line    0x00000b4f      0x1ff .\CortexM3\ARM_GCC_441\Debug\tmr.o
- .debug_line    0x00000d4e      0x338 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .debug_line    0x00001086       0xb8 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
- .debug_line    0x0000113e      0x35c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
- .debug_line    0x0000149a       0xc4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
- .debug_line    0x0000155e      0x18a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
- .debug_line    0x000016e8      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
- .debug_line    0x00001842      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
- .debug_line    0x0000199c      0x162 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
- .debug_line    0x00001afe      0x164 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
- .debug_line    0x00001c62       0x67 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
- .debug_line    0x00001cc9      0x5c7 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
- .debug_line    0x00002290      0x3f2 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
- .debug_line    0x00002682       0xb6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
- .debug_line    0x00002738      0x15d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
- .debug_line    0x00002895      0x212 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
- .debug_line    0x00002aa7      0x170 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
- .debug_line    0x00002c17      0x186 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_line    0x00000d4e      0x357 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .debug_line    0x000010a5       0xb8 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_line    0x0000115d      0x35c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_line    0x000014b9       0xc4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_line    0x0000157d      0x18a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_line    0x00001707      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_line    0x00001861      0x15a .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_line    0x000019bb      0x162 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_line    0x00001b1d      0x164 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_line    0x00001c81       0x67 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyBootAsmGnu.o)
+ .debug_line    0x00001ce8      0x5c7 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_line    0x000022af      0x3f2 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_line    0x000026a1       0xb6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_line    0x00002757      0x15d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_line    0x000028b4      0x212 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_line    0x00002ac6      0x170 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_line    0x00002c36      0x186 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
-.debug_frame    0x00000000     0x2acc
+.debug_frame    0x00000000     0x2ae8
  *(.debug_frame)
  .debug_frame   0x00000000       0x30 .\CortexM3\ARM_GCC_441\Debug\main.o
  .debug_frame   0x00000030       0xa8 .\CortexM3\ARM_GCC_441\Debug\bal.o
@@ -1492,54 +1494,54 @@ END GROUP
  .debug_frame   0x000003f4       0xcc .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
  .debug_frame   0x000004c0       0x68 .\CortexM3\ARM_GCC_441\Debug\test.o
  .debug_frame   0x00000528       0xbc .\CortexM3\ARM_GCC_441\Debug\tmr.o
- .debug_frame   0x000005e4      0x1dc .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .debug_frame   0x000007c0       0x5c .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
- .debug_frame   0x0000081c      0x3ac .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
- .debug_frame   0x00000bc8       0x48 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
- .debug_frame   0x00000c10      0x1b8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
- .debug_frame   0x00000dc8      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
- .debug_frame   0x00000f48      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
- .debug_frame   0x000010c8      0x130 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
- .debug_frame   0x000011f8      0x130 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
- .debug_frame   0x00001328      0x6b8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
- .debug_frame   0x000019e0      0x25c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
- .debug_frame   0x00001c3c       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
- .debug_frame   0x00001cbc      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
- .debug_frame   0x00001e3c      0x158 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
- .debug_frame   0x00001f94      0x140 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
- .debug_frame   0x000020d4      0x13c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
- .debug_frame   0x00002210       0x34 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memcpy.o)
- .debug_frame   0x00002244       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memset.o)
- .debug_frame   0x0000226c       0x5c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-sprintf.o)
- .debug_frame   0x000022c8       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strcmp.o)
- .debug_frame   0x000022f8       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strncpy.o)
- .debug_frame   0x00002320       0x68 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-svfprintf.o)
- .debug_frame   0x00002388       0x64 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-dtoa.o)
- .debug_frame   0x000023ec       0x50 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-freer.o)
- .debug_frame   0x0000243c       0x6c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-locale.o)
- .debug_frame   0x000024a8       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-malloc.o)
- .debug_frame   0x000024d8       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mallocr.o)
- .debug_frame   0x00002514       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memchr.o)
- .debug_frame   0x0000253c       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memmove.o)
- .debug_frame   0x00002568       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mlock.o)
- .debug_frame   0x00002598      0x240 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mprec.o)
- .debug_frame   0x000027d8       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-reallocr.o)
- .debug_frame   0x00002814       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-s_isinfd.o)
- .debug_frame   0x00002834       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-s_isnand.o)
- .debug_frame   0x00002854       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-sbrkr.o)
- .debug_frame   0x00002880       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strlen.o)
- .debug_frame   0x000028a0       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-callocr.o)
- .debug_frame   0x000028cc       0x64 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-reent.o)
- .debug_frame   0x00002930       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_udivsi3.o)
- .debug_frame   0x00002950       0x50 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(bpabi.o)
- .debug_frame   0x000029a0       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_divdi3.o)
- .debug_frame   0x000029dc       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_udivdi3.o)
- .debug_frame   0x00002a18       0x40 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libcs3.a(start_c.o)
- .debug_frame   0x00002a58       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libcs3unhosted.a(unhosted-sbrk.o)
- .debug_frame   0x00002a80       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-errno.o)
- .debug_frame   0x00002aa0       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-init.o)
+ .debug_frame   0x000005e4      0x1f8 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .debug_frame   0x000007dc       0x5c .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_frame   0x00000838      0x3ac .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_frame   0x00000be4       0x48 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_frame   0x00000c2c      0x1b8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_frame   0x00000de4      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_frame   0x00000f64      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_frame   0x000010e4      0x130 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_frame   0x00001214      0x130 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_frame   0x00001344      0x6b8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_frame   0x000019fc      0x25c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_frame   0x00001c58       0x80 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_frame   0x00001cd8      0x180 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_frame   0x00001e58      0x158 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_frame   0x00001fb0      0x140 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_frame   0x000020f0      0x13c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_frame   0x0000222c       0x34 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memcpy.o)
+ .debug_frame   0x00002260       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memset.o)
+ .debug_frame   0x00002288       0x5c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-sprintf.o)
+ .debug_frame   0x000022e4       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strcmp.o)
+ .debug_frame   0x00002314       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strncpy.o)
+ .debug_frame   0x0000233c       0x68 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-svfprintf.o)
+ .debug_frame   0x000023a4       0x64 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-dtoa.o)
+ .debug_frame   0x00002408       0x50 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-freer.o)
+ .debug_frame   0x00002458       0x6c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-locale.o)
+ .debug_frame   0x000024c4       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-malloc.o)
+ .debug_frame   0x000024f4       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mallocr.o)
+ .debug_frame   0x00002530       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memchr.o)
+ .debug_frame   0x00002558       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-memmove.o)
+ .debug_frame   0x00002584       0x30 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mlock.o)
+ .debug_frame   0x000025b4      0x240 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-mprec.o)
+ .debug_frame   0x000027f4       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-reallocr.o)
+ .debug_frame   0x00002830       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-s_isinfd.o)
+ .debug_frame   0x00002850       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-s_isnand.o)
+ .debug_frame   0x00002870       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-sbrkr.o)
+ .debug_frame   0x0000289c       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-strlen.o)
+ .debug_frame   0x000028bc       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-callocr.o)
+ .debug_frame   0x000028e8       0x64 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-reent.o)
+ .debug_frame   0x0000294c       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_udivsi3.o)
+ .debug_frame   0x0000296c       0x50 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(bpabi.o)
+ .debug_frame   0x000029bc       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_divdi3.o)
+ .debug_frame   0x000029f8       0x3c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/thumb2\libgcc.a(_udivdi3.o)
+ .debug_frame   0x00002a34       0x40 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libcs3.a(start_c.o)
+ .debug_frame   0x00002a74       0x28 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libcs3unhosted.a(unhosted-sbrk.o)
+ .debug_frame   0x00002a9c       0x20 c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-errno.o)
+ .debug_frame   0x00002abc       0x2c c:/program files (x86)/cypress/psoc creator/2.2/psoc creator/import/gnu_cs/arm/4.4.1/bin/../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/lib/thumb2\libc.a(lib_a-init.o)
 
-.debug_str      0x00000000     0x23b5
+.debug_str      0x00000000     0x23d4
  *(.debug_str)
  .debug_str     0x00000000      0x114 .\CortexM3\ARM_GCC_441\Debug\main.o
                                 0x154 (size before relaxing)
@@ -1561,40 +1563,40 @@ END GROUP
                                 0x1a6 (size before relaxing)
  .debug_str     0x000007ef       0xe8 .\CortexM3\ARM_GCC_441\Debug\tmr.o
                                 0x23c (size before relaxing)
- .debug_str     0x000008d7      0x1d9 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
-                                0x329 (size before relaxing)
- .debug_str     0x00000ab0       0x8e .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_str     0x000008d7      0x1f8 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+                                0x352 (size before relaxing)
+ .debug_str     0x00000acf       0x8e .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
                                 0x1b0 (size before relaxing)
- .debug_str     0x00000b3e      0x3a4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_str     0x00000b5d      0x3a4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
                                 0x4d4 (size before relaxing)
- .debug_str     0x00000ee2       0x55 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_str     0x00000f01       0x55 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
                                 0x1fe (size before relaxing)
- .debug_str     0x00000f37      0x16e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_str     0x00000f56      0x16e .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
                                 0x299 (size before relaxing)
- .debug_str     0x000010a5      0x105 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_str     0x000010c4      0x105 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
                                 0x238 (size before relaxing)
- .debug_str     0x000011aa       0xf6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_str     0x000011c9       0xf6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
                                 0x238 (size before relaxing)
- .debug_str     0x000012a0      0x18c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_str     0x000012bf      0x18c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
                                 0x2a8 (size before relaxing)
- .debug_str     0x0000142c      0x149 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_str     0x0000144b      0x149 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
                                 0x2be (size before relaxing)
- .debug_str     0x00001575      0x583 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_str     0x00001594      0x583 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
                                 0x70f (size before relaxing)
- .debug_str     0x00001af8      0x3bd .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_str     0x00001b17      0x3bd .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
                                 0x4ed (size before relaxing)
- .debug_str     0x00001eb5       0x86 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_str     0x00001ed4       0x86 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
                                 0x1a6 (size before relaxing)
- .debug_str     0x00001f3b      0x120 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_str     0x00001f5a      0x120 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
                                 0x262 (size before relaxing)
- .debug_str     0x0000205b      0x149 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_str     0x0000207a      0x149 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
                                 0x28d (size before relaxing)
- .debug_str     0x000021a4      0x10c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_str     0x000021c3      0x10c .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
                                 0x261 (size before relaxing)
- .debug_str     0x000022b0      0x105 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_str     0x000022cf      0x105 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
                                 0x254 (size before relaxing)
 
-.debug_loc      0x00000000     0x3743
+.debug_loc      0x00000000     0x377a
  *(.debug_loc)
  .debug_loc     0x00000000       0x37 .\CortexM3\ARM_GCC_441\Debug\main.o
  .debug_loc     0x00000037       0xfb .\CortexM3\ARM_GCC_441\Debug\bal.o
@@ -1605,27 +1607,27 @@ END GROUP
  .debug_loc     0x000005fa      0x14a .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
  .debug_loc     0x00000744       0x8d .\CortexM3\ARM_GCC_441\Debug\test.o
  .debug_loc     0x000007d1      0x132 .\CortexM3\ARM_GCC_441\Debug\tmr.o
- .debug_loc     0x00000903      0x32d .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .debug_loc     0x00000c30       0x62 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
- .debug_loc     0x00000c92      0x63d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
- .debug_loc     0x000012cf       0x62 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
- .debug_loc     0x00001331      0x2c1 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
- .debug_loc     0x000015f2      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
- .debug_loc     0x0000185d      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
- .debug_loc     0x00001ac8      0x1ea .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
- .debug_loc     0x00001cb2      0x1ea .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
- .debug_loc     0x00001e9c      0xb67 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
- .debug_loc     0x00002a03      0x3b0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
- .debug_loc     0x00002db3       0xc4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
- .debug_loc     0x00002e77      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
- .debug_loc     0x000030e2      0x245 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
- .debug_loc     0x00003327      0x1f6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
- .debug_loc     0x0000351d      0x226 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_loc     0x00000903      0x364 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .debug_loc     0x00000c67       0x62 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_loc     0x00000cc9      0x63d .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_loc     0x00001306       0x62 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_loc     0x00001368      0x2c1 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_loc     0x00001629      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_loc     0x00001894      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_loc     0x00001aff      0x1ea .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_loc     0x00001ce9      0x1ea .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_loc     0x00001ed3      0xb67 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_loc     0x00002a3a      0x3b0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_loc     0x00002dea       0xc4 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_loc     0x00002eae      0x26b .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_loc     0x00003119      0x245 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_loc     0x0000335e      0x1f6 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_loc     0x00003554      0x226 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
 .debug_macinfo
  *(.debug_macinfo)
 
-.debug_ranges   0x00000000      0xa60
+.debug_ranges   0x00000000      0xa68
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x18 .\CortexM3\ARM_GCC_441\Debug\main.o
  .debug_ranges  0x00000018       0x38 .\CortexM3\ARM_GCC_441\Debug\bal.o
@@ -1636,22 +1638,22 @@ END GROUP
  .debug_ranges  0x00000150       0x40 .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
  .debug_ranges  0x00000190       0x28 .\CortexM3\ARM_GCC_441\Debug\test.o
  .debug_ranges  0x000001b8       0x40 .\CortexM3\ARM_GCC_441\Debug\tmr.o
- .debug_ranges  0x000001f8       0x88 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
- .debug_ranges  0x00000280       0x28 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
- .debug_ranges  0x000002a8      0x108 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
- .debug_ranges  0x000003b0       0x20 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
- .debug_ranges  0x000003d0       0x88 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
- .debug_ranges  0x00000458       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
- .debug_ranges  0x000004d0       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
- .debug_ranges  0x00000548       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
- .debug_ranges  0x000005a8       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
- .debug_ranges  0x00000608      0x1d8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
- .debug_ranges  0x000007e0       0xb0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
- .debug_ranges  0x00000890       0x30 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
- .debug_ranges  0x000008c0       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
- .debug_ranges  0x00000938       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
- .debug_ranges  0x000009a0       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
- .debug_ranges  0x00000a00       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
+ .debug_ranges  0x000001f8       0x90 .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
+ .debug_ranges  0x00000288       0x28 .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+ .debug_ranges  0x000002b0      0x108 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART.o)
+ .debug_ranges  0x000003b8       0x20 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_INT.o)
+ .debug_ranges  0x000003d8       0x88 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER.o)
+ .debug_ranges  0x00000460       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_tx.o)
+ .debug_ranges  0x000004d8       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(isr_rx.o)
+ .debug_ranges  0x00000550       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(TIMER_CLOCK.o)
+ .debug_ranges  0x000005b0       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(UART_IntClock.o)
+ .debug_ranges  0x00000610      0x1d8 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyLib.o)
+ .debug_ranges  0x000007e8       0xb0 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyPm.o)
+ .debug_ranges  0x00000898       0x30 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(DEBUG_LED_1.o)
+ .debug_ranges  0x000008c8       0x78 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(Isr_timer.o)
+ .debug_ranges  0x00000940       0x68 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(cyfitter_cfg.o)
+ .debug_ranges  0x000009a8       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CyFlash.o)
+ .debug_ranges  0x00000a08       0x60 .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a(CySpc.o)
 
 .debug_weaknames
  *(.debug_weaknames)

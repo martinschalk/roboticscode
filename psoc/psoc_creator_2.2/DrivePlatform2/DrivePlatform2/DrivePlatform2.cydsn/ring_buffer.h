@@ -45,7 +45,8 @@ uint8_t RBF_ucLastByteOut(uint8_t ucIndex, uint8_t* byte);
 uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size);
 uint8_t RBF_ucFirstMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
 uint8_t RBF_ucLastMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
-uint8_t RBF_GetMsgCount(uint8_t ucIndex);
+uint8_t RBF_ucGetMsgCount(uint8_t ucIndex);
+uint8_t RBF_ucGetByteCount(uint8_t ucIndex);
 
 
 #endif //RING_BUFFER_H

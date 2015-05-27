@@ -1,4 +1,4 @@
---------------- Build Started: 05/25/2015 12:49:44 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
+--------------- Build Started: 05/28/2015 00:23:54 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\ring_buffer.lst -ffunction-sections -c .\ring_buffer.c -o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
 arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a .\CortexM3\ARM_GCC_441\Debug\UART.o .\CortexM3\ARM_GCC_441\Debug\UART_PM.o .\CortexM3\ARM_GCC_441\Debug\UART_INT.o .\CortexM3\ARM_GCC_441\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_441\Debug\TIMER.o .\CortexM3\ARM_GCC_441\Debug\TIMER_PM.o .\CortexM3\ARM_GCC_441\Debug\isr_tx.o .\CortexM3\ARM_GCC_441\Debug\isr_rx.o .\CortexM3\ARM_GCC_441\Debug\TIMER_CLOCK.o .\CortexM3\ARM_GCC_441\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o .\CortexM3\ARM_GCC_441\Debug\CyLib.o .\CortexM3\ARM_GCC_441\Debug\cyPm.o .\CortexM3\ARM_GCC_441\Debug\CySpc.o .\CortexM3\ARM_GCC_441\Debug\cyutils.o .\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.o .\CortexM3\ARM_GCC_441\Debug\Isr_timer.o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
@@ -8,4 +8,4 @@ arm-none-eabi-objcopy.exe -O ihex .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.el
 cyhextool -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.hex -f .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx -prot .\Generated_Source\PSoC5\protect.hex -id E13C069 -a EEPROM=90200000:800,PROGRAM=00000000:40000,CONFIG=80000000:8000,PROTECT=90400000:100 -meta 0101 -cunv 00000006 -wonv BC90ACAF -ecc .\Generated_Source\PSoC5\config.hex
 Flash used: 10088 of 262144 bytes (3,8%).
 SRAM used: 2604 of 65536 bytes (4,0%).
---------------- Build Succeeded: 05/25/2015 12:49:45 ---------------
+--------------- Build Succeeded: 05/28/2015 00:23:55 ---------------

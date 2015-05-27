@@ -403,12 +403,31 @@ uint8_t RBF_ucLastMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 	return status;
 }
 /*****************************************************************/
-uint8_t RBF_GetMsgCount(uint8_t ucIndex)
+uint8_t RBF_ucGetMsgCount(uint8_t ucIndex)
 {
 	return RingBuffer[ucIndex].msgcount;
 }	
 
-
+/*****************************************************************/
+uint8_t RBF_ucGetByteCount(uint8_t ucIndex)
+{
+    uint8_t bytecount;
+    
+    if (RingBuffer[ucIndex].head == RingBuffer[ucIndex].tail)
+    {
+        bytecount = 0;
+    }
+    else if (RingBuffer[ucIndex].head > RingBuffer[ucIndex].tail)
+    {
+        bytecount = RingBuffer[ucIndex].head - RingBuffer[ucIndex].tail;
+    }
+    else
+    {
+        bytecount = RingBuffer[ucIndex].head + (RingBuffer[ucIndex].size - RingBuffer[ucIndex].tail);
+    }
+    
+    return bytecount;
+}
 
 /* ----------------------------------------------------------------- */
 /* --------------------- STATIC FUNCTIONS -------------------------- */ 
@@ -514,6 +533,7 @@ uint8_t RBF_ucTest(void)
     static uint8_t Msg3[5] = {0x01, 0x02, 0x03, 0x04, 0x05};
 	static uint8_t MsgSize;
 	static uint8_t MsgCount;
+    static uint8_t ByteCount;
 	
     STATUS status = RBF_sInit();
     
@@ -538,6 +558,8 @@ uint8_t RBF_ucTest(void)
 			while(1) {};
 		}
 	}
+    
+    ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
 	
 	status = RBF_ucByteIn(ucBufferIndex1, 0x11);	//Byte 20 of 20
 	status = RBF_ucByteIn(ucBufferIndex1, 0x22);	//Byte 21 of 20 -> error
@@ -558,7 +580,8 @@ uint8_t RBF_ucTest(void)
 	status = RBF_ucMsgIn(ucBufferIndex1, Msg1, 5);	//Byte 8..15 of 20
 	status = RBF_ucMsgIn(ucBufferIndex1, Msg1, 5);	//Byte 16..21 of 20 -> error
 	
-	MsgCount = RBF_GetMsgCount(ucBufferIndex1);	//2
+	MsgCount = RBF_ucGetMsgCount(ucBufferIndex1);	//2
+    ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
 		
 	status = RBF_ucFirstMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
 	status = RBF_ucMsgIn(ucBufferIndex1, Msg3, 5);			//Byte 8..15 of 20
@@ -566,7 +589,8 @@ uint8_t RBF_ucTest(void)
 	status =  RBF_ucLastMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
 	status =  RBF_ucLastMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 1..7 of 20 (buffer empty)	
 	
-	MsgCount = RBF_GetMsgCount(ucBufferIndex1); // 0
+	MsgCount = RBF_ucGetMsgCount(ucBufferIndex1); // 0
+    ByteCount = RBF_ucGetByteCount(ucBufferIndex1); // 0
     // END TEST 3
 
     return status;

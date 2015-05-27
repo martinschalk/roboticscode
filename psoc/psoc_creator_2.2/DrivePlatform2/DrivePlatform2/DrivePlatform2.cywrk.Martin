@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform2\DrivePlatform2\Source Files\ring_buffer.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform2\DrivePlatform2\Header Files\ring_buffer.h">
 <ExpandedNodeIds>
 <v>DrivePlatform2</v>
 <v>DrivePlatform2\DrivePlatform2</v>
@@ -290,22 +290,8 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v="..\..\drive_platform\driveplatform.cydsn\servo_cds5500.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
-<name v=".\DrivePlatform2.cydsn\main.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bpl.h" />
-<name v="..\..\drive_platform\driveplatform.cydsn\scheduler.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\error.h" />
 <name v=".\DrivePlatform2.cydsn\ring_buffer.c" />
 <name v=".\DrivePlatform2.cydsn\ring_buffer.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\types.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\global.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.h" />
 </OpenDocs>
 <config v="" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
