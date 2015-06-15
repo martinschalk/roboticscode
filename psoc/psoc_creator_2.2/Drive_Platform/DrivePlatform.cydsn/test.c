@@ -11,6 +11,7 @@
 #include "tmr.h"
 #include "hal.h"
 #include "bal.h"
+#include "ring_buffer.h"
 
 #define TST_MSG_BUFFER_SIZE     32
 #define TST_MSG_ZERO_COUNT      5
@@ -137,30 +138,13 @@ STATUS TST_Init(void)
 /*******************************************************/
 STATUS TST_HandleTask(void)
 {
-    //static int i=0;
-    /*
-    if (TST_IsInitialized == FALSE)
-    {
-        TST_Init();
-        TST_IsInitialized = TRUE;
-    }
+    STATUS status = SUCCESS;
     
-    if (TST_FuncPtr != NULL)
-        TST_FuncPtr();
-*/
+#ifdef RBF_MODULE_TEST
+    status = RBF_ucTest();
+#endif
     
-    
-    /* analyze received messages each 1000 cycles */
-    /*
-    if (i%1000==0)
-    {
-        TST_GetMsg(); 
-    }
-        
-    i++;
-    */
-    
-    return SUCCESS;
+    return status;
 }
 
 /* [] END OF FILE */

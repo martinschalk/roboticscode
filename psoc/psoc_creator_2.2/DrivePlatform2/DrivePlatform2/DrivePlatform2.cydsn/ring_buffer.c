@@ -32,7 +32,7 @@ static uint8_t IncTail(uint8_t ucIdx);
 /* --------------------- GLOBAL FUNCTIONS -------------------------- */
 /* ----------------------------------------------------------------- */
 /*****************************************************************/
-STATUS RBF_sInit(void)
+STATUS RBF_ucInit(void)
 {
     static int stest = sizeof(RingBuffer);
     (void)stest;
@@ -50,9 +50,9 @@ uint8_t RBF_ucClearBuffer(uint8_t ucIndex)
     if ((RingBuffer[ucIndex].address != NULLPTR) && (RingBuffer[ucIndex].size > 1))
 	{		
 		memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
-		RingBuffer[ucIndex].size = 0;
 		RingBuffer[ucIndex].head = 0;
 		RingBuffer[ucIndex].tail = 0;
+        RingBuffer[ucIndex].zb = 0;
 		RingBuffer[ucIndex].msgcount = 0;
 		
 		status = RBF_SUCCESS;
@@ -79,6 +79,7 @@ uint8_t RBF_ucRegisterBuffer(uint8_t* pucAddr, uint16_t uiSize)
                 RingBuffer[ucIndex].size = uiSize;
                 RingBuffer[ucIndex].head = 0;
                 RingBuffer[ucIndex].tail = 0;
+                RingBuffer[ucIndex].zb = 0;
 				RingBuffer[ucIndex].msgcount = 0;
                 
                 memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
@@ -114,6 +115,7 @@ uint8_t RBF_ucUnregisterBuffer(uint8_t ucIndex)
         RingBuffer[ucIndex].size = 0;
         RingBuffer[ucIndex].head = 0;
         RingBuffer[ucIndex].tail = 0;
+        RingBuffer[ucIndex].zb = 0;
 		RingBuffer[ucIndex].msgcount = 0;
         
         memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
@@ -132,64 +134,117 @@ uint8_t RBF_ucByteIn(uint8_t ucIndex, uint8_t byte)
 {
     STATUS status;
 	
-	if (IncHead(ucIndex) == RBF_SUCCESS)
-	{
-		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head] = byte;
-		status = RBF_SUCCESS;
-	}
-	else
+    // is head == tail ?
+    if (RingBuffer[ucIndex].head == RingBuffer[ucIndex].tail)
     {
-        status = RBF_FAIL;
+        // if head = tail, is zero byte empty?
+        if (RingBuffer[ucIndex].zb == 0)
+        {
+            RingBuffer[ucIndex].zb = 1;
+            status = RBF_SUCCESS;
+        }
+        else
+        {
+            status = IncHead(ucIndex);
+        }
     }
+    else // is head != tail 
+    {
+        status = IncHead(ucIndex);
+    }
+    
+    if (status == RBF_SUCCESS)
+    {
+		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head] = byte;
+	}
 	
 	return status;
 }
 /*****************************************************************/
-uint8_t RBF_ucFirstByteOut(uint8_t ucIndex, uint8_t* byte)
+uint8_t RBF_ucHeadByteOut(uint8_t ucIndex, uint8_t* byte)
 {
     STATUS status;
 	
-	if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
+    // is head == tail ?
+	if (RingBuffer[ucIndex].tail == RingBuffer[ucIndex].head)
 	{
+        // if head = tail, is zero byte set?
+        if (RingBuffer[ucIndex].zb == 1)
+        {
+           RingBuffer[ucIndex].zb = 0; 
+           status = RBF_SUCCESS;
+        }
+        else
+        {
+            status = RBF_FAIL;
+        }
+    }
+    else // is head != tail 
+    {
+        status = RBF_SUCCESS;
+    }
+    
+    if (status == RBF_SUCCESS)
+    {
 		*byte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head];
 		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head] = 0;		//delete byte
-        if (DecHead(ucIndex) == RBF_SUCCESS)
+        
+        if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
         {
-            status = RBF_ERROR;
-        }
-        else
-        {
-		    status = RBF_SUCCESS;
+            if (DecHead(ucIndex) == RBF_SUCCESS)
+            {
+                status = RBF_SUCCESS;
+            }
+            else
+            {
+    		    status = RBF_ERROR;
+            }
         }
 	}
-	else
-	{
-		status = RBF_FAIL;
-	}
+	
 	
 	return status;
 }
 /*****************************************************************/
-uint8_t RBF_ucLastByteOut(uint8_t ucIndex, uint8_t* byte)
+uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte)
 {
     STATUS status;
 	
-	if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
+    // is head == tail ?
+	if (RingBuffer[ucIndex].tail == RingBuffer[ucIndex].head)
 	{
-		*byte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail];
-		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail] = 0;		//delete byte
-		if (IncTail(ucIndex) == RBF_SUCCESS)
+        // if head = tail, is zero byte set?
+        if (RingBuffer[ucIndex].zb == 1)
         {
-            status = RBF_ERROR;
+           RingBuffer[ucIndex].zb = 0; 
+           status = RBF_SUCCESS;
         }
         else
         {
-		    status = RBF_SUCCESS;
+            status = RBF_FAIL;
         }
-	}
-	else
-	{
-		status = RBF_FAIL;
+    }
+    else // is head != tail 
+    {
+        status = RBF_SUCCESS;
+    }
+    
+    if (status == RBF_SUCCESS)
+    {
+		*byte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail];
+		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail] = 0;		//delete byte
+        
+        if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
+        {
+            if (IncTail(ucIndex) == RBF_SUCCESS)
+            {
+                status = RBF_SUCCESS;
+            }
+            else
+            {
+    		    status = RBF_ERROR;
+            }
+        }
 	}
 	
 	return status;
@@ -236,7 +291,7 @@ uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size)
 			{
 				while(i >= 0)	// delete already written message bytes plus size byte at beginning
 				{
-					if(RBF_ucFirstByteOut(ucIndex, &temp) == RBF_FAIL)
+					if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_FAIL)
 					{
 						status = RBF_ERROR;
 						break;
@@ -249,7 +304,7 @@ uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size)
 		{
 			while(i >= 0)	// delete already written message bytes plus size byte at beginning
 			{
-				if(RBF_ucFirstByteOut(ucIndex, &temp) == RBF_FAIL)
+				if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_FAIL)
 				{
 					status = RBF_ERROR;
 					break;
@@ -275,21 +330,21 @@ uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size)
 	  tail															 head
 																	 ----
 */
-uint8_t RBF_ucFirstMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
+uint8_t RBF_ucHeadMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 {
     STATUS status;
 	int i=0;
 	uint8_t temp;
 	
 	// 1st byte = message size		
-	if(RBF_ucFirstByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
+	if(RBF_ucHeadByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
 	{																	//	 							 ^
 		if (*size > 0)
 		{
 			while(i < *size)
 			{
 				// message data bytes
-				if(RBF_ucFirstByteOut(ucIndex, &target[*size-i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+				if(RBF_ucHeadByteOut(ucIndex, &target[*size-1-i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
 				{																	//	 	  |			<--		^
 					i++;
 				}
@@ -304,7 +359,7 @@ uint8_t RBF_ucFirstMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 			if (i == *size)
 			{
 				// get size byte at beginning of message 
-				if(RBF_ucFirstByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+				if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
 				{														//	 ^
 					if (temp == *size)
 					{
@@ -343,21 +398,21 @@ uint8_t RBF_ucFirstMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 	  tail															 head
 	  ----
 */
-uint8_t RBF_ucLastMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
+uint8_t RBF_ucTailMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 {
     STATUS status;
 	int i=0;
 	uint8_t temp;
 	
 	// 1st byte = message size		
-	if(RBF_ucLastByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
+	if(RBF_ucTailByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
 	{																	//	 ^
 		if (*size > 0)
 		{
 			while(i < *size)
 			{
 				// message data bytes
-				if(RBF_ucLastByteOut(ucIndex, &target[i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+				if(RBF_ucTailByteOut(ucIndex, &target[i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
 				{															//	 	    ^	   -->		   |
 					i++;
 				}
@@ -372,7 +427,7 @@ uint8_t RBF_ucLastMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
 			if (i == *size)
 			{
 				// get size byte at beginning of message 
-				if(RBF_ucLastByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+				if(RBF_ucTailByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
 				{														//	 							 ^
 					if (temp == *size)
 					{
@@ -426,6 +481,11 @@ uint8_t RBF_ucGetByteCount(uint8_t ucIndex)
         bytecount = RingBuffer[ucIndex].head + (RingBuffer[ucIndex].size - RingBuffer[ucIndex].tail);
     }
     
+     if (RingBuffer[ucIndex].zb == 1)
+    {
+        bytecount++;
+    }
+    
     return bytecount;
 }
 
@@ -438,7 +498,7 @@ static uint8_t IncHead(uint8_t ucIdx)
     uint8_t status = RBF_FAIL;
     uint16_t tempHead = RingBuffer[ucIdx].head + 1;
     
-    if (tempHead > RingBuffer[ucIdx].size)
+    if (tempHead > RingBuffer[ucIdx].size - 1)
     {
         tempHead = 0;
     }
@@ -460,7 +520,7 @@ static uint8_t DecHead(uint8_t ucIdx)
     {
         if (RingBuffer[ucIdx].head == 0)
         {
-            RingBuffer[ucIdx].head = RingBuffer[ucIdx].size;
+            RingBuffer[ucIdx].head = RingBuffer[ucIdx].size - 1;
         }
         else
         {
@@ -478,7 +538,7 @@ static uint8_t IncTail(uint8_t ucIdx)
     uint8_t status = RBF_FAIL;
     uint16_t tempTail = RingBuffer[ucIdx].tail + 1;
     
-    if (tempTail > RingBuffer[ucIdx].size)
+    if (tempTail > RingBuffer[ucIdx].size - 1)
     {
         tempTail = 0;
     }
@@ -497,26 +557,23 @@ static uint8_t DecTail(uint8_t ucIdx)
 {
     uint8_t status = RBF_FAIL;
     
-    if(RingBuffer[ucIdx].head != RingBuffer[ucIdx].tail)
+    if (RingBuffer[ucIdx].tail == 0)
     {
-        if (RingBuffer[ucIdx].tail == 0)
-        {
-            RingBuffer[ucIdx].tail = RingBuffer[ucIdx].size;
-        }
-        else
-        {
-            RingBuffer[ucIdx].tail--;
-        }
-        
-        status = RBF_SUCCESS;
+        RingBuffer[ucIdx].tail = RingBuffer[ucIdx].size - 1;
     }
-        
+    else
+    {
+        RingBuffer[ucIdx].tail--;
+    }
+    
+    status = RBF_SUCCESS;
+       
     return status;
 }
 */
 /*****************************************************************/
 /*****************************************************************/
-#ifdef RBF_TEST
+#ifdef RBF_MODULE_TEST
 
 uint8_t RBF_ucTest(void)
 {
@@ -535,7 +592,7 @@ uint8_t RBF_ucTest(void)
 	static uint8_t MsgCount;
     static uint8_t ByteCount;
 	
-    STATUS status = RBF_sInit();
+    STATUS status = RBF_ucInit();
     
     // TEST 1: Register Buffers -------------------------------------------------------------------
     ucBufferIndex1 = RBF_ucRegisterBuffer(ucBuffer1, 20);
@@ -548,8 +605,10 @@ uint8_t RBF_ucTest(void)
     // END TEST 1
     
     // TEST 2: ByteIn, ByteOut -------------------------------------------------------------------
+    ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
 	status = RBF_ucByteIn(ucBufferIndex1, 0x55);	//Byte 1 of 20
-	
+	ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
+    
 	for (i=0; i<18; i++)							//Byte 1..19 of 20
 	{
 		status = RBF_ucByteIn(ucBufferIndex1, i);
@@ -561,16 +620,19 @@ uint8_t RBF_ucTest(void)
     
     ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
 	
-	status = RBF_ucByteIn(ucBufferIndex1, 0x11);	//Byte 20 of 20
+	status = RBF_ucByteIn(ucBufferIndex1, 0xBB);	//Byte 20 of 20
 	status = RBF_ucByteIn(ucBufferIndex1, 0x22);	//Byte 21 of 20 -> error
 
-	status = RBF_ucFirstByteOut(ucBufferIndex1, &ucTemp);		//Byte 20 of 20
-	status = RBF_ucLastByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20
+	status = RBF_ucHeadByteOut(ucBufferIndex1, &ucTemp);		//Byte 20 of 20
+	status = RBF_ucTailByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20
 	
+	status = RBF_ucByteIn(ucBufferIndex1, 0xFF);
+	status = RBF_ucByteIn(ucBufferIndex1, 0xAA);   
+    
 	status = RBF_ucClearBuffer(ucBufferIndex1);
 
-	status = RBF_ucFirstByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20 -> error
-	status = RBF_ucLastByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20 -> error
+	status = RBF_ucHeadByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20 -> error
+	status = RBF_ucHeadByteOut(ucBufferIndex1, &ucTemp);		//Byte 1 of 20 -> error
     // END TEST 2
     
     // TEST 3: MsgIn, MsgOut  -------------------------------------------------------------------
@@ -583,11 +645,13 @@ uint8_t RBF_ucTest(void)
 	MsgCount = RBF_ucGetMsgCount(ucBufferIndex1);	//2
     ByteCount = RBF_ucGetByteCount(ucBufferIndex1);
 		
-	status = RBF_ucFirstMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
+      
+	status = RBF_ucHeadMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
 	status = RBF_ucMsgIn(ucBufferIndex1, Msg3, 5);			//Byte 8..15 of 20
 	
-	status =  RBF_ucLastMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
-	status =  RBF_ucLastMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 1..7 of 20 (buffer empty)	
+	status =  RBF_ucTailMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 8..15 of 20
+	status =  RBF_ucTailMsgOut(ucBufferIndex1, Msg2, &MsgSize);	//Byte 1..7 of 20 (buffer empty)	
+    //TODO: find error , last length byte not deleted
 	
 	MsgCount = RBF_ucGetMsgCount(ucBufferIndex1); // 0
     ByteCount = RBF_ucGetByteCount(ucBufferIndex1); // 0
@@ -596,4 +660,4 @@ uint8_t RBF_ucTest(void)
     return status;
 }    
     
-#endif //RBF_TEST
+#endif //RBF_MODULE_TEST

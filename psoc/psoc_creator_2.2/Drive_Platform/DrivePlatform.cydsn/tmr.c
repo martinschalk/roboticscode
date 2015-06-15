@@ -15,7 +15,7 @@
 
 static BOOL 	TimerOverrun = FALSE;
 static BOOL     IsFirstExecution = TRUE;
-static TIMER 	Timer[MAX_TIMERS];
+static TIMER 	Timer[TIMER_NUM];
 static uint32	NewTime, OldTime;
 
 
@@ -97,7 +97,7 @@ STATUS TMR_HandleTask(void)
 	OldTime = NewTime;
 	
 	/* update timers */
-	for (i=0; i<MAX_TIMERS; i++)
+	for (i=0; i<TIMER_NUM; i++)
 	{
 		if (Timer[i].status == TIMER_ENABLED)
 		{

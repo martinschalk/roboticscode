@@ -16,17 +16,21 @@
 #define TIMER_10SEC					10000000
 #define TIMER_1SEC					1000000
 #define TIMER_2SEC					2000000
-#define MAX_TIMERS					10
 #define TIMER_DISABLED				0
 #define TIMER_ENABLED				1
 #define TIMER_MODE_CONTINUOUS		2
 #define TIMER_MODE_ONE_SHOT			3
 
-#define TIMER_0						0
-#define TIMER_1						1
-#define TIMER_2						2
-#define TIMER_3						3
-#define TIMER_4						4
+enum
+{
+    TIMER_0	= 0,
+    TIMER_1,
+    TIMER_2,
+    TIMER_3,
+    TIMER_4, //BAL module test
+    TIMER_5,
+    TIMER_NUM
+};
 
 /* timer function to be called if timer down */
 typedef void (*TMR_FUNC)(void);

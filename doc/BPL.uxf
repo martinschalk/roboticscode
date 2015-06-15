@@ -28,9 +28,9 @@ halign=left</panel_attributes>
   <element>
     <id>UMLObject</id>
     <coordinates>
-      <x>656</x>
+      <x>640</x>
       <y>56</y>
-      <w>376</w>
+      <w>392</w>
       <h>296</h>
     </coordinates>
     <panel_attributes>*GetMessage(uint8_t* target, uint8_t size) : uint8_t*
@@ -43,12 +43,12 @@ halign=left</panel_attributes>
     <coordinates>
       <x>224</x>
       <y>72</y>
-      <w>160</w>
+      <w>176</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=
- (HAL_GetRxIsrCount() &gt; 0) 
+ (HAL_ucGetRxIsrCount() &gt; 0)?
 fg=blue</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
@@ -143,12 +143,12 @@ fg=blue</panel_attributes>
     <coordinates>
       <x>224</x>
       <y>288</y>
-      <w>152</w>
+      <w>168</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=
- (RBF_GetMsgCount() &gt; 0) 
+ (RBF_ucGetMsgCount() &gt; 0)?
 fg=blue</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
@@ -218,7 +218,7 @@ fg=gray</panel_attributes>
     <coordinates>
       <x>48</x>
       <y>272</y>
-      <w>344</w>
+      <w>352</w>
       <h>408</h>
     </coordinates>
     <panel_attributes>TRANSMIT MSG
@@ -431,7 +431,7 @@ fg=light_gray</panel_attributes>
     <coordinates>
       <x>48</x>
       <y>56</y>
-      <w>344</w>
+      <w>352</w>
       <h>176</h>
     </coordinates>
     <panel_attributes>RECEIVE BYTES
@@ -552,7 +552,7 @@ plot type=pie</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>792</x>
+      <x>768</x>
       <y>200</y>
       <w>168</w>
       <h>32</h>
@@ -565,7 +565,7 @@ fg=light_gray</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>872</x>
+      <x>848</x>
       <y>80</y>
       <w>16</w>
       <h>16</h>
@@ -576,7 +576,7 @@ fg=light_gray</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>824</x>
+      <x>800</x>
       <y>256</y>
       <w>112</w>
       <h>56</h>
@@ -590,21 +590,21 @@ fg=light_gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>872</x>
+      <x>848</x>
       <y>88</y>
-      <w>152</w>
+      <w>168</w>
       <h>64</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=
- (RBF_GetByteCount() &gt; 0) 
+ (RBF_ucGetByteCount() &gt; 0) 
 fg=blue</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
   </element>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>864</x>
+      <x>840</x>
       <y>136</y>
       <w>32</w>
       <h>32</h>
@@ -615,7 +615,7 @@ fg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>872</x>
+      <x>848</x>
       <y>160</y>
       <w>40</w>
       <h>56</h>
@@ -629,7 +629,7 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>728</x>
+      <x>704</x>
       <y>136</y>
       <w>104</w>
       <h>32</h>
@@ -641,7 +641,7 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>824</x>
+      <x>800</x>
       <y>136</y>
       <w>56</w>
       <h>40</h>
@@ -655,7 +655,7 @@ fg=gray</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>680</x>
+      <x>656</x>
       <y>144</y>
       <w>16</w>
       <h>16</h>
@@ -666,7 +666,7 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>688</x>
+      <x>664</x>
       <y>144</y>
       <w>56</w>
       <h>24</h>
@@ -677,7 +677,7 @@ fg=gray</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>872</x>
+      <x>848</x>
       <y>224</y>
       <w>24</w>
       <h>48</h>
@@ -690,11 +690,11 @@ fg=gray</panel_attributes>
     <coordinates>
       <x>568</x>
       <y>120</y>
-      <w>104</w>
+      <w>88</w>
       <h>24</h>
     </coordinates>
     <panel_attributes>lt=.</panel_attributes>
-    <additional_attributes>10.0;10.0;110.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLSpecialState</id>
@@ -750,5 +750,27 @@ fg=gray</panel_attributes>
     </coordinates>
     <panel_attributes>type=flow_final</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>328</x>
+      <y>640</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>type=flow_final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>288</x>
+      <y>640</y>
+      <w>56</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
   </element>
 </diagram>

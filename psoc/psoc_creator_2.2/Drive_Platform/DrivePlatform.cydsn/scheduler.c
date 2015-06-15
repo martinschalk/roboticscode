@@ -24,12 +24,12 @@ static SCH_TASK 	SCH_Task[] =
 #ifdef ERROR_MODULE_ENABLE
     {"ERR", SCH_TASK_NEW,   0,      ERR_Init,   ERR_HandleTask,     {DEP_NONE}},
 #endif
-    {"RBF", SCH_TASK_NEW,   1,      RBF_sInit,   NULL,               {DEP_NONE}},
+    {"RBF", SCH_TASK_NEW,   1,      RBF_ucInit, NULL,               {DEP_NONE}},
     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
     {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
-    {"TST", SCH_TASK_NEW,   2,      TST_Init,   NULL,               "TMR"},
+    {"TST", SCH_TASK_NEW,   2,      TST_Init,   TST_HandleTask,     "TMR"},
 };
 /* currently only one dependency possible */
 
