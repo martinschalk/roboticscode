@@ -11,7 +11,7 @@
 #include "global.h"
 #include "types.h"
 
-#define RBF_MODULE_TEST
+//#define RBF_MODULE_TEST
 
 #define RBF_FAIL                 (uint8_t)(1U)
 #define RBF_SUCCESS              (uint8_t)(0U)
@@ -19,7 +19,8 @@
 #define RBF_ERROR        		 (uint8_t)(-1U)
 #define RBF_INVALID_PARAMETERS   (uint8_t)(-2U)
 #define RBF_NOT_AVAILABLE        (uint8_t)(-3U)
-#define RBF_EMPTY				 (uint8_t)(-4U)
+#define RBF_EMPTY				 (uint8_t)(-4U)       
+
 
 #define RBF_NUM                  (uint8_t)(2U)
 
@@ -35,19 +36,83 @@ typedef struct _ring_buffer
   uint16_t msgcount;
 } RING_BUFFER;
 
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucInit(void);
 
-uint8_t RBF_ucInit(void);
-uint8_t RBF_ucClearBuffer(uint8_t ucIndex);
-uint8_t RBF_ucRegisterBuffer(uint8_t* pucAddr, uint16_t uiSize);
-uint8_t RBF_ucUnregisterBuffer(uint8_t ucIndex);
-uint8_t RBF_ucByteIn(uint8_t ucIndex, uint8_t byte);
-uint8_t RBF_ucHeadByteOut(uint8_t ucIndex, uint8_t* byte);
-uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte);
-uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size);
-uint8_t RBF_ucHeadMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
-uint8_t RBF_ucTailMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
-uint8_t RBF_ucGetMsgCount(uint8_t ucIndex);
-uint8_t RBF_ucGetByteCount(uint8_t ucIndex);
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucClearBuffer(uint8_t ucIndex);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucRegisterBuffer(uint8_t* pucAddr, uint16_t uiSize);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucUnregisterBuffer(uint8_t ucIndex);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern  uint8_t RBF_ucByteIn(uint8_t ucIndex, uint8_t byte);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucHeadByteOut(uint8_t ucIndex, uint8_t* byte);
+
+/*****************************************************************/
+/** parameters: 
+        ucIndex :   uint8_t, buffer index
+        byte :      uint8_t, target address
+    return: status
+*/
+extern uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucHeadMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
+
+/*****************************************************************/
+/** parameters: 
+        ucIndex :   uint8_t, buffer index
+        target :    uint8_t, target address
+        size :      uint8_t, size address        
+    return: status
+*/
+extern uint8_t RBF_ucTailMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size);
+
+/*****************************************************************/
+/** parameters: 
+        ucIndex :   uint8_t, buffer index
+    return: status
+*/
+extern uint8_t RBF_ucGetMsgCount(uint8_t ucIndex);
+
+/*****************************************************************/
+/** parameters: none
+    return: status
+*/
+extern uint8_t RBF_ucGetByteCount(uint8_t ucIndex);
 
 
 #endif //RING_BUFFER_H

@@ -13,31 +13,26 @@
 #include "hal.h"
 #include "bpl.h"
 #include "error.h"
+#include "ring_buffer.h"
 
-/* Ring buffers */
-static uint8 	ReceiveBuffer[BPL_RX_BUFFER_SIZE];	//RB
-static uint8 	TransmitBuffer[BPL_TX_BUFFER_SIZE];	//TB
-static uint8 	ReceiveMsgCount = 0;
-static uint8 	TransmitMsgCount = 0;
-//static uint8    ReceiveBytesCount = 0;
-static uint8    TransmitBytesCount = 0;
+// buffers
+static uint8_t 	BPL_aucReceiveBuffer[BPL_RX_BUFFER_SIZE];
+static uint8_t 	BPL_aucTransmitBuffer[BPL_TX_BUFFER_SIZE];
 
-static uint8* 	RBHead = ReceiveBuffer;
-static uint8* 	RBTail = ReceiveBuffer;
-static uint8* 	TBHead = TransmitBuffer;
-static uint8* 	TBTail = TransmitBuffer;
+static uint8_t  BPL_ucReceiveBufferIndex;
+static uint8_t  BPL_ucTransmitBufferIndex;
 
+/*
 static STATUS BplStatus = BPL_STATUS_OK;
-
+*/
 
 /*******************************************************/
 STATUS BPL_Init(void)
 {
-#if defined(BPL_DEBUG) && defined(ERROR_MODULE_ENABLE)
-    uchar idx1 = ERR_RegisterUcVariable(&TransmitBytesCount, "TraByCnt", 0, 10);
-    (void)idx1;
-#endif
-
+    //register buffers as ring buffers
+    BPL_ucReceiveBufferIndex = RBF_ucRegisterBuffer(BPL_aucReceiveBuffer, BPL_RX_BUFFER_SIZE);
+    BPL_ucTransmitBufferIndex = RBF_ucRegisterBuffer(BPL_aucTransmitBuffer, BPL_TX_BUFFER_SIZE);
+    
     return SUCCESS;	
 }
 
@@ -45,27 +40,21 @@ STATUS BPL_Init(void)
 /*******************************************************/
 uint8 BPL_GetReceiveMsgCount(void)
 {
-    return ReceiveMsgCount;	
+    return RBF_ucGetByteCount(BPL_ucReceiveBufferIndex);
 }
 
 /*******************************************************/
 uint8 BPL_GetMessage(uint8* target)
 {
-    uint8 msgLength;
+    STATUS rbfStatus;
+    uint8_t ucNumBytes;
     
-    /* check if messages in pipe */
-    if (ReceiveMsgCount==0)
+    if (RBF_ucGetMsgCount(BPL_ucReceiveBufferIndex) == 0)
         return 0;
     
-    /* get message length and copy data to target */
-    msgLength = RBTail[0];
-    memcpy(target, RBTail+1, msgLength);
+    rbfStatus = RBF_ucTailMsgOut(BPL_ucReceiveBufferIndex, target, &ucNumBytes);
     
-    /* update parameters */
-    RBTail += msgLength + 1;
-    ReceiveMsgCount--;	
-    
-    return msgLength;
+    return ucNumBytes;
 }
 
 /*******************************************************/
@@ -74,100 +63,75 @@ uint8 BPL_GetMessage(uint8* target)
     
         BAL message                              BPL message:
         
-        SB0  SB1  MID  LEN  INID PAR CHKS        LEN  SRC
-        ---------------------------------   ==>  ----------------------------------
-        0xFF 0xFF 0x01 0x02 0x01 -   0xFB        0x06 0xFF 0xFF 0x01 0x02 0x01 0xFB 
+        SB0  SB1  MID  LEN  INID PAR CHKS        LEN  SRC                           LEN
+        ---------------------------------   ==>  ---------------------------------------
+        0xFF 0xFF 0x01 0x02 0x01 -   0xFB        0x06 0xFF 0xFF 0x01 0x02 0x01 0xFB 0x06
     
         -> msgLength = 6
 */
 STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength)
 {
-    /* check if message fits in transmit buffer */
-    if (TransmitBytesCount + msgLength + 1 > BPL_TX_BUFFER_SIZE)
-        return BPL_STATUS_TX_BUFFER_FULL;
-
-    /* copy message to transmit buffer, 1st byte = message bytes */
-    TBHead[0] = msgLength;
-    memcpy(&TBHead[1], source, msgLength); //TODO: Error found! ring buffer overflow
+    STATUS rbfStatus;
     
-    /* update parameters */
-    TBHead += msgLength + 1;
-    TransmitBytesCount += msgLength + 1;
-    TransmitMsgCount++;
+    // read message into ring buffer
+    rbfStatus = RBF_ucMsgIn(BPL_ucTransmitBufferIndex, source, msgLength);
 
-    return SUCCESS;	
+    return rbfStatus;	
 }
 
 /*******************************************************/
 STATUS BPL_HandleTask(void)
 {
-	uint8 numBytes;
-	
+    STATUS rbfStatus, BplStatus;
+	uint8_t ucNumBytes;
+    uint8_t ucByte;
+	uint8_t ucMessageBuffer[BPL_MAX_MESSAGE_LENGTH];
+    
 	/* Handle received bytes */
 	/* --------------------- */
-	while ((HAL_GetRxIsrCount() > 0) && (BplStatus == BPL_STATUS_OK))
+	while (HAL_GetRxIsrCount() > 0)
 	{
-		/* check for buffer overflow */
-		if (RBHead+1 == RBTail)
+        ucByte = HAL_GetByte();
+        rbfStatus = RBF_ucByteIn(BPL_ucReceiveBufferIndex, ucByte);
+        
+		if (rbfStatus != RBF_SUCCESS)
 		{
-			BplStatus = BPL_STATUS_RX_BUFFER_FULL;
-			break;
+			//error handling
 		}
-		/* check if passing end of ring buffer */
-		if (++RBHead == &ReceiveBuffer[BPL_RX_BUFFER_SIZE])
-		{
-			RBHead = &ReceiveBuffer[0];
-		}
-
-		/* copy byte from rx buffer to ring buffer */
-		*RBHead = HAL_GetByte();
-		ReceiveMsgCount++;	
 	}
 
 	
 	/* Handle transmission of bytes */
 	/* ---------------------------- */
-	if ((TransmitMsgCount > 0) && (BplStatus == BPL_STATUS_OK))
-	{
-		numBytes = *TBTail; //message length
-		
-		/* check for buffer overflow */
-		if (TBTail + numBytes > TBHead)
-		{
-			BplStatus = BPL_STATUS_TX_DATA_MISMATCH;
-		}
-		else
-		{
-			/* transmit byte */
-			BplStatus = HAL_TransmitArray(TBTail+1, numBytes);
+    if (RBF_ucGetMsgCount(BPL_ucTransmitBufferIndex) > 0)
+    {
+        rbfStatus = RBF_ucTailMsgOut(BPL_ucTransmitBufferIndex, ucMessageBuffer, &ucNumBytes);
+        
+        // LENGTH | CONTENT | LENGTH
+		BplStatus = HAL_TransmitArray(&ucMessageBuffer[1], ucNumBytes-1);
             
-            /* check if message could be sent */
-            if (BplStatus == SUCCESS)
-            {
-    			TBTail += numBytes+1;
-                if (TransmitBytesCount < numBytes+1)
-                    ERROR(ERROR_DEBUG);
-                TransmitBytesCount -= numBytes+1;
-                TransmitMsgCount--;
-            }
+        if (rbfStatus != RBF_SUCCESS)
+		{
+			//error handling
 		}
 	}
 	
-	
-	/* Handle errors */
-	/* ------------- */
-	switch (BplStatus)
-	{
-		case BPL_STATUS_RX_BUFFER_FULL:		RBHead = RBTail = ReceiveBuffer;
-											ReceiveMsgCount = 0;
-											break;
-		case BPL_STATUS_TX_DATA_MISMATCH:	TBHead = TBTail = TransmitBuffer;
-											TransmitMsgCount = 0;
-											break;
-		default:							break;
-	}
     
     return BplStatus;
 }
+
+/*****************************************************************/
+/*****************************************************************/
+#ifdef BPL_MODULE_TEST
+
+uint8_t BPL_ucTest(void)
+{
+    
+
+    return SUCCESS;
+}
+
+#endif //BPL_MODULE_TEST
+
 
 /* [] END OF FILE */

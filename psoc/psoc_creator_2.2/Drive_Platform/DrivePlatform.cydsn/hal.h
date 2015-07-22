@@ -37,9 +37,6 @@ HARDWARE ABSTRACTION LAYER	(HAL)                           <
 #define HAL_TRANSMISSION_BUSY	1u
 
 
-
-
-
 /* Global functions */
 /*******************************************************/
 STATUS 	HAL_Init(void);

@@ -20,7 +20,7 @@
       <w>130</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>FirstByteOut(size)</panel_attributes>
+    <panel_attributes>HeadByteOut(size)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -95,7 +95,7 @@ fg=gray</panel_attributes>
       <w>650</w>
       <h>580</h>
     </coordinates>
-    <panel_attributes>*FirstMsgOut (uint8_t* target, uint8_t* size) : uint8_t*
+    <panel_attributes>*HeadMsgOut (uint8_t* target, uint8_t* size) : uint8_t*
 
 
 
@@ -290,7 +290,7 @@ fg=gray</panel_attributes>
       <w>220</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>FirstByteOut(&amp;target[size-count])</panel_attributes>
+    <panel_attributes>HeadByteOut(&amp;target[size-count])</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -374,7 +374,7 @@ fg=gray</panel_attributes>
       <w>160</w>
       <h>30</h>
     </coordinates>
-    <panel_attributes>FirstByteOut(size)</panel_attributes>
+    <panel_attributes>HeadByteOut(size)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

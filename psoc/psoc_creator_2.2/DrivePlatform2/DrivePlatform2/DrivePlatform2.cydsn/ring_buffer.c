@@ -262,7 +262,14 @@ uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size)
     STATUS status;
 	int i=0;
 	uint8_t temp;
+    uint16_t uiByteCnt = RBF_ucGetByteCount(ucIndex);
 	
+    //check if enough space for message, msg + size at beginning + size at end
+    if ((RingBuffer[ucIndex].size - uiByteCnt) < (size + 2))
+    {
+        return RBF_FAIL;
+    }
+    
 	// 1st byte = message size		
 	if(RBF_ucByteIn(ucIndex, size) == RBF_SUCCESS)				// | size | d0 | d1 | ... | dn | size |
 	{															//	 ^
@@ -495,7 +502,7 @@ uint8_t RBF_ucGetByteCount(uint8_t ucIndex)
 /*****************************************************************/
 static uint8_t IncHead(uint8_t ucIdx)
 {
-    uint8_t status = RBF_FAIL;
+    uint8_t status;
     uint16_t tempHead = RingBuffer[ucIdx].head + 1;
     
     if (tempHead > RingBuffer[ucIdx].size - 1)
@@ -503,20 +510,28 @@ static uint8_t IncHead(uint8_t ucIdx)
         tempHead = 0;
     }
     
-    if (tempHead != RingBuffer[ucIdx].tail)
+    if ((tempHead == RingBuffer[ucIdx].tail) && (RingBuffer[ucIdx].tail == 1)) 
+    {
+        status = RBF_FAIL;
+    }
+    else
     {
         RingBuffer[ucIdx].head = tempHead;
         status = RBF_SUCCESS;
     }
-    
+
     return status;
 } 
 /*****************************************************************/
 static uint8_t DecHead(uint8_t ucIdx)
 {
-    uint8_t status = RBF_FAIL;
+    uint8_t status;
     
-    if(RingBuffer[ucIdx].head != RingBuffer[ucIdx].tail)
+    if(RingBuffer[ucIdx].head == RingBuffer[ucIdx].tail)
+    {
+        status = RBF_FAIL;
+    }
+    else
     {
         if (RingBuffer[ucIdx].head == 0)
         {
@@ -529,6 +544,7 @@ static uint8_t DecHead(uint8_t ucIdx)
         
         status = RBF_SUCCESS;
     }
+    
         
     return status;
 }
@@ -538,17 +554,24 @@ static uint8_t IncTail(uint8_t ucIdx)
     uint8_t status = RBF_FAIL;
     uint16_t tempTail = RingBuffer[ucIdx].tail + 1;
     
-    if (tempTail > RingBuffer[ucIdx].size - 1)
+    if (RingBuffer[ucIdx].tail != RingBuffer[ucIdx].head)
     {
-        tempTail = 0;
-    }
-    
-    if (tempTail != RingBuffer[ucIdx].head)
-    {
+        if (tempTail > RingBuffer[ucIdx].size - 1)
+        {
+            tempTail = 0;
+        }
         RingBuffer[ucIdx].tail = tempTail;
         status = RBF_SUCCESS;
+        
+        /*
+        if (tempTail != (RingBuffer[ucIdx].head + 1))
+        {
+            RingBuffer[ucIdx].tail = tempTail;
+            status = RBF_SUCCESS;
+        }
+        */
     }
-    
+        
     return status;
 } 
 /*****************************************************************/
@@ -588,6 +611,7 @@ uint8_t RBF_ucTest(void)
 	static uint8_t Msg1[5] = {0x33, 0x44, 0x55, 0x66, 0x77};
 	static uint8_t Msg2[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     static uint8_t Msg3[5] = {0x01, 0x02, 0x03, 0x04, 0x05};
+    static uint8_t Msg4[8] = {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF, 0xAA, 0xBB};
 	static uint8_t MsgSize;
 	static uint8_t MsgCount;
     static uint8_t ByteCount;
@@ -655,6 +679,8 @@ uint8_t RBF_ucTest(void)
 	
 	MsgCount = RBF_ucGetMsgCount(ucBufferIndex1); // 0
     ByteCount = RBF_ucGetByteCount(ucBufferIndex1); // 0
+    
+    status = RBF_ucMsgIn(ucBufferIndex1, Msg4, 8);			//Byte 8..15 of 20
     // END TEST 3
 
     return status;

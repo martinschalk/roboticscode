@@ -143,6 +143,10 @@ STATUS TST_HandleTask(void)
 #ifdef RBF_MODULE_TEST
     status = RBF_ucTest();
 #endif
+
+#ifdef BPL_MODULE_TEST
+    status = BPL_ucTest();
+#endif
     
     return status;
 }
