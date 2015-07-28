@@ -64,7 +64,7 @@ extern uint8 BPL_GetMessage(uint8* target);
 extern STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength);
 
 #ifdef BPL_MODULE_TEST
-    extern uint8_t BPL_ucTest(void);
+    extern void BPL_ucTest(void);
 #endif
 
 #endif /* BPL_H */

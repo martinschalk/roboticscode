@@ -1,4 +1,4 @@
---------------- Rebuild Started: 06/15/2015 23:49:10 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
+--------------- Rebuild Started: 07/28/2015 22:31:19 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\main.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\bal.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\bpl.o"
@@ -81,9 +81,6 @@ arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\scheduler.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c -o .\CortexM3\ARM_GCC_441\Debug\scheduler.o
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\servo_cds5500.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.c -o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\test.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c -o .\CortexM3\ARM_GCC_441\Debug\test.o
-..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c: In function 'TST_HandleTask':
-..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c:144: warning: implicit declaration of function 'RBF_ucTest'
-..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c: At top level:
 ..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c:25: warning: 'TST_MsgBuffer' defined but not used
 ..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c:27: warning: 'TST_AckOkMsgBuffer' defined but not used
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\tmr.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\tmr.c -o .\CortexM3\ARM_GCC_441\Debug\tmr.o
@@ -115,6 +112,6 @@ arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a
 arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g -Wl,-Map,.\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.map -Wl,--gc-sections -Wl,--start-group -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\main.o .\CortexM3\ARM_GCC_441\Debug\bal.o .\CortexM3\ARM_GCC_441\Debug\bpl.o .\CortexM3\ARM_GCC_441\Debug\bus.o .\CortexM3\ARM_GCC_441\Debug\error.o .\CortexM3\ARM_GCC_441\Debug\hal.o .\CortexM3\ARM_GCC_441\Debug\scheduler.o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o .\CortexM3\ARM_GCC_441\Debug\test.o .\CortexM3\ARM_GCC_441\Debug\tmr.o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_441\Debug\CyComponentLibrary.a" -Wl,--end-group
 arm-none-eabi-objcopy.exe -O ihex .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx
 cyhextool -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.hex -f .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx -prot .\Generated_Source\PSoC5\protect.hex -id E13C069 -a EEPROM=90200000:800,PROGRAM=00000000:40000,CONFIG=80000000:8000,PROTECT=90400000:100 -meta 0101 -cunv 00000006 -wonv BC90ACAF -ecc .\Generated_Source\PSoC5\config.hex
-Flash used: 15224 of 262144 bytes (5,8%).
-SRAM used: 2572 of 65536 bytes (3,9%).
---------------- Rebuild Succeeded: 06/15/2015 23:50:06 ---------------
+Flash used: 10936 of 262144 bytes (4,2%).
+SRAM used: 2444 of 65536 bytes (3,7%).
+--------------- Rebuild Succeeded: 07/28/2015 22:32:34 ---------------

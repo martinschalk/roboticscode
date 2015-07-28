@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 1
 
 
    1              		.syntax unified
@@ -20,7 +20,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
   17              	.Ldebug_info0:
   18              		.section	.debug_line,"",%progbits
   19              	.Ldebug_line0:
-  20 0000 DB010000 		.text
+  20 0000 DC010000 		.text
   20      02005A01 
   20      00000201 
   20      FB0E0D00 
@@ -46,7 +46,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
   31 0200 00       		.space	1
   32              	BPL_ucTransmitBufferIndex:
   33 0201 00       		.space	1
-  34 0202 0000     		.section	.text.BPL_Init,"ax",%progbits
+  34              		.section	.text.BPL_Init,"ax",%progbits
   35              		.align	2
   36              		.global	BPL_Init
   37              		.thumb
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
    1:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /* Copyright (C) <2014> <Martin Schalk>
    2:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  * All rights reserved.
    3:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  *
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 2
 
 
    4:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****  * This software may be modified and distributed under the terms
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
   66 0022 40F20000 		movw	r0, #:lower16:BPL_aucTransmitBuffer
   67 0026 C0F20000 		movt	r0, #:upper16:BPL_aucTransmitBuffer
   68 002a 4FF48071 		mov	r1, #256
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 3
 
 
   69 002e FFF7FEFF 		bl	RBF_ucRegisterBuffer
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  113              		.cfi_endproc
  114              	.LFE30:
  115              		.size	BPL_GetReceiveMsgCount, .-BPL_GetReceiveMsgCount
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 4
 
 
  116 001a 00BF     		.section	.text.BPL_GetMessage,"ax",%progbits
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  159 0034 7968     		ldr	r1, [r7, #4]
  160 0036 1A46     		mov	r2, r3
  161 0038 FFF7FEFF 		bl	RBF_ucTailMsgOut
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 5
 
 
  162 003c 0346     		mov	r3, r0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  198 0006 7860     		str	r0, [r7, #4]
  199 0008 0B46     		mov	r3, r1
  200 000a FB70     		strb	r3, [r7, #3]
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 6
 
 
   74:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     STATUS rbfStatus;
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  244              		.cfi_def_cfa_register 7
   85:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     STATUS rbfStatus, BplStatus;
   86:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	uint8_t ucNumBytes;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 7
 
 
   87:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     uint8_t ucByte;
@@ -412,13 +412,13 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  273 0044 FFF7FEFF 		bl	RBF_ucGetMsgCount
  274 0048 0346     		mov	r3, r0
  275 004a 002B     		cmp	r3, #0
- 276 004c 20D0     		beq	.L14
+ 276 004c 1BD0     		beq	.L14
  107:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     {
  108:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         rbfStatus = RBF_ucTailMsgOut(BPL_ucTransmitBufferIndex, ucMessageBuffer, &ucNumBytes);
  277              		.loc 1 108 0
  278 004e 40F20003 		movw	r3, #:lower16:BPL_ucTransmitBufferIndex
  279 0052 C0F20003 		movt	r3, #:upper16:BPL_ucTransmitBufferIndex
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 8
 
 
  280 0056 1978     		ldrb	r1, [r3, #0]	@ zero_extendqisi2
@@ -432,19 +432,16 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  288 006c 87F82530 		strb	r3, [r7, #37]
  109:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         
  110:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         // LENGTH | CONTENT | LENGTH
- 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		BplStatus = HAL_TransmitArray(&ucMessageBuffer[1], ucNumBytes-1);
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		BplStatus = HAL_TransmitArray(&ucMessageBuffer[0], ucNumBytes);
  289              		.loc 1 111 0
  290 0070 97F82430 		ldrb	r3, [r7, #36]	@ zero_extendqisi2
- 291 0074 03F1FF33 		add	r3, r3, #-1
- 292 0078 DBB2     		uxtb	r3, r3
- 293 007a 07F10402 		add	r2, r7, #4
- 294 007e 02F10102 		add	r2, r2, #1
- 295 0082 1046     		mov	r0, r2
- 296 0084 1946     		mov	r1, r3
- 297 0086 FFF7FEFF 		bl	HAL_TransmitArray
- 298 008a 0346     		mov	r3, r0
- 299 008c 87F82630 		strb	r3, [r7, #38]
- 300              	.L14:
+ 291 0074 07F10402 		add	r2, r7, #4
+ 292 0078 1046     		mov	r0, r2
+ 293 007a 1946     		mov	r1, r3
+ 294 007c FFF7FEFF 		bl	HAL_TransmitArray
+ 295 0080 0346     		mov	r3, r0
+ 296 0082 87F82630 		strb	r3, [r7, #38]
+ 297              	.L14:
  112:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****             
  113:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         if (rbfStatus != RBF_SUCCESS)
  114:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 		{
@@ -454,977 +451,1093 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 1
  118:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 	
  119:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
  120:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return BplStatus;
- 301              		.loc 1 120 0
- 302 0090 97F82630 		ldrb	r3, [r7, #38]	@ zero_extendqisi2
+ 298              		.loc 1 120 0
+ 299 0086 97F82630 		ldrb	r3, [r7, #38]	@ zero_extendqisi2
  121:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
- 303              		.loc 1 121 0
- 304 0094 1846     		mov	r0, r3
- 305 0096 07F12807 		add	r7, r7, #40
- 306 009a BD46     		mov	sp, r7
- 307 009c 80BD     		pop	{r7, pc}
- 308              		.cfi_endproc
- 309              	.LFE33:
- 310              		.size	BPL_HandleTask, .-BPL_HandleTask
- 311 009e 00BF     		.section	.text.BPL_ucTest,"ax",%progbits
- 312              		.align	2
- 313              		.global	BPL_ucTest
- 314              		.thumb
- 315              		.thumb_func
- 316              		.type	BPL_ucTest, %function
- 317              	BPL_ucTest:
- 318              	.LFB34:
+ 300              		.loc 1 121 0
+ 301 008a 1846     		mov	r0, r3
+ 302 008c 07F12807 		add	r7, r7, #40
+ 303 0090 BD46     		mov	sp, r7
+ 304 0092 80BD     		pop	{r7, pc}
+ 305              		.cfi_endproc
+ 306              	.LFE33:
+ 307              		.size	BPL_HandleTask, .-BPL_HandleTask
+ 308              		.section	.text.BPL_ucTest,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	BPL_ucTest
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.type	BPL_ucTest, %function
+ 314              	BPL_ucTest:
+ 315              	.LFB34:
  122:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
  123:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*****************************************************************/
  124:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** /*****************************************************************/
  125:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** #ifdef BPL_MODULE_TEST
  126:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 9
-
-
- 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** uint8_t BPL_ucTest(void)
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** void BPL_ucTest(void)
  128:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** {
- 319              		.loc 1 128 0
- 320              		.cfi_startproc
- 321              		@ args = 0, pretend = 0, frame = 0
- 322              		@ frame_needed = 1, uses_anonymous_args = 0
- 323              		@ link register save eliminated.
- 324 0000 80B4     		push	{r7}
- 325              	.LCFI13:
- 326              		.cfi_def_cfa_offset 4
- 327 0002 00AF     		add	r7, sp, #0
- 328              		.cfi_offset 7, -4
- 329              	.LCFI14:
+ 316              		.loc 1 128 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 9
+
+
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 8
+ 319              		@ frame_needed = 1, uses_anonymous_args = 0
+ 320 0000 80B5     		push	{r7, lr}
+ 321              	.LCFI13:
+ 322              		.cfi_def_cfa_offset 8
+ 323 0002 82B0     		sub	sp, sp, #8
+ 324              	.LCFI14:
+ 325              		.cfi_def_cfa_offset 16
+ 326 0004 00AF     		add	r7, sp, #0
+ 327              		.cfi_offset 14, -4
+ 328              		.cfi_offset 7, -8
+ 329              	.LCFI15:
  330              		.cfi_def_cfa_register 7
- 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
- 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** 
- 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     return SUCCESS;
- 331              		.loc 1 131 0
- 332 0004 4FF00003 		mov	r3, #0
- 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
- 333              		.loc 1 132 0
- 334 0008 1846     		mov	r0, r3
- 335 000a BD46     		mov	sp, r7
- 336 000c 80BC     		pop	{r7}
- 337 000e 7047     		bx	lr
- 338              		.cfi_endproc
- 339              	.LFE34:
- 340              		.size	BPL_ucTest, .-BPL_ucTest
- 341              		.text
- 342              	.Letext0:
- 343              		.section	.debug_loc,"",%progbits
- 344              	.Ldebug_loc0:
- 345              	.LLST0:
- 346 0000 00000000 		.4byte	.LFB29
- 347 0004 02000000 		.4byte	.LCFI0
- 348 0008 0100     		.2byte	0x1
- 349 000a 5D       		.byte	0x5d
- 350 000b 02000000 		.4byte	.LCFI0
- 351 000f 04000000 		.4byte	.LCFI1
- 352 0013 0200     		.2byte	0x2
- 353 0015 7D       		.byte	0x7d
- 354 0016 08       		.sleb128 8
- 355 0017 04000000 		.4byte	.LCFI1
- 356 001b 48000000 		.4byte	.LFE29
- 357 001f 0200     		.2byte	0x2
- 358 0021 77       		.byte	0x77
- 359 0022 08       		.sleb128 8
- 360 0023 00000000 		.4byte	0x0
- 361 0027 00000000 		.4byte	0x0
- 362              	.LLST1:
- 363 002b 00000000 		.4byte	.LFB30
- 364 002f 02000000 		.4byte	.LCFI2
- 365 0033 0100     		.2byte	0x1
- 366 0035 5D       		.byte	0x5d
- 367 0036 02000000 		.4byte	.LCFI2
- 368 003a 04000000 		.4byte	.LCFI3
- 369 003e 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 10
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     STATUS status;
+ 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     static uint8_t x = 0;
+ 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     static uint8_t msg[] = {0x05, 0x06, 0x07, 0x08, 0x09};
+ 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     
+ 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     if (x)
+ 331              		.loc 1 133 0
+ 332 0006 40F20003 		movw	r3, #:lower16:x.3607
+ 333 000a C0F20003 		movt	r3, #:upper16:x.3607
+ 334 000e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 335 0010 002B     		cmp	r3, #0
+ 336 0012 09D0     		beq	.L18
+ 134:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     {
+ 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****         status = BPL_TransmitMessage(msg, 5);
+ 337              		.loc 1 135 0
+ 338 0014 40F20000 		movw	r0, #:lower16:msg.3608
+ 339 0018 C0F20000 		movt	r0, #:upper16:msg.3608
+ 340 001c 4FF00501 		mov	r1, #5
+ 341 0020 FFF7FEFF 		bl	BPL_TransmitMessage
+ 342 0024 0346     		mov	r3, r0
+ 343 0026 FB71     		strb	r3, [r7, #7]
+ 344              	.L18:
+ 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c ****     }
+ 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/bpl.c **** }
+ 345              		.loc 1 137 0
+ 346 0028 07F10807 		add	r7, r7, #8
+ 347 002c BD46     		mov	sp, r7
+ 348 002e 80BD     		pop	{r7, pc}
+ 349              		.cfi_endproc
+ 350              	.LFE34:
+ 351              		.size	BPL_ucTest, .-BPL_ucTest
+ 352              		.bss
+ 353              	x.3607:
+ 354 0202 00       		.space	1
+ 355 0203 00       		.data
+ 356              		.align	2
+ 357              		.type	msg.3608, %object
+ 358              		.size	msg.3608, 5
+ 359              	msg.3608:
+ 360 0000 05       		.byte	5
+ 361 0001 06       		.byte	6
+ 362 0002 07       		.byte	7
+ 363 0003 08       		.byte	8
+ 364 0004 09       		.byte	9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 10
 
 
- 370 0040 7D       		.byte	0x7d
- 371 0041 08       		.sleb128 8
- 372 0042 04000000 		.4byte	.LCFI3
- 373 0046 1A000000 		.4byte	.LFE30
- 374 004a 0200     		.2byte	0x2
- 375 004c 77       		.byte	0x77
- 376 004d 08       		.sleb128 8
- 377 004e 00000000 		.4byte	0x0
- 378 0052 00000000 		.4byte	0x0
- 379              	.LLST2:
- 380 0056 00000000 		.4byte	.LFB31
- 381 005a 02000000 		.4byte	.LCFI4
- 382 005e 0100     		.2byte	0x1
- 383 0060 5D       		.byte	0x5d
- 384 0061 02000000 		.4byte	.LCFI4
- 385 0065 04000000 		.4byte	.LCFI5
- 386 0069 0200     		.2byte	0x2
- 387 006b 7D       		.byte	0x7d
- 388 006c 08       		.sleb128 8
- 389 006d 04000000 		.4byte	.LCFI5
- 390 0071 06000000 		.4byte	.LCFI6
- 391 0075 0200     		.2byte	0x2
- 392 0077 7D       		.byte	0x7d
- 393 0078 18       		.sleb128 24
- 394 0079 06000000 		.4byte	.LCFI6
- 395 007d 4C000000 		.4byte	.LFE31
- 396 0081 0200     		.2byte	0x2
- 397 0083 77       		.byte	0x77
- 398 0084 18       		.sleb128 24
- 399 0085 00000000 		.4byte	0x0
- 400 0089 00000000 		.4byte	0x0
- 401              	.LLST3:
- 402 008d 00000000 		.4byte	.LFB32
- 403 0091 02000000 		.4byte	.LCFI7
- 404 0095 0100     		.2byte	0x1
- 405 0097 5D       		.byte	0x5d
- 406 0098 02000000 		.4byte	.LCFI7
- 407 009c 04000000 		.4byte	.LCFI8
- 408 00a0 0200     		.2byte	0x2
- 409 00a2 7D       		.byte	0x7d
- 410 00a3 08       		.sleb128 8
- 411 00a4 04000000 		.4byte	.LCFI8
- 412 00a8 06000000 		.4byte	.LCFI9
- 413 00ac 0200     		.2byte	0x2
- 414 00ae 7D       		.byte	0x7d
- 415 00af 18       		.sleb128 24
- 416 00b0 06000000 		.4byte	.LCFI9
- 417 00b4 32000000 		.4byte	.LFE32
- 418 00b8 0200     		.2byte	0x2
- 419 00ba 77       		.byte	0x77
- 420 00bb 18       		.sleb128 24
- 421 00bc 00000000 		.4byte	0x0
- 422 00c0 00000000 		.4byte	0x0
- 423              	.LLST4:
- 424 00c4 00000000 		.4byte	.LFB33
- 425 00c8 02000000 		.4byte	.LCFI10
- 426 00cc 0100     		.2byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 11
+ 365 0005 000000   		.text
+ 366              	.Letext0:
+ 367              		.section	.debug_loc,"",%progbits
+ 368              	.Ldebug_loc0:
+ 369              	.LLST0:
+ 370 0000 00000000 		.4byte	.LFB29
+ 371 0004 02000000 		.4byte	.LCFI0
+ 372 0008 0100     		.2byte	0x1
+ 373 000a 5D       		.byte	0x5d
+ 374 000b 02000000 		.4byte	.LCFI0
+ 375 000f 04000000 		.4byte	.LCFI1
+ 376 0013 0200     		.2byte	0x2
+ 377 0015 7D       		.byte	0x7d
+ 378 0016 08       		.sleb128 8
+ 379 0017 04000000 		.4byte	.LCFI1
+ 380 001b 48000000 		.4byte	.LFE29
+ 381 001f 0200     		.2byte	0x2
+ 382 0021 77       		.byte	0x77
+ 383 0022 08       		.sleb128 8
+ 384 0023 00000000 		.4byte	0x0
+ 385 0027 00000000 		.4byte	0x0
+ 386              	.LLST1:
+ 387 002b 00000000 		.4byte	.LFB30
+ 388 002f 02000000 		.4byte	.LCFI2
+ 389 0033 0100     		.2byte	0x1
+ 390 0035 5D       		.byte	0x5d
+ 391 0036 02000000 		.4byte	.LCFI2
+ 392 003a 04000000 		.4byte	.LCFI3
+ 393 003e 0200     		.2byte	0x2
+ 394 0040 7D       		.byte	0x7d
+ 395 0041 08       		.sleb128 8
+ 396 0042 04000000 		.4byte	.LCFI3
+ 397 0046 1A000000 		.4byte	.LFE30
+ 398 004a 0200     		.2byte	0x2
+ 399 004c 77       		.byte	0x77
+ 400 004d 08       		.sleb128 8
+ 401 004e 00000000 		.4byte	0x0
+ 402 0052 00000000 		.4byte	0x0
+ 403              	.LLST2:
+ 404 0056 00000000 		.4byte	.LFB31
+ 405 005a 02000000 		.4byte	.LCFI4
+ 406 005e 0100     		.2byte	0x1
+ 407 0060 5D       		.byte	0x5d
+ 408 0061 02000000 		.4byte	.LCFI4
+ 409 0065 04000000 		.4byte	.LCFI5
+ 410 0069 0200     		.2byte	0x2
+ 411 006b 7D       		.byte	0x7d
+ 412 006c 08       		.sleb128 8
+ 413 006d 04000000 		.4byte	.LCFI5
+ 414 0071 06000000 		.4byte	.LCFI6
+ 415 0075 0200     		.2byte	0x2
+ 416 0077 7D       		.byte	0x7d
+ 417 0078 18       		.sleb128 24
+ 418 0079 06000000 		.4byte	.LCFI6
+ 419 007d 4C000000 		.4byte	.LFE31
+ 420 0081 0200     		.2byte	0x2
+ 421 0083 77       		.byte	0x77
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 11
 
 
- 427 00ce 5D       		.byte	0x5d
- 428 00cf 02000000 		.4byte	.LCFI10
- 429 00d3 04000000 		.4byte	.LCFI11
- 430 00d7 0200     		.2byte	0x2
- 431 00d9 7D       		.byte	0x7d
- 432 00da 08       		.sleb128 8
- 433 00db 04000000 		.4byte	.LCFI11
- 434 00df 06000000 		.4byte	.LCFI12
- 435 00e3 0200     		.2byte	0x2
- 436 00e5 7D       		.byte	0x7d
- 437 00e6 30       		.sleb128 48
- 438 00e7 06000000 		.4byte	.LCFI12
- 439 00eb 9E000000 		.4byte	.LFE33
- 440 00ef 0200     		.2byte	0x2
- 441 00f1 77       		.byte	0x77
- 442 00f2 30       		.sleb128 48
- 443 00f3 00000000 		.4byte	0x0
- 444 00f7 00000000 		.4byte	0x0
- 445              	.LLST5:
- 446 00fb 00000000 		.4byte	.LFB34
- 447 00ff 02000000 		.4byte	.LCFI13
- 448 0103 0100     		.2byte	0x1
- 449 0105 5D       		.byte	0x5d
- 450 0106 02000000 		.4byte	.LCFI13
- 451 010a 04000000 		.4byte	.LCFI14
- 452 010e 0200     		.2byte	0x2
- 453 0110 7D       		.byte	0x7d
- 454 0111 04       		.sleb128 4
- 455 0112 04000000 		.4byte	.LCFI14
- 456 0116 10000000 		.4byte	.LFE34
- 457 011a 0200     		.2byte	0x2
- 458 011c 77       		.byte	0x77
- 459 011d 04       		.sleb128 4
- 460 011e 00000000 		.4byte	0x0
- 461 0122 00000000 		.4byte	0x0
- 462              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
- 463              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
- 464              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
- 465              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
- 466              		.section	.debug_info
- 467 0000 61020000 		.4byte	0x261
- 468 0004 0200     		.2byte	0x2
- 469 0006 00000000 		.4byte	.Ldebug_abbrev0
- 470 000a 04       		.byte	0x4
- 471 000b 01       		.uleb128 0x1
- 472 000c CA010000 		.4byte	.LASF33
- 473 0010 01       		.byte	0x1
- 474 0011 0E000000 		.4byte	.LASF34
- 475 0015 03010000 		.4byte	.LASF35
- 476 0019 00000000 		.4byte	0x0
- 477 001d 00000000 		.4byte	0x0
- 478 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
- 479 0025 00000000 		.4byte	.Ldebug_line0
- 480 0029 02       		.uleb128 0x2
- 481 002a 01       		.byte	0x1
- 482 002b 06       		.byte	0x6
- 483 002c 86000000 		.4byte	.LASF0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 12
+ 422 0084 18       		.sleb128 24
+ 423 0085 00000000 		.4byte	0x0
+ 424 0089 00000000 		.4byte	0x0
+ 425              	.LLST3:
+ 426 008d 00000000 		.4byte	.LFB32
+ 427 0091 02000000 		.4byte	.LCFI7
+ 428 0095 0100     		.2byte	0x1
+ 429 0097 5D       		.byte	0x5d
+ 430 0098 02000000 		.4byte	.LCFI7
+ 431 009c 04000000 		.4byte	.LCFI8
+ 432 00a0 0200     		.2byte	0x2
+ 433 00a2 7D       		.byte	0x7d
+ 434 00a3 08       		.sleb128 8
+ 435 00a4 04000000 		.4byte	.LCFI8
+ 436 00a8 06000000 		.4byte	.LCFI9
+ 437 00ac 0200     		.2byte	0x2
+ 438 00ae 7D       		.byte	0x7d
+ 439 00af 18       		.sleb128 24
+ 440 00b0 06000000 		.4byte	.LCFI9
+ 441 00b4 32000000 		.4byte	.LFE32
+ 442 00b8 0200     		.2byte	0x2
+ 443 00ba 77       		.byte	0x77
+ 444 00bb 18       		.sleb128 24
+ 445 00bc 00000000 		.4byte	0x0
+ 446 00c0 00000000 		.4byte	0x0
+ 447              	.LLST4:
+ 448 00c4 00000000 		.4byte	.LFB33
+ 449 00c8 02000000 		.4byte	.LCFI10
+ 450 00cc 0100     		.2byte	0x1
+ 451 00ce 5D       		.byte	0x5d
+ 452 00cf 02000000 		.4byte	.LCFI10
+ 453 00d3 04000000 		.4byte	.LCFI11
+ 454 00d7 0200     		.2byte	0x2
+ 455 00d9 7D       		.byte	0x7d
+ 456 00da 08       		.sleb128 8
+ 457 00db 04000000 		.4byte	.LCFI11
+ 458 00df 06000000 		.4byte	.LCFI12
+ 459 00e3 0200     		.2byte	0x2
+ 460 00e5 7D       		.byte	0x7d
+ 461 00e6 30       		.sleb128 48
+ 462 00e7 06000000 		.4byte	.LCFI12
+ 463 00eb 94000000 		.4byte	.LFE33
+ 464 00ef 0200     		.2byte	0x2
+ 465 00f1 77       		.byte	0x77
+ 466 00f2 30       		.sleb128 48
+ 467 00f3 00000000 		.4byte	0x0
+ 468 00f7 00000000 		.4byte	0x0
+ 469              	.LLST5:
+ 470 00fb 00000000 		.4byte	.LFB34
+ 471 00ff 02000000 		.4byte	.LCFI13
+ 472 0103 0100     		.2byte	0x1
+ 473 0105 5D       		.byte	0x5d
+ 474 0106 02000000 		.4byte	.LCFI13
+ 475 010a 04000000 		.4byte	.LCFI14
+ 476 010e 0200     		.2byte	0x2
+ 477 0110 7D       		.byte	0x7d
+ 478 0111 08       		.sleb128 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 12
 
 
- 484 0030 03       		.uleb128 0x3
- 485 0031 A9010000 		.4byte	.LASF9
- 486 0035 02       		.byte	0x2
- 487 0036 2A       		.byte	0x2a
- 488 0037 3B000000 		.4byte	0x3b
- 489 003b 02       		.uleb128 0x2
- 490 003c 01       		.byte	0x1
- 491 003d 08       		.byte	0x8
- 492 003e EE000000 		.4byte	.LASF1
- 493 0042 02       		.uleb128 0x2
- 494 0043 02       		.byte	0x2
- 495 0044 05       		.byte	0x5
- 496 0045 F8010000 		.4byte	.LASF2
- 497 0049 02       		.uleb128 0x2
- 498 004a 02       		.byte	0x2
- 499 004b 07       		.byte	0x7
- 500 004c CE000000 		.4byte	.LASF3
- 501 0050 02       		.uleb128 0x2
- 502 0051 04       		.byte	0x4
- 503 0052 05       		.byte	0x5
- 504 0053 08020000 		.4byte	.LASF4
- 505 0057 02       		.uleb128 0x2
- 506 0058 04       		.byte	0x4
- 507 0059 07       		.byte	0x7
- 508 005a BC000000 		.4byte	.LASF5
- 509 005e 02       		.uleb128 0x2
- 510 005f 08       		.byte	0x8
- 511 0060 05       		.byte	0x5
- 512 0061 00000000 		.4byte	.LASF6
- 513 0065 02       		.uleb128 0x2
- 514 0066 08       		.byte	0x8
- 515 0067 07       		.byte	0x7
- 516 0068 92010000 		.4byte	.LASF7
- 517 006c 04       		.uleb128 0x4
- 518 006d 04       		.byte	0x4
- 519 006e 05       		.byte	0x5
- 520 006f 696E7400 		.ascii	"int\000"
- 521 0073 02       		.uleb128 0x2
- 522 0074 04       		.byte	0x4
- 523 0075 07       		.byte	0x7
- 524 0076 70010000 		.4byte	.LASF8
- 525 007a 03       		.uleb128 0x3
- 526 007b 02020000 		.4byte	.LASF10
- 527 007f 03       		.byte	0x3
- 528 0080 4C       		.byte	0x4c
- 529 0081 3B000000 		.4byte	0x3b
- 530 0085 02       		.uleb128 0x2
- 531 0086 04       		.byte	0x4
- 532 0087 04       		.byte	0x4
- 533 0088 71000000 		.4byte	.LASF11
- 534 008c 02       		.uleb128 0x2
- 535 008d 08       		.byte	0x8
- 536 008e 04       		.byte	0x4
- 537 008f FC000000 		.4byte	.LASF12
- 538 0093 02       		.uleb128 0x2
- 539 0094 01       		.byte	0x1
- 540 0095 08       		.byte	0x8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 13
+ 479 0112 04000000 		.4byte	.LCFI14
+ 480 0116 06000000 		.4byte	.LCFI15
+ 481 011a 0200     		.2byte	0x2
+ 482 011c 7D       		.byte	0x7d
+ 483 011d 10       		.sleb128 16
+ 484 011e 06000000 		.4byte	.LCFI15
+ 485 0122 30000000 		.4byte	.LFE34
+ 486 0126 0200     		.2byte	0x2
+ 487 0128 77       		.byte	0x77
+ 488 0129 10       		.sleb128 16
+ 489 012a 00000000 		.4byte	0x0
+ 490 012e 00000000 		.4byte	0x0
+ 491              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 492              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 493              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
+ 494              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 495              		.section	.debug_info
+ 496 0000 A0020000 		.4byte	0x2a0
+ 497 0004 0200     		.2byte	0x2
+ 498 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 499 000a 04       		.byte	0x4
+ 500 000b 01       		.uleb128 0x1
+ 501 000c D1010000 		.4byte	.LASF33
+ 502 0010 01       		.byte	0x1
+ 503 0011 0E000000 		.4byte	.LASF34
+ 504 0015 0A010000 		.4byte	.LASF35
+ 505 0019 00000000 		.4byte	0x0
+ 506 001d 00000000 		.4byte	0x0
+ 507 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 508 0025 00000000 		.4byte	.Ldebug_line0
+ 509 0029 02       		.uleb128 0x2
+ 510 002a 01       		.byte	0x1
+ 511 002b 06       		.byte	0x6
+ 512 002c 8D000000 		.4byte	.LASF0
+ 513 0030 03       		.uleb128 0x3
+ 514 0031 B0010000 		.4byte	.LASF9
+ 515 0035 02       		.byte	0x2
+ 516 0036 2A       		.byte	0x2a
+ 517 0037 3B000000 		.4byte	0x3b
+ 518 003b 02       		.uleb128 0x2
+ 519 003c 01       		.byte	0x1
+ 520 003d 08       		.byte	0x8
+ 521 003e F5000000 		.4byte	.LASF1
+ 522 0042 02       		.uleb128 0x2
+ 523 0043 02       		.byte	0x2
+ 524 0044 05       		.byte	0x5
+ 525 0045 FF010000 		.4byte	.LASF2
+ 526 0049 02       		.uleb128 0x2
+ 527 004a 02       		.byte	0x2
+ 528 004b 07       		.byte	0x7
+ 529 004c D5000000 		.4byte	.LASF3
+ 530 0050 02       		.uleb128 0x2
+ 531 0051 04       		.byte	0x4
+ 532 0052 05       		.byte	0x5
+ 533 0053 0F020000 		.4byte	.LASF4
+ 534 0057 02       		.uleb128 0x2
+ 535 0058 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 13
 
 
- 541 0096 11020000 		.4byte	.LASF13
- 542 009a 05       		.uleb128 0x5
- 543 009b 04       		.byte	0x4
- 544 009c 07       		.byte	0x7
- 545 009d 03       		.uleb128 0x3
- 546 009e 92000000 		.4byte	.LASF14
- 547 00a2 04       		.byte	0x4
- 548 00a3 0F       		.byte	0xf
- 549 00a4 7A000000 		.4byte	0x7a
- 550 00a8 06       		.uleb128 0x6
- 551 00a9 04       		.byte	0x4
- 552 00aa 7A000000 		.4byte	0x7a
- 553 00ae 07       		.uleb128 0x7
- 554 00af 01       		.byte	0x1
- 555 00b0 99000000 		.4byte	.LASF15
- 556 00b4 01       		.byte	0x1
- 557 00b5 1E       		.byte	0x1e
- 558 00b6 01       		.byte	0x1
- 559 00b7 9D000000 		.4byte	0x9d
- 560 00bb 00000000 		.4byte	.LFB29
- 561 00bf 48000000 		.4byte	.LFE29
- 562 00c3 00000000 		.4byte	.LLST0
- 563 00c7 07       		.uleb128 0x7
- 564 00c8 01       		.byte	0x1
- 565 00c9 E1010000 		.4byte	.LASF16
- 566 00cd 01       		.byte	0x1
- 567 00ce 29       		.byte	0x29
- 568 00cf 01       		.byte	0x1
- 569 00d0 7A000000 		.4byte	0x7a
- 570 00d4 00000000 		.4byte	.LFB30
- 571 00d8 1A000000 		.4byte	.LFE30
- 572 00dc 2B000000 		.4byte	.LLST1
- 573 00e0 08       		.uleb128 0x8
- 574 00e1 01       		.byte	0x1
- 575 00e2 77000000 		.4byte	.LASF19
- 576 00e6 01       		.byte	0x1
- 577 00e7 2F       		.byte	0x2f
- 578 00e8 01       		.byte	0x1
- 579 00e9 7A000000 		.4byte	0x7a
- 580 00ed 00000000 		.4byte	.LFB31
- 581 00f1 4C000000 		.4byte	.LFE31
- 582 00f5 56000000 		.4byte	.LLST2
- 583 00f9 28010000 		.4byte	0x128
- 584 00fd 09       		.uleb128 0x9
- 585 00fe 6A000000 		.4byte	.LASF21
- 586 0102 01       		.byte	0x1
- 587 0103 2F       		.byte	0x2f
- 588 0104 A8000000 		.4byte	0xa8
- 589 0108 02       		.byte	0x2
- 590 0109 91       		.byte	0x91
- 591 010a 6C       		.sleb128 -20
- 592 010b 0A       		.uleb128 0xa
- 593 010c B2000000 		.4byte	.LASF17
- 594 0110 01       		.byte	0x1
- 595 0111 31       		.byte	0x31
- 596 0112 9D000000 		.4byte	0x9d
- 597 0116 02       		.byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 14
+ 536 0059 07       		.byte	0x7
+ 537 005a C3000000 		.4byte	.LASF5
+ 538 005e 02       		.uleb128 0x2
+ 539 005f 08       		.byte	0x8
+ 540 0060 05       		.byte	0x5
+ 541 0061 00000000 		.4byte	.LASF6
+ 542 0065 02       		.uleb128 0x2
+ 543 0066 08       		.byte	0x8
+ 544 0067 07       		.byte	0x7
+ 545 0068 99010000 		.4byte	.LASF7
+ 546 006c 04       		.uleb128 0x4
+ 547 006d 04       		.byte	0x4
+ 548 006e 05       		.byte	0x5
+ 549 006f 696E7400 		.ascii	"int\000"
+ 550 0073 02       		.uleb128 0x2
+ 551 0074 04       		.byte	0x4
+ 552 0075 07       		.byte	0x7
+ 553 0076 77010000 		.4byte	.LASF8
+ 554 007a 03       		.uleb128 0x3
+ 555 007b 09020000 		.4byte	.LASF10
+ 556 007f 03       		.byte	0x3
+ 557 0080 4C       		.byte	0x4c
+ 558 0081 3B000000 		.4byte	0x3b
+ 559 0085 02       		.uleb128 0x2
+ 560 0086 04       		.byte	0x4
+ 561 0087 04       		.byte	0x4
+ 562 0088 78000000 		.4byte	.LASF11
+ 563 008c 02       		.uleb128 0x2
+ 564 008d 08       		.byte	0x8
+ 565 008e 04       		.byte	0x4
+ 566 008f 03010000 		.4byte	.LASF12
+ 567 0093 02       		.uleb128 0x2
+ 568 0094 01       		.byte	0x1
+ 569 0095 08       		.byte	0x8
+ 570 0096 18020000 		.4byte	.LASF13
+ 571 009a 05       		.uleb128 0x5
+ 572 009b 04       		.byte	0x4
+ 573 009c 07       		.byte	0x7
+ 574 009d 03       		.uleb128 0x3
+ 575 009e 99000000 		.4byte	.LASF14
+ 576 00a2 04       		.byte	0x4
+ 577 00a3 0F       		.byte	0xf
+ 578 00a4 7A000000 		.4byte	0x7a
+ 579 00a8 06       		.uleb128 0x6
+ 580 00a9 04       		.byte	0x4
+ 581 00aa 7A000000 		.4byte	0x7a
+ 582 00ae 07       		.uleb128 0x7
+ 583 00af 01       		.byte	0x1
+ 584 00b0 A0000000 		.4byte	.LASF15
+ 585 00b4 01       		.byte	0x1
+ 586 00b5 1E       		.byte	0x1e
+ 587 00b6 01       		.byte	0x1
+ 588 00b7 9D000000 		.4byte	0x9d
+ 589 00bb 00000000 		.4byte	.LFB29
+ 590 00bf 48000000 		.4byte	.LFE29
+ 591 00c3 00000000 		.4byte	.LLST0
+ 592 00c7 07       		.uleb128 0x7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 14
 
 
- 598 0117 91       		.byte	0x91
- 599 0118 77       		.sleb128 -9
- 600 0119 0A       		.uleb128 0xa
- 601 011a D6010000 		.4byte	.LASF18
- 602 011e 01       		.byte	0x1
- 603 011f 32       		.byte	0x32
- 604 0120 30000000 		.4byte	0x30
- 605 0124 02       		.byte	0x2
- 606 0125 91       		.byte	0x91
- 607 0126 76       		.sleb128 -10
- 608 0127 00       		.byte	0x0
- 609 0128 08       		.uleb128 0x8
- 610 0129 01       		.byte	0x1
- 611 012a 42020000 		.4byte	.LASF20
- 612 012e 01       		.byte	0x1
- 613 012f 48       		.byte	0x48
- 614 0130 01       		.byte	0x1
- 615 0131 9D000000 		.4byte	0x9d
- 616 0135 00000000 		.4byte	.LFB32
- 617 0139 32000000 		.4byte	.LFE32
- 618 013d 8D000000 		.4byte	.LLST3
- 619 0141 70010000 		.4byte	0x170
- 620 0145 09       		.uleb128 0x9
- 621 0146 3B020000 		.4byte	.LASF22
- 622 014a 01       		.byte	0x1
- 623 014b 48       		.byte	0x48
- 624 014c A8000000 		.4byte	0xa8
- 625 0150 02       		.byte	0x2
- 626 0151 91       		.byte	0x91
- 627 0152 6C       		.sleb128 -20
- 628 0153 09       		.uleb128 0x9
- 629 0154 60000000 		.4byte	.LASF23
- 630 0158 01       		.byte	0x1
- 631 0159 48       		.byte	0x48
- 632 015a 7A000000 		.4byte	0x7a
- 633 015e 02       		.byte	0x2
- 634 015f 91       		.byte	0x91
- 635 0160 6B       		.sleb128 -21
- 636 0161 0A       		.uleb128 0xa
- 637 0162 B2000000 		.4byte	.LASF17
- 638 0166 01       		.byte	0x1
- 639 0167 4A       		.byte	0x4a
- 640 0168 9D000000 		.4byte	0x9d
- 641 016c 02       		.byte	0x2
- 642 016d 91       		.byte	0x91
- 643 016e 77       		.sleb128 -9
- 644 016f 00       		.byte	0x0
- 645 0170 08       		.uleb128 0x8
- 646 0171 01       		.byte	0x1
- 647 0172 BB010000 		.4byte	.LASF24
- 648 0176 01       		.byte	0x1
- 649 0177 53       		.byte	0x53
- 650 0178 01       		.byte	0x1
- 651 0179 9D000000 		.4byte	0x9d
- 652 017d 00000000 		.4byte	.LFB33
- 653 0181 9E000000 		.4byte	.LFE33
- 654 0185 C4000000 		.4byte	.LLST4
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 15
+ 593 00c8 01       		.byte	0x1
+ 594 00c9 E8010000 		.4byte	.LASF16
+ 595 00cd 01       		.byte	0x1
+ 596 00ce 29       		.byte	0x29
+ 597 00cf 01       		.byte	0x1
+ 598 00d0 7A000000 		.4byte	0x7a
+ 599 00d4 00000000 		.4byte	.LFB30
+ 600 00d8 1A000000 		.4byte	.LFE30
+ 601 00dc 2B000000 		.4byte	.LLST1
+ 602 00e0 08       		.uleb128 0x8
+ 603 00e1 01       		.byte	0x1
+ 604 00e2 7E000000 		.4byte	.LASF19
+ 605 00e6 01       		.byte	0x1
+ 606 00e7 2F       		.byte	0x2f
+ 607 00e8 01       		.byte	0x1
+ 608 00e9 7A000000 		.4byte	0x7a
+ 609 00ed 00000000 		.4byte	.LFB31
+ 610 00f1 4C000000 		.4byte	.LFE31
+ 611 00f5 56000000 		.4byte	.LLST2
+ 612 00f9 28010000 		.4byte	0x128
+ 613 00fd 09       		.uleb128 0x9
+ 614 00fe 71000000 		.4byte	.LASF21
+ 615 0102 01       		.byte	0x1
+ 616 0103 2F       		.byte	0x2f
+ 617 0104 A8000000 		.4byte	0xa8
+ 618 0108 02       		.byte	0x2
+ 619 0109 91       		.byte	0x91
+ 620 010a 6C       		.sleb128 -20
+ 621 010b 0A       		.uleb128 0xa
+ 622 010c B9000000 		.4byte	.LASF17
+ 623 0110 01       		.byte	0x1
+ 624 0111 31       		.byte	0x31
+ 625 0112 9D000000 		.4byte	0x9d
+ 626 0116 02       		.byte	0x2
+ 627 0117 91       		.byte	0x91
+ 628 0118 77       		.sleb128 -9
+ 629 0119 0A       		.uleb128 0xa
+ 630 011a DD010000 		.4byte	.LASF18
+ 631 011e 01       		.byte	0x1
+ 632 011f 32       		.byte	0x32
+ 633 0120 30000000 		.4byte	0x30
+ 634 0124 02       		.byte	0x2
+ 635 0125 91       		.byte	0x91
+ 636 0126 76       		.sleb128 -10
+ 637 0127 00       		.byte	0x0
+ 638 0128 08       		.uleb128 0x8
+ 639 0129 01       		.byte	0x1
+ 640 012a 49020000 		.4byte	.LASF20
+ 641 012e 01       		.byte	0x1
+ 642 012f 48       		.byte	0x48
+ 643 0130 01       		.byte	0x1
+ 644 0131 9D000000 		.4byte	0x9d
+ 645 0135 00000000 		.4byte	.LFB32
+ 646 0139 32000000 		.4byte	.LFE32
+ 647 013d 8D000000 		.4byte	.LLST3
+ 648 0141 70010000 		.4byte	0x170
+ 649 0145 09       		.uleb128 0x9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 15
 
 
- 655 0189 D4010000 		.4byte	0x1d4
- 656 018d 0A       		.uleb128 0xa
- 657 018e B2000000 		.4byte	.LASF17
- 658 0192 01       		.byte	0x1
- 659 0193 55       		.byte	0x55
- 660 0194 9D000000 		.4byte	0x9d
- 661 0198 02       		.byte	0x2
- 662 0199 91       		.byte	0x91
- 663 019a 75       		.sleb128 -11
- 664 019b 0A       		.uleb128 0xa
- 665 019c B1010000 		.4byte	.LASF25
- 666 01a0 01       		.byte	0x1
- 667 01a1 55       		.byte	0x55
- 668 01a2 9D000000 		.4byte	0x9d
- 669 01a6 02       		.byte	0x2
- 670 01a7 91       		.byte	0x91
- 671 01a8 76       		.sleb128 -10
- 672 01a9 0A       		.uleb128 0xa
- 673 01aa D6010000 		.4byte	.LASF18
- 674 01ae 01       		.byte	0x1
- 675 01af 56       		.byte	0x56
- 676 01b0 30000000 		.4byte	0x30
- 677 01b4 02       		.byte	0x2
- 678 01b5 91       		.byte	0x91
- 679 01b6 74       		.sleb128 -12
- 680 01b7 0A       		.uleb128 0xa
- 681 01b8 59000000 		.4byte	.LASF26
- 682 01bc 01       		.byte	0x1
- 683 01bd 57       		.byte	0x57
- 684 01be 30000000 		.4byte	0x30
- 685 01c2 02       		.byte	0x2
- 686 01c3 91       		.byte	0x91
- 687 01c4 77       		.sleb128 -9
- 688 01c5 0A       		.uleb128 0xa
- 689 01c6 A2000000 		.4byte	.LASF27
- 690 01ca 01       		.byte	0x1
- 691 01cb 58       		.byte	0x58
- 692 01cc D4010000 		.4byte	0x1d4
- 693 01d0 02       		.byte	0x2
- 694 01d1 91       		.byte	0x91
- 695 01d2 54       		.sleb128 -44
- 696 01d3 00       		.byte	0x0
- 697 01d4 0B       		.uleb128 0xb
- 698 01d5 30000000 		.4byte	0x30
- 699 01d9 E4010000 		.4byte	0x1e4
- 700 01dd 0C       		.uleb128 0xc
- 701 01de 9A000000 		.4byte	0x9a
- 702 01e2 1F       		.byte	0x1f
- 703 01e3 00       		.byte	0x0
- 704 01e4 07       		.uleb128 0x7
- 705 01e5 01       		.byte	0x1
- 706 01e6 16020000 		.4byte	.LASF28
- 707 01ea 01       		.byte	0x1
- 708 01eb 7F       		.byte	0x7f
- 709 01ec 01       		.byte	0x1
- 710 01ed 30000000 		.4byte	0x30
- 711 01f1 00000000 		.4byte	.LFB34
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 16
+ 650 0146 42020000 		.4byte	.LASF22
+ 651 014a 01       		.byte	0x1
+ 652 014b 48       		.byte	0x48
+ 653 014c A8000000 		.4byte	0xa8
+ 654 0150 02       		.byte	0x2
+ 655 0151 91       		.byte	0x91
+ 656 0152 6C       		.sleb128 -20
+ 657 0153 09       		.uleb128 0x9
+ 658 0154 60000000 		.4byte	.LASF23
+ 659 0158 01       		.byte	0x1
+ 660 0159 48       		.byte	0x48
+ 661 015a 7A000000 		.4byte	0x7a
+ 662 015e 02       		.byte	0x2
+ 663 015f 91       		.byte	0x91
+ 664 0160 6B       		.sleb128 -21
+ 665 0161 0A       		.uleb128 0xa
+ 666 0162 B9000000 		.4byte	.LASF17
+ 667 0166 01       		.byte	0x1
+ 668 0167 4A       		.byte	0x4a
+ 669 0168 9D000000 		.4byte	0x9d
+ 670 016c 02       		.byte	0x2
+ 671 016d 91       		.byte	0x91
+ 672 016e 77       		.sleb128 -9
+ 673 016f 00       		.byte	0x0
+ 674 0170 08       		.uleb128 0x8
+ 675 0171 01       		.byte	0x1
+ 676 0172 C2010000 		.4byte	.LASF24
+ 677 0176 01       		.byte	0x1
+ 678 0177 53       		.byte	0x53
+ 679 0178 01       		.byte	0x1
+ 680 0179 9D000000 		.4byte	0x9d
+ 681 017d 00000000 		.4byte	.LFB33
+ 682 0181 94000000 		.4byte	.LFE33
+ 683 0185 C4000000 		.4byte	.LLST4
+ 684 0189 D4010000 		.4byte	0x1d4
+ 685 018d 0A       		.uleb128 0xa
+ 686 018e B9000000 		.4byte	.LASF17
+ 687 0192 01       		.byte	0x1
+ 688 0193 55       		.byte	0x55
+ 689 0194 9D000000 		.4byte	0x9d
+ 690 0198 02       		.byte	0x2
+ 691 0199 91       		.byte	0x91
+ 692 019a 75       		.sleb128 -11
+ 693 019b 0A       		.uleb128 0xa
+ 694 019c B8010000 		.4byte	.LASF25
+ 695 01a0 01       		.byte	0x1
+ 696 01a1 55       		.byte	0x55
+ 697 01a2 9D000000 		.4byte	0x9d
+ 698 01a6 02       		.byte	0x2
+ 699 01a7 91       		.byte	0x91
+ 700 01a8 76       		.sleb128 -10
+ 701 01a9 0A       		.uleb128 0xa
+ 702 01aa DD010000 		.4byte	.LASF18
+ 703 01ae 01       		.byte	0x1
+ 704 01af 56       		.byte	0x56
+ 705 01b0 30000000 		.4byte	0x30
+ 706 01b4 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 16
 
 
- 712 01f5 10000000 		.4byte	.LFE34
- 713 01f9 FB000000 		.4byte	.LLST5
- 714 01fd 0B       		.uleb128 0xb
- 715 01fe 30000000 		.4byte	0x30
- 716 0202 0D020000 		.4byte	0x20d
- 717 0206 0C       		.uleb128 0xc
- 718 0207 9A000000 		.4byte	0x9a
- 719 020b FF       		.byte	0xff
- 720 020c 00       		.byte	0x0
- 721 020d 0A       		.uleb128 0xa
- 722 020e 7D010000 		.4byte	.LASF29
- 723 0212 01       		.byte	0x1
- 724 0213 13       		.byte	0x13
- 725 0214 FD010000 		.4byte	0x1fd
- 726 0218 05       		.byte	0x5
- 727 0219 03       		.byte	0x3
- 728 021a 00000000 		.4byte	BPL_aucReceiveBuffer
- 729 021e 0A       		.uleb128 0xa
- 730 021f 56020000 		.4byte	.LASF30
- 731 0223 01       		.byte	0x1
- 732 0224 14       		.byte	0x14
- 733 0225 FD010000 		.4byte	0x1fd
- 734 0229 05       		.byte	0x5
- 735 022a 03       		.byte	0x3
- 736 022b 00010000 		.4byte	BPL_aucTransmitBuffer
- 737 022f 0A       		.uleb128 0xa
- 738 0230 40000000 		.4byte	.LASF31
- 739 0234 01       		.byte	0x1
- 740 0235 16       		.byte	0x16
- 741 0236 30000000 		.4byte	0x30
- 742 023a 05       		.byte	0x5
- 743 023b 03       		.byte	0x3
- 744 023c 00020000 		.4byte	BPL_ucReceiveBufferIndex
- 745 0240 0A       		.uleb128 0xa
- 746 0241 21020000 		.4byte	.LASF32
- 747 0245 01       		.byte	0x1
- 748 0246 17       		.byte	0x17
- 749 0247 30000000 		.4byte	0x30
- 750 024b 05       		.byte	0x5
- 751 024c 03       		.byte	0x3
- 752 024d 01020000 		.4byte	BPL_ucTransmitBufferIndex
- 753 0251 0D       		.uleb128 0xd
- 754 0252 E1000000 		.4byte	.LASF36
- 755 0256 05       		.byte	0x5
- 756 0257 CE06     		.2byte	0x6ce
- 757 0259 5F020000 		.4byte	0x25f
- 758 025d 01       		.byte	0x1
- 759 025e 01       		.byte	0x1
- 760 025f 0E       		.uleb128 0xe
- 761 0260 6C000000 		.4byte	0x6c
- 762 0264 00       		.byte	0x0
- 763              		.section	.debug_abbrev
- 764 0000 01       		.uleb128 0x1
- 765 0001 11       		.uleb128 0x11
- 766 0002 01       		.byte	0x1
- 767 0003 25       		.uleb128 0x25
- 768 0004 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 17
+ 707 01b5 91       		.byte	0x91
+ 708 01b6 74       		.sleb128 -12
+ 709 01b7 0A       		.uleb128 0xa
+ 710 01b8 59000000 		.4byte	.LASF26
+ 711 01bc 01       		.byte	0x1
+ 712 01bd 57       		.byte	0x57
+ 713 01be 30000000 		.4byte	0x30
+ 714 01c2 02       		.byte	0x2
+ 715 01c3 91       		.byte	0x91
+ 716 01c4 77       		.sleb128 -9
+ 717 01c5 0A       		.uleb128 0xa
+ 718 01c6 A9000000 		.4byte	.LASF27
+ 719 01ca 01       		.byte	0x1
+ 720 01cb 58       		.byte	0x58
+ 721 01cc D4010000 		.4byte	0x1d4
+ 722 01d0 02       		.byte	0x2
+ 723 01d1 91       		.byte	0x91
+ 724 01d2 54       		.sleb128 -44
+ 725 01d3 00       		.byte	0x0
+ 726 01d4 0B       		.uleb128 0xb
+ 727 01d5 30000000 		.4byte	0x30
+ 728 01d9 E4010000 		.4byte	0x1e4
+ 729 01dd 0C       		.uleb128 0xc
+ 730 01de 9A000000 		.4byte	0x9a
+ 731 01e2 1F       		.byte	0x1f
+ 732 01e3 00       		.byte	0x0
+ 733 01e4 0D       		.uleb128 0xd
+ 734 01e5 01       		.byte	0x1
+ 735 01e6 1D020000 		.4byte	.LASF36
+ 736 01ea 01       		.byte	0x1
+ 737 01eb 7F       		.byte	0x7f
+ 738 01ec 01       		.byte	0x1
+ 739 01ed 00000000 		.4byte	.LFB34
+ 740 01f1 30000000 		.4byte	.LFE34
+ 741 01f5 FB000000 		.4byte	.LLST5
+ 742 01f9 2C020000 		.4byte	0x22c
+ 743 01fd 0A       		.uleb128 0xa
+ 744 01fe 6A000000 		.4byte	.LASF28
+ 745 0202 01       		.byte	0x1
+ 746 0203 81       		.byte	0x81
+ 747 0204 9D000000 		.4byte	0x9d
+ 748 0208 02       		.byte	0x2
+ 749 0209 91       		.byte	0x91
+ 750 020a 77       		.sleb128 -9
+ 751 020b 0E       		.uleb128 0xe
+ 752 020c 7800     		.ascii	"x\000"
+ 753 020e 01       		.byte	0x1
+ 754 020f 82       		.byte	0x82
+ 755 0210 30000000 		.4byte	0x30
+ 756 0214 05       		.byte	0x5
+ 757 0215 03       		.byte	0x3
+ 758 0216 02020000 		.4byte	x.3607
+ 759 021a 0E       		.uleb128 0xe
+ 760 021b 6D736700 		.ascii	"msg\000"
+ 761 021f 01       		.byte	0x1
+ 762 0220 83       		.byte	0x83
+ 763 0221 2C020000 		.4byte	0x22c
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 17
 
 
- 769 0005 13       		.uleb128 0x13
- 770 0006 0B       		.uleb128 0xb
- 771 0007 03       		.uleb128 0x3
- 772 0008 0E       		.uleb128 0xe
- 773 0009 1B       		.uleb128 0x1b
- 774 000a 0E       		.uleb128 0xe
- 775 000b 11       		.uleb128 0x11
- 776 000c 01       		.uleb128 0x1
- 777 000d 52       		.uleb128 0x52
- 778 000e 01       		.uleb128 0x1
- 779 000f 55       		.uleb128 0x55
- 780 0010 06       		.uleb128 0x6
- 781 0011 10       		.uleb128 0x10
- 782 0012 06       		.uleb128 0x6
- 783 0013 00       		.byte	0x0
- 784 0014 00       		.byte	0x0
- 785 0015 02       		.uleb128 0x2
- 786 0016 24       		.uleb128 0x24
- 787 0017 00       		.byte	0x0
- 788 0018 0B       		.uleb128 0xb
- 789 0019 0B       		.uleb128 0xb
- 790 001a 3E       		.uleb128 0x3e
- 791 001b 0B       		.uleb128 0xb
- 792 001c 03       		.uleb128 0x3
- 793 001d 0E       		.uleb128 0xe
- 794 001e 00       		.byte	0x0
- 795 001f 00       		.byte	0x0
- 796 0020 03       		.uleb128 0x3
- 797 0021 16       		.uleb128 0x16
- 798 0022 00       		.byte	0x0
- 799 0023 03       		.uleb128 0x3
- 800 0024 0E       		.uleb128 0xe
- 801 0025 3A       		.uleb128 0x3a
- 802 0026 0B       		.uleb128 0xb
- 803 0027 3B       		.uleb128 0x3b
- 804 0028 0B       		.uleb128 0xb
- 805 0029 49       		.uleb128 0x49
- 806 002a 13       		.uleb128 0x13
- 807 002b 00       		.byte	0x0
- 808 002c 00       		.byte	0x0
- 809 002d 04       		.uleb128 0x4
- 810 002e 24       		.uleb128 0x24
- 811 002f 00       		.byte	0x0
- 812 0030 0B       		.uleb128 0xb
- 813 0031 0B       		.uleb128 0xb
- 814 0032 3E       		.uleb128 0x3e
- 815 0033 0B       		.uleb128 0xb
- 816 0034 03       		.uleb128 0x3
- 817 0035 08       		.uleb128 0x8
- 818 0036 00       		.byte	0x0
- 819 0037 00       		.byte	0x0
- 820 0038 05       		.uleb128 0x5
- 821 0039 24       		.uleb128 0x24
- 822 003a 00       		.byte	0x0
- 823 003b 0B       		.uleb128 0xb
- 824 003c 0B       		.uleb128 0xb
- 825 003d 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 18
+ 764 0225 05       		.byte	0x5
+ 765 0226 03       		.byte	0x3
+ 766 0227 00000000 		.4byte	msg.3608
+ 767 022b 00       		.byte	0x0
+ 768 022c 0B       		.uleb128 0xb
+ 769 022d 30000000 		.4byte	0x30
+ 770 0231 3C020000 		.4byte	0x23c
+ 771 0235 0C       		.uleb128 0xc
+ 772 0236 9A000000 		.4byte	0x9a
+ 773 023a 04       		.byte	0x4
+ 774 023b 00       		.byte	0x0
+ 775 023c 0B       		.uleb128 0xb
+ 776 023d 30000000 		.4byte	0x30
+ 777 0241 4C020000 		.4byte	0x24c
+ 778 0245 0C       		.uleb128 0xc
+ 779 0246 9A000000 		.4byte	0x9a
+ 780 024a FF       		.byte	0xff
+ 781 024b 00       		.byte	0x0
+ 782 024c 0A       		.uleb128 0xa
+ 783 024d 84010000 		.4byte	.LASF29
+ 784 0251 01       		.byte	0x1
+ 785 0252 13       		.byte	0x13
+ 786 0253 3C020000 		.4byte	0x23c
+ 787 0257 05       		.byte	0x5
+ 788 0258 03       		.byte	0x3
+ 789 0259 00000000 		.4byte	BPL_aucReceiveBuffer
+ 790 025d 0A       		.uleb128 0xa
+ 791 025e 5D020000 		.4byte	.LASF30
+ 792 0262 01       		.byte	0x1
+ 793 0263 14       		.byte	0x14
+ 794 0264 3C020000 		.4byte	0x23c
+ 795 0268 05       		.byte	0x5
+ 796 0269 03       		.byte	0x3
+ 797 026a 00010000 		.4byte	BPL_aucTransmitBuffer
+ 798 026e 0A       		.uleb128 0xa
+ 799 026f 40000000 		.4byte	.LASF31
+ 800 0273 01       		.byte	0x1
+ 801 0274 16       		.byte	0x16
+ 802 0275 30000000 		.4byte	0x30
+ 803 0279 05       		.byte	0x5
+ 804 027a 03       		.byte	0x3
+ 805 027b 00020000 		.4byte	BPL_ucReceiveBufferIndex
+ 806 027f 0A       		.uleb128 0xa
+ 807 0280 28020000 		.4byte	.LASF32
+ 808 0284 01       		.byte	0x1
+ 809 0285 17       		.byte	0x17
+ 810 0286 30000000 		.4byte	0x30
+ 811 028a 05       		.byte	0x5
+ 812 028b 03       		.byte	0x3
+ 813 028c 01020000 		.4byte	BPL_ucTransmitBufferIndex
+ 814 0290 0F       		.uleb128 0xf
+ 815 0291 E8000000 		.4byte	.LASF37
+ 816 0295 05       		.byte	0x5
+ 817 0296 CE06     		.2byte	0x6ce
+ 818 0298 9E020000 		.4byte	0x29e
+ 819 029c 01       		.byte	0x1
+ 820 029d 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 18
 
 
- 826 003e 0B       		.uleb128 0xb
- 827 003f 00       		.byte	0x0
- 828 0040 00       		.byte	0x0
- 829 0041 06       		.uleb128 0x6
- 830 0042 0F       		.uleb128 0xf
- 831 0043 00       		.byte	0x0
- 832 0044 0B       		.uleb128 0xb
- 833 0045 0B       		.uleb128 0xb
- 834 0046 49       		.uleb128 0x49
- 835 0047 13       		.uleb128 0x13
- 836 0048 00       		.byte	0x0
- 837 0049 00       		.byte	0x0
- 838 004a 07       		.uleb128 0x7
- 839 004b 2E       		.uleb128 0x2e
- 840 004c 00       		.byte	0x0
- 841 004d 3F       		.uleb128 0x3f
- 842 004e 0C       		.uleb128 0xc
- 843 004f 03       		.uleb128 0x3
- 844 0050 0E       		.uleb128 0xe
- 845 0051 3A       		.uleb128 0x3a
- 846 0052 0B       		.uleb128 0xb
- 847 0053 3B       		.uleb128 0x3b
- 848 0054 0B       		.uleb128 0xb
- 849 0055 27       		.uleb128 0x27
- 850 0056 0C       		.uleb128 0xc
- 851 0057 49       		.uleb128 0x49
- 852 0058 13       		.uleb128 0x13
- 853 0059 11       		.uleb128 0x11
- 854 005a 01       		.uleb128 0x1
- 855 005b 12       		.uleb128 0x12
- 856 005c 01       		.uleb128 0x1
- 857 005d 40       		.uleb128 0x40
- 858 005e 06       		.uleb128 0x6
- 859 005f 00       		.byte	0x0
- 860 0060 00       		.byte	0x0
- 861 0061 08       		.uleb128 0x8
- 862 0062 2E       		.uleb128 0x2e
- 863 0063 01       		.byte	0x1
- 864 0064 3F       		.uleb128 0x3f
- 865 0065 0C       		.uleb128 0xc
- 866 0066 03       		.uleb128 0x3
- 867 0067 0E       		.uleb128 0xe
- 868 0068 3A       		.uleb128 0x3a
- 869 0069 0B       		.uleb128 0xb
- 870 006a 3B       		.uleb128 0x3b
- 871 006b 0B       		.uleb128 0xb
- 872 006c 27       		.uleb128 0x27
- 873 006d 0C       		.uleb128 0xc
- 874 006e 49       		.uleb128 0x49
- 875 006f 13       		.uleb128 0x13
- 876 0070 11       		.uleb128 0x11
- 877 0071 01       		.uleb128 0x1
- 878 0072 12       		.uleb128 0x12
- 879 0073 01       		.uleb128 0x1
- 880 0074 40       		.uleb128 0x40
- 881 0075 06       		.uleb128 0x6
- 882 0076 01       		.uleb128 0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 19
+ 821 029e 10       		.uleb128 0x10
+ 822 029f 6C000000 		.4byte	0x6c
+ 823 02a3 00       		.byte	0x0
+ 824              		.section	.debug_abbrev
+ 825 0000 01       		.uleb128 0x1
+ 826 0001 11       		.uleb128 0x11
+ 827 0002 01       		.byte	0x1
+ 828 0003 25       		.uleb128 0x25
+ 829 0004 0E       		.uleb128 0xe
+ 830 0005 13       		.uleb128 0x13
+ 831 0006 0B       		.uleb128 0xb
+ 832 0007 03       		.uleb128 0x3
+ 833 0008 0E       		.uleb128 0xe
+ 834 0009 1B       		.uleb128 0x1b
+ 835 000a 0E       		.uleb128 0xe
+ 836 000b 11       		.uleb128 0x11
+ 837 000c 01       		.uleb128 0x1
+ 838 000d 52       		.uleb128 0x52
+ 839 000e 01       		.uleb128 0x1
+ 840 000f 55       		.uleb128 0x55
+ 841 0010 06       		.uleb128 0x6
+ 842 0011 10       		.uleb128 0x10
+ 843 0012 06       		.uleb128 0x6
+ 844 0013 00       		.byte	0x0
+ 845 0014 00       		.byte	0x0
+ 846 0015 02       		.uleb128 0x2
+ 847 0016 24       		.uleb128 0x24
+ 848 0017 00       		.byte	0x0
+ 849 0018 0B       		.uleb128 0xb
+ 850 0019 0B       		.uleb128 0xb
+ 851 001a 3E       		.uleb128 0x3e
+ 852 001b 0B       		.uleb128 0xb
+ 853 001c 03       		.uleb128 0x3
+ 854 001d 0E       		.uleb128 0xe
+ 855 001e 00       		.byte	0x0
+ 856 001f 00       		.byte	0x0
+ 857 0020 03       		.uleb128 0x3
+ 858 0021 16       		.uleb128 0x16
+ 859 0022 00       		.byte	0x0
+ 860 0023 03       		.uleb128 0x3
+ 861 0024 0E       		.uleb128 0xe
+ 862 0025 3A       		.uleb128 0x3a
+ 863 0026 0B       		.uleb128 0xb
+ 864 0027 3B       		.uleb128 0x3b
+ 865 0028 0B       		.uleb128 0xb
+ 866 0029 49       		.uleb128 0x49
+ 867 002a 13       		.uleb128 0x13
+ 868 002b 00       		.byte	0x0
+ 869 002c 00       		.byte	0x0
+ 870 002d 04       		.uleb128 0x4
+ 871 002e 24       		.uleb128 0x24
+ 872 002f 00       		.byte	0x0
+ 873 0030 0B       		.uleb128 0xb
+ 874 0031 0B       		.uleb128 0xb
+ 875 0032 3E       		.uleb128 0x3e
+ 876 0033 0B       		.uleb128 0xb
+ 877 0034 03       		.uleb128 0x3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 19
 
 
- 883 0077 13       		.uleb128 0x13
- 884 0078 00       		.byte	0x0
- 885 0079 00       		.byte	0x0
- 886 007a 09       		.uleb128 0x9
- 887 007b 05       		.uleb128 0x5
- 888 007c 00       		.byte	0x0
- 889 007d 03       		.uleb128 0x3
- 890 007e 0E       		.uleb128 0xe
- 891 007f 3A       		.uleb128 0x3a
- 892 0080 0B       		.uleb128 0xb
- 893 0081 3B       		.uleb128 0x3b
- 894 0082 0B       		.uleb128 0xb
- 895 0083 49       		.uleb128 0x49
- 896 0084 13       		.uleb128 0x13
- 897 0085 02       		.uleb128 0x2
- 898 0086 0A       		.uleb128 0xa
- 899 0087 00       		.byte	0x0
- 900 0088 00       		.byte	0x0
- 901 0089 0A       		.uleb128 0xa
- 902 008a 34       		.uleb128 0x34
- 903 008b 00       		.byte	0x0
- 904 008c 03       		.uleb128 0x3
- 905 008d 0E       		.uleb128 0xe
- 906 008e 3A       		.uleb128 0x3a
- 907 008f 0B       		.uleb128 0xb
- 908 0090 3B       		.uleb128 0x3b
- 909 0091 0B       		.uleb128 0xb
- 910 0092 49       		.uleb128 0x49
- 911 0093 13       		.uleb128 0x13
- 912 0094 02       		.uleb128 0x2
- 913 0095 0A       		.uleb128 0xa
- 914 0096 00       		.byte	0x0
- 915 0097 00       		.byte	0x0
- 916 0098 0B       		.uleb128 0xb
- 917 0099 01       		.uleb128 0x1
- 918 009a 01       		.byte	0x1
- 919 009b 49       		.uleb128 0x49
- 920 009c 13       		.uleb128 0x13
- 921 009d 01       		.uleb128 0x1
- 922 009e 13       		.uleb128 0x13
- 923 009f 00       		.byte	0x0
- 924 00a0 00       		.byte	0x0
- 925 00a1 0C       		.uleb128 0xc
- 926 00a2 21       		.uleb128 0x21
- 927 00a3 00       		.byte	0x0
- 928 00a4 49       		.uleb128 0x49
- 929 00a5 13       		.uleb128 0x13
- 930 00a6 2F       		.uleb128 0x2f
- 931 00a7 0B       		.uleb128 0xb
- 932 00a8 00       		.byte	0x0
- 933 00a9 00       		.byte	0x0
- 934 00aa 0D       		.uleb128 0xd
- 935 00ab 34       		.uleb128 0x34
- 936 00ac 00       		.byte	0x0
- 937 00ad 03       		.uleb128 0x3
- 938 00ae 0E       		.uleb128 0xe
- 939 00af 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 20
+ 878 0035 08       		.uleb128 0x8
+ 879 0036 00       		.byte	0x0
+ 880 0037 00       		.byte	0x0
+ 881 0038 05       		.uleb128 0x5
+ 882 0039 24       		.uleb128 0x24
+ 883 003a 00       		.byte	0x0
+ 884 003b 0B       		.uleb128 0xb
+ 885 003c 0B       		.uleb128 0xb
+ 886 003d 3E       		.uleb128 0x3e
+ 887 003e 0B       		.uleb128 0xb
+ 888 003f 00       		.byte	0x0
+ 889 0040 00       		.byte	0x0
+ 890 0041 06       		.uleb128 0x6
+ 891 0042 0F       		.uleb128 0xf
+ 892 0043 00       		.byte	0x0
+ 893 0044 0B       		.uleb128 0xb
+ 894 0045 0B       		.uleb128 0xb
+ 895 0046 49       		.uleb128 0x49
+ 896 0047 13       		.uleb128 0x13
+ 897 0048 00       		.byte	0x0
+ 898 0049 00       		.byte	0x0
+ 899 004a 07       		.uleb128 0x7
+ 900 004b 2E       		.uleb128 0x2e
+ 901 004c 00       		.byte	0x0
+ 902 004d 3F       		.uleb128 0x3f
+ 903 004e 0C       		.uleb128 0xc
+ 904 004f 03       		.uleb128 0x3
+ 905 0050 0E       		.uleb128 0xe
+ 906 0051 3A       		.uleb128 0x3a
+ 907 0052 0B       		.uleb128 0xb
+ 908 0053 3B       		.uleb128 0x3b
+ 909 0054 0B       		.uleb128 0xb
+ 910 0055 27       		.uleb128 0x27
+ 911 0056 0C       		.uleb128 0xc
+ 912 0057 49       		.uleb128 0x49
+ 913 0058 13       		.uleb128 0x13
+ 914 0059 11       		.uleb128 0x11
+ 915 005a 01       		.uleb128 0x1
+ 916 005b 12       		.uleb128 0x12
+ 917 005c 01       		.uleb128 0x1
+ 918 005d 40       		.uleb128 0x40
+ 919 005e 06       		.uleb128 0x6
+ 920 005f 00       		.byte	0x0
+ 921 0060 00       		.byte	0x0
+ 922 0061 08       		.uleb128 0x8
+ 923 0062 2E       		.uleb128 0x2e
+ 924 0063 01       		.byte	0x1
+ 925 0064 3F       		.uleb128 0x3f
+ 926 0065 0C       		.uleb128 0xc
+ 927 0066 03       		.uleb128 0x3
+ 928 0067 0E       		.uleb128 0xe
+ 929 0068 3A       		.uleb128 0x3a
+ 930 0069 0B       		.uleb128 0xb
+ 931 006a 3B       		.uleb128 0x3b
+ 932 006b 0B       		.uleb128 0xb
+ 933 006c 27       		.uleb128 0x27
+ 934 006d 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 20
 
 
- 940 00b0 0B       		.uleb128 0xb
- 941 00b1 3B       		.uleb128 0x3b
- 942 00b2 05       		.uleb128 0x5
- 943 00b3 49       		.uleb128 0x49
- 944 00b4 13       		.uleb128 0x13
- 945 00b5 3F       		.uleb128 0x3f
- 946 00b6 0C       		.uleb128 0xc
- 947 00b7 3C       		.uleb128 0x3c
- 948 00b8 0C       		.uleb128 0xc
- 949 00b9 00       		.byte	0x0
- 950 00ba 00       		.byte	0x0
- 951 00bb 0E       		.uleb128 0xe
- 952 00bc 35       		.uleb128 0x35
- 953 00bd 00       		.byte	0x0
- 954 00be 49       		.uleb128 0x49
- 955 00bf 13       		.uleb128 0x13
- 956 00c0 00       		.byte	0x0
- 957 00c1 00       		.byte	0x0
- 958 00c2 00       		.byte	0x0
- 959              		.section	.debug_pubnames,"",%progbits
- 960 0000 83000000 		.4byte	0x83
- 961 0004 0200     		.2byte	0x2
- 962 0006 00000000 		.4byte	.Ldebug_info0
- 963 000a 65020000 		.4byte	0x265
- 964 000e AE000000 		.4byte	0xae
- 965 0012 42504C5F 		.ascii	"BPL_Init\000"
- 965      496E6974 
- 965      00
- 966 001b C7000000 		.4byte	0xc7
- 967 001f 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
- 967      47657452 
- 967      65636569 
- 967      76654D73 
- 967      67436F75 
- 968 0036 E0000000 		.4byte	0xe0
- 969 003a 42504C5F 		.ascii	"BPL_GetMessage\000"
- 969      4765744D 
- 969      65737361 
- 969      676500
- 970 0049 28010000 		.4byte	0x128
- 971 004d 42504C5F 		.ascii	"BPL_TransmitMessage\000"
- 971      5472616E 
- 971      736D6974 
- 971      4D657373 
- 971      61676500 
- 972 0061 70010000 		.4byte	0x170
- 973 0065 42504C5F 		.ascii	"BPL_HandleTask\000"
- 973      48616E64 
- 973      6C655461 
- 973      736B00
- 974 0074 E4010000 		.4byte	0x1e4
- 975 0078 42504C5F 		.ascii	"BPL_ucTest\000"
- 975      75635465 
- 975      737400
- 976 0083 00000000 		.4byte	0x0
- 977              		.section	.debug_aranges,"",%progbits
- 978 0000 44000000 		.4byte	0x44
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 21
+ 935 006e 49       		.uleb128 0x49
+ 936 006f 13       		.uleb128 0x13
+ 937 0070 11       		.uleb128 0x11
+ 938 0071 01       		.uleb128 0x1
+ 939 0072 12       		.uleb128 0x12
+ 940 0073 01       		.uleb128 0x1
+ 941 0074 40       		.uleb128 0x40
+ 942 0075 06       		.uleb128 0x6
+ 943 0076 01       		.uleb128 0x1
+ 944 0077 13       		.uleb128 0x13
+ 945 0078 00       		.byte	0x0
+ 946 0079 00       		.byte	0x0
+ 947 007a 09       		.uleb128 0x9
+ 948 007b 05       		.uleb128 0x5
+ 949 007c 00       		.byte	0x0
+ 950 007d 03       		.uleb128 0x3
+ 951 007e 0E       		.uleb128 0xe
+ 952 007f 3A       		.uleb128 0x3a
+ 953 0080 0B       		.uleb128 0xb
+ 954 0081 3B       		.uleb128 0x3b
+ 955 0082 0B       		.uleb128 0xb
+ 956 0083 49       		.uleb128 0x49
+ 957 0084 13       		.uleb128 0x13
+ 958 0085 02       		.uleb128 0x2
+ 959 0086 0A       		.uleb128 0xa
+ 960 0087 00       		.byte	0x0
+ 961 0088 00       		.byte	0x0
+ 962 0089 0A       		.uleb128 0xa
+ 963 008a 34       		.uleb128 0x34
+ 964 008b 00       		.byte	0x0
+ 965 008c 03       		.uleb128 0x3
+ 966 008d 0E       		.uleb128 0xe
+ 967 008e 3A       		.uleb128 0x3a
+ 968 008f 0B       		.uleb128 0xb
+ 969 0090 3B       		.uleb128 0x3b
+ 970 0091 0B       		.uleb128 0xb
+ 971 0092 49       		.uleb128 0x49
+ 972 0093 13       		.uleb128 0x13
+ 973 0094 02       		.uleb128 0x2
+ 974 0095 0A       		.uleb128 0xa
+ 975 0096 00       		.byte	0x0
+ 976 0097 00       		.byte	0x0
+ 977 0098 0B       		.uleb128 0xb
+ 978 0099 01       		.uleb128 0x1
+ 979 009a 01       		.byte	0x1
+ 980 009b 49       		.uleb128 0x49
+ 981 009c 13       		.uleb128 0x13
+ 982 009d 01       		.uleb128 0x1
+ 983 009e 13       		.uleb128 0x13
+ 984 009f 00       		.byte	0x0
+ 985 00a0 00       		.byte	0x0
+ 986 00a1 0C       		.uleb128 0xc
+ 987 00a2 21       		.uleb128 0x21
+ 988 00a3 00       		.byte	0x0
+ 989 00a4 49       		.uleb128 0x49
+ 990 00a5 13       		.uleb128 0x13
+ 991 00a6 2F       		.uleb128 0x2f
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 21
 
 
- 979 0004 0200     		.2byte	0x2
- 980 0006 00000000 		.4byte	.Ldebug_info0
- 981 000a 04       		.byte	0x4
- 982 000b 00       		.byte	0x0
- 983 000c 0000     		.2byte	0x0
- 984 000e 0000     		.2byte	0x0
- 985 0010 00000000 		.4byte	.LFB29
- 986 0014 48000000 		.4byte	.LFE29-.LFB29
- 987 0018 00000000 		.4byte	.LFB30
- 988 001c 1A000000 		.4byte	.LFE30-.LFB30
- 989 0020 00000000 		.4byte	.LFB31
- 990 0024 4C000000 		.4byte	.LFE31-.LFB31
- 991 0028 00000000 		.4byte	.LFB32
- 992 002c 32000000 		.4byte	.LFE32-.LFB32
- 993 0030 00000000 		.4byte	.LFB33
- 994 0034 9E000000 		.4byte	.LFE33-.LFB33
- 995 0038 00000000 		.4byte	.LFB34
- 996 003c 10000000 		.4byte	.LFE34-.LFB34
- 997 0040 00000000 		.4byte	0x0
- 998 0044 00000000 		.4byte	0x0
- 999              		.section	.debug_ranges,"",%progbits
- 1000              	.Ldebug_ranges0:
- 1001 0000 00000000 		.4byte	.Ltext0
- 1002 0004 00000000 		.4byte	.Letext0
- 1003 0008 00000000 		.4byte	.LFB29
- 1004 000c 48000000 		.4byte	.LFE29
- 1005 0010 00000000 		.4byte	.LFB30
- 1006 0014 1A000000 		.4byte	.LFE30
- 1007 0018 00000000 		.4byte	.LFB31
- 1008 001c 4C000000 		.4byte	.LFE31
- 1009 0020 00000000 		.4byte	.LFB32
- 1010 0024 32000000 		.4byte	.LFE32
- 1011 0028 00000000 		.4byte	.LFB33
- 1012 002c 9E000000 		.4byte	.LFE33
- 1013 0030 00000000 		.4byte	.LFB34
- 1014 0034 10000000 		.4byte	.LFE34
- 1015 0038 00000000 		.4byte	0x0
- 1016 003c 00000000 		.4byte	0x0
- 1017              		.section	.debug_str,"MS",%progbits,1
- 1018              	.LASF6:
- 1019 0000 6C6F6E67 		.ascii	"long long int\000"
- 1019      206C6F6E 
- 1019      6720696E 
- 1019      7400
- 1020              	.LASF34:
- 1021 000e 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\bp"
- 1021      2E5C2E2E 
- 1021      5C447269 
- 1021      76655F50 
- 1021      6C617466 
- 1022 003c 6C2E6300 		.ascii	"l.c\000"
- 1023              	.LASF31:
- 1024 0040 42504C5F 		.ascii	"BPL_ucReceiveBufferIndex\000"
- 1024      75635265 
- 1024      63656976 
- 1024      65427566 
- 1024      66657249 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 22
+ 992 00a7 0B       		.uleb128 0xb
+ 993 00a8 00       		.byte	0x0
+ 994 00a9 00       		.byte	0x0
+ 995 00aa 0D       		.uleb128 0xd
+ 996 00ab 2E       		.uleb128 0x2e
+ 997 00ac 01       		.byte	0x1
+ 998 00ad 3F       		.uleb128 0x3f
+ 999 00ae 0C       		.uleb128 0xc
+ 1000 00af 03       		.uleb128 0x3
+ 1001 00b0 0E       		.uleb128 0xe
+ 1002 00b1 3A       		.uleb128 0x3a
+ 1003 00b2 0B       		.uleb128 0xb
+ 1004 00b3 3B       		.uleb128 0x3b
+ 1005 00b4 0B       		.uleb128 0xb
+ 1006 00b5 27       		.uleb128 0x27
+ 1007 00b6 0C       		.uleb128 0xc
+ 1008 00b7 11       		.uleb128 0x11
+ 1009 00b8 01       		.uleb128 0x1
+ 1010 00b9 12       		.uleb128 0x12
+ 1011 00ba 01       		.uleb128 0x1
+ 1012 00bb 40       		.uleb128 0x40
+ 1013 00bc 06       		.uleb128 0x6
+ 1014 00bd 01       		.uleb128 0x1
+ 1015 00be 13       		.uleb128 0x13
+ 1016 00bf 00       		.byte	0x0
+ 1017 00c0 00       		.byte	0x0
+ 1018 00c1 0E       		.uleb128 0xe
+ 1019 00c2 34       		.uleb128 0x34
+ 1020 00c3 00       		.byte	0x0
+ 1021 00c4 03       		.uleb128 0x3
+ 1022 00c5 08       		.uleb128 0x8
+ 1023 00c6 3A       		.uleb128 0x3a
+ 1024 00c7 0B       		.uleb128 0xb
+ 1025 00c8 3B       		.uleb128 0x3b
+ 1026 00c9 0B       		.uleb128 0xb
+ 1027 00ca 49       		.uleb128 0x49
+ 1028 00cb 13       		.uleb128 0x13
+ 1029 00cc 02       		.uleb128 0x2
+ 1030 00cd 0A       		.uleb128 0xa
+ 1031 00ce 00       		.byte	0x0
+ 1032 00cf 00       		.byte	0x0
+ 1033 00d0 0F       		.uleb128 0xf
+ 1034 00d1 34       		.uleb128 0x34
+ 1035 00d2 00       		.byte	0x0
+ 1036 00d3 03       		.uleb128 0x3
+ 1037 00d4 0E       		.uleb128 0xe
+ 1038 00d5 3A       		.uleb128 0x3a
+ 1039 00d6 0B       		.uleb128 0xb
+ 1040 00d7 3B       		.uleb128 0x3b
+ 1041 00d8 05       		.uleb128 0x5
+ 1042 00d9 49       		.uleb128 0x49
+ 1043 00da 13       		.uleb128 0x13
+ 1044 00db 3F       		.uleb128 0x3f
+ 1045 00dc 0C       		.uleb128 0xc
+ 1046 00dd 3C       		.uleb128 0x3c
+ 1047 00de 0C       		.uleb128 0xc
+ 1048 00df 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 22
 
 
- 1025              	.LASF26:
- 1026 0059 75634279 		.ascii	"ucByte\000"
- 1026      746500
- 1027              	.LASF23:
- 1028 0060 6D73674C 		.ascii	"msgLength\000"
- 1028      656E6774 
- 1028      6800
- 1029              	.LASF21:
- 1030 006a 74617267 		.ascii	"target\000"
- 1030      657400
- 1031              	.LASF11:
- 1032 0071 666C6F61 		.ascii	"float\000"
- 1032      7400
- 1033              	.LASF19:
- 1034 0077 42504C5F 		.ascii	"BPL_GetMessage\000"
- 1034      4765744D 
- 1034      65737361 
- 1034      676500
- 1035              	.LASF0:
- 1036 0086 7369676E 		.ascii	"signed char\000"
- 1036      65642063 
- 1036      68617200 
- 1037              	.LASF14:
- 1038 0092 53544154 		.ascii	"STATUS\000"
- 1038      555300
- 1039              	.LASF15:
- 1040 0099 42504C5F 		.ascii	"BPL_Init\000"
- 1040      496E6974 
- 1040      00
- 1041              	.LASF27:
- 1042 00a2 75634D65 		.ascii	"ucMessageBuffer\000"
- 1042      73736167 
- 1042      65427566 
- 1042      66657200 
- 1043              	.LASF17:
- 1044 00b2 72626653 		.ascii	"rbfStatus\000"
- 1044      74617475 
- 1044      7300
- 1045              	.LASF5:
- 1046 00bc 6C6F6E67 		.ascii	"long unsigned int\000"
- 1046      20756E73 
- 1046      69676E65 
- 1046      6420696E 
- 1046      7400
- 1047              	.LASF3:
- 1048 00ce 73686F72 		.ascii	"short unsigned int\000"
- 1048      7420756E 
- 1048      7369676E 
- 1048      65642069 
- 1048      6E7400
- 1049              	.LASF36:
- 1050 00e1 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1050      52784275 
- 1050      66666572 
- 1050      00
- 1051              	.LASF1:
- 1052 00ee 756E7369 		.ascii	"unsigned char\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 23
+ 1049 00e0 00       		.byte	0x0
+ 1050 00e1 10       		.uleb128 0x10
+ 1051 00e2 35       		.uleb128 0x35
+ 1052 00e3 00       		.byte	0x0
+ 1053 00e4 49       		.uleb128 0x49
+ 1054 00e5 13       		.uleb128 0x13
+ 1055 00e6 00       		.byte	0x0
+ 1056 00e7 00       		.byte	0x0
+ 1057 00e8 00       		.byte	0x0
+ 1058              		.section	.debug_pubnames,"",%progbits
+ 1059 0000 83000000 		.4byte	0x83
+ 1060 0004 0200     		.2byte	0x2
+ 1061 0006 00000000 		.4byte	.Ldebug_info0
+ 1062 000a A4020000 		.4byte	0x2a4
+ 1063 000e AE000000 		.4byte	0xae
+ 1064 0012 42504C5F 		.ascii	"BPL_Init\000"
+ 1064      496E6974 
+ 1064      00
+ 1065 001b C7000000 		.4byte	0xc7
+ 1066 001f 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
+ 1066      47657452 
+ 1066      65636569 
+ 1066      76654D73 
+ 1066      67436F75 
+ 1067 0036 E0000000 		.4byte	0xe0
+ 1068 003a 42504C5F 		.ascii	"BPL_GetMessage\000"
+ 1068      4765744D 
+ 1068      65737361 
+ 1068      676500
+ 1069 0049 28010000 		.4byte	0x128
+ 1070 004d 42504C5F 		.ascii	"BPL_TransmitMessage\000"
+ 1070      5472616E 
+ 1070      736D6974 
+ 1070      4D657373 
+ 1070      61676500 
+ 1071 0061 70010000 		.4byte	0x170
+ 1072 0065 42504C5F 		.ascii	"BPL_HandleTask\000"
+ 1072      48616E64 
+ 1072      6C655461 
+ 1072      736B00
+ 1073 0074 E4010000 		.4byte	0x1e4
+ 1074 0078 42504C5F 		.ascii	"BPL_ucTest\000"
+ 1074      75635465 
+ 1074      737400
+ 1075 0083 00000000 		.4byte	0x0
+ 1076              		.section	.debug_aranges,"",%progbits
+ 1077 0000 44000000 		.4byte	0x44
+ 1078 0004 0200     		.2byte	0x2
+ 1079 0006 00000000 		.4byte	.Ldebug_info0
+ 1080 000a 04       		.byte	0x4
+ 1081 000b 00       		.byte	0x0
+ 1082 000c 0000     		.2byte	0x0
+ 1083 000e 0000     		.2byte	0x0
+ 1084 0010 00000000 		.4byte	.LFB29
+ 1085 0014 48000000 		.4byte	.LFE29-.LFB29
+ 1086 0018 00000000 		.4byte	.LFB30
+ 1087 001c 1A000000 		.4byte	.LFE30-.LFB30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 23
 
 
- 1052      676E6564 
- 1052      20636861 
- 1052      7200
- 1053              	.LASF12:
- 1054 00fc 646F7562 		.ascii	"double\000"
- 1054      6C6500
- 1055              	.LASF35:
- 1056 0103 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
- 1056      69744875 
- 1056      625F726F 
- 1056      626F7469 
- 1056      6373636F 
- 1057 0132 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
- 1057      6F725F32 
- 1057      2E325C44 
- 1057      72697665 
- 1057      506C6174 
- 1058 0162 6174666F 		.ascii	"atform2.cydsn\000"
- 1058      726D322E 
- 1058      63796473 
- 1058      6E00
- 1059              	.LASF8:
- 1060 0170 756E7369 		.ascii	"unsigned int\000"
- 1060      676E6564 
- 1060      20696E74 
- 1060      00
- 1061              	.LASF29:
- 1062 017d 42504C5F 		.ascii	"BPL_aucReceiveBuffer\000"
- 1062      61756352 
- 1062      65636569 
- 1062      76654275 
- 1062      66666572 
- 1063              	.LASF7:
- 1064 0192 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1064      206C6F6E 
- 1064      6720756E 
- 1064      7369676E 
- 1064      65642069 
- 1065              	.LASF9:
- 1066 01a9 75696E74 		.ascii	"uint8_t\000"
- 1066      385F7400 
- 1067              	.LASF25:
- 1068 01b1 42706C53 		.ascii	"BplStatus\000"
- 1068      74617475 
- 1068      7300
- 1069              	.LASF24:
- 1070 01bb 42504C5F 		.ascii	"BPL_HandleTask\000"
- 1070      48616E64 
- 1070      6C655461 
- 1070      736B00
- 1071              	.LASF33:
- 1072 01ca 474E5520 		.ascii	"GNU C 4.4.1\000"
- 1072      4320342E 
- 1072      342E3100 
- 1073              	.LASF18:
- 1074 01d6 75634E75 		.ascii	"ucNumBytes\000"
- 1074      6D427974 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccjSwuAz.s 			page 24
+ 1088 0020 00000000 		.4byte	.LFB31
+ 1089 0024 4C000000 		.4byte	.LFE31-.LFB31
+ 1090 0028 00000000 		.4byte	.LFB32
+ 1091 002c 32000000 		.4byte	.LFE32-.LFB32
+ 1092 0030 00000000 		.4byte	.LFB33
+ 1093 0034 94000000 		.4byte	.LFE33-.LFB33
+ 1094 0038 00000000 		.4byte	.LFB34
+ 1095 003c 30000000 		.4byte	.LFE34-.LFB34
+ 1096 0040 00000000 		.4byte	0x0
+ 1097 0044 00000000 		.4byte	0x0
+ 1098              		.section	.debug_ranges,"",%progbits
+ 1099              	.Ldebug_ranges0:
+ 1100 0000 00000000 		.4byte	.Ltext0
+ 1101 0004 00000000 		.4byte	.Letext0
+ 1102 0008 00000000 		.4byte	.LFB29
+ 1103 000c 48000000 		.4byte	.LFE29
+ 1104 0010 00000000 		.4byte	.LFB30
+ 1105 0014 1A000000 		.4byte	.LFE30
+ 1106 0018 00000000 		.4byte	.LFB31
+ 1107 001c 4C000000 		.4byte	.LFE31
+ 1108 0020 00000000 		.4byte	.LFB32
+ 1109 0024 32000000 		.4byte	.LFE32
+ 1110 0028 00000000 		.4byte	.LFB33
+ 1111 002c 94000000 		.4byte	.LFE33
+ 1112 0030 00000000 		.4byte	.LFB34
+ 1113 0034 30000000 		.4byte	.LFE34
+ 1114 0038 00000000 		.4byte	0x0
+ 1115 003c 00000000 		.4byte	0x0
+ 1116              		.section	.debug_str,"MS",%progbits,1
+ 1117              	.LASF6:
+ 1118 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1118      206C6F6E 
+ 1118      6720696E 
+ 1118      7400
+ 1119              	.LASF34:
+ 1120 000e 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\bp"
+ 1120      2E5C2E2E 
+ 1120      5C447269 
+ 1120      76655F50 
+ 1120      6C617466 
+ 1121 003c 6C2E6300 		.ascii	"l.c\000"
+ 1122              	.LASF31:
+ 1123 0040 42504C5F 		.ascii	"BPL_ucReceiveBufferIndex\000"
+ 1123      75635265 
+ 1123      63656976 
+ 1123      65427566 
+ 1123      66657249 
+ 1124              	.LASF26:
+ 1125 0059 75634279 		.ascii	"ucByte\000"
+ 1125      746500
+ 1126              	.LASF23:
+ 1127 0060 6D73674C 		.ascii	"msgLength\000"
+ 1127      656E6774 
+ 1127      6800
+ 1128              	.LASF28:
+ 1129 006a 73746174 		.ascii	"status\000"
+ 1129      757300
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 24
 
 
- 1074      657300
- 1075              	.LASF16:
- 1076 01e1 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
- 1076      47657452 
- 1076      65636569 
- 1076      76654D73 
- 1076      67436F75 
- 1077              	.LASF2:
- 1078 01f8 73686F72 		.ascii	"short int\000"
- 1078      7420696E 
- 1078      7400
- 1079              	.LASF10:
- 1080 0202 75696E74 		.ascii	"uint8\000"
- 1080      3800
- 1081              	.LASF4:
- 1082 0208 6C6F6E67 		.ascii	"long int\000"
- 1082      20696E74 
- 1082      00
- 1083              	.LASF13:
- 1084 0211 63686172 		.ascii	"char\000"
- 1084      00
- 1085              	.LASF28:
- 1086 0216 42504C5F 		.ascii	"BPL_ucTest\000"
- 1086      75635465 
- 1086      737400
- 1087              	.LASF32:
- 1088 0221 42504C5F 		.ascii	"BPL_ucTransmitBufferIndex\000"
- 1088      75635472 
- 1088      616E736D 
- 1088      69744275 
- 1088      66666572 
- 1089              	.LASF22:
- 1090 023b 736F7572 		.ascii	"source\000"
- 1090      636500
- 1091              	.LASF20:
- 1092 0242 42504C5F 		.ascii	"BPL_TransmitMessage\000"
- 1092      5472616E 
- 1092      736D6974 
- 1092      4D657373 
- 1092      61676500 
- 1093              	.LASF30:
- 1094 0256 42504C5F 		.ascii	"BPL_aucTransmitBuffer\000"
- 1094      61756354 
- 1094      72616E73 
- 1094      6D697442 
- 1094      75666665 
- 1095              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 1130              	.LASF21:
+ 1131 0071 74617267 		.ascii	"target\000"
+ 1131      657400
+ 1132              	.LASF11:
+ 1133 0078 666C6F61 		.ascii	"float\000"
+ 1133      7400
+ 1134              	.LASF19:
+ 1135 007e 42504C5F 		.ascii	"BPL_GetMessage\000"
+ 1135      4765744D 
+ 1135      65737361 
+ 1135      676500
+ 1136              	.LASF0:
+ 1137 008d 7369676E 		.ascii	"signed char\000"
+ 1137      65642063 
+ 1137      68617200 
+ 1138              	.LASF14:
+ 1139 0099 53544154 		.ascii	"STATUS\000"
+ 1139      555300
+ 1140              	.LASF15:
+ 1141 00a0 42504C5F 		.ascii	"BPL_Init\000"
+ 1141      496E6974 
+ 1141      00
+ 1142              	.LASF27:
+ 1143 00a9 75634D65 		.ascii	"ucMessageBuffer\000"
+ 1143      73736167 
+ 1143      65427566 
+ 1143      66657200 
+ 1144              	.LASF17:
+ 1145 00b9 72626653 		.ascii	"rbfStatus\000"
+ 1145      74617475 
+ 1145      7300
+ 1146              	.LASF5:
+ 1147 00c3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1147      20756E73 
+ 1147      69676E65 
+ 1147      6420696E 
+ 1147      7400
+ 1148              	.LASF3:
+ 1149 00d5 73686F72 		.ascii	"short unsigned int\000"
+ 1149      7420756E 
+ 1149      7369676E 
+ 1149      65642069 
+ 1149      6E7400
+ 1150              	.LASF37:
+ 1151 00e8 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1151      52784275 
+ 1151      66666572 
+ 1151      00
+ 1152              	.LASF1:
+ 1153 00f5 756E7369 		.ascii	"unsigned char\000"
+ 1153      676E6564 
+ 1153      20636861 
+ 1153      7200
+ 1154              	.LASF12:
+ 1155 0103 646F7562 		.ascii	"double\000"
+ 1155      6C6500
+ 1156              	.LASF35:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 25
+
+
+ 1157 010a 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1157      69744875 
+ 1157      625F726F 
+ 1157      626F7469 
+ 1157      6373636F 
+ 1158 0139 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 1158      6F725F32 
+ 1158      2E325C44 
+ 1158      72697665 
+ 1158      506C6174 
+ 1159 0169 6174666F 		.ascii	"atform2.cydsn\000"
+ 1159      726D322E 
+ 1159      63796473 
+ 1159      6E00
+ 1160              	.LASF8:
+ 1161 0177 756E7369 		.ascii	"unsigned int\000"
+ 1161      676E6564 
+ 1161      20696E74 
+ 1161      00
+ 1162              	.LASF29:
+ 1163 0184 42504C5F 		.ascii	"BPL_aucReceiveBuffer\000"
+ 1163      61756352 
+ 1163      65636569 
+ 1163      76654275 
+ 1163      66666572 
+ 1164              	.LASF7:
+ 1165 0199 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1165      206C6F6E 
+ 1165      6720756E 
+ 1165      7369676E 
+ 1165      65642069 
+ 1166              	.LASF9:
+ 1167 01b0 75696E74 		.ascii	"uint8_t\000"
+ 1167      385F7400 
+ 1168              	.LASF25:
+ 1169 01b8 42706C53 		.ascii	"BplStatus\000"
+ 1169      74617475 
+ 1169      7300
+ 1170              	.LASF24:
+ 1171 01c2 42504C5F 		.ascii	"BPL_HandleTask\000"
+ 1171      48616E64 
+ 1171      6C655461 
+ 1171      736B00
+ 1172              	.LASF33:
+ 1173 01d1 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1173      4320342E 
+ 1173      342E3100 
+ 1174              	.LASF18:
+ 1175 01dd 75634E75 		.ascii	"ucNumBytes\000"
+ 1175      6D427974 
+ 1175      657300
+ 1176              	.LASF16:
+ 1177 01e8 42504C5F 		.ascii	"BPL_GetReceiveMsgCount\000"
+ 1177      47657452 
+ 1177      65636569 
+ 1177      76654D73 
+ 1177      67436F75 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccD9queR.s 			page 26
+
+
+ 1178              	.LASF2:
+ 1179 01ff 73686F72 		.ascii	"short int\000"
+ 1179      7420696E 
+ 1179      7400
+ 1180              	.LASF10:
+ 1181 0209 75696E74 		.ascii	"uint8\000"
+ 1181      3800
+ 1182              	.LASF4:
+ 1183 020f 6C6F6E67 		.ascii	"long int\000"
+ 1183      20696E74 
+ 1183      00
+ 1184              	.LASF13:
+ 1185 0218 63686172 		.ascii	"char\000"
+ 1185      00
+ 1186              	.LASF36:
+ 1187 021d 42504C5F 		.ascii	"BPL_ucTest\000"
+ 1187      75635465 
+ 1187      737400
+ 1188              	.LASF32:
+ 1189 0228 42504C5F 		.ascii	"BPL_ucTransmitBufferIndex\000"
+ 1189      75635472 
+ 1189      616E736D 
+ 1189      69744275 
+ 1189      66666572 
+ 1190              	.LASF22:
+ 1191 0242 736F7572 		.ascii	"source\000"
+ 1191      636500
+ 1192              	.LASF20:
+ 1193 0249 42504C5F 		.ascii	"BPL_TransmitMessage\000"
+ 1193      5472616E 
+ 1193      736D6974 
+ 1193      4D657373 
+ 1193      61676500 
+ 1194              	.LASF30:
+ 1195 025d 42504C5F 		.ascii	"BPL_aucTransmitBuffer\000"
+ 1195      61756354 
+ 1195      72616E73 
+ 1195      6D697442 
+ 1195      75666665 
+ 1196              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

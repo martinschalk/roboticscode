@@ -21,7 +21,10 @@ void ERR_Error(uchar type)
 {
     switch(type)
     {
-        case ERROR_CRITICAL:        
+        case ERROR_CRITICAL:        while(1)
+                                    {
+                                        /* do nothing */
+                                    }
                                     break;
 
         case ERROR_MEMORY:          
@@ -36,10 +39,7 @@ void ERR_Error(uchar type)
         default:                    break;                            
     }
     
-    while(1)
-    {
-        /* do nothing */
-    }
+    
 }
 
 
@@ -68,8 +68,8 @@ uchar ERR_RegisterUcVariable(const uint8* ptrUcVar, const char* name, const uint
     /* if free index available, save variable pointer */
     if (idx < ERR_NUM_UC_VARIABLES)
     {
-        UcVar[idx].ucAddr = ptrUcVar;
-        strncpy(UcVar[idx].ucName, name, ERR_NAME_LENGTH);
+        UcVar[idx].ucAddr = (uint8*)ptrUcVar;
+        strncpy((char*)UcVar[idx].ucName, name, ERR_NAME_LENGTH);
         UcVar[idx].ucMin = min;
         UcVar[idx].ucMax = max;
     }
@@ -96,8 +96,8 @@ uchar ERR_RegisterUiVariable(const uint16* ptrUiVar, const char* name, const uin
     /* if free index available, save variable pointer */
     if (idx < ERR_NUM_UI_VARIABLES)
     {
-        UiVar[idx].uiAddr = ptrUiVar;
-        strncpy(UiVar[idx].ucName, name, ERR_NAME_LENGTH);
+        UiVar[idx].uiAddr = (uint16*)ptrUiVar;
+        strncpy((char*)UiVar[idx].ucName, name, ERR_NAME_LENGTH);
         UiVar[idx].uiMin = min;
         UiVar[idx].uiMax = max;
     }

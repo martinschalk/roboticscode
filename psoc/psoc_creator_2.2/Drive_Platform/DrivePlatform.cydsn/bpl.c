@@ -108,7 +108,7 @@ STATUS BPL_HandleTask(void)
         rbfStatus = RBF_ucTailMsgOut(BPL_ucTransmitBufferIndex, ucMessageBuffer, &ucNumBytes);
         
         // LENGTH | CONTENT | LENGTH
-		BplStatus = HAL_TransmitArray(&ucMessageBuffer[1], ucNumBytes-1);
+		BplStatus = HAL_TransmitArray(&ucMessageBuffer[0], ucNumBytes);
             
         if (rbfStatus != RBF_SUCCESS)
 		{
@@ -124,11 +124,16 @@ STATUS BPL_HandleTask(void)
 /*****************************************************************/
 #ifdef BPL_MODULE_TEST
 
-uint8_t BPL_ucTest(void)
+void BPL_ucTest(void)
 {
+    STATUS status;
+    static uint8_t x = 1;
+    static uint8_t msg[] = {0x05, 0x06, 0x07, 0x08, 0x09};
     
-
-    return SUCCESS;
+    if (x)
+    {
+        status = BPL_TransmitMessage(msg, 5);
+    }
 }
 
 #endif //BPL_MODULE_TEST

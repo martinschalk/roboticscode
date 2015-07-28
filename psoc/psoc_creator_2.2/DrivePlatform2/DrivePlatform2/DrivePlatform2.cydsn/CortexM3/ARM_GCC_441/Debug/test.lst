@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 1
 
 
    1              		.syntax unified
@@ -27,1012 +27,948 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 1
   20      01010101 
   21              	.Ltext0:
   22              		.cfi_sections	.debug_frame
-  23              		.bss
+  23              		.section	.text.TST_Blink,"ax",%progbits
   24              		.align	2
-  25              	TST_MsgBuffer:
-  26 0000 00000000 		.space	32
-  26      00000000 
-  26      00000000 
-  26      00000000 
-  26      00000000 
-  27              		.data
-  28              		.align	2
-  29              		.type	TST_AckOkMsgBuffer, %object
-  30              		.size	TST_AckOkMsgBuffer, 4
-  31              	TST_AckOkMsgBuffer:
-  32 0000 00       		.byte	0
-  33 0001 01       		.byte	1
-  34 0002 01       		.byte	1
-  35 0003 01       		.byte	1
-  36              		.section	.text.TST_Blink,"ax",%progbits
-  37              		.align	2
-  38              		.thumb
-  39              		.thumb_func
-  40              		.type	TST_Blink, %function
-  41              	TST_Blink:
-  42              	.LFB29:
-  43              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\test.c"
+  25              		.thumb
+  26              		.thumb_func
+  27              		.type	TST_Blink, %function
+  28              	TST_Blink:
+  29              	.LFB29:
+  30              		.file 1 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\test.c"
    1:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /* Copyright (C) <2014> <Martin Schalk>
    2:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****  * All rights reserved.
    3:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****  *
    4:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****  * This software may be modified and distributed under the terms
    5:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****  * of the BSD license.  See the LICENSE file for details.
    6:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****  */
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 2
-
-
    7:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
    8:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "global.h"
    9:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "types.h"
   10:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "test.h"
   11:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "tmr.h"
-  12:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "hal.h"
-  13:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "bal.h"
-  14:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "ring_buffer.h"
-  15:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  16:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #define TST_MSG_BUFFER_SIZE     32
-  17:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #define TST_MSG_ZERO_COUNT      5
-  18:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  12:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "bpl.h"
+  13:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "hal.h"
+  14:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "bal.h"
+  15:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #include "ring_buffer.h"
+  16:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  17:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #define TST_MSG_BUFFER_SIZE     32
+  18:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #define TST_MSG_ZERO_COUNT      5
   19:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  20:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static TEST_FUNC TST_FuncPtr = NULL;
-  21:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  20:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  21:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static TEST_FUNC TST_FuncPtr = NULL;
   22:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  23:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static uchar    TST_TestCase;
-  24:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static BOOL     TST_IsInitialized = FALSE;
-  25:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
+  23:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 2
+
+
+  24:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static uchar    TST_TestCase;
+  25:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //static BOOL     TST_IsInitialized = FALSE;
   26:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  27:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
-  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             (uint8)(BAL_MSG_ID_ACK),
-  29:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             BAL_MSG_LENGTH_ACK, 
-  30:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             BAL_ACK_OK
-  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                         };
-  32:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
-  33:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** -------------------------------------------
-  34:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** | id0 | id1 | length | b0 | b1 | ... | bn |
-  35:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** -------------------------------------------
-  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
-  37:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
-  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
-  39:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_SendTestMsg(void)
-  40:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
-  41:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //#define UART_TEST_MSG
-  42:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //#define BAL_TEST_MSG
-  43:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  44:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #if defined(UART_TEST_MSG)
-  45:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     static uint8 TestMsg[] = {0xFF, 0x01, 5, 2, 3, 0, 4, 5};
-  46:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  47:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_PutArray(TestMsg, sizeof(TestMsg));
-  48:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #elif defined(BAL_TEST_MSG)
-  49:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status; 
-  50:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     uint8 msgdata[4] = {1, 2, 3, 4};
-  51:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  52:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     BAL_MSG testmsg = {0x0001, 4, msgdata};
-  53:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = BAL_SendMsg(&testmsg);
-  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     (void)status;
-  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
-  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
-  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
-  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
-  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
-  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_GetMsg(void)
-  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
-  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     uint8 i=0;
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 3
+  27:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+  28:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
+  29:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  30:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
+  31:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             (uint8)(BAL_MSG_ID_ACK),
+  32:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             BAL_MSG_LENGTH_ACK, 
+  33:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                             BAL_ACK_OK
+  34:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                         };
+  35:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+  36:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+  37:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** -------------------------------------------
+  38:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** | id0 | id1 | length | b0 | b1 | ... | bn |
+  39:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** -------------------------------------------
+  40:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+  41:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+  42:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+  43:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_SendTestMsg(void)
+  44:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+  45:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //#define UART_TEST_MSG
+  46:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** //#define BAL_TEST_MSG
+  47:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  48:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #if defined(UART_TEST_MSG)
+  49:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     static uint8 TestMsg[] = {0xFF, 0x01, 5, 2, 3, 0, 4, 5};
+  50:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  51:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_PutArray(TestMsg, sizeof(TestMsg));
+  52:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #elif defined(BAL_TEST_MSG)
+  53:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status; 
+  54:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     uint8 msgdata[4] = {1, 2, 3, 4};
+  55:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  56:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     BAL_MSG testmsg = {0x0001, 4, msgdata};
+  57:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = BAL_SendMsg(&testmsg);
+  58:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     (void)status;
+  59:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
+  60:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+  61:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+  62:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  63:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_GetMsg(void)
+  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     uint8 i=0;
+  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status;
+  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     BOOL motorMsg=FALSE;
+  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // disable rx interrupt during data processing
+  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_DisableRxInt();
+  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = UART_TEST_ReadRxStatus();
+  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // if buffer full, parse for 0xff 0xff (only for testing)
+  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     if ((status == UART_RX_STS_OVERRUN) || (status == UART_RX_STS_SOFT_BUFF_OVER))
+  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     {
+  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         while (UART_TEST_GetRxBufferSize() > 0)
+  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         {
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 3
 
 
-  64:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status;
-  65:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     BOOL motorMsg=FALSE;
-  66:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  67:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // disable rx interrupt during data processing
-  68:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_DisableRxInt();
-  69:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  70:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = UART_TEST_ReadRxStatus();
-  71:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  72:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // if buffer full, parse for 0xff 0xff (only for testing)
-  73:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     if ((status == UART_RX_STS_OVERRUN) || (status == UART_RX_STS_SOFT_BUFF_OVER))
-  74:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     {
-  75:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         while (UART_TEST_GetRxBufferSize() > 0)
-  76:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         {
-  77:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             TST_MsgBuffer[i] = UART_TEST_ReadRxData();
-  78:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             if ((TST_MsgBuffer[i] == 0xFF) && (i>0) && (TST_MsgBuffer[i-1] == 0xFF))
-  79:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                 motorMsg = TRUE;
-  80:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             i++;
-  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         }
-  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     }
-  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         
-  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // enable rx interrupt during data processing
-  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_EnableRxInt();  
-  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
-  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // check if message id is registered and acknowledge
-  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     if (motorMsg == TRUE)
-  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     {
-  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         UART_TEST_PutArray(TST_AckOkMsgBuffer, sizeof(TST_AckOkMsgBuffer));
-  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     }
-  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
-  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
-  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
-  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
-  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_Blink(void)
-  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
-  44              		.loc 1 98 0
-  45              		.cfi_startproc
-  46              		@ args = 0, pretend = 0, frame = 0
-  47              		@ frame_needed = 1, uses_anonymous_args = 0
-  48 0000 80B5     		push	{r7, lr}
-  49              	.LCFI0:
-  50              		.cfi_def_cfa_offset 8
-  51 0002 00AF     		add	r7, sp, #0
-  52              		.cfi_offset 14, -4
-  53              		.cfi_offset 7, -8
-  54              	.LCFI1:
-  55              		.cfi_def_cfa_register 7
-  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     static uint8 LedVal=0x00;
- 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	LedVal ^= 0x01;
-  56              		.loc 1 100 0
-  57 0004 40F20003 		movw	r3, #:lower16:LedVal.2868
-  58 0008 C0F20003 		movt	r3, #:upper16:LedVal.2868
-  59 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
-  60 000e 83F00103 		eor	r3, r3, #1
-  61 0012 DAB2     		uxtb	r2, r3
-  62 0014 40F20003 		movw	r3, #:lower16:LedVal.2868
-  63 0018 C0F20003 		movt	r3, #:upper16:LedVal.2868
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 4
+  81:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             TST_MsgBuffer[i] = UART_TEST_ReadRxData();
+  82:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             if ((TST_MsgBuffer[i] == 0xFF) && (i>0) && (TST_MsgBuffer[i-1] == 0xFF))
+  83:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****                 motorMsg = TRUE;
+  84:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****             i++;
+  85:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         }
+  86:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     }
+  87:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         
+  88:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // enable rx interrupt during data processing
+  89:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     UART_TEST_EnableRxInt();  
+  90:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+  91:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+  92:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     // check if message id is registered and acknowledge
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     if (motorMsg == TRUE)
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     {
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****         UART_TEST_PutArray(TST_AckOkMsgBuffer, sizeof(TST_AckOkMsgBuffer));
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     }
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_Blink(void)
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+  31              		.loc 1 102 0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 1, uses_anonymous_args = 0
+  35 0000 80B5     		push	{r7, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38 0002 00AF     		add	r7, sp, #0
+  39              		.cfi_offset 14, -4
+  40              		.cfi_offset 7, -8
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_register 7
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     static uint8 LedVal=0x00;
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	LedVal ^= 0x01;
+  43              		.loc 1 104 0
+  44 0004 40F20003 		movw	r3, #:lower16:LedVal.2877
+  45 0008 C0F20003 		movt	r3, #:upper16:LedVal.2877
+  46 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  47 000e 83F00103 		eor	r3, r3, #1
+  48 0012 DAB2     		uxtb	r2, r3
+  49 0014 40F20003 		movw	r3, #:lower16:LedVal.2877
+  50 0018 C0F20003 		movt	r3, #:upper16:LedVal.2877
+  51 001c 1A70     		strb	r2, [r3, #0]
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	DEBUG_LED_1_Write(LedVal);
+  52              		.loc 1 105 0
+  53 001e 40F20003 		movw	r3, #:lower16:LedVal.2877
+  54 0022 C0F20003 		movt	r3, #:upper16:LedVal.2877
+  55 0026 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  56 0028 1846     		mov	r0, r3
+  57 002a FFF7FEFF 		bl	DEBUG_LED_1_Write
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+  58              		.loc 1 106 0
+  59 002e 80BD     		pop	{r7, pc}
+  60              		.cfi_endproc
+  61              	.LFE29:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 4
 
 
-  64 001c 1A70     		strb	r2, [r3, #0]
- 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	DEBUG_LED_1_Write(LedVal);
-  65              		.loc 1 101 0
-  66 001e 40F20003 		movw	r3, #:lower16:LedVal.2868
-  67 0022 C0F20003 		movt	r3, #:upper16:LedVal.2868
-  68 0026 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
-  69 0028 1846     		mov	r0, r3
-  70 002a FFF7FEFF 		bl	DEBUG_LED_1_Write
- 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
-  71              		.loc 1 102 0
-  72 002e 80BD     		pop	{r7, pc}
-  73              		.cfi_endproc
-  74              	.LFE29:
-  75              		.size	TST_Blink, .-TST_Blink
-  76              		.section	.text.TST_Init,"ax",%progbits
-  77              		.align	2
-  78              		.global	TST_Init
-  79              		.thumb
-  80              		.thumb_func
-  81              		.type	TST_Init, %function
-  82              	TST_Init:
-  83              	.LFB30:
- 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
- 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
- 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_SendMotorMsg(void)
- 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
- 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status; 
- 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     Ping(0x01);
- 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
- 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     (void)status;
- 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
- 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
- 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
- 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
- 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** void TST_SetModuleTest(TEST_FUNC* testFunction)
- 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
- 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     TST_FuncPtr = testFunction;
- 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     //TMR_SetTimer(TIMER_4, TIMER_1SEC, TST_FuncPtr, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
- 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
- 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
- 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
- 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** STATUS TST_Init(void)
- 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
-  84              		.loc 1 127 0
-  85              		.cfi_startproc
-  86              		@ args = 0, pretend = 0, frame = 0
-  87              		@ frame_needed = 1, uses_anonymous_args = 0
-  88 0000 80B5     		push	{r7, lr}
-  89              	.LCFI2:
-  90              		.cfi_def_cfa_offset 8
-  91 0002 82B0     		sub	sp, sp, #8
-  92              	.LCFI3:
-  93              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 5
-
-
-  94 0004 02AF     		add	r7, sp, #8
-  95              		.cfi_offset 14, -4
-  96              		.cfi_offset 7, -8
-  97              	.LCFI4:
-  98              		.cfi_def_cfa 7, 8
- 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     /* clear test msg buffer */
- 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     //memset(TST_MsgBuffer, 0x00, TST_MSG_BUFFER_SIZE);   
- 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef TEST_BLINK
- 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-  99              		.loc 1 132 0
- 100 0006 4FF00103 		mov	r3, #1
- 101 000a 0093     		str	r3, [sp, #0]
- 102 000c 4FF00000 		mov	r0, #0
- 103 0010 44F24021 		movw	r1, #:lower16:1000000
- 104 0014 C0F20F01 		movt	r1, #:upper16:1000000
- 105 0018 40F20002 		movw	r2, #:lower16:TST_Blink
- 106 001c C0F20002 		movt	r2, #:upper16:TST_Blink
- 107 0020 4FF00203 		mov	r3, #2
- 108 0024 FFF7FEFF 		bl	TMR_SetTimer
- 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif	
+  62              		.size	TST_Blink, .-TST_Blink
+  63              		.section	.text.TST_Init,"ax",%progbits
+  64              		.align	2
+  65              		.global	TST_Init
+  66              		.thumb
+  67              		.thumb_func
+  68              		.type	TST_Init, %function
+  69              	TST_Init:
+  70              	.LFB30:
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+ 109:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+ 110:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** static void TST_SendMotorMsg(void)
+ 111:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+ 112:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status; 
+ 113:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 114:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     Ping(0x01);
+ 115:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+ 116:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     (void)status;
+ 117:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+ 118:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+ 119:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 120:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+ 121:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*
+ 122:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** void TST_SetModuleTest(TEST_FUNC* testFunction)
+ 123:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+ 124:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     TST_FuncPtr = testFunction;
+ 125:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     //TMR_SetTimer(TIMER_4, TIMER_1SEC, TST_FuncPtr, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+ 126:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+ 127:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** */
+ 128:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 129:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+ 130:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** STATUS TST_Init(void)
+ 131:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+  71              		.loc 1 131 0
+  72              		.cfi_startproc
+  73              		@ args = 0, pretend = 0, frame = 0
+  74              		@ frame_needed = 1, uses_anonymous_args = 0
+  75 0000 80B5     		push	{r7, lr}
+  76              	.LCFI2:
+  77              		.cfi_def_cfa_offset 8
+  78 0002 82B0     		sub	sp, sp, #8
+  79              	.LCFI3:
+  80              		.cfi_def_cfa_offset 16
+  81 0004 02AF     		add	r7, sp, #8
+  82              		.cfi_offset 14, -4
+  83              		.cfi_offset 7, -8
+  84              	.LCFI4:
+  85              		.cfi_def_cfa 7, 8
+ 132:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     /* clear test msg buffer */
+ 133:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     //memset(TST_MsgBuffer, 0x00, TST_MSG_BUFFER_SIZE);   
  134:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     return SUCCESS;
- 109              		.loc 1 135 0
- 110 0028 4FF00003 		mov	r3, #0
- 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
- 111              		.loc 1 136 0
- 112 002c 1846     		mov	r0, r3
- 113 002e BD46     		mov	sp, r7
- 114 0030 80BD     		pop	{r7, pc}
- 115              		.cfi_endproc
- 116              	.LFE30:
- 117              		.size	TST_Init, .-TST_Init
- 118 0032 00BF     		.section	.text.TST_HandleTask,"ax",%progbits
- 119              		.align	2
- 120              		.global	TST_HandleTask
- 121              		.thumb
- 122              		.thumb_func
- 123              		.type	TST_HandleTask, %function
- 124              	TST_HandleTask:
- 125              	.LFB31:
- 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
- 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** STATUS TST_HandleTask(void)
- 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
- 126              		.loc 1 140 0
- 127              		.cfi_startproc
- 128              		@ args = 0, pretend = 0, frame = 8
- 129              		@ frame_needed = 1, uses_anonymous_args = 0
- 130              		@ link register save eliminated.
- 131 0000 80B4     		push	{r7}
- 132              	.LCFI5:
- 133              		.cfi_def_cfa_offset 4
- 134 0002 83B0     		sub	sp, sp, #12
- 135              	.LCFI6:
- 136              		.cfi_def_cfa_offset 16
- 137 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 6
+ 135:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef TEST_BLINK
+ 136:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+  86              		.loc 1 136 0
+  87 0006 4FF00103 		mov	r3, #1
+  88 000a 0093     		str	r3, [sp, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 5
 
 
- 138              		.cfi_offset 7, -4
- 139              	.LCFI7:
- 140              		.cfi_def_cfa_register 7
- 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status = SUCCESS;
- 141              		.loc 1 141 0
- 142 0006 4FF00003 		mov	r3, #0
- 143 000a FB71     		strb	r3, [r7, #7]
- 142:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
- 143:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef RBF_MODULE_TEST
- 144:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = RBF_ucTest();
- 145:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
+  89 000c 4FF00000 		mov	r0, #0
+  90 0010 44F24021 		movw	r1, #:lower16:1000000
+  91 0014 C0F20F01 		movt	r1, #:upper16:1000000
+  92 0018 40F20002 		movw	r2, #:lower16:TST_Blink
+  93 001c C0F20002 		movt	r2, #:upper16:TST_Blink
+  94 0020 4FF00203 		mov	r3, #2
+  95 0024 FFF7FEFF 		bl	TMR_SetTimer
+ 137:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif	
+ 138:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 139:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef BPL_MODULE_TEST
+ 140:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     TMR_SetTimer(TIMER_1, TIMER_1SEC, BPL_ucTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+  96              		.loc 1 140 0
+  97 0028 4FF00103 		mov	r3, #1
+  98 002c 0093     		str	r3, [sp, #0]
+  99 002e 4FF00100 		mov	r0, #1
+ 100 0032 44F24021 		movw	r1, #:lower16:1000000
+ 101 0036 C0F20F01 		movt	r1, #:upper16:1000000
+ 102 003a 40F20002 		movw	r2, #:lower16:BPL_ucTest
+ 103 003e C0F20002 		movt	r2, #:upper16:BPL_ucTest
+ 104 0042 4FF00203 		mov	r3, #2
+ 105 0046 FFF7FEFF 		bl	TMR_SetTimer
+ 141:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
+ 142:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 143:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
+ 144:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     return SUCCESS;
+ 106              		.loc 1 144 0
+ 107 004a 4FF00003 		mov	r3, #0
+ 145:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+ 108              		.loc 1 145 0
+ 109 004e 1846     		mov	r0, r3
+ 110 0050 BD46     		mov	sp, r7
+ 111 0052 80BD     		pop	{r7, pc}
+ 112              		.cfi_endproc
+ 113              	.LFE30:
+ 114              		.size	TST_Init, .-TST_Init
+ 115              		.section	.text.TST_HandleTask,"ax",%progbits
+ 116              		.align	2
+ 117              		.global	TST_HandleTask
+ 118              		.thumb
+ 119              		.thumb_func
+ 120              		.type	TST_HandleTask, %function
+ 121              	TST_HandleTask:
+ 122              	.LFB31:
  146:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** 
- 147:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef BPL_MODULE_TEST
- 148:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = BPL_ucTest();
- 149:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
- 150:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
- 151:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     return status;
- 144              		.loc 1 151 0
- 145 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
- 152:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
- 146              		.loc 1 152 0
- 147 000e 1846     		mov	r0, r3
- 148 0010 07F10C07 		add	r7, r7, #12
- 149 0014 BD46     		mov	sp, r7
- 150 0016 80BC     		pop	{r7}
- 151 0018 7047     		bx	lr
- 152              		.cfi_endproc
- 153              	.LFE31:
- 154              		.size	TST_HandleTask, .-TST_HandleTask
- 155 001a 00BF     		.bss
- 156              	LedVal.2868:
- 157 0020 00       		.space	1
- 158 0021 000000   		.text
- 159              	.Letext0:
- 160              		.section	.debug_loc,"",%progbits
- 161              	.Ldebug_loc0:
- 162              	.LLST0:
- 163 0000 00000000 		.4byte	.LFB29
- 164 0004 02000000 		.4byte	.LCFI0
- 165 0008 0100     		.2byte	0x1
- 166 000a 5D       		.byte	0x5d
- 167 000b 02000000 		.4byte	.LCFI0
- 168 000f 04000000 		.4byte	.LCFI1
- 169 0013 0200     		.2byte	0x2
- 170 0015 7D       		.byte	0x7d
- 171 0016 08       		.sleb128 8
- 172 0017 04000000 		.4byte	.LCFI1
- 173 001b 30000000 		.4byte	.LFE29
- 174 001f 0200     		.2byte	0x2
- 175 0021 77       		.byte	0x77
- 176 0022 08       		.sleb128 8
- 177 0023 00000000 		.4byte	0x0
- 178 0027 00000000 		.4byte	0x0
- 179              	.LLST1:
- 180 002b 00000000 		.4byte	.LFB30
- 181 002f 02000000 		.4byte	.LCFI2
- 182 0033 0100     		.2byte	0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 7
+ 147:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** /*******************************************************/
+ 148:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** STATUS TST_HandleTask(void)
+ 149:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** {
+ 123              		.loc 1 149 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 8
+ 126              		@ frame_needed = 1, uses_anonymous_args = 0
+ 127              		@ link register save eliminated.
+ 128 0000 80B4     		push	{r7}
+ 129              	.LCFI5:
+ 130              		.cfi_def_cfa_offset 4
+ 131 0002 83B0     		sub	sp, sp, #12
+ 132              	.LCFI6:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 6
 
 
- 183 0035 5D       		.byte	0x5d
- 184 0036 02000000 		.4byte	.LCFI2
- 185 003a 04000000 		.4byte	.LCFI3
- 186 003e 0200     		.2byte	0x2
- 187 0040 7D       		.byte	0x7d
- 188 0041 08       		.sleb128 8
- 189 0042 04000000 		.4byte	.LCFI3
- 190 0046 06000000 		.4byte	.LCFI4
- 191 004a 0200     		.2byte	0x2
- 192 004c 7D       		.byte	0x7d
- 193 004d 10       		.sleb128 16
- 194 004e 06000000 		.4byte	.LCFI4
- 195 0052 32000000 		.4byte	.LFE30
- 196 0056 0200     		.2byte	0x2
- 197 0058 77       		.byte	0x77
- 198 0059 08       		.sleb128 8
- 199 005a 00000000 		.4byte	0x0
- 200 005e 00000000 		.4byte	0x0
- 201              	.LLST2:
- 202 0062 00000000 		.4byte	.LFB31
- 203 0066 02000000 		.4byte	.LCFI5
- 204 006a 0100     		.2byte	0x1
- 205 006c 5D       		.byte	0x5d
- 206 006d 02000000 		.4byte	.LCFI5
- 207 0071 04000000 		.4byte	.LCFI6
- 208 0075 0200     		.2byte	0x2
- 209 0077 7D       		.byte	0x7d
- 210 0078 04       		.sleb128 4
- 211 0079 04000000 		.4byte	.LCFI6
- 212 007d 06000000 		.4byte	.LCFI7
- 213 0081 0200     		.2byte	0x2
- 214 0083 7D       		.byte	0x7d
- 215 0084 10       		.sleb128 16
- 216 0085 06000000 		.4byte	.LCFI7
- 217 0089 1A000000 		.4byte	.LFE31
- 218 008d 0200     		.2byte	0x2
- 219 008f 77       		.byte	0x77
- 220 0090 10       		.sleb128 16
- 221 0091 00000000 		.4byte	0x0
- 222 0095 00000000 		.4byte	0x0
- 223              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
- 224              		.file 3 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
- 225              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/tmr.h"
- 226              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
- 227              		.section	.debug_info
- 228 0000 91010000 		.4byte	0x191
- 229 0004 0200     		.2byte	0x2
- 230 0006 00000000 		.4byte	.Ldebug_abbrev0
- 231 000a 04       		.byte	0x4
- 232 000b 01       		.uleb128 0x1
- 233 000c A9010000 		.4byte	.LASF25
- 234 0010 01       		.byte	0x1
- 235 0011 4E000000 		.4byte	.LASF26
- 236 0015 FC000000 		.4byte	.LASF27
- 237 0019 00000000 		.4byte	0x0
- 238 001d 00000000 		.4byte	0x0
- 239 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 8
+ 133              		.cfi_def_cfa_offset 16
+ 134 0004 00AF     		add	r7, sp, #0
+ 135              		.cfi_offset 7, -4
+ 136              	.LCFI7:
+ 137              		.cfi_def_cfa_register 7
+ 150:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     STATUS status = SUCCESS;
+ 138              		.loc 1 150 0
+ 139 0006 4FF00003 		mov	r3, #0
+ 140 000a FB71     		strb	r3, [r7, #7]
+ 151:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+ 152:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #ifdef RBF_MODULE_TEST
+ 153:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     status = RBF_ucTest();
+ 154:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** #endif
+ 155:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     
+ 156:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c ****     return status;
+ 141              		.loc 1 156 0
+ 142 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 157:..\..\..\Drive_Platform\DrivePlatform.cydsn/test.c **** }
+ 143              		.loc 1 157 0
+ 144 000e 1846     		mov	r0, r3
+ 145 0010 07F10C07 		add	r7, r7, #12
+ 146 0014 BD46     		mov	sp, r7
+ 147 0016 80BC     		pop	{r7}
+ 148 0018 7047     		bx	lr
+ 149              		.cfi_endproc
+ 150              	.LFE31:
+ 151              		.size	TST_HandleTask, .-TST_HandleTask
+ 152 001a 00BF     		.bss
+ 153              	LedVal.2877:
+ 154 0000 00       		.space	1
+ 155              		.text
+ 156              	.Letext0:
+ 157              		.section	.debug_loc,"",%progbits
+ 158              	.Ldebug_loc0:
+ 159              	.LLST0:
+ 160 0000 00000000 		.4byte	.LFB29
+ 161 0004 02000000 		.4byte	.LCFI0
+ 162 0008 0100     		.2byte	0x1
+ 163 000a 5D       		.byte	0x5d
+ 164 000b 02000000 		.4byte	.LCFI0
+ 165 000f 04000000 		.4byte	.LCFI1
+ 166 0013 0200     		.2byte	0x2
+ 167 0015 7D       		.byte	0x7d
+ 168 0016 08       		.sleb128 8
+ 169 0017 04000000 		.4byte	.LCFI1
+ 170 001b 30000000 		.4byte	.LFE29
+ 171 001f 0200     		.2byte	0x2
+ 172 0021 77       		.byte	0x77
+ 173 0022 08       		.sleb128 8
+ 174 0023 00000000 		.4byte	0x0
+ 175 0027 00000000 		.4byte	0x0
+ 176              	.LLST1:
+ 177 002b 00000000 		.4byte	.LFB30
+ 178 002f 02000000 		.4byte	.LCFI2
+ 179 0033 0100     		.2byte	0x1
+ 180 0035 5D       		.byte	0x5d
+ 181 0036 02000000 		.4byte	.LCFI2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 7
 
 
- 240 0025 00000000 		.4byte	.Ldebug_line0
- 241 0029 02       		.uleb128 0x2
- 242 002a 01       		.byte	0x1
- 243 002b 06       		.byte	0x6
- 244 002c DB010000 		.4byte	.LASF0
- 245 0030 02       		.uleb128 0x2
- 246 0031 01       		.byte	0x1
- 247 0032 08       		.byte	0x8
- 248 0033 9C000000 		.4byte	.LASF1
- 249 0037 02       		.uleb128 0x2
- 250 0038 02       		.byte	0x2
- 251 0039 05       		.byte	0x5
- 252 003a BA010000 		.4byte	.LASF2
- 253 003e 02       		.uleb128 0x2
- 254 003f 02       		.byte	0x2
- 255 0040 07       		.byte	0x7
- 256 0041 BC000000 		.4byte	.LASF3
- 257 0045 02       		.uleb128 0x2
- 258 0046 04       		.byte	0x4
- 259 0047 05       		.byte	0x5
- 260 0048 3E000000 		.4byte	.LASF4
- 261 004c 02       		.uleb128 0x2
- 262 004d 04       		.byte	0x4
- 263 004e 07       		.byte	0x7
- 264 004f AA000000 		.4byte	.LASF5
- 265 0053 02       		.uleb128 0x2
- 266 0054 08       		.byte	0x8
- 267 0055 05       		.byte	0x5
- 268 0056 87000000 		.4byte	.LASF6
- 269 005a 02       		.uleb128 0x2
- 270 005b 08       		.byte	0x8
- 271 005c 07       		.byte	0x7
- 272 005d 76010000 		.4byte	.LASF7
- 273 0061 03       		.uleb128 0x3
- 274 0062 04       		.byte	0x4
- 275 0063 05       		.byte	0x5
- 276 0064 696E7400 		.ascii	"int\000"
- 277 0068 02       		.uleb128 0x2
- 278 0069 04       		.byte	0x4
- 279 006a 07       		.byte	0x7
- 280 006b 69010000 		.4byte	.LASF8
- 281 006f 04       		.uleb128 0x4
- 282 0070 CE010000 		.4byte	.LASF12
- 283 0074 02       		.byte	0x2
- 284 0075 4C       		.byte	0x4c
- 285 0076 30000000 		.4byte	0x30
- 286 007a 02       		.uleb128 0x2
- 287 007b 04       		.byte	0x4
- 288 007c 04       		.byte	0x4
- 289 007d 81000000 		.4byte	.LASF9
- 290 0081 02       		.uleb128 0x2
- 291 0082 08       		.byte	0x8
- 292 0083 04       		.byte	0x4
- 293 0084 DC000000 		.4byte	.LASF10
- 294 0088 02       		.uleb128 0x2
- 295 0089 01       		.byte	0x1
- 296 008a 08       		.byte	0x8
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 9
+ 182 003a 04000000 		.4byte	.LCFI3
+ 183 003e 0200     		.2byte	0x2
+ 184 0040 7D       		.byte	0x7d
+ 185 0041 08       		.sleb128 8
+ 186 0042 04000000 		.4byte	.LCFI3
+ 187 0046 06000000 		.4byte	.LCFI4
+ 188 004a 0200     		.2byte	0x2
+ 189 004c 7D       		.byte	0x7d
+ 190 004d 10       		.sleb128 16
+ 191 004e 06000000 		.4byte	.LCFI4
+ 192 0052 54000000 		.4byte	.LFE30
+ 193 0056 0200     		.2byte	0x2
+ 194 0058 77       		.byte	0x77
+ 195 0059 08       		.sleb128 8
+ 196 005a 00000000 		.4byte	0x0
+ 197 005e 00000000 		.4byte	0x0
+ 198              	.LLST2:
+ 199 0062 00000000 		.4byte	.LFB31
+ 200 0066 02000000 		.4byte	.LCFI5
+ 201 006a 0100     		.2byte	0x1
+ 202 006c 5D       		.byte	0x5d
+ 203 006d 02000000 		.4byte	.LCFI5
+ 204 0071 04000000 		.4byte	.LCFI6
+ 205 0075 0200     		.2byte	0x2
+ 206 0077 7D       		.byte	0x7d
+ 207 0078 04       		.sleb128 4
+ 208 0079 04000000 		.4byte	.LCFI6
+ 209 007d 06000000 		.4byte	.LCFI7
+ 210 0081 0200     		.2byte	0x2
+ 211 0083 7D       		.byte	0x7d
+ 212 0084 10       		.sleb128 16
+ 213 0085 06000000 		.4byte	.LCFI7
+ 214 0089 1A000000 		.4byte	.LFE31
+ 215 008d 0200     		.2byte	0x2
+ 216 008f 77       		.byte	0x77
+ 217 0090 10       		.sleb128 16
+ 218 0091 00000000 		.4byte	0x0
+ 219 0095 00000000 		.4byte	0x0
+ 220              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 221              		.file 3 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/types.h"
+ 222              		.file 4 "..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\/tmr.h"
+ 223              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 224              		.section	.debug_info
+ 225 0000 4F010000 		.4byte	0x14f
+ 226 0004 0200     		.2byte	0x2
+ 227 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 228 000a 04       		.byte	0x4
+ 229 000b 01       		.uleb128 0x1
+ 230 000c 88010000 		.4byte	.LASF23
+ 231 0010 01       		.byte	0x1
+ 232 0011 4E000000 		.4byte	.LASF24
+ 233 0015 EE000000 		.4byte	.LASF25
+ 234 0019 00000000 		.4byte	0x0
+ 235 001d 00000000 		.4byte	0x0
+ 236 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 237 0025 00000000 		.4byte	.Ldebug_line0
+ 238 0029 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 8
 
 
- 297 008b B5010000 		.4byte	.LASF11
- 298 008f 05       		.uleb128 0x5
- 299 0090 04       		.byte	0x4
- 300 0091 07       		.byte	0x7
- 301 0092 06       		.uleb128 0x6
- 302 0093 6F000000 		.4byte	0x6f
- 303 0097 A2000000 		.4byte	0xa2
- 304 009b 07       		.uleb128 0x7
- 305 009c 8F000000 		.4byte	0x8f
- 306 00a0 03       		.byte	0x3
- 307 00a1 00       		.byte	0x0
- 308 00a2 04       		.uleb128 0x4
- 309 00a3 95000000 		.4byte	.LASF13
- 310 00a7 03       		.byte	0x3
- 311 00a8 0F       		.byte	0xf
- 312 00a9 6F000000 		.4byte	0x6f
- 313 00ad 08       		.uleb128 0x8
- 314 00ae 01       		.byte	0x1
- 315 00af 04       		.byte	0x4
- 316 00b0 19       		.byte	0x19
- 317 00b1 E0000000 		.4byte	0xe0
- 318 00b5 09       		.uleb128 0x9
- 319 00b6 0E000000 		.4byte	.LASF14
- 320 00ba 00       		.sleb128 0
- 321 00bb 09       		.uleb128 0x9
- 322 00bc 16000000 		.4byte	.LASF15
- 323 00c0 01       		.sleb128 1
- 324 00c1 09       		.uleb128 0x9
- 325 00c2 1E000000 		.4byte	.LASF16
- 326 00c6 02       		.sleb128 2
- 327 00c7 09       		.uleb128 0x9
- 328 00c8 26000000 		.4byte	.LASF17
- 329 00cc 03       		.sleb128 3
- 330 00cd 09       		.uleb128 0x9
- 331 00ce 2E000000 		.4byte	.LASF18
- 332 00d2 04       		.sleb128 4
- 333 00d3 09       		.uleb128 0x9
- 334 00d4 36000000 		.4byte	.LASF19
- 335 00d8 05       		.sleb128 5
- 336 00d9 09       		.uleb128 0x9
- 337 00da C4010000 		.4byte	.LASF20
- 338 00de 06       		.sleb128 6
- 339 00df 00       		.byte	0x0
- 340 00e0 0A       		.uleb128 0xa
- 341 00e1 E3000000 		.4byte	.LASF28
- 342 00e5 01       		.byte	0x1
- 343 00e6 61       		.byte	0x61
- 344 00e7 01       		.byte	0x1
- 345 00e8 00000000 		.4byte	.LFB29
- 346 00ec 30000000 		.4byte	.LFE29
- 347 00f0 00000000 		.4byte	.LLST0
- 348 00f4 0A010000 		.4byte	0x10a
- 349 00f8 0B       		.uleb128 0xb
- 350 00f9 D4010000 		.4byte	.LASF21
- 351 00fd 01       		.byte	0x1
- 352 00fe 63       		.byte	0x63
- 353 00ff 6F000000 		.4byte	0x6f
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 10
+ 239 002a 01       		.byte	0x1
+ 240 002b 06       		.byte	0x6
+ 241 002c BA010000 		.4byte	.LASF0
+ 242 0030 02       		.uleb128 0x2
+ 243 0031 01       		.byte	0x1
+ 244 0032 08       		.byte	0x8
+ 245 0033 8E000000 		.4byte	.LASF1
+ 246 0037 02       		.uleb128 0x2
+ 247 0038 02       		.byte	0x2
+ 248 0039 05       		.byte	0x5
+ 249 003a 99010000 		.4byte	.LASF2
+ 250 003e 02       		.uleb128 0x2
+ 251 003f 02       		.byte	0x2
+ 252 0040 07       		.byte	0x7
+ 253 0041 AE000000 		.4byte	.LASF3
+ 254 0045 02       		.uleb128 0x2
+ 255 0046 04       		.byte	0x4
+ 256 0047 05       		.byte	0x5
+ 257 0048 3E000000 		.4byte	.LASF4
+ 258 004c 02       		.uleb128 0x2
+ 259 004d 04       		.byte	0x4
+ 260 004e 07       		.byte	0x7
+ 261 004f 9C000000 		.4byte	.LASF5
+ 262 0053 02       		.uleb128 0x2
+ 263 0054 08       		.byte	0x8
+ 264 0055 05       		.byte	0x5
+ 265 0056 00000000 		.4byte	.LASF6
+ 266 005a 02       		.uleb128 0x2
+ 267 005b 08       		.byte	0x8
+ 268 005c 07       		.byte	0x7
+ 269 005d 68010000 		.4byte	.LASF7
+ 270 0061 03       		.uleb128 0x3
+ 271 0062 04       		.byte	0x4
+ 272 0063 05       		.byte	0x5
+ 273 0064 696E7400 		.ascii	"int\000"
+ 274 0068 02       		.uleb128 0x2
+ 275 0069 04       		.byte	0x4
+ 276 006a 07       		.byte	0x7
+ 277 006b 5B010000 		.4byte	.LASF8
+ 278 006f 04       		.uleb128 0x4
+ 279 0070 AD010000 		.4byte	.LASF12
+ 280 0074 02       		.byte	0x2
+ 281 0075 4C       		.byte	0x4c
+ 282 0076 30000000 		.4byte	0x30
+ 283 007a 02       		.uleb128 0x2
+ 284 007b 04       		.byte	0x4
+ 285 007c 04       		.byte	0x4
+ 286 007d 81000000 		.4byte	.LASF9
+ 287 0081 02       		.uleb128 0x2
+ 288 0082 08       		.byte	0x8
+ 289 0083 04       		.byte	0x4
+ 290 0084 CE000000 		.4byte	.LASF10
+ 291 0088 02       		.uleb128 0x2
+ 292 0089 01       		.byte	0x1
+ 293 008a 08       		.byte	0x8
+ 294 008b 94010000 		.4byte	.LASF11
+ 295 008f 05       		.uleb128 0x5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 9
 
 
- 354 0103 05       		.byte	0x5
- 355 0104 03       		.byte	0x3
- 356 0105 20000000 		.4byte	LedVal.2868
- 357 0109 00       		.byte	0x0
- 358 010a 0C       		.uleb128 0xc
- 359 010b 01       		.byte	0x1
- 360 010c A0010000 		.4byte	.LASF29
- 361 0110 01       		.byte	0x1
- 362 0111 7E       		.byte	0x7e
- 363 0112 01       		.byte	0x1
- 364 0113 A2000000 		.4byte	0xa2
- 365 0117 00000000 		.4byte	.LFB30
- 366 011b 32000000 		.4byte	.LFE30
- 367 011f 2B000000 		.4byte	.LLST1
- 368 0123 0D       		.uleb128 0xd
- 369 0124 01       		.byte	0x1
- 370 0125 ED000000 		.4byte	.LASF30
- 371 0129 01       		.byte	0x1
- 372 012a 8B       		.byte	0x8b
- 373 012b 01       		.byte	0x1
- 374 012c A2000000 		.4byte	0xa2
- 375 0130 00000000 		.4byte	.LFB31
- 376 0134 1A000000 		.4byte	.LFE31
- 377 0138 62000000 		.4byte	.LLST2
- 378 013c 4F010000 		.4byte	0x14f
- 379 0140 0B       		.uleb128 0xb
- 380 0141 47000000 		.4byte	.LASF22
- 381 0145 01       		.byte	0x1
- 382 0146 8D       		.byte	0x8d
- 383 0147 A2000000 		.4byte	0xa2
- 384 014b 02       		.byte	0x2
- 385 014c 91       		.byte	0x91
- 386 014d 77       		.sleb128 -9
- 387 014e 00       		.byte	0x0
- 388 014f 06       		.uleb128 0x6
- 389 0150 6F000000 		.4byte	0x6f
- 390 0154 5F010000 		.4byte	0x15f
- 391 0158 07       		.uleb128 0x7
- 392 0159 8F000000 		.4byte	0x8f
- 393 015d 1F       		.byte	0x1f
- 394 015e 00       		.byte	0x0
- 395 015f 0B       		.uleb128 0xb
- 396 0160 00000000 		.4byte	.LASF23
- 397 0164 01       		.byte	0x1
- 398 0165 19       		.byte	0x19
- 399 0166 4F010000 		.4byte	0x14f
- 400 016a 05       		.byte	0x5
- 401 016b 03       		.byte	0x3
- 402 016c 00000000 		.4byte	TST_MsgBuffer
- 403 0170 0B       		.uleb128 0xb
- 404 0171 8D010000 		.4byte	.LASF24
- 405 0175 01       		.byte	0x1
- 406 0176 1B       		.byte	0x1b
- 407 0177 92000000 		.4byte	0x92
- 408 017b 05       		.byte	0x5
- 409 017c 03       		.byte	0x3
- 410 017d 00000000 		.4byte	TST_AckOkMsgBuffer
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 11
+ 296 0090 04       		.byte	0x4
+ 297 0091 07       		.byte	0x7
+ 298 0092 04       		.uleb128 0x4
+ 299 0093 87000000 		.4byte	.LASF13
+ 300 0097 03       		.byte	0x3
+ 301 0098 0F       		.byte	0xf
+ 302 0099 6F000000 		.4byte	0x6f
+ 303 009d 06       		.uleb128 0x6
+ 304 009e 01       		.byte	0x1
+ 305 009f 04       		.byte	0x4
+ 306 00a0 19       		.byte	0x19
+ 307 00a1 D0000000 		.4byte	0xd0
+ 308 00a5 07       		.uleb128 0x7
+ 309 00a6 0E000000 		.4byte	.LASF14
+ 310 00aa 00       		.sleb128 0
+ 311 00ab 07       		.uleb128 0x7
+ 312 00ac 16000000 		.4byte	.LASF15
+ 313 00b0 01       		.sleb128 1
+ 314 00b1 07       		.uleb128 0x7
+ 315 00b2 1E000000 		.4byte	.LASF16
+ 316 00b6 02       		.sleb128 2
+ 317 00b7 07       		.uleb128 0x7
+ 318 00b8 26000000 		.4byte	.LASF17
+ 319 00bc 03       		.sleb128 3
+ 320 00bd 07       		.uleb128 0x7
+ 321 00be 2E000000 		.4byte	.LASF18
+ 322 00c2 04       		.sleb128 4
+ 323 00c3 07       		.uleb128 0x7
+ 324 00c4 36000000 		.4byte	.LASF19
+ 325 00c8 05       		.sleb128 5
+ 326 00c9 07       		.uleb128 0x7
+ 327 00ca A3010000 		.4byte	.LASF20
+ 328 00ce 06       		.sleb128 6
+ 329 00cf 00       		.byte	0x0
+ 330 00d0 08       		.uleb128 0x8
+ 331 00d1 D5000000 		.4byte	.LASF26
+ 332 00d5 01       		.byte	0x1
+ 333 00d6 65       		.byte	0x65
+ 334 00d7 01       		.byte	0x1
+ 335 00d8 00000000 		.4byte	.LFB29
+ 336 00dc 30000000 		.4byte	.LFE29
+ 337 00e0 00000000 		.4byte	.LLST0
+ 338 00e4 FA000000 		.4byte	0xfa
+ 339 00e8 09       		.uleb128 0x9
+ 340 00e9 B3010000 		.4byte	.LASF21
+ 341 00ed 01       		.byte	0x1
+ 342 00ee 67       		.byte	0x67
+ 343 00ef 6F000000 		.4byte	0x6f
+ 344 00f3 05       		.byte	0x5
+ 345 00f4 03       		.byte	0x3
+ 346 00f5 00000000 		.4byte	LedVal.2877
+ 347 00f9 00       		.byte	0x0
+ 348 00fa 0A       		.uleb128 0xa
+ 349 00fb 01       		.byte	0x1
+ 350 00fc 7F010000 		.4byte	.LASF27
+ 351 0100 01       		.byte	0x1
+ 352 0101 82       		.byte	0x82
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 10
 
 
- 411 0181 0E       		.uleb128 0xe
- 412 0182 CF000000 		.4byte	.LASF31
- 413 0186 05       		.byte	0x5
- 414 0187 CE06     		.2byte	0x6ce
- 415 0189 8F010000 		.4byte	0x18f
- 416 018d 01       		.byte	0x1
- 417 018e 01       		.byte	0x1
- 418 018f 0F       		.uleb128 0xf
- 419 0190 61000000 		.4byte	0x61
- 420 0194 00       		.byte	0x0
- 421              		.section	.debug_abbrev
- 422 0000 01       		.uleb128 0x1
- 423 0001 11       		.uleb128 0x11
- 424 0002 01       		.byte	0x1
- 425 0003 25       		.uleb128 0x25
- 426 0004 0E       		.uleb128 0xe
- 427 0005 13       		.uleb128 0x13
- 428 0006 0B       		.uleb128 0xb
- 429 0007 03       		.uleb128 0x3
- 430 0008 0E       		.uleb128 0xe
- 431 0009 1B       		.uleb128 0x1b
- 432 000a 0E       		.uleb128 0xe
- 433 000b 11       		.uleb128 0x11
- 434 000c 01       		.uleb128 0x1
- 435 000d 52       		.uleb128 0x52
- 436 000e 01       		.uleb128 0x1
- 437 000f 55       		.uleb128 0x55
- 438 0010 06       		.uleb128 0x6
- 439 0011 10       		.uleb128 0x10
- 440 0012 06       		.uleb128 0x6
- 441 0013 00       		.byte	0x0
- 442 0014 00       		.byte	0x0
- 443 0015 02       		.uleb128 0x2
- 444 0016 24       		.uleb128 0x24
- 445 0017 00       		.byte	0x0
- 446 0018 0B       		.uleb128 0xb
- 447 0019 0B       		.uleb128 0xb
- 448 001a 3E       		.uleb128 0x3e
- 449 001b 0B       		.uleb128 0xb
- 450 001c 03       		.uleb128 0x3
- 451 001d 0E       		.uleb128 0xe
- 452 001e 00       		.byte	0x0
- 453 001f 00       		.byte	0x0
- 454 0020 03       		.uleb128 0x3
- 455 0021 24       		.uleb128 0x24
- 456 0022 00       		.byte	0x0
- 457 0023 0B       		.uleb128 0xb
- 458 0024 0B       		.uleb128 0xb
- 459 0025 3E       		.uleb128 0x3e
- 460 0026 0B       		.uleb128 0xb
- 461 0027 03       		.uleb128 0x3
- 462 0028 08       		.uleb128 0x8
- 463 0029 00       		.byte	0x0
- 464 002a 00       		.byte	0x0
- 465 002b 04       		.uleb128 0x4
- 466 002c 16       		.uleb128 0x16
- 467 002d 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 12
+ 353 0102 01       		.byte	0x1
+ 354 0103 92000000 		.4byte	0x92
+ 355 0107 00000000 		.4byte	.LFB30
+ 356 010b 54000000 		.4byte	.LFE30
+ 357 010f 2B000000 		.4byte	.LLST1
+ 358 0113 0B       		.uleb128 0xb
+ 359 0114 01       		.byte	0x1
+ 360 0115 DF000000 		.4byte	.LASF28
+ 361 0119 01       		.byte	0x1
+ 362 011a 94       		.byte	0x94
+ 363 011b 01       		.byte	0x1
+ 364 011c 92000000 		.4byte	0x92
+ 365 0120 00000000 		.4byte	.LFB31
+ 366 0124 1A000000 		.4byte	.LFE31
+ 367 0128 62000000 		.4byte	.LLST2
+ 368 012c 3F010000 		.4byte	0x13f
+ 369 0130 09       		.uleb128 0x9
+ 370 0131 47000000 		.4byte	.LASF22
+ 371 0135 01       		.byte	0x1
+ 372 0136 96       		.byte	0x96
+ 373 0137 92000000 		.4byte	0x92
+ 374 013b 02       		.byte	0x2
+ 375 013c 91       		.byte	0x91
+ 376 013d 77       		.sleb128 -9
+ 377 013e 00       		.byte	0x0
+ 378 013f 0C       		.uleb128 0xc
+ 379 0140 C1000000 		.4byte	.LASF29
+ 380 0144 05       		.byte	0x5
+ 381 0145 CE06     		.2byte	0x6ce
+ 382 0147 4D010000 		.4byte	0x14d
+ 383 014b 01       		.byte	0x1
+ 384 014c 01       		.byte	0x1
+ 385 014d 0D       		.uleb128 0xd
+ 386 014e 61000000 		.4byte	0x61
+ 387 0152 00       		.byte	0x0
+ 388              		.section	.debug_abbrev
+ 389 0000 01       		.uleb128 0x1
+ 390 0001 11       		.uleb128 0x11
+ 391 0002 01       		.byte	0x1
+ 392 0003 25       		.uleb128 0x25
+ 393 0004 0E       		.uleb128 0xe
+ 394 0005 13       		.uleb128 0x13
+ 395 0006 0B       		.uleb128 0xb
+ 396 0007 03       		.uleb128 0x3
+ 397 0008 0E       		.uleb128 0xe
+ 398 0009 1B       		.uleb128 0x1b
+ 399 000a 0E       		.uleb128 0xe
+ 400 000b 11       		.uleb128 0x11
+ 401 000c 01       		.uleb128 0x1
+ 402 000d 52       		.uleb128 0x52
+ 403 000e 01       		.uleb128 0x1
+ 404 000f 55       		.uleb128 0x55
+ 405 0010 06       		.uleb128 0x6
+ 406 0011 10       		.uleb128 0x10
+ 407 0012 06       		.uleb128 0x6
+ 408 0013 00       		.byte	0x0
+ 409 0014 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 11
 
 
- 468 002e 03       		.uleb128 0x3
- 469 002f 0E       		.uleb128 0xe
- 470 0030 3A       		.uleb128 0x3a
- 471 0031 0B       		.uleb128 0xb
- 472 0032 3B       		.uleb128 0x3b
- 473 0033 0B       		.uleb128 0xb
- 474 0034 49       		.uleb128 0x49
- 475 0035 13       		.uleb128 0x13
- 476 0036 00       		.byte	0x0
- 477 0037 00       		.byte	0x0
- 478 0038 05       		.uleb128 0x5
- 479 0039 24       		.uleb128 0x24
- 480 003a 00       		.byte	0x0
- 481 003b 0B       		.uleb128 0xb
- 482 003c 0B       		.uleb128 0xb
- 483 003d 3E       		.uleb128 0x3e
- 484 003e 0B       		.uleb128 0xb
- 485 003f 00       		.byte	0x0
- 486 0040 00       		.byte	0x0
- 487 0041 06       		.uleb128 0x6
- 488 0042 01       		.uleb128 0x1
- 489 0043 01       		.byte	0x1
- 490 0044 49       		.uleb128 0x49
- 491 0045 13       		.uleb128 0x13
- 492 0046 01       		.uleb128 0x1
- 493 0047 13       		.uleb128 0x13
- 494 0048 00       		.byte	0x0
- 495 0049 00       		.byte	0x0
- 496 004a 07       		.uleb128 0x7
- 497 004b 21       		.uleb128 0x21
- 498 004c 00       		.byte	0x0
- 499 004d 49       		.uleb128 0x49
- 500 004e 13       		.uleb128 0x13
- 501 004f 2F       		.uleb128 0x2f
- 502 0050 0B       		.uleb128 0xb
- 503 0051 00       		.byte	0x0
- 504 0052 00       		.byte	0x0
- 505 0053 08       		.uleb128 0x8
- 506 0054 04       		.uleb128 0x4
- 507 0055 01       		.byte	0x1
- 508 0056 0B       		.uleb128 0xb
- 509 0057 0B       		.uleb128 0xb
- 510 0058 3A       		.uleb128 0x3a
- 511 0059 0B       		.uleb128 0xb
- 512 005a 3B       		.uleb128 0x3b
- 513 005b 0B       		.uleb128 0xb
- 514 005c 01       		.uleb128 0x1
- 515 005d 13       		.uleb128 0x13
- 516 005e 00       		.byte	0x0
- 517 005f 00       		.byte	0x0
- 518 0060 09       		.uleb128 0x9
- 519 0061 28       		.uleb128 0x28
- 520 0062 00       		.byte	0x0
- 521 0063 03       		.uleb128 0x3
- 522 0064 0E       		.uleb128 0xe
- 523 0065 1C       		.uleb128 0x1c
- 524 0066 0D       		.uleb128 0xd
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 13
+ 410 0015 02       		.uleb128 0x2
+ 411 0016 24       		.uleb128 0x24
+ 412 0017 00       		.byte	0x0
+ 413 0018 0B       		.uleb128 0xb
+ 414 0019 0B       		.uleb128 0xb
+ 415 001a 3E       		.uleb128 0x3e
+ 416 001b 0B       		.uleb128 0xb
+ 417 001c 03       		.uleb128 0x3
+ 418 001d 0E       		.uleb128 0xe
+ 419 001e 00       		.byte	0x0
+ 420 001f 00       		.byte	0x0
+ 421 0020 03       		.uleb128 0x3
+ 422 0021 24       		.uleb128 0x24
+ 423 0022 00       		.byte	0x0
+ 424 0023 0B       		.uleb128 0xb
+ 425 0024 0B       		.uleb128 0xb
+ 426 0025 3E       		.uleb128 0x3e
+ 427 0026 0B       		.uleb128 0xb
+ 428 0027 03       		.uleb128 0x3
+ 429 0028 08       		.uleb128 0x8
+ 430 0029 00       		.byte	0x0
+ 431 002a 00       		.byte	0x0
+ 432 002b 04       		.uleb128 0x4
+ 433 002c 16       		.uleb128 0x16
+ 434 002d 00       		.byte	0x0
+ 435 002e 03       		.uleb128 0x3
+ 436 002f 0E       		.uleb128 0xe
+ 437 0030 3A       		.uleb128 0x3a
+ 438 0031 0B       		.uleb128 0xb
+ 439 0032 3B       		.uleb128 0x3b
+ 440 0033 0B       		.uleb128 0xb
+ 441 0034 49       		.uleb128 0x49
+ 442 0035 13       		.uleb128 0x13
+ 443 0036 00       		.byte	0x0
+ 444 0037 00       		.byte	0x0
+ 445 0038 05       		.uleb128 0x5
+ 446 0039 24       		.uleb128 0x24
+ 447 003a 00       		.byte	0x0
+ 448 003b 0B       		.uleb128 0xb
+ 449 003c 0B       		.uleb128 0xb
+ 450 003d 3E       		.uleb128 0x3e
+ 451 003e 0B       		.uleb128 0xb
+ 452 003f 00       		.byte	0x0
+ 453 0040 00       		.byte	0x0
+ 454 0041 06       		.uleb128 0x6
+ 455 0042 04       		.uleb128 0x4
+ 456 0043 01       		.byte	0x1
+ 457 0044 0B       		.uleb128 0xb
+ 458 0045 0B       		.uleb128 0xb
+ 459 0046 3A       		.uleb128 0x3a
+ 460 0047 0B       		.uleb128 0xb
+ 461 0048 3B       		.uleb128 0x3b
+ 462 0049 0B       		.uleb128 0xb
+ 463 004a 01       		.uleb128 0x1
+ 464 004b 13       		.uleb128 0x13
+ 465 004c 00       		.byte	0x0
+ 466 004d 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 12
 
 
- 525 0067 00       		.byte	0x0
- 526 0068 00       		.byte	0x0
- 527 0069 0A       		.uleb128 0xa
- 528 006a 2E       		.uleb128 0x2e
- 529 006b 01       		.byte	0x1
- 530 006c 03       		.uleb128 0x3
- 531 006d 0E       		.uleb128 0xe
- 532 006e 3A       		.uleb128 0x3a
- 533 006f 0B       		.uleb128 0xb
- 534 0070 3B       		.uleb128 0x3b
- 535 0071 0B       		.uleb128 0xb
- 536 0072 27       		.uleb128 0x27
- 537 0073 0C       		.uleb128 0xc
- 538 0074 11       		.uleb128 0x11
- 539 0075 01       		.uleb128 0x1
- 540 0076 12       		.uleb128 0x12
- 541 0077 01       		.uleb128 0x1
- 542 0078 40       		.uleb128 0x40
- 543 0079 06       		.uleb128 0x6
- 544 007a 01       		.uleb128 0x1
- 545 007b 13       		.uleb128 0x13
- 546 007c 00       		.byte	0x0
- 547 007d 00       		.byte	0x0
- 548 007e 0B       		.uleb128 0xb
- 549 007f 34       		.uleb128 0x34
- 550 0080 00       		.byte	0x0
- 551 0081 03       		.uleb128 0x3
- 552 0082 0E       		.uleb128 0xe
- 553 0083 3A       		.uleb128 0x3a
- 554 0084 0B       		.uleb128 0xb
- 555 0085 3B       		.uleb128 0x3b
- 556 0086 0B       		.uleb128 0xb
- 557 0087 49       		.uleb128 0x49
- 558 0088 13       		.uleb128 0x13
- 559 0089 02       		.uleb128 0x2
- 560 008a 0A       		.uleb128 0xa
- 561 008b 00       		.byte	0x0
- 562 008c 00       		.byte	0x0
- 563 008d 0C       		.uleb128 0xc
- 564 008e 2E       		.uleb128 0x2e
- 565 008f 00       		.byte	0x0
- 566 0090 3F       		.uleb128 0x3f
- 567 0091 0C       		.uleb128 0xc
- 568 0092 03       		.uleb128 0x3
- 569 0093 0E       		.uleb128 0xe
- 570 0094 3A       		.uleb128 0x3a
- 571 0095 0B       		.uleb128 0xb
- 572 0096 3B       		.uleb128 0x3b
- 573 0097 0B       		.uleb128 0xb
- 574 0098 27       		.uleb128 0x27
- 575 0099 0C       		.uleb128 0xc
- 576 009a 49       		.uleb128 0x49
- 577 009b 13       		.uleb128 0x13
- 578 009c 11       		.uleb128 0x11
- 579 009d 01       		.uleb128 0x1
- 580 009e 12       		.uleb128 0x12
- 581 009f 01       		.uleb128 0x1
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 14
+ 467 004e 07       		.uleb128 0x7
+ 468 004f 28       		.uleb128 0x28
+ 469 0050 00       		.byte	0x0
+ 470 0051 03       		.uleb128 0x3
+ 471 0052 0E       		.uleb128 0xe
+ 472 0053 1C       		.uleb128 0x1c
+ 473 0054 0D       		.uleb128 0xd
+ 474 0055 00       		.byte	0x0
+ 475 0056 00       		.byte	0x0
+ 476 0057 08       		.uleb128 0x8
+ 477 0058 2E       		.uleb128 0x2e
+ 478 0059 01       		.byte	0x1
+ 479 005a 03       		.uleb128 0x3
+ 480 005b 0E       		.uleb128 0xe
+ 481 005c 3A       		.uleb128 0x3a
+ 482 005d 0B       		.uleb128 0xb
+ 483 005e 3B       		.uleb128 0x3b
+ 484 005f 0B       		.uleb128 0xb
+ 485 0060 27       		.uleb128 0x27
+ 486 0061 0C       		.uleb128 0xc
+ 487 0062 11       		.uleb128 0x11
+ 488 0063 01       		.uleb128 0x1
+ 489 0064 12       		.uleb128 0x12
+ 490 0065 01       		.uleb128 0x1
+ 491 0066 40       		.uleb128 0x40
+ 492 0067 06       		.uleb128 0x6
+ 493 0068 01       		.uleb128 0x1
+ 494 0069 13       		.uleb128 0x13
+ 495 006a 00       		.byte	0x0
+ 496 006b 00       		.byte	0x0
+ 497 006c 09       		.uleb128 0x9
+ 498 006d 34       		.uleb128 0x34
+ 499 006e 00       		.byte	0x0
+ 500 006f 03       		.uleb128 0x3
+ 501 0070 0E       		.uleb128 0xe
+ 502 0071 3A       		.uleb128 0x3a
+ 503 0072 0B       		.uleb128 0xb
+ 504 0073 3B       		.uleb128 0x3b
+ 505 0074 0B       		.uleb128 0xb
+ 506 0075 49       		.uleb128 0x49
+ 507 0076 13       		.uleb128 0x13
+ 508 0077 02       		.uleb128 0x2
+ 509 0078 0A       		.uleb128 0xa
+ 510 0079 00       		.byte	0x0
+ 511 007a 00       		.byte	0x0
+ 512 007b 0A       		.uleb128 0xa
+ 513 007c 2E       		.uleb128 0x2e
+ 514 007d 00       		.byte	0x0
+ 515 007e 3F       		.uleb128 0x3f
+ 516 007f 0C       		.uleb128 0xc
+ 517 0080 03       		.uleb128 0x3
+ 518 0081 0E       		.uleb128 0xe
+ 519 0082 3A       		.uleb128 0x3a
+ 520 0083 0B       		.uleb128 0xb
+ 521 0084 3B       		.uleb128 0x3b
+ 522 0085 0B       		.uleb128 0xb
+ 523 0086 27       		.uleb128 0x27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 13
 
 
- 582 00a0 40       		.uleb128 0x40
- 583 00a1 06       		.uleb128 0x6
- 584 00a2 00       		.byte	0x0
- 585 00a3 00       		.byte	0x0
- 586 00a4 0D       		.uleb128 0xd
- 587 00a5 2E       		.uleb128 0x2e
- 588 00a6 01       		.byte	0x1
- 589 00a7 3F       		.uleb128 0x3f
- 590 00a8 0C       		.uleb128 0xc
- 591 00a9 03       		.uleb128 0x3
- 592 00aa 0E       		.uleb128 0xe
- 593 00ab 3A       		.uleb128 0x3a
- 594 00ac 0B       		.uleb128 0xb
- 595 00ad 3B       		.uleb128 0x3b
- 596 00ae 0B       		.uleb128 0xb
- 597 00af 27       		.uleb128 0x27
- 598 00b0 0C       		.uleb128 0xc
- 599 00b1 49       		.uleb128 0x49
- 600 00b2 13       		.uleb128 0x13
- 601 00b3 11       		.uleb128 0x11
- 602 00b4 01       		.uleb128 0x1
- 603 00b5 12       		.uleb128 0x12
- 604 00b6 01       		.uleb128 0x1
- 605 00b7 40       		.uleb128 0x40
- 606 00b8 06       		.uleb128 0x6
- 607 00b9 01       		.uleb128 0x1
- 608 00ba 13       		.uleb128 0x13
- 609 00bb 00       		.byte	0x0
- 610 00bc 00       		.byte	0x0
- 611 00bd 0E       		.uleb128 0xe
- 612 00be 34       		.uleb128 0x34
- 613 00bf 00       		.byte	0x0
- 614 00c0 03       		.uleb128 0x3
- 615 00c1 0E       		.uleb128 0xe
- 616 00c2 3A       		.uleb128 0x3a
- 617 00c3 0B       		.uleb128 0xb
- 618 00c4 3B       		.uleb128 0x3b
- 619 00c5 05       		.uleb128 0x5
- 620 00c6 49       		.uleb128 0x49
- 621 00c7 13       		.uleb128 0x13
- 622 00c8 3F       		.uleb128 0x3f
- 623 00c9 0C       		.uleb128 0xc
- 624 00ca 3C       		.uleb128 0x3c
- 625 00cb 0C       		.uleb128 0xc
- 626 00cc 00       		.byte	0x0
- 627 00cd 00       		.byte	0x0
- 628 00ce 0F       		.uleb128 0xf
- 629 00cf 35       		.uleb128 0x35
- 630 00d0 00       		.byte	0x0
- 631 00d1 49       		.uleb128 0x49
- 632 00d2 13       		.uleb128 0x13
- 633 00d3 00       		.byte	0x0
- 634 00d4 00       		.byte	0x0
- 635 00d5 00       		.byte	0x0
- 636              		.section	.debug_pubnames,"",%progbits
- 637 0000 2E000000 		.4byte	0x2e
- 638 0004 0200     		.2byte	0x2
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 15
+ 524 0087 0C       		.uleb128 0xc
+ 525 0088 49       		.uleb128 0x49
+ 526 0089 13       		.uleb128 0x13
+ 527 008a 11       		.uleb128 0x11
+ 528 008b 01       		.uleb128 0x1
+ 529 008c 12       		.uleb128 0x12
+ 530 008d 01       		.uleb128 0x1
+ 531 008e 40       		.uleb128 0x40
+ 532 008f 06       		.uleb128 0x6
+ 533 0090 00       		.byte	0x0
+ 534 0091 00       		.byte	0x0
+ 535 0092 0B       		.uleb128 0xb
+ 536 0093 2E       		.uleb128 0x2e
+ 537 0094 01       		.byte	0x1
+ 538 0095 3F       		.uleb128 0x3f
+ 539 0096 0C       		.uleb128 0xc
+ 540 0097 03       		.uleb128 0x3
+ 541 0098 0E       		.uleb128 0xe
+ 542 0099 3A       		.uleb128 0x3a
+ 543 009a 0B       		.uleb128 0xb
+ 544 009b 3B       		.uleb128 0x3b
+ 545 009c 0B       		.uleb128 0xb
+ 546 009d 27       		.uleb128 0x27
+ 547 009e 0C       		.uleb128 0xc
+ 548 009f 49       		.uleb128 0x49
+ 549 00a0 13       		.uleb128 0x13
+ 550 00a1 11       		.uleb128 0x11
+ 551 00a2 01       		.uleb128 0x1
+ 552 00a3 12       		.uleb128 0x12
+ 553 00a4 01       		.uleb128 0x1
+ 554 00a5 40       		.uleb128 0x40
+ 555 00a6 06       		.uleb128 0x6
+ 556 00a7 01       		.uleb128 0x1
+ 557 00a8 13       		.uleb128 0x13
+ 558 00a9 00       		.byte	0x0
+ 559 00aa 00       		.byte	0x0
+ 560 00ab 0C       		.uleb128 0xc
+ 561 00ac 34       		.uleb128 0x34
+ 562 00ad 00       		.byte	0x0
+ 563 00ae 03       		.uleb128 0x3
+ 564 00af 0E       		.uleb128 0xe
+ 565 00b0 3A       		.uleb128 0x3a
+ 566 00b1 0B       		.uleb128 0xb
+ 567 00b2 3B       		.uleb128 0x3b
+ 568 00b3 05       		.uleb128 0x5
+ 569 00b4 49       		.uleb128 0x49
+ 570 00b5 13       		.uleb128 0x13
+ 571 00b6 3F       		.uleb128 0x3f
+ 572 00b7 0C       		.uleb128 0xc
+ 573 00b8 3C       		.uleb128 0x3c
+ 574 00b9 0C       		.uleb128 0xc
+ 575 00ba 00       		.byte	0x0
+ 576 00bb 00       		.byte	0x0
+ 577 00bc 0D       		.uleb128 0xd
+ 578 00bd 35       		.uleb128 0x35
+ 579 00be 00       		.byte	0x0
+ 580 00bf 49       		.uleb128 0x49
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 14
 
 
- 639 0006 00000000 		.4byte	.Ldebug_info0
- 640 000a 95010000 		.4byte	0x195
- 641 000e 0A010000 		.4byte	0x10a
- 642 0012 5453545F 		.ascii	"TST_Init\000"
- 642      496E6974 
- 642      00
- 643 001b 23010000 		.4byte	0x123
- 644 001f 5453545F 		.ascii	"TST_HandleTask\000"
- 644      48616E64 
- 644      6C655461 
- 644      736B00
- 645 002e 00000000 		.4byte	0x0
- 646              		.section	.debug_aranges,"",%progbits
- 647 0000 2C000000 		.4byte	0x2c
- 648 0004 0200     		.2byte	0x2
- 649 0006 00000000 		.4byte	.Ldebug_info0
- 650 000a 04       		.byte	0x4
- 651 000b 00       		.byte	0x0
- 652 000c 0000     		.2byte	0x0
- 653 000e 0000     		.2byte	0x0
- 654 0010 00000000 		.4byte	.LFB29
- 655 0014 30000000 		.4byte	.LFE29-.LFB29
- 656 0018 00000000 		.4byte	.LFB30
- 657 001c 32000000 		.4byte	.LFE30-.LFB30
- 658 0020 00000000 		.4byte	.LFB31
- 659 0024 1A000000 		.4byte	.LFE31-.LFB31
- 660 0028 00000000 		.4byte	0x0
- 661 002c 00000000 		.4byte	0x0
- 662              		.section	.debug_ranges,"",%progbits
- 663              	.Ldebug_ranges0:
- 664 0000 00000000 		.4byte	.Ltext0
- 665 0004 00000000 		.4byte	.Letext0
- 666 0008 00000000 		.4byte	.LFB29
- 667 000c 30000000 		.4byte	.LFE29
- 668 0010 00000000 		.4byte	.LFB30
- 669 0014 32000000 		.4byte	.LFE30
- 670 0018 00000000 		.4byte	.LFB31
- 671 001c 1A000000 		.4byte	.LFE31
- 672 0020 00000000 		.4byte	0x0
- 673 0024 00000000 		.4byte	0x0
- 674              		.section	.debug_str,"MS",%progbits,1
- 675              	.LASF23:
- 676 0000 5453545F 		.ascii	"TST_MsgBuffer\000"
- 676      4D736742 
- 676      75666665 
- 676      7200
- 677              	.LASF14:
- 678 000e 54494D45 		.ascii	"TIMER_0\000"
- 678      525F3000 
- 679              	.LASF15:
- 680 0016 54494D45 		.ascii	"TIMER_1\000"
- 680      525F3100 
- 681              	.LASF16:
- 682 001e 54494D45 		.ascii	"TIMER_2\000"
- 682      525F3200 
- 683              	.LASF17:
- 684 0026 54494D45 		.ascii	"TIMER_3\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 16
+ 581 00c0 13       		.uleb128 0x13
+ 582 00c1 00       		.byte	0x0
+ 583 00c2 00       		.byte	0x0
+ 584 00c3 00       		.byte	0x0
+ 585              		.section	.debug_pubnames,"",%progbits
+ 586 0000 2E000000 		.4byte	0x2e
+ 587 0004 0200     		.2byte	0x2
+ 588 0006 00000000 		.4byte	.Ldebug_info0
+ 589 000a 53010000 		.4byte	0x153
+ 590 000e FA000000 		.4byte	0xfa
+ 591 0012 5453545F 		.ascii	"TST_Init\000"
+ 591      496E6974 
+ 591      00
+ 592 001b 13010000 		.4byte	0x113
+ 593 001f 5453545F 		.ascii	"TST_HandleTask\000"
+ 593      48616E64 
+ 593      6C655461 
+ 593      736B00
+ 594 002e 00000000 		.4byte	0x0
+ 595              		.section	.debug_aranges,"",%progbits
+ 596 0000 2C000000 		.4byte	0x2c
+ 597 0004 0200     		.2byte	0x2
+ 598 0006 00000000 		.4byte	.Ldebug_info0
+ 599 000a 04       		.byte	0x4
+ 600 000b 00       		.byte	0x0
+ 601 000c 0000     		.2byte	0x0
+ 602 000e 0000     		.2byte	0x0
+ 603 0010 00000000 		.4byte	.LFB29
+ 604 0014 30000000 		.4byte	.LFE29-.LFB29
+ 605 0018 00000000 		.4byte	.LFB30
+ 606 001c 54000000 		.4byte	.LFE30-.LFB30
+ 607 0020 00000000 		.4byte	.LFB31
+ 608 0024 1A000000 		.4byte	.LFE31-.LFB31
+ 609 0028 00000000 		.4byte	0x0
+ 610 002c 00000000 		.4byte	0x0
+ 611              		.section	.debug_ranges,"",%progbits
+ 612              	.Ldebug_ranges0:
+ 613 0000 00000000 		.4byte	.Ltext0
+ 614 0004 00000000 		.4byte	.Letext0
+ 615 0008 00000000 		.4byte	.LFB29
+ 616 000c 30000000 		.4byte	.LFE29
+ 617 0010 00000000 		.4byte	.LFB30
+ 618 0014 54000000 		.4byte	.LFE30
+ 619 0018 00000000 		.4byte	.LFB31
+ 620 001c 1A000000 		.4byte	.LFE31
+ 621 0020 00000000 		.4byte	0x0
+ 622 0024 00000000 		.4byte	0x0
+ 623              		.section	.debug_str,"MS",%progbits,1
+ 624              	.LASF6:
+ 625 0000 6C6F6E67 		.ascii	"long long int\000"
+ 625      206C6F6E 
+ 625      6720696E 
+ 625      7400
+ 626              	.LASF14:
+ 627 000e 54494D45 		.ascii	"TIMER_0\000"
+ 627      525F3000 
+ 628              	.LASF15:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 15
 
 
- 684      525F3300 
- 685              	.LASF18:
- 686 002e 54494D45 		.ascii	"TIMER_4\000"
- 686      525F3400 
- 687              	.LASF19:
- 688 0036 54494D45 		.ascii	"TIMER_5\000"
- 688      525F3500 
- 689              	.LASF4:
- 690 003e 6C6F6E67 		.ascii	"long int\000"
- 690      20696E74 
- 690      00
- 691              	.LASF22:
- 692 0047 73746174 		.ascii	"status\000"
- 692      757300
- 693              	.LASF26:
- 694 004e 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\te"
- 694      2E5C2E2E 
- 694      5C447269 
- 694      76655F50 
- 694      6C617466 
- 695 007c 73742E63 		.ascii	"st.c\000"
- 695      00
- 696              	.LASF9:
- 697 0081 666C6F61 		.ascii	"float\000"
- 697      7400
- 698              	.LASF6:
- 699 0087 6C6F6E67 		.ascii	"long long int\000"
- 699      206C6F6E 
- 699      6720696E 
- 699      7400
- 700              	.LASF13:
- 701 0095 53544154 		.ascii	"STATUS\000"
- 701      555300
- 702              	.LASF1:
- 703 009c 756E7369 		.ascii	"unsigned char\000"
- 703      676E6564 
- 703      20636861 
- 703      7200
- 704              	.LASF5:
- 705 00aa 6C6F6E67 		.ascii	"long unsigned int\000"
- 705      20756E73 
- 705      69676E65 
- 705      6420696E 
- 705      7400
- 706              	.LASF3:
- 707 00bc 73686F72 		.ascii	"short unsigned int\000"
- 707      7420756E 
- 707      7369676E 
- 707      65642069 
- 707      6E7400
- 708              	.LASF31:
- 709 00cf 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 709      52784275 
- 709      66666572 
- 709      00
- 710              	.LASF10:
- 711 00dc 646F7562 		.ascii	"double\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 17
+ 629 0016 54494D45 		.ascii	"TIMER_1\000"
+ 629      525F3100 
+ 630              	.LASF16:
+ 631 001e 54494D45 		.ascii	"TIMER_2\000"
+ 631      525F3200 
+ 632              	.LASF17:
+ 633 0026 54494D45 		.ascii	"TIMER_3\000"
+ 633      525F3300 
+ 634              	.LASF18:
+ 635 002e 54494D45 		.ascii	"TIMER_4\000"
+ 635      525F3400 
+ 636              	.LASF19:
+ 637 0036 54494D45 		.ascii	"TIMER_5\000"
+ 637      525F3500 
+ 638              	.LASF4:
+ 639 003e 6C6F6E67 		.ascii	"long int\000"
+ 639      20696E74 
+ 639      00
+ 640              	.LASF22:
+ 641 0047 73746174 		.ascii	"status\000"
+ 641      757300
+ 642              	.LASF24:
+ 643 004e 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\te"
+ 643      2E5C2E2E 
+ 643      5C447269 
+ 643      76655F50 
+ 643      6C617466 
+ 644 007c 73742E63 		.ascii	"st.c\000"
+ 644      00
+ 645              	.LASF9:
+ 646 0081 666C6F61 		.ascii	"float\000"
+ 646      7400
+ 647              	.LASF13:
+ 648 0087 53544154 		.ascii	"STATUS\000"
+ 648      555300
+ 649              	.LASF1:
+ 650 008e 756E7369 		.ascii	"unsigned char\000"
+ 650      676E6564 
+ 650      20636861 
+ 650      7200
+ 651              	.LASF5:
+ 652 009c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 652      20756E73 
+ 652      69676E65 
+ 652      6420696E 
+ 652      7400
+ 653              	.LASF3:
+ 654 00ae 73686F72 		.ascii	"short unsigned int\000"
+ 654      7420756E 
+ 654      7369676E 
+ 654      65642069 
+ 654      6E7400
+ 655              	.LASF29:
+ 656 00c1 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 656      52784275 
+ 656      66666572 
+ 656      00
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 16
 
 
- 711      6C6500
- 712              	.LASF28:
- 713 00e3 5453545F 		.ascii	"TST_Blink\000"
- 713      426C696E 
- 713      6B00
- 714              	.LASF30:
- 715 00ed 5453545F 		.ascii	"TST_HandleTask\000"
- 715      48616E64 
- 715      6C655461 
- 715      736B00
- 716              	.LASF27:
- 717 00fc 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
- 717      69744875 
- 717      625F726F 
- 717      626F7469 
- 717      6373636F 
- 718 012b 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
- 718      6F725F32 
- 718      2E325C44 
- 718      72697665 
- 718      506C6174 
- 719 015b 6174666F 		.ascii	"atform2.cydsn\000"
- 719      726D322E 
- 719      63796473 
- 719      6E00
- 720              	.LASF8:
- 721 0169 756E7369 		.ascii	"unsigned int\000"
- 721      676E6564 
- 721      20696E74 
- 721      00
- 722              	.LASF7:
- 723 0176 6C6F6E67 		.ascii	"long long unsigned int\000"
- 723      206C6F6E 
- 723      6720756E 
- 723      7369676E 
- 723      65642069 
- 724              	.LASF24:
- 725 018d 5453545F 		.ascii	"TST_AckOkMsgBuffer\000"
- 725      41636B4F 
- 725      6B4D7367 
- 725      42756666 
- 725      657200
- 726              	.LASF29:
- 727 01a0 5453545F 		.ascii	"TST_Init\000"
- 727      496E6974 
- 727      00
- 728              	.LASF25:
- 729 01a9 474E5520 		.ascii	"GNU C 4.4.1\000"
- 729      4320342E 
- 729      342E3100 
- 730              	.LASF11:
- 731 01b5 63686172 		.ascii	"char\000"
- 731      00
- 732              	.LASF2:
- 733 01ba 73686F72 		.ascii	"short int\000"
- 733      7420696E 
- 733      7400
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccpx4y5L.s 			page 18
+ 657              	.LASF10:
+ 658 00ce 646F7562 		.ascii	"double\000"
+ 658      6C6500
+ 659              	.LASF26:
+ 660 00d5 5453545F 		.ascii	"TST_Blink\000"
+ 660      426C696E 
+ 660      6B00
+ 661              	.LASF28:
+ 662 00df 5453545F 		.ascii	"TST_HandleTask\000"
+ 662      48616E64 
+ 662      6C655461 
+ 662      736B00
+ 663              	.LASF25:
+ 664 00ee 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 664      69744875 
+ 664      625F726F 
+ 664      626F7469 
+ 664      6373636F 
+ 665 011d 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 665      6F725F32 
+ 665      2E325C44 
+ 665      72697665 
+ 665      506C6174 
+ 666 014d 6174666F 		.ascii	"atform2.cydsn\000"
+ 666      726D322E 
+ 666      63796473 
+ 666      6E00
+ 667              	.LASF8:
+ 668 015b 756E7369 		.ascii	"unsigned int\000"
+ 668      676E6564 
+ 668      20696E74 
+ 668      00
+ 669              	.LASF7:
+ 670 0168 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 670      206C6F6E 
+ 670      6720756E 
+ 670      7369676E 
+ 670      65642069 
+ 671              	.LASF27:
+ 672 017f 5453545F 		.ascii	"TST_Init\000"
+ 672      496E6974 
+ 672      00
+ 673              	.LASF23:
+ 674 0188 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 674      4320342E 
+ 674      342E3100 
+ 675              	.LASF11:
+ 676 0194 63686172 		.ascii	"char\000"
+ 676      00
+ 677              	.LASF2:
+ 678 0199 73686F72 		.ascii	"short int\000"
+ 678      7420696E 
+ 678      7400
+ 679              	.LASF20:
+ 680 01a3 54494D45 		.ascii	"TIMER_NUM\000"
+ 680      525F4E55 
+ 680      4D00
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccZwsRMk.s 			page 17
 
 
- 734              	.LASF20:
- 735 01c4 54494D45 		.ascii	"TIMER_NUM\000"
- 735      525F4E55 
- 735      4D00
- 736              	.LASF12:
- 737 01ce 75696E74 		.ascii	"uint8\000"
- 737      3800
- 738              	.LASF21:
- 739 01d4 4C656456 		.ascii	"LedVal\000"
- 739      616C00
- 740              	.LASF0:
- 741 01db 7369676E 		.ascii	"signed char\000"
- 741      65642063 
- 741      68617200 
- 742              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 681              	.LASF12:
+ 682 01ad 75696E74 		.ascii	"uint8\000"
+ 682      3800
+ 683              	.LASF21:
+ 684 01b3 4C656456 		.ascii	"LedVal\000"
+ 684      616C00
+ 685              	.LASF0:
+ 686 01ba 7369676E 		.ascii	"signed char\000"
+ 686      65642063 
+ 686      68617200 
+ 687              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

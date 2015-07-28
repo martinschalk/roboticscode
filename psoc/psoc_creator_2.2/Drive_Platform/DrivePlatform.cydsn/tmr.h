@@ -24,7 +24,7 @@
 enum
 {
     TIMER_0	= 0,
-    TIMER_1,
+    TIMER_1, //BPL module test
     TIMER_2,
     TIMER_3,
     TIMER_4, //BAL module test

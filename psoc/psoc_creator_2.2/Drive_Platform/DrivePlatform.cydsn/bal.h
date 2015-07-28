@@ -28,7 +28,7 @@ HARDWARE ABSTRACTION LAYER	(HAL)
 #include "types.h"
 #include "servo_cds5500.h"
 
-#define BAL_MODULE_TEST
+//#define BAL_MODULE_TEST
 
 #ifdef BAL_MODULE_TEST
     enum 

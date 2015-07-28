@@ -9,6 +9,7 @@
 #include "types.h"
 #include "test.h"
 #include "tmr.h"
+#include "bpl.h"
 #include "hal.h"
 #include "bal.h"
 #include "ring_buffer.h"
@@ -22,6 +23,8 @@
 
 //static uchar    TST_TestCase;
 //static BOOL     TST_IsInitialized = FALSE;
+
+/*
 static uint8 TST_MsgBuffer[TST_MSG_BUFFER_SIZE];
 
 static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8), 
@@ -29,6 +32,7 @@ static uint8 TST_AckOkMsgBuffer[] = {   (uint8)(BAL_MSG_ID_ACK << 8),
                             BAL_MSG_LENGTH_ACK, 
                             BAL_ACK_OK
                         };
+*/
 /*
 -------------------------------------------
 | id0 | id1 | length | b0 | b1 | ... | bn |
@@ -132,6 +136,11 @@ STATUS TST_Init(void)
 	TMR_SetTimer(TIMER_0, TIMER_1SEC, TST_Blink, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
 #endif	
 
+#ifdef BPL_MODULE_TEST
+    TMR_SetTimer(TIMER_1, TIMER_1SEC, BPL_ucTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
+#endif
+
+
     return SUCCESS;
 }
 
@@ -142,10 +151,6 @@ STATUS TST_HandleTask(void)
     
 #ifdef RBF_MODULE_TEST
     status = RBF_ucTest();
-#endif
-
-#ifdef BPL_MODULE_TEST
-    status = BPL_ucTest();
 #endif
     
     return status;

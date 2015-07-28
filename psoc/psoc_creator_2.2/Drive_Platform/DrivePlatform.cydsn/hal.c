@@ -61,8 +61,8 @@ STATUS 	HAL_Init(void)
 {
 #ifdef ERROR_MODULE_ENABLE
     STATUS idx1, idx2;
-    idx1 = ERR_RegisterUcVariable(&RxCount, "RxCount", 0, 20);
-    idx2 = ERR_RegisterUcVariable(&TxCount, "TxCount", 0, 20);
+    idx1 = ERR_RegisterUcVariable(&RxCount, "RxCount", 0, 32);
+    idx2 = ERR_RegisterUcVariable(&TxCount, "TxCount", 0, 32);
 #endif
 
 	RxCount = 0;
@@ -99,8 +99,6 @@ uint8 	HAL_GetByte()
 {
 	uint8 value;
 	
-	UART_DisableRxInt();
-	
 	/* chech if data available */
 	if (UART_GetRxBufferSize > 0)
 	{
@@ -111,8 +109,6 @@ uint8 	HAL_GetByte()
 	{
 		value = 0;
 	}
-
-	UART_EnableRxInt();
 	
 	return value;
 }
@@ -121,7 +117,7 @@ uint8 	HAL_GetByte()
 STATUS 	HAL_TransmitByte(uint8 value)
 {
     /* Check if bus is idle */
-    if (HalIsBusIdle == TRUE)
+    if (HalIsBusIdle == TRUE) //TODO
     {
     	UART_DisableRxInt();
     	HalStatus = HAL_TRANSMISSION_BUSY;
