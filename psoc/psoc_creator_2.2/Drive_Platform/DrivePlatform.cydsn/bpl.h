@@ -56,15 +56,28 @@ BUS MESSAGE
 #define BPL_STATUS_TX_ERROR				(uint8)(-5)
 
 typedef uint8_t BPL_STATUS;
+
+
 /*******************************************************/
 extern STATUS BPL_Init(void);
+/*******************************************************/
+extern uint8_t BPL_ucGetMessageCount(void);
+/*******************************************************/
+extern void BPL_ucSetMessageCount(uint8_t ucVal);
+/*******************************************************/
 extern STATUS BPL_HandleTask(void);
+/*******************************************************/
 extern uint8 BPL_GetReceiveCount(void);
+/*******************************************************/
 extern uint8 BPL_GetMessage(uint8* target);
+/*******************************************************/
 extern STATUS BPL_TransmitMessage(uint8* source, uint8 msgLength);
-
+/*******************************************************/
 #ifdef BPL_MODULE_TEST
     extern void BPL_ucTest(void);
 #endif
+
+
+
 
 #endif /* BPL_H */

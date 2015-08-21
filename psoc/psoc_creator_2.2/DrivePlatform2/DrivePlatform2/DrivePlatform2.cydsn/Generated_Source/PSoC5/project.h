@@ -26,6 +26,10 @@
 #include <Isr_rx.h>
 #include <TIMER_CLOCK.h>
 #include <Isr_timer.h>
+#include <StartBitStatus.h>
+#include <DFF_Clock.h>
+#include <DFF_Reset_aliases.h>
+#include <DFF_Reset.h>
 #include <UART_IntClock.h>
 #include <core_cm3_psoc5.h>
 #include <core_cm3.h>

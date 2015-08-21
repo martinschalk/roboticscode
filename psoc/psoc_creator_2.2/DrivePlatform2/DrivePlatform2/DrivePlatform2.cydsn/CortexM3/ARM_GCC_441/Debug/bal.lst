@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 1
 
 
    1              		.syntax unified
@@ -20,7 +20,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
   17              	.Ldebug_info0:
   18              		.section	.debug_line,"",%progbits
   19              	.Ldebug_line0:
-  20 0000 27010000 		.text
+  20 0000 28010000 		.text
   20      0200D000 
   20      00000201 
   20      FB0E0D00 
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
   20:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #ifdef BAL_MODULE_TEST   
   21:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     static void BAL_ModuleTest();
   22:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #endif
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 2
 
 
   23:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
   72 002e 03D1     		bne	.L5
   37:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****         status = CDS5500_ERROR_INSTR_ID;
   73              		.loc 1 37 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 3
 
 
   74 0030 6FF00B03 		mvn	r3, #11
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  117              		.thumb
  118              		.thumb_func
  119              		.type	BAL_SendAck, %function
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 4
 
 
  120              	BAL_SendAck:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
   84:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                         val
   85:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****                      };
  139              		.loc 1 85 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 5
 
 
  140 000a 4FF00003 		mov	r3, #0
@@ -278,7 +278,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
   90:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 
   91:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
   92:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** STATUS BAL_Init(void)
-  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** {
+  93:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** {   
  170              		.loc 1 93 0
  171              		.cfi_startproc
  172              		@ args = 0, pretend = 0, frame = 0
@@ -291,21 +291,16 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  179              		.cfi_offset 7, -4
  180              	.LCFI7:
  181              		.cfi_def_cfa_register 7
-  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #ifdef BAL_MODULE_TEST
-  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     //TST_SetModuleTest(BAL_ModuleTest);
-  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     TMR_SetTimer(TIMER_4, TIMER_1SEC, BAL_ModuleTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** #endif
-  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     
-  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 	return SUCCESS;
- 182              		.loc 1 99 0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 6
-
-
+  94:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 	return SUCCESS;
+ 182              		.loc 1 94 0
  183 0004 4FF00003 		mov	r3, #0
- 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** }
- 184              		.loc 1 100 0
+  95:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** }
+ 184              		.loc 1 95 0
  185 0008 1846     		mov	r0, r3
  186 000a BD46     		mov	sp, r7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 6
+
+
  187 000c 80BC     		pop	{r7}
  188 000e 7047     		bx	lr
  189              		.cfi_endproc
@@ -319,32 +314,38 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  197              		.type	BAL_HandleTask, %function
  198              	BAL_HandleTask:
  199              	.LFB32:
- 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 
- 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 
- 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
- 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** STATUS BAL_HandleTask(void)
- 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** {
- 200              		.loc 1 105 0
+  96:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 
+  97:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** 
+  98:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** /*****************************************************************/
+  99:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** STATUS BAL_HandleTask(void)
+ 100:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** {
+ 200              		.loc 1 100 0
  201              		.cfi_startproc
  202              		@ args = 0, pretend = 0, frame = 0
  203              		@ frame_needed = 1, uses_anonymous_args = 0
- 204              		@ link register save eliminated.
- 205 0000 80B4     		push	{r7}
- 206              	.LCFI8:
- 207              		.cfi_def_cfa_offset 4
- 208 0002 00AF     		add	r7, sp, #0
- 209              		.cfi_offset 7, -4
+ 204 0000 80B5     		push	{r7, lr}
+ 205              	.LCFI8:
+ 206              		.cfi_def_cfa_offset 8
+ 207 0002 00AF     		add	r7, sp, #0
+ 208              		.cfi_offset 14, -4
+ 209              		.cfi_offset 7, -8
  210              	.LCFI9:
  211              		.cfi_def_cfa_register 7
- 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     return SUCCESS;
- 212              		.loc 1 106 0
- 213 0004 4FF00003 		mov	r3, #0
- 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** }
+ 101:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     // Check for new messages
+ 102:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     if (BPL_ucGetMessageCount() > 0)
+ 212              		.loc 1 102 0
+ 213 0004 FFF7FEFF 		bl	BPL_ucGetMessageCount
+ 103:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     {
+ 104:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****         
+ 105:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     }
+ 106:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     
+ 107:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c ****     return SUCCESS;
  214              		.loc 1 107 0
- 215 0008 1846     		mov	r0, r3
- 216 000a BD46     		mov	sp, r7
- 217 000c 80BC     		pop	{r7}
- 218 000e 7047     		bx	lr
+ 215 0008 4FF00003 		mov	r3, #0
+ 108:..\..\..\Drive_Platform\DrivePlatform.cydsn/bal.c **** }
+ 216              		.loc 1 108 0
+ 217 000c 1846     		mov	r0, r3
+ 218 000e 80BD     		pop	{r7, pc}
  219              		.cfi_endproc
  220              	.LFE32:
  221              		.size	BAL_HandleTask, .-BAL_HandleTask
@@ -357,10 +358,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  228 0004 02000000 		.4byte	.LCFI0
  229 0008 0100     		.2byte	0x1
  230 000a 5D       		.byte	0x5d
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 7
+
+
  231 000b 02000000 		.4byte	.LCFI0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 7
-
-
  232 000f 04000000 		.4byte	.LCFI1
  233 0013 0200     		.2byte	0x2
  234 0015 7D       		.byte	0x7d
@@ -417,10 +418,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  285 0091 00000000 		.4byte	0x0
  286 0095 00000000 		.4byte	0x0
  287              	.LLST3:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 8
+
+
  288 0099 00000000 		.4byte	.LFB32
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 8
-
-
  289 009d 02000000 		.4byte	.LCFI8
  290 00a1 0100     		.2byte	0x1
  291 00a3 5D       		.byte	0x5d
@@ -428,12 +429,12 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  293 00a8 04000000 		.4byte	.LCFI9
  294 00ac 0200     		.2byte	0x2
  295 00ae 7D       		.byte	0x7d
- 296 00af 04       		.sleb128 4
+ 296 00af 08       		.sleb128 8
  297 00b0 04000000 		.4byte	.LCFI9
  298 00b4 10000000 		.4byte	.LFE32
  299 00b8 0200     		.2byte	0x2
  300 00ba 77       		.byte	0x77
- 301 00bb 04       		.sleb128 4
+ 301 00bb 08       		.sleb128 8
  302 00bc 00000000 		.4byte	0x0
  303 00c0 00000000 		.4byte	0x0
  304              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
@@ -477,10 +478,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  342 0048 02020000 		.4byte	.LASF4
  343 004c 02       		.uleb128 0x2
  344 004d 04       		.byte	0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 9
+
+
  345 004e 07       		.byte	0x7
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 9
-
-
  346 004f E5000000 		.4byte	.LASF5
  347 0053 02       		.uleb128 0x2
  348 0054 08       		.byte	0x8
@@ -537,10 +538,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  399 00b4 52       		.byte	0x52
  400 00b5 1C010000 		.4byte	0x11c
  401 00b9 09       		.uleb128 0x9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 10
+
+
  402 00ba 81000000 		.4byte	.LASF14
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 10
-
-
  403 00be 04       		.byte	0x4
  404 00bf 53       		.byte	0x53
  405 00c0 6F000000 		.4byte	0x6f
@@ -597,10 +598,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  456 011a 0D       		.uleb128 0xd
  457 011b 00       		.byte	0x0
  458 011c 06       		.uleb128 0x6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 11
+
+
  459 011d 6F000000 		.4byte	0x6f
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 11
-
-
  460 0121 2C010000 		.4byte	0x12c
  461 0125 07       		.uleb128 0x7
  462 0126 8F000000 		.4byte	0x8f
@@ -657,10 +658,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  513 018c 0F       		.uleb128 0xf
  514 018d 04       		.byte	0x4
  515 018e 2C010000 		.4byte	0x12c
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 12
+
+
  516 0192 0C       		.uleb128 0xc
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 12
-
-
  517 0193 01       		.byte	0x1
  518 0194 AC000000 		.4byte	.LASF26
  519 0198 01       		.byte	0x1
@@ -702,7 +703,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  555 01e6 01       		.byte	0x1
  556 01e7 20000000 		.4byte	.LASF30
  557 01eb 01       		.byte	0x1
- 558 01ec 68       		.byte	0x68
+ 558 01ec 63       		.byte	0x63
  559 01ed 01       		.byte	0x1
  560 01ee A2000000 		.4byte	0xa2
  561 01f2 00000000 		.4byte	.LFB32
@@ -717,10 +718,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  570 020b 01       		.byte	0x1
  571 020c 12       		.uleb128 0x12
  572 020d 61000000 		.4byte	0x61
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 13
+
+
  573 0211 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 13
-
-
  574              		.section	.debug_abbrev
  575 0000 01       		.uleb128 0x1
  576 0001 11       		.uleb128 0x11
@@ -777,10 +778,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  627 0034 49       		.uleb128 0x49
  628 0035 13       		.uleb128 0x13
  629 0036 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 14
+
+
  630 0037 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 14
-
-
  631 0038 05       		.uleb128 0x5
  632 0039 24       		.uleb128 0x24
  633 003a 00       		.byte	0x0
@@ -837,10 +838,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  684 006d 38       		.uleb128 0x38
  685 006e 0A       		.uleb128 0xa
  686 006f 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 15
+
+
  687 0070 00       		.byte	0x0
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 15
-
-
  688 0071 0A       		.uleb128 0xa
  689 0072 04       		.uleb128 0x4
  690 0073 01       		.byte	0x1
@@ -897,10 +898,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  741 00a6 0B       		.uleb128 0xb
  742 00a7 3B       		.uleb128 0x3b
  743 00a8 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 16
+
+
  744 00a9 49       		.uleb128 0x49
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 16
-
-
  745 00aa 13       		.uleb128 0x13
  746 00ab 02       		.uleb128 0x2
  747 00ac 0A       		.uleb128 0xa
@@ -957,10 +958,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  798 00df 34       		.uleb128 0x34
  799 00e0 00       		.byte	0x0
  800 00e1 03       		.uleb128 0x3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 17
+
+
  801 00e2 0E       		.uleb128 0xe
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 17
-
-
  802 00e3 3A       		.uleb128 0x3a
  803 00e4 0B       		.uleb128 0xb
  804 00e5 3B       		.uleb128 0x3b
@@ -1017,10 +1018,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  845 0014 76000000 		.4byte	.LFE29-.LFB29
  846 0018 00000000 		.4byte	.LFB30
  847 001c 3A000000 		.4byte	.LFE30-.LFB30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 18
+
+
  848 0020 00000000 		.4byte	.LFB31
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 18
-
-
  849 0024 10000000 		.4byte	.LFE31-.LFB31
  850 0028 00000000 		.4byte	.LFB32
  851 002c 10000000 		.4byte	.LFE32-.LFB32
@@ -1077,10 +1078,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  885      3530305F 
  885      4D534700 
  886              	.LASF9:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 19
+
+
  887 007b 666C6F61 		.ascii	"float\000"
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 19
-
-
  887      7400
  888              	.LASF14:
  889 0081 73746172 		.ascii	"startbyte0\000"
@@ -1137,10 +1138,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  911      69744875 
  911      625F726F 
  911      626F7469 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 20
+
+
  911      6373636F 
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 20
-
-
  912 013d 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
  912      6F725F32 
  912      2E325C44 
@@ -1197,10 +1198,10 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 1
  934              	.LASF28:
  935 01f5 62756666 		.ascii	"buffer\000"
  935      657200
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cchwpeYD.s 			page 21
+
+
  936              	.LASF12:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccj3HsM8.s 			page 21
-
-
  937 01fc 75696E74 		.ascii	"uint8\000"
  937      3800
  938              	.LASF4:

@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform2\DrivePlatform2\Source Files\ring_buffer.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="DrivePlatform2\DrivePlatform2\Header Files\error.h">
 <ExpandedNodeIds>
 <v>DrivePlatform2</v>
 <v>DrivePlatform2\DrivePlatform2</v>
@@ -73,6 +73,13 @@
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DEBUG_LED_1\DEBUG_LED_1.c</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DEBUG_LED_1\DEBUG_LED_1.h</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DEBUG_LED_1\DEBUG_LED_1_aliases.h</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Clock</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Clock\DFF_Clock.c</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Clock\DFF_Clock.h</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Reset</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Reset\DFF_Reset.c</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Reset\DFF_Reset.h</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\DFF_Reset\DFF_Reset_aliases.h</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_rx</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_rx\isr_rx.c</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_rx\isr_rx.h</v>
@@ -82,6 +89,9 @@
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_tx</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_tx\isr_tx.c</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\isr_tx\isr_tx.h</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\StartBitStatus</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\StartBitStatus\StartBitStatus.c</v>
+<v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\StartBitStatus\StartBitStatus.h</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\TIMER</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\TIMER\TIMER.c</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\TIMER\TIMER.h</v>
@@ -111,40 +121,7 @@
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\cyfitterrv.inc</v>
 <v>DrivePlatform2\DrivePlatform2\Generated_Source\PSoC5\project.h</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2\TopDesign.cysch</v>
-<v>DrivePlatform2\DrivePlatform2\DrivePlatform2.cydwr</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\bal.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\bpl.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\bsd_license.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\bus.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\device.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\error.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\global.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\hal.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\ring_buffer.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\scheduler.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\servo_cds5500.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\test.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\tmr.h</v>
-<v>DrivePlatform2\DrivePlatform2\Header Files\types.h</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\bal.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\bpl.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\bus.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\error.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\hal.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\main.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\ring_buffer.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\scheduler.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\servo_cds5500.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\test.c</v>
-<v>DrivePlatform2\DrivePlatform2\Source Files\tmr.c</v>
-<v>DrivePlatform2\DrivePlatform2\Generated_Source</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -153,12 +130,7 @@
 <v>DrivePlatform2\DrivePlatform2\TopDesign</v>
 <v>DrivePlatform2\DrivePlatform2\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2\TopDesign</v>
-<v>DrivePlatform2\DrivePlatform2\TopDesign\TopDesign.cysch</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -182,6 +154,8 @@
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CySpc.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\cyutils.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\DEBUG_LED_1.lst</v>
+<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\DFF_Clock.lst</v>
+<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\DFF_Reset.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\error.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\hal.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\isr_rx.lst</v>
@@ -191,6 +165,7 @@
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\ring_buffer.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\scheduler.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\servo_cds5500.lst</v>
+<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\StartBitStatus.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\test.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\TIMER.lst</v>
 <v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\TIMER_CLOCK.lst</v>
@@ -207,46 +182,7 @@
 <v>DrivePlatform2\DrivePlatform2\DrivePlatform2.rpt</v>
 <v>DrivePlatform2\DrivePlatform2\DrivePlatform2_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\bal.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\bpl.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\bus.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\Cm3Start.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\core_cm3.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CyDmac.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CyFlash.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CyLib.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\cyPm.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\CySpc.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\cyutils.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\DEBUG_LED_1.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\error.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\hal.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\isr_rx.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\Isr_timer.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\isr_tx.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\main.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\ring_buffer.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\scheduler.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\servo_cds5500.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\test.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\TIMER.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\TIMER_CLOCK.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\TIMER_PM.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\tmr.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\UART.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_BOOT.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_INT.lst</v>
-<v>DrivePlatform2\DrivePlatform2\CortexM3\ARM_GCC_441\Debug\Listing Files\UART_IntClock.lst</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -264,24 +200,14 @@
 <v>DrivePlatform2\DrivePlatform2\cy_constant_v1_0</v>
 <v>DrivePlatform2\DrivePlatform2\cy_isr_v1_70</v>
 <v>DrivePlatform2\DrivePlatform2\cy_pins_v1_90</v>
+<v>DrivePlatform2\DrivePlatform2\cydff_v1_30</v>
+<v>DrivePlatform2\DrivePlatform2\CyStatusReg_v1_80</v>
+<v>DrivePlatform2\DrivePlatform2\nor_v1_0</v>
 <v>DrivePlatform2\DrivePlatform2\Timer_v2_50</v>
 <v>DrivePlatform2\DrivePlatform2\UART_v2_30</v>
 <v>DrivePlatform2\DrivePlatform2\ZeroTerminal</v>
 </ExpandedNodeIds>
-<VisibleNodeIds>
-<v>DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2</v>
-<v>DrivePlatform2\DrivePlatform2\PSoC 5 Architecture TRM</v>
-<v>DrivePlatform2\DrivePlatform2\CY8C55 Family Datasheet</v>
-<v>DrivePlatform2\DrivePlatform2\System Reference Guide v3_40</v>
-<v>DrivePlatform2\DrivePlatform2\cy_clock_v2_0</v>
-<v>DrivePlatform2\DrivePlatform2\cy_constant_v1_0</v>
-<v>DrivePlatform2\DrivePlatform2\cy_isr_v1_70</v>
-<v>DrivePlatform2\DrivePlatform2\cy_pins_v1_90</v>
-<v>DrivePlatform2\DrivePlatform2\Timer_v2_50</v>
-<v>DrivePlatform2\DrivePlatform2\UART_v2_30</v>
-<v>DrivePlatform2\DrivePlatform2\ZeroTerminal</v>
-</VisibleNodeIds>
+<VisibleNodeIds />
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
@@ -324,14 +250,21 @@
 <Unloaded />
 <OpenDocs>
 <name v="..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
-<name v=".\driveplatform2.cydsn\main.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\test.c" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.h" />
-<name v="..\..\Drive_Platform\DrivePlatform.cydsn\error.h" />
 <name v="..\..\Drive_Platform\DrivePlatform.cydsn\bpl.h" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\hal.c" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.c" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\bal.h" />
+<name v=".\driveplatform2.cydsn\main.c" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\test.c" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\error.h" />
 <name v=".\DrivePlatform2.cydsn\ring_buffer.c" />
+<name v=".\DrivePlatform2.cydsn\TopDesign\TopDesign.cysch" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\hal.h" />
+<name v=".\DrivePlatform2.cydsn\DrivePlatform2.cydwr" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.c" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.h" />
+<name v=".\DrivePlatform2.cydsn\ring_buffer.h" />
+<name v="..\..\Drive_Platform\DrivePlatform.cydsn\error.c" />
 </OpenDocs>
 <config v="" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

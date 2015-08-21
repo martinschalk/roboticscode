@@ -56,7 +56,7 @@ CheckResponse
 //http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
 HEADER ID LENGTH ERROR PARAMETER CHECK SUM
 **************************************************************************/
-STATUS CheckResponse(CDS5500_MSG* response)
+STATUS CDS5500_CheckResponse(CDS5500_MSG* response)
 {
     STATUS status=SUCCESS;
     uint8 msgCkecksum = response->checksum;

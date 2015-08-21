@@ -71,11 +71,15 @@ typedef struct _bal_msg
 }BAL_MSG;
 
 
-STATUS  BAL_Init(void);
-STATUS  BAL_HandleTask(void);
-//STATUS  BAL_SendMsg(BAL_MSG* msg);
-STATUS  BAL_ServoMsg(CDS5500_MSG* msg);
-STATUS  BAL_SendAck(uint8 val);
+extern STATUS  BAL_Init(void);
+extern STATUS  BAL_HandleTask(void);
+//extern STATUS  BAL_SendMsg(BAL_MSG* msg);
+extern STATUS  BAL_ServoMsg(CDS5500_MSG* msg);
+extern STATUS  BAL_SendAck(uint8 val);
+
+#ifdef BAL_MODULE_TEST  
+    extern void BAL_ModuleTest(void);
+#endif
 
 #endif /* BAL_H */
 

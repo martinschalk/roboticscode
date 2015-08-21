@@ -33,6 +33,13 @@
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\TIMER_CLOCK.h" value="NONE;TIMER_CLOCK" />
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\Isr_timer.c" value="ARM_C_FILE;Isr_timer" />
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\Isr_timer.h" value="NONE;Isr_timer" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\StartBitStatus.c" value="ARM_C_FILE;StartBitStatus" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\StartBitStatus.h" value="NONE;StartBitStatus" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\DFF_Clock.c" value="ARM_C_FILE;DFF_Clock" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\DFF_Clock.h" value="NONE;DFF_Clock" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\DFF_Reset_aliases.h" value="NONE;DFF_Reset" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\DFF_Reset.c" value="ARM_C_FILE;DFF_Reset" />
+  <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\DFF_Reset.h" value="NONE;DFF_Reset" />
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\UART_IntClock.c" value="ARM_C_FILE;UART_IntClock" />
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\UART_IntClock.h" value="NONE;UART_IntClock" />
   <file name="X:\GitHub_roboticscode\roboticscode\psoc\psoc_creator_2.2\DrivePlatform2\DrivePlatform2\DrivePlatform2.cydsn\codegentemp\cm3gcc.ld" value="NONE;cy_boot" />

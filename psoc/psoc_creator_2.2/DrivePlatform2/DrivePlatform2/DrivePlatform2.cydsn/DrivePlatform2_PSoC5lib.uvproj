@@ -552,6 +552,41 @@
               <FileType>5</FileType>
               <FilePath>.\Generated_Source\PSoC5\Isr_timer.h</FilePath>
             </File>
+            <File>
+              <FileName>StartBitStatus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\StartBitStatus.c</FilePath>
+            </File>
+            <File>
+              <FileName>StartBitStatus.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\StartBitStatus.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Clock.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Clock.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset_aliases.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset_aliases.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1105,6 +1140,41 @@
               <FileName>Isr_timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Generated_Source\PSoC5\Isr_timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>StartBitStatus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\StartBitStatus.c</FilePath>
+            </File>
+            <File>
+              <FileName>StartBitStatus.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\StartBitStatus.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Clock.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Clock.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Clock.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Clock.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset_aliases.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset_aliases.h</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset.c</FilePath>
+            </File>
+            <File>
+              <FileName>DFF_Reset.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Generated_Source\PSoC5\DFF_Reset.h</FilePath>
             </File>
           </Files>
         </Group>

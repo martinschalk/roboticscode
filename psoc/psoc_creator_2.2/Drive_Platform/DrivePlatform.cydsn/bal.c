@@ -90,12 +90,7 @@ STATUS BAL_SendAck(uint8 val)
 
 /*****************************************************************/
 STATUS BAL_Init(void)
-{
-#ifdef BAL_MODULE_TEST
-    //TST_SetModuleTest(BAL_ModuleTest);
-    TMR_SetTimer(TIMER_4, TIMER_1SEC, BAL_ModuleTest, TIMER_MODE_CONTINUOUS, TIMER_ENABLED);
-#endif
-    
+{   
 	return SUCCESS;
 }
 
@@ -103,13 +98,19 @@ STATUS BAL_Init(void)
 /*****************************************************************/
 STATUS BAL_HandleTask(void)
 {
+    // Check for new messages
+    if (BPL_ucGetMessageCount() > 0)
+    {
+        
+    }
+    
     return SUCCESS;
 }
 
 
 /*****************************************************************/
 #ifdef BAL_MODULE_TEST   
-static void BAL_ModuleTest(void)
+void BAL_ModuleTest(void)
 {
     CDS5500_Ping(0x01);
 }

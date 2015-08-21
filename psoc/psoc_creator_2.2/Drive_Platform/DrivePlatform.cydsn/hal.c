@@ -46,6 +46,11 @@ void HAL_SetHalStatus(STATUS value)
 CY_ISR(isr_rx_routine)
 {
 	RxCount++;
+    
+    #ifdef HAL_START_BIT_DETECTION_SUPPORT
+        DFF_Reset_Write(1);
+        DFF_Reset_Write(0);
+    #endif
 }
 
 /*******************************************************/
@@ -73,6 +78,11 @@ STATUS 	HAL_Init(void)
 	Isr_tx_SetVector(isr_tx_routine);
 	Isr_rx_Enable();
 	Isr_tx_Enable();
+    #ifdef HAL_START_BIT_DETECTION_SUPPORT
+        DFF_Clock_Start();
+        DFF_Reset_Write(1);
+        DFF_Reset_Write(0);
+    #endif
 	UART_EnableRxInt();
 	UART_EnableTxInt();
  

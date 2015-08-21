@@ -22,6 +22,7 @@ static uint8_t 	BPL_aucTransmitBuffer[BPL_TX_BUFFER_SIZE];
 static uint8_t  BPL_ucReceiveBufferIndex;
 static uint8_t  BPL_ucTransmitBufferIndex;
 
+static uint8_t  BPL_ucRxMessageCount = 0;
 /*
 static STATUS BplStatus = BPL_STATUS_OK;
 */
@@ -36,6 +37,17 @@ STATUS BPL_Init(void)
     return SUCCESS;	
 }
 
+/*******************************************************/
+uint8_t BPL_ucGetMessageCount(void)
+{
+    return BPL_ucMessageCount;
+}
+
+/*******************************************************/
+void BPL_ucSetMessageCount(uint8_t ucVal)
+{
+    BPL_ucMessageCount = ucVal;
+}
 
 /*******************************************************/
 uint8 BPL_GetReceiveMsgCount(void)
@@ -53,6 +65,47 @@ uint8 BPL_GetMessage(uint8* target)
         return 0;
     
     rbfStatus = RBF_ucTailMsgOut(BPL_ucReceiveBufferIndex, target, &ucNumBytes);
+    
+    return ucNumBytes;
+}
+
+/*******************************************************/
+/**
+Status packet:
+| 0XFF | 0XFF | ID | Length | Status | Parameter1 ...Parameter N | Check Sum | 
+*/
+uint8 BPL_CDS5500_GetMessage(uint8* target)
+{
+    STATUS rbfStatus;
+    CDS5500_MSG msg;
+    uint8_t ucNumBytes;
+    int i;
+    
+    // First check if any bytes received
+    if (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) == 0)
+        return !BPL_SUCCESS;
+    
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.startbyte0)); //FF
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.startbyte1)); //FF
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.motorId));    //ID
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.length));     //Length
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.instrId));    //Status
+    
+    for (i=0; i<msg.length-CDS5500_COMPLEMENTARY_BYTES; i++)
+    {
+        rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.instrParams[i]));    //Parameter1 ...Parameter N  
+    }
+    
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.instrId));    //checksum
+    
+    if (rbfStatus != RBF_SUCCESS)
+    {
+        //better clear whole buffer now, something went wrong ...
+        ERR_Error(ERROR_WARNING);
+    }
+    
+    // decrease message count
+    BPL_ucRxMessageCount--;
     
     return ucNumBytes;
 }
@@ -86,6 +139,7 @@ STATUS BPL_HandleTask(void)
 	uint8_t ucNumBytes;
     uint8_t ucByte;
 	uint8_t ucMessageBuffer[BPL_MAX_MESSAGE_LENGTH];
+    BOOL    bMessageReceived = FALSE;
     
 	/* Handle received bytes */
 	/* --------------------- */
@@ -98,8 +152,17 @@ STATUS BPL_HandleTask(void)
 		{
 			//error handling
 		}
+        else
+        {
+            bMessageReceived = TRUE;
+            
+        }
 	}
 
+    if (bMessageReceived == TRUE)
+    {
+        BPL_ucRxMessageCount++;
+    }
 	
 	/* Handle transmission of bytes */
 	/* ---------------------------- */

@@ -27,6 +27,10 @@ HARDWARE ABSTRACTION LAYER	(HAL)                           <
 #include "global.h"
 #include "types.h"
 
+/* Settings */
+/*******************************************************/
+#define HAL_START_BIT_DETECTION_SUPPORT
+
 /* Error codes */
 /*******************************************************/
 #define	HAL_RX_COUNT_MISMATCH	-1

@@ -1,6 +1,6 @@
 // ======================================================================
 // DrivePlatform2.v generated from TopDesign.cysch
-// 07/28/2015 at 22:32
+// 08/01/2015 at 22:45
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -312,9 +312,61 @@ module Timer_v2_50_1 (
 
 endmodule
 
+// Component: CyStatusReg_v1_80
+`ifdef CY_BLK_DIR
+`undef CY_BLK_DIR
+`endif
+
+`ifdef WARP
+`define CY_BLK_DIR "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80"
+`include "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80\CyStatusReg_v1_80.v"
+`else
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyStatusReg_v1_80\CyStatusReg_v1_80.v"
+`endif
+
+// Component: cydff_v1_30
+`ifdef CY_BLK_DIR
+`undef CY_BLK_DIR
+`endif
+
+`ifdef WARP
+`define CY_BLK_DIR "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\cydff_v1_30"
+`include "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\cydff_v1_30\cydff_v1_30.v"
+`else
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cydff_v1_30"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\cydff_v1_30\cydff_v1_30.v"
+`endif
+
+// Component: nor_v1_0
+`ifdef CY_BLK_DIR
+`undef CY_BLK_DIR
+`endif
+
+`ifdef WARP
+`define CY_BLK_DIR "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\nor_v1_0"
+`include "$CYPRESS_DIR\..\psoc\content\cyprimitives\CyPrimitives.cylib\nor_v1_0\nor_v1_0.v"
+`else
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\nor_v1_0"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\nor_v1_0\nor_v1_0.v"
+`endif
+
 // top
 module top ;
 
+          wire  Net_119;
+          wire  Net_118;
+          wire  Net_96;
+          wire  Net_94;
+          wire [7:0] Net_93;
+          wire  Net_92;
+          wire  Net_91;
+          wire  Net_90;
+          wire  Net_89;
+          wire  Net_88;
+          wire  Net_86;
+          wire  Net_85;
+          wire  Net_84;
           wire  Net_50;
           wire  Net_44;
           wire  Net_43;
@@ -328,13 +380,15 @@ module top ;
           wire  Net_21;
           wire  Net_20;
           wire  Net_19;
-          wire  Net_7;
           wire  Net_18;
           wire  Net_17;
           wire  Net_16;
           wire  Net_15;
           wire  Net_2;
           wire  Net_14;
+          wire  Net_7;
+          wire  Net_95;
+          wire  Net_105;
           wire  Net_10;
           wire  Net_12;
 
@@ -625,6 +679,132 @@ module top ;
 		Isr_timer
 		 (.int_signal(Net_39));
 
+
+    CyStatusReg_v1_80 StartBitStatus (
+        .status_0(Net_95),
+        .status_1(1'b0),
+        .status_2(1'b0),
+        .status_3(1'b0),
+        .clock(Net_105),
+        .status_4(1'b0),
+        .status_5(1'b0),
+        .status_6(1'b0),
+        .status_7(1'b0),
+        .intr(Net_92),
+        .status_bus(8'b0));
+    defparam StartBitStatus.Bit0Mode = 0;
+    defparam StartBitStatus.Bit1Mode = 0;
+    defparam StartBitStatus.Bit2Mode = 0;
+    defparam StartBitStatus.Bit3Mode = 0;
+    defparam StartBitStatus.Bit4Mode = 0;
+    defparam StartBitStatus.Bit5Mode = 0;
+    defparam StartBitStatus.Bit6Mode = 0;
+    defparam StartBitStatus.Bit7Mode = 0;
+    defparam StartBitStatus.BusDisplay = 0;
+    defparam StartBitStatus.Interrupt = 0;
+    defparam StartBitStatus.MaskValue = 0;
+    defparam StartBitStatus.NumInputs = 1;
+
+    // -- DFF Start --
+    reg  cydff_1;
+    always @(posedge Net_118 or posedge Net_96)
+    begin
+        if (Net_118)
+        begin
+            cydff_1 <= 0;
+        end
+        else
+        begin
+            cydff_1 <= Net_94;
+        end
+    end
+    assign Net_95 = cydff_1;
+    // -- DFF End --
+
+
+	cy_clock_v1_0
+		#(.id("d9624ccb-b088-40cc-b1c7-207c128e2b2d"),
+		  .source_clock_id("61737EF6-3B74-48f9-8B91-F7473A442AE7"),
+		  .divisor(24),
+		  .period("0"),
+		  .is_direct(0),
+		  .is_digital(1))
+		DFF_Clock
+		 (.clock_out(Net_105));
+
+
+
+    assign Net_96 = ~(Net_105 | Net_7);
+
+    assign Net_94 = 1'h1;
+
+	wire [0:0] tmpOE__DFF_Reset_net;
+	wire [0:0] tmpIO_0__DFF_Reset_net;
+	wire [0:0] tmpINTERRUPT_0__DFF_Reset_net;
+	electrical [0:0] tmpSIOVREF__DFF_Reset_net;
+
+	cy_psoc3_pins_v1_10
+		#(.id("4c15b41e-e284-4978-99e7-5aaee19bd0ce"),
+		  .drive_mode(3'b001),
+		  .ibuf_enabled(1'b1),
+		  .init_dr_st(1'b0),
+		  .input_clk_en(0),
+		  .input_sync(1'b1),
+		  .input_sync_mode(1'b0),
+		  .intr_mode(2'b00),
+		  .invert_in_clock(0),
+		  .invert_in_clock_en(0),
+		  .invert_in_reset(0),
+		  .invert_out_clock(0),
+		  .invert_out_clock_en(0),
+		  .invert_out_reset(0),
+		  .io_voltage(""),
+		  .layout_mode("CONTIGUOUS"),
+		  .oe_conn(1'b0),
+		  .oe_reset(0),
+		  .oe_sync(1'b0),
+		  .output_clk_en(0),
+		  .output_clock_mode(1'b0),
+		  .output_conn(1'b0),
+		  .output_mode(1'b0),
+		  .output_reset(0),
+		  .output_sync(1'b0),
+		  .pa_in_clock(-1),
+		  .pa_in_clock_en(-1),
+		  .pa_in_reset(-1),
+		  .pa_out_clock(-1),
+		  .pa_out_clock_en(-1),
+		  .pa_out_reset(-1),
+		  .pin_aliases(""),
+		  .pin_mode("I"),
+		  .por_state(4),
+		  .use_annotation(1'b0),
+		  .sio_group_cnt(0),
+		  .sio_hyst(1'b0),
+		  .sio_ibuf(""),
+		  .sio_info(2'b00),
+		  .sio_obuf(""),
+		  .sio_refsel(""),
+		  .sio_vtrip(""),
+		  .slew_rate(1'b0),
+		  .spanning(0),
+		  .vtrip(2'b00),
+		  .width(1))
+		DFF_Reset
+		 (.oe(tmpOE__DFF_Reset_net),
+		  .y({1'b0}),
+		  .fb({Net_118}),
+		  .io({tmpIO_0__DFF_Reset_net[0:0]}),
+		  .siovref(tmpSIOVREF__DFF_Reset_net),
+		  .interrupt({tmpINTERRUPT_0__DFF_Reset_net[0:0]}),
+		  .in_clock({1'b0}),
+		  .in_clock_en({1'b1}),
+		  .in_reset({1'b0}),
+		  .out_clock({1'b0}),
+		  .out_clock_en({1'b1}),
+		  .out_reset({1'b0}));
+
+	assign tmpOE__DFF_Reset_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{1'b1} : {1'b1};
 
 
 

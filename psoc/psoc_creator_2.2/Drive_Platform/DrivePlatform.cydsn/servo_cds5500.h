@@ -191,19 +191,22 @@ typedef struct _cds5500_msg
 #define CDS5500_MSG_LENGTH_SYNC_WRITE           (CDS5500_INST_LENGTH_SYNC_WRITE + CDS5500_COMPLEMENTARY_BYTES)
 #define CDS5500_MSG_LENGTH_SYNC_REG_WRITE       (CDS5500_INST_LENGTH_SYNC_REG_WRITE + CDS5500_COMPLEMENTARY_BYTES)
 
-STATUS CheckResponse(CDS5500_MSG* response);
-void ServoTest(void);
 
 
-void CDS5500_Ping(uint8 motorId);
-void CDS5500_WritePos(int ID, int pos, int vel);
-void CDS5500_RegWritePos(int ID, int position, int velocity);
-void CDS5500_RegWriteAction();
-void CDS5500_SetID(int defaultID, int newID);
-void CDS5500_SetAngleLimit(int ID, int low, int high);
-void CDS5500_tempMethod();
-void CDS5500_Reset(int ID);
-void CDS5500_SetTempLimit(int ID, int temperature);
+
+extern STATUS CDS5500_CheckResponse(CDS5500_MSG* response);
+extern void ServoTest(void);
+
+
+extern void CDS5500_Ping(uint8 motorId);
+extern void CDS5500_WritePos(int ID, int pos, int vel);
+extern void CDS5500_RegWritePos(int ID, int position, int velocity);
+extern void CDS5500_RegWriteAction();
+extern void CDS5500_SetID(int defaultID, int newID);
+extern void CDS5500_SetAngleLimit(int ID, int low, int high);
+extern void CDS5500_tempMethod();
+extern void CDS5500_Reset(int ID);
+extern void CDS5500_SetTempLimit(int ID, int temperature);
     
 #endif
 
