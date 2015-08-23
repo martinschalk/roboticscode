@@ -2,7 +2,7 @@
 --	Conversion of DrivePlatform2.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Sat Aug 01 22:45:08 2015
+--	Sun Aug 23 12:55:54 2015
 --
 
 USE cypress.cypress.all;
@@ -19,7 +19,6 @@ SIGNAL \UART:Net_61\ : bit;
 SIGNAL one : bit;
 SIGNAL \UART:BUART:clock_op\ : bit;
 SIGNAL \UART:BUART:reset_reg\ : bit;
-SIGNAL Net_18 : bit;
 SIGNAL \UART:BUART:tx_hd_send_break\ : bit;
 SIGNAL \UART:BUART:HalfDuplexSend\ : bit;
 SIGNAL \UART:BUART:FinalParityType_1\ : bit;
@@ -208,7 +207,7 @@ SIGNAL \UART:BUART:rx_poll_bit1\ : bit;
 SIGNAL \UART:BUART:rx_poll_bit2\ : bit;
 SIGNAL \UART:BUART:pollingrange\ : bit;
 SIGNAL \UART:BUART:pollcount_1\ : bit;
-SIGNAL Net_7 : bit;
+SIGNAL Net_120 : bit;
 SIGNAL \UART:BUART:sRX:s23Poll:add_vv_vv_MODGEN_1_1\ : bit;
 SIGNAL \UART:BUART:pollcount_0\ : bit;
 SIGNAL \UART:BUART:sRX:s23Poll:add_vv_vv_MODGEN_1_0\ : bit;
@@ -363,6 +362,7 @@ SIGNAL tmpFB_0__Tx_1_net_0 : bit;
 SIGNAL tmpIO_0__Tx_1_net_0 : bit;
 TERMINAL tmpSIOVREF__Tx_1_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__Tx_1_net_0 : bit;
+SIGNAL Net_7 : bit;
 SIGNAL \TIMER:Net_260\ : bit;
 SIGNAL Net_39 : bit;
 SIGNAL \TIMER:Net_55\ : bit;
@@ -769,6 +769,8 @@ one <=  ('1') ;
 
 Net_2 <= (not \UART:BUART:txn\);
 
+zero <=  ('0') ;
+
 \UART:BUART:counter_load_not\ <= ((not \UART:BUART:tx_bitclk\ and \UART:BUART:tx_state_2\)
 	OR \UART:BUART:tx_state_0\
 	OR \UART:BUART:tx_state_1\);
@@ -821,14 +823,14 @@ Net_16D <= ((not \UART:BUART:reset_reg\ and \UART:BUART:tx_state_2\)
 	OR \UART:BUART:rx_state_0\
 	OR \UART:BUART:rx_state_1\);
 
-\UART:BUART:pollcount_1\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not \UART:BUART:pollcount_1\ and Net_7 and \UART:BUART:pollcount_0\)
+\UART:BUART:pollcount_1\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not \UART:BUART:pollcount_1\ and Net_120 and \UART:BUART:pollcount_0\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not \UART:BUART:pollcount_0\ and \UART:BUART:pollcount_1\)
-	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not Net_7 and \UART:BUART:pollcount_1\));
+	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not Net_120 and \UART:BUART:pollcount_1\));
 
-\UART:BUART:pollcount_0\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not \UART:BUART:pollcount_0\ and Net_7)
-	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not Net_7 and \UART:BUART:pollcount_0\));
+\UART:BUART:pollcount_0\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not \UART:BUART:pollcount_0\ and Net_120)
+	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_count_2\ and not \UART:BUART:rx_count_1\ and not Net_120 and \UART:BUART:pollcount_0\));
 
-\UART:BUART:rx_postpoll\ <= ((Net_7 and \UART:BUART:pollcount_0\)
+\UART:BUART:rx_postpoll\ <= ((Net_120 and \UART:BUART:pollcount_0\)
 	OR \UART:BUART:pollcount_1\);
 
 \UART:BUART:rx_status_4\ <= ((\UART:BUART:rx_load_fifo\ and \UART:BUART:rx_fifofull\));
@@ -836,7 +838,7 @@ Net_16D <= ((not \UART:BUART:reset_reg\ and \UART:BUART:tx_state_2\)
 \UART:BUART:rx_status_5\ <= ((\UART:BUART:rx_fifonotempty\ and \UART:BUART:rx_state_stop1_reg\));
 
 \UART:BUART:rx_stop_bit_error\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:pollcount_1\ and not \UART:BUART:pollcount_0\ and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_3\ and \UART:BUART:rx_state_2\)
-	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:pollcount_1\ and not Net_7 and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_3\ and \UART:BUART:rx_state_2\));
+	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:pollcount_1\ and not Net_120 and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_3\ and \UART:BUART:rx_state_2\));
 
 \UART:BUART:rx_load_fifo\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:rx_state_2\ and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_3\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:rx_state_2\ and not \UART:BUART:rx_count_6\ and not \UART:BUART:rx_count_4\ and \UART:BUART:rx_state_0\)
@@ -849,7 +851,7 @@ Net_16D <= ((not \UART:BUART:reset_reg\ and \UART:BUART:tx_state_2\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_2\ and \UART:BUART:rx_state_3\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_0\ and \UART:BUART:rx_state_3\));
 
-\UART:BUART:rx_state_2\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:rx_state_2\ and not Net_7 and \UART:BUART:rx_last\)
+\UART:BUART:rx_state_2\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:rx_state_2\ and not Net_120 and \UART:BUART:rx_last\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_0\ and not \UART:BUART:rx_state_2\ and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_3\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:rx_count_6\ and not \UART:BUART:rx_count_4\ and \UART:BUART:rx_state_0\)
 	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:rx_count_6\ and not \UART:BUART:rx_count_5\ and \UART:BUART:rx_state_0\)
@@ -860,22 +862,20 @@ Net_16D <= ((not \UART:BUART:reset_reg\ and \UART:BUART:tx_state_2\)
 \UART:BUART:rx_state_1\\D\ <= ((not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_1\));
 
 \UART:BUART:rx_state_0\\D\ <= ((not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:pollcount_1\ and not \UART:BUART:pollcount_0\ and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_2\)
-	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:pollcount_1\ and not Net_7 and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_2\)
+	OR (not \UART:BUART:reset_reg\ and not \UART:BUART:rx_state_1\ and not \UART:BUART:rx_state_3\ and not \UART:BUART:pollcount_1\ and not Net_120 and \UART:BUART:rx_bitclk_enable\ and \UART:BUART:rx_state_2\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_0\ and \UART:BUART:rx_count_5\ and \UART:BUART:rx_count_4\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_0\ and \UART:BUART:rx_count_6\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_0\ and \UART:BUART:rx_state_3\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_1\ and \UART:BUART:rx_state_0\)
 	OR (not \UART:BUART:reset_reg\ and \UART:BUART:rx_state_0\ and \UART:BUART:rx_state_2\));
 
-\UART:BUART:rx_last\\D\ <= ((not \UART:BUART:reset_reg\ and Net_7));
+\UART:BUART:rx_last\\D\ <= ((not \UART:BUART:reset_reg\ and Net_120));
 
 \UART:BUART:rx_address_detected\\D\ <= ((not \UART:BUART:reset_reg\ and \UART:BUART:rx_address_detected\));
 
-Net_18 <=  ('0') ;
-
 \TIMER:TimerUDB:status_tc\ <= ((\TIMER:TimerUDB:control_7\ and \TIMER:TimerUDB:per_zero\));
 
-Net_96 <= ((not Net_7 and not Net_105));
+Net_96 <= (not Net_105);
 
 \UART:TXInternalInterrupt\:cy_isr_v1_0
 	GENERIC MAP(int_type=>"10")
@@ -920,15 +920,15 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\UART:BUART:clock_op\,
 		cs_addr=>(\UART:BUART:tx_state_1\, \UART:BUART:tx_state_0\, \UART:BUART:tx_bitclk_enable_pre\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>open,
 		z0=>open,
@@ -961,28 +961,28 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_stat_reg=>open,
 		f1_bus_stat_reg=>open,
 		f1_blk_stat_reg=>open,
-		ci=>Net_18,
+		ci=>zero,
 		co=>open,
-		sir=>Net_18,
+		sir=>zero,
 		sor=>open,
-		sil=>Net_18,
+		sil=>zero,
 		sol=>open,
-		msbi=>Net_18,
+		msbi=>zero,
 		msbo=>open,
-		cei=>(Net_18, Net_18),
+		cei=>(zero, zero),
 		ceo=>open,
-		cli=>(Net_18, Net_18),
+		cli=>(zero, zero),
 		clo=>open,
-		zi=>(Net_18, Net_18),
+		zi=>(zero, zero),
 		zo=>open,
-		fi=>(Net_18, Net_18),
+		fi=>(zero, zero),
 		fo=>open,
-		capi=>(Net_18, Net_18),
+		capi=>(zero, zero),
 		capo=>open,
-		cfbi=>Net_18,
+		cfbi=>zero,
 		cfbo=>open,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 \UART:BUART:sTX:sCLOCK:TxBitClkGen\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"1010100001000000001000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011111111000000001111111100000111001000000100000000000101111100000000000000001000",
@@ -1006,15 +1006,15 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\UART:BUART:clock_op\,
-		cs_addr=>(Net_18, Net_18, \UART:BUART:counter_load_not\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		cs_addr=>(zero, zero, \UART:BUART:counter_load_not\),
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>\UART:BUART:tx_bitclk_dp\,
 		z0=>open,
@@ -1047,37 +1047,37 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_stat_reg=>open,
 		f1_bus_stat_reg=>open,
 		f1_blk_stat_reg=>open,
-		ci=>Net_18,
+		ci=>zero,
 		co=>open,
-		sir=>Net_18,
+		sir=>zero,
 		sor=>open,
-		sil=>Net_18,
+		sil=>zero,
 		sol=>open,
-		msbi=>Net_18,
+		msbi=>zero,
 		msbo=>open,
-		cei=>(Net_18, Net_18),
+		cei=>(zero, zero),
 		ceo=>open,
-		cli=>(Net_18, Net_18),
+		cli=>(zero, zero),
 		clo=>open,
-		zi=>(Net_18, Net_18),
+		zi=>(zero, zero),
 		zo=>open,
-		fi=>(Net_18, Net_18),
+		fi=>(zero, zero),
 		fo=>open,
-		capi=>(Net_18, Net_18),
+		capi=>(zero, zero),
 		capo=>open,
-		cfbi=>Net_18,
+		cfbi=>zero,
 		cfbo=>open,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>(\UART:BUART:sc_out_7\, \UART:BUART:sc_out_6\, \UART:BUART:sc_out_5\, \UART:BUART:sc_out_4\,
 			\UART:BUART:sc_out_3\, \UART:BUART:sc_out_2\, \UART:BUART:sc_out_1\, \UART:BUART:sc_out_0\));
 \UART:BUART:sTX:TxSts\:cy_psoc3_statusi
 	GENERIC MAP(cy_force_order=>'1',
 		cy_md_select=>"0000001",
 		cy_int_mask=>"1111111")
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clock=>\UART:BUART:clock_op\,
-		status=>(Net_18, Net_18, Net_18, \UART:BUART:tx_fifo_notfull\,
+		status=>(zero, zero, zero, \UART:BUART:tx_fifo_notfull\,
 			\UART:BUART:tx_status_2\, \UART:BUART:tx_fifo_empty\, \UART:BUART:tx_status_0\),
 		interrupt=>Net_19);
 \UART:BUART:sRX:RxShifter:u0\:cy_psoc3_dp
@@ -1102,15 +1102,15 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\UART:BUART:clock_op\,
 		cs_addr=>(\UART:BUART:rx_state_1\, \UART:BUART:rx_state_0\, \UART:BUART:rx_bitclk_enable\),
 		route_si=>\UART:BUART:rx_postpoll\,
-		route_ci=>Net_18,
+		route_ci=>zero,
 		f0_load=>\UART:BUART:rx_load_fifo\,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>\UART:BUART:rx_addressmatch1\,
 		cl0=>open,
 		z0=>open,
@@ -1143,28 +1143,28 @@ Net_96 <= ((not Net_7 and not Net_105));
 		f0_blk_stat_reg=>open,
 		f1_bus_stat_reg=>open,
 		f1_blk_stat_reg=>open,
-		ci=>Net_18,
+		ci=>zero,
 		co=>open,
-		sir=>Net_18,
+		sir=>zero,
 		sor=>open,
-		sil=>Net_18,
+		sil=>zero,
 		sol=>open,
-		msbi=>Net_18,
+		msbi=>zero,
 		msbo=>open,
-		cei=>(Net_18, Net_18),
+		cei=>(zero, zero),
 		ceo=>open,
-		cli=>(Net_18, Net_18),
+		cli=>(zero, zero),
 		clo=>open,
-		zi=>(Net_18, Net_18),
+		zi=>(zero, zero),
 		zo=>open,
-		fi=>(Net_18, Net_18),
+		fi=>(zero, zero),
 		fo=>open,
-		capi=>(Net_18, Net_18),
+		capi=>(zero, zero),
 		capo=>open,
-		cfbi=>Net_18,
+		cfbi=>zero,
 		cfbo=>open,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 \UART:BUART:sRX:RxBitCounter\:cy_psoc3_count7
 	GENERIC MAP(cy_period=>"1110010",
@@ -1183,10 +1183,10 @@ Net_96 <= ((not Net_7 and not Net_105));
 	GENERIC MAP(cy_force_order=>'1',
 		cy_md_select=>"1011111",
 		cy_int_mask=>"1111111")
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clock=>\UART:BUART:clock_op\,
-		status=>(Net_18, \UART:BUART:rx_status_5\, \UART:BUART:rx_status_4\, \UART:BUART:rx_status_3\,
-			\UART:BUART:rx_status_2\, Net_18, Net_18),
+		status=>(zero, \UART:BUART:rx_status_5\, \UART:BUART:rx_status_4\, \UART:BUART:rx_status_3\,
+			\UART:BUART:rx_status_2\, zero, zero),
 		interrupt=>Net_20);
 Rx_1:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"1425177d-0d0e-4468-8bcc-e638e5509a9b",
@@ -1240,18 +1240,18 @@ Rx_1:cy_psoc3_pins_v1_10
 		pa_out_clock_en=>-1,
 		pa_out_reset=>-1)
 	PORT MAP(oe=>(one),
-		y=>(Net_18),
-		fb=>Net_7,
+		y=>(zero),
+		fb=>Net_120,
 		analog=>(open),
 		io=>(tmpIO_0__Rx_1_net_0),
 		siovref=>(tmpSIOVREF__Rx_1_net_0),
 		annotation=>(open),
-		in_clock=>Net_18,
+		in_clock=>zero,
 		in_clock_en=>one,
-		in_reset=>Net_18,
-		out_clock=>Net_18,
+		in_reset=>zero,
+		out_clock=>zero,
 		out_clock_en=>one,
-		out_reset=>Net_18,
+		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Rx_1_net_0);
 Tx_1:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"ed092b9b-d398-4703-be89-cebf998501f6",
@@ -1311,12 +1311,12 @@ Tx_1:cy_psoc3_pins_v1_10
 		io=>(tmpIO_0__Tx_1_net_0),
 		siovref=>(tmpSIOVREF__Tx_1_net_0),
 		annotation=>(open),
-		in_clock=>Net_18,
+		in_clock=>zero,
 		in_clock_en=>one,
-		in_reset=>Net_18,
-		out_clock=>Net_18,
+		in_reset=>zero,
+		out_clock=>zero,
 		out_clock_en=>one,
-		out_reset=>Net_18,
+		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__Tx_1_net_0);
 \TIMER:TimerUDB:clock_enable_block\:cy_psoc3_udb_clock_enable_v1_0
 	GENERIC MAP(sync_mode=>'1')
@@ -1329,18 +1329,18 @@ Tx_1:cy_psoc3_pins_v1_10
 		cy_ctrl_mode_1=>"00000000",
 		cy_ctrl_mode_0=>"00000000",
 		cy_ext_reset=>'0')
-	PORT MAP(reset=>Net_18,
-		clock=>Net_18,
+	PORT MAP(reset=>zero,
+		clock=>zero,
 		control=>(\TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:control_6\, \TIMER:TimerUDB:control_5\, \TIMER:TimerUDB:control_4\,
 			\TIMER:TimerUDB:control_3\, \TIMER:TimerUDB:control_2\, \TIMER:TimerUDB:control_1\, \TIMER:TimerUDB:control_0\));
 \TIMER:TimerUDB:nrstSts:stsreg\:cy_psoc3_statusi
 	GENERIC MAP(cy_force_order=>'1',
 		cy_md_select=>"0000011",
 		cy_int_mask=>"1111111")
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clock=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
-		status=>(Net_18, Net_18, Net_18, \TIMER:TimerUDB:status_3\,
-			\TIMER:TimerUDB:status_2\, Net_18, \TIMER:TimerUDB:status_tc\),
+		status=>(zero, zero, zero, \TIMER:TimerUDB:status_3\,
+			\TIMER:TimerUDB:status_2\, zero, \TIMER:TimerUDB:status_tc\),
 		interrupt=>Net_39);
 \TIMER:TimerUDB:sT32:timerdp:u0\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000001000000000000000100000001000000010000000000000010000000000000001000000000000000100000000000000010000000000000001000000011111111000000001111111111111111000000000000000000000001000000000000000000011000",
@@ -1364,15 +1364,15 @@ Tx_1:cy_psoc3_pins_v1_10
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
-		cs_addr=>(Net_18, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		cs_addr=>(zero, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>open,
 		z0=>\TIMER:TimerUDB:nc0\,
@@ -1405,28 +1405,28 @@ Tx_1:cy_psoc3_pins_v1_10
 		f0_blk_stat_reg=>open,
 		f1_bus_stat_reg=>open,
 		f1_blk_stat_reg=>open,
-		ci=>Net_18,
+		ci=>zero,
 		co=>\TIMER:TimerUDB:sT32:timerdp:carry0\,
-		sir=>Net_18,
+		sir=>zero,
 		sor=>open,
 		sil=>\TIMER:TimerUDB:sT32:timerdp:sh_right0\,
 		sol=>\TIMER:TimerUDB:sT32:timerdp:sh_left0\,
 		msbi=>\TIMER:TimerUDB:sT32:timerdp:msb0\,
 		msbo=>open,
-		cei=>(Net_18, Net_18),
+		cei=>(zero, zero),
 		ceo=>(\TIMER:TimerUDB:sT32:timerdp:cmp_eq0_1\, \TIMER:TimerUDB:sT32:timerdp:cmp_eq0_0\),
-		cli=>(Net_18, Net_18),
+		cli=>(zero, zero),
 		clo=>(\TIMER:TimerUDB:sT32:timerdp:cmp_lt0_1\, \TIMER:TimerUDB:sT32:timerdp:cmp_lt0_0\),
-		zi=>(Net_18, Net_18),
+		zi=>(zero, zero),
 		zo=>(\TIMER:TimerUDB:sT32:timerdp:cmp_zero0_1\, \TIMER:TimerUDB:sT32:timerdp:cmp_zero0_0\),
-		fi=>(Net_18, Net_18),
+		fi=>(zero, zero),
 		fo=>(\TIMER:TimerUDB:sT32:timerdp:cmp_ff0_1\, \TIMER:TimerUDB:sT32:timerdp:cmp_ff0_0\),
-		capi=>(Net_18, Net_18),
+		capi=>(zero, zero),
 		capo=>(\TIMER:TimerUDB:sT32:timerdp:cap0_1\, \TIMER:TimerUDB:sT32:timerdp:cap0_0\),
-		cfbi=>Net_18,
+		cfbi=>zero,
 		cfbo=>\TIMER:TimerUDB:sT32:timerdp:cfb0\,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 \TIMER:TimerUDB:sT32:timerdp:u1\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000001000000000000000100000001000000010000000000000010000000000000001000000000000000100000000000000010000000000000001000000011111111000000001111111111111111100000110000000000000001000000110000000000011000",
@@ -1450,15 +1450,15 @@ Tx_1:cy_psoc3_pins_v1_10
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
-		cs_addr=>(Net_18, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		cs_addr=>(zero, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>open,
 		z0=>\TIMER:TimerUDB:nc1\,
@@ -1511,8 +1511,8 @@ Tx_1:cy_psoc3_pins_v1_10
 		capo=>(\TIMER:TimerUDB:sT32:timerdp:cap1_1\, \TIMER:TimerUDB:sT32:timerdp:cap1_0\),
 		cfbi=>\TIMER:TimerUDB:sT32:timerdp:cfb0\,
 		cfbo=>\TIMER:TimerUDB:sT32:timerdp:cfb1\,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 \TIMER:TimerUDB:sT32:timerdp:u2\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000001000000000000000100000001000000010000000000000010000000000000001000000000000000100000000000000010000000000000001000000011111111000000001111111111111111100000110000000000000001000000110000000000011000",
@@ -1536,15 +1536,15 @@ Tx_1:cy_psoc3_pins_v1_10
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
-		cs_addr=>(Net_18, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		cs_addr=>(zero, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>open,
 		z0=>\TIMER:TimerUDB:nc2\,
@@ -1597,8 +1597,8 @@ Tx_1:cy_psoc3_pins_v1_10
 		capo=>(\TIMER:TimerUDB:sT32:timerdp:cap2_1\, \TIMER:TimerUDB:sT32:timerdp:cap2_0\),
 		cfbi=>\TIMER:TimerUDB:sT32:timerdp:cfb1\,
 		cfbo=>\TIMER:TimerUDB:sT32:timerdp:cfb2\,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 \TIMER:TimerUDB:sT32:timerdp:u3\:cy_psoc3_dp
 	GENERIC MAP(cy_dpconfig=>"0000000001000000000000000100000001000000010000000000000010000000000000001000000000000000100000000000000010000000000000001000000011111111000000001111111111111111100000110000000000000001000000110000000000011000",
@@ -1622,15 +1622,15 @@ Tx_1:cy_psoc3_pins_v1_10
 		f0_blk_sync=>'1',
 		f1_bus_sync=>'1',
 		f1_blk_sync=>'1')
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
-		cs_addr=>(Net_18, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
-		route_si=>Net_18,
-		route_ci=>Net_18,
-		f0_load=>Net_18,
-		f1_load=>Net_18,
-		d0_load=>Net_18,
-		d1_load=>Net_18,
+		cs_addr=>(zero, \TIMER:TimerUDB:control_7\, \TIMER:TimerUDB:per_zero\),
+		route_si=>zero,
+		route_ci=>zero,
+		f0_load=>zero,
+		f1_load=>zero,
+		d0_load=>zero,
+		d1_load=>zero,
 		ce0=>open,
 		cl0=>open,
 		z0=>\TIMER:TimerUDB:per_zero\,
@@ -1667,9 +1667,9 @@ Tx_1:cy_psoc3_pins_v1_10
 		co=>open,
 		sir=>\TIMER:TimerUDB:sT32:timerdp:sh_left2\,
 		sor=>\TIMER:TimerUDB:sT32:timerdp:sh_right2\,
-		sil=>Net_18,
+		sil=>zero,
 		sol=>open,
-		msbi=>Net_18,
+		msbi=>zero,
 		msbo=>\TIMER:TimerUDB:sT32:timerdp:msb2\,
 		cei=>(\TIMER:TimerUDB:sT32:timerdp:cmp_eq2_1\, \TIMER:TimerUDB:sT32:timerdp:cmp_eq2_0\),
 		ceo=>open,
@@ -1683,8 +1683,8 @@ Tx_1:cy_psoc3_pins_v1_10
 		capo=>open,
 		cfbi=>\TIMER:TimerUDB:sT32:timerdp:cfb2\,
 		cfbo=>open,
-		pi=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_18),
+		pi=>(zero, zero, zero, zero,
+			zero, zero, zero, zero),
 		po=>open);
 DEBUG_LED_1:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"52f31aa9-2f0a-497d-9a1f-1424095e13e6",
@@ -1738,18 +1738,18 @@ DEBUG_LED_1:cy_psoc3_pins_v1_10
 		pa_out_clock_en=>-1,
 		pa_out_reset=>-1)
 	PORT MAP(oe=>(one),
-		y=>(Net_18),
+		y=>(zero),
 		fb=>(tmpFB_0__DEBUG_LED_1_net_0),
 		analog=>(open),
 		io=>(tmpIO_0__DEBUG_LED_1_net_0),
 		siovref=>(tmpSIOVREF__DEBUG_LED_1_net_0),
 		annotation=>(open),
-		in_clock=>Net_18,
+		in_clock=>zero,
 		in_clock_en=>one,
-		in_reset=>Net_18,
-		out_clock=>Net_18,
+		in_reset=>zero,
+		out_clock=>zero,
 		out_clock_en=>one,
-		out_reset=>Net_18,
+		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__DEBUG_LED_1_net_0);
 Isr_tx:cy_isr_v1_0
 	GENERIC MAP(int_type=>"10")
@@ -1773,10 +1773,10 @@ Isr_timer:cy_isr_v1_0
 \StartBitStatus:sts:sts_reg\:cy_psoc3_status
 	GENERIC MAP(cy_force_order=>'1',
 		cy_md_select=>"00000000")
-	PORT MAP(reset=>Net_18,
+	PORT MAP(reset=>zero,
 		clock=>Net_105,
-		status=>(Net_18, Net_18, Net_18, Net_18,
-			Net_18, Net_18, Net_18, Net_95));
+		status=>(zero, zero, zero, zero,
+			zero, zero, zero, Net_95));
 DFF_Clock:cy_clock_v1_0
 	GENERIC MAP(cy_registers=>"",
 		id=>"d9624ccb-b088-40cc-b1c7-207c128e2b2d",
@@ -1839,21 +1839,21 @@ DFF_Reset:cy_psoc3_pins_v1_10
 		pa_out_clock_en=>-1,
 		pa_out_reset=>-1)
 	PORT MAP(oe=>(one),
-		y=>(Net_18),
+		y=>(zero),
 		fb=>Net_118,
 		analog=>(open),
 		io=>(tmpIO_0__DFF_Reset_net_0),
 		siovref=>(tmpSIOVREF__DFF_Reset_net_0),
 		annotation=>(open),
-		in_clock=>Net_18,
+		in_clock=>zero,
 		in_clock_en=>one,
-		in_reset=>Net_18,
-		out_clock=>Net_18,
+		in_reset=>zero,
+		out_clock=>zero,
 		out_clock_en=>one,
-		out_reset=>Net_18,
+		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__DFF_Reset_net_0);
 \UART:BUART:reset_reg\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:reset_reg\);
 \UART:BUART:txn\:cy_dff
@@ -1929,11 +1929,11 @@ Net_16:cy_dff
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:pollcount_0\);
 \UART:BUART:rx_markspace_status\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_markspace_status\);
 \UART:BUART:rx_parity_error_status\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_status_2\);
 \UART:BUART:rx_stop_bit_error\:cy_dff
@@ -1941,7 +1941,7 @@ Net_16:cy_dff
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_status_3\);
 \UART:BUART:rx_addr_match_status\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_addr_match_status\);
 \UART:BUART:rx_markspace_pre\:cy_dff
@@ -1953,7 +1953,7 @@ Net_16:cy_dff
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_parity_error_pre\);
 \UART:BUART:rx_break_status\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_break_status\);
 \UART:BUART:rx_address_detected\:cy_dff
@@ -1969,7 +1969,7 @@ Net_16:cy_dff
 		clk=>\UART:BUART:clock_op\,
 		q=>\UART:BUART:rx_parity_bit\);
 \TIMER:TimerUDB:capture_last\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
 		q=>\TIMER:TimerUDB:capture_last\);
 \TIMER:TimerUDB:tc_reg_i\:cy_dff
@@ -1981,12 +1981,12 @@ Net_16:cy_dff
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
 		q=>\TIMER:TimerUDB:hwEnable_reg\);
 \TIMER:TimerUDB:capture_out_reg_i\:cy_dff
-	PORT MAP(d=>Net_18,
+	PORT MAP(d=>zero,
 		clk=>\TIMER:TimerUDB:ClockOutFromEnBlock\,
 		q=>\TIMER:TimerUDB:capture_out_reg_i\);
 cydff_1:cy_dsrff
 	PORT MAP(d=>one,
-		s=>Net_18,
+		s=>zero,
 		r=>Net_118,
 		clk=>Net_96,
 		q=>Net_95);

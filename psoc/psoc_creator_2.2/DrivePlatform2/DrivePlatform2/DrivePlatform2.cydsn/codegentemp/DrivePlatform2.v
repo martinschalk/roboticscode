@@ -1,6 +1,6 @@
 // ======================================================================
 // DrivePlatform2.v generated from TopDesign.cysch
-// 08/01/2015 at 22:45
+// 08/23/2015 at 12:55
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -386,6 +386,7 @@ module top ;
           wire  Net_15;
           wire  Net_2;
           wire  Net_14;
+          wire  Net_120;
           wire  Net_7;
           wire  Net_95;
           wire  Net_105;
@@ -398,8 +399,8 @@ module top ;
         .rts_n(Net_15),
         .tx_en(Net_16),
         .clock(1'b0),
-        .reset(Net_18),
-        .rx(Net_7),
+        .reset(1'b0),
+        .rx(Net_120),
         .tx_interrupt(Net_19),
         .rx_interrupt(Net_20),
         .tx_data(Net_21),
@@ -474,7 +475,7 @@ module top ;
 		Rx_1
 		 (.oe(tmpOE__Rx_1_net),
 		  .y({1'b0}),
-		  .fb({Net_7}),
+		  .fb({Net_120}),
 		  .io({tmpIO_0__Rx_1_net[0:0]}),
 		  .siovref(tmpSIOVREF__Rx_1_net),
 		  .interrupt({tmpINTERRUPT_0__Rx_1_net[0:0]}),
@@ -556,7 +557,7 @@ module top ;
 
 	assign tmpOE__Tx_1_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{1'b1} : {1'b1};
 
-    assign Net_18 = 1'h0;
+    assign Net_7 = 1'h0;
 
     Timer_v2_50_1 TIMER (
         .reset(Net_12),

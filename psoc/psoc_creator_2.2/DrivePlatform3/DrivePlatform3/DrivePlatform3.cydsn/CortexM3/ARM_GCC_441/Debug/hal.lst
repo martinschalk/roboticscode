@@ -1,0 +1,1931 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"hal.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 EF010000 		.text
+  20      02000601 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              	HalStatus:
+  25 0000 00       		.space	1
+  26              		.data
+  27              		.type	HalIsBusIdle, %object
+  28              		.size	HalIsBusIdle, 1
+  29              	HalIsBusIdle:
+  30 0000 01       		.byte	1
+  31              		.bss
+  32              	RxCount:
+  33 0001 00       		.space	1
+  34              	TxCount:
+  35 0002 00       		.space	1
+  36              		.section	.text.HAL_GetUartStatus,"ax",%progbits
+  37              		.align	2
+  38              		.global	HAL_GetUartStatus
+  39              		.thumb
+  40              		.thumb_func
+  41              		.type	HAL_GetUartStatus, %function
+  42              	HAL_GetUartStatus:
+  43              	.LFB29:
+  44              		.file 1 ".\\hal.c"
+   1:.\hal.c       **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\hal.c       ****  * All rights reserved.
+   3:.\hal.c       ****  *
+   4:.\hal.c       ****  * This software may be modified and distributed under the terms
+   5:.\hal.c       ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\hal.c       ****  */
+   7:.\hal.c       **** 
+   8:.\hal.c       **** #include "global.h"
+   9:.\hal.c       **** #include "types.h"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 2
+
+
+  10:.\hal.c       **** #include "hal.h"
+  11:.\hal.c       **** #include "error.h"
+  12:.\hal.c       **** 
+  13:.\hal.c       **** 
+  14:.\hal.c       **** 
+  15:.\hal.c       **** static STATUS   HalStatus = HAL_TRANSMISSION_READY;
+  16:.\hal.c       **** static BOOL     HalIsBusIdle = TRUE;
+  17:.\hal.c       **** static uint8    RxCount = 0;
+  18:.\hal.c       **** static uint8    TxCount = 0;
+  19:.\hal.c       **** 
+  20:.\hal.c       **** 
+  21:.\hal.c       **** /*******************************************************/
+  22:.\hal.c       **** /*
+  23:.\hal.c       **** UART_TX_STS_COMPLETE        If set, indicates byte was transmitted successfully
+  24:.\hal.c       **** UART_TX_STS_FIFO_EMPTY      If set, indicates the TX FIFO is empty
+  25:.\hal.c       **** UART_TX_STS_FIFO_FULL       If set, indicates the TX FIFO is full
+  26:.\hal.c       **** UART_TX_STS_FIFO_NOT_FULL   If set, indicates the FIFO is not full
+  27:.\hal.c       **** */
+  28:.\hal.c       **** uint8 HAL_GetUartStatus(void)
+  29:.\hal.c       **** {
+  45              		.loc 1 29 0
+  46              		.cfi_startproc
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 1, uses_anonymous_args = 0
+  49 0000 80B5     		push	{r7, lr}
+  50              	.LCFI0:
+  51              		.cfi_def_cfa_offset 8
+  52 0002 00AF     		add	r7, sp, #0
+  53              		.cfi_offset 14, -4
+  54              		.cfi_offset 7, -8
+  55              	.LCFI1:
+  56              		.cfi_def_cfa_register 7
+  30:.\hal.c       ****     return UART_ReadTxStatus();
+  57              		.loc 1 30 0
+  58 0004 FFF7FEFF 		bl	UART_ReadTxStatus
+  59 0008 0346     		mov	r3, r0
+  31:.\hal.c       **** }
+  60              		.loc 1 31 0
+  61 000a 1846     		mov	r0, r3
+  62 000c 80BD     		pop	{r7, pc}
+  63              		.cfi_endproc
+  64              	.LFE29:
+  65              		.size	HAL_GetUartStatus, .-HAL_GetUartStatus
+  66 000e 00BF     		.section	.text.HAL_GetHalStatus,"ax",%progbits
+  67              		.align	2
+  68              		.global	HAL_GetHalStatus
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	HAL_GetHalStatus, %function
+  72              	HAL_GetHalStatus:
+  73              	.LFB30:
+  32:.\hal.c       **** 
+  33:.\hal.c       **** /*******************************************************/
+  34:.\hal.c       **** STATUS HAL_GetHalStatus(void)
+  35:.\hal.c       **** {
+  74              		.loc 1 35 0
+  75              		.cfi_startproc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 3
+
+
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78              		@ link register save eliminated.
+  79 0000 80B4     		push	{r7}
+  80              	.LCFI2:
+  81              		.cfi_def_cfa_offset 4
+  82 0002 00AF     		add	r7, sp, #0
+  83              		.cfi_offset 7, -4
+  84              	.LCFI3:
+  85              		.cfi_def_cfa_register 7
+  36:.\hal.c       **** 	return HalStatus;
+  86              		.loc 1 36 0
+  87 0004 40F20003 		movw	r3, #:lower16:HalStatus
+  88 0008 C0F20003 		movt	r3, #:upper16:HalStatus
+  89 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  37:.\hal.c       **** }
+  90              		.loc 1 37 0
+  91 000e 1846     		mov	r0, r3
+  92 0010 BD46     		mov	sp, r7
+  93 0012 80BC     		pop	{r7}
+  94 0014 7047     		bx	lr
+  95              		.cfi_endproc
+  96              	.LFE30:
+  97              		.size	HAL_GetHalStatus, .-HAL_GetHalStatus
+  98 0016 00BF     		.section	.text.HAL_SetHalStatus,"ax",%progbits
+  99              		.align	2
+ 100              		.global	HAL_SetHalStatus
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.type	HAL_SetHalStatus, %function
+ 104              	HAL_SetHalStatus:
+ 105              	.LFB31:
+  38:.\hal.c       **** 
+  39:.\hal.c       **** /*******************************************************/
+  40:.\hal.c       **** void HAL_SetHalStatus(STATUS value)
+  41:.\hal.c       **** {
+ 106              		.loc 1 41 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 8
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111 0000 80B4     		push	{r7}
+ 112              	.LCFI4:
+ 113              		.cfi_def_cfa_offset 4
+ 114 0002 83B0     		sub	sp, sp, #12
+ 115              	.LCFI5:
+ 116              		.cfi_def_cfa_offset 16
+ 117 0004 00AF     		add	r7, sp, #0
+ 118              		.cfi_offset 7, -4
+ 119              	.LCFI6:
+ 120              		.cfi_def_cfa_register 7
+ 121 0006 0346     		mov	r3, r0
+ 122 0008 FB71     		strb	r3, [r7, #7]
+  42:.\hal.c       **** 	HalStatus = value;
+ 123              		.loc 1 42 0
+ 124 000a 40F20003 		movw	r3, #:lower16:HalStatus
+ 125 000e C0F20003 		movt	r3, #:upper16:HalStatus
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 4
+
+
+ 126 0012 FA79     		ldrb	r2, [r7, #7]
+ 127 0014 1A70     		strb	r2, [r3, #0]
+  43:.\hal.c       **** }
+ 128              		.loc 1 43 0
+ 129 0016 07F10C07 		add	r7, r7, #12
+ 130 001a BD46     		mov	sp, r7
+ 131 001c 80BC     		pop	{r7}
+ 132 001e 7047     		bx	lr
+ 133              		.cfi_endproc
+ 134              	.LFE31:
+ 135              		.size	HAL_SetHalStatus, .-HAL_SetHalStatus
+ 136              		.section	.text.isr_rx_routine,"ax",%progbits
+ 137              		.align	2
+ 138              		.global	isr_rx_routine
+ 139              		.thumb
+ 140              		.thumb_func
+ 141              		.type	isr_rx_routine, %function
+ 142              	isr_rx_routine:
+ 143              	.LFB32:
+  44:.\hal.c       **** 
+  45:.\hal.c       **** /*******************************************************/
+  46:.\hal.c       **** CY_ISR(isr_rx_routine)
+  47:.\hal.c       **** {
+ 144              		.loc 1 47 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 1, uses_anonymous_args = 0
+ 148 0000 80B5     		push	{r7, lr}
+ 149              	.LCFI7:
+ 150              		.cfi_def_cfa_offset 8
+ 151 0002 00AF     		add	r7, sp, #0
+ 152              		.cfi_offset 14, -4
+ 153              		.cfi_offset 7, -8
+ 154              	.LCFI8:
+ 155              		.cfi_def_cfa_register 7
+  48:.\hal.c       **** 	RxCount++;
+ 156              		.loc 1 48 0
+ 157 0004 40F20003 		movw	r3, #:lower16:RxCount
+ 158 0008 C0F20003 		movt	r3, #:upper16:RxCount
+ 159 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 160 000e 03F10103 		add	r3, r3, #1
+ 161 0012 DAB2     		uxtb	r2, r3
+ 162 0014 40F20003 		movw	r3, #:lower16:RxCount
+ 163 0018 C0F20003 		movt	r3, #:upper16:RxCount
+ 164 001c 1A70     		strb	r2, [r3, #0]
+  49:.\hal.c       ****     
+  50:.\hal.c       ****     #ifdef HAL_START_BIT_DETECTION_SUPPORT
+  51:.\hal.c       ****         DFF_Reset_Write(1);
+ 165              		.loc 1 51 0
+ 166 001e 4FF00100 		mov	r0, #1
+ 167 0022 FFF7FEFF 		bl	DFF_Reset_Write
+  52:.\hal.c       ****         DFF_Reset_Write(0);
+ 168              		.loc 1 52 0
+ 169 0026 4FF00000 		mov	r0, #0
+ 170 002a FFF7FEFF 		bl	DFF_Reset_Write
+  53:.\hal.c       ****     #endif
+  54:.\hal.c       **** }
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 5
+
+
+ 171              		.loc 1 54 0
+ 172 002e 80BD     		pop	{r7, pc}
+ 173              		.cfi_endproc
+ 174              	.LFE32:
+ 175              		.size	isr_rx_routine, .-isr_rx_routine
+ 176              		.section	.text.isr_tx_routine,"ax",%progbits
+ 177              		.align	2
+ 178              		.global	isr_tx_routine
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.type	isr_tx_routine, %function
+ 182              	isr_tx_routine:
+ 183              	.LFB33:
+  55:.\hal.c       **** 
+  56:.\hal.c       **** /*******************************************************/
+  57:.\hal.c       **** CY_ISR(isr_tx_routine)
+  58:.\hal.c       **** {
+ 184              		.loc 1 58 0
+ 185              		.cfi_startproc
+ 186              		@ args = 0, pretend = 0, frame = 0
+ 187              		@ frame_needed = 1, uses_anonymous_args = 0
+ 188 0000 80B5     		push	{r7, lr}
+ 189              	.LCFI9:
+ 190              		.cfi_def_cfa_offset 8
+ 191 0002 00AF     		add	r7, sp, #0
+ 192              		.cfi_offset 14, -4
+ 193              		.cfi_offset 7, -8
+ 194              	.LCFI10:
+ 195              		.cfi_def_cfa_register 7
+  59:.\hal.c       **** 	TxCount = 0;
+ 196              		.loc 1 59 0
+ 197 0004 40F20003 		movw	r3, #:lower16:TxCount
+ 198 0008 C0F20003 		movt	r3, #:upper16:TxCount
+ 199 000c 4FF00002 		mov	r2, #0
+ 200 0010 1A70     		strb	r2, [r3, #0]
+  60:.\hal.c       **** 	HalStatus = HAL_TRANSMISSION_READY;
+ 201              		.loc 1 60 0
+ 202 0012 40F20003 		movw	r3, #:lower16:HalStatus
+ 203 0016 C0F20003 		movt	r3, #:upper16:HalStatus
+ 204 001a 4FF00002 		mov	r2, #0
+ 205 001e 1A70     		strb	r2, [r3, #0]
+  61:.\hal.c       **** 	UART_EnableRxInt();
+ 206              		.loc 1 61 0
+ 207 0020 FFF7FEFF 		bl	UART_EnableRxInt
+  62:.\hal.c       **** }
+ 208              		.loc 1 62 0
+ 209 0024 80BD     		pop	{r7, pc}
+ 210              		.cfi_endproc
+ 211              	.LFE33:
+ 212              		.size	isr_tx_routine, .-isr_tx_routine
+ 213 0026 00BF     		.section	.rodata
+ 214              		.align	2
+ 215              	.LC0:
+ 216 0000 5278436F 		.ascii	"RxCount\000"
+ 216      756E7400 
+ 217              		.align	2
+ 218              	.LC1:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 6
+
+
+ 219 0008 5478436F 		.ascii	"TxCount\000"
+ 219      756E7400 
+ 220              		.section	.text.HAL_Init,"ax",%progbits
+ 221              		.align	2
+ 222              		.global	HAL_Init
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.type	HAL_Init, %function
+ 226              	HAL_Init:
+ 227              	.LFB34:
+  63:.\hal.c       **** 
+  64:.\hal.c       **** /*******************************************************/
+  65:.\hal.c       **** STATUS 	HAL_Init(void)
+  66:.\hal.c       **** {
+ 228              		.loc 1 66 0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 8
+ 231              		@ frame_needed = 1, uses_anonymous_args = 0
+ 232 0000 80B5     		push	{r7, lr}
+ 233              	.LCFI11:
+ 234              		.cfi_def_cfa_offset 8
+ 235 0002 82B0     		sub	sp, sp, #8
+ 236              	.LCFI12:
+ 237              		.cfi_def_cfa_offset 16
+ 238 0004 00AF     		add	r7, sp, #0
+ 239              		.cfi_offset 14, -4
+ 240              		.cfi_offset 7, -8
+ 241              	.LCFI13:
+ 242              		.cfi_def_cfa_register 7
+  67:.\hal.c       **** #ifdef ERROR_MODULE_ENABLE
+  68:.\hal.c       ****     STATUS idx1, idx2;
+  69:.\hal.c       ****     idx1 = ERR_RegisterUcVariable(&RxCount, "RxCount", 0, 32);
+ 243              		.loc 1 69 0
+ 244 0006 40F20000 		movw	r0, #:lower16:RxCount
+ 245 000a C0F20000 		movt	r0, #:upper16:RxCount
+ 246 000e 40F20001 		movw	r1, #:lower16:.LC0
+ 247 0012 C0F20001 		movt	r1, #:upper16:.LC0
+ 248 0016 4FF00002 		mov	r2, #0
+ 249 001a 4FF02003 		mov	r3, #32
+ 250 001e FFF7FEFF 		bl	ERR_RegisterUcVariable
+ 251 0022 0346     		mov	r3, r0
+ 252 0024 BB71     		strb	r3, [r7, #6]
+  70:.\hal.c       ****     idx2 = ERR_RegisterUcVariable(&TxCount, "TxCount", 0, 32);
+ 253              		.loc 1 70 0
+ 254 0026 40F20000 		movw	r0, #:lower16:TxCount
+ 255 002a C0F20000 		movt	r0, #:upper16:TxCount
+ 256 002e 40F20001 		movw	r1, #:lower16:.LC1
+ 257 0032 C0F20001 		movt	r1, #:upper16:.LC1
+ 258 0036 4FF00002 		mov	r2, #0
+ 259 003a 4FF02003 		mov	r3, #32
+ 260 003e FFF7FEFF 		bl	ERR_RegisterUcVariable
+ 261 0042 0346     		mov	r3, r0
+ 262 0044 FB71     		strb	r3, [r7, #7]
+  71:.\hal.c       **** #endif
+  72:.\hal.c       **** 
+  73:.\hal.c       **** 	RxCount = 0;
+ 263              		.loc 1 73 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 7
+
+
+ 264 0046 40F20003 		movw	r3, #:lower16:RxCount
+ 265 004a C0F20003 		movt	r3, #:upper16:RxCount
+ 266 004e 4FF00002 		mov	r2, #0
+ 267 0052 1A70     		strb	r2, [r3, #0]
+  74:.\hal.c       **** 	UART_Start();
+ 268              		.loc 1 74 0
+ 269 0054 FFF7FEFF 		bl	UART_Start
+  75:.\hal.c       ****     Isr_rx_Start();
+ 270              		.loc 1 75 0
+ 271 0058 FFF7FEFF 		bl	Isr_rx_Start
+  76:.\hal.c       **** 	Isr_tx_Start();	
+ 272              		.loc 1 76 0
+ 273 005c FFF7FEFF 		bl	Isr_tx_Start
+  77:.\hal.c       **** 	Isr_rx_SetVector(isr_rx_routine);
+ 274              		.loc 1 77 0
+ 275 0060 40F20000 		movw	r0, #:lower16:isr_rx_routine
+ 276 0064 C0F20000 		movt	r0, #:upper16:isr_rx_routine
+ 277 0068 FFF7FEFF 		bl	Isr_rx_SetVector
+  78:.\hal.c       **** 	Isr_tx_SetVector(isr_tx_routine);
+ 278              		.loc 1 78 0
+ 279 006c 40F20000 		movw	r0, #:lower16:isr_tx_routine
+ 280 0070 C0F20000 		movt	r0, #:upper16:isr_tx_routine
+ 281 0074 FFF7FEFF 		bl	Isr_tx_SetVector
+  79:.\hal.c       **** 	Isr_rx_Enable();
+ 282              		.loc 1 79 0
+ 283 0078 FFF7FEFF 		bl	Isr_rx_Enable
+  80:.\hal.c       **** 	Isr_tx_Enable();
+ 284              		.loc 1 80 0
+ 285 007c FFF7FEFF 		bl	Isr_tx_Enable
+  81:.\hal.c       ****     #ifdef HAL_START_BIT_DETECTION_SUPPORT
+  82:.\hal.c       ****         DFF_Clock_Start();
+ 286              		.loc 1 82 0
+ 287 0080 FFF7FEFF 		bl	DFF_Clock_Start
+  83:.\hal.c       ****         DFF_Reset_Write(1);
+ 288              		.loc 1 83 0
+ 289 0084 4FF00100 		mov	r0, #1
+ 290 0088 FFF7FEFF 		bl	DFF_Reset_Write
+  84:.\hal.c       ****         DFF_Reset_Write(0);
+ 291              		.loc 1 84 0
+ 292 008c 4FF00000 		mov	r0, #0
+ 293 0090 FFF7FEFF 		bl	DFF_Reset_Write
+  85:.\hal.c       ****     #endif
+  86:.\hal.c       **** 	UART_EnableRxInt();
+ 294              		.loc 1 86 0
+ 295 0094 FFF7FEFF 		bl	UART_EnableRxInt
+  87:.\hal.c       **** 	UART_EnableTxInt();
+ 296              		.loc 1 87 0
+ 297 0098 FFF7FEFF 		bl	UART_EnableTxInt
+  88:.\hal.c       ****  
+  89:.\hal.c       **** 	return SUCCESS;
+ 298              		.loc 1 89 0
+ 299 009c 4FF00003 		mov	r3, #0
+  90:.\hal.c       **** }
+ 300              		.loc 1 90 0
+ 301 00a0 1846     		mov	r0, r3
+ 302 00a2 07F10807 		add	r7, r7, #8
+ 303 00a6 BD46     		mov	sp, r7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 8
+
+
+ 304 00a8 80BD     		pop	{r7, pc}
+ 305              		.cfi_endproc
+ 306              	.LFE34:
+ 307              		.size	HAL_Init, .-HAL_Init
+ 308 00aa 00BF     		.section	.text.HAL_GetRxIsrCount,"ax",%progbits
+ 309              		.align	2
+ 310              		.global	HAL_GetRxIsrCount
+ 311              		.thumb
+ 312              		.thumb_func
+ 313              		.type	HAL_GetRxIsrCount, %function
+ 314              	HAL_GetRxIsrCount:
+ 315              	.LFB35:
+  91:.\hal.c       **** 
+  92:.\hal.c       **** /*******************************************************/
+  93:.\hal.c       **** uint8 	HAL_GetRxIsrCount()
+  94:.\hal.c       **** {
+ 316              		.loc 1 94 0
+ 317              		.cfi_startproc
+ 318              		@ args = 0, pretend = 0, frame = 0
+ 319              		@ frame_needed = 1, uses_anonymous_args = 0
+ 320              		@ link register save eliminated.
+ 321 0000 80B4     		push	{r7}
+ 322              	.LCFI14:
+ 323              		.cfi_def_cfa_offset 4
+ 324 0002 00AF     		add	r7, sp, #0
+ 325              		.cfi_offset 7, -4
+ 326              	.LCFI15:
+ 327              		.cfi_def_cfa_register 7
+  95:.\hal.c       **** 	return RxCount;
+ 328              		.loc 1 95 0
+ 329 0004 40F20003 		movw	r3, #:lower16:RxCount
+ 330 0008 C0F20003 		movt	r3, #:upper16:RxCount
+ 331 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  96:.\hal.c       **** }
+ 332              		.loc 1 96 0
+ 333 000e 1846     		mov	r0, r3
+ 334 0010 BD46     		mov	sp, r7
+ 335 0012 80BC     		pop	{r7}
+ 336 0014 7047     		bx	lr
+ 337              		.cfi_endproc
+ 338              	.LFE35:
+ 339              		.size	HAL_GetRxIsrCount, .-HAL_GetRxIsrCount
+ 340 0016 00BF     		.section	.text.HAL_GetRxBufferCount,"ax",%progbits
+ 341              		.align	2
+ 342              		.global	HAL_GetRxBufferCount
+ 343              		.thumb
+ 344              		.thumb_func
+ 345              		.type	HAL_GetRxBufferCount, %function
+ 346              	HAL_GetRxBufferCount:
+ 347              	.LFB36:
+  97:.\hal.c       **** 
+  98:.\hal.c       **** /*******************************************************/
+  99:.\hal.c       **** uint8 	HAL_GetRxBufferCount()
+ 100:.\hal.c       **** {
+ 348              		.loc 1 100 0
+ 349              		.cfi_startproc
+ 350              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 9
+
+
+ 351              		@ frame_needed = 1, uses_anonymous_args = 0
+ 352 0000 80B5     		push	{r7, lr}
+ 353              	.LCFI16:
+ 354              		.cfi_def_cfa_offset 8
+ 355 0002 00AF     		add	r7, sp, #0
+ 356              		.cfi_offset 14, -4
+ 357              		.cfi_offset 7, -8
+ 358              	.LCFI17:
+ 359              		.cfi_def_cfa_register 7
+ 101:.\hal.c       **** 	return UART_GetRxBufferSize();
+ 360              		.loc 1 101 0
+ 361 0004 FFF7FEFF 		bl	UART_GetRxBufferSize
+ 362 0008 0346     		mov	r3, r0
+ 102:.\hal.c       **** }
+ 363              		.loc 1 102 0
+ 364 000a 1846     		mov	r0, r3
+ 365 000c 80BD     		pop	{r7, pc}
+ 366              		.cfi_endproc
+ 367              	.LFE36:
+ 368              		.size	HAL_GetRxBufferCount, .-HAL_GetRxBufferCount
+ 369 000e 00BF     		.section	.text.HAL_GetByte,"ax",%progbits
+ 370              		.align	2
+ 371              		.global	HAL_GetByte
+ 372              		.thumb
+ 373              		.thumb_func
+ 374              		.type	HAL_GetByte, %function
+ 375              	HAL_GetByte:
+ 376              	.LFB37:
+ 103:.\hal.c       **** 
+ 104:.\hal.c       **** 
+ 105:.\hal.c       **** /* check, if FIFO has data available.*/
+ 106:.\hal.c       **** 	//if ((UART_ReadRxStatus() & UART_RX_STS_FIFO_NOTEMPTY) == UART_RX_STS_FIFO_NOTEMPTY)
+ 107:.\hal.c       **** /*******************************************************/
+ 108:.\hal.c       **** uint8 	HAL_GetByte()
+ 109:.\hal.c       **** {
+ 377              		.loc 1 109 0
+ 378              		.cfi_startproc
+ 379              		@ args = 0, pretend = 0, frame = 8
+ 380              		@ frame_needed = 1, uses_anonymous_args = 0
+ 381 0000 80B5     		push	{r7, lr}
+ 382              	.LCFI18:
+ 383              		.cfi_def_cfa_offset 8
+ 384 0002 82B0     		sub	sp, sp, #8
+ 385              	.LCFI19:
+ 386              		.cfi_def_cfa_offset 16
+ 387 0004 00AF     		add	r7, sp, #0
+ 388              		.cfi_offset 14, -4
+ 389              		.cfi_offset 7, -8
+ 390              	.LCFI20:
+ 391              		.cfi_def_cfa_register 7
+ 110:.\hal.c       **** 	uint8 value;
+ 111:.\hal.c       **** 	
+ 112:.\hal.c       **** 	/* chech if data available */
+ 113:.\hal.c       **** 	if (UART_GetRxBufferSize > 0)
+ 114:.\hal.c       **** 	{
+ 115:.\hal.c       **** 		value = UART_ReadRxData();
+ 392              		.loc 1 115 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 10
+
+
+ 393 0006 FFF7FEFF 		bl	UART_ReadRxData
+ 394 000a 0346     		mov	r3, r0
+ 395 000c FB71     		strb	r3, [r7, #7]
+ 116:.\hal.c       **** 		RxCount--;
+ 396              		.loc 1 116 0
+ 397 000e 40F20003 		movw	r3, #:lower16:RxCount
+ 398 0012 C0F20003 		movt	r3, #:upper16:RxCount
+ 399 0016 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 400 0018 03F1FF33 		add	r3, r3, #-1
+ 401 001c DAB2     		uxtb	r2, r3
+ 402 001e 40F20003 		movw	r3, #:lower16:RxCount
+ 403 0022 C0F20003 		movt	r3, #:upper16:RxCount
+ 404 0026 1A70     		strb	r2, [r3, #0]
+ 117:.\hal.c       **** 	}
+ 118:.\hal.c       **** 	else
+ 119:.\hal.c       **** 	{
+ 120:.\hal.c       **** 		value = 0;
+ 121:.\hal.c       **** 	}
+ 122:.\hal.c       **** 	
+ 123:.\hal.c       **** 	return value;
+ 405              		.loc 1 123 0
+ 406 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 124:.\hal.c       **** }
+ 407              		.loc 1 124 0
+ 408 002a 1846     		mov	r0, r3
+ 409 002c 07F10807 		add	r7, r7, #8
+ 410 0030 BD46     		mov	sp, r7
+ 411 0032 80BD     		pop	{r7, pc}
+ 412              		.cfi_endproc
+ 413              	.LFE37:
+ 414              		.size	HAL_GetByte, .-HAL_GetByte
+ 415              		.section	.text.HAL_TransmitByte,"ax",%progbits
+ 416              		.align	2
+ 417              		.global	HAL_TransmitByte
+ 418              		.thumb
+ 419              		.thumb_func
+ 420              		.type	HAL_TransmitByte, %function
+ 421              	HAL_TransmitByte:
+ 422              	.LFB38:
+ 125:.\hal.c       **** 
+ 126:.\hal.c       **** /*******************************************************/
+ 127:.\hal.c       **** STATUS 	HAL_TransmitByte(uint8 value)
+ 128:.\hal.c       **** {
+ 423              		.loc 1 128 0
+ 424              		.cfi_startproc
+ 425              		@ args = 0, pretend = 0, frame = 8
+ 426              		@ frame_needed = 1, uses_anonymous_args = 0
+ 427 0000 80B5     		push	{r7, lr}
+ 428              	.LCFI21:
+ 429              		.cfi_def_cfa_offset 8
+ 430 0002 82B0     		sub	sp, sp, #8
+ 431              	.LCFI22:
+ 432              		.cfi_def_cfa_offset 16
+ 433 0004 00AF     		add	r7, sp, #0
+ 434              		.cfi_offset 14, -4
+ 435              		.cfi_offset 7, -8
+ 436              	.LCFI23:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 11
+
+
+ 437              		.cfi_def_cfa_register 7
+ 438 0006 0346     		mov	r3, r0
+ 439 0008 FB71     		strb	r3, [r7, #7]
+ 129:.\hal.c       ****     /* Check if bus is idle */
+ 130:.\hal.c       ****     if (HalIsBusIdle == TRUE) //TODO
+ 440              		.loc 1 130 0
+ 441 000a 40F20003 		movw	r3, #:lower16:HalIsBusIdle
+ 442 000e C0F20003 		movt	r3, #:upper16:HalIsBusIdle
+ 443 0012 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 444 0014 012B     		cmp	r3, #1
+ 445 0016 28D1     		bne	.L22
+ 131:.\hal.c       ****     {
+ 132:.\hal.c       ****     	UART_DisableRxInt();
+ 446              		.loc 1 132 0
+ 447 0018 FFF7FEFF 		bl	UART_DisableRxInt
+ 133:.\hal.c       ****     	HalStatus = HAL_TRANSMISSION_BUSY;
+ 448              		.loc 1 133 0
+ 449 001c 40F20003 		movw	r3, #:lower16:HalStatus
+ 450 0020 C0F20003 		movt	r3, #:upper16:HalStatus
+ 451 0024 4FF00102 		mov	r2, #1
+ 452 0028 1A70     		strb	r2, [r3, #0]
+ 453              	.L23:
+ 134:.\hal.c       ****     	
+ 135:.\hal.c       ****     	/* wait until uart read to transmitted */
+ 136:.\hal.c       ****     	while (UART_ReadTxStatus() != UART_TX_STS_COMPLETE)
+ 454              		.loc 1 136 0
+ 455 002a FFF7FEFF 		bl	UART_ReadTxStatus
+ 456 002e 0346     		mov	r3, r0
+ 457 0030 012B     		cmp	r3, #1
+ 458 0032 FAD1     		bne	.L23
+ 137:.\hal.c       ****     	;
+ 138:.\hal.c       ****     	TxCount++;
+ 459              		.loc 1 138 0
+ 460 0034 40F20003 		movw	r3, #:lower16:TxCount
+ 461 0038 C0F20003 		movt	r3, #:upper16:TxCount
+ 462 003c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 463 003e 03F10103 		add	r3, r3, #1
+ 464 0042 DAB2     		uxtb	r2, r3
+ 465 0044 40F20003 		movw	r3, #:lower16:TxCount
+ 466 0048 C0F20003 		movt	r3, #:upper16:TxCount
+ 467 004c 1A70     		strb	r2, [r3, #0]
+ 139:.\hal.c       ****     	UART_WriteTxData(value);
+ 468              		.loc 1 139 0
+ 469 004e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 470 0050 1846     		mov	r0, r3
+ 471 0052 FFF7FEFF 		bl	UART_WriteTxData
+ 140:.\hal.c       ****     	
+ 141:.\hal.c       ****     	HalStatus = HAL_TRANSMISSION_READY;
+ 472              		.loc 1 141 0
+ 473 0056 40F20003 		movw	r3, #:lower16:HalStatus
+ 474 005a C0F20003 		movt	r3, #:upper16:HalStatus
+ 475 005e 4FF00002 		mov	r2, #0
+ 476 0062 1A70     		strb	r2, [r3, #0]
+ 142:.\hal.c       ****         
+ 143:.\hal.c       ****         return SUCCESS;
+ 477              		.loc 1 143 0
+ 478 0064 4FF00003 		mov	r3, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 12
+
+
+ 479 0068 01E0     		b	.L24
+ 480              	.L22:
+ 144:.\hal.c       **** 	}
+ 145:.\hal.c       **** 	else
+ 146:.\hal.c       ****     {
+ 147:.\hal.c       ****         return !SUCCESS;
+ 481              		.loc 1 147 0
+ 482 006a 4FF00103 		mov	r3, #1
+ 483              	.L24:
+ 148:.\hal.c       ****     }
+ 149:.\hal.c       **** }
+ 484              		.loc 1 149 0
+ 485 006e 1846     		mov	r0, r3
+ 486 0070 07F10807 		add	r7, r7, #8
+ 487 0074 BD46     		mov	sp, r7
+ 488 0076 80BD     		pop	{r7, pc}
+ 489              		.cfi_endproc
+ 490              	.LFE38:
+ 491              		.size	HAL_TransmitByte, .-HAL_TransmitByte
+ 492              		.section	.text.HAL_TransmitArray,"ax",%progbits
+ 493              		.align	2
+ 494              		.global	HAL_TransmitArray
+ 495              		.thumb
+ 496              		.thumb_func
+ 497              		.type	HAL_TransmitArray, %function
+ 498              	HAL_TransmitArray:
+ 499              	.LFB39:
+ 150:.\hal.c       **** 
+ 151:.\hal.c       **** /*******************************************************/
+ 152:.\hal.c       **** STATUS 	HAL_TransmitArray(const uint8* source, uint8 numBytes)
+ 153:.\hal.c       **** {
+ 500              		.loc 1 153 0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 8
+ 503              		@ frame_needed = 1, uses_anonymous_args = 0
+ 504 0000 80B5     		push	{r7, lr}
+ 505              	.LCFI24:
+ 506              		.cfi_def_cfa_offset 8
+ 507 0002 82B0     		sub	sp, sp, #8
+ 508              	.LCFI25:
+ 509              		.cfi_def_cfa_offset 16
+ 510 0004 00AF     		add	r7, sp, #0
+ 511              		.cfi_offset 14, -4
+ 512              		.cfi_offset 7, -8
+ 513              	.LCFI26:
+ 514              		.cfi_def_cfa_register 7
+ 515 0006 7860     		str	r0, [r7, #4]
+ 516 0008 0B46     		mov	r3, r1
+ 517 000a FB70     		strb	r3, [r7, #3]
+ 154:.\hal.c       **** 	UART_DisableRxInt();
+ 518              		.loc 1 154 0
+ 519 000c FFF7FEFF 		bl	UART_DisableRxInt
+ 155:.\hal.c       **** 	HalStatus = HAL_TRANSMISSION_BUSY;
+ 520              		.loc 1 155 0
+ 521 0010 40F20003 		movw	r3, #:lower16:HalStatus
+ 522 0014 C0F20003 		movt	r3, #:upper16:HalStatus
+ 523 0018 4FF00102 		mov	r2, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 13
+
+
+ 524 001c 1A70     		strb	r2, [r3, #0]
+ 156:.\hal.c       **** 	TxCount += numBytes;
+ 525              		.loc 1 156 0
+ 526 001e 40F20003 		movw	r3, #:lower16:TxCount
+ 527 0022 C0F20003 		movt	r3, #:upper16:TxCount
+ 528 0026 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 529 0028 FB78     		ldrb	r3, [r7, #3]
+ 530 002a 1344     		add	r3, r2, r3
+ 531 002c DAB2     		uxtb	r2, r3
+ 532 002e 40F20003 		movw	r3, #:lower16:TxCount
+ 533 0032 C0F20003 		movt	r3, #:upper16:TxCount
+ 534 0036 1A70     		strb	r2, [r3, #0]
+ 157:.\hal.c       **** 	UART_PutArray(source, numBytes); //function can be interrupted by <isr_tx_routine>
+ 535              		.loc 1 157 0
+ 536 0038 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 537 003a 7868     		ldr	r0, [r7, #4]
+ 538 003c 1946     		mov	r1, r3
+ 539 003e FFF7FEFF 		bl	UART_PutArray
+ 158:.\hal.c       **** 	HalStatus = HAL_TRANSMISSION_READY;
+ 540              		.loc 1 158 0
+ 541 0042 40F20003 		movw	r3, #:lower16:HalStatus
+ 542 0046 C0F20003 		movt	r3, #:upper16:HalStatus
+ 543 004a 4FF00002 		mov	r2, #0
+ 544 004e 1A70     		strb	r2, [r3, #0]
+ 159:.\hal.c       **** 	// UART_EnableRxInt(); => done in <isr_tx_routine> if last byte transmitted
+ 160:.\hal.c       **** 	return SUCCESS;
+ 545              		.loc 1 160 0
+ 546 0050 4FF00003 		mov	r3, #0
+ 161:.\hal.c       **** }
+ 547              		.loc 1 161 0
+ 548 0054 1846     		mov	r0, r3
+ 549 0056 07F10807 		add	r7, r7, #8
+ 550 005a BD46     		mov	sp, r7
+ 551 005c 80BD     		pop	{r7, pc}
+ 552              		.cfi_endproc
+ 553              	.LFE39:
+ 554              		.size	HAL_TransmitArray, .-HAL_TransmitArray
+ 555 005e 00BF     		.text
+ 556              	.Letext0:
+ 557              		.section	.debug_loc,"",%progbits
+ 558              	.Ldebug_loc0:
+ 559              	.LLST0:
+ 560 0000 00000000 		.4byte	.LFB29
+ 561 0004 02000000 		.4byte	.LCFI0
+ 562 0008 0100     		.2byte	0x1
+ 563 000a 5D       		.byte	0x5d
+ 564 000b 02000000 		.4byte	.LCFI0
+ 565 000f 04000000 		.4byte	.LCFI1
+ 566 0013 0200     		.2byte	0x2
+ 567 0015 7D       		.byte	0x7d
+ 568 0016 08       		.sleb128 8
+ 569 0017 04000000 		.4byte	.LCFI1
+ 570 001b 0E000000 		.4byte	.LFE29
+ 571 001f 0200     		.2byte	0x2
+ 572 0021 77       		.byte	0x77
+ 573 0022 08       		.sleb128 8
+ 574 0023 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 14
+
+
+ 575 0027 00000000 		.4byte	0x0
+ 576              	.LLST1:
+ 577 002b 00000000 		.4byte	.LFB30
+ 578 002f 02000000 		.4byte	.LCFI2
+ 579 0033 0100     		.2byte	0x1
+ 580 0035 5D       		.byte	0x5d
+ 581 0036 02000000 		.4byte	.LCFI2
+ 582 003a 04000000 		.4byte	.LCFI3
+ 583 003e 0200     		.2byte	0x2
+ 584 0040 7D       		.byte	0x7d
+ 585 0041 04       		.sleb128 4
+ 586 0042 04000000 		.4byte	.LCFI3
+ 587 0046 16000000 		.4byte	.LFE30
+ 588 004a 0200     		.2byte	0x2
+ 589 004c 77       		.byte	0x77
+ 590 004d 04       		.sleb128 4
+ 591 004e 00000000 		.4byte	0x0
+ 592 0052 00000000 		.4byte	0x0
+ 593              	.LLST2:
+ 594 0056 00000000 		.4byte	.LFB31
+ 595 005a 02000000 		.4byte	.LCFI4
+ 596 005e 0100     		.2byte	0x1
+ 597 0060 5D       		.byte	0x5d
+ 598 0061 02000000 		.4byte	.LCFI4
+ 599 0065 04000000 		.4byte	.LCFI5
+ 600 0069 0200     		.2byte	0x2
+ 601 006b 7D       		.byte	0x7d
+ 602 006c 04       		.sleb128 4
+ 603 006d 04000000 		.4byte	.LCFI5
+ 604 0071 06000000 		.4byte	.LCFI6
+ 605 0075 0200     		.2byte	0x2
+ 606 0077 7D       		.byte	0x7d
+ 607 0078 10       		.sleb128 16
+ 608 0079 06000000 		.4byte	.LCFI6
+ 609 007d 20000000 		.4byte	.LFE31
+ 610 0081 0200     		.2byte	0x2
+ 611 0083 77       		.byte	0x77
+ 612 0084 10       		.sleb128 16
+ 613 0085 00000000 		.4byte	0x0
+ 614 0089 00000000 		.4byte	0x0
+ 615              	.LLST3:
+ 616 008d 00000000 		.4byte	.LFB32
+ 617 0091 02000000 		.4byte	.LCFI7
+ 618 0095 0100     		.2byte	0x1
+ 619 0097 5D       		.byte	0x5d
+ 620 0098 02000000 		.4byte	.LCFI7
+ 621 009c 04000000 		.4byte	.LCFI8
+ 622 00a0 0200     		.2byte	0x2
+ 623 00a2 7D       		.byte	0x7d
+ 624 00a3 08       		.sleb128 8
+ 625 00a4 04000000 		.4byte	.LCFI8
+ 626 00a8 30000000 		.4byte	.LFE32
+ 627 00ac 0200     		.2byte	0x2
+ 628 00ae 77       		.byte	0x77
+ 629 00af 08       		.sleb128 8
+ 630 00b0 00000000 		.4byte	0x0
+ 631 00b4 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 15
+
+
+ 632              	.LLST4:
+ 633 00b8 00000000 		.4byte	.LFB33
+ 634 00bc 02000000 		.4byte	.LCFI9
+ 635 00c0 0100     		.2byte	0x1
+ 636 00c2 5D       		.byte	0x5d
+ 637 00c3 02000000 		.4byte	.LCFI9
+ 638 00c7 04000000 		.4byte	.LCFI10
+ 639 00cb 0200     		.2byte	0x2
+ 640 00cd 7D       		.byte	0x7d
+ 641 00ce 08       		.sleb128 8
+ 642 00cf 04000000 		.4byte	.LCFI10
+ 643 00d3 26000000 		.4byte	.LFE33
+ 644 00d7 0200     		.2byte	0x2
+ 645 00d9 77       		.byte	0x77
+ 646 00da 08       		.sleb128 8
+ 647 00db 00000000 		.4byte	0x0
+ 648 00df 00000000 		.4byte	0x0
+ 649              	.LLST5:
+ 650 00e3 00000000 		.4byte	.LFB34
+ 651 00e7 02000000 		.4byte	.LCFI11
+ 652 00eb 0100     		.2byte	0x1
+ 653 00ed 5D       		.byte	0x5d
+ 654 00ee 02000000 		.4byte	.LCFI11
+ 655 00f2 04000000 		.4byte	.LCFI12
+ 656 00f6 0200     		.2byte	0x2
+ 657 00f8 7D       		.byte	0x7d
+ 658 00f9 08       		.sleb128 8
+ 659 00fa 04000000 		.4byte	.LCFI12
+ 660 00fe 06000000 		.4byte	.LCFI13
+ 661 0102 0200     		.2byte	0x2
+ 662 0104 7D       		.byte	0x7d
+ 663 0105 10       		.sleb128 16
+ 664 0106 06000000 		.4byte	.LCFI13
+ 665 010a AA000000 		.4byte	.LFE34
+ 666 010e 0200     		.2byte	0x2
+ 667 0110 77       		.byte	0x77
+ 668 0111 10       		.sleb128 16
+ 669 0112 00000000 		.4byte	0x0
+ 670 0116 00000000 		.4byte	0x0
+ 671              	.LLST6:
+ 672 011a 00000000 		.4byte	.LFB35
+ 673 011e 02000000 		.4byte	.LCFI14
+ 674 0122 0100     		.2byte	0x1
+ 675 0124 5D       		.byte	0x5d
+ 676 0125 02000000 		.4byte	.LCFI14
+ 677 0129 04000000 		.4byte	.LCFI15
+ 678 012d 0200     		.2byte	0x2
+ 679 012f 7D       		.byte	0x7d
+ 680 0130 04       		.sleb128 4
+ 681 0131 04000000 		.4byte	.LCFI15
+ 682 0135 16000000 		.4byte	.LFE35
+ 683 0139 0200     		.2byte	0x2
+ 684 013b 77       		.byte	0x77
+ 685 013c 04       		.sleb128 4
+ 686 013d 00000000 		.4byte	0x0
+ 687 0141 00000000 		.4byte	0x0
+ 688              	.LLST7:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 16
+
+
+ 689 0145 00000000 		.4byte	.LFB36
+ 690 0149 02000000 		.4byte	.LCFI16
+ 691 014d 0100     		.2byte	0x1
+ 692 014f 5D       		.byte	0x5d
+ 693 0150 02000000 		.4byte	.LCFI16
+ 694 0154 04000000 		.4byte	.LCFI17
+ 695 0158 0200     		.2byte	0x2
+ 696 015a 7D       		.byte	0x7d
+ 697 015b 08       		.sleb128 8
+ 698 015c 04000000 		.4byte	.LCFI17
+ 699 0160 0E000000 		.4byte	.LFE36
+ 700 0164 0200     		.2byte	0x2
+ 701 0166 77       		.byte	0x77
+ 702 0167 08       		.sleb128 8
+ 703 0168 00000000 		.4byte	0x0
+ 704 016c 00000000 		.4byte	0x0
+ 705              	.LLST8:
+ 706 0170 00000000 		.4byte	.LFB37
+ 707 0174 02000000 		.4byte	.LCFI18
+ 708 0178 0100     		.2byte	0x1
+ 709 017a 5D       		.byte	0x5d
+ 710 017b 02000000 		.4byte	.LCFI18
+ 711 017f 04000000 		.4byte	.LCFI19
+ 712 0183 0200     		.2byte	0x2
+ 713 0185 7D       		.byte	0x7d
+ 714 0186 08       		.sleb128 8
+ 715 0187 04000000 		.4byte	.LCFI19
+ 716 018b 06000000 		.4byte	.LCFI20
+ 717 018f 0200     		.2byte	0x2
+ 718 0191 7D       		.byte	0x7d
+ 719 0192 10       		.sleb128 16
+ 720 0193 06000000 		.4byte	.LCFI20
+ 721 0197 34000000 		.4byte	.LFE37
+ 722 019b 0200     		.2byte	0x2
+ 723 019d 77       		.byte	0x77
+ 724 019e 10       		.sleb128 16
+ 725 019f 00000000 		.4byte	0x0
+ 726 01a3 00000000 		.4byte	0x0
+ 727              	.LLST9:
+ 728 01a7 00000000 		.4byte	.LFB38
+ 729 01ab 02000000 		.4byte	.LCFI21
+ 730 01af 0100     		.2byte	0x1
+ 731 01b1 5D       		.byte	0x5d
+ 732 01b2 02000000 		.4byte	.LCFI21
+ 733 01b6 04000000 		.4byte	.LCFI22
+ 734 01ba 0200     		.2byte	0x2
+ 735 01bc 7D       		.byte	0x7d
+ 736 01bd 08       		.sleb128 8
+ 737 01be 04000000 		.4byte	.LCFI22
+ 738 01c2 06000000 		.4byte	.LCFI23
+ 739 01c6 0200     		.2byte	0x2
+ 740 01c8 7D       		.byte	0x7d
+ 741 01c9 10       		.sleb128 16
+ 742 01ca 06000000 		.4byte	.LCFI23
+ 743 01ce 78000000 		.4byte	.LFE38
+ 744 01d2 0200     		.2byte	0x2
+ 745 01d4 77       		.byte	0x77
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 17
+
+
+ 746 01d5 10       		.sleb128 16
+ 747 01d6 00000000 		.4byte	0x0
+ 748 01da 00000000 		.4byte	0x0
+ 749              	.LLST10:
+ 750 01de 00000000 		.4byte	.LFB39
+ 751 01e2 02000000 		.4byte	.LCFI24
+ 752 01e6 0100     		.2byte	0x1
+ 753 01e8 5D       		.byte	0x5d
+ 754 01e9 02000000 		.4byte	.LCFI24
+ 755 01ed 04000000 		.4byte	.LCFI25
+ 756 01f1 0200     		.2byte	0x2
+ 757 01f3 7D       		.byte	0x7d
+ 758 01f4 08       		.sleb128 8
+ 759 01f5 04000000 		.4byte	.LCFI25
+ 760 01f9 06000000 		.4byte	.LCFI26
+ 761 01fd 0200     		.2byte	0x2
+ 762 01ff 7D       		.byte	0x7d
+ 763 0200 10       		.sleb128 16
+ 764 0201 06000000 		.4byte	.LCFI26
+ 765 0205 5E000000 		.4byte	.LFE39
+ 766 0209 0200     		.2byte	0x2
+ 767 020b 77       		.byte	0x77
+ 768 020c 10       		.sleb128 16
+ 769 020d 00000000 		.4byte	0x0
+ 770 0211 00000000 		.4byte	0x0
+ 771              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 772              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 773              		.file 4 ".\\/types.h"
+ 774              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 775              		.section	.debug_info
+ 776 0000 91020000 		.4byte	0x291
+ 777 0004 0200     		.2byte	0x2
+ 778 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 779 000a 04       		.byte	0x4
+ 780 000b 01       		.uleb128 0x1
+ 781 000c 37010000 		.4byte	.LASF36
+ 782 0010 01       		.byte	0x1
+ 783 0011 6C010000 		.4byte	.LASF37
+ 784 0015 C9010000 		.4byte	.LASF38
+ 785 0019 00000000 		.4byte	0x0
+ 786 001d 00000000 		.4byte	0x0
+ 787 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 788 0025 00000000 		.4byte	.Ldebug_line0
+ 789 0029 02       		.uleb128 0x2
+ 790 002a 01       		.byte	0x1
+ 791 002b 06       		.byte	0x6
+ 792 002c 56000000 		.4byte	.LASF0
+ 793 0030 03       		.uleb128 0x3
+ 794 0031 F5000000 		.4byte	.LASF9
+ 795 0035 02       		.byte	0x2
+ 796 0036 2A       		.byte	0x2a
+ 797 0037 3B000000 		.4byte	0x3b
+ 798 003b 02       		.uleb128 0x2
+ 799 003c 01       		.byte	0x1
+ 800 003d 08       		.byte	0x8
+ 801 003e 69000000 		.4byte	.LASF1
+ 802 0042 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 18
+
+
+ 803 0043 02       		.byte	0x2
+ 804 0044 05       		.byte	0x5
+ 805 0045 62010000 		.4byte	.LASF2
+ 806 0049 02       		.uleb128 0x2
+ 807 004a 02       		.byte	0x2
+ 808 004b 07       		.byte	0x7
+ 809 004c 9B000000 		.4byte	.LASF3
+ 810 0050 02       		.uleb128 0x2
+ 811 0051 04       		.byte	0x4
+ 812 0052 05       		.byte	0x5
+ 813 0053 2F000000 		.4byte	.LASF4
+ 814 0057 02       		.uleb128 0x2
+ 815 0058 04       		.byte	0x4
+ 816 0059 07       		.byte	0x7
+ 817 005a 77000000 		.4byte	.LASF5
+ 818 005e 02       		.uleb128 0x2
+ 819 005f 08       		.byte	0x8
+ 820 0060 05       		.byte	0x5
+ 821 0061 00000000 		.4byte	.LASF6
+ 822 0065 02       		.uleb128 0x2
+ 823 0066 08       		.byte	0x8
+ 824 0067 07       		.byte	0x7
+ 825 0068 DE000000 		.4byte	.LASF7
+ 826 006c 04       		.uleb128 0x4
+ 827 006d 04       		.byte	0x4
+ 828 006e 05       		.byte	0x5
+ 829 006f 696E7400 		.ascii	"int\000"
+ 830 0073 02       		.uleb128 0x2
+ 831 0074 04       		.byte	0x4
+ 832 0075 07       		.byte	0x7
+ 833 0076 D1000000 		.4byte	.LASF8
+ 834 007a 03       		.uleb128 0x3
+ 835 007b 38000000 		.4byte	.LASF10
+ 836 007f 03       		.byte	0x3
+ 837 0080 4C       		.byte	0x4c
+ 838 0081 3B000000 		.4byte	0x3b
+ 839 0085 02       		.uleb128 0x2
+ 840 0086 04       		.byte	0x4
+ 841 0087 04       		.byte	0x4
+ 842 0088 50000000 		.4byte	.LASF11
+ 843 008c 02       		.uleb128 0x2
+ 844 008d 08       		.byte	0x8
+ 845 008e 04       		.byte	0x4
+ 846 008f CA000000 		.4byte	.LASF12
+ 847 0093 02       		.uleb128 0x2
+ 848 0094 01       		.byte	0x1
+ 849 0095 08       		.byte	0x8
+ 850 0096 4B010000 		.4byte	.LASF13
+ 851 009a 05       		.uleb128 0x5
+ 852 009b 04       		.byte	0x4
+ 853 009c 07       		.byte	0x7
+ 854 009d 03       		.uleb128 0x3
+ 855 009e 62000000 		.4byte	.LASF14
+ 856 00a2 04       		.byte	0x4
+ 857 00a3 0F       		.byte	0xf
+ 858 00a4 7A000000 		.4byte	0x7a
+ 859 00a8 03       		.uleb128 0x3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 19
+
+
+ 860 00a9 2A000000 		.4byte	.LASF15
+ 861 00ad 04       		.byte	0x4
+ 862 00ae 10       		.byte	0x10
+ 863 00af 30000000 		.4byte	0x30
+ 864 00b3 06       		.uleb128 0x6
+ 865 00b4 01       		.byte	0x1
+ 866 00b5 50010000 		.4byte	.LASF16
+ 867 00b9 01       		.byte	0x1
+ 868 00ba 1C       		.byte	0x1c
+ 869 00bb 01       		.byte	0x1
+ 870 00bc 7A000000 		.4byte	0x7a
+ 871 00c0 00000000 		.4byte	.LFB29
+ 872 00c4 0E000000 		.4byte	.LFE29
+ 873 00c8 00000000 		.4byte	.LLST0
+ 874 00cc 06       		.uleb128 0x6
+ 875 00cd 01       		.byte	0x1
+ 876 00ce 87010000 		.4byte	.LASF17
+ 877 00d2 01       		.byte	0x1
+ 878 00d3 22       		.byte	0x22
+ 879 00d4 01       		.byte	0x1
+ 880 00d5 9D000000 		.4byte	0x9d
+ 881 00d9 00000000 		.4byte	.LFB30
+ 882 00dd 16000000 		.4byte	.LFE30
+ 883 00e1 2B000000 		.4byte	.LLST1
+ 884 00e5 07       		.uleb128 0x7
+ 885 00e6 01       		.byte	0x1
+ 886 00e7 B8010000 		.4byte	.LASF24
+ 887 00eb 01       		.byte	0x1
+ 888 00ec 28       		.byte	0x28
+ 889 00ed 01       		.byte	0x1
+ 890 00ee 00000000 		.4byte	.LFB31
+ 891 00f2 20000000 		.4byte	.LFE31
+ 892 00f6 56000000 		.4byte	.LLST2
+ 893 00fa 0D010000 		.4byte	0x10d
+ 894 00fe 08       		.uleb128 0x8
+ 895 00ff 1A000000 		.4byte	.LASF26
+ 896 0103 01       		.byte	0x1
+ 897 0104 28       		.byte	0x28
+ 898 0105 9D000000 		.4byte	0x9d
+ 899 0109 02       		.byte	0x2
+ 900 010a 91       		.byte	0x91
+ 901 010b 77       		.sleb128 -9
+ 902 010c 00       		.byte	0x0
+ 903 010d 09       		.uleb128 0x9
+ 904 010e 01       		.byte	0x1
+ 905 010f 28010000 		.4byte	.LASF18
+ 906 0113 01       		.byte	0x1
+ 907 0114 2E       		.byte	0x2e
+ 908 0115 01       		.byte	0x1
+ 909 0116 00000000 		.4byte	.LFB32
+ 910 011a 30000000 		.4byte	.LFE32
+ 911 011e 8D000000 		.4byte	.LLST3
+ 912 0122 09       		.uleb128 0x9
+ 913 0123 01       		.byte	0x1
+ 914 0124 AE000000 		.4byte	.LASF19
+ 915 0128 01       		.byte	0x1
+ 916 0129 39       		.byte	0x39
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 20
+
+
+ 917 012a 01       		.byte	0x1
+ 918 012b 00000000 		.4byte	.LFB33
+ 919 012f 26000000 		.4byte	.LFE33
+ 920 0133 B8000000 		.4byte	.LLST4
+ 921 0137 0A       		.uleb128 0xa
+ 922 0138 01       		.byte	0x1
+ 923 0139 74010000 		.4byte	.LASF27
+ 924 013d 01       		.byte	0x1
+ 925 013e 41       		.byte	0x41
+ 926 013f 01       		.byte	0x1
+ 927 0140 9D000000 		.4byte	0x9d
+ 928 0144 00000000 		.4byte	.LFB34
+ 929 0148 AA000000 		.4byte	.LFE34
+ 930 014c E3000000 		.4byte	.LLST5
+ 931 0150 71010000 		.4byte	0x171
+ 932 0154 0B       		.uleb128 0xb
+ 933 0155 20000000 		.4byte	.LASF20
+ 934 0159 01       		.byte	0x1
+ 935 015a 44       		.byte	0x44
+ 936 015b 9D000000 		.4byte	0x9d
+ 937 015f 02       		.byte	0x2
+ 938 0160 91       		.byte	0x91
+ 939 0161 76       		.sleb128 -10
+ 940 0162 0B       		.uleb128 0xb
+ 941 0163 25000000 		.4byte	.LASF21
+ 942 0167 01       		.byte	0x1
+ 943 0168 44       		.byte	0x44
+ 944 0169 9D000000 		.4byte	0x9d
+ 945 016d 02       		.byte	0x2
+ 946 016e 91       		.byte	0x91
+ 947 016f 77       		.sleb128 -9
+ 948 0170 00       		.byte	0x0
+ 949 0171 0C       		.uleb128 0xc
+ 950 0172 01       		.byte	0x1
+ 951 0173 89000000 		.4byte	.LASF22
+ 952 0177 01       		.byte	0x1
+ 953 0178 5D       		.byte	0x5d
+ 954 0179 7A000000 		.4byte	0x7a
+ 955 017d 00000000 		.4byte	.LFB35
+ 956 0181 16000000 		.4byte	.LFE35
+ 957 0185 1A010000 		.4byte	.LLST6
+ 958 0189 0C       		.uleb128 0xc
+ 959 018a 01       		.byte	0x1
+ 960 018b 0A010000 		.4byte	.LASF23
+ 961 018f 01       		.byte	0x1
+ 962 0190 63       		.byte	0x63
+ 963 0191 7A000000 		.4byte	0x7a
+ 964 0195 00000000 		.4byte	.LFB36
+ 965 0199 0E000000 		.4byte	.LFE36
+ 966 019d 45010000 		.4byte	.LLST7
+ 967 01a1 0D       		.uleb128 0xd
+ 968 01a2 01       		.byte	0x1
+ 969 01a3 0E000000 		.4byte	.LASF25
+ 970 01a7 01       		.byte	0x1
+ 971 01a8 6C       		.byte	0x6c
+ 972 01a9 7A000000 		.4byte	0x7a
+ 973 01ad 00000000 		.4byte	.LFB37
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 21
+
+
+ 974 01b1 34000000 		.4byte	.LFE37
+ 975 01b5 70010000 		.4byte	.LLST8
+ 976 01b9 CC010000 		.4byte	0x1cc
+ 977 01bd 0B       		.uleb128 0xb
+ 978 01be 1A000000 		.4byte	.LASF26
+ 979 01c2 01       		.byte	0x1
+ 980 01c3 6E       		.byte	0x6e
+ 981 01c4 7A000000 		.4byte	0x7a
+ 982 01c8 02       		.byte	0x2
+ 983 01c9 91       		.byte	0x91
+ 984 01ca 77       		.sleb128 -9
+ 985 01cb 00       		.byte	0x0
+ 986 01cc 0A       		.uleb128 0xa
+ 987 01cd 01       		.byte	0x1
+ 988 01ce 98010000 		.4byte	.LASF28
+ 989 01d2 01       		.byte	0x1
+ 990 01d3 7F       		.byte	0x7f
+ 991 01d4 01       		.byte	0x1
+ 992 01d5 9D000000 		.4byte	0x9d
+ 993 01d9 00000000 		.4byte	.LFB38
+ 994 01dd 78000000 		.4byte	.LFE38
+ 995 01e1 A7010000 		.4byte	.LLST9
+ 996 01e5 F8010000 		.4byte	0x1f8
+ 997 01e9 08       		.uleb128 0x8
+ 998 01ea 1A000000 		.4byte	.LASF26
+ 999 01ee 01       		.byte	0x1
+ 1000 01ef 7F       		.byte	0x7f
+ 1001 01f0 7A000000 		.4byte	0x7a
+ 1002 01f4 02       		.byte	0x2
+ 1003 01f5 91       		.byte	0x91
+ 1004 01f6 77       		.sleb128 -9
+ 1005 01f7 00       		.byte	0x0
+ 1006 01f8 0A       		.uleb128 0xa
+ 1007 01f9 01       		.byte	0x1
+ 1008 01fa 3E000000 		.4byte	.LASF29
+ 1009 01fe 01       		.byte	0x1
+ 1010 01ff 98       		.byte	0x98
+ 1011 0200 01       		.byte	0x1
+ 1012 0201 9D000000 		.4byte	0x9d
+ 1013 0205 00000000 		.4byte	.LFB39
+ 1014 0209 5E000000 		.4byte	.LFE39
+ 1015 020d DE010000 		.4byte	.LLST10
+ 1016 0211 32020000 		.4byte	0x232
+ 1017 0215 08       		.uleb128 0x8
+ 1018 0216 B1010000 		.4byte	.LASF30
+ 1019 021a 01       		.byte	0x1
+ 1020 021b 98       		.byte	0x98
+ 1021 021c 32020000 		.4byte	0x232
+ 1022 0220 02       		.byte	0x2
+ 1023 0221 91       		.byte	0x91
+ 1024 0222 74       		.sleb128 -12
+ 1025 0223 08       		.uleb128 0x8
+ 1026 0224 1F010000 		.4byte	.LASF31
+ 1027 0228 01       		.byte	0x1
+ 1028 0229 98       		.byte	0x98
+ 1029 022a 7A000000 		.4byte	0x7a
+ 1030 022e 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 22
+
+
+ 1031 022f 91       		.byte	0x91
+ 1032 0230 73       		.sleb128 -13
+ 1033 0231 00       		.byte	0x0
+ 1034 0232 0E       		.uleb128 0xe
+ 1035 0233 04       		.byte	0x4
+ 1036 0234 38020000 		.4byte	0x238
+ 1037 0238 0F       		.uleb128 0xf
+ 1038 0239 7A000000 		.4byte	0x7a
+ 1039 023d 0B       		.uleb128 0xb
+ 1040 023e 7D010000 		.4byte	.LASF32
+ 1041 0242 01       		.byte	0x1
+ 1042 0243 0F       		.byte	0xf
+ 1043 0244 9D000000 		.4byte	0x9d
+ 1044 0248 05       		.byte	0x5
+ 1045 0249 03       		.byte	0x3
+ 1046 024a 00000000 		.4byte	HalStatus
+ 1047 024e 0B       		.uleb128 0xb
+ 1048 024f FD000000 		.4byte	.LASF33
+ 1049 0253 01       		.byte	0x1
+ 1050 0254 10       		.byte	0x10
+ 1051 0255 A8000000 		.4byte	0xa8
+ 1052 0259 05       		.byte	0x5
+ 1053 025a 03       		.byte	0x3
+ 1054 025b 00000000 		.4byte	HalIsBusIdle
+ 1055 025f 0B       		.uleb128 0xb
+ 1056 0260 43010000 		.4byte	.LASF34
+ 1057 0264 01       		.byte	0x1
+ 1058 0265 11       		.byte	0x11
+ 1059 0266 7A000000 		.4byte	0x7a
+ 1060 026a 05       		.byte	0x5
+ 1061 026b 03       		.byte	0x3
+ 1062 026c 01000000 		.4byte	RxCount
+ 1063 0270 0B       		.uleb128 0xb
+ 1064 0271 A9010000 		.4byte	.LASF35
+ 1065 0275 01       		.byte	0x1
+ 1066 0276 12       		.byte	0x12
+ 1067 0277 7A000000 		.4byte	0x7a
+ 1068 027b 05       		.byte	0x5
+ 1069 027c 03       		.byte	0x3
+ 1070 027d 02000000 		.4byte	TxCount
+ 1071 0281 10       		.uleb128 0x10
+ 1072 0282 BD000000 		.4byte	.LASF39
+ 1073 0286 05       		.byte	0x5
+ 1074 0287 CE06     		.2byte	0x6ce
+ 1075 0289 8F020000 		.4byte	0x28f
+ 1076 028d 01       		.byte	0x1
+ 1077 028e 01       		.byte	0x1
+ 1078 028f 11       		.uleb128 0x11
+ 1079 0290 6C000000 		.4byte	0x6c
+ 1080 0294 00       		.byte	0x0
+ 1081              		.section	.debug_abbrev
+ 1082 0000 01       		.uleb128 0x1
+ 1083 0001 11       		.uleb128 0x11
+ 1084 0002 01       		.byte	0x1
+ 1085 0003 25       		.uleb128 0x25
+ 1086 0004 0E       		.uleb128 0xe
+ 1087 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 23
+
+
+ 1088 0006 0B       		.uleb128 0xb
+ 1089 0007 03       		.uleb128 0x3
+ 1090 0008 0E       		.uleb128 0xe
+ 1091 0009 1B       		.uleb128 0x1b
+ 1092 000a 0E       		.uleb128 0xe
+ 1093 000b 11       		.uleb128 0x11
+ 1094 000c 01       		.uleb128 0x1
+ 1095 000d 52       		.uleb128 0x52
+ 1096 000e 01       		.uleb128 0x1
+ 1097 000f 55       		.uleb128 0x55
+ 1098 0010 06       		.uleb128 0x6
+ 1099 0011 10       		.uleb128 0x10
+ 1100 0012 06       		.uleb128 0x6
+ 1101 0013 00       		.byte	0x0
+ 1102 0014 00       		.byte	0x0
+ 1103 0015 02       		.uleb128 0x2
+ 1104 0016 24       		.uleb128 0x24
+ 1105 0017 00       		.byte	0x0
+ 1106 0018 0B       		.uleb128 0xb
+ 1107 0019 0B       		.uleb128 0xb
+ 1108 001a 3E       		.uleb128 0x3e
+ 1109 001b 0B       		.uleb128 0xb
+ 1110 001c 03       		.uleb128 0x3
+ 1111 001d 0E       		.uleb128 0xe
+ 1112 001e 00       		.byte	0x0
+ 1113 001f 00       		.byte	0x0
+ 1114 0020 03       		.uleb128 0x3
+ 1115 0021 16       		.uleb128 0x16
+ 1116 0022 00       		.byte	0x0
+ 1117 0023 03       		.uleb128 0x3
+ 1118 0024 0E       		.uleb128 0xe
+ 1119 0025 3A       		.uleb128 0x3a
+ 1120 0026 0B       		.uleb128 0xb
+ 1121 0027 3B       		.uleb128 0x3b
+ 1122 0028 0B       		.uleb128 0xb
+ 1123 0029 49       		.uleb128 0x49
+ 1124 002a 13       		.uleb128 0x13
+ 1125 002b 00       		.byte	0x0
+ 1126 002c 00       		.byte	0x0
+ 1127 002d 04       		.uleb128 0x4
+ 1128 002e 24       		.uleb128 0x24
+ 1129 002f 00       		.byte	0x0
+ 1130 0030 0B       		.uleb128 0xb
+ 1131 0031 0B       		.uleb128 0xb
+ 1132 0032 3E       		.uleb128 0x3e
+ 1133 0033 0B       		.uleb128 0xb
+ 1134 0034 03       		.uleb128 0x3
+ 1135 0035 08       		.uleb128 0x8
+ 1136 0036 00       		.byte	0x0
+ 1137 0037 00       		.byte	0x0
+ 1138 0038 05       		.uleb128 0x5
+ 1139 0039 24       		.uleb128 0x24
+ 1140 003a 00       		.byte	0x0
+ 1141 003b 0B       		.uleb128 0xb
+ 1142 003c 0B       		.uleb128 0xb
+ 1143 003d 3E       		.uleb128 0x3e
+ 1144 003e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 24
+
+
+ 1145 003f 00       		.byte	0x0
+ 1146 0040 00       		.byte	0x0
+ 1147 0041 06       		.uleb128 0x6
+ 1148 0042 2E       		.uleb128 0x2e
+ 1149 0043 00       		.byte	0x0
+ 1150 0044 3F       		.uleb128 0x3f
+ 1151 0045 0C       		.uleb128 0xc
+ 1152 0046 03       		.uleb128 0x3
+ 1153 0047 0E       		.uleb128 0xe
+ 1154 0048 3A       		.uleb128 0x3a
+ 1155 0049 0B       		.uleb128 0xb
+ 1156 004a 3B       		.uleb128 0x3b
+ 1157 004b 0B       		.uleb128 0xb
+ 1158 004c 27       		.uleb128 0x27
+ 1159 004d 0C       		.uleb128 0xc
+ 1160 004e 49       		.uleb128 0x49
+ 1161 004f 13       		.uleb128 0x13
+ 1162 0050 11       		.uleb128 0x11
+ 1163 0051 01       		.uleb128 0x1
+ 1164 0052 12       		.uleb128 0x12
+ 1165 0053 01       		.uleb128 0x1
+ 1166 0054 40       		.uleb128 0x40
+ 1167 0055 06       		.uleb128 0x6
+ 1168 0056 00       		.byte	0x0
+ 1169 0057 00       		.byte	0x0
+ 1170 0058 07       		.uleb128 0x7
+ 1171 0059 2E       		.uleb128 0x2e
+ 1172 005a 01       		.byte	0x1
+ 1173 005b 3F       		.uleb128 0x3f
+ 1174 005c 0C       		.uleb128 0xc
+ 1175 005d 03       		.uleb128 0x3
+ 1176 005e 0E       		.uleb128 0xe
+ 1177 005f 3A       		.uleb128 0x3a
+ 1178 0060 0B       		.uleb128 0xb
+ 1179 0061 3B       		.uleb128 0x3b
+ 1180 0062 0B       		.uleb128 0xb
+ 1181 0063 27       		.uleb128 0x27
+ 1182 0064 0C       		.uleb128 0xc
+ 1183 0065 11       		.uleb128 0x11
+ 1184 0066 01       		.uleb128 0x1
+ 1185 0067 12       		.uleb128 0x12
+ 1186 0068 01       		.uleb128 0x1
+ 1187 0069 40       		.uleb128 0x40
+ 1188 006a 06       		.uleb128 0x6
+ 1189 006b 01       		.uleb128 0x1
+ 1190 006c 13       		.uleb128 0x13
+ 1191 006d 00       		.byte	0x0
+ 1192 006e 00       		.byte	0x0
+ 1193 006f 08       		.uleb128 0x8
+ 1194 0070 05       		.uleb128 0x5
+ 1195 0071 00       		.byte	0x0
+ 1196 0072 03       		.uleb128 0x3
+ 1197 0073 0E       		.uleb128 0xe
+ 1198 0074 3A       		.uleb128 0x3a
+ 1199 0075 0B       		.uleb128 0xb
+ 1200 0076 3B       		.uleb128 0x3b
+ 1201 0077 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 25
+
+
+ 1202 0078 49       		.uleb128 0x49
+ 1203 0079 13       		.uleb128 0x13
+ 1204 007a 02       		.uleb128 0x2
+ 1205 007b 0A       		.uleb128 0xa
+ 1206 007c 00       		.byte	0x0
+ 1207 007d 00       		.byte	0x0
+ 1208 007e 09       		.uleb128 0x9
+ 1209 007f 2E       		.uleb128 0x2e
+ 1210 0080 00       		.byte	0x0
+ 1211 0081 3F       		.uleb128 0x3f
+ 1212 0082 0C       		.uleb128 0xc
+ 1213 0083 03       		.uleb128 0x3
+ 1214 0084 0E       		.uleb128 0xe
+ 1215 0085 3A       		.uleb128 0x3a
+ 1216 0086 0B       		.uleb128 0xb
+ 1217 0087 3B       		.uleb128 0x3b
+ 1218 0088 0B       		.uleb128 0xb
+ 1219 0089 27       		.uleb128 0x27
+ 1220 008a 0C       		.uleb128 0xc
+ 1221 008b 11       		.uleb128 0x11
+ 1222 008c 01       		.uleb128 0x1
+ 1223 008d 12       		.uleb128 0x12
+ 1224 008e 01       		.uleb128 0x1
+ 1225 008f 40       		.uleb128 0x40
+ 1226 0090 06       		.uleb128 0x6
+ 1227 0091 00       		.byte	0x0
+ 1228 0092 00       		.byte	0x0
+ 1229 0093 0A       		.uleb128 0xa
+ 1230 0094 2E       		.uleb128 0x2e
+ 1231 0095 01       		.byte	0x1
+ 1232 0096 3F       		.uleb128 0x3f
+ 1233 0097 0C       		.uleb128 0xc
+ 1234 0098 03       		.uleb128 0x3
+ 1235 0099 0E       		.uleb128 0xe
+ 1236 009a 3A       		.uleb128 0x3a
+ 1237 009b 0B       		.uleb128 0xb
+ 1238 009c 3B       		.uleb128 0x3b
+ 1239 009d 0B       		.uleb128 0xb
+ 1240 009e 27       		.uleb128 0x27
+ 1241 009f 0C       		.uleb128 0xc
+ 1242 00a0 49       		.uleb128 0x49
+ 1243 00a1 13       		.uleb128 0x13
+ 1244 00a2 11       		.uleb128 0x11
+ 1245 00a3 01       		.uleb128 0x1
+ 1246 00a4 12       		.uleb128 0x12
+ 1247 00a5 01       		.uleb128 0x1
+ 1248 00a6 40       		.uleb128 0x40
+ 1249 00a7 06       		.uleb128 0x6
+ 1250 00a8 01       		.uleb128 0x1
+ 1251 00a9 13       		.uleb128 0x13
+ 1252 00aa 00       		.byte	0x0
+ 1253 00ab 00       		.byte	0x0
+ 1254 00ac 0B       		.uleb128 0xb
+ 1255 00ad 34       		.uleb128 0x34
+ 1256 00ae 00       		.byte	0x0
+ 1257 00af 03       		.uleb128 0x3
+ 1258 00b0 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 26
+
+
+ 1259 00b1 3A       		.uleb128 0x3a
+ 1260 00b2 0B       		.uleb128 0xb
+ 1261 00b3 3B       		.uleb128 0x3b
+ 1262 00b4 0B       		.uleb128 0xb
+ 1263 00b5 49       		.uleb128 0x49
+ 1264 00b6 13       		.uleb128 0x13
+ 1265 00b7 02       		.uleb128 0x2
+ 1266 00b8 0A       		.uleb128 0xa
+ 1267 00b9 00       		.byte	0x0
+ 1268 00ba 00       		.byte	0x0
+ 1269 00bb 0C       		.uleb128 0xc
+ 1270 00bc 2E       		.uleb128 0x2e
+ 1271 00bd 00       		.byte	0x0
+ 1272 00be 3F       		.uleb128 0x3f
+ 1273 00bf 0C       		.uleb128 0xc
+ 1274 00c0 03       		.uleb128 0x3
+ 1275 00c1 0E       		.uleb128 0xe
+ 1276 00c2 3A       		.uleb128 0x3a
+ 1277 00c3 0B       		.uleb128 0xb
+ 1278 00c4 3B       		.uleb128 0x3b
+ 1279 00c5 0B       		.uleb128 0xb
+ 1280 00c6 49       		.uleb128 0x49
+ 1281 00c7 13       		.uleb128 0x13
+ 1282 00c8 11       		.uleb128 0x11
+ 1283 00c9 01       		.uleb128 0x1
+ 1284 00ca 12       		.uleb128 0x12
+ 1285 00cb 01       		.uleb128 0x1
+ 1286 00cc 40       		.uleb128 0x40
+ 1287 00cd 06       		.uleb128 0x6
+ 1288 00ce 00       		.byte	0x0
+ 1289 00cf 00       		.byte	0x0
+ 1290 00d0 0D       		.uleb128 0xd
+ 1291 00d1 2E       		.uleb128 0x2e
+ 1292 00d2 01       		.byte	0x1
+ 1293 00d3 3F       		.uleb128 0x3f
+ 1294 00d4 0C       		.uleb128 0xc
+ 1295 00d5 03       		.uleb128 0x3
+ 1296 00d6 0E       		.uleb128 0xe
+ 1297 00d7 3A       		.uleb128 0x3a
+ 1298 00d8 0B       		.uleb128 0xb
+ 1299 00d9 3B       		.uleb128 0x3b
+ 1300 00da 0B       		.uleb128 0xb
+ 1301 00db 49       		.uleb128 0x49
+ 1302 00dc 13       		.uleb128 0x13
+ 1303 00dd 11       		.uleb128 0x11
+ 1304 00de 01       		.uleb128 0x1
+ 1305 00df 12       		.uleb128 0x12
+ 1306 00e0 01       		.uleb128 0x1
+ 1307 00e1 40       		.uleb128 0x40
+ 1308 00e2 06       		.uleb128 0x6
+ 1309 00e3 01       		.uleb128 0x1
+ 1310 00e4 13       		.uleb128 0x13
+ 1311 00e5 00       		.byte	0x0
+ 1312 00e6 00       		.byte	0x0
+ 1313 00e7 0E       		.uleb128 0xe
+ 1314 00e8 0F       		.uleb128 0xf
+ 1315 00e9 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 27
+
+
+ 1316 00ea 0B       		.uleb128 0xb
+ 1317 00eb 0B       		.uleb128 0xb
+ 1318 00ec 49       		.uleb128 0x49
+ 1319 00ed 13       		.uleb128 0x13
+ 1320 00ee 00       		.byte	0x0
+ 1321 00ef 00       		.byte	0x0
+ 1322 00f0 0F       		.uleb128 0xf
+ 1323 00f1 26       		.uleb128 0x26
+ 1324 00f2 00       		.byte	0x0
+ 1325 00f3 49       		.uleb128 0x49
+ 1326 00f4 13       		.uleb128 0x13
+ 1327 00f5 00       		.byte	0x0
+ 1328 00f6 00       		.byte	0x0
+ 1329 00f7 10       		.uleb128 0x10
+ 1330 00f8 34       		.uleb128 0x34
+ 1331 00f9 00       		.byte	0x0
+ 1332 00fa 03       		.uleb128 0x3
+ 1333 00fb 0E       		.uleb128 0xe
+ 1334 00fc 3A       		.uleb128 0x3a
+ 1335 00fd 0B       		.uleb128 0xb
+ 1336 00fe 3B       		.uleb128 0x3b
+ 1337 00ff 05       		.uleb128 0x5
+ 1338 0100 49       		.uleb128 0x49
+ 1339 0101 13       		.uleb128 0x13
+ 1340 0102 3F       		.uleb128 0x3f
+ 1341 0103 0C       		.uleb128 0xc
+ 1342 0104 3C       		.uleb128 0x3c
+ 1343 0105 0C       		.uleb128 0xc
+ 1344 0106 00       		.byte	0x0
+ 1345 0107 00       		.byte	0x0
+ 1346 0108 11       		.uleb128 0x11
+ 1347 0109 35       		.uleb128 0x35
+ 1348 010a 00       		.byte	0x0
+ 1349 010b 49       		.uleb128 0x49
+ 1350 010c 13       		.uleb128 0x13
+ 1351 010d 00       		.byte	0x0
+ 1352 010e 00       		.byte	0x0
+ 1353 010f 00       		.byte	0x0
+ 1354              		.section	.debug_pubnames,"",%progbits
+ 1355 0000 EB000000 		.4byte	0xeb
+ 1356 0004 0200     		.2byte	0x2
+ 1357 0006 00000000 		.4byte	.Ldebug_info0
+ 1358 000a 95020000 		.4byte	0x295
+ 1359 000e B3000000 		.4byte	0xb3
+ 1360 0012 48414C5F 		.ascii	"HAL_GetUartStatus\000"
+ 1360      47657455 
+ 1360      61727453 
+ 1360      74617475 
+ 1360      7300
+ 1361 0024 CC000000 		.4byte	0xcc
+ 1362 0028 48414C5F 		.ascii	"HAL_GetHalStatus\000"
+ 1362      47657448 
+ 1362      616C5374 
+ 1362      61747573 
+ 1362      00
+ 1363 0039 E5000000 		.4byte	0xe5
+ 1364 003d 48414C5F 		.ascii	"HAL_SetHalStatus\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 28
+
+
+ 1364      53657448 
+ 1364      616C5374 
+ 1364      61747573 
+ 1364      00
+ 1365 004e 0D010000 		.4byte	0x10d
+ 1366 0052 6973725F 		.ascii	"isr_rx_routine\000"
+ 1366      72785F72 
+ 1366      6F757469 
+ 1366      6E6500
+ 1367 0061 22010000 		.4byte	0x122
+ 1368 0065 6973725F 		.ascii	"isr_tx_routine\000"
+ 1368      74785F72 
+ 1368      6F757469 
+ 1368      6E6500
+ 1369 0074 37010000 		.4byte	0x137
+ 1370 0078 48414C5F 		.ascii	"HAL_Init\000"
+ 1370      496E6974 
+ 1370      00
+ 1371 0081 71010000 		.4byte	0x171
+ 1372 0085 48414C5F 		.ascii	"HAL_GetRxIsrCount\000"
+ 1372      47657452 
+ 1372      78497372 
+ 1372      436F756E 
+ 1372      7400
+ 1373 0097 89010000 		.4byte	0x189
+ 1374 009b 48414C5F 		.ascii	"HAL_GetRxBufferCount\000"
+ 1374      47657452 
+ 1374      78427566 
+ 1374      66657243 
+ 1374      6F756E74 
+ 1375 00b0 A1010000 		.4byte	0x1a1
+ 1376 00b4 48414C5F 		.ascii	"HAL_GetByte\000"
+ 1376      47657442 
+ 1376      79746500 
+ 1377 00c0 CC010000 		.4byte	0x1cc
+ 1378 00c4 48414C5F 		.ascii	"HAL_TransmitByte\000"
+ 1378      5472616E 
+ 1378      736D6974 
+ 1378      42797465 
+ 1378      00
+ 1379 00d5 F8010000 		.4byte	0x1f8
+ 1380 00d9 48414C5F 		.ascii	"HAL_TransmitArray\000"
+ 1380      5472616E 
+ 1380      736D6974 
+ 1380      41727261 
+ 1380      7900
+ 1381 00eb 00000000 		.4byte	0x0
+ 1382              		.section	.debug_aranges,"",%progbits
+ 1383 0000 6C000000 		.4byte	0x6c
+ 1384 0004 0200     		.2byte	0x2
+ 1385 0006 00000000 		.4byte	.Ldebug_info0
+ 1386 000a 04       		.byte	0x4
+ 1387 000b 00       		.byte	0x0
+ 1388 000c 0000     		.2byte	0x0
+ 1389 000e 0000     		.2byte	0x0
+ 1390 0010 00000000 		.4byte	.LFB29
+ 1391 0014 0E000000 		.4byte	.LFE29-.LFB29
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 29
+
+
+ 1392 0018 00000000 		.4byte	.LFB30
+ 1393 001c 16000000 		.4byte	.LFE30-.LFB30
+ 1394 0020 00000000 		.4byte	.LFB31
+ 1395 0024 20000000 		.4byte	.LFE31-.LFB31
+ 1396 0028 00000000 		.4byte	.LFB32
+ 1397 002c 30000000 		.4byte	.LFE32-.LFB32
+ 1398 0030 00000000 		.4byte	.LFB33
+ 1399 0034 26000000 		.4byte	.LFE33-.LFB33
+ 1400 0038 00000000 		.4byte	.LFB34
+ 1401 003c AA000000 		.4byte	.LFE34-.LFB34
+ 1402 0040 00000000 		.4byte	.LFB35
+ 1403 0044 16000000 		.4byte	.LFE35-.LFB35
+ 1404 0048 00000000 		.4byte	.LFB36
+ 1405 004c 0E000000 		.4byte	.LFE36-.LFB36
+ 1406 0050 00000000 		.4byte	.LFB37
+ 1407 0054 34000000 		.4byte	.LFE37-.LFB37
+ 1408 0058 00000000 		.4byte	.LFB38
+ 1409 005c 78000000 		.4byte	.LFE38-.LFB38
+ 1410 0060 00000000 		.4byte	.LFB39
+ 1411 0064 5E000000 		.4byte	.LFE39-.LFB39
+ 1412 0068 00000000 		.4byte	0x0
+ 1413 006c 00000000 		.4byte	0x0
+ 1414              		.section	.debug_ranges,"",%progbits
+ 1415              	.Ldebug_ranges0:
+ 1416 0000 00000000 		.4byte	.Ltext0
+ 1417 0004 00000000 		.4byte	.Letext0
+ 1418 0008 00000000 		.4byte	.LFB29
+ 1419 000c 0E000000 		.4byte	.LFE29
+ 1420 0010 00000000 		.4byte	.LFB30
+ 1421 0014 16000000 		.4byte	.LFE30
+ 1422 0018 00000000 		.4byte	.LFB31
+ 1423 001c 20000000 		.4byte	.LFE31
+ 1424 0020 00000000 		.4byte	.LFB32
+ 1425 0024 30000000 		.4byte	.LFE32
+ 1426 0028 00000000 		.4byte	.LFB33
+ 1427 002c 26000000 		.4byte	.LFE33
+ 1428 0030 00000000 		.4byte	.LFB34
+ 1429 0034 AA000000 		.4byte	.LFE34
+ 1430 0038 00000000 		.4byte	.LFB35
+ 1431 003c 16000000 		.4byte	.LFE35
+ 1432 0040 00000000 		.4byte	.LFB36
+ 1433 0044 0E000000 		.4byte	.LFE36
+ 1434 0048 00000000 		.4byte	.LFB37
+ 1435 004c 34000000 		.4byte	.LFE37
+ 1436 0050 00000000 		.4byte	.LFB38
+ 1437 0054 78000000 		.4byte	.LFE38
+ 1438 0058 00000000 		.4byte	.LFB39
+ 1439 005c 5E000000 		.4byte	.LFE39
+ 1440 0060 00000000 		.4byte	0x0
+ 1441 0064 00000000 		.4byte	0x0
+ 1442              		.section	.debug_str,"MS",%progbits,1
+ 1443              	.LASF6:
+ 1444 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1444      206C6F6E 
+ 1444      6720696E 
+ 1444      7400
+ 1445              	.LASF25:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 30
+
+
+ 1446 000e 48414C5F 		.ascii	"HAL_GetByte\000"
+ 1446      47657442 
+ 1446      79746500 
+ 1447              	.LASF26:
+ 1448 001a 76616C75 		.ascii	"value\000"
+ 1448      6500
+ 1449              	.LASF20:
+ 1450 0020 69647831 		.ascii	"idx1\000"
+ 1450      00
+ 1451              	.LASF21:
+ 1452 0025 69647832 		.ascii	"idx2\000"
+ 1452      00
+ 1453              	.LASF15:
+ 1454 002a 424F4F4C 		.ascii	"BOOL\000"
+ 1454      00
+ 1455              	.LASF4:
+ 1456 002f 6C6F6E67 		.ascii	"long int\000"
+ 1456      20696E74 
+ 1456      00
+ 1457              	.LASF10:
+ 1458 0038 75696E74 		.ascii	"uint8\000"
+ 1458      3800
+ 1459              	.LASF29:
+ 1460 003e 48414C5F 		.ascii	"HAL_TransmitArray\000"
+ 1460      5472616E 
+ 1460      736D6974 
+ 1460      41727261 
+ 1460      7900
+ 1461              	.LASF11:
+ 1462 0050 666C6F61 		.ascii	"float\000"
+ 1462      7400
+ 1463              	.LASF0:
+ 1464 0056 7369676E 		.ascii	"signed char\000"
+ 1464      65642063 
+ 1464      68617200 
+ 1465              	.LASF14:
+ 1466 0062 53544154 		.ascii	"STATUS\000"
+ 1466      555300
+ 1467              	.LASF1:
+ 1468 0069 756E7369 		.ascii	"unsigned char\000"
+ 1468      676E6564 
+ 1468      20636861 
+ 1468      7200
+ 1469              	.LASF5:
+ 1470 0077 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1470      20756E73 
+ 1470      69676E65 
+ 1470      6420696E 
+ 1470      7400
+ 1471              	.LASF22:
+ 1472 0089 48414C5F 		.ascii	"HAL_GetRxIsrCount\000"
+ 1472      47657452 
+ 1472      78497372 
+ 1472      436F756E 
+ 1472      7400
+ 1473              	.LASF3:
+ 1474 009b 73686F72 		.ascii	"short unsigned int\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 31
+
+
+ 1474      7420756E 
+ 1474      7369676E 
+ 1474      65642069 
+ 1474      6E7400
+ 1475              	.LASF19:
+ 1476 00ae 6973725F 		.ascii	"isr_tx_routine\000"
+ 1476      74785F72 
+ 1476      6F757469 
+ 1476      6E6500
+ 1477              	.LASF39:
+ 1478 00bd 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1478      52784275 
+ 1478      66666572 
+ 1478      00
+ 1479              	.LASF12:
+ 1480 00ca 646F7562 		.ascii	"double\000"
+ 1480      6C6500
+ 1481              	.LASF8:
+ 1482 00d1 756E7369 		.ascii	"unsigned int\000"
+ 1482      676E6564 
+ 1482      20696E74 
+ 1482      00
+ 1483              	.LASF7:
+ 1484 00de 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1484      206C6F6E 
+ 1484      6720756E 
+ 1484      7369676E 
+ 1484      65642069 
+ 1485              	.LASF9:
+ 1486 00f5 75696E74 		.ascii	"uint8_t\000"
+ 1486      385F7400 
+ 1487              	.LASF33:
+ 1488 00fd 48616C49 		.ascii	"HalIsBusIdle\000"
+ 1488      73427573 
+ 1488      49646C65 
+ 1488      00
+ 1489              	.LASF23:
+ 1490 010a 48414C5F 		.ascii	"HAL_GetRxBufferCount\000"
+ 1490      47657452 
+ 1490      78427566 
+ 1490      66657243 
+ 1490      6F756E74 
+ 1491              	.LASF31:
+ 1492 011f 6E756D42 		.ascii	"numBytes\000"
+ 1492      79746573 
+ 1492      00
+ 1493              	.LASF18:
+ 1494 0128 6973725F 		.ascii	"isr_rx_routine\000"
+ 1494      72785F72 
+ 1494      6F757469 
+ 1494      6E6500
+ 1495              	.LASF36:
+ 1496 0137 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1496      4320342E 
+ 1496      342E3100 
+ 1497              	.LASF34:
+ 1498 0143 5278436F 		.ascii	"RxCount\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 32
+
+
+ 1498      756E7400 
+ 1499              	.LASF13:
+ 1500 014b 63686172 		.ascii	"char\000"
+ 1500      00
+ 1501              	.LASF16:
+ 1502 0150 48414C5F 		.ascii	"HAL_GetUartStatus\000"
+ 1502      47657455 
+ 1502      61727453 
+ 1502      74617475 
+ 1502      7300
+ 1503              	.LASF2:
+ 1504 0162 73686F72 		.ascii	"short int\000"
+ 1504      7420696E 
+ 1504      7400
+ 1505              	.LASF37:
+ 1506 016c 2E5C6861 		.ascii	".\\hal.c\000"
+ 1506      6C2E6300 
+ 1507              	.LASF27:
+ 1508 0174 48414C5F 		.ascii	"HAL_Init\000"
+ 1508      496E6974 
+ 1508      00
+ 1509              	.LASF32:
+ 1510 017d 48616C53 		.ascii	"HalStatus\000"
+ 1510      74617475 
+ 1510      7300
+ 1511              	.LASF17:
+ 1512 0187 48414C5F 		.ascii	"HAL_GetHalStatus\000"
+ 1512      47657448 
+ 1512      616C5374 
+ 1512      61747573 
+ 1512      00
+ 1513              	.LASF28:
+ 1514 0198 48414C5F 		.ascii	"HAL_TransmitByte\000"
+ 1514      5472616E 
+ 1514      736D6974 
+ 1514      42797465 
+ 1514      00
+ 1515              	.LASF35:
+ 1516 01a9 5478436F 		.ascii	"TxCount\000"
+ 1516      756E7400 
+ 1517              	.LASF30:
+ 1518 01b1 736F7572 		.ascii	"source\000"
+ 1518      636500
+ 1519              	.LASF24:
+ 1520 01b8 48414C5F 		.ascii	"HAL_SetHalStatus\000"
+ 1520      53657448 
+ 1520      616C5374 
+ 1520      61747573 
+ 1520      00
+ 1521              	.LASF38:
+ 1522 01c9 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1522      69744875 
+ 1522      625F726F 
+ 1522      626F7469 
+ 1522      6373636F 
+ 1523 01f8 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ 1523      6F725F32 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccKC1ubE.s 			page 33
+
+
+ 1523      2E325C44 
+ 1523      72697665 
+ 1523      506C6174 
+ 1524 0228 6174666F 		.ascii	"atform3.cydsn\000"
+ 1524      726D332E 
+ 1524      63796473 
+ 1524      6E00
+ 1525              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

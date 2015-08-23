@@ -6,15 +6,16 @@
  */
 
 #include <project.h>
-#include "servo_cds5500.h"
 #include <stdio.h>
-#include "bal.h"
+#include "servo_cds5500.h"
 
+#include "bal.h"
+#include "types.h"
 
 /*------------------------ LOCAL FUNCTIONS -------------------------------*/
 
 /**************************************************************************/
-static uint8 GetChecksum(CDS5500_MSG* msg)
+uint8 CDS5500_GetChecksum(CDS5500_MSG* msg)
 {
 	uint8 checksum = 0;
     uint8 i;
@@ -46,21 +47,21 @@ static STATUS SendServoMsg(uint8 ucMotorId, uint8 ucInstrId, uint8 ucNumParams, 
         memcpy(msg.instrParams, pucInstrParams, ucNumParams);
 
     msg.length          = ucNumParams + 2; //number of params + 1 (instrId) + 1 (checksum)
-    msg.checksum        = GetChecksum(&msg);  
+    msg.checksum        = CDS5500_GetChecksum(&msg);  
     
     return BAL_ServoMsg(&msg);
 }
 
 /**************************************************************************
 CheckResponse
-//http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
+http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
 HEADER ID LENGTH ERROR PARAMETER CHECK SUM
 **************************************************************************/
 STATUS CDS5500_CheckResponse(CDS5500_MSG* response)
 {
     STATUS status=SUCCESS;
     uint8 msgCkecksum = response->checksum;
-    uint8 calcChecksum = GetChecksum(response); 
+    uint8 calcChecksum = CDS5500_GetChecksum(response); 
     
     /* compare calculated with received checksum */
     if (msgCkecksum != calcChecksum)
@@ -72,8 +73,6 @@ STATUS CDS5500_CheckResponse(CDS5500_MSG* response)
         
     return status;
 }
-
-
 
 
 /**************************************************************************
@@ -94,8 +93,8 @@ void CDS5500_Ping(uint8 motorId)
                         0x00,
                       };
     
-    //msg.checksum = GetChecksum(&msg);
-    msg.instrParams[msg.length - CDS5500_COMPLEMENTARY_BYTES] = GetChecksum(&msg);
+    //msg.checksum = CDS5500_GetChecksum(&msg);
+    msg.instrParams[msg.length - CDS5500_COMPLEMENTARY_BYTES] = CDS5500_GetChecksum(&msg);
                 
     // SB0  SB1  MID  LEN  INID PAR CHKS
     // 0xFF 0xFF 0x01 0x02 0x01 -   0xFB                 
@@ -106,8 +105,7 @@ void CDS5500_Ping(uint8 motorId)
 
 
 
-/**************************************************************************
-**************************************************************************/
+/**************************************************************************/
 void CDS5500_WritePos(int id, int position, int velocity)
 {
 	int messageLength = 7;
@@ -128,8 +126,7 @@ void CDS5500_WritePos(int id, int position, int velocity)
 	*/
 }
 
-/**************************************************************************
-**************************************************************************/
+/**************************************************************************/
 /*
 void CDS5500:: RegWritePos(int ID, int position, int velocity){
 	int messageLength = 5;
@@ -262,6 +259,3 @@ void ServoTest(void)
     */
 
 }
-
-
-/* [] END OF FILE */

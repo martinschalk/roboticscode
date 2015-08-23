@@ -1,0 +1,1812 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"error.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 FE000000 		.text
+  20      02007000 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	UcVar:
+  26 0000 00000000 		.space	80
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  27              		.align	2
+  28              	UiVar:
+  29 0050 00000000 		.space	80
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  29      00000000 
+  30              		.section	.text.ERR_Error,"ax",%progbits
+  31              		.align	2
+  32              		.global	ERR_Error
+  33              		.thumb
+  34              		.thumb_func
+  35              		.type	ERR_Error, %function
+  36              	ERR_Error:
+  37              	.LFB29:
+  38              		.file 1 ".\\error.c"
+   1:.\error.c     **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\error.c     ****  * All rights reserved.
+   3:.\error.c     ****  *
+   4:.\error.c     ****  * This software may be modified and distributed under the terms
+   5:.\error.c     ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\error.c     ****  */
+   7:.\error.c     **** 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 2
+
+
+   8:.\error.c     **** #include <project.h>
+   9:.\error.c     **** #include "global.h"
+  10:.\error.c     **** #include "error.h"
+  11:.\error.c     **** #include <stdio.h>
+  12:.\error.c     **** 
+  13:.\error.c     **** 
+  14:.\error.c     **** 
+  15:.\error.c     **** static ERR_UC_VAR UcVar[ERR_NUM_UC_VARIABLES];
+  16:.\error.c     **** static ERR_UI_VAR UiVar[ERR_NUM_UI_VARIABLES];
+  17:.\error.c     **** //static ERR_UL_VAR UlVar[ERR_NUM_UL_VARIABLES];
+  18:.\error.c     **** 
+  19:.\error.c     **** /*****************************************************************/
+  20:.\error.c     **** void ERR_Error(uchar type)
+  21:.\error.c     **** {
+  39              		.loc 1 21 0
+  40              		.cfi_startproc
+  41              		@ args = 0, pretend = 0, frame = 8
+  42              		@ frame_needed = 1, uses_anonymous_args = 0
+  43              		@ link register save eliminated.
+  44 0000 80B4     		push	{r7}
+  45              	.LCFI0:
+  46              		.cfi_def_cfa_offset 4
+  47 0002 83B0     		sub	sp, sp, #12
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_offset 16
+  50 0004 00AF     		add	r7, sp, #0
+  51              		.cfi_offset 7, -4
+  52              	.LCFI2:
+  53              		.cfi_def_cfa_register 7
+  54 0006 0346     		mov	r3, r0
+  55 0008 FB71     		strb	r3, [r7, #7]
+  22:.\error.c     ****     switch(type)
+  56              		.loc 1 22 0
+  57 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  58 000c A3F1FC03 		sub	r3, r3, #252
+  59 0010 032B     		cmp	r3, #3
+  60 0012 0CD8     		bhi	.L8
+  61 0014 01A2     		adr	r2, .L7
+  62 0016 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+  63 001a 00BF     		.align	2
+  64              	.L7:
+  65 001c 2F000000 		.word	.L8+1
+  66 0020 2F000000 		.word	.L8+1
+  67 0024 2F000000 		.word	.L8+1
+  68 0028 2D000000 		.word	.L6+1
+  69              	.L6:
+  23:.\error.c     ****     {
+  24:.\error.c     ****         case ERROR_CRITICAL:        while(1)
+  25:.\error.c     ****                                     {
+  26:.\error.c     ****                                         /* do nothing */
+  27:.\error.c     ****                                     }
+  70              		.loc 1 27 0
+  71 002c FEE7     		b	.L6
+  72              	.L8:
+  28:.\error.c     ****                                     break;
+  29:.\error.c     **** 
+  30:.\error.c     ****         case ERROR_MEMORY:          
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 3
+
+
+  31:.\error.c     ****                                     break;
+  32:.\error.c     ****                                     
+  33:.\error.c     ****         case ERROR_WARNING:         return;
+  34:.\error.c     ****                                     break;
+  35:.\error.c     ****                                     
+  36:.\error.c     ****         case ERROR_DEBUG:           return;
+  37:.\error.c     ****                                     break;                                    
+  38:.\error.c     ****                                     
+  39:.\error.c     ****         default:                    break;                            
+  40:.\error.c     ****     }
+  41:.\error.c     ****     
+  42:.\error.c     ****     
+  43:.\error.c     **** }
+  73              		.loc 1 43 0
+  74 002e 07F10C07 		add	r7, r7, #12
+  75 0032 BD46     		mov	sp, r7
+  76 0034 80BC     		pop	{r7}
+  77 0036 7047     		bx	lr
+  78              		.cfi_endproc
+  79              	.LFE29:
+  80              		.size	ERR_Error, .-ERR_Error
+  81              		.section	.text.ERR_Init,"ax",%progbits
+  82              		.align	2
+  83              		.global	ERR_Init
+  84              		.thumb
+  85              		.thumb_func
+  86              		.type	ERR_Init, %function
+  87              	ERR_Init:
+  88              	.LFB30:
+  44:.\error.c     **** 
+  45:.\error.c     **** 
+  46:.\error.c     **** /*****************************************************************/
+  47:.\error.c     **** STATUS ERR_Init(void)
+  48:.\error.c     **** {  
+  89              		.loc 1 48 0
+  90              		.cfi_startproc
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 1, uses_anonymous_args = 0
+  93 0000 80B5     		push	{r7, lr}
+  94              	.LCFI3:
+  95              		.cfi_def_cfa_offset 8
+  96 0002 00AF     		add	r7, sp, #0
+  97              		.cfi_offset 14, -4
+  98              		.cfi_offset 7, -8
+  99              	.LCFI4:
+ 100              		.cfi_def_cfa_register 7
+  49:.\error.c     ****     memset(UcVar, 0x00, sizeof(UcVar));
+ 101              		.loc 1 49 0
+ 102 0004 40F20000 		movw	r0, #:lower16:UcVar
+ 103 0008 C0F20000 		movt	r0, #:upper16:UcVar
+ 104 000c 4FF00001 		mov	r1, #0
+ 105 0010 4FF05002 		mov	r2, #80
+ 106 0014 FFF7FEFF 		bl	memset
+  50:.\error.c     ****     memset(UiVar, 0x00, sizeof(UcVar));
+ 107              		.loc 1 50 0
+ 108 0018 40F20000 		movw	r0, #:lower16:UiVar
+ 109 001c C0F20000 		movt	r0, #:upper16:UiVar
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 4
+
+
+ 110 0020 4FF00001 		mov	r1, #0
+ 111 0024 4FF05002 		mov	r2, #80
+ 112 0028 FFF7FEFF 		bl	memset
+  51:.\error.c     ****     //memset(UlVar, 0x00, sizeof(UcVar));
+  52:.\error.c     ****     
+  53:.\error.c     ****     return SUCCESS; 
+ 113              		.loc 1 53 0
+ 114 002c 4FF00003 		mov	r3, #0
+  54:.\error.c     **** }
+ 115              		.loc 1 54 0
+ 116 0030 1846     		mov	r0, r3
+ 117 0032 80BD     		pop	{r7, pc}
+ 118              		.cfi_endproc
+ 119              	.LFE30:
+ 120              		.size	ERR_Init, .-ERR_Init
+ 121              		.section	.text.ERR_RegisterUcVariable,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	ERR_RegisterUcVariable
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.type	ERR_RegisterUcVariable, %function
+ 127              	ERR_RegisterUcVariable:
+ 128              	.LFB31:
+  55:.\error.c     **** 
+  56:.\error.c     **** 
+  57:.\error.c     **** /*****************************************************************/
+  58:.\error.c     **** uchar ERR_RegisterUcVariable(const uint8* ptrUcVar, const char* name, const uint8 min, const uint8 
+  59:.\error.c     **** {  
+ 129              		.loc 1 59 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 24
+ 132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 133 0000 80B5     		push	{r7, lr}
+ 134              	.LCFI5:
+ 135              		.cfi_def_cfa_offset 8
+ 136 0002 86B0     		sub	sp, sp, #24
+ 137              	.LCFI6:
+ 138              		.cfi_def_cfa_offset 32
+ 139 0004 00AF     		add	r7, sp, #0
+ 140              		.cfi_offset 14, -4
+ 141              		.cfi_offset 7, -8
+ 142              	.LCFI7:
+ 143              		.cfi_def_cfa_register 7
+ 144 0006 F860     		str	r0, [r7, #12]
+ 145 0008 B960     		str	r1, [r7, #8]
+ 146 000a FA71     		strb	r2, [r7, #7]
+ 147 000c BB71     		strb	r3, [r7, #6]
+  60:.\error.c     ****     uchar idx = 0;
+ 148              		.loc 1 60 0
+ 149 000e 4FF00003 		mov	r3, #0
+ 150 0012 FB75     		strb	r3, [r7, #23]
+  61:.\error.c     ****     
+  62:.\error.c     ****     /* search for free index */
+  63:.\error.c     ****     while ((UcVar[idx].ucAddr != NULL) && (idx < ERR_NUM_UC_VARIABLES))
+ 151              		.loc 1 63 0
+ 152 0014 03E0     		b	.L12
+ 153              	.L14:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 5
+
+
+  64:.\error.c     ****     {
+  65:.\error.c     ****         idx++;
+ 154              		.loc 1 65 0
+ 155 0016 FB7D     		ldrb	r3, [r7, #23]
+ 156 0018 03F10103 		add	r3, r3, #1
+ 157 001c FB75     		strb	r3, [r7, #23]
+ 158              	.L12:
+ 159              		.loc 1 63 0
+ 160 001e FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 161 0020 40F20003 		movw	r3, #:lower16:UcVar
+ 162 0024 C0F20003 		movt	r3, #:upper16:UcVar
+ 163 0028 4FEA0212 		lsl	r2, r2, #4
+ 164 002c 1344     		add	r3, r2, r3
+ 165 002e 1B68     		ldr	r3, [r3, #0]
+ 166 0030 002B     		cmp	r3, #0
+ 167 0032 02D0     		beq	.L13
+ 168 0034 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 169 0036 042B     		cmp	r3, #4
+ 170 0038 EDD9     		bls	.L14
+ 171              	.L13:
+  66:.\error.c     ****     }
+  67:.\error.c     ****     
+  68:.\error.c     ****     /* if free index available, save variable pointer */
+  69:.\error.c     ****     if (idx < ERR_NUM_UC_VARIABLES)
+ 172              		.loc 1 69 0
+ 173 003a FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 174 003c 042B     		cmp	r3, #4
+ 175 003e 36D8     		bhi	.L15
+  70:.\error.c     ****     {
+  71:.\error.c     ****         UcVar[idx].ucAddr = (uint8*)ptrUcVar;
+ 176              		.loc 1 71 0
+ 177 0040 FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 178 0042 40F20003 		movw	r3, #:lower16:UcVar
+ 179 0046 C0F20003 		movt	r3, #:upper16:UcVar
+ 180 004a 4FEA0212 		lsl	r2, r2, #4
+ 181 004e 1344     		add	r3, r2, r3
+ 182 0050 FA68     		ldr	r2, [r7, #12]
+ 183 0052 1A60     		str	r2, [r3, #0]
+  72:.\error.c     ****         strncpy((char*)UcVar[idx].ucName, name, ERR_NAME_LENGTH);
+ 184              		.loc 1 72 0
+ 185 0054 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 186 0056 4FEA0312 		lsl	r2, r3, #4
+ 187 005a 40F20003 		movw	r3, #:lower16:UcVar
+ 188 005e C0F20003 		movt	r3, #:upper16:UcVar
+ 189 0062 1344     		add	r3, r2, r3
+ 190 0064 03F10403 		add	r3, r3, #4
+ 191 0068 1846     		mov	r0, r3
+ 192 006a B968     		ldr	r1, [r7, #8]
+ 193 006c 4FF00802 		mov	r2, #8
+ 194 0070 FFF7FEFF 		bl	strncpy
+  73:.\error.c     ****         UcVar[idx].ucMin = min;
+ 195              		.loc 1 73 0
+ 196 0074 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 197 0076 40F20002 		movw	r2, #:lower16:UcVar
+ 198 007a C0F20002 		movt	r2, #:upper16:UcVar
+ 199 007e 4FEA4303 		lsl	r3, r3, #1
+ 200 0082 03F10103 		add	r3, r3, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 6
+
+
+ 201 0086 4FEAC303 		lsl	r3, r3, #3
+ 202 008a 1344     		add	r3, r3, r2
+ 203 008c FA79     		ldrb	r2, [r7, #7]
+ 204 008e 5A71     		strb	r2, [r3, #5]
+  74:.\error.c     ****         UcVar[idx].ucMax = max;
+ 205              		.loc 1 74 0
+ 206 0090 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 207 0092 40F20002 		movw	r2, #:lower16:UcVar
+ 208 0096 C0F20002 		movt	r2, #:upper16:UcVar
+ 209 009a 4FEA4303 		lsl	r3, r3, #1
+ 210 009e 03F10103 		add	r3, r3, #1
+ 211 00a2 4FEAC303 		lsl	r3, r3, #3
+ 212 00a6 1344     		add	r3, r3, r2
+ 213 00a8 BA79     		ldrb	r2, [r7, #6]
+ 214 00aa 1A71     		strb	r2, [r3, #4]
+ 215 00ac 02E0     		b	.L16
+ 216              	.L15:
+  75:.\error.c     ****     }
+  76:.\error.c     ****     /* if not return !SUCCESS */
+  77:.\error.c     ****     else
+  78:.\error.c     ****     {
+  79:.\error.c     ****         idx = !SUCCESS;
+ 217              		.loc 1 79 0
+ 218 00ae 4FF00103 		mov	r3, #1
+ 219 00b2 FB75     		strb	r3, [r7, #23]
+ 220              	.L16:
+  80:.\error.c     ****     }
+  81:.\error.c     ****     
+  82:.\error.c     ****     return idx;
+ 221              		.loc 1 82 0
+ 222 00b4 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+  83:.\error.c     **** }
+ 223              		.loc 1 83 0
+ 224 00b6 1846     		mov	r0, r3
+ 225 00b8 07F11807 		add	r7, r7, #24
+ 226 00bc BD46     		mov	sp, r7
+ 227 00be 80BD     		pop	{r7, pc}
+ 228              		.cfi_endproc
+ 229              	.LFE31:
+ 230              		.size	ERR_RegisterUcVariable, .-ERR_RegisterUcVariable
+ 231              		.section	.text.ERR_RegisterUiVariable,"ax",%progbits
+ 232              		.align	2
+ 233              		.global	ERR_RegisterUiVariable
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.type	ERR_RegisterUiVariable, %function
+ 237              	ERR_RegisterUiVariable:
+ 238              	.LFB32:
+  84:.\error.c     **** 
+  85:.\error.c     **** /*****************************************************************/
+  86:.\error.c     **** uchar ERR_RegisterUiVariable(const uint16* ptrUiVar, const char* name, const uint16 min, const uint
+  87:.\error.c     **** {  
+ 239              		.loc 1 87 0
+ 240              		.cfi_startproc
+ 241              		@ args = 0, pretend = 0, frame = 24
+ 242              		@ frame_needed = 1, uses_anonymous_args = 0
+ 243 0000 80B5     		push	{r7, lr}
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 7
+
+
+ 244              	.LCFI8:
+ 245              		.cfi_def_cfa_offset 8
+ 246 0002 86B0     		sub	sp, sp, #24
+ 247              	.LCFI9:
+ 248              		.cfi_def_cfa_offset 32
+ 249 0004 00AF     		add	r7, sp, #0
+ 250              		.cfi_offset 14, -4
+ 251              		.cfi_offset 7, -8
+ 252              	.LCFI10:
+ 253              		.cfi_def_cfa_register 7
+ 254 0006 F860     		str	r0, [r7, #12]
+ 255 0008 B960     		str	r1, [r7, #8]
+ 256 000a FA80     		strh	r2, [r7, #6]	@ movhi
+ 257 000c BB80     		strh	r3, [r7, #4]	@ movhi
+  88:.\error.c     ****     uchar idx = 0;
+ 258              		.loc 1 88 0
+ 259 000e 4FF00003 		mov	r3, #0
+ 260 0012 FB75     		strb	r3, [r7, #23]
+  89:.\error.c     ****     
+  90:.\error.c     ****     /* search for free index */
+  91:.\error.c     ****     while ((UiVar[idx].uiAddr != NULL) && (idx < ERR_NUM_UI_VARIABLES))
+ 261              		.loc 1 91 0
+ 262 0014 03E0     		b	.L19
+ 263              	.L21:
+  92:.\error.c     ****     {
+  93:.\error.c     ****         idx++;
+ 264              		.loc 1 93 0
+ 265 0016 FB7D     		ldrb	r3, [r7, #23]
+ 266 0018 03F10103 		add	r3, r3, #1
+ 267 001c FB75     		strb	r3, [r7, #23]
+ 268              	.L19:
+ 269              		.loc 1 91 0
+ 270 001e FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 271 0020 40F20003 		movw	r3, #:lower16:UiVar
+ 272 0024 C0F20003 		movt	r3, #:upper16:UiVar
+ 273 0028 4FEA0212 		lsl	r2, r2, #4
+ 274 002c 1344     		add	r3, r2, r3
+ 275 002e 1B68     		ldr	r3, [r3, #0]
+ 276 0030 002B     		cmp	r3, #0
+ 277 0032 02D0     		beq	.L20
+ 278 0034 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 279 0036 042B     		cmp	r3, #4
+ 280 0038 EDD9     		bls	.L21
+ 281              	.L20:
+  94:.\error.c     ****     }
+  95:.\error.c     ****     
+  96:.\error.c     ****     /* if free index available, save variable pointer */
+  97:.\error.c     ****     if (idx < ERR_NUM_UI_VARIABLES)
+ 282              		.loc 1 97 0
+ 283 003a FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 284 003c 042B     		cmp	r3, #4
+ 285 003e 36D8     		bhi	.L22
+  98:.\error.c     ****     {
+  99:.\error.c     ****         UiVar[idx].uiAddr = (uint16*)ptrUiVar;
+ 286              		.loc 1 99 0
+ 287 0040 FA7D     		ldrb	r2, [r7, #23]	@ zero_extendqisi2
+ 288 0042 40F20003 		movw	r3, #:lower16:UiVar
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 8
+
+
+ 289 0046 C0F20003 		movt	r3, #:upper16:UiVar
+ 290 004a 4FEA0212 		lsl	r2, r2, #4
+ 291 004e 1344     		add	r3, r2, r3
+ 292 0050 FA68     		ldr	r2, [r7, #12]
+ 293 0052 1A60     		str	r2, [r3, #0]
+ 100:.\error.c     ****         strncpy((char*)UiVar[idx].ucName, name, ERR_NAME_LENGTH);
+ 294              		.loc 1 100 0
+ 295 0054 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 296 0056 4FEA0312 		lsl	r2, r3, #4
+ 297 005a 40F20003 		movw	r3, #:lower16:UiVar
+ 298 005e C0F20003 		movt	r3, #:upper16:UiVar
+ 299 0062 1344     		add	r3, r2, r3
+ 300 0064 03F10403 		add	r3, r3, #4
+ 301 0068 1846     		mov	r0, r3
+ 302 006a B968     		ldr	r1, [r7, #8]
+ 303 006c 4FF00802 		mov	r2, #8
+ 304 0070 FFF7FEFF 		bl	strncpy
+ 101:.\error.c     ****         UiVar[idx].uiMin = min;
+ 305              		.loc 1 101 0
+ 306 0074 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 307 0076 40F20002 		movw	r2, #:lower16:UiVar
+ 308 007a C0F20002 		movt	r2, #:upper16:UiVar
+ 309 007e 4FEA4303 		lsl	r3, r3, #1
+ 310 0082 03F10103 		add	r3, r3, #1
+ 311 0086 4FEAC303 		lsl	r3, r3, #3
+ 312 008a 1344     		add	r3, r3, r2
+ 313 008c FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 314 008e DA80     		strh	r2, [r3, #6]	@ movhi
+ 102:.\error.c     ****         UiVar[idx].uiMax = max;
+ 315              		.loc 1 102 0
+ 316 0090 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 317 0092 40F20002 		movw	r2, #:lower16:UiVar
+ 318 0096 C0F20002 		movt	r2, #:upper16:UiVar
+ 319 009a 4FEA4303 		lsl	r3, r3, #1
+ 320 009e 03F10103 		add	r3, r3, #1
+ 321 00a2 4FEAC303 		lsl	r3, r3, #3
+ 322 00a6 1344     		add	r3, r3, r2
+ 323 00a8 BA88     		ldrh	r2, [r7, #4]	@ movhi
+ 324 00aa 9A80     		strh	r2, [r3, #4]	@ movhi
+ 325 00ac 02E0     		b	.L23
+ 326              	.L22:
+ 103:.\error.c     ****     }
+ 104:.\error.c     ****     /* if not return !SUCCESS */
+ 105:.\error.c     ****     else
+ 106:.\error.c     ****     {
+ 107:.\error.c     ****         idx = !SUCCESS;
+ 327              		.loc 1 107 0
+ 328 00ae 4FF00103 		mov	r3, #1
+ 329 00b2 FB75     		strb	r3, [r7, #23]
+ 330              	.L23:
+ 108:.\error.c     ****     }
+ 109:.\error.c     ****     
+ 110:.\error.c     ****     return idx;
+ 331              		.loc 1 110 0
+ 332 00b4 FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 111:.\error.c     **** }
+ 333              		.loc 1 111 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 9
+
+
+ 334 00b6 1846     		mov	r0, r3
+ 335 00b8 07F11807 		add	r7, r7, #24
+ 336 00bc BD46     		mov	sp, r7
+ 337 00be 80BD     		pop	{r7, pc}
+ 338              		.cfi_endproc
+ 339              	.LFE32:
+ 340              		.size	ERR_RegisterUiVariable, .-ERR_RegisterUiVariable
+ 341              		.section	.text.ERR_HandleTask,"ax",%progbits
+ 342              		.align	2
+ 343              		.global	ERR_HandleTask
+ 344              		.thumb
+ 345              		.thumb_func
+ 346              		.type	ERR_HandleTask, %function
+ 347              	ERR_HandleTask:
+ 348              	.LFB33:
+ 112:.\error.c     **** 
+ 113:.\error.c     **** 
+ 114:.\error.c     **** 
+ 115:.\error.c     **** /*****************************************************************/
+ 116:.\error.c     **** STATUS ERR_HandleTask(void)
+ 117:.\error.c     **** {
+ 349              		.loc 1 117 0
+ 350              		.cfi_startproc
+ 351              		@ args = 0, pretend = 0, frame = 8
+ 352              		@ frame_needed = 1, uses_anonymous_args = 0
+ 353 0000 80B5     		push	{r7, lr}
+ 354              	.LCFI11:
+ 355              		.cfi_def_cfa_offset 8
+ 356 0002 82B0     		sub	sp, sp, #8
+ 357              	.LCFI12:
+ 358              		.cfi_def_cfa_offset 16
+ 359 0004 00AF     		add	r7, sp, #0
+ 360              		.cfi_offset 14, -4
+ 361              		.cfi_offset 7, -8
+ 362              	.LCFI13:
+ 363              		.cfi_def_cfa_register 7
+ 118:.\error.c     ****     uchar idx = 0;
+ 364              		.loc 1 118 0
+ 365 0006 4FF00003 		mov	r3, #0
+ 366 000a 3B71     		strb	r3, [r7, #4]
+ 119:.\error.c     ****     uint8 ucVal;
+ 120:.\error.c     ****     uint16 uiVal;
+ 121:.\error.c     ****     
+ 122:.\error.c     ****     /* check uc variables */
+ 123:.\error.c     ****     while ((UcVar[idx].ucAddr != NULL) && (idx < ERR_NUM_UC_VARIABLES))
+ 367              		.loc 1 123 0
+ 368 000c 32E0     		b	.L26
+ 369              	.L30:
+ 124:.\error.c     ****     {
+ 125:.\error.c     ****         ucVal = *(UcVar[idx].ucAddr);
+ 370              		.loc 1 125 0
+ 371 000e 3A79     		ldrb	r2, [r7, #4]	@ zero_extendqisi2
+ 372 0010 40F20003 		movw	r3, #:lower16:UcVar
+ 373 0014 C0F20003 		movt	r3, #:upper16:UcVar
+ 374 0018 4FEA0212 		lsl	r2, r2, #4
+ 375 001c 1344     		add	r3, r2, r3
+ 376 001e 1B68     		ldr	r3, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 10
+
+
+ 377 0020 1B78     		ldrb	r3, [r3, #0]
+ 378 0022 7B71     		strb	r3, [r7, #5]
+ 126:.\error.c     ****         if ((ucVal < UcVar[idx].ucMin) || (ucVal > UcVar[idx].ucMax))
+ 379              		.loc 1 126 0
+ 380 0024 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 381 0026 40F20002 		movw	r2, #:lower16:UcVar
+ 382 002a C0F20002 		movt	r2, #:upper16:UcVar
+ 383 002e 4FEA4303 		lsl	r3, r3, #1
+ 384 0032 03F10103 		add	r3, r3, #1
+ 385 0036 4FEAC303 		lsl	r3, r3, #3
+ 386 003a 1344     		add	r3, r3, r2
+ 387 003c 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+ 388 003e 7A79     		ldrb	r2, [r7, #5]	@ zero_extendqisi2
+ 389 0040 9A42     		cmp	r2, r3
+ 390 0042 0FD3     		bcc	.L27
+ 391 0044 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 392 0046 40F20002 		movw	r2, #:lower16:UcVar
+ 393 004a C0F20002 		movt	r2, #:upper16:UcVar
+ 394 004e 4FEA4303 		lsl	r3, r3, #1
+ 395 0052 03F10103 		add	r3, r3, #1
+ 396 0056 4FEAC303 		lsl	r3, r3, #3
+ 397 005a 1344     		add	r3, r3, r2
+ 398 005c 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 399 005e 7A79     		ldrb	r2, [r7, #5]	@ zero_extendqisi2
+ 400 0060 9A42     		cmp	r2, r3
+ 401 0062 03D9     		bls	.L28
+ 402              	.L27:
+ 127:.\error.c     ****         {
+ 128:.\error.c     ****             ERR_Error(ERROR_MEMORY);
+ 403              		.loc 1 128 0
+ 404 0064 4FF0FE00 		mov	r0, #254
+ 405 0068 FFF7FEFF 		bl	ERR_Error
+ 406              	.L28:
+ 129:.\error.c     ****         }
+ 130:.\error.c     ****         idx++;
+ 407              		.loc 1 130 0
+ 408 006c 3B79     		ldrb	r3, [r7, #4]
+ 409 006e 03F10103 		add	r3, r3, #1
+ 410 0072 3B71     		strb	r3, [r7, #4]
+ 411              	.L26:
+ 412              		.loc 1 123 0
+ 413 0074 3A79     		ldrb	r2, [r7, #4]	@ zero_extendqisi2
+ 414 0076 40F20003 		movw	r3, #:lower16:UcVar
+ 415 007a C0F20003 		movt	r3, #:upper16:UcVar
+ 416 007e 4FEA0212 		lsl	r2, r2, #4
+ 417 0082 1344     		add	r3, r2, r3
+ 418 0084 1B68     		ldr	r3, [r3, #0]
+ 419 0086 002B     		cmp	r3, #0
+ 420 0088 37D0     		beq	.L37
+ 421 008a 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 422 008c 042B     		cmp	r3, #4
+ 423 008e BED9     		bls	.L30
+ 131:.\error.c     ****     }
+ 132:.\error.c     ****     
+ 133:.\error.c     ****     /* check ui variables */
+ 134:.\error.c     ****     while ((UiVar[idx].uiAddr != NULL) && (idx < ERR_NUM_UI_VARIABLES))
+ 424              		.loc 1 134 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 11
+
+
+ 425 0090 34E0     		b	.L31
+ 426              	.L35:
+ 135:.\error.c     ****     {
+ 136:.\error.c     ****         uiVal = *(UiVar[idx].uiAddr);
+ 427              		.loc 1 136 0
+ 428 0092 3A79     		ldrb	r2, [r7, #4]	@ zero_extendqisi2
+ 429 0094 40F20003 		movw	r3, #:lower16:UiVar
+ 430 0098 C0F20003 		movt	r3, #:upper16:UiVar
+ 431 009c 4FEA0212 		lsl	r2, r2, #4
+ 432 00a0 1344     		add	r3, r2, r3
+ 433 00a2 1B68     		ldr	r3, [r3, #0]
+ 434 00a4 1B88     		ldrh	r3, [r3, #0]	@ movhi
+ 435 00a6 FB80     		strh	r3, [r7, #6]	@ movhi
+ 137:.\error.c     ****         if ((uiVal < UiVar[idx].uiMin) || (uiVal > UiVar[idx].uiMax))
+ 436              		.loc 1 137 0
+ 437 00a8 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 438 00aa 40F20002 		movw	r2, #:lower16:UiVar
+ 439 00ae C0F20002 		movt	r2, #:upper16:UiVar
+ 440 00b2 4FEA4303 		lsl	r3, r3, #1
+ 441 00b6 03F10103 		add	r3, r3, #1
+ 442 00ba 4FEAC303 		lsl	r3, r3, #3
+ 443 00be 1344     		add	r3, r3, r2
+ 444 00c0 DB88     		ldrh	r3, [r3, #6]
+ 445 00c2 FA88     		ldrh	r2, [r7, #6]
+ 446 00c4 9A42     		cmp	r2, r3
+ 447 00c6 0FD3     		bcc	.L32
+ 448 00c8 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 449 00ca 40F20002 		movw	r2, #:lower16:UiVar
+ 450 00ce C0F20002 		movt	r2, #:upper16:UiVar
+ 451 00d2 4FEA4303 		lsl	r3, r3, #1
+ 452 00d6 03F10103 		add	r3, r3, #1
+ 453 00da 4FEAC303 		lsl	r3, r3, #3
+ 454 00de 1344     		add	r3, r3, r2
+ 455 00e0 9B88     		ldrh	r3, [r3, #4]
+ 456 00e2 FA88     		ldrh	r2, [r7, #6]
+ 457 00e4 9A42     		cmp	r2, r3
+ 458 00e6 03D9     		bls	.L33
+ 459              	.L32:
+ 138:.\error.c     ****         {
+ 139:.\error.c     ****             ERR_Error(ERROR_MEMORY);
+ 460              		.loc 1 139 0
+ 461 00e8 4FF0FE00 		mov	r0, #254
+ 462 00ec FFF7FEFF 		bl	ERR_Error
+ 463              	.L33:
+ 140:.\error.c     ****         }
+ 141:.\error.c     ****         idx++;
+ 464              		.loc 1 141 0
+ 465 00f0 3B79     		ldrb	r3, [r7, #4]
+ 466 00f2 03F10103 		add	r3, r3, #1
+ 467 00f6 3B71     		strb	r3, [r7, #4]
+ 468 00f8 00E0     		b	.L31
+ 469              	.L37:
+ 470              		.loc 1 134 0
+ 471 00fa 00BF     		nop
+ 472              	.L31:
+ 473 00fc 3A79     		ldrb	r2, [r7, #4]	@ zero_extendqisi2
+ 474 00fe 40F20003 		movw	r3, #:lower16:UiVar
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 12
+
+
+ 475 0102 C0F20003 		movt	r3, #:upper16:UiVar
+ 476 0106 4FEA0212 		lsl	r2, r2, #4
+ 477 010a 1344     		add	r3, r2, r3
+ 478 010c 1B68     		ldr	r3, [r3, #0]
+ 479 010e 002B     		cmp	r3, #0
+ 480 0110 02D0     		beq	.L34
+ 481 0112 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 482 0114 042B     		cmp	r3, #4
+ 483 0116 BCD9     		bls	.L35
+ 484              	.L34:
+ 142:.\error.c     ****     }
+ 143:.\error.c     **** 
+ 144:.\error.c     ****     return SUCCESS;
+ 485              		.loc 1 144 0
+ 486 0118 4FF00003 		mov	r3, #0
+ 145:.\error.c     **** }...
+ 487              		.loc 1 145 0
+ 488 011c 1846     		mov	r0, r3
+ 489 011e 07F10807 		add	r7, r7, #8
+ 490 0122 BD46     		mov	sp, r7
+ 491 0124 80BD     		pop	{r7, pc}
+ 492              		.cfi_endproc
+ 493              	.LFE33:
+ 494              		.size	ERR_HandleTask, .-ERR_HandleTask
+ 495 0126 00BF     		.text
+ 496              	.Letext0:
+ 497              		.section	.debug_loc,"",%progbits
+ 498              	.Ldebug_loc0:
+ 499              	.LLST0:
+ 500 0000 00000000 		.4byte	.LFB29
+ 501 0004 02000000 		.4byte	.LCFI0
+ 502 0008 0100     		.2byte	0x1
+ 503 000a 5D       		.byte	0x5d
+ 504 000b 02000000 		.4byte	.LCFI0
+ 505 000f 04000000 		.4byte	.LCFI1
+ 506 0013 0200     		.2byte	0x2
+ 507 0015 7D       		.byte	0x7d
+ 508 0016 04       		.sleb128 4
+ 509 0017 04000000 		.4byte	.LCFI1
+ 510 001b 06000000 		.4byte	.LCFI2
+ 511 001f 0200     		.2byte	0x2
+ 512 0021 7D       		.byte	0x7d
+ 513 0022 10       		.sleb128 16
+ 514 0023 06000000 		.4byte	.LCFI2
+ 515 0027 38000000 		.4byte	.LFE29
+ 516 002b 0200     		.2byte	0x2
+ 517 002d 77       		.byte	0x77
+ 518 002e 10       		.sleb128 16
+ 519 002f 00000000 		.4byte	0x0
+ 520 0033 00000000 		.4byte	0x0
+ 521              	.LLST1:
+ 522 0037 00000000 		.4byte	.LFB30
+ 523 003b 02000000 		.4byte	.LCFI3
+ 524 003f 0100     		.2byte	0x1
+ 525 0041 5D       		.byte	0x5d
+ 526 0042 02000000 		.4byte	.LCFI3
+ 527 0046 04000000 		.4byte	.LCFI4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 13
+
+
+ 528 004a 0200     		.2byte	0x2
+ 529 004c 7D       		.byte	0x7d
+ 530 004d 08       		.sleb128 8
+ 531 004e 04000000 		.4byte	.LCFI4
+ 532 0052 34000000 		.4byte	.LFE30
+ 533 0056 0200     		.2byte	0x2
+ 534 0058 77       		.byte	0x77
+ 535 0059 08       		.sleb128 8
+ 536 005a 00000000 		.4byte	0x0
+ 537 005e 00000000 		.4byte	0x0
+ 538              	.LLST2:
+ 539 0062 00000000 		.4byte	.LFB31
+ 540 0066 02000000 		.4byte	.LCFI5
+ 541 006a 0100     		.2byte	0x1
+ 542 006c 5D       		.byte	0x5d
+ 543 006d 02000000 		.4byte	.LCFI5
+ 544 0071 04000000 		.4byte	.LCFI6
+ 545 0075 0200     		.2byte	0x2
+ 546 0077 7D       		.byte	0x7d
+ 547 0078 08       		.sleb128 8
+ 548 0079 04000000 		.4byte	.LCFI6
+ 549 007d 06000000 		.4byte	.LCFI7
+ 550 0081 0200     		.2byte	0x2
+ 551 0083 7D       		.byte	0x7d
+ 552 0084 20       		.sleb128 32
+ 553 0085 06000000 		.4byte	.LCFI7
+ 554 0089 C0000000 		.4byte	.LFE31
+ 555 008d 0200     		.2byte	0x2
+ 556 008f 77       		.byte	0x77
+ 557 0090 20       		.sleb128 32
+ 558 0091 00000000 		.4byte	0x0
+ 559 0095 00000000 		.4byte	0x0
+ 560              	.LLST3:
+ 561 0099 00000000 		.4byte	.LFB32
+ 562 009d 02000000 		.4byte	.LCFI8
+ 563 00a1 0100     		.2byte	0x1
+ 564 00a3 5D       		.byte	0x5d
+ 565 00a4 02000000 		.4byte	.LCFI8
+ 566 00a8 04000000 		.4byte	.LCFI9
+ 567 00ac 0200     		.2byte	0x2
+ 568 00ae 7D       		.byte	0x7d
+ 569 00af 08       		.sleb128 8
+ 570 00b0 04000000 		.4byte	.LCFI9
+ 571 00b4 06000000 		.4byte	.LCFI10
+ 572 00b8 0200     		.2byte	0x2
+ 573 00ba 7D       		.byte	0x7d
+ 574 00bb 20       		.sleb128 32
+ 575 00bc 06000000 		.4byte	.LCFI10
+ 576 00c0 C0000000 		.4byte	.LFE32
+ 577 00c4 0200     		.2byte	0x2
+ 578 00c6 77       		.byte	0x77
+ 579 00c7 20       		.sleb128 32
+ 580 00c8 00000000 		.4byte	0x0
+ 581 00cc 00000000 		.4byte	0x0
+ 582              	.LLST4:
+ 583 00d0 00000000 		.4byte	.LFB33
+ 584 00d4 02000000 		.4byte	.LCFI11
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 14
+
+
+ 585 00d8 0100     		.2byte	0x1
+ 586 00da 5D       		.byte	0x5d
+ 587 00db 02000000 		.4byte	.LCFI11
+ 588 00df 04000000 		.4byte	.LCFI12
+ 589 00e3 0200     		.2byte	0x2
+ 590 00e5 7D       		.byte	0x7d
+ 591 00e6 08       		.sleb128 8
+ 592 00e7 04000000 		.4byte	.LCFI12
+ 593 00eb 06000000 		.4byte	.LCFI13
+ 594 00ef 0200     		.2byte	0x2
+ 595 00f1 7D       		.byte	0x7d
+ 596 00f2 10       		.sleb128 16
+ 597 00f3 06000000 		.4byte	.LCFI13
+ 598 00f7 26010000 		.4byte	.LFE33
+ 599 00fb 0200     		.2byte	0x2
+ 600 00fd 77       		.byte	0x77
+ 601 00fe 10       		.sleb128 16
+ 602 00ff 00000000 		.4byte	0x0
+ 603 0103 00000000 		.4byte	0x0
+ 604              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 605              		.file 3 ".\\/types.h"
+ 606              		.file 4 ".\\/error.h"
+ 607              		.file 5 "./Generated_Source/PSoC5/core_cm3.h"
+ 608              		.section	.debug_info
+ 609 0000 33030000 		.4byte	0x333
+ 610 0004 0200     		.2byte	0x2
+ 611 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 612 000a 04       		.byte	0x4
+ 613 000b 01       		.uleb128 0x1
+ 614 000c 44010000 		.4byte	.LASF38
+ 615 0010 01       		.byte	0x1
+ 616 0011 21000000 		.4byte	.LASF39
+ 617 0015 C0010000 		.4byte	.LASF40
+ 618 0019 00000000 		.4byte	0x0
+ 619 001d 00000000 		.4byte	0x0
+ 620 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 621 0025 00000000 		.4byte	.Ldebug_line0
+ 622 0029 02       		.uleb128 0x2
+ 623 002a 01       		.byte	0x1
+ 624 002b 06       		.byte	0x6
+ 625 002c 98010000 		.4byte	.LASF0
+ 626 0030 02       		.uleb128 0x2
+ 627 0031 01       		.byte	0x1
+ 628 0032 08       		.byte	0x8
+ 629 0033 96000000 		.4byte	.LASF1
+ 630 0037 02       		.uleb128 0x2
+ 631 0038 02       		.byte	0x2
+ 632 0039 05       		.byte	0x5
+ 633 003a 5D000000 		.4byte	.LASF2
+ 634 003e 02       		.uleb128 0x2
+ 635 003f 02       		.byte	0x2
+ 636 0040 07       		.byte	0x7
+ 637 0041 44000000 		.4byte	.LASF3
+ 638 0045 02       		.uleb128 0x2
+ 639 0046 04       		.byte	0x4
+ 640 0047 05       		.byte	0x5
+ 641 0048 80010000 		.4byte	.LASF4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 15
+
+
+ 642 004c 02       		.uleb128 0x2
+ 643 004d 04       		.byte	0x4
+ 644 004e 07       		.byte	0x7
+ 645 004f D4000000 		.4byte	.LASF5
+ 646 0053 02       		.uleb128 0x2
+ 647 0054 08       		.byte	0x8
+ 648 0055 05       		.byte	0x5
+ 649 0056 00000000 		.4byte	.LASF6
+ 650 005a 02       		.uleb128 0x2
+ 651 005b 08       		.byte	0x8
+ 652 005c 07       		.byte	0x7
+ 653 005d 0F010000 		.4byte	.LASF7
+ 654 0061 03       		.uleb128 0x3
+ 655 0062 04       		.byte	0x4
+ 656 0063 05       		.byte	0x5
+ 657 0064 696E7400 		.ascii	"int\000"
+ 658 0068 02       		.uleb128 0x2
+ 659 0069 04       		.byte	0x4
+ 660 006a 07       		.byte	0x7
+ 661 006b 02010000 		.4byte	.LASF8
+ 662 006f 04       		.uleb128 0x4
+ 663 0070 74010000 		.4byte	.LASF9
+ 664 0074 02       		.byte	0x2
+ 665 0075 4C       		.byte	0x4c
+ 666 0076 30000000 		.4byte	0x30
+ 667 007a 04       		.uleb128 0x4
+ 668 007b EF000000 		.4byte	.LASF10
+ 669 007f 02       		.byte	0x2
+ 670 0080 4D       		.byte	0x4d
+ 671 0081 3E000000 		.4byte	0x3e
+ 672 0085 02       		.uleb128 0x2
+ 673 0086 04       		.byte	0x4
+ 674 0087 04       		.byte	0x4
+ 675 0088 82000000 		.4byte	.LASF11
+ 676 008c 02       		.uleb128 0x2
+ 677 008d 08       		.byte	0x8
+ 678 008e 04       		.byte	0x4
+ 679 008f 67000000 		.4byte	.LASF12
+ 680 0093 02       		.uleb128 0x2
+ 681 0094 01       		.byte	0x1
+ 682 0095 08       		.byte	0x8
+ 683 0096 59010000 		.4byte	.LASF13
+ 684 009a 05       		.uleb128 0x5
+ 685 009b 04       		.byte	0x4
+ 686 009c 07       		.byte	0x7
+ 687 009d 06       		.uleb128 0x6
+ 688 009e 04       		.byte	0x4
+ 689 009f A3000000 		.4byte	0xa3
+ 690 00a3 07       		.uleb128 0x7
+ 691 00a4 93000000 		.4byte	0x93
+ 692 00a8 04       		.uleb128 0x4
+ 693 00a9 CE000000 		.4byte	.LASF14
+ 694 00ad 03       		.byte	0x3
+ 695 00ae 0E       		.byte	0xe
+ 696 00af 6F000000 		.4byte	0x6f
+ 697 00b3 04       		.uleb128 0x4
+ 698 00b4 8F000000 		.4byte	.LASF15
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 16
+
+
+ 699 00b8 03       		.byte	0x3
+ 700 00b9 0F       		.byte	0xf
+ 701 00ba 6F000000 		.4byte	0x6f
+ 702 00be 08       		.uleb128 0x8
+ 703 00bf 0E000000 		.4byte	.LASF21
+ 704 00c3 10       		.byte	0x10
+ 705 00c4 04       		.byte	0x4
+ 706 00c5 20       		.byte	0x20
+ 707 00c6 03010000 		.4byte	0x103
+ 708 00ca 09       		.uleb128 0x9
+ 709 00cb A4000000 		.4byte	.LASF16
+ 710 00cf 04       		.byte	0x4
+ 711 00d0 21       		.byte	0x21
+ 712 00d1 03010000 		.4byte	0x103
+ 713 00d5 02       		.byte	0x2
+ 714 00d6 23       		.byte	0x23
+ 715 00d7 00       		.uleb128 0x0
+ 716 00d8 09       		.uleb128 0x9
+ 717 00d9 3D010000 		.4byte	.LASF17
+ 718 00dd 04       		.byte	0x4
+ 719 00de 22       		.byte	0x22
+ 720 00df 09010000 		.4byte	0x109
+ 721 00e3 02       		.byte	0x2
+ 722 00e4 23       		.byte	0x23
+ 723 00e5 04       		.uleb128 0x4
+ 724 00e6 09       		.uleb128 0x9
+ 725 00e7 3E000000 		.4byte	.LASF18
+ 726 00eb 04       		.byte	0x4
+ 727 00ec 23       		.byte	0x23
+ 728 00ed 6F000000 		.4byte	0x6f
+ 729 00f1 02       		.byte	0x2
+ 730 00f2 23       		.byte	0x23
+ 731 00f3 0C       		.uleb128 0xc
+ 732 00f4 09       		.uleb128 0x9
+ 733 00f5 7A010000 		.4byte	.LASF19
+ 734 00f9 04       		.byte	0x4
+ 735 00fa 24       		.byte	0x24
+ 736 00fb 6F000000 		.4byte	0x6f
+ 737 00ff 02       		.byte	0x2
+ 738 0100 23       		.byte	0x23
+ 739 0101 0D       		.uleb128 0xd
+ 740 0102 00       		.byte	0x0
+ 741 0103 06       		.uleb128 0x6
+ 742 0104 04       		.byte	0x4
+ 743 0105 6F000000 		.4byte	0x6f
+ 744 0109 0A       		.uleb128 0xa
+ 745 010a A8000000 		.4byte	0xa8
+ 746 010e 19010000 		.4byte	0x119
+ 747 0112 0B       		.uleb128 0xb
+ 748 0113 9A000000 		.4byte	0x9a
+ 749 0117 07       		.byte	0x7
+ 750 0118 00       		.byte	0x0
+ 751 0119 04       		.uleb128 0x4
+ 752 011a 5E010000 		.4byte	.LASF20
+ 753 011e 04       		.byte	0x4
+ 754 011f 25       		.byte	0x25
+ 755 0120 BE000000 		.4byte	0xbe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 17
+
+
+ 756 0124 08       		.uleb128 0x8
+ 757 0125 2B000000 		.4byte	.LASF22
+ 758 0129 10       		.byte	0x10
+ 759 012a 04       		.byte	0x4
+ 760 012b 28       		.byte	0x28
+ 761 012c 69010000 		.4byte	0x169
+ 762 0130 09       		.uleb128 0x9
+ 763 0131 88000000 		.4byte	.LASF23
+ 764 0135 04       		.byte	0x4
+ 765 0136 29       		.byte	0x29
+ 766 0137 69010000 		.4byte	0x169
+ 767 013b 02       		.byte	0x2
+ 768 013c 23       		.byte	0x23
+ 769 013d 00       		.uleb128 0x0
+ 770 013e 09       		.uleb128 0x9
+ 771 013f 3D010000 		.4byte	.LASF17
+ 772 0143 04       		.byte	0x4
+ 773 0144 2A       		.byte	0x2a
+ 774 0145 09010000 		.4byte	0x109
+ 775 0149 02       		.byte	0x2
+ 776 014a 23       		.byte	0x23
+ 777 014b 04       		.uleb128 0x4
+ 778 014c 09       		.uleb128 0x9
+ 779 014d C2000000 		.4byte	.LASF24
+ 780 0151 04       		.byte	0x4
+ 781 0152 2B       		.byte	0x2b
+ 782 0153 7A000000 		.4byte	0x7a
+ 783 0157 02       		.byte	0x2
+ 784 0158 23       		.byte	0x23
+ 785 0159 0C       		.uleb128 0xc
+ 786 015a 09       		.uleb128 0x9
+ 787 015b FC000000 		.4byte	.LASF25
+ 788 015f 04       		.byte	0x4
+ 789 0160 2C       		.byte	0x2c
+ 790 0161 7A000000 		.4byte	0x7a
+ 791 0165 02       		.byte	0x2
+ 792 0166 23       		.byte	0x23
+ 793 0167 0E       		.uleb128 0xe
+ 794 0168 00       		.byte	0x0
+ 795 0169 06       		.uleb128 0x6
+ 796 016a 04       		.byte	0x4
+ 797 016b 7A000000 		.4byte	0x7a
+ 798 016f 04       		.uleb128 0x4
+ 799 0170 77000000 		.4byte	.LASF26
+ 800 0174 04       		.byte	0x4
+ 801 0175 2D       		.byte	0x2d
+ 802 0176 24010000 		.4byte	0x124
+ 803 017a 0C       		.uleb128 0xc
+ 804 017b 01       		.byte	0x1
+ 805 017c AB000000 		.4byte	.LASF41
+ 806 0180 01       		.byte	0x1
+ 807 0181 14       		.byte	0x14
+ 808 0182 01       		.byte	0x1
+ 809 0183 00000000 		.4byte	.LFB29
+ 810 0187 38000000 		.4byte	.LFE29
+ 811 018b 00000000 		.4byte	.LLST0
+ 812 018f A2010000 		.4byte	0x1a2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 18
+
+
+ 813 0193 0D       		.uleb128 0xd
+ 814 0194 69010000 		.4byte	.LASF27
+ 815 0198 01       		.byte	0x1
+ 816 0199 14       		.byte	0x14
+ 817 019a A8000000 		.4byte	0xa8
+ 818 019e 02       		.byte	0x2
+ 819 019f 91       		.byte	0x91
+ 820 01a0 77       		.sleb128 -9
+ 821 01a1 00       		.byte	0x0
+ 822 01a2 0E       		.uleb128 0xe
+ 823 01a3 01       		.byte	0x1
+ 824 01a4 50010000 		.4byte	.LASF42
+ 825 01a8 01       		.byte	0x1
+ 826 01a9 2F       		.byte	0x2f
+ 827 01aa 01       		.byte	0x1
+ 828 01ab B3000000 		.4byte	0xb3
+ 829 01af 00000000 		.4byte	.LFB30
+ 830 01b3 34000000 		.4byte	.LFE30
+ 831 01b7 37000000 		.4byte	.LLST1
+ 832 01bb 0F       		.uleb128 0xf
+ 833 01bc 01       		.byte	0x1
+ 834 01bd 26010000 		.4byte	.LASF30
+ 835 01c1 01       		.byte	0x1
+ 836 01c2 3A       		.byte	0x3a
+ 837 01c3 01       		.byte	0x1
+ 838 01c4 A8000000 		.4byte	0xa8
+ 839 01c8 00000000 		.4byte	.LFB31
+ 840 01cc C0000000 		.4byte	.LFE31
+ 841 01d0 62000000 		.4byte	.LLST2
+ 842 01d4 1F020000 		.4byte	0x21f
+ 843 01d8 0D       		.uleb128 0xd
+ 844 01d9 6E000000 		.4byte	.LASF28
+ 845 01dd 01       		.byte	0x1
+ 846 01de 3A       		.byte	0x3a
+ 847 01df 1F020000 		.4byte	0x21f
+ 848 01e3 02       		.byte	0x2
+ 849 01e4 91       		.byte	0x91
+ 850 01e5 6C       		.sleb128 -20
+ 851 01e6 0D       		.uleb128 0xd
+ 852 01e7 BB010000 		.4byte	.LASF29
+ 853 01eb 01       		.byte	0x1
+ 854 01ec 3A       		.byte	0x3a
+ 855 01ed 9D000000 		.4byte	0x9d
+ 856 01f1 02       		.byte	0x2
+ 857 01f2 91       		.byte	0x91
+ 858 01f3 68       		.sleb128 -24
+ 859 01f4 10       		.uleb128 0x10
+ 860 01f5 6D696E00 		.ascii	"min\000"
+ 861 01f9 01       		.byte	0x1
+ 862 01fa 3A       		.byte	0x3a
+ 863 01fb 25020000 		.4byte	0x225
+ 864 01ff 02       		.byte	0x2
+ 865 0200 91       		.byte	0x91
+ 866 0201 67       		.sleb128 -25
+ 867 0202 10       		.uleb128 0x10
+ 868 0203 6D617800 		.ascii	"max\000"
+ 869 0207 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 19
+
+
+ 870 0208 3A       		.byte	0x3a
+ 871 0209 25020000 		.4byte	0x225
+ 872 020d 02       		.byte	0x2
+ 873 020e 91       		.byte	0x91
+ 874 020f 66       		.sleb128 -26
+ 875 0210 11       		.uleb128 0x11
+ 876 0211 69647800 		.ascii	"idx\000"
+ 877 0215 01       		.byte	0x1
+ 878 0216 3C       		.byte	0x3c
+ 879 0217 A8000000 		.4byte	0xa8
+ 880 021b 02       		.byte	0x2
+ 881 021c 91       		.byte	0x91
+ 882 021d 77       		.sleb128 -9
+ 883 021e 00       		.byte	0x0
+ 884 021f 06       		.uleb128 0x6
+ 885 0220 04       		.byte	0x4
+ 886 0221 25020000 		.4byte	0x225
+ 887 0225 07       		.uleb128 0x7
+ 888 0226 6F000000 		.4byte	0x6f
+ 889 022a 0F       		.uleb128 0xf
+ 890 022b 01       		.byte	0x1
+ 891 022c A4010000 		.4byte	.LASF31
+ 892 0230 01       		.byte	0x1
+ 893 0231 56       		.byte	0x56
+ 894 0232 01       		.byte	0x1
+ 895 0233 A8000000 		.4byte	0xa8
+ 896 0237 00000000 		.4byte	.LFB32
+ 897 023b C0000000 		.4byte	.LFE32
+ 898 023f 99000000 		.4byte	.LLST3
+ 899 0243 8E020000 		.4byte	0x28e
+ 900 0247 0D       		.uleb128 0xd
+ 901 0248 E6000000 		.4byte	.LASF32
+ 902 024c 01       		.byte	0x1
+ 903 024d 56       		.byte	0x56
+ 904 024e 8E020000 		.4byte	0x28e
+ 905 0252 02       		.byte	0x2
+ 906 0253 91       		.byte	0x91
+ 907 0254 6C       		.sleb128 -20
+ 908 0255 0D       		.uleb128 0xd
+ 909 0256 BB010000 		.4byte	.LASF29
+ 910 025a 01       		.byte	0x1
+ 911 025b 56       		.byte	0x56
+ 912 025c 9D000000 		.4byte	0x9d
+ 913 0260 02       		.byte	0x2
+ 914 0261 91       		.byte	0x91
+ 915 0262 68       		.sleb128 -24
+ 916 0263 10       		.uleb128 0x10
+ 917 0264 6D696E00 		.ascii	"min\000"
+ 918 0268 01       		.byte	0x1
+ 919 0269 56       		.byte	0x56
+ 920 026a 94020000 		.4byte	0x294
+ 921 026e 02       		.byte	0x2
+ 922 026f 91       		.byte	0x91
+ 923 0270 66       		.sleb128 -26
+ 924 0271 10       		.uleb128 0x10
+ 925 0272 6D617800 		.ascii	"max\000"
+ 926 0276 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 20
+
+
+ 927 0277 56       		.byte	0x56
+ 928 0278 94020000 		.4byte	0x294
+ 929 027c 02       		.byte	0x2
+ 930 027d 91       		.byte	0x91
+ 931 027e 64       		.sleb128 -28
+ 932 027f 11       		.uleb128 0x11
+ 933 0280 69647800 		.ascii	"idx\000"
+ 934 0284 01       		.byte	0x1
+ 935 0285 58       		.byte	0x58
+ 936 0286 A8000000 		.4byte	0xa8
+ 937 028a 02       		.byte	0x2
+ 938 028b 91       		.byte	0x91
+ 939 028c 77       		.sleb128 -9
+ 940 028d 00       		.byte	0x0
+ 941 028e 06       		.uleb128 0x6
+ 942 028f 04       		.byte	0x4
+ 943 0290 94020000 		.4byte	0x294
+ 944 0294 07       		.uleb128 0x7
+ 945 0295 7A000000 		.4byte	0x7a
+ 946 0299 0F       		.uleb128 0xf
+ 947 029a 01       		.byte	0x1
+ 948 029b 89010000 		.4byte	.LASF33
+ 949 029f 01       		.byte	0x1
+ 950 02a0 74       		.byte	0x74
+ 951 02a1 01       		.byte	0x1
+ 952 02a2 B3000000 		.4byte	0xb3
+ 953 02a6 00000000 		.4byte	.LFB33
+ 954 02aa 26010000 		.4byte	.LFE33
+ 955 02ae D0000000 		.4byte	.LLST4
+ 956 02b2 E1020000 		.4byte	0x2e1
+ 957 02b6 11       		.uleb128 0x11
+ 958 02b7 69647800 		.ascii	"idx\000"
+ 959 02bb 01       		.byte	0x1
+ 960 02bc 76       		.byte	0x76
+ 961 02bd A8000000 		.4byte	0xa8
+ 962 02c1 02       		.byte	0x2
+ 963 02c2 91       		.byte	0x91
+ 964 02c3 74       		.sleb128 -12
+ 965 02c4 12       		.uleb128 0x12
+ 966 02c5 57000000 		.4byte	.LASF34
+ 967 02c9 01       		.byte	0x1
+ 968 02ca 77       		.byte	0x77
+ 969 02cb 6F000000 		.4byte	0x6f
+ 970 02cf 02       		.byte	0x2
+ 971 02d0 91       		.byte	0x91
+ 972 02d1 75       		.sleb128 -11
+ 973 02d2 12       		.uleb128 0x12
+ 974 02d3 C8000000 		.4byte	.LASF35
+ 975 02d7 01       		.byte	0x1
+ 976 02d8 78       		.byte	0x78
+ 977 02d9 7A000000 		.4byte	0x7a
+ 978 02dd 02       		.byte	0x2
+ 979 02de 91       		.byte	0x91
+ 980 02df 76       		.sleb128 -10
+ 981 02e0 00       		.byte	0x0
+ 982 02e1 0A       		.uleb128 0xa
+ 983 02e2 19010000 		.4byte	0x119
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 21
+
+
+ 984 02e6 F1020000 		.4byte	0x2f1
+ 985 02ea 0B       		.uleb128 0xb
+ 986 02eb 9A000000 		.4byte	0x9a
+ 987 02ef 04       		.byte	0x4
+ 988 02f0 00       		.byte	0x0
+ 989 02f1 12       		.uleb128 0x12
+ 990 02f2 F6000000 		.4byte	.LASF36
+ 991 02f6 01       		.byte	0x1
+ 992 02f7 0F       		.byte	0xf
+ 993 02f8 E1020000 		.4byte	0x2e1
+ 994 02fc 05       		.byte	0x5
+ 995 02fd 03       		.byte	0x3
+ 996 02fe 00000000 		.4byte	UcVar
+ 997 0302 0A       		.uleb128 0xa
+ 998 0303 6F010000 		.4byte	0x16f
+ 999 0307 12030000 		.4byte	0x312
+ 1000 030b 0B       		.uleb128 0xb
+ 1001 030c 9A000000 		.4byte	0x9a
+ 1002 0310 04       		.byte	0x4
+ 1003 0311 00       		.byte	0x0
+ 1004 0312 12       		.uleb128 0x12
+ 1005 0313 6E010000 		.4byte	.LASF37
+ 1006 0317 01       		.byte	0x1
+ 1007 0318 10       		.byte	0x10
+ 1008 0319 02030000 		.4byte	0x302
+ 1009 031d 05       		.byte	0x5
+ 1010 031e 03       		.byte	0x3
+ 1011 031f 50000000 		.4byte	UiVar
+ 1012 0323 13       		.uleb128 0x13
+ 1013 0324 B5000000 		.4byte	.LASF43
+ 1014 0328 05       		.byte	0x5
+ 1015 0329 CE06     		.2byte	0x6ce
+ 1016 032b 31030000 		.4byte	0x331
+ 1017 032f 01       		.byte	0x1
+ 1018 0330 01       		.byte	0x1
+ 1019 0331 14       		.uleb128 0x14
+ 1020 0332 61000000 		.4byte	0x61
+ 1021 0336 00       		.byte	0x0
+ 1022              		.section	.debug_abbrev
+ 1023 0000 01       		.uleb128 0x1
+ 1024 0001 11       		.uleb128 0x11
+ 1025 0002 01       		.byte	0x1
+ 1026 0003 25       		.uleb128 0x25
+ 1027 0004 0E       		.uleb128 0xe
+ 1028 0005 13       		.uleb128 0x13
+ 1029 0006 0B       		.uleb128 0xb
+ 1030 0007 03       		.uleb128 0x3
+ 1031 0008 0E       		.uleb128 0xe
+ 1032 0009 1B       		.uleb128 0x1b
+ 1033 000a 0E       		.uleb128 0xe
+ 1034 000b 11       		.uleb128 0x11
+ 1035 000c 01       		.uleb128 0x1
+ 1036 000d 52       		.uleb128 0x52
+ 1037 000e 01       		.uleb128 0x1
+ 1038 000f 55       		.uleb128 0x55
+ 1039 0010 06       		.uleb128 0x6
+ 1040 0011 10       		.uleb128 0x10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 22
+
+
+ 1041 0012 06       		.uleb128 0x6
+ 1042 0013 00       		.byte	0x0
+ 1043 0014 00       		.byte	0x0
+ 1044 0015 02       		.uleb128 0x2
+ 1045 0016 24       		.uleb128 0x24
+ 1046 0017 00       		.byte	0x0
+ 1047 0018 0B       		.uleb128 0xb
+ 1048 0019 0B       		.uleb128 0xb
+ 1049 001a 3E       		.uleb128 0x3e
+ 1050 001b 0B       		.uleb128 0xb
+ 1051 001c 03       		.uleb128 0x3
+ 1052 001d 0E       		.uleb128 0xe
+ 1053 001e 00       		.byte	0x0
+ 1054 001f 00       		.byte	0x0
+ 1055 0020 03       		.uleb128 0x3
+ 1056 0021 24       		.uleb128 0x24
+ 1057 0022 00       		.byte	0x0
+ 1058 0023 0B       		.uleb128 0xb
+ 1059 0024 0B       		.uleb128 0xb
+ 1060 0025 3E       		.uleb128 0x3e
+ 1061 0026 0B       		.uleb128 0xb
+ 1062 0027 03       		.uleb128 0x3
+ 1063 0028 08       		.uleb128 0x8
+ 1064 0029 00       		.byte	0x0
+ 1065 002a 00       		.byte	0x0
+ 1066 002b 04       		.uleb128 0x4
+ 1067 002c 16       		.uleb128 0x16
+ 1068 002d 00       		.byte	0x0
+ 1069 002e 03       		.uleb128 0x3
+ 1070 002f 0E       		.uleb128 0xe
+ 1071 0030 3A       		.uleb128 0x3a
+ 1072 0031 0B       		.uleb128 0xb
+ 1073 0032 3B       		.uleb128 0x3b
+ 1074 0033 0B       		.uleb128 0xb
+ 1075 0034 49       		.uleb128 0x49
+ 1076 0035 13       		.uleb128 0x13
+ 1077 0036 00       		.byte	0x0
+ 1078 0037 00       		.byte	0x0
+ 1079 0038 05       		.uleb128 0x5
+ 1080 0039 24       		.uleb128 0x24
+ 1081 003a 00       		.byte	0x0
+ 1082 003b 0B       		.uleb128 0xb
+ 1083 003c 0B       		.uleb128 0xb
+ 1084 003d 3E       		.uleb128 0x3e
+ 1085 003e 0B       		.uleb128 0xb
+ 1086 003f 00       		.byte	0x0
+ 1087 0040 00       		.byte	0x0
+ 1088 0041 06       		.uleb128 0x6
+ 1089 0042 0F       		.uleb128 0xf
+ 1090 0043 00       		.byte	0x0
+ 1091 0044 0B       		.uleb128 0xb
+ 1092 0045 0B       		.uleb128 0xb
+ 1093 0046 49       		.uleb128 0x49
+ 1094 0047 13       		.uleb128 0x13
+ 1095 0048 00       		.byte	0x0
+ 1096 0049 00       		.byte	0x0
+ 1097 004a 07       		.uleb128 0x7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 23
+
+
+ 1098 004b 26       		.uleb128 0x26
+ 1099 004c 00       		.byte	0x0
+ 1100 004d 49       		.uleb128 0x49
+ 1101 004e 13       		.uleb128 0x13
+ 1102 004f 00       		.byte	0x0
+ 1103 0050 00       		.byte	0x0
+ 1104 0051 08       		.uleb128 0x8
+ 1105 0052 13       		.uleb128 0x13
+ 1106 0053 01       		.byte	0x1
+ 1107 0054 03       		.uleb128 0x3
+ 1108 0055 0E       		.uleb128 0xe
+ 1109 0056 0B       		.uleb128 0xb
+ 1110 0057 0B       		.uleb128 0xb
+ 1111 0058 3A       		.uleb128 0x3a
+ 1112 0059 0B       		.uleb128 0xb
+ 1113 005a 3B       		.uleb128 0x3b
+ 1114 005b 0B       		.uleb128 0xb
+ 1115 005c 01       		.uleb128 0x1
+ 1116 005d 13       		.uleb128 0x13
+ 1117 005e 00       		.byte	0x0
+ 1118 005f 00       		.byte	0x0
+ 1119 0060 09       		.uleb128 0x9
+ 1120 0061 0D       		.uleb128 0xd
+ 1121 0062 00       		.byte	0x0
+ 1122 0063 03       		.uleb128 0x3
+ 1123 0064 0E       		.uleb128 0xe
+ 1124 0065 3A       		.uleb128 0x3a
+ 1125 0066 0B       		.uleb128 0xb
+ 1126 0067 3B       		.uleb128 0x3b
+ 1127 0068 0B       		.uleb128 0xb
+ 1128 0069 49       		.uleb128 0x49
+ 1129 006a 13       		.uleb128 0x13
+ 1130 006b 38       		.uleb128 0x38
+ 1131 006c 0A       		.uleb128 0xa
+ 1132 006d 00       		.byte	0x0
+ 1133 006e 00       		.byte	0x0
+ 1134 006f 0A       		.uleb128 0xa
+ 1135 0070 01       		.uleb128 0x1
+ 1136 0071 01       		.byte	0x1
+ 1137 0072 49       		.uleb128 0x49
+ 1138 0073 13       		.uleb128 0x13
+ 1139 0074 01       		.uleb128 0x1
+ 1140 0075 13       		.uleb128 0x13
+ 1141 0076 00       		.byte	0x0
+ 1142 0077 00       		.byte	0x0
+ 1143 0078 0B       		.uleb128 0xb
+ 1144 0079 21       		.uleb128 0x21
+ 1145 007a 00       		.byte	0x0
+ 1146 007b 49       		.uleb128 0x49
+ 1147 007c 13       		.uleb128 0x13
+ 1148 007d 2F       		.uleb128 0x2f
+ 1149 007e 0B       		.uleb128 0xb
+ 1150 007f 00       		.byte	0x0
+ 1151 0080 00       		.byte	0x0
+ 1152 0081 0C       		.uleb128 0xc
+ 1153 0082 2E       		.uleb128 0x2e
+ 1154 0083 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 24
+
+
+ 1155 0084 3F       		.uleb128 0x3f
+ 1156 0085 0C       		.uleb128 0xc
+ 1157 0086 03       		.uleb128 0x3
+ 1158 0087 0E       		.uleb128 0xe
+ 1159 0088 3A       		.uleb128 0x3a
+ 1160 0089 0B       		.uleb128 0xb
+ 1161 008a 3B       		.uleb128 0x3b
+ 1162 008b 0B       		.uleb128 0xb
+ 1163 008c 27       		.uleb128 0x27
+ 1164 008d 0C       		.uleb128 0xc
+ 1165 008e 11       		.uleb128 0x11
+ 1166 008f 01       		.uleb128 0x1
+ 1167 0090 12       		.uleb128 0x12
+ 1168 0091 01       		.uleb128 0x1
+ 1169 0092 40       		.uleb128 0x40
+ 1170 0093 06       		.uleb128 0x6
+ 1171 0094 01       		.uleb128 0x1
+ 1172 0095 13       		.uleb128 0x13
+ 1173 0096 00       		.byte	0x0
+ 1174 0097 00       		.byte	0x0
+ 1175 0098 0D       		.uleb128 0xd
+ 1176 0099 05       		.uleb128 0x5
+ 1177 009a 00       		.byte	0x0
+ 1178 009b 03       		.uleb128 0x3
+ 1179 009c 0E       		.uleb128 0xe
+ 1180 009d 3A       		.uleb128 0x3a
+ 1181 009e 0B       		.uleb128 0xb
+ 1182 009f 3B       		.uleb128 0x3b
+ 1183 00a0 0B       		.uleb128 0xb
+ 1184 00a1 49       		.uleb128 0x49
+ 1185 00a2 13       		.uleb128 0x13
+ 1186 00a3 02       		.uleb128 0x2
+ 1187 00a4 0A       		.uleb128 0xa
+ 1188 00a5 00       		.byte	0x0
+ 1189 00a6 00       		.byte	0x0
+ 1190 00a7 0E       		.uleb128 0xe
+ 1191 00a8 2E       		.uleb128 0x2e
+ 1192 00a9 00       		.byte	0x0
+ 1193 00aa 3F       		.uleb128 0x3f
+ 1194 00ab 0C       		.uleb128 0xc
+ 1195 00ac 03       		.uleb128 0x3
+ 1196 00ad 0E       		.uleb128 0xe
+ 1197 00ae 3A       		.uleb128 0x3a
+ 1198 00af 0B       		.uleb128 0xb
+ 1199 00b0 3B       		.uleb128 0x3b
+ 1200 00b1 0B       		.uleb128 0xb
+ 1201 00b2 27       		.uleb128 0x27
+ 1202 00b3 0C       		.uleb128 0xc
+ 1203 00b4 49       		.uleb128 0x49
+ 1204 00b5 13       		.uleb128 0x13
+ 1205 00b6 11       		.uleb128 0x11
+ 1206 00b7 01       		.uleb128 0x1
+ 1207 00b8 12       		.uleb128 0x12
+ 1208 00b9 01       		.uleb128 0x1
+ 1209 00ba 40       		.uleb128 0x40
+ 1210 00bb 06       		.uleb128 0x6
+ 1211 00bc 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 25
+
+
+ 1212 00bd 00       		.byte	0x0
+ 1213 00be 0F       		.uleb128 0xf
+ 1214 00bf 2E       		.uleb128 0x2e
+ 1215 00c0 01       		.byte	0x1
+ 1216 00c1 3F       		.uleb128 0x3f
+ 1217 00c2 0C       		.uleb128 0xc
+ 1218 00c3 03       		.uleb128 0x3
+ 1219 00c4 0E       		.uleb128 0xe
+ 1220 00c5 3A       		.uleb128 0x3a
+ 1221 00c6 0B       		.uleb128 0xb
+ 1222 00c7 3B       		.uleb128 0x3b
+ 1223 00c8 0B       		.uleb128 0xb
+ 1224 00c9 27       		.uleb128 0x27
+ 1225 00ca 0C       		.uleb128 0xc
+ 1226 00cb 49       		.uleb128 0x49
+ 1227 00cc 13       		.uleb128 0x13
+ 1228 00cd 11       		.uleb128 0x11
+ 1229 00ce 01       		.uleb128 0x1
+ 1230 00cf 12       		.uleb128 0x12
+ 1231 00d0 01       		.uleb128 0x1
+ 1232 00d1 40       		.uleb128 0x40
+ 1233 00d2 06       		.uleb128 0x6
+ 1234 00d3 01       		.uleb128 0x1
+ 1235 00d4 13       		.uleb128 0x13
+ 1236 00d5 00       		.byte	0x0
+ 1237 00d6 00       		.byte	0x0
+ 1238 00d7 10       		.uleb128 0x10
+ 1239 00d8 05       		.uleb128 0x5
+ 1240 00d9 00       		.byte	0x0
+ 1241 00da 03       		.uleb128 0x3
+ 1242 00db 08       		.uleb128 0x8
+ 1243 00dc 3A       		.uleb128 0x3a
+ 1244 00dd 0B       		.uleb128 0xb
+ 1245 00de 3B       		.uleb128 0x3b
+ 1246 00df 0B       		.uleb128 0xb
+ 1247 00e0 49       		.uleb128 0x49
+ 1248 00e1 13       		.uleb128 0x13
+ 1249 00e2 02       		.uleb128 0x2
+ 1250 00e3 0A       		.uleb128 0xa
+ 1251 00e4 00       		.byte	0x0
+ 1252 00e5 00       		.byte	0x0
+ 1253 00e6 11       		.uleb128 0x11
+ 1254 00e7 34       		.uleb128 0x34
+ 1255 00e8 00       		.byte	0x0
+ 1256 00e9 03       		.uleb128 0x3
+ 1257 00ea 08       		.uleb128 0x8
+ 1258 00eb 3A       		.uleb128 0x3a
+ 1259 00ec 0B       		.uleb128 0xb
+ 1260 00ed 3B       		.uleb128 0x3b
+ 1261 00ee 0B       		.uleb128 0xb
+ 1262 00ef 49       		.uleb128 0x49
+ 1263 00f0 13       		.uleb128 0x13
+ 1264 00f1 02       		.uleb128 0x2
+ 1265 00f2 0A       		.uleb128 0xa
+ 1266 00f3 00       		.byte	0x0
+ 1267 00f4 00       		.byte	0x0
+ 1268 00f5 12       		.uleb128 0x12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 26
+
+
+ 1269 00f6 34       		.uleb128 0x34
+ 1270 00f7 00       		.byte	0x0
+ 1271 00f8 03       		.uleb128 0x3
+ 1272 00f9 0E       		.uleb128 0xe
+ 1273 00fa 3A       		.uleb128 0x3a
+ 1274 00fb 0B       		.uleb128 0xb
+ 1275 00fc 3B       		.uleb128 0x3b
+ 1276 00fd 0B       		.uleb128 0xb
+ 1277 00fe 49       		.uleb128 0x49
+ 1278 00ff 13       		.uleb128 0x13
+ 1279 0100 02       		.uleb128 0x2
+ 1280 0101 0A       		.uleb128 0xa
+ 1281 0102 00       		.byte	0x0
+ 1282 0103 00       		.byte	0x0
+ 1283 0104 13       		.uleb128 0x13
+ 1284 0105 34       		.uleb128 0x34
+ 1285 0106 00       		.byte	0x0
+ 1286 0107 03       		.uleb128 0x3
+ 1287 0108 0E       		.uleb128 0xe
+ 1288 0109 3A       		.uleb128 0x3a
+ 1289 010a 0B       		.uleb128 0xb
+ 1290 010b 3B       		.uleb128 0x3b
+ 1291 010c 05       		.uleb128 0x5
+ 1292 010d 49       		.uleb128 0x49
+ 1293 010e 13       		.uleb128 0x13
+ 1294 010f 3F       		.uleb128 0x3f
+ 1295 0110 0C       		.uleb128 0xc
+ 1296 0111 3C       		.uleb128 0x3c
+ 1297 0112 0C       		.uleb128 0xc
+ 1298 0113 00       		.byte	0x0
+ 1299 0114 00       		.byte	0x0
+ 1300 0115 14       		.uleb128 0x14
+ 1301 0116 35       		.uleb128 0x35
+ 1302 0117 00       		.byte	0x0
+ 1303 0118 49       		.uleb128 0x49
+ 1304 0119 13       		.uleb128 0x13
+ 1305 011a 00       		.byte	0x0
+ 1306 011b 00       		.byte	0x0
+ 1307 011c 00       		.byte	0x0
+ 1308              		.section	.debug_pubnames,"",%progbits
+ 1309 0000 72000000 		.4byte	0x72
+ 1310 0004 0200     		.2byte	0x2
+ 1311 0006 00000000 		.4byte	.Ldebug_info0
+ 1312 000a 37030000 		.4byte	0x337
+ 1313 000e 7A010000 		.4byte	0x17a
+ 1314 0012 4552525F 		.ascii	"ERR_Error\000"
+ 1314      4572726F 
+ 1314      7200
+ 1315 001c A2010000 		.4byte	0x1a2
+ 1316 0020 4552525F 		.ascii	"ERR_Init\000"
+ 1316      496E6974 
+ 1316      00
+ 1317 0029 BB010000 		.4byte	0x1bb
+ 1318 002d 4552525F 		.ascii	"ERR_RegisterUcVariable\000"
+ 1318      52656769 
+ 1318      73746572 
+ 1318      55635661 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 27
+
+
+ 1318      72696162 
+ 1319 0044 2A020000 		.4byte	0x22a
+ 1320 0048 4552525F 		.ascii	"ERR_RegisterUiVariable\000"
+ 1320      52656769 
+ 1320      73746572 
+ 1320      55695661 
+ 1320      72696162 
+ 1321 005f 99020000 		.4byte	0x299
+ 1322 0063 4552525F 		.ascii	"ERR_HandleTask\000"
+ 1322      48616E64 
+ 1322      6C655461 
+ 1322      736B00
+ 1323 0072 00000000 		.4byte	0x0
+ 1324              		.section	.debug_aranges,"",%progbits
+ 1325 0000 3C000000 		.4byte	0x3c
+ 1326 0004 0200     		.2byte	0x2
+ 1327 0006 00000000 		.4byte	.Ldebug_info0
+ 1328 000a 04       		.byte	0x4
+ 1329 000b 00       		.byte	0x0
+ 1330 000c 0000     		.2byte	0x0
+ 1331 000e 0000     		.2byte	0x0
+ 1332 0010 00000000 		.4byte	.LFB29
+ 1333 0014 38000000 		.4byte	.LFE29-.LFB29
+ 1334 0018 00000000 		.4byte	.LFB30
+ 1335 001c 34000000 		.4byte	.LFE30-.LFB30
+ 1336 0020 00000000 		.4byte	.LFB31
+ 1337 0024 C0000000 		.4byte	.LFE31-.LFB31
+ 1338 0028 00000000 		.4byte	.LFB32
+ 1339 002c C0000000 		.4byte	.LFE32-.LFB32
+ 1340 0030 00000000 		.4byte	.LFB33
+ 1341 0034 26010000 		.4byte	.LFE33-.LFB33
+ 1342 0038 00000000 		.4byte	0x0
+ 1343 003c 00000000 		.4byte	0x0
+ 1344              		.section	.debug_ranges,"",%progbits
+ 1345              	.Ldebug_ranges0:
+ 1346 0000 00000000 		.4byte	.Ltext0
+ 1347 0004 00000000 		.4byte	.Letext0
+ 1348 0008 00000000 		.4byte	.LFB29
+ 1349 000c 38000000 		.4byte	.LFE29
+ 1350 0010 00000000 		.4byte	.LFB30
+ 1351 0014 34000000 		.4byte	.LFE30
+ 1352 0018 00000000 		.4byte	.LFB31
+ 1353 001c C0000000 		.4byte	.LFE31
+ 1354 0020 00000000 		.4byte	.LFB32
+ 1355 0024 C0000000 		.4byte	.LFE32
+ 1356 0028 00000000 		.4byte	.LFB33
+ 1357 002c 26010000 		.4byte	.LFE33
+ 1358 0030 00000000 		.4byte	0x0
+ 1359 0034 00000000 		.4byte	0x0
+ 1360              		.section	.debug_str,"MS",%progbits,1
+ 1361              	.LASF6:
+ 1362 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1362      206C6F6E 
+ 1362      6720696E 
+ 1362      7400
+ 1363              	.LASF21:
+ 1364 000e 5F657272 		.ascii	"_error_uc_variable\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 28
+
+
+ 1364      6F725F75 
+ 1364      635F7661 
+ 1364      72696162 
+ 1364      6C6500
+ 1365              	.LASF39:
+ 1366 0021 2E5C6572 		.ascii	".\\error.c\000"
+ 1366      726F722E 
+ 1366      6300
+ 1367              	.LASF22:
+ 1368 002b 5F657272 		.ascii	"_error_ui_variable\000"
+ 1368      6F725F75 
+ 1368      695F7661 
+ 1368      72696162 
+ 1368      6C6500
+ 1369              	.LASF18:
+ 1370 003e 75634D61 		.ascii	"ucMax\000"
+ 1370      7800
+ 1371              	.LASF3:
+ 1372 0044 73686F72 		.ascii	"short unsigned int\000"
+ 1372      7420756E 
+ 1372      7369676E 
+ 1372      65642069 
+ 1372      6E7400
+ 1373              	.LASF34:
+ 1374 0057 75635661 		.ascii	"ucVal\000"
+ 1374      6C00
+ 1375              	.LASF2:
+ 1376 005d 73686F72 		.ascii	"short int\000"
+ 1376      7420696E 
+ 1376      7400
+ 1377              	.LASF12:
+ 1378 0067 646F7562 		.ascii	"double\000"
+ 1378      6C6500
+ 1379              	.LASF28:
+ 1380 006e 70747255 		.ascii	"ptrUcVar\000"
+ 1380      63566172 
+ 1380      00
+ 1381              	.LASF26:
+ 1382 0077 4552525F 		.ascii	"ERR_UI_VAR\000"
+ 1382      55495F56 
+ 1382      415200
+ 1383              	.LASF11:
+ 1384 0082 666C6F61 		.ascii	"float\000"
+ 1384      7400
+ 1385              	.LASF23:
+ 1386 0088 75694164 		.ascii	"uiAddr\000"
+ 1386      647200
+ 1387              	.LASF15:
+ 1388 008f 53544154 		.ascii	"STATUS\000"
+ 1388      555300
+ 1389              	.LASF1:
+ 1390 0096 756E7369 		.ascii	"unsigned char\000"
+ 1390      676E6564 
+ 1390      20636861 
+ 1390      7200
+ 1391              	.LASF16:
+ 1392 00a4 75634164 		.ascii	"ucAddr\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 29
+
+
+ 1392      647200
+ 1393              	.LASF41:
+ 1394 00ab 4552525F 		.ascii	"ERR_Error\000"
+ 1394      4572726F 
+ 1394      7200
+ 1395              	.LASF43:
+ 1396 00b5 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1396      52784275 
+ 1396      66666572 
+ 1396      00
+ 1397              	.LASF24:
+ 1398 00c2 75694D61 		.ascii	"uiMax\000"
+ 1398      7800
+ 1399              	.LASF35:
+ 1400 00c8 75695661 		.ascii	"uiVal\000"
+ 1400      6C00
+ 1401              	.LASF14:
+ 1402 00ce 75636861 		.ascii	"uchar\000"
+ 1402      7200
+ 1403              	.LASF5:
+ 1404 00d4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1404      20756E73 
+ 1404      69676E65 
+ 1404      6420696E 
+ 1404      7400
+ 1405              	.LASF32:
+ 1406 00e6 70747255 		.ascii	"ptrUiVar\000"
+ 1406      69566172 
+ 1406      00
+ 1407              	.LASF10:
+ 1408 00ef 75696E74 		.ascii	"uint16\000"
+ 1408      313600
+ 1409              	.LASF36:
+ 1410 00f6 55635661 		.ascii	"UcVar\000"
+ 1410      7200
+ 1411              	.LASF25:
+ 1412 00fc 75694D69 		.ascii	"uiMin\000"
+ 1412      6E00
+ 1413              	.LASF8:
+ 1414 0102 756E7369 		.ascii	"unsigned int\000"
+ 1414      676E6564 
+ 1414      20696E74 
+ 1414      00
+ 1415              	.LASF7:
+ 1416 010f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1416      206C6F6E 
+ 1416      6720756E 
+ 1416      7369676E 
+ 1416      65642069 
+ 1417              	.LASF30:
+ 1418 0126 4552525F 		.ascii	"ERR_RegisterUcVariable\000"
+ 1418      52656769 
+ 1418      73746572 
+ 1418      55635661 
+ 1418      72696162 
+ 1419              	.LASF17:
+ 1420 013d 75634E61 		.ascii	"ucName\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 30
+
+
+ 1420      6D6500
+ 1421              	.LASF38:
+ 1422 0144 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1422      4320342E 
+ 1422      342E3100 
+ 1423              	.LASF42:
+ 1424 0150 4552525F 		.ascii	"ERR_Init\000"
+ 1424      496E6974 
+ 1424      00
+ 1425              	.LASF13:
+ 1426 0159 63686172 		.ascii	"char\000"
+ 1426      00
+ 1427              	.LASF20:
+ 1428 015e 4552525F 		.ascii	"ERR_UC_VAR\000"
+ 1428      55435F56 
+ 1428      415200
+ 1429              	.LASF27:
+ 1430 0169 74797065 		.ascii	"type\000"
+ 1430      00
+ 1431              	.LASF37:
+ 1432 016e 55695661 		.ascii	"UiVar\000"
+ 1432      7200
+ 1433              	.LASF9:
+ 1434 0174 75696E74 		.ascii	"uint8\000"
+ 1434      3800
+ 1435              	.LASF19:
+ 1436 017a 75634D69 		.ascii	"ucMin\000"
+ 1436      6E00
+ 1437              	.LASF4:
+ 1438 0180 6C6F6E67 		.ascii	"long int\000"
+ 1438      20696E74 
+ 1438      00
+ 1439              	.LASF33:
+ 1440 0189 4552525F 		.ascii	"ERR_HandleTask\000"
+ 1440      48616E64 
+ 1440      6C655461 
+ 1440      736B00
+ 1441              	.LASF0:
+ 1442 0198 7369676E 		.ascii	"signed char\000"
+ 1442      65642063 
+ 1442      68617200 
+ 1443              	.LASF31:
+ 1444 01a4 4552525F 		.ascii	"ERR_RegisterUiVariable\000"
+ 1444      52656769 
+ 1444      73746572 
+ 1444      55695661 
+ 1444      72696162 
+ 1445              	.LASF29:
+ 1446 01bb 6E616D65 		.ascii	"name\000"
+ 1446      00
+ 1447              	.LASF40:
+ 1448 01c0 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1448      69744875 
+ 1448      625F726F 
+ 1448      626F7469 
+ 1448      6373636F 
+ 1449 01ef 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccAJNujs.s 			page 31
+
+
+ 1449      6F725F32 
+ 1449      2E325C44 
+ 1449      72697665 
+ 1449      506C6174 
+ 1450 021f 6174666F 		.ascii	"atform3.cydsn\000"
+ 1450      726D332E 
+ 1450      63796473 
+ 1450      6E00
+ 1451              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

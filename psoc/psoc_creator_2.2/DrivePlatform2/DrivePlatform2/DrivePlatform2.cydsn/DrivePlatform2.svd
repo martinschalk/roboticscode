@@ -9,7 +9,7 @@
     <peripheral>
       <name>StartBitStatus</name>
       <description>No description available</description>
-      <baseAddress>0x4000646D</baseAddress>
+      <baseAddress>0x4000646C</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x31</size>
@@ -164,7 +164,7 @@
     <peripheral>
       <name>UART</name>
       <description>UART</description>
-      <baseAddress>0x4000642C</baseAddress>
+      <baseAddress>0x4000642E</baseAddress>
       <addressBlock>
         <offset>0</offset>
         <size>0x41</size>
@@ -192,7 +192,7 @@
         <register>
           <name>TX_UART_TX_DATA</name>
           <description>TX Data Register</description>
-          <addressOffset>0x1F</addressOffset>
+          <addressOffset>0x1D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -210,7 +210,7 @@
         <register>
           <name>TX_UART_TX_STATUS</name>
           <description>TX status register</description>
-          <addressOffset>0x3F</addressOffset>
+          <addressOffset>0x3D</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>

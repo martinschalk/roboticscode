@@ -15,6 +15,7 @@
 #include "error.h"
 #include "ring_buffer.h"
 #include "test.h"
+#include "move.h"
 
 static int          SCH_TaskIndex = 0;
 static SCH_TASK 	SCH_Task[] =
@@ -29,6 +30,7 @@ static SCH_TASK 	SCH_Task[] =
     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
     {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
+    {"MOV", SCH_TASK_NEW,   2,      MOV_Init,   MOV_HandleTask,     "MOV"},
     {"TST", SCH_TASK_NEW,   2,      TST_Init,   TST_HandleTask,     "TMR"},
 };
 /* currently only one dependency possible */

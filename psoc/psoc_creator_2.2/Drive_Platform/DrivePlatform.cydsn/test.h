@@ -18,4 +18,4 @@ STATUS TST_Init(void);
 STATUS TST_HandleTask(void);
 
 #endif /* TEST_H */
-/* [] END OF FILE */
+

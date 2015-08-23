@@ -1,0 +1,619 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"move.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 89000000 		.text
+  20      02006100 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.MOV_Init,"ax",%progbits
+  24              		.align	2
+  25              		.global	MOV_Init
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	MOV_Init, %function
+  29              	MOV_Init:
+  30              	.LFB29:
+  31              		.file 1 ".\\move.c"
+   1:.\move.c      **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\move.c      ****  * All rights reserved.
+   3:.\move.c      ****  *
+   4:.\move.c      ****  * This software may be modified and distributed under the terms
+   5:.\move.c      ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\move.c      ****  */
+   7:.\move.c      ****  
+   8:.\move.c      **** #include <project.h>
+   9:.\move.c      **** #include <stdio.h>
+  10:.\move.c      **** #include "types.h"
+  11:.\move.c      **** #include "move.h"
+  12:.\move.c      **** #include "servo_cds5500.h"
+  13:.\move.c      **** 
+  14:.\move.c      **** //#include "bal.h"
+  15:.\move.c      **** #include "global.h"
+  16:.\move.c      **** //#include "tmr.h"
+  17:.\move.c      **** 
+  18:.\move.c      **** //static CDS5500_STATUS Servo1;
+  19:.\move.c      **** 
+  20:.\move.c      **** 
+  21:.\move.c      **** 
+  22:.\move.c      **** /*****************************************************************/
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 2
+
+
+  23:.\move.c      **** STATUS MOV_Init(void)
+  24:.\move.c      **** {
+  32              		.loc 1 24 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37 0000 80B4     		push	{r7}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 4
+  40 0002 00AF     		add	r7, sp, #0
+  41              		.cfi_offset 7, -4
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_register 7
+  25:.\move.c      ****     return SUCCESS;
+  44              		.loc 1 25 0
+  45 0004 4FF00003 		mov	r3, #0
+  26:.\move.c      **** }
+  46              		.loc 1 26 0
+  47 0008 1846     		mov	r0, r3
+  48 000a BD46     		mov	sp, r7
+  49 000c 80BC     		pop	{r7}
+  50 000e 7047     		bx	lr
+  51              		.cfi_endproc
+  52              	.LFE29:
+  53              		.size	MOV_Init, .-MOV_Init
+  54              		.section	.text.MOV_HandleTask,"ax",%progbits
+  55              		.align	2
+  56              		.global	MOV_HandleTask
+  57              		.thumb
+  58              		.thumb_func
+  59              		.type	MOV_HandleTask, %function
+  60              	MOV_HandleTask:
+  61              	.LFB30:
+  27:.\move.c      **** 
+  28:.\move.c      **** /*****************************************************************/
+  29:.\move.c      **** STATUS MOV_HandleTask(void)
+  30:.\move.c      **** {
+  62              		.loc 1 30 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 8
+  65              		@ frame_needed = 1, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67 0000 80B4     		push	{r7}
+  68              	.LCFI2:
+  69              		.cfi_def_cfa_offset 4
+  70 0002 83B0     		sub	sp, sp, #12
+  71              	.LCFI3:
+  72              		.cfi_def_cfa_offset 16
+  73 0004 00AF     		add	r7, sp, #0
+  74              		.cfi_offset 7, -4
+  75              	.LCFI4:
+  76              		.cfi_def_cfa_register 7
+  31:.\move.c      ****     STATUS balStatus;
+  32:.\move.c      **** 
+  33:.\move.c      ****     return balStatus;
+  77              		.loc 1 33 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 3
+
+
+  78 0006 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  34:.\move.c      **** }
+  79              		.loc 1 34 0
+  80 0008 1846     		mov	r0, r3
+  81 000a 07F10C07 		add	r7, r7, #12
+  82 000e BD46     		mov	sp, r7
+  83 0010 80BC     		pop	{r7}
+  84 0012 7047     		bx	lr
+  85              		.cfi_endproc
+  86              	.LFE30:
+  87              		.size	MOV_HandleTask, .-MOV_HandleTask
+  88              		.text
+  89              	.Letext0:
+  90              		.section	.debug_loc,"",%progbits
+  91              	.Ldebug_loc0:
+  92              	.LLST0:
+  93 0000 00000000 		.4byte	.LFB29
+  94 0004 02000000 		.4byte	.LCFI0
+  95 0008 0100     		.2byte	0x1
+  96 000a 5D       		.byte	0x5d
+  97 000b 02000000 		.4byte	.LCFI0
+  98 000f 04000000 		.4byte	.LCFI1
+  99 0013 0200     		.2byte	0x2
+ 100 0015 7D       		.byte	0x7d
+ 101 0016 04       		.sleb128 4
+ 102 0017 04000000 		.4byte	.LCFI1
+ 103 001b 10000000 		.4byte	.LFE29
+ 104 001f 0200     		.2byte	0x2
+ 105 0021 77       		.byte	0x77
+ 106 0022 04       		.sleb128 4
+ 107 0023 00000000 		.4byte	0x0
+ 108 0027 00000000 		.4byte	0x0
+ 109              	.LLST1:
+ 110 002b 00000000 		.4byte	.LFB30
+ 111 002f 02000000 		.4byte	.LCFI2
+ 112 0033 0100     		.2byte	0x1
+ 113 0035 5D       		.byte	0x5d
+ 114 0036 02000000 		.4byte	.LCFI2
+ 115 003a 04000000 		.4byte	.LCFI3
+ 116 003e 0200     		.2byte	0x2
+ 117 0040 7D       		.byte	0x7d
+ 118 0041 04       		.sleb128 4
+ 119 0042 04000000 		.4byte	.LCFI3
+ 120 0046 06000000 		.4byte	.LCFI4
+ 121 004a 0200     		.2byte	0x2
+ 122 004c 7D       		.byte	0x7d
+ 123 004d 10       		.sleb128 16
+ 124 004e 06000000 		.4byte	.LCFI4
+ 125 0052 14000000 		.4byte	.LFE30
+ 126 0056 0200     		.2byte	0x2
+ 127 0058 77       		.byte	0x77
+ 128 0059 10       		.sleb128 16
+ 129 005a 00000000 		.4byte	0x0
+ 130 005e 00000000 		.4byte	0x0
+ 131              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 132              		.file 3 ".\\/types.h"
+ 133              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 4
+
+
+ 134              		.section	.debug_info
+ 135 0000 F2000000 		.4byte	0xf2
+ 136 0004 0200     		.2byte	0x2
+ 137 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 138 000a 04       		.byte	0x4
+ 139 000b 01       		.uleb128 0x1
+ 140 000c 75000000 		.4byte	.LASF14
+ 141 0010 01       		.byte	0x1
+ 142 0011 21000000 		.4byte	.LASF15
+ 143 0015 A7000000 		.4byte	.LASF16
+ 144 0019 00000000 		.4byte	0x0
+ 145 001d 00000000 		.4byte	0x0
+ 146 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 147 0025 00000000 		.4byte	.Ldebug_line0
+ 148 0029 02       		.uleb128 0x2
+ 149 002a 01       		.byte	0x1
+ 150 002b 06       		.byte	0x6
+ 151 002c 28010000 		.4byte	.LASF0
+ 152 0030 02       		.uleb128 0x2
+ 153 0031 01       		.byte	0x1
+ 154 0032 08       		.byte	0x8
+ 155 0033 8B000000 		.4byte	.LASF1
+ 156 0037 02       		.uleb128 0x2
+ 157 0038 02       		.byte	0x2
+ 158 0039 05       		.byte	0x5
+ 159 003a 43010000 		.4byte	.LASF2
+ 160 003e 02       		.uleb128 0x2
+ 161 003f 02       		.byte	0x2
+ 162 0040 07       		.byte	0x7
+ 163 0041 0E000000 		.4byte	.LASF3
+ 164 0045 02       		.uleb128 0x2
+ 165 0046 04       		.byte	0x4
+ 166 0047 05       		.byte	0x5
+ 167 0048 9E000000 		.4byte	.LASF4
+ 168 004c 02       		.uleb128 0x2
+ 169 004d 04       		.byte	0x4
+ 170 004e 07       		.byte	0x7
+ 171 004f 3D000000 		.4byte	.LASF5
+ 172 0053 02       		.uleb128 0x2
+ 173 0054 08       		.byte	0x8
+ 174 0055 05       		.byte	0x5
+ 175 0056 00000000 		.4byte	.LASF6
+ 176 005a 02       		.uleb128 0x2
+ 177 005b 08       		.byte	0x8
+ 178 005c 07       		.byte	0x7
+ 179 005d 4F000000 		.4byte	.LASF7
+ 180 0061 03       		.uleb128 0x3
+ 181 0062 04       		.byte	0x4
+ 182 0063 05       		.byte	0x5
+ 183 0064 696E7400 		.ascii	"int\000"
+ 184 0068 02       		.uleb128 0x2
+ 185 0069 04       		.byte	0x4
+ 186 006a 07       		.byte	0x7
+ 187 006b 2A000000 		.4byte	.LASF8
+ 188 006f 04       		.uleb128 0x4
+ 189 0070 37000000 		.4byte	.LASF12
+ 190 0074 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 5
+
+
+ 191 0075 4C       		.byte	0x4c
+ 192 0076 30000000 		.4byte	0x30
+ 193 007a 02       		.uleb128 0x2
+ 194 007b 04       		.byte	0x4
+ 195 007c 04       		.byte	0x4
+ 196 007d 3D010000 		.4byte	.LASF9
+ 197 0081 02       		.uleb128 0x2
+ 198 0082 08       		.byte	0x8
+ 199 0083 04       		.byte	0x4
+ 200 0084 14010000 		.4byte	.LASF10
+ 201 0088 02       		.uleb128 0x2
+ 202 0089 01       		.byte	0x1
+ 203 008a 08       		.byte	0x8
+ 204 008b 99000000 		.4byte	.LASF11
+ 205 008f 05       		.uleb128 0x5
+ 206 0090 04       		.byte	0x4
+ 207 0091 07       		.byte	0x7
+ 208 0092 04       		.uleb128 0x4
+ 209 0093 4D010000 		.4byte	.LASF13
+ 210 0097 03       		.byte	0x3
+ 211 0098 0F       		.byte	0xf
+ 212 0099 6F000000 		.4byte	0x6f
+ 213 009d 06       		.uleb128 0x6
+ 214 009e 01       		.byte	0x1
+ 215 009f 34010000 		.4byte	.LASF17
+ 216 00a3 01       		.byte	0x1
+ 217 00a4 17       		.byte	0x17
+ 218 00a5 01       		.byte	0x1
+ 219 00a6 92000000 		.4byte	0x92
+ 220 00aa 00000000 		.4byte	.LFB29
+ 221 00ae 10000000 		.4byte	.LFE29
+ 222 00b2 00000000 		.4byte	.LLST0
+ 223 00b6 07       		.uleb128 0x7
+ 224 00b7 01       		.byte	0x1
+ 225 00b8 66000000 		.4byte	.LASF18
+ 226 00bc 01       		.byte	0x1
+ 227 00bd 1D       		.byte	0x1d
+ 228 00be 01       		.byte	0x1
+ 229 00bf 92000000 		.4byte	0x92
+ 230 00c3 00000000 		.4byte	.LFB30
+ 231 00c7 14000000 		.4byte	.LFE30
+ 232 00cb 2B000000 		.4byte	.LLST1
+ 233 00cf E2000000 		.4byte	0xe2
+ 234 00d3 08       		.uleb128 0x8
+ 235 00d4 81000000 		.4byte	.LASF19
+ 236 00d8 01       		.byte	0x1
+ 237 00d9 1F       		.byte	0x1f
+ 238 00da 92000000 		.4byte	0x92
+ 239 00de 02       		.byte	0x2
+ 240 00df 91       		.byte	0x91
+ 241 00e0 77       		.sleb128 -9
+ 242 00e1 00       		.byte	0x0
+ 243 00e2 09       		.uleb128 0x9
+ 244 00e3 1B010000 		.4byte	.LASF20
+ 245 00e7 04       		.byte	0x4
+ 246 00e8 CE06     		.2byte	0x6ce
+ 247 00ea F0000000 		.4byte	0xf0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 6
+
+
+ 248 00ee 01       		.byte	0x1
+ 249 00ef 01       		.byte	0x1
+ 250 00f0 0A       		.uleb128 0xa
+ 251 00f1 61000000 		.4byte	0x61
+ 252 00f5 00       		.byte	0x0
+ 253              		.section	.debug_abbrev
+ 254 0000 01       		.uleb128 0x1
+ 255 0001 11       		.uleb128 0x11
+ 256 0002 01       		.byte	0x1
+ 257 0003 25       		.uleb128 0x25
+ 258 0004 0E       		.uleb128 0xe
+ 259 0005 13       		.uleb128 0x13
+ 260 0006 0B       		.uleb128 0xb
+ 261 0007 03       		.uleb128 0x3
+ 262 0008 0E       		.uleb128 0xe
+ 263 0009 1B       		.uleb128 0x1b
+ 264 000a 0E       		.uleb128 0xe
+ 265 000b 11       		.uleb128 0x11
+ 266 000c 01       		.uleb128 0x1
+ 267 000d 52       		.uleb128 0x52
+ 268 000e 01       		.uleb128 0x1
+ 269 000f 55       		.uleb128 0x55
+ 270 0010 06       		.uleb128 0x6
+ 271 0011 10       		.uleb128 0x10
+ 272 0012 06       		.uleb128 0x6
+ 273 0013 00       		.byte	0x0
+ 274 0014 00       		.byte	0x0
+ 275 0015 02       		.uleb128 0x2
+ 276 0016 24       		.uleb128 0x24
+ 277 0017 00       		.byte	0x0
+ 278 0018 0B       		.uleb128 0xb
+ 279 0019 0B       		.uleb128 0xb
+ 280 001a 3E       		.uleb128 0x3e
+ 281 001b 0B       		.uleb128 0xb
+ 282 001c 03       		.uleb128 0x3
+ 283 001d 0E       		.uleb128 0xe
+ 284 001e 00       		.byte	0x0
+ 285 001f 00       		.byte	0x0
+ 286 0020 03       		.uleb128 0x3
+ 287 0021 24       		.uleb128 0x24
+ 288 0022 00       		.byte	0x0
+ 289 0023 0B       		.uleb128 0xb
+ 290 0024 0B       		.uleb128 0xb
+ 291 0025 3E       		.uleb128 0x3e
+ 292 0026 0B       		.uleb128 0xb
+ 293 0027 03       		.uleb128 0x3
+ 294 0028 08       		.uleb128 0x8
+ 295 0029 00       		.byte	0x0
+ 296 002a 00       		.byte	0x0
+ 297 002b 04       		.uleb128 0x4
+ 298 002c 16       		.uleb128 0x16
+ 299 002d 00       		.byte	0x0
+ 300 002e 03       		.uleb128 0x3
+ 301 002f 0E       		.uleb128 0xe
+ 302 0030 3A       		.uleb128 0x3a
+ 303 0031 0B       		.uleb128 0xb
+ 304 0032 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 7
+
+
+ 305 0033 0B       		.uleb128 0xb
+ 306 0034 49       		.uleb128 0x49
+ 307 0035 13       		.uleb128 0x13
+ 308 0036 00       		.byte	0x0
+ 309 0037 00       		.byte	0x0
+ 310 0038 05       		.uleb128 0x5
+ 311 0039 24       		.uleb128 0x24
+ 312 003a 00       		.byte	0x0
+ 313 003b 0B       		.uleb128 0xb
+ 314 003c 0B       		.uleb128 0xb
+ 315 003d 3E       		.uleb128 0x3e
+ 316 003e 0B       		.uleb128 0xb
+ 317 003f 00       		.byte	0x0
+ 318 0040 00       		.byte	0x0
+ 319 0041 06       		.uleb128 0x6
+ 320 0042 2E       		.uleb128 0x2e
+ 321 0043 00       		.byte	0x0
+ 322 0044 3F       		.uleb128 0x3f
+ 323 0045 0C       		.uleb128 0xc
+ 324 0046 03       		.uleb128 0x3
+ 325 0047 0E       		.uleb128 0xe
+ 326 0048 3A       		.uleb128 0x3a
+ 327 0049 0B       		.uleb128 0xb
+ 328 004a 3B       		.uleb128 0x3b
+ 329 004b 0B       		.uleb128 0xb
+ 330 004c 27       		.uleb128 0x27
+ 331 004d 0C       		.uleb128 0xc
+ 332 004e 49       		.uleb128 0x49
+ 333 004f 13       		.uleb128 0x13
+ 334 0050 11       		.uleb128 0x11
+ 335 0051 01       		.uleb128 0x1
+ 336 0052 12       		.uleb128 0x12
+ 337 0053 01       		.uleb128 0x1
+ 338 0054 40       		.uleb128 0x40
+ 339 0055 06       		.uleb128 0x6
+ 340 0056 00       		.byte	0x0
+ 341 0057 00       		.byte	0x0
+ 342 0058 07       		.uleb128 0x7
+ 343 0059 2E       		.uleb128 0x2e
+ 344 005a 01       		.byte	0x1
+ 345 005b 3F       		.uleb128 0x3f
+ 346 005c 0C       		.uleb128 0xc
+ 347 005d 03       		.uleb128 0x3
+ 348 005e 0E       		.uleb128 0xe
+ 349 005f 3A       		.uleb128 0x3a
+ 350 0060 0B       		.uleb128 0xb
+ 351 0061 3B       		.uleb128 0x3b
+ 352 0062 0B       		.uleb128 0xb
+ 353 0063 27       		.uleb128 0x27
+ 354 0064 0C       		.uleb128 0xc
+ 355 0065 49       		.uleb128 0x49
+ 356 0066 13       		.uleb128 0x13
+ 357 0067 11       		.uleb128 0x11
+ 358 0068 01       		.uleb128 0x1
+ 359 0069 12       		.uleb128 0x12
+ 360 006a 01       		.uleb128 0x1
+ 361 006b 40       		.uleb128 0x40
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 8
+
+
+ 362 006c 06       		.uleb128 0x6
+ 363 006d 01       		.uleb128 0x1
+ 364 006e 13       		.uleb128 0x13
+ 365 006f 00       		.byte	0x0
+ 366 0070 00       		.byte	0x0
+ 367 0071 08       		.uleb128 0x8
+ 368 0072 34       		.uleb128 0x34
+ 369 0073 00       		.byte	0x0
+ 370 0074 03       		.uleb128 0x3
+ 371 0075 0E       		.uleb128 0xe
+ 372 0076 3A       		.uleb128 0x3a
+ 373 0077 0B       		.uleb128 0xb
+ 374 0078 3B       		.uleb128 0x3b
+ 375 0079 0B       		.uleb128 0xb
+ 376 007a 49       		.uleb128 0x49
+ 377 007b 13       		.uleb128 0x13
+ 378 007c 02       		.uleb128 0x2
+ 379 007d 0A       		.uleb128 0xa
+ 380 007e 00       		.byte	0x0
+ 381 007f 00       		.byte	0x0
+ 382 0080 09       		.uleb128 0x9
+ 383 0081 34       		.uleb128 0x34
+ 384 0082 00       		.byte	0x0
+ 385 0083 03       		.uleb128 0x3
+ 386 0084 0E       		.uleb128 0xe
+ 387 0085 3A       		.uleb128 0x3a
+ 388 0086 0B       		.uleb128 0xb
+ 389 0087 3B       		.uleb128 0x3b
+ 390 0088 05       		.uleb128 0x5
+ 391 0089 49       		.uleb128 0x49
+ 392 008a 13       		.uleb128 0x13
+ 393 008b 3F       		.uleb128 0x3f
+ 394 008c 0C       		.uleb128 0xc
+ 395 008d 3C       		.uleb128 0x3c
+ 396 008e 0C       		.uleb128 0xc
+ 397 008f 00       		.byte	0x0
+ 398 0090 00       		.byte	0x0
+ 399 0091 0A       		.uleb128 0xa
+ 400 0092 35       		.uleb128 0x35
+ 401 0093 00       		.byte	0x0
+ 402 0094 49       		.uleb128 0x49
+ 403 0095 13       		.uleb128 0x13
+ 404 0096 00       		.byte	0x0
+ 405 0097 00       		.byte	0x0
+ 406 0098 00       		.byte	0x0
+ 407              		.section	.debug_pubnames,"",%progbits
+ 408 0000 2E000000 		.4byte	0x2e
+ 409 0004 0200     		.2byte	0x2
+ 410 0006 00000000 		.4byte	.Ldebug_info0
+ 411 000a F6000000 		.4byte	0xf6
+ 412 000e 9D000000 		.4byte	0x9d
+ 413 0012 4D4F565F 		.ascii	"MOV_Init\000"
+ 413      496E6974 
+ 413      00
+ 414 001b B6000000 		.4byte	0xb6
+ 415 001f 4D4F565F 		.ascii	"MOV_HandleTask\000"
+ 415      48616E64 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 9
+
+
+ 415      6C655461 
+ 415      736B00
+ 416 002e 00000000 		.4byte	0x0
+ 417              		.section	.debug_aranges,"",%progbits
+ 418 0000 24000000 		.4byte	0x24
+ 419 0004 0200     		.2byte	0x2
+ 420 0006 00000000 		.4byte	.Ldebug_info0
+ 421 000a 04       		.byte	0x4
+ 422 000b 00       		.byte	0x0
+ 423 000c 0000     		.2byte	0x0
+ 424 000e 0000     		.2byte	0x0
+ 425 0010 00000000 		.4byte	.LFB29
+ 426 0014 10000000 		.4byte	.LFE29-.LFB29
+ 427 0018 00000000 		.4byte	.LFB30
+ 428 001c 14000000 		.4byte	.LFE30-.LFB30
+ 429 0020 00000000 		.4byte	0x0
+ 430 0024 00000000 		.4byte	0x0
+ 431              		.section	.debug_ranges,"",%progbits
+ 432              	.Ldebug_ranges0:
+ 433 0000 00000000 		.4byte	.Ltext0
+ 434 0004 00000000 		.4byte	.Letext0
+ 435 0008 00000000 		.4byte	.LFB29
+ 436 000c 10000000 		.4byte	.LFE29
+ 437 0010 00000000 		.4byte	.LFB30
+ 438 0014 14000000 		.4byte	.LFE30
+ 439 0018 00000000 		.4byte	0x0
+ 440 001c 00000000 		.4byte	0x0
+ 441              		.section	.debug_str,"MS",%progbits,1
+ 442              	.LASF6:
+ 443 0000 6C6F6E67 		.ascii	"long long int\000"
+ 443      206C6F6E 
+ 443      6720696E 
+ 443      7400
+ 444              	.LASF3:
+ 445 000e 73686F72 		.ascii	"short unsigned int\000"
+ 445      7420756E 
+ 445      7369676E 
+ 445      65642069 
+ 445      6E7400
+ 446              	.LASF15:
+ 447 0021 2E5C6D6F 		.ascii	".\\move.c\000"
+ 447      76652E63 
+ 447      00
+ 448              	.LASF8:
+ 449 002a 756E7369 		.ascii	"unsigned int\000"
+ 449      676E6564 
+ 449      20696E74 
+ 449      00
+ 450              	.LASF12:
+ 451 0037 75696E74 		.ascii	"uint8\000"
+ 451      3800
+ 452              	.LASF5:
+ 453 003d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 453      20756E73 
+ 453      69676E65 
+ 453      6420696E 
+ 453      7400
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 10
+
+
+ 454              	.LASF7:
+ 455 004f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 455      206C6F6E 
+ 455      6720756E 
+ 455      7369676E 
+ 455      65642069 
+ 456              	.LASF18:
+ 457 0066 4D4F565F 		.ascii	"MOV_HandleTask\000"
+ 457      48616E64 
+ 457      6C655461 
+ 457      736B00
+ 458              	.LASF14:
+ 459 0075 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 459      4320342E 
+ 459      342E3100 
+ 460              	.LASF19:
+ 461 0081 62616C53 		.ascii	"balStatus\000"
+ 461      74617475 
+ 461      7300
+ 462              	.LASF1:
+ 463 008b 756E7369 		.ascii	"unsigned char\000"
+ 463      676E6564 
+ 463      20636861 
+ 463      7200
+ 464              	.LASF11:
+ 465 0099 63686172 		.ascii	"char\000"
+ 465      00
+ 466              	.LASF4:
+ 467 009e 6C6F6E67 		.ascii	"long int\000"
+ 467      20696E74 
+ 467      00
+ 468              	.LASF16:
+ 469 00a7 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 469      69744875 
+ 469      625F726F 
+ 469      626F7469 
+ 469      6373636F 
+ 470 00d6 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 470      6F725F32 
+ 470      2E325C44 
+ 470      72697665 
+ 470      506C6174 
+ 471 0106 6174666F 		.ascii	"atform2.cydsn\000"
+ 471      726D322E 
+ 471      63796473 
+ 471      6E00
+ 472              	.LASF10:
+ 473 0114 646F7562 		.ascii	"double\000"
+ 473      6C6500
+ 474              	.LASF20:
+ 475 011b 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 475      52784275 
+ 475      66666572 
+ 475      00
+ 476              	.LASF0:
+ 477 0128 7369676E 		.ascii	"signed char\000"
+ 477      65642063 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc3Gs5ox.s 			page 11
+
+
+ 477      68617200 
+ 478              	.LASF17:
+ 479 0134 4D4F565F 		.ascii	"MOV_Init\000"
+ 479      496E6974 
+ 479      00
+ 480              	.LASF9:
+ 481 013d 666C6F61 		.ascii	"float\000"
+ 481      7400
+ 482              	.LASF2:
+ 483 0143 73686F72 		.ascii	"short int\000"
+ 483      7420696E 
+ 483      7400
+ 484              	.LASF13:
+ 485 014d 53544154 		.ascii	"STATUS\000"
+ 485      555300
+ 486              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

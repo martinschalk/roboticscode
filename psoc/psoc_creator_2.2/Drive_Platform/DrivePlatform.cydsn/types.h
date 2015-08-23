@@ -19,4 +19,3 @@ typedef unsigned int uint;
 
 #endif /* TYPES_H */
 
-/* [] END OF FILE */

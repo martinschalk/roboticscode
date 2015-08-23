@@ -1,5 +1,5 @@
 -- Project:   DrivePlatform2
--- Generated: 08/01/2015 22:45:09
+-- Generated: 08/23/2015 12:55:56
 -- 
 
 ENTITY DrivePlatform2 IS
@@ -39,15 +39,12 @@ ARCHITECTURE __DEFAULT__ OF DrivePlatform2 IS
     SIGNAL Net_105_local : bit;
     SIGNAL Net_10_local : bit;
     SIGNAL Net_118 : bit;
-    SIGNAL Net_18 : bit;
-    ATTRIBUTE GROUND OF Net_18 : SIGNAL IS true;
+    SIGNAL Net_120 : bit;
     SIGNAL Net_19 : bit;
     SIGNAL Net_2 : bit;
     SIGNAL Net_20 : bit;
     SIGNAL Net_39 : bit;
-    SIGNAL Net_7 : bit;
     SIGNAL Net_95 : bit;
-    SIGNAL Net_96 : bit;
     SIGNAL Rx_1(0)__PA : bit;
     SIGNAL Tx_1(0)__PA : bit;
     SIGNAL \TIMER:TimerUDB:control_0\ : bit;
@@ -112,6 +109,8 @@ ARCHITECTURE __DEFAULT__ OF DrivePlatform2 IS
     ATTRIBUTE GROUND OF __ZERO__ : SIGNAL IS true;
     SIGNAL one : bit;
     ATTRIBUTE POWER OF one : SIGNAL IS true;
+    SIGNAL zero : bit;
+    ATTRIBUTE GROUND OF zero : SIGNAL IS true;
     SIGNAL \TIMER:TimerUDB:sT32:timerdp:u0.ce0__sig\ : bit;
     SIGNAL \TIMER:TimerUDB:sT32:timerdp:u0.cl0__sig\ : bit;
     SIGNAL \TIMER:TimerUDB:sT32:timerdp:u0.z0__sig\ : bit;
@@ -155,7 +154,6 @@ ARCHITECTURE __DEFAULT__ OF DrivePlatform2 IS
     ATTRIBUTE Location OF DFF_Reset(0) : LABEL IS "P4[4]";
     ATTRIBUTE lib_model OF Net_2 : LABEL IS "macrocell1";
     ATTRIBUTE lib_model OF Net_95 : LABEL IS "macrocell2";
-    ATTRIBUTE lib_model OF Net_96 : LABEL IS "macrocell3";
     ATTRIBUTE lib_model OF Rx_1(0) : LABEL IS "iocell3";
     ATTRIBUTE Location OF Rx_1(0) : LABEL IS "P0[0]";
     ATTRIBUTE lib_model OF Tx_1(0) : LABEL IS "iocell4";
@@ -167,36 +165,36 @@ ARCHITECTURE __DEFAULT__ OF DrivePlatform2 IS
     ATTRIBUTE lib_model OF \TIMER:TimerUDB:sT32:timerdp:u1\ : LABEL IS "datapathcell2";
     ATTRIBUTE lib_model OF \TIMER:TimerUDB:sT32:timerdp:u2\ : LABEL IS "datapathcell3";
     ATTRIBUTE lib_model OF \TIMER:TimerUDB:sT32:timerdp:u3\ : LABEL IS "datapathcell4";
-    ATTRIBUTE lib_model OF \TIMER:TimerUDB:status_tc\ : LABEL IS "macrocell4";
-    ATTRIBUTE lib_model OF \UART:BUART:counter_load_not\ : LABEL IS "macrocell5";
-    ATTRIBUTE lib_model OF \UART:BUART:pollcount_0\ : LABEL IS "macrocell6";
-    ATTRIBUTE lib_model OF \UART:BUART:pollcount_1\ : LABEL IS "macrocell7";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_address_detected\ : LABEL IS "macrocell8";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_bitclk_enable\ : LABEL IS "macrocell9";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_counter_load\ : LABEL IS "macrocell10";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_last\ : LABEL IS "macrocell11";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_load_fifo\ : LABEL IS "macrocell12";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_postpoll\ : LABEL IS "macrocell13";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_state_0\ : LABEL IS "macrocell14";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_state_2\ : LABEL IS "macrocell15";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_state_3\ : LABEL IS "macrocell16";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_state_stop1_reg\ : LABEL IS "macrocell17";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_status_3\ : LABEL IS "macrocell18";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_status_4\ : LABEL IS "macrocell19";
-    ATTRIBUTE lib_model OF \UART:BUART:rx_status_5\ : LABEL IS "macrocell20";
+    ATTRIBUTE lib_model OF \TIMER:TimerUDB:status_tc\ : LABEL IS "macrocell3";
+    ATTRIBUTE lib_model OF \UART:BUART:counter_load_not\ : LABEL IS "macrocell4";
+    ATTRIBUTE lib_model OF \UART:BUART:pollcount_0\ : LABEL IS "macrocell5";
+    ATTRIBUTE lib_model OF \UART:BUART:pollcount_1\ : LABEL IS "macrocell6";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_address_detected\ : LABEL IS "macrocell7";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_bitclk_enable\ : LABEL IS "macrocell8";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_counter_load\ : LABEL IS "macrocell9";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_last\ : LABEL IS "macrocell10";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_load_fifo\ : LABEL IS "macrocell11";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_postpoll\ : LABEL IS "macrocell12";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_state_0\ : LABEL IS "macrocell13";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_state_2\ : LABEL IS "macrocell14";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_state_3\ : LABEL IS "macrocell15";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_state_stop1_reg\ : LABEL IS "macrocell16";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_status_3\ : LABEL IS "macrocell17";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_status_4\ : LABEL IS "macrocell18";
+    ATTRIBUTE lib_model OF \UART:BUART:rx_status_5\ : LABEL IS "macrocell19";
     ATTRIBUTE lib_model OF \UART:BUART:sRX:RxShifter:u0\ : LABEL IS "datapathcell5";
     ATTRIBUTE lib_model OF \UART:BUART:sRX:RxSts\ : LABEL IS "statusicell2";
     ATTRIBUTE lib_model OF \UART:BUART:sTX:TxShifter:u0\ : LABEL IS "datapathcell6";
     ATTRIBUTE lib_model OF \UART:BUART:sTX:TxSts\ : LABEL IS "statusicell3";
     ATTRIBUTE lib_model OF \UART:BUART:sTX:sCLOCK:TxBitClkGen\ : LABEL IS "datapathcell7";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_bitclk\ : LABEL IS "macrocell21";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_bitclk_enable_pre\ : LABEL IS "macrocell22";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_state_0\ : LABEL IS "macrocell23";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_state_1\ : LABEL IS "macrocell24";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_state_2\ : LABEL IS "macrocell25";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_status_0\ : LABEL IS "macrocell26";
-    ATTRIBUTE lib_model OF \UART:BUART:tx_status_2\ : LABEL IS "macrocell27";
-    ATTRIBUTE lib_model OF \UART:BUART:txn\ : LABEL IS "macrocell28";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_bitclk\ : LABEL IS "macrocell20";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_bitclk_enable_pre\ : LABEL IS "macrocell21";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_state_0\ : LABEL IS "macrocell22";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_state_1\ : LABEL IS "macrocell23";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_state_2\ : LABEL IS "macrocell24";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_status_0\ : LABEL IS "macrocell25";
+    ATTRIBUTE lib_model OF \UART:BUART:tx_status_2\ : LABEL IS "macrocell26";
+    ATTRIBUTE lib_model OF \UART:BUART:txn\ : LABEL IS "macrocell27";
     COMPONENT abufcell
     END COMPONENT;
     COMPONENT boostcell
@@ -1347,20 +1345,11 @@ BEGIN
     Net_95:macrocell
         GENERIC MAP(
             eqn_main => "1'b0",
-            clk_inv => '0')
+            clk_inv => '1')
         PORT MAP(
             q => Net_95,
             ar_0 => Net_118,
-            clk_en => open,
-            clock_0 => Net_96);
-
-    Net_96:macrocell
-        GENERIC MAP(
-            eqn_main => "(!main_0 * !main_1)")
-        PORT MAP(
-            q => Net_96,
-            main_0 => Net_7,
-            main_1 => Net_105_local);
+            clock_0 => Net_105);
 
     Rx_1:logicalport
         GENERIC MAP(
@@ -1440,7 +1429,7 @@ BEGIN
         PORT MAP(
             pa_out => Rx_1(0)__PA,
             oe => open,
-            fb => Net_7,
+            fb => Net_120,
             pad_in => Rx_1(0)_PAD,
             in_clock => ClockBlock_BUS_CLK,
             in_clock_en => '1',
@@ -1822,7 +1811,7 @@ BEGIN
             clock_0 => \UART:Net_9\,
             main_0 => \UART:BUART:rx_count_2\,
             main_1 => \UART:BUART:rx_count_1\,
-            main_2 => Net_7,
+            main_2 => Net_120,
             main_3 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:pollcount_1\:macrocell
@@ -1835,7 +1824,7 @@ BEGIN
             main_0 => \UART:BUART:rx_count_2\,
             main_1 => \UART:BUART:rx_count_1\,
             main_2 => \UART:BUART:pollcount_1\,
-            main_3 => Net_7,
+            main_3 => Net_120,
             main_4 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_address_detected\:macrocell
@@ -1874,7 +1863,7 @@ BEGIN
         PORT MAP(
             q => \UART:BUART:rx_last\,
             clock_0 => \UART:Net_9\,
-            main_0 => Net_7);
+            main_0 => Net_120);
 
     \UART:BUART:rx_load_fifo\:macrocell
         GENERIC MAP(
@@ -1898,7 +1887,7 @@ BEGIN
         PORT MAP(
             q => \UART:BUART:rx_postpoll\,
             main_0 => \UART:BUART:pollcount_1\,
-            main_1 => Net_7,
+            main_1 => Net_120,
             main_2 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_state_0\:macrocell
@@ -1917,7 +1906,7 @@ BEGIN
             main_6 => \UART:BUART:rx_count_5\,
             main_7 => \UART:BUART:rx_count_4\,
             main_8 => \UART:BUART:pollcount_1\,
-            main_9 => Net_7,
+            main_9 => Net_120,
             main_10 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_state_2\:macrocell
@@ -1935,7 +1924,7 @@ BEGIN
             main_5 => \UART:BUART:rx_count_6\,
             main_6 => \UART:BUART:rx_count_5\,
             main_7 => \UART:BUART:rx_count_4\,
-            main_8 => Net_7,
+            main_8 => Net_120,
             main_9 => \UART:BUART:rx_last\);
 
     \UART:BUART:rx_state_3\:macrocell
@@ -1979,7 +1968,7 @@ BEGIN
             main_3 => \UART:BUART:rx_state_3\,
             main_4 => \UART:BUART:rx_state_2\,
             main_5 => \UART:BUART:pollcount_1\,
-            main_6 => Net_7,
+            main_6 => Net_120,
             main_7 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_status_4\:macrocell

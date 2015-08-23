@@ -1,4 +1,4 @@
---------------- Rebuild Started: 07/28/2015 22:31:19 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
+--------------- Rebuild Started: 08/23/2015 12:55:43 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\main.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\bal.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\bpl.o"
@@ -10,6 +10,7 @@ Deleting file ".\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\test.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\tmr.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\ring_buffer.o"
+Deleting file ".\CortexM3\ARM_GCC_441\Debug\move.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\UART.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\UART_PM.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\UART_INT.o"
@@ -31,6 +32,9 @@ Deleting file ".\CortexM3\ARM_GCC_441\Debug\CySpc.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\cyutils.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\Isr_timer.o"
+Deleting file ".\CortexM3\ARM_GCC_441\Debug\StartBitStatus.o"
+Deleting file ".\CortexM3\ARM_GCC_441\Debug\DFF_Clock.o"
+Deleting file ".\CortexM3\ARM_GCC_441\Debug\DFF_Reset.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.hex"
 Deleting file ".\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf"
@@ -65,53 +69,28 @@ API Generation ...
 Dependency Generation ...
 Clean Temporary Files ...
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\main.lst -ffunction-sections -c .\main.c -o .\CortexM3\ARM_GCC_441\Debug\main.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bal.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\bal.c -o .\CortexM3\ARM_GCC_441\Debug\bal.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bpl.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c -o .\CortexM3\ARM_GCC_441\Debug\bpl.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bus.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\bus.c -o .\CortexM3\ARM_GCC_441\Debug\bus.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\error.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c -o .\CortexM3\ARM_GCC_441\Debug\error.o
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c: In function 'ERR_RegisterUcVariable':
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c:71: warning: assignment discards qualifiers from pointer target type
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c:72: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bal.lst -ffunction-sections -c .\bal.c -o .\CortexM3\ARM_GCC_441\Debug\bal.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bpl.lst -ffunction-sections -c .\bpl.c -o .\CortexM3\ARM_GCC_441\Debug\bpl.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bus.lst -ffunction-sections -c .\bus.c -o .\CortexM3\ARM_GCC_441\Debug\bus.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\error.lst -ffunction-sections -c .\error.c -o .\CortexM3\ARM_GCC_441\Debug\error.o
+.\error.c: In function 'ERR_RegisterVariable':
+.\error.c:68: warning: assignment discards qualifiers from pointer target type
+.\error.c:69: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness
 c:\program files (x86)\cypress\psoc creator\2.2\psoc creator\import\gnu_cs\arm\4.4.1\bin\../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/include/string.h:37: note: expected 'char *' but argument is of type 'uchar *'
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c: In function 'ERR_RegisterUiVariable':
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c:99: warning: assignment discards qualifiers from pointer target type
-..\..\..\Drive_Platform\DrivePlatform.cydsn\error.c:100: warning: pointer targets in passing argument 1 of 'strncpy' differ in signedness
-c:\program files (x86)\cypress\psoc creator\2.2\psoc creator\import\gnu_cs\arm\4.4.1\bin\../lib/gcc/arm-none-eabi/4.4.1/../../../../arm-none-eabi/include/string.h:37: note: expected 'char *' but argument is of type 'uchar *'
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\hal.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\hal.c -o .\CortexM3\ARM_GCC_441\Debug\hal.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\scheduler.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\scheduler.c -o .\CortexM3\ARM_GCC_441\Debug\scheduler.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\servo_cds5500.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\servo_cds5500.c -o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\test.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c -o .\CortexM3\ARM_GCC_441\Debug\test.o
-..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c:25: warning: 'TST_MsgBuffer' defined but not used
-..\..\..\Drive_Platform\DrivePlatform.cydsn\test.c:27: warning: 'TST_AckOkMsgBuffer' defined but not used
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\tmr.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\tmr.c -o .\CortexM3\ARM_GCC_441\Debug\tmr.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\hal.lst -ffunction-sections -c .\hal.c -o .\CortexM3\ARM_GCC_441\Debug\hal.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\scheduler.lst -ffunction-sections -c .\scheduler.c -o .\CortexM3\ARM_GCC_441\Debug\scheduler.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\servo_cds5500.lst -ffunction-sections -c .\servo_cds5500.c -o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\test.lst -ffunction-sections -c .\test.c -o .\CortexM3\ARM_GCC_441\Debug\test.o
+.\test.c:24: warning: 'TST_MsgBuffer' defined but not used
+.\test.c:26: warning: 'TST_AckOkMsgBuffer' defined but not used
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\tmr.lst -ffunction-sections -c .\tmr.c -o .\CortexM3\ARM_GCC_441\Debug\tmr.o
+.\tmr.c: In function 'TMR_HandleTask':
+.\tmr.c:115: warning: implicit declaration of function 'ERR_Error'
 arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\ring_buffer.lst -ffunction-sections -c .\ring_buffer.c -o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\UART.lst -ffunction-sections -c .\Generated_Source\PSoC5\UART.c -o .\CortexM3\ARM_GCC_441\Debug\UART.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\UART_PM.lst -ffunction-sections -c .\Generated_Source\PSoC5\UART_PM.c -o .\CortexM3\ARM_GCC_441\Debug\UART_PM.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\UART_INT.lst -ffunction-sections -c .\Generated_Source\PSoC5\UART_INT.c -o .\CortexM3\ARM_GCC_441\Debug\UART_INT.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\UART_BOOT.lst -ffunction-sections -c .\Generated_Source\PSoC5\UART_BOOT.c -o .\CortexM3\ARM_GCC_441\Debug\UART_BOOT.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\TIMER.lst -ffunction-sections -c .\Generated_Source\PSoC5\TIMER.c -o .\CortexM3\ARM_GCC_441\Debug\TIMER.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\TIMER_PM.lst -ffunction-sections -c .\Generated_Source\PSoC5\TIMER_PM.c -o .\CortexM3\ARM_GCC_441\Debug\TIMER_PM.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\isr_tx.lst -ffunction-sections -c .\Generated_Source\PSoC5\isr_tx.c -o .\CortexM3\ARM_GCC_441\Debug\isr_tx.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\isr_rx.lst -ffunction-sections -c .\Generated_Source\PSoC5\isr_rx.c -o .\CortexM3\ARM_GCC_441\Debug\isr_rx.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\TIMER_CLOCK.lst -ffunction-sections -c .\Generated_Source\PSoC5\TIMER_CLOCK.c -o .\CortexM3\ARM_GCC_441\Debug\TIMER_CLOCK.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\UART_IntClock.lst -ffunction-sections -c .\Generated_Source\PSoC5\UART_IntClock.c -o .\CortexM3\ARM_GCC_441\Debug\UART_IntClock.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Cm3Start.lst -ffunction-sections -c .\Generated_Source\PSoC5\Cm3Start.c -o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\core_cm3.lst -ffunction-sections -c .\Generated_Source\PSoC5\core_cm3.c -o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o
-arm-none-eabi-as.exe -I. -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -g -alh=.\CortexM3\ARM_GCC_441\Debug/CyBootAsmGnu.lst -o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\Generated_Source\PSoC5\CyBootAsmGnu.s
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyDmac.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyDmac.c -o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyFlash.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyFlash.c -o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyLib.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyLib.c -o .\CortexM3\ARM_GCC_441\Debug\CyLib.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyPm.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyPm.c -o .\CortexM3\ARM_GCC_441\Debug\cyPm.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CySpc.lst -ffunction-sections -c .\Generated_Source\PSoC5\CySpc.c -o .\CortexM3\ARM_GCC_441\Debug\CySpc.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyutils.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyutils.c -o .\CortexM3\ARM_GCC_441\Debug\cyutils.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.lst -ffunction-sections -c .\Generated_Source\PSoC5\DEBUG_LED_1.c -o .\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Isr_timer.lst -ffunction-sections -c .\Generated_Source\PSoC5\Isr_timer.c -o .\CortexM3\ARM_GCC_441\Debug\Isr_timer.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyfitter_cfg.c -o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
-arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a .\CortexM3\ARM_GCC_441\Debug\UART.o .\CortexM3\ARM_GCC_441\Debug\UART_PM.o .\CortexM3\ARM_GCC_441\Debug\UART_INT.o .\CortexM3\ARM_GCC_441\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_441\Debug\TIMER.o .\CortexM3\ARM_GCC_441\Debug\TIMER_PM.o .\CortexM3\ARM_GCC_441\Debug\isr_tx.o .\CortexM3\ARM_GCC_441\Debug\isr_rx.o .\CortexM3\ARM_GCC_441\Debug\TIMER_CLOCK.o .\CortexM3\ARM_GCC_441\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o .\CortexM3\ARM_GCC_441\Debug\CyLib.o .\CortexM3\ARM_GCC_441\Debug\cyPm.o .\CortexM3\ARM_GCC_441\Debug\CySpc.o .\CortexM3\ARM_GCC_441\Debug\cyutils.o .\CortexM3\ARM_GCC_441\Debug\DEBUG_LED_1.o .\CortexM3\ARM_GCC_441\Debug\Isr_timer.o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
-arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a
-arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g -Wl,-Map,.\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.map -Wl,--gc-sections -Wl,--start-group -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\main.o .\CortexM3\ARM_GCC_441\Debug\bal.o .\CortexM3\ARM_GCC_441\Debug\bpl.o .\CortexM3\ARM_GCC_441\Debug\bus.o .\CortexM3\ARM_GCC_441\Debug\error.o .\CortexM3\ARM_GCC_441\Debug\hal.o .\CortexM3\ARM_GCC_441\Debug\scheduler.o .\CortexM3\ARM_GCC_441\Debug\servo_cds5500.o .\CortexM3\ARM_GCC_441\Debug\test.o .\CortexM3\ARM_GCC_441\Debug\tmr.o .\CortexM3\ARM_GCC_441\Debug\ring_buffer.o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.a "C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_441\Debug\CyComponentLibrary.a" -Wl,--end-group
-arm-none-eabi-objcopy.exe -O ihex .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.elf .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx
-cyhextool -o .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.hex -f .\CortexM3\ARM_GCC_441\Debug\DrivePlatform2.ihx -prot .\Generated_Source\PSoC5\protect.hex -id E13C069 -a EEPROM=90200000:800,PROGRAM=00000000:40000,CONFIG=80000000:8000,PROTECT=90400000:100 -meta 0101 -cunv 00000006 -wonv BC90ACAF -ecc .\Generated_Source\PSoC5\config.hex
-Flash used: 10936 of 262144 bytes (4,2%).
-SRAM used: 2444 of 65536 bytes (3,7%).
---------------- Rebuild Succeeded: 07/28/2015 22:32:34 ---------------
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\move.lst -ffunction-sections -c .\move.c -o .\CortexM3\ARM_GCC_441\Debug\move.o
+.\move.c: In function 'MOV_ucTest':
+.\move.c:47: warning: implicit declaration of function 'CDS5500_Ping'
+.\move.c:47: error: 'CDS5500_SERVO_1' undeclared (first use in this function)
+.\move.c:42: warning: unused variable 'status'
+The command 'arm-none-eabi-gcc.exe' failed with exit code '1'.
+--------------- Rebuild Failed: 08/23/2015 12:56:06 ---------------

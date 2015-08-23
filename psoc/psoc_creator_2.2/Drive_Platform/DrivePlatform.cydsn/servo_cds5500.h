@@ -10,45 +10,7 @@ SERVO MESSAGE
 ---------------------------------------------------------------
 | sb0 | sb1 | id0 | Length | b0 | b1 | ... | bn | crc0 | crc1 |
 ---------------------------------------------------------------
-*/
 
-#include <project.h>
-#include <types.h>
-#include "global.h"
-
-#ifndef CDS5500_h
-#define CDS5500_h
-	
-/* send both at beginning of each message */
-#define START_BYTE_0_VALUE 0xFF	
-#define START_BYTE_1_VALUE 0xFF	
-	
-/* error codes */
-#define CDS5500_ERROR_INSTRUCTION_BIT       (uint8)(1<<6)
-#define CDS5500_ERROR_OVERLOAD_BIT          (uint8)(1<<5)
-#define CDS5500_ERROR_CHECKSUM_BIT          (uint8)(1<<4)
-#define CDS5500_ERROR_RANGE_BIT             (uint8)(1<<3)
-#define CDS5500_ERROR_OVERHEATING_BIT       (uint8)(1<<2)
-#define CDS5500_ERROR_POSITION_LIMIT_BIT    (uint8)(1<<1)
-#define CDS5500_ERROR_INPUT_VOLTAGE_BIT     (uint8)(1<<0)
-
-
-#define CDS5500_ERROR_INSTRUCTION                   (STATUS)(-1)
-#define CDS5500_ERROR_RECEIVED_CHECKSUM             (STATUS)(-2)
-#define CDS5500_ERROR_SENT_CHECKSUM                 (STATUS)(-3)
-#define CDS5500_ERROR_OVERLOAD                      (STATUS)(-4)
-#define CDS5500_ERROR_RANGE                         (STATUS)(-5)
-#define CDS5500_ERROR_OVERHEATING                   (STATUS)(-6)
-#define CDS5500_ERROR_POSITION_LIMIT                (STATUS)(-7)
-#define CDS5500_ERROR_INPUT_VOLTAGE                 (STATUS)(-8)
-
-#define CDS5500_ERROR_MOTOR_ID                      (STATUS)(-10)
-#define CDS5500_ERROR_LENGTH                        (STATUS)(-11)
-#define CDS5500_ERROR_INSTR_ID                      (STATUS)(-12)
-#define CDS5500_ERROR_CHKSUM                        (STATUS)(-13)
-
-/*
-Triggers the action registered by the
 http://www.dfrobot.com/image/data/SER0026/CDS55XX_Robot_Servo_User_Manual_EN.pdf
 
 BIT7 0 --- 
@@ -67,9 +29,47 @@ Angle Limit and CCW Angle Limit.
 BIT0 Input Voltage Error 
 Set to 1 if the voltage is out of the operating voltage range as defined 
 in the control table. 
+*/
 
-HEADER ID LENGTH ERROR PARAMETER CHECK SUM 
-*/  
+#ifndef CDS5500_h
+#define CDS5500_h
+
+#include <project.h>
+#include "types.h"
+#include "global.h"
+
+    
+/* send both at beginning of each message */
+#define START_BYTE_0_VALUE 0xFF	
+#define START_BYTE_1_VALUE 0xFF	
+	
+/* error codes */
+#define CDS5500_ERROR_INSTRUCTION_BIT       (uint8)(1<<6)
+#define CDS5500_ERROR_OVERLOAD_BIT          (uint8)(1<<5)
+#define CDS5500_ERROR_CHECKSUM_BIT          (uint8)(1<<4)
+#define CDS5500_ERROR_RANGE_BIT             (uint8)(1<<3)
+#define CDS5500_ERROR_OVERHEATING_BIT       (uint8)(1<<2)
+#define CDS5500_ERROR_POSITION_LIMIT_BIT    (uint8)(1<<1)
+#define CDS5500_ERROR_INPUT_VOLTAGE_BIT     (uint8)(1<<0)
+
+#define CDS5500_ERROR_INSTRUCTION                   (STATUS)(-1)
+#define CDS5500_ERROR_RECEIVED_CHECKSUM             (STATUS)(-2)
+#define CDS5500_ERROR_SENT_CHECKSUM                 (STATUS)(-3)
+#define CDS5500_ERROR_OVERLOAD                      (STATUS)(-4)
+#define CDS5500_ERROR_RANGE                         (STATUS)(-5)
+#define CDS5500_ERROR_OVERHEATING                   (STATUS)(-6)
+#define CDS5500_ERROR_POSITION_LIMIT                (STATUS)(-7)
+#define CDS5500_ERROR_INPUT_VOLTAGE                 (STATUS)(-8)
+
+#define CDS5500_ERROR_MOTOR_ID                      (STATUS)(-10)
+#define CDS5500_ERROR_LENGTH                        (STATUS)(-11)
+#define CDS5500_ERROR_INSTR_ID                      (STATUS)(-12)
+#define CDS5500_ERROR_CHKSUM                        (STATUS)(-13)
+
+#define CDS5500_STATUS_OK                           (STATUS)(0U)
+#define CDS5500_STATUS_PACKET_MIN_LENGTH            (uint8)(6U)
+
+
 
 /*
 HEADER ID LENGTH INSTRUCTION PARAMETER CHECK SUM 
@@ -89,11 +89,32 @@ typedef struct _cds5500_msg
 	uint8 checksum;
 }CDS5500_MSG;
 
+//[0]: Current
+//[1]: Target
+typedef struct _cds5500_status
+{
+    uint16_t uiPosition[2];
+    uint16_t uiVelocity[2]; 
+    uint16_t uiLoad[2];    
+    uint16_t uiVoltage[2]; 
+    uint16_t uiTemperature[2];
+    uint8_t  ucError;
+}CDS5500_STATUS;
 
-#define CDS5500_SERVO_1                         0x01
-#define CDS5500_SERVO_2                         0x02
-#define CDS5500_SERVO_3                         0x03
-#define CDS5500_SERVO_4                         0x04
+
+#define CDS5500_SERVO_1                         (uint8_t)(0x01)
+#define CDS5500_SERVO_2                         (uint8_t)(0x02)
+#define CDS5500_SERVO_3                         (uint8_t)(0x03)
+#define CDS5500_SERVO_4                         (uint8_t)(0x04)
+
+
+#define CDS5500_ANGLE_LIMIT_CW                  (uint16_t)  (0x0000)  //0
+#define CDS5500_ANGLE_LIMIT_CCW                 (uint16_t)  (0x03FF)  //1023
+#define CDS5500_TEMP_LIMIT                      (uint8_t)   (0x50)    //80
+#define CDS5500_VOLTAGE_MIN                     (uint8_t)   (0x3C)    //60
+#define CDS5500_VOLTAGE_MAX                     (uint8_t)   (0xA0)    //160
+#define CDS5500_TORQUE_LIMIT                    (uint16_t)  (0x03FF)  //1023
+
 
 //Register Address
 #define CDS5500_P_MODEL_NUMBER_L                0
@@ -195,8 +216,9 @@ typedef struct _cds5500_msg
 
 
 extern STATUS CDS5500_CheckResponse(CDS5500_MSG* response);
+//extern STATUS CDS5500_CheckStatusPacket(uint8_t ucStatus);
 extern void ServoTest(void);
-
+extern uint8 CDS5500_GetChecksum(CDS5500_MSG* msg);
 
 extern void CDS5500_Ping(uint8 motorId);
 extern void CDS5500_WritePos(int ID, int pos, int vel);
@@ -208,6 +230,5 @@ extern void CDS5500_tempMethod();
 extern void CDS5500_Reset(int ID);
 extern void CDS5500_SetTempLimit(int ID, int temperature);
     
-#endif
+#endif //CDS5500_h
 
-/* [] END OF FILE */

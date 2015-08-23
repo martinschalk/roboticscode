@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnGo9Hu.s 			page 1
 
 
    1              		.syntax unified
@@ -37,15 +37,15 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
   30 000b 01       		.uleb128 0x1
   31 000c 57000000 		.4byte	.LASF12
   32 0010 01       		.byte	0x1
-  33 0011 71000000 		.4byte	.LASF13
-  34 0015 B1000000 		.4byte	.LASF14
+  33 0011 0C010000 		.4byte	.LASF13
+  34 0015 7F000000 		.4byte	.LASF14
   35 0019 00000000 		.4byte	.Ltext0
   36 001d 00000000 		.4byte	.Letext0
   37 0021 00000000 		.4byte	.Ldebug_line0
   38 0025 02       		.uleb128 0x2
   39 0026 01       		.byte	0x1
   40 0027 06       		.byte	0x6
-  41 0028 32010000 		.4byte	.LASF0
+  41 0028 00010000 		.4byte	.LASF0
   42 002c 02       		.uleb128 0x2
   43 002d 01       		.byte	0x1
   44 002e 08       		.byte	0x8
@@ -53,18 +53,18 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
   46 0033 02       		.uleb128 0x2
   47 0034 02       		.byte	0x2
   48 0035 05       		.byte	0x5
-  49 0036 44010000 		.4byte	.LASF2
+  49 0036 1A010000 		.4byte	.LASF2
   50 003a 02       		.uleb128 0x2
   51 003b 02       		.byte	0x2
   52 003c 07       		.byte	0x7
   53 003d 0E000000 		.4byte	.LASF3
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnGo9Hu.s 			page 2
 
 
   54 0041 02       		.uleb128 0x2
   55 0042 04       		.byte	0x4
   56 0043 05       		.byte	0x5
-  57 0044 A8000000 		.4byte	.LASF4
+  57 0044 76000000 		.4byte	.LASF4
   58 0048 02       		.uleb128 0x2
   59 0049 04       		.byte	0x4
   60 004a 07       		.byte	0x7
@@ -88,20 +88,20 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
   78 006b 02       		.uleb128 0x2
   79 006c 04       		.byte	0x4
   80 006d 04       		.byte	0x4
-  81 006e 3E010000 		.4byte	.LASF9
+  81 006e 14010000 		.4byte	.LASF9
   82 0072 02       		.uleb128 0x2
   83 0073 08       		.byte	0x8
   84 0074 04       		.byte	0x4
-  85 0075 1E010000 		.4byte	.LASF10
+  85 0075 EC000000 		.4byte	.LASF10
   86 0079 02       		.uleb128 0x2
   87 007a 01       		.byte	0x1
   88 007b 08       		.byte	0x8
-  89 007c A3000000 		.4byte	.LASF11
+  89 007c 71000000 		.4byte	.LASF11
   90 0080 04       		.uleb128 0x4
   91 0081 04       		.byte	0x4
   92 0082 07       		.byte	0x7
   93 0083 05       		.uleb128 0x5
-  94 0084 25010000 		.4byte	.LASF15
+  94 0084 F3000000 		.4byte	.LASF15
   95 0088 01       		.byte	0x1
   96 0089 CE06     		.2byte	0x6ce
   97 008b 91000000 		.4byte	0x91
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
  108 0004 0E       		.uleb128 0xe
  109 0005 13       		.uleb128 0x13
  110 0006 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnGo9Hu.s 			page 3
 
 
  111 0007 03       		.uleb128 0x3
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
  165 003d 3F       		.uleb128 0x3f
  166 003e 0C       		.uleb128 0xc
  167 003f 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnGo9Hu.s 			page 4
 
 
  168 0040 0C       		.uleb128 0xc
@@ -230,55 +230,51 @@ ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 1
  193      676E6564 
  193      20636861 
  193      7200
- 194              	.LASF13:
- 195 0071 2E2E5C2E 		.ascii	"..\\..\\..\\Drive_Platform\\DrivePlatform.cydsn\\bu"
- 195      2E5C2E2E 
- 195      5C447269 
- 195      76655F50 
- 195      6C617466 
- 196 009f 732E6300 		.ascii	"s.c\000"
- 197              	.LASF11:
-ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccTtwDRq.s 			page 5
+ 194              	.LASF11:
+ 195 0071 63686172 		.ascii	"char\000"
+ 195      00
+ 196              	.LASF4:
+ 197 0076 6C6F6E67 		.ascii	"long int\000"
+ 197      20696E74 
+ 197      00
+ 198              	.LASF14:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnGo9Hu.s 			page 5
 
 
- 198 00a3 63686172 		.ascii	"char\000"
- 198      00
- 199              	.LASF4:
- 200 00a8 6C6F6E67 		.ascii	"long int\000"
- 200      20696E74 
- 200      00
- 201              	.LASF14:
- 202 00b1 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
- 202      69744875 
- 202      625F726F 
- 202      626F7469 
- 202      6373636F 
- 203 00e0 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
- 203      6F725F32 
- 203      2E325C44 
- 203      72697665 
- 203      506C6174 
- 204 0110 6174666F 		.ascii	"atform2.cydsn\000"
- 204      726D322E 
- 204      63796473 
- 204      6E00
- 205              	.LASF10:
- 206 011e 646F7562 		.ascii	"double\000"
- 206      6C6500
- 207              	.LASF15:
- 208 0125 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 208      52784275 
- 208      66666572 
- 208      00
- 209              	.LASF0:
- 210 0132 7369676E 		.ascii	"signed char\000"
- 210      65642063 
- 210      68617200 
- 211              	.LASF9:
- 212 013e 666C6F61 		.ascii	"float\000"
- 212      7400
- 213              	.LASF2:
- 214 0144 73686F72 		.ascii	"short int\000"
- 214      7420696E 
- 214      7400
- 215              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
+ 199 007f 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 199      69744875 
+ 199      625F726F 
+ 199      626F7469 
+ 199      6373636F 
+ 200 00ae 72656174 		.ascii	"reator_2.2\\DrivePlatform2\\DrivePlatform2\\DrivePl"
+ 200      6F725F32 
+ 200      2E325C44 
+ 200      72697665 
+ 200      506C6174 
+ 201 00de 6174666F 		.ascii	"atform2.cydsn\000"
+ 201      726D322E 
+ 201      63796473 
+ 201      6E00
+ 202              	.LASF10:
+ 203 00ec 646F7562 		.ascii	"double\000"
+ 203      6C6500
+ 204              	.LASF15:
+ 205 00f3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 205      52784275 
+ 205      66666572 
+ 205      00
+ 206              	.LASF0:
+ 207 0100 7369676E 		.ascii	"signed char\000"
+ 207      65642063 
+ 207      68617200 
+ 208              	.LASF13:
+ 209 010c 2E5C6275 		.ascii	".\\bus.c\000"
+ 209      732E6300 
+ 210              	.LASF9:
+ 211 0114 666C6F61 		.ascii	"float\000"
+ 211      7400
+ 212              	.LASF2:
+ 213 011a 73686F72 		.ascii	"short int\000"
+ 213      7420696E 
+ 213      7400
+ 214              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
   <block name="StartBitStatus" BASE="0x0" SIZE="0x0" desc="" visible="true">
-    <register name="StartBitStatus_STATUS_REG" address="0x4000646D" bitWidth="8" desc="" />
-    <register name="StartBitStatus_MASK_REG" address="0x4000648D" bitWidth="8" desc="" />
-    <register name="StartBitStatus_STATUS_AUX_CTL_REG" address="0x4000649D" bitWidth="8" desc="">
+    <register name="StartBitStatus_STATUS_REG" address="0x4000646C" bitWidth="8" desc="" />
+    <register name="StartBitStatus_MASK_REG" address="0x4000648C" bitWidth="8" desc="" />
+    <register name="StartBitStatus_STATUS_AUX_CTL_REG" address="0x4000649C" bitWidth="8" desc="">
       <field name="FIFO0" from="5" to="5" access="RW" resetVal="" desc="FIFO0 clear">
         <value name="ENABLED" value="1" desc="Enable counter" />
         <value name="DISABLED" value="0" desc="Disable counter" />
@@ -46,17 +46,17 @@
     <block name="IntClock" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="BUART" BASE="0x0" SIZE="0x0" desc="" visible="true" />
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" />
-    <register name="RX_UART_RX_ADDRESS1" address="0x4000642C" bitWidth="8" desc="RX Address1 Register" />
-    <register name="RX_UART_RX_ADDRESS2" address="0x4000643C" bitWidth="8" desc="RX Address2 Register" />
+    <register name="RX_UART_RX_ADDRESS1" address="0x4000642E" bitWidth="8" desc="RX Address1 Register" />
+    <register name="RX_UART_RX_ADDRESS2" address="0x4000643E" bitWidth="8" desc="RX Address2 Register" />
     <register name="TX_UART_TX_DATA" address="0x4000644B" bitWidth="8" desc="TX Data Register" />
-    <register name="RX_UART_RX_DATA" address="0x4000644C" bitWidth="8" desc="RX Data Register" />
+    <register name="RX_UART_RX_DATA" address="0x4000644E" bitWidth="8" desc="RX Data Register" />
     <register name="TX_UART_TX_STATUS" address="0x4000646B" bitWidth="8" desc="TX status register">
       <field name="UART_TX_STS_COMPLETE" from="0" to="0" access="R" resetVal="" desc="" />
       <field name="UART_TX_STS_FIFO_EMPTY" from="1" to="1" access="R" resetVal="" desc="" />
       <field name="UART_TX_STS_FIFO_FULL" from="2" to="2" access="R" resetVal="" desc="" />
       <field name="UART_TX_STS_FIFO_NOT_FULL" from="3" to="3" access="R" resetVal="" desc="" />
     </register>
-    <register name="RX_UART_RX_STATUS" address="0x4000646C" bitWidth="8" desc="RX status register">
+    <register name="RX_UART_RX_STATUS" address="0x4000646E" bitWidth="8" desc="RX status register">
       <field name="UART_RX_STS_MRKSPC" from="0" to="0" access="R" resetVal="" desc="" />
       <field name="UART_RX_STS_BREAK" from="1" to="1" access="R" resetVal="" desc="" />
       <field name="UART_RX_STS_PAR_ERROR" from="2" to="2" access="R" resetVal="" desc="" />

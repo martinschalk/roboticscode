@@ -14,6 +14,8 @@
 #include "bpl.h"
 #include "error.h"
 #include "ring_buffer.h"
+#include "servo_cds5500.h"
+
 
 // buffers
 static uint8_t 	BPL_aucReceiveBuffer[BPL_RX_BUFFER_SIZE];
@@ -22,7 +24,7 @@ static uint8_t 	BPL_aucTransmitBuffer[BPL_TX_BUFFER_SIZE];
 static uint8_t  BPL_ucReceiveBufferIndex;
 static uint8_t  BPL_ucTransmitBufferIndex;
 
-static uint8_t  BPL_ucRxMessageCount = 0;
+static uint8_t  BPL_CDS5500_ucRxMessageCount = 0;
 /*
 static STATUS BplStatus = BPL_STATUS_OK;
 */
@@ -38,15 +40,15 @@ STATUS BPL_Init(void)
 }
 
 /*******************************************************/
-uint8_t BPL_ucGetMessageCount(void)
+uint8_t BPL_CDS5500_ucGetRxMessageCount(void)
 {
-    return BPL_ucMessageCount;
+    return BPL_CDS5500_ucRxMessageCount;
 }
 
 /*******************************************************/
-void BPL_ucSetMessageCount(uint8_t ucVal)
+void BPL_CDS5500_ucSetRxMessageCount(uint8_t ucVal)
 {
-    BPL_ucMessageCount = ucVal;
+    BPL_CDS5500_ucRxMessageCount = ucVal;
 }
 
 /*******************************************************/
@@ -74,16 +76,17 @@ uint8 BPL_GetMessage(uint8* target)
 Status packet:
 | 0XFF | 0XFF | ID | Length | Status | Parameter1 ...Parameter N | Check Sum | 
 */
-uint8 BPL_CDS5500_GetMessage(uint8* target)
+STATUS BPL_CDS5500_GetResponse(CDS5500_MSG* targetAddr)
 {
-    STATUS rbfStatus;
+    STATUS rbfStatus, bplStatus;
     CDS5500_MSG msg;
-    uint8_t ucNumBytes;
+    uint8_t ucTempChecksum;
+    uint8_t ucNumBytes = RBF_ucGetByteCount(BPL_ucReceiveBufferIndex);
     int i;
     
     // First check if any bytes received
-    if (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) == 0)
-        return !BPL_SUCCESS;
+    if ((ucNumBytes == 0) || (ucNumBytes < CDS5500_STATUS_PACKET_MIN_LENGTH))
+        return BPL_STATUS_RX_ERROR;
     
     rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.startbyte0)); //FF
     rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.startbyte1)); //FF
@@ -96,18 +99,37 @@ uint8 BPL_CDS5500_GetMessage(uint8* target)
         rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.instrParams[i]));    //Parameter1 ...Parameter N  
     }
     
-    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.instrId));    //checksum
+    rbfStatus = RBF_ucTailByteOut(BPL_ucReceiveBufferIndex, &(msg.checksum));    //checksum
     
+    ucTempChecksum = CDS5500_GetChecksum(&msg);
+        
     if (rbfStatus != RBF_SUCCESS)
     {
         //better clear whole buffer now, something went wrong ...
+        rbfStatus = RBF_ucClearBuffer(BPL_ucReceiveBufferIndex);
+        BPL_CDS5500_ucRxMessageCount--;
         ERR_Error(ERROR_WARNING);
+        bplStatus = !SUCCESS;
     }
+    else 
+    {
+        // decrease message count
+        BPL_CDS5500_ucRxMessageCount--;
+        
+        *targetAddr = msg;
+        
+        if (ucTempChecksum == msg.checksum)
+        {
+            bplStatus = BPL_SUCCESS;
+        }
+        else
+        {
+            bplStatus = BPL_STATUS_RX_ERROR; // wrong checksum
+        }
+    }
+   
     
-    // decrease message count
-    BPL_ucRxMessageCount--;
-    
-    return ucNumBytes;
+    return bplStatus;
 }
 
 /*******************************************************/
@@ -138,8 +160,8 @@ STATUS BPL_HandleTask(void)
     STATUS rbfStatus, BplStatus;
 	uint8_t ucNumBytes;
     uint8_t ucByte;
+    uint8_t ucStartByte1, ucStartByte2;
 	uint8_t ucMessageBuffer[BPL_MAX_MESSAGE_LENGTH];
-    BOOL    bMessageReceived = FALSE;
     
 	/* Handle received bytes */
 	/* --------------------- */
@@ -152,17 +174,24 @@ STATUS BPL_HandleTask(void)
 		{
 			//error handling
 		}
-        else
-        {
-            bMessageReceived = TRUE;
-            
-        }
 	}
 
-    if (bMessageReceived == TRUE)
+    // Check if (complete) CDS5500 message received
+    // --------------------------------------------
+    if (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) >= CDS5500_STATUS_PACKET_MIN_LENGTH)
     {
-        BPL_ucRxMessageCount++;
-    }
+        rbfStatus = RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucStartByte1, 0);
+        rbfStatus |= RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucStartByte2, 1);
+        rbfStatus |= RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucNumBytes, 3);
+        
+        if (        (ucStartByte1 == 0xFF) && (ucStartByte2 == 0xFF) 
+                &&  (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) >= (ucNumBytes + 4)) //(0XFF 0XFF ID Length)
+           )
+        {
+            BPL_CDS5500_ucRxMessageCount++; //Message can now be picked up using BPL_CDS5500_GetResponse()
+        }
+    }    
+    
 	
 	/* Handle transmission of bytes */
 	/* ---------------------------- */

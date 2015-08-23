@@ -1,0 +1,1327 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"bal.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 DE000000 		.text
+  20      02008200 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.BAL_ServoMsg,"ax",%progbits
+  24              		.align	2
+  25              		.global	BAL_ServoMsg
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	BAL_ServoMsg, %function
+  29              	BAL_ServoMsg:
+  30              	.LFB29:
+  31              		.file 1 ".\\bal.c"
+   1:.\bal.c       **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\bal.c       ****  * All rights reserved.
+   3:.\bal.c       ****  *
+   4:.\bal.c       ****  * This software may be modified and distributed under the terms
+   5:.\bal.c       ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\bal.c       ****  */
+   7:.\bal.c       **** 
+   8:.\bal.c       **** #include <project.h>
+   9:.\bal.c       **** #include <stdio.h>
+  10:.\bal.c       **** #include "bal.h"
+  11:.\bal.c       **** #include "bpl.h"
+  12:.\bal.c       **** 
+  13:.\bal.c       **** #include "servo_cds5500.h"
+  14:.\bal.c       **** #include "global.h"
+  15:.\bal.c       **** #include "tmr.h"
+  16:.\bal.c       **** 
+  17:.\bal.c       **** //static uint8 MsgReceiveBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
+  18:.\bal.c       **** //static uint8 MsgTransmitBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
+  19:.\bal.c       **** 
+  20:.\bal.c       **** /*****************************************************************/
+  21:.\bal.c       **** /* | startbyte0 | startbyte1 | motorId | length | instrId | instrParams[8] | checksum | 
+  22:.\bal.c       ****      0            1            2         3        4         5                13       
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 2
+
+
+  23:.\bal.c       ****      length = 1(instrId) + sizeof(instrParams) + 1(checksum)
+  24:.\bal.c       **** */
+  25:.\bal.c       **** STATUS BAL_ServoMsg(CDS5500_MSG* msg)
+  26:.\bal.c       **** {
+  32              		.loc 1 26 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 16
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39 0002 84B0     		sub	sp, sp, #16
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 24
+  42 0004 00AF     		add	r7, sp, #0
+  43              		.cfi_offset 14, -4
+  44              		.cfi_offset 7, -8
+  45              	.LCFI2:
+  46              		.cfi_def_cfa_register 7
+  47 0006 7860     		str	r0, [r7, #4]
+  27:.\bal.c       ****     STATUS status;
+  28:.\bal.c       ****             
+  29:.\bal.c       ****     if (msg->motorId > 254)
+  48              		.loc 1 29 0
+  49 0008 7B68     		ldr	r3, [r7, #4]
+  50 000a 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+  51 000c FF2B     		cmp	r3, #255
+  52 000e 03D1     		bne	.L2
+  30:.\bal.c       ****         status = CDS5500_ERROR_MOTOR_ID;
+  53              		.loc 1 30 0
+  54 0010 6FF00903 		mvn	r3, #9
+  55 0014 FB73     		strb	r3, [r7, #15]
+  56 0016 28E0     		b	.L3
+  57              	.L2:
+  31:.\bal.c       ****     else  if (msg->length > CDS5500_INST_LENGTH_MAX) 
+  58              		.loc 1 31 0
+  59 0018 7B68     		ldr	r3, [r7, #4]
+  60 001a DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  61 001c 0A2B     		cmp	r3, #10
+  62 001e 03D9     		bls	.L4
+  32:.\bal.c       ****         status = CDS5500_ERROR_LENGTH;
+  63              		.loc 1 32 0
+  64 0020 6FF00A03 		mvn	r3, #10
+  65 0024 FB73     		strb	r3, [r7, #15]
+  66 0026 20E0     		b	.L3
+  67              	.L4:
+  33:.\bal.c       ****     else  if (msg->instrId == 0) 
+  68              		.loc 1 33 0
+  69 0028 7B68     		ldr	r3, [r7, #4]
+  70 002a 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+  71 002c 002B     		cmp	r3, #0
+  72 002e 03D1     		bne	.L5
+  34:.\bal.c       ****         status = CDS5500_ERROR_INSTR_ID;
+  73              		.loc 1 34 0
+  74 0030 6FF00B03 		mvn	r3, #11
+  75 0034 FB73     		strb	r3, [r7, #15]
+  76 0036 18E0     		b	.L3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 3
+
+
+  77              	.L5:
+  35:.\bal.c       ****     else  if ((msg->instrParams)[msg->length - CDS5500_COMPLEMENTARY_BYTES] == 0) 
+  78              		.loc 1 35 0
+  79 0038 7B68     		ldr	r3, [r7, #4]
+  80 003a DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  81 003c A3F10202 		sub	r2, r3, #2
+  82 0040 7B68     		ldr	r3, [r7, #4]
+  83 0042 1344     		add	r3, r2, r3
+  84 0044 5B79     		ldrb	r3, [r3, #5]	@ zero_extendqisi2
+  85 0046 002B     		cmp	r3, #0
+  86 0048 03D1     		bne	.L6
+  36:.\bal.c       ****         status = CDS5500_ERROR_CHKSUM;
+  87              		.loc 1 36 0
+  88 004a 6FF00C03 		mvn	r3, #12
+  89 004e FB73     		strb	r3, [r7, #15]
+  90 0050 0BE0     		b	.L3
+  91              	.L6:
+  37:.\bal.c       ****     else
+  38:.\bal.c       ****     {
+  39:.\bal.c       ****         status = BPL_TransmitMessage((uint8*)msg, msg->length + 4); 
+  92              		.loc 1 39 0
+  93 0052 7A68     		ldr	r2, [r7, #4]
+  94 0054 7B68     		ldr	r3, [r7, #4]
+  95 0056 DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  96 0058 03F10403 		add	r3, r3, #4
+  97 005c DBB2     		uxtb	r3, r3
+  98 005e 1046     		mov	r0, r2
+  99 0060 1946     		mov	r1, r3
+ 100 0062 FFF7FEFF 		bl	BPL_TransmitMessage
+ 101 0066 0346     		mov	r3, r0
+ 102 0068 FB73     		strb	r3, [r7, #15]
+ 103              	.L3:
+  40:.\bal.c       ****         // 1(startbyte0) + 1(startbyte1) + 1(motorId) + 1(length) = +4
+  41:.\bal.c       ****         // 1(instrId) + 1(checksum) = +2
+  42:.\bal.c       ****     }
+  43:.\bal.c       ****     
+  44:.\bal.c       **** 	return status;
+ 104              		.loc 1 44 0
+ 105 006a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  45:.\bal.c       **** }
+ 106              		.loc 1 45 0
+ 107 006c 1846     		mov	r0, r3
+ 108 006e 07F11007 		add	r7, r7, #16
+ 109 0072 BD46     		mov	sp, r7
+ 110 0074 80BD     		pop	{r7, pc}
+ 111              		.cfi_endproc
+ 112              	.LFE29:
+ 113              		.size	BAL_ServoMsg, .-BAL_ServoMsg
+ 114 0076 00BF     		.section	.text.BAL_SendAck,"ax",%progbits
+ 115              		.align	2
+ 116              		.global	BAL_SendAck
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.type	BAL_SendAck, %function
+ 120              	BAL_SendAck:
+ 121              	.LFB30:
+  46:.\bal.c       **** 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 4
+
+
+  47:.\bal.c       **** 
+  48:.\bal.c       **** /*****************************************************************/
+  49:.\bal.c       **** /* | id0 | id1 | length | *content | 
+  50:.\bal.c       ****      0     1     2        3     
+  51:.\bal.c       ****      length = sizeof(content)
+  52:.\bal.c       **** */
+  53:.\bal.c       **** /*
+  54:.\bal.c       **** !!!  if compiled, calling BAL_ServoMsg causes call of BAL_SendMsg instead 
+  55:.\bal.c       ****        reason not yet found !!!
+  56:.\bal.c       **** 
+  57:.\bal.c       **** STATUS BAL_SendMsg(BAL_MSG* msg)
+  58:.\bal.c       **** {
+  59:.\bal.c       ****     STATUS status;
+  60:.\bal.c       ****     uint8 buffer[3+msg->length];
+  61:.\bal.c       ****     
+  62:.\bal.c       ****     buffer[0] = (uint8)(msg->id << 8);
+  63:.\bal.c       ****     buffer[1] = (uint8)(msg->id);
+  64:.\bal.c       ****     buffer[2] = msg->length;
+  65:.\bal.c       ****     memcpy(&buffer[3], msg->content, msg->length);
+  66:.\bal.c       ****     
+  67:.\bal.c       ****     status = BPL_TransmitMessage(buffer, msg->length + 3);
+  68:.\bal.c       ****     
+  69:.\bal.c       **** 	return SUCCESS;
+  70:.\bal.c       **** }
+  71:.\bal.c       **** */
+  72:.\bal.c       **** 
+  73:.\bal.c       **** 
+  74:.\bal.c       **** /*****************************************************************/
+  75:.\bal.c       **** /* range of val: BAL_ACK_OK, BAL_ACK_NOK */
+  76:.\bal.c       **** STATUS BAL_SendAck(uint8 val)
+  77:.\bal.c       **** {
+ 122              		.loc 1 77 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 16
+ 125              		@ frame_needed = 1, uses_anonymous_args = 0
+ 126 0000 80B5     		push	{r7, lr}
+ 127              	.LCFI3:
+ 128              		.cfi_def_cfa_offset 8
+ 129 0002 84B0     		sub	sp, sp, #16
+ 130              	.LCFI4:
+ 131              		.cfi_def_cfa_offset 24
+ 132 0004 00AF     		add	r7, sp, #0
+ 133              		.cfi_offset 14, -4
+ 134              		.cfi_offset 7, -8
+ 135              	.LCFI5:
+ 136              		.cfi_def_cfa_register 7
+ 137 0006 0346     		mov	r3, r0
+ 138 0008 FB71     		strb	r3, [r7, #7]
+  78:.\bal.c       ****     uint8 buffer[] = {  (uint8)(BAL_MSG_ID_ACK << 8), 
+  79:.\bal.c       ****                         (uint8)(BAL_MSG_ID_ACK),
+  80:.\bal.c       ****                         BAL_MSG_LENGTH_ACK, 
+  81:.\bal.c       ****                         val
+  82:.\bal.c       ****                      };
+ 139              		.loc 1 82 0
+ 140 000a 4FF00003 		mov	r3, #0
+ 141 000e 3B73     		strb	r3, [r7, #12]
+ 142 0010 4FF00103 		mov	r3, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 5
+
+
+ 143 0014 7B73     		strb	r3, [r7, #13]
+ 144 0016 4FF00103 		mov	r3, #1
+ 145 001a BB73     		strb	r3, [r7, #14]
+ 146 001c FB79     		ldrb	r3, [r7, #7]
+ 147 001e FB73     		strb	r3, [r7, #15]
+  83:.\bal.c       ****     
+  84:.\bal.c       ****     
+  85:.\bal.c       ****     return BPL_TransmitMessage(buffer, 4);
+ 148              		.loc 1 85 0
+ 149 0020 07F10C03 		add	r3, r7, #12
+ 150 0024 1846     		mov	r0, r3
+ 151 0026 4FF00401 		mov	r1, #4
+ 152 002a FFF7FEFF 		bl	BPL_TransmitMessage
+ 153 002e 0346     		mov	r3, r0
+  86:.\bal.c       **** }
+ 154              		.loc 1 86 0
+ 155 0030 1846     		mov	r0, r3
+ 156 0032 07F11007 		add	r7, r7, #16
+ 157 0036 BD46     		mov	sp, r7
+ 158 0038 80BD     		pop	{r7, pc}
+ 159              		.cfi_endproc
+ 160              	.LFE30:
+ 161              		.size	BAL_SendAck, .-BAL_SendAck
+ 162 003a 00BF     		.section	.text.BAL_Init,"ax",%progbits
+ 163              		.align	2
+ 164              		.global	BAL_Init
+ 165              		.thumb
+ 166              		.thumb_func
+ 167              		.type	BAL_Init, %function
+ 168              	BAL_Init:
+ 169              	.LFB31:
+  87:.\bal.c       **** 
+  88:.\bal.c       **** /*****************************************************************/
+  89:.\bal.c       **** STATUS BAL_Init(void)
+  90:.\bal.c       **** {   
+ 170              		.loc 1 90 0
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 1, uses_anonymous_args = 0
+ 174              		@ link register save eliminated.
+ 175 0000 80B4     		push	{r7}
+ 176              	.LCFI6:
+ 177              		.cfi_def_cfa_offset 4
+ 178 0002 00AF     		add	r7, sp, #0
+ 179              		.cfi_offset 7, -4
+ 180              	.LCFI7:
+ 181              		.cfi_def_cfa_register 7
+  91:.\bal.c       **** 	return SUCCESS;
+ 182              		.loc 1 91 0
+ 183 0004 4FF00003 		mov	r3, #0
+  92:.\bal.c       **** }
+ 184              		.loc 1 92 0
+ 185 0008 1846     		mov	r0, r3
+ 186 000a BD46     		mov	sp, r7
+ 187 000c 80BC     		pop	{r7}
+ 188 000e 7047     		bx	lr
+ 189              		.cfi_endproc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 6
+
+
+ 190              	.LFE31:
+ 191              		.size	BAL_Init, .-BAL_Init
+ 192              		.section	.text.BAL_HandleTask,"ax",%progbits
+ 193              		.align	2
+ 194              		.global	BAL_HandleTask
+ 195              		.thumb
+ 196              		.thumb_func
+ 197              		.type	BAL_HandleTask, %function
+ 198              	BAL_HandleTask:
+ 199              	.LFB32:
+  93:.\bal.c       **** 
+  94:.\bal.c       **** 
+  95:.\bal.c       **** /*****************************************************************/
+  96:.\bal.c       **** STATUS BAL_HandleTask(void)
+  97:.\bal.c       **** {
+ 200              		.loc 1 97 0
+ 201              		.cfi_startproc
+ 202              		@ args = 0, pretend = 0, frame = 16
+ 203              		@ frame_needed = 1, uses_anonymous_args = 0
+ 204 0000 80B5     		push	{r7, lr}
+ 205              	.LCFI8:
+ 206              		.cfi_def_cfa_offset 8
+ 207 0002 84B0     		sub	sp, sp, #16
+ 208              	.LCFI9:
+ 209              		.cfi_def_cfa_offset 24
+ 210 0004 00AF     		add	r7, sp, #0
+ 211              		.cfi_offset 14, -4
+ 212              		.cfi_offset 7, -8
+ 213              	.LCFI10:
+ 214              		.cfi_def_cfa_register 7
+  98:.\bal.c       ****     STATUS balStatus, bplStatus;
+  99:.\bal.c       ****     CDS5500_MSG servoMsg;
+ 100:.\bal.c       ****     
+ 101:.\bal.c       ****     // Check for servo respose (status packet)
+ 102:.\bal.c       ****     //| 0XFF | 0XFF | ID | Length | Status | Parameter1 ...Parameter N | Check Sum |
+ 103:.\bal.c       ****     // ---------------------------------------
+ 104:.\bal.c       ****     if (BPL_CDS5500_ucGetRxMessageCount() > 0)
+ 215              		.loc 1 104 0
+ 216 0006 FFF7FEFF 		bl	BPL_CDS5500_ucGetRxMessageCount
+ 217 000a 0346     		mov	r3, r0
+ 218 000c 002B     		cmp	r3, #0
+ 219 000e 0AD0     		beq	.L13
+ 105:.\bal.c       ****     {
+ 106:.\bal.c       ****         bplStatus = BPL_CDS5500_GetResponse(&servoMsg); //TODO: check with more than one messages i
+ 220              		.loc 1 106 0
+ 221 0010 3B46     		mov	r3, r7
+ 222 0012 1846     		mov	r0, r3
+ 223 0014 FFF7FEFF 		bl	BPL_CDS5500_GetResponse
+ 224 0018 0346     		mov	r3, r0
+ 225 001a FB73     		strb	r3, [r7, #15]
+ 107:.\bal.c       ****         
+ 108:.\bal.c       ****         // Check status
+ 109:.\bal.c       ****         if ((bplStatus == BPL_SUCCESS) && (servoMsg.instrId != CDS5500_STATUS_OK))
+ 226              		.loc 1 109 0
+ 227 001c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 228 001e 002B     		cmp	r3, #0
+ 229 0020 01D1     		bne	.L13
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 7
+
+
+ 230 0022 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+ 231 0024 002B     		cmp	r3, #0
+ 232              	.L13:
+ 110:.\bal.c       ****         {
+ 111:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_INSTRUCTION_BIT)
+ 112:.\bal.c       ****             {
+ 113:.\bal.c       ****                 // undefined instruction was sent or an action instruction was sent without a Reg_W
+ 114:.\bal.c       ****                 // action: none
+ 115:.\bal.c       ****             }
+ 116:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_OVERLOAD_BIT)
+ 117:.\bal.c       ****             {
+ 118:.\bal.c       ****                 // specified maximum torque can't control the applied load.
+ 119:.\bal.c       ****                 // action: ?
+ 120:.\bal.c       ****             }
+ 121:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_CHECKSUM_BIT)
+ 122:.\bal.c       ****             {
+ 123:.\bal.c       ****                 // checksum of the instruction packet is incorrect.
+ 124:.\bal.c       ****                 // action: send last message again
+ 125:.\bal.c       ****             }
+ 126:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_RANGE_BIT)
+ 127:.\bal.c       ****             {
+ 128:.\bal.c       ****                 // instruction sent is out of the defined range. 
+ 129:.\bal.c       ****                 // action: ?
+ 130:.\bal.c       ****             }
+ 131:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_OVERHEATING_BIT)
+ 132:.\bal.c       ****             {
+ 133:.\bal.c       ****                 // internal temperature of the CDS55xx unit is above the operating temperature rang
+ 134:.\bal.c       ****                 // action: ?
+ 135:.\bal.c       ****             }
+ 136:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_POSITION_LIMIT_BIT)
+ 137:.\bal.c       ****             {
+ 138:.\bal.c       ****                 // target position is set outside of the range between CW Angle Limit and CCW Angle
+ 139:.\bal.c       ****                 // action: ?
+ 140:.\bal.c       ****             }
+ 141:.\bal.c       ****             if(servoMsg.instrId & CDS5500_ERROR_INPUT_VOLTAGE_BIT)
+ 142:.\bal.c       ****             {
+ 143:.\bal.c       ****                 // voltage is out of the operating voltage range as defined in the control table. 
+ 144:.\bal.c       ****                 // action: ?
+ 145:.\bal.c       ****             }
+ 146:.\bal.c       ****             
+ 147:.\bal.c       ****         }
+ 148:.\bal.c       ****     }
+ 149:.\bal.c       ****     
+ 150:.\bal.c       ****     return balStatus;
+ 233              		.loc 1 150 0
+ 234 0026 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 151:.\bal.c       **** }
+ 235              		.loc 1 151 0
+ 236 0028 1846     		mov	r0, r3
+ 237 002a 07F11007 		add	r7, r7, #16
+ 238 002e BD46     		mov	sp, r7
+ 239 0030 80BD     		pop	{r7, pc}
+ 240              		.cfi_endproc
+ 241              	.LFE32:
+ 242              		.size	BAL_HandleTask, .-BAL_HandleTask
+ 243 0032 00BF     		.text
+ 244              	.Letext0:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 8
+
+
+ 245              		.section	.debug_loc,"",%progbits
+ 246              	.Ldebug_loc0:
+ 247              	.LLST0:
+ 248 0000 00000000 		.4byte	.LFB29
+ 249 0004 02000000 		.4byte	.LCFI0
+ 250 0008 0100     		.2byte	0x1
+ 251 000a 5D       		.byte	0x5d
+ 252 000b 02000000 		.4byte	.LCFI0
+ 253 000f 04000000 		.4byte	.LCFI1
+ 254 0013 0200     		.2byte	0x2
+ 255 0015 7D       		.byte	0x7d
+ 256 0016 08       		.sleb128 8
+ 257 0017 04000000 		.4byte	.LCFI1
+ 258 001b 06000000 		.4byte	.LCFI2
+ 259 001f 0200     		.2byte	0x2
+ 260 0021 7D       		.byte	0x7d
+ 261 0022 18       		.sleb128 24
+ 262 0023 06000000 		.4byte	.LCFI2
+ 263 0027 76000000 		.4byte	.LFE29
+ 264 002b 0200     		.2byte	0x2
+ 265 002d 77       		.byte	0x77
+ 266 002e 18       		.sleb128 24
+ 267 002f 00000000 		.4byte	0x0
+ 268 0033 00000000 		.4byte	0x0
+ 269              	.LLST1:
+ 270 0037 00000000 		.4byte	.LFB30
+ 271 003b 02000000 		.4byte	.LCFI3
+ 272 003f 0100     		.2byte	0x1
+ 273 0041 5D       		.byte	0x5d
+ 274 0042 02000000 		.4byte	.LCFI3
+ 275 0046 04000000 		.4byte	.LCFI4
+ 276 004a 0200     		.2byte	0x2
+ 277 004c 7D       		.byte	0x7d
+ 278 004d 08       		.sleb128 8
+ 279 004e 04000000 		.4byte	.LCFI4
+ 280 0052 06000000 		.4byte	.LCFI5
+ 281 0056 0200     		.2byte	0x2
+ 282 0058 7D       		.byte	0x7d
+ 283 0059 18       		.sleb128 24
+ 284 005a 06000000 		.4byte	.LCFI5
+ 285 005e 3A000000 		.4byte	.LFE30
+ 286 0062 0200     		.2byte	0x2
+ 287 0064 77       		.byte	0x77
+ 288 0065 18       		.sleb128 24
+ 289 0066 00000000 		.4byte	0x0
+ 290 006a 00000000 		.4byte	0x0
+ 291              	.LLST2:
+ 292 006e 00000000 		.4byte	.LFB31
+ 293 0072 02000000 		.4byte	.LCFI6
+ 294 0076 0100     		.2byte	0x1
+ 295 0078 5D       		.byte	0x5d
+ 296 0079 02000000 		.4byte	.LCFI6
+ 297 007d 04000000 		.4byte	.LCFI7
+ 298 0081 0200     		.2byte	0x2
+ 299 0083 7D       		.byte	0x7d
+ 300 0084 04       		.sleb128 4
+ 301 0085 04000000 		.4byte	.LCFI7
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 9
+
+
+ 302 0089 10000000 		.4byte	.LFE31
+ 303 008d 0200     		.2byte	0x2
+ 304 008f 77       		.byte	0x77
+ 305 0090 04       		.sleb128 4
+ 306 0091 00000000 		.4byte	0x0
+ 307 0095 00000000 		.4byte	0x0
+ 308              	.LLST3:
+ 309 0099 00000000 		.4byte	.LFB32
+ 310 009d 02000000 		.4byte	.LCFI8
+ 311 00a1 0100     		.2byte	0x1
+ 312 00a3 5D       		.byte	0x5d
+ 313 00a4 02000000 		.4byte	.LCFI8
+ 314 00a8 04000000 		.4byte	.LCFI9
+ 315 00ac 0200     		.2byte	0x2
+ 316 00ae 7D       		.byte	0x7d
+ 317 00af 08       		.sleb128 8
+ 318 00b0 04000000 		.4byte	.LCFI9
+ 319 00b4 06000000 		.4byte	.LCFI10
+ 320 00b8 0200     		.2byte	0x2
+ 321 00ba 7D       		.byte	0x7d
+ 322 00bb 18       		.sleb128 24
+ 323 00bc 06000000 		.4byte	.LCFI10
+ 324 00c0 32000000 		.4byte	.LFE32
+ 325 00c4 0200     		.2byte	0x2
+ 326 00c6 77       		.byte	0x77
+ 327 00c7 18       		.sleb128 24
+ 328 00c8 00000000 		.4byte	0x0
+ 329 00cc 00000000 		.4byte	0x0
+ 330              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 331              		.file 3 ".\\/types.h"
+ 332              		.file 4 ".\\/servo_cds5500.h"
+ 333              		.file 5 ".\\/bal.h"
+ 334              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ 335              		.section	.debug_info
+ 336 0000 3D020000 		.4byte	0x23d
+ 337 0004 0200     		.2byte	0x2
+ 338 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 339 000a 04       		.byte	0x4
+ 340 000b 01       		.uleb128 0x1
+ 341 000c 56010000 		.4byte	.LASF33
+ 342 0010 01       		.byte	0x1
+ 343 0011 99000000 		.4byte	.LASF34
+ 344 0015 A4010000 		.4byte	.LASF35
+ 345 0019 00000000 		.4byte	0x0
+ 346 001d 00000000 		.4byte	0x0
+ 347 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 348 0025 00000000 		.4byte	.Ldebug_line0
+ 349 0029 02       		.uleb128 0x2
+ 350 002a 01       		.byte	0x1
+ 351 002b 06       		.byte	0x6
+ 352 002c 91010000 		.4byte	.LASF0
+ 353 0030 02       		.uleb128 0x2
+ 354 0031 01       		.byte	0x1
+ 355 0032 08       		.byte	0x8
+ 356 0033 7F000000 		.4byte	.LASF1
+ 357 0037 02       		.uleb128 0x2
+ 358 0038 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 10
+
+
+ 359 0039 05       		.byte	0x5
+ 360 003a 67010000 		.4byte	.LASF2
+ 361 003e 02       		.uleb128 0x2
+ 362 003f 02       		.byte	0x2
+ 363 0040 07       		.byte	0x7
+ 364 0041 A1000000 		.4byte	.LASF3
+ 365 0045 02       		.uleb128 0x2
+ 366 0046 04       		.byte	0x4
+ 367 0047 05       		.byte	0x5
+ 368 0048 7E010000 		.4byte	.LASF4
+ 369 004c 02       		.uleb128 0x2
+ 370 004d 04       		.byte	0x4
+ 371 004e 07       		.byte	0x7
+ 372 004f CE000000 		.4byte	.LASF5
+ 373 0053 02       		.uleb128 0x2
+ 374 0054 08       		.byte	0x8
+ 375 0055 05       		.byte	0x5
+ 376 0056 00000000 		.4byte	.LASF6
+ 377 005a 02       		.uleb128 0x2
+ 378 005b 08       		.byte	0x8
+ 379 005c 07       		.byte	0x7
+ 380 005d 1D010000 		.4byte	.LASF7
+ 381 0061 03       		.uleb128 0x3
+ 382 0062 04       		.byte	0x4
+ 383 0063 05       		.byte	0x5
+ 384 0064 696E7400 		.ascii	"int\000"
+ 385 0068 02       		.uleb128 0x2
+ 386 0069 04       		.byte	0x4
+ 387 006a 07       		.byte	0x7
+ 388 006b 03010000 		.4byte	.LASF8
+ 389 006f 04       		.uleb128 0x4
+ 390 0070 78010000 		.4byte	.LASF12
+ 391 0074 02       		.byte	0x2
+ 392 0075 4C       		.byte	0x4c
+ 393 0076 30000000 		.4byte	0x30
+ 394 007a 02       		.uleb128 0x2
+ 395 007b 04       		.byte	0x4
+ 396 007c 04       		.byte	0x4
+ 397 007d 53000000 		.4byte	.LASF9
+ 398 0081 02       		.uleb128 0x2
+ 399 0082 08       		.byte	0x8
+ 400 0083 04       		.byte	0x4
+ 401 0084 39000000 		.4byte	.LASF10
+ 402 0088 02       		.uleb128 0x2
+ 403 0089 01       		.byte	0x1
+ 404 008a 08       		.byte	0x8
+ 405 008b 62010000 		.4byte	.LASF11
+ 406 008f 05       		.uleb128 0x5
+ 407 0090 04       		.byte	0x4
+ 408 0091 07       		.byte	0x7
+ 409 0092 06       		.uleb128 0x6
+ 410 0093 6F000000 		.4byte	0x6f
+ 411 0097 A2000000 		.4byte	0xa2
+ 412 009b 07       		.uleb128 0x7
+ 413 009c 8F000000 		.4byte	0x8f
+ 414 00a0 03       		.byte	0x3
+ 415 00a1 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 11
+
+
+ 416 00a2 04       		.uleb128 0x4
+ 417 00a3 6F000000 		.4byte	.LASF13
+ 418 00a7 03       		.byte	0x3
+ 419 00a8 0F       		.byte	0xf
+ 420 00a9 6F000000 		.4byte	0x6f
+ 421 00ad 08       		.uleb128 0x8
+ 422 00ae 10010000 		.4byte	.LASF36
+ 423 00b2 0E       		.byte	0xe
+ 424 00b3 04       		.byte	0x4
+ 425 00b4 52       		.byte	0x52
+ 426 00b5 1C010000 		.4byte	0x11c
+ 427 00b9 09       		.uleb128 0x9
+ 428 00ba 59000000 		.4byte	.LASF14
+ 429 00be 04       		.byte	0x4
+ 430 00bf 53       		.byte	0x53
+ 431 00c0 6F000000 		.4byte	0x6f
+ 432 00c4 02       		.byte	0x2
+ 433 00c5 23       		.byte	0x23
+ 434 00c6 00       		.uleb128 0x0
+ 435 00c7 09       		.uleb128 0x9
+ 436 00c8 64000000 		.4byte	.LASF15
+ 437 00cc 04       		.byte	0x4
+ 438 00cd 54       		.byte	0x54
+ 439 00ce 6F000000 		.4byte	0x6f
+ 440 00d2 02       		.byte	0x2
+ 441 00d3 23       		.byte	0x23
+ 442 00d4 01       		.uleb128 0x1
+ 443 00d5 09       		.uleb128 0x9
+ 444 00d6 E0000000 		.4byte	.LASF16
+ 445 00da 04       		.byte	0x4
+ 446 00db 55       		.byte	0x55
+ 447 00dc 6F000000 		.4byte	0x6f
+ 448 00e0 02       		.byte	0x2
+ 449 00e1 23       		.byte	0x23
+ 450 00e2 02       		.uleb128 0x2
+ 451 00e3 09       		.uleb128 0x9
+ 452 00e4 9D010000 		.4byte	.LASF17
+ 453 00e8 04       		.byte	0x4
+ 454 00e9 56       		.byte	0x56
+ 455 00ea 6F000000 		.4byte	0x6f
+ 456 00ee 02       		.byte	0x2
+ 457 00ef 23       		.byte	0x23
+ 458 00f0 03       		.uleb128 0x3
+ 459 00f1 09       		.uleb128 0x9
+ 460 00f2 4E010000 		.4byte	.LASF18
+ 461 00f6 04       		.byte	0x4
+ 462 00f7 57       		.byte	0x57
+ 463 00f8 6F000000 		.4byte	0x6f
+ 464 00fc 02       		.byte	0x2
+ 465 00fd 23       		.byte	0x23
+ 466 00fe 04       		.uleb128 0x4
+ 467 00ff 09       		.uleb128 0x9
+ 468 0100 F7000000 		.4byte	.LASF19
+ 469 0104 04       		.byte	0x4
+ 470 0105 58       		.byte	0x58
+ 471 0106 1C010000 		.4byte	0x11c
+ 472 010a 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 12
+
+
+ 473 010b 23       		.byte	0x23
+ 474 010c 05       		.uleb128 0x5
+ 475 010d 09       		.uleb128 0x9
+ 476 010e 17000000 		.4byte	.LASF20
+ 477 0112 04       		.byte	0x4
+ 478 0113 59       		.byte	0x59
+ 479 0114 6F000000 		.4byte	0x6f
+ 480 0118 02       		.byte	0x2
+ 481 0119 23       		.byte	0x23
+ 482 011a 0D       		.uleb128 0xd
+ 483 011b 00       		.byte	0x0
+ 484 011c 06       		.uleb128 0x6
+ 485 011d 6F000000 		.4byte	0x6f
+ 486 0121 2C010000 		.4byte	0x12c
+ 487 0125 07       		.uleb128 0x7
+ 488 0126 8F000000 		.4byte	0x8f
+ 489 012a 07       		.byte	0x7
+ 490 012b 00       		.byte	0x0
+ 491 012c 04       		.uleb128 0x4
+ 492 012d 47000000 		.4byte	.LASF21
+ 493 0131 04       		.byte	0x4
+ 494 0132 5A       		.byte	0x5a
+ 495 0133 AD000000 		.4byte	0xad
+ 496 0137 0A       		.uleb128 0xa
+ 497 0138 01       		.byte	0x1
+ 498 0139 05       		.byte	0x5
+ 499 013a 36       		.byte	0x36
+ 500 013b 52010000 		.4byte	0x152
+ 501 013f 0B       		.uleb128 0xb
+ 502 0140 E8000000 		.4byte	.LASF22
+ 503 0144 01       		.sleb128 1
+ 504 0145 0B       		.uleb128 0xb
+ 505 0146 34010000 		.4byte	.LASF23
+ 506 014a 02       		.sleb128 2
+ 507 014b 0B       		.uleb128 0xb
+ 508 014c 41010000 		.4byte	.LASF24
+ 509 0150 03       		.sleb128 3
+ 510 0151 00       		.byte	0x0
+ 511 0152 0C       		.uleb128 0xc
+ 512 0153 01       		.byte	0x1
+ 513 0154 C1000000 		.4byte	.LASF25
+ 514 0158 01       		.byte	0x1
+ 515 0159 19       		.byte	0x19
+ 516 015a 01       		.byte	0x1
+ 517 015b A2000000 		.4byte	0xa2
+ 518 015f 00000000 		.4byte	.LFB29
+ 519 0163 76000000 		.4byte	.LFE29
+ 520 0167 00000000 		.4byte	.LLST0
+ 521 016b 8C010000 		.4byte	0x18c
+ 522 016f 0D       		.uleb128 0xd
+ 523 0170 6D736700 		.ascii	"msg\000"
+ 524 0174 01       		.byte	0x1
+ 525 0175 19       		.byte	0x19
+ 526 0176 8C010000 		.4byte	0x18c
+ 527 017a 02       		.byte	0x2
+ 528 017b 91       		.byte	0x91
+ 529 017c 6C       		.sleb128 -20
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 13
+
+
+ 530 017d 0E       		.uleb128 0xe
+ 531 017e 40000000 		.4byte	.LASF27
+ 532 0182 01       		.byte	0x1
+ 533 0183 1B       		.byte	0x1b
+ 534 0184 A2000000 		.4byte	0xa2
+ 535 0188 02       		.byte	0x2
+ 536 0189 91       		.byte	0x91
+ 537 018a 77       		.sleb128 -9
+ 538 018b 00       		.byte	0x0
+ 539 018c 0F       		.uleb128 0xf
+ 540 018d 04       		.byte	0x4
+ 541 018e 2C010000 		.4byte	0x12c
+ 542 0192 0C       		.uleb128 0xc
+ 543 0193 01       		.byte	0x1
+ 544 0194 8D000000 		.4byte	.LASF26
+ 545 0198 01       		.byte	0x1
+ 546 0199 4C       		.byte	0x4c
+ 547 019a 01       		.byte	0x1
+ 548 019b A2000000 		.4byte	0xa2
+ 549 019f 00000000 		.4byte	.LFB30
+ 550 01a3 3A000000 		.4byte	.LFE30
+ 551 01a7 37000000 		.4byte	.LLST1
+ 552 01ab CC010000 		.4byte	0x1cc
+ 553 01af 0D       		.uleb128 0xd
+ 554 01b0 76616C00 		.ascii	"val\000"
+ 555 01b4 01       		.byte	0x1
+ 556 01b5 4C       		.byte	0x4c
+ 557 01b6 6F000000 		.4byte	0x6f
+ 558 01ba 02       		.byte	0x2
+ 559 01bb 91       		.byte	0x91
+ 560 01bc 6F       		.sleb128 -17
+ 561 01bd 0E       		.uleb128 0xe
+ 562 01be 71010000 		.4byte	.LASF28
+ 563 01c2 01       		.byte	0x1
+ 564 01c3 4E       		.byte	0x4e
+ 565 01c4 92000000 		.4byte	0x92
+ 566 01c8 02       		.byte	0x2
+ 567 01c9 91       		.byte	0x91
+ 568 01ca 74       		.sleb128 -12
+ 569 01cb 00       		.byte	0x0
+ 570 01cc 10       		.uleb128 0x10
+ 571 01cd 01       		.byte	0x1
+ 572 01ce 0E000000 		.4byte	.LASF37
+ 573 01d2 01       		.byte	0x1
+ 574 01d3 59       		.byte	0x59
+ 575 01d4 01       		.byte	0x1
+ 576 01d5 A2000000 		.4byte	0xa2
+ 577 01d9 00000000 		.4byte	.LFB31
+ 578 01dd 10000000 		.4byte	.LFE31
+ 579 01e1 6E000000 		.4byte	.LLST2
+ 580 01e5 0C       		.uleb128 0xc
+ 581 01e6 01       		.byte	0x1
+ 582 01e7 20000000 		.4byte	.LASF29
+ 583 01eb 01       		.byte	0x1
+ 584 01ec 60       		.byte	0x60
+ 585 01ed 01       		.byte	0x1
+ 586 01ee A2000000 		.4byte	0xa2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 14
+
+
+ 587 01f2 00000000 		.4byte	.LFB32
+ 588 01f6 32000000 		.4byte	.LFE32
+ 589 01fa 99000000 		.4byte	.LLST3
+ 590 01fe 2D020000 		.4byte	0x22d
+ 591 0202 0E       		.uleb128 0xe
+ 592 0203 87010000 		.4byte	.LASF30
+ 593 0207 01       		.byte	0x1
+ 594 0208 62       		.byte	0x62
+ 595 0209 A2000000 		.4byte	0xa2
+ 596 020d 02       		.byte	0x2
+ 597 020e 91       		.byte	0x91
+ 598 020f 76       		.sleb128 -10
+ 599 0210 0E       		.uleb128 0xe
+ 600 0211 2F000000 		.4byte	.LASF31
+ 601 0215 01       		.byte	0x1
+ 602 0216 62       		.byte	0x62
+ 603 0217 A2000000 		.4byte	0xa2
+ 604 021b 02       		.byte	0x2
+ 605 021c 91       		.byte	0x91
+ 606 021d 77       		.sleb128 -9
+ 607 021e 0E       		.uleb128 0xe
+ 608 021f 76000000 		.4byte	.LASF32
+ 609 0223 01       		.byte	0x1
+ 610 0224 63       		.byte	0x63
+ 611 0225 2C010000 		.4byte	0x12c
+ 612 0229 02       		.byte	0x2
+ 613 022a 91       		.byte	0x91
+ 614 022b 68       		.sleb128 -24
+ 615 022c 00       		.byte	0x0
+ 616 022d 11       		.uleb128 0x11
+ 617 022e B4000000 		.4byte	.LASF38
+ 618 0232 06       		.byte	0x6
+ 619 0233 CE06     		.2byte	0x6ce
+ 620 0235 3B020000 		.4byte	0x23b
+ 621 0239 01       		.byte	0x1
+ 622 023a 01       		.byte	0x1
+ 623 023b 12       		.uleb128 0x12
+ 624 023c 61000000 		.4byte	0x61
+ 625 0240 00       		.byte	0x0
+ 626              		.section	.debug_abbrev
+ 627 0000 01       		.uleb128 0x1
+ 628 0001 11       		.uleb128 0x11
+ 629 0002 01       		.byte	0x1
+ 630 0003 25       		.uleb128 0x25
+ 631 0004 0E       		.uleb128 0xe
+ 632 0005 13       		.uleb128 0x13
+ 633 0006 0B       		.uleb128 0xb
+ 634 0007 03       		.uleb128 0x3
+ 635 0008 0E       		.uleb128 0xe
+ 636 0009 1B       		.uleb128 0x1b
+ 637 000a 0E       		.uleb128 0xe
+ 638 000b 11       		.uleb128 0x11
+ 639 000c 01       		.uleb128 0x1
+ 640 000d 52       		.uleb128 0x52
+ 641 000e 01       		.uleb128 0x1
+ 642 000f 55       		.uleb128 0x55
+ 643 0010 06       		.uleb128 0x6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 15
+
+
+ 644 0011 10       		.uleb128 0x10
+ 645 0012 06       		.uleb128 0x6
+ 646 0013 00       		.byte	0x0
+ 647 0014 00       		.byte	0x0
+ 648 0015 02       		.uleb128 0x2
+ 649 0016 24       		.uleb128 0x24
+ 650 0017 00       		.byte	0x0
+ 651 0018 0B       		.uleb128 0xb
+ 652 0019 0B       		.uleb128 0xb
+ 653 001a 3E       		.uleb128 0x3e
+ 654 001b 0B       		.uleb128 0xb
+ 655 001c 03       		.uleb128 0x3
+ 656 001d 0E       		.uleb128 0xe
+ 657 001e 00       		.byte	0x0
+ 658 001f 00       		.byte	0x0
+ 659 0020 03       		.uleb128 0x3
+ 660 0021 24       		.uleb128 0x24
+ 661 0022 00       		.byte	0x0
+ 662 0023 0B       		.uleb128 0xb
+ 663 0024 0B       		.uleb128 0xb
+ 664 0025 3E       		.uleb128 0x3e
+ 665 0026 0B       		.uleb128 0xb
+ 666 0027 03       		.uleb128 0x3
+ 667 0028 08       		.uleb128 0x8
+ 668 0029 00       		.byte	0x0
+ 669 002a 00       		.byte	0x0
+ 670 002b 04       		.uleb128 0x4
+ 671 002c 16       		.uleb128 0x16
+ 672 002d 00       		.byte	0x0
+ 673 002e 03       		.uleb128 0x3
+ 674 002f 0E       		.uleb128 0xe
+ 675 0030 3A       		.uleb128 0x3a
+ 676 0031 0B       		.uleb128 0xb
+ 677 0032 3B       		.uleb128 0x3b
+ 678 0033 0B       		.uleb128 0xb
+ 679 0034 49       		.uleb128 0x49
+ 680 0035 13       		.uleb128 0x13
+ 681 0036 00       		.byte	0x0
+ 682 0037 00       		.byte	0x0
+ 683 0038 05       		.uleb128 0x5
+ 684 0039 24       		.uleb128 0x24
+ 685 003a 00       		.byte	0x0
+ 686 003b 0B       		.uleb128 0xb
+ 687 003c 0B       		.uleb128 0xb
+ 688 003d 3E       		.uleb128 0x3e
+ 689 003e 0B       		.uleb128 0xb
+ 690 003f 00       		.byte	0x0
+ 691 0040 00       		.byte	0x0
+ 692 0041 06       		.uleb128 0x6
+ 693 0042 01       		.uleb128 0x1
+ 694 0043 01       		.byte	0x1
+ 695 0044 49       		.uleb128 0x49
+ 696 0045 13       		.uleb128 0x13
+ 697 0046 01       		.uleb128 0x1
+ 698 0047 13       		.uleb128 0x13
+ 699 0048 00       		.byte	0x0
+ 700 0049 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 16
+
+
+ 701 004a 07       		.uleb128 0x7
+ 702 004b 21       		.uleb128 0x21
+ 703 004c 00       		.byte	0x0
+ 704 004d 49       		.uleb128 0x49
+ 705 004e 13       		.uleb128 0x13
+ 706 004f 2F       		.uleb128 0x2f
+ 707 0050 0B       		.uleb128 0xb
+ 708 0051 00       		.byte	0x0
+ 709 0052 00       		.byte	0x0
+ 710 0053 08       		.uleb128 0x8
+ 711 0054 13       		.uleb128 0x13
+ 712 0055 01       		.byte	0x1
+ 713 0056 03       		.uleb128 0x3
+ 714 0057 0E       		.uleb128 0xe
+ 715 0058 0B       		.uleb128 0xb
+ 716 0059 0B       		.uleb128 0xb
+ 717 005a 3A       		.uleb128 0x3a
+ 718 005b 0B       		.uleb128 0xb
+ 719 005c 3B       		.uleb128 0x3b
+ 720 005d 0B       		.uleb128 0xb
+ 721 005e 01       		.uleb128 0x1
+ 722 005f 13       		.uleb128 0x13
+ 723 0060 00       		.byte	0x0
+ 724 0061 00       		.byte	0x0
+ 725 0062 09       		.uleb128 0x9
+ 726 0063 0D       		.uleb128 0xd
+ 727 0064 00       		.byte	0x0
+ 728 0065 03       		.uleb128 0x3
+ 729 0066 0E       		.uleb128 0xe
+ 730 0067 3A       		.uleb128 0x3a
+ 731 0068 0B       		.uleb128 0xb
+ 732 0069 3B       		.uleb128 0x3b
+ 733 006a 0B       		.uleb128 0xb
+ 734 006b 49       		.uleb128 0x49
+ 735 006c 13       		.uleb128 0x13
+ 736 006d 38       		.uleb128 0x38
+ 737 006e 0A       		.uleb128 0xa
+ 738 006f 00       		.byte	0x0
+ 739 0070 00       		.byte	0x0
+ 740 0071 0A       		.uleb128 0xa
+ 741 0072 04       		.uleb128 0x4
+ 742 0073 01       		.byte	0x1
+ 743 0074 0B       		.uleb128 0xb
+ 744 0075 0B       		.uleb128 0xb
+ 745 0076 3A       		.uleb128 0x3a
+ 746 0077 0B       		.uleb128 0xb
+ 747 0078 3B       		.uleb128 0x3b
+ 748 0079 0B       		.uleb128 0xb
+ 749 007a 01       		.uleb128 0x1
+ 750 007b 13       		.uleb128 0x13
+ 751 007c 00       		.byte	0x0
+ 752 007d 00       		.byte	0x0
+ 753 007e 0B       		.uleb128 0xb
+ 754 007f 28       		.uleb128 0x28
+ 755 0080 00       		.byte	0x0
+ 756 0081 03       		.uleb128 0x3
+ 757 0082 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 17
+
+
+ 758 0083 1C       		.uleb128 0x1c
+ 759 0084 0D       		.uleb128 0xd
+ 760 0085 00       		.byte	0x0
+ 761 0086 00       		.byte	0x0
+ 762 0087 0C       		.uleb128 0xc
+ 763 0088 2E       		.uleb128 0x2e
+ 764 0089 01       		.byte	0x1
+ 765 008a 3F       		.uleb128 0x3f
+ 766 008b 0C       		.uleb128 0xc
+ 767 008c 03       		.uleb128 0x3
+ 768 008d 0E       		.uleb128 0xe
+ 769 008e 3A       		.uleb128 0x3a
+ 770 008f 0B       		.uleb128 0xb
+ 771 0090 3B       		.uleb128 0x3b
+ 772 0091 0B       		.uleb128 0xb
+ 773 0092 27       		.uleb128 0x27
+ 774 0093 0C       		.uleb128 0xc
+ 775 0094 49       		.uleb128 0x49
+ 776 0095 13       		.uleb128 0x13
+ 777 0096 11       		.uleb128 0x11
+ 778 0097 01       		.uleb128 0x1
+ 779 0098 12       		.uleb128 0x12
+ 780 0099 01       		.uleb128 0x1
+ 781 009a 40       		.uleb128 0x40
+ 782 009b 06       		.uleb128 0x6
+ 783 009c 01       		.uleb128 0x1
+ 784 009d 13       		.uleb128 0x13
+ 785 009e 00       		.byte	0x0
+ 786 009f 00       		.byte	0x0
+ 787 00a0 0D       		.uleb128 0xd
+ 788 00a1 05       		.uleb128 0x5
+ 789 00a2 00       		.byte	0x0
+ 790 00a3 03       		.uleb128 0x3
+ 791 00a4 08       		.uleb128 0x8
+ 792 00a5 3A       		.uleb128 0x3a
+ 793 00a6 0B       		.uleb128 0xb
+ 794 00a7 3B       		.uleb128 0x3b
+ 795 00a8 0B       		.uleb128 0xb
+ 796 00a9 49       		.uleb128 0x49
+ 797 00aa 13       		.uleb128 0x13
+ 798 00ab 02       		.uleb128 0x2
+ 799 00ac 0A       		.uleb128 0xa
+ 800 00ad 00       		.byte	0x0
+ 801 00ae 00       		.byte	0x0
+ 802 00af 0E       		.uleb128 0xe
+ 803 00b0 34       		.uleb128 0x34
+ 804 00b1 00       		.byte	0x0
+ 805 00b2 03       		.uleb128 0x3
+ 806 00b3 0E       		.uleb128 0xe
+ 807 00b4 3A       		.uleb128 0x3a
+ 808 00b5 0B       		.uleb128 0xb
+ 809 00b6 3B       		.uleb128 0x3b
+ 810 00b7 0B       		.uleb128 0xb
+ 811 00b8 49       		.uleb128 0x49
+ 812 00b9 13       		.uleb128 0x13
+ 813 00ba 02       		.uleb128 0x2
+ 814 00bb 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 18
+
+
+ 815 00bc 00       		.byte	0x0
+ 816 00bd 00       		.byte	0x0
+ 817 00be 0F       		.uleb128 0xf
+ 818 00bf 0F       		.uleb128 0xf
+ 819 00c0 00       		.byte	0x0
+ 820 00c1 0B       		.uleb128 0xb
+ 821 00c2 0B       		.uleb128 0xb
+ 822 00c3 49       		.uleb128 0x49
+ 823 00c4 13       		.uleb128 0x13
+ 824 00c5 00       		.byte	0x0
+ 825 00c6 00       		.byte	0x0
+ 826 00c7 10       		.uleb128 0x10
+ 827 00c8 2E       		.uleb128 0x2e
+ 828 00c9 00       		.byte	0x0
+ 829 00ca 3F       		.uleb128 0x3f
+ 830 00cb 0C       		.uleb128 0xc
+ 831 00cc 03       		.uleb128 0x3
+ 832 00cd 0E       		.uleb128 0xe
+ 833 00ce 3A       		.uleb128 0x3a
+ 834 00cf 0B       		.uleb128 0xb
+ 835 00d0 3B       		.uleb128 0x3b
+ 836 00d1 0B       		.uleb128 0xb
+ 837 00d2 27       		.uleb128 0x27
+ 838 00d3 0C       		.uleb128 0xc
+ 839 00d4 49       		.uleb128 0x49
+ 840 00d5 13       		.uleb128 0x13
+ 841 00d6 11       		.uleb128 0x11
+ 842 00d7 01       		.uleb128 0x1
+ 843 00d8 12       		.uleb128 0x12
+ 844 00d9 01       		.uleb128 0x1
+ 845 00da 40       		.uleb128 0x40
+ 846 00db 06       		.uleb128 0x6
+ 847 00dc 00       		.byte	0x0
+ 848 00dd 00       		.byte	0x0
+ 849 00de 11       		.uleb128 0x11
+ 850 00df 34       		.uleb128 0x34
+ 851 00e0 00       		.byte	0x0
+ 852 00e1 03       		.uleb128 0x3
+ 853 00e2 0E       		.uleb128 0xe
+ 854 00e3 3A       		.uleb128 0x3a
+ 855 00e4 0B       		.uleb128 0xb
+ 856 00e5 3B       		.uleb128 0x3b
+ 857 00e6 05       		.uleb128 0x5
+ 858 00e7 49       		.uleb128 0x49
+ 859 00e8 13       		.uleb128 0x13
+ 860 00e9 3F       		.uleb128 0x3f
+ 861 00ea 0C       		.uleb128 0xc
+ 862 00eb 3C       		.uleb128 0x3c
+ 863 00ec 0C       		.uleb128 0xc
+ 864 00ed 00       		.byte	0x0
+ 865 00ee 00       		.byte	0x0
+ 866 00ef 12       		.uleb128 0x12
+ 867 00f0 35       		.uleb128 0x35
+ 868 00f1 00       		.byte	0x0
+ 869 00f2 49       		.uleb128 0x49
+ 870 00f3 13       		.uleb128 0x13
+ 871 00f4 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 19
+
+
+ 872 00f5 00       		.byte	0x0
+ 873 00f6 00       		.byte	0x0
+ 874              		.section	.debug_pubnames,"",%progbits
+ 875 0000 4F000000 		.4byte	0x4f
+ 876 0004 0200     		.2byte	0x2
+ 877 0006 00000000 		.4byte	.Ldebug_info0
+ 878 000a 41020000 		.4byte	0x241
+ 879 000e 52010000 		.4byte	0x152
+ 880 0012 42414C5F 		.ascii	"BAL_ServoMsg\000"
+ 880      53657276 
+ 880      6F4D7367 
+ 880      00
+ 881 001f 92010000 		.4byte	0x192
+ 882 0023 42414C5F 		.ascii	"BAL_SendAck\000"
+ 882      53656E64 
+ 882      41636B00 
+ 883 002f CC010000 		.4byte	0x1cc
+ 884 0033 42414C5F 		.ascii	"BAL_Init\000"
+ 884      496E6974 
+ 884      00
+ 885 003c E5010000 		.4byte	0x1e5
+ 886 0040 42414C5F 		.ascii	"BAL_HandleTask\000"
+ 886      48616E64 
+ 886      6C655461 
+ 886      736B00
+ 887 004f 00000000 		.4byte	0x0
+ 888              		.section	.debug_aranges,"",%progbits
+ 889 0000 34000000 		.4byte	0x34
+ 890 0004 0200     		.2byte	0x2
+ 891 0006 00000000 		.4byte	.Ldebug_info0
+ 892 000a 04       		.byte	0x4
+ 893 000b 00       		.byte	0x0
+ 894 000c 0000     		.2byte	0x0
+ 895 000e 0000     		.2byte	0x0
+ 896 0010 00000000 		.4byte	.LFB29
+ 897 0014 76000000 		.4byte	.LFE29-.LFB29
+ 898 0018 00000000 		.4byte	.LFB30
+ 899 001c 3A000000 		.4byte	.LFE30-.LFB30
+ 900 0020 00000000 		.4byte	.LFB31
+ 901 0024 10000000 		.4byte	.LFE31-.LFB31
+ 902 0028 00000000 		.4byte	.LFB32
+ 903 002c 32000000 		.4byte	.LFE32-.LFB32
+ 904 0030 00000000 		.4byte	0x0
+ 905 0034 00000000 		.4byte	0x0
+ 906              		.section	.debug_ranges,"",%progbits
+ 907              	.Ldebug_ranges0:
+ 908 0000 00000000 		.4byte	.Ltext0
+ 909 0004 00000000 		.4byte	.Letext0
+ 910 0008 00000000 		.4byte	.LFB29
+ 911 000c 76000000 		.4byte	.LFE29
+ 912 0010 00000000 		.4byte	.LFB30
+ 913 0014 3A000000 		.4byte	.LFE30
+ 914 0018 00000000 		.4byte	.LFB31
+ 915 001c 10000000 		.4byte	.LFE31
+ 916 0020 00000000 		.4byte	.LFB32
+ 917 0024 32000000 		.4byte	.LFE32
+ 918 0028 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 20
+
+
+ 919 002c 00000000 		.4byte	0x0
+ 920              		.section	.debug_str,"MS",%progbits,1
+ 921              	.LASF6:
+ 922 0000 6C6F6E67 		.ascii	"long long int\000"
+ 922      206C6F6E 
+ 922      6720696E 
+ 922      7400
+ 923              	.LASF37:
+ 924 000e 42414C5F 		.ascii	"BAL_Init\000"
+ 924      496E6974 
+ 924      00
+ 925              	.LASF20:
+ 926 0017 63686563 		.ascii	"checksum\000"
+ 926      6B73756D 
+ 926      00
+ 927              	.LASF29:
+ 928 0020 42414C5F 		.ascii	"BAL_HandleTask\000"
+ 928      48616E64 
+ 928      6C655461 
+ 928      736B00
+ 929              	.LASF31:
+ 930 002f 62706C53 		.ascii	"bplStatus\000"
+ 930      74617475 
+ 930      7300
+ 931              	.LASF10:
+ 932 0039 646F7562 		.ascii	"double\000"
+ 932      6C6500
+ 933              	.LASF27:
+ 934 0040 73746174 		.ascii	"status\000"
+ 934      757300
+ 935              	.LASF21:
+ 936 0047 43445335 		.ascii	"CDS5500_MSG\000"
+ 936      3530305F 
+ 936      4D534700 
+ 937              	.LASF9:
+ 938 0053 666C6F61 		.ascii	"float\000"
+ 938      7400
+ 939              	.LASF14:
+ 940 0059 73746172 		.ascii	"startbyte0\000"
+ 940      74627974 
+ 940      653000
+ 941              	.LASF15:
+ 942 0064 73746172 		.ascii	"startbyte1\000"
+ 942      74627974 
+ 942      653100
+ 943              	.LASF13:
+ 944 006f 53544154 		.ascii	"STATUS\000"
+ 944      555300
+ 945              	.LASF32:
+ 946 0076 73657276 		.ascii	"servoMsg\000"
+ 946      6F4D7367 
+ 946      00
+ 947              	.LASF1:
+ 948 007f 756E7369 		.ascii	"unsigned char\000"
+ 948      676E6564 
+ 948      20636861 
+ 948      7200
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 21
+
+
+ 949              	.LASF26:
+ 950 008d 42414C5F 		.ascii	"BAL_SendAck\000"
+ 950      53656E64 
+ 950      41636B00 
+ 951              	.LASF34:
+ 952 0099 2E5C6261 		.ascii	".\\bal.c\000"
+ 952      6C2E6300 
+ 953              	.LASF3:
+ 954 00a1 73686F72 		.ascii	"short unsigned int\000"
+ 954      7420756E 
+ 954      7369676E 
+ 954      65642069 
+ 954      6E7400
+ 955              	.LASF38:
+ 956 00b4 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 956      52784275 
+ 956      66666572 
+ 956      00
+ 957              	.LASF25:
+ 958 00c1 42414C5F 		.ascii	"BAL_ServoMsg\000"
+ 958      53657276 
+ 958      6F4D7367 
+ 958      00
+ 959              	.LASF5:
+ 960 00ce 6C6F6E67 		.ascii	"long unsigned int\000"
+ 960      20756E73 
+ 960      69676E65 
+ 960      6420696E 
+ 960      7400
+ 961              	.LASF16:
+ 962 00e0 6D6F746F 		.ascii	"motorId\000"
+ 962      72496400 
+ 963              	.LASF22:
+ 964 00e8 42414C5F 		.ascii	"BAL_MSG_ID_ACK\000"
+ 964      4D53475F 
+ 964      49445F41 
+ 964      434B00
+ 965              	.LASF19:
+ 966 00f7 696E7374 		.ascii	"instrParams\000"
+ 966      72506172 
+ 966      616D7300 
+ 967              	.LASF8:
+ 968 0103 756E7369 		.ascii	"unsigned int\000"
+ 968      676E6564 
+ 968      20696E74 
+ 968      00
+ 969              	.LASF36:
+ 970 0110 5F636473 		.ascii	"_cds5500_msg\000"
+ 970      35353030 
+ 970      5F6D7367 
+ 970      00
+ 971              	.LASF7:
+ 972 011d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 972      206C6F6E 
+ 972      6720756E 
+ 972      7369676E 
+ 972      65642069 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 22
+
+
+ 973              	.LASF23:
+ 974 0134 42414C5F 		.ascii	"BAL_MSG_ID_1\000"
+ 974      4D53475F 
+ 974      49445F31 
+ 974      00
+ 975              	.LASF24:
+ 976 0141 42414C5F 		.ascii	"BAL_MSG_ID_2\000"
+ 976      4D53475F 
+ 976      49445F32 
+ 976      00
+ 977              	.LASF18:
+ 978 014e 696E7374 		.ascii	"instrId\000"
+ 978      72496400 
+ 979              	.LASF33:
+ 980 0156 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 980      4320342E 
+ 980      342E3100 
+ 981              	.LASF11:
+ 982 0162 63686172 		.ascii	"char\000"
+ 982      00
+ 983              	.LASF2:
+ 984 0167 73686F72 		.ascii	"short int\000"
+ 984      7420696E 
+ 984      7400
+ 985              	.LASF28:
+ 986 0171 62756666 		.ascii	"buffer\000"
+ 986      657200
+ 987              	.LASF12:
+ 988 0178 75696E74 		.ascii	"uint8\000"
+ 988      3800
+ 989              	.LASF4:
+ 990 017e 6C6F6E67 		.ascii	"long int\000"
+ 990      20696E74 
+ 990      00
+ 991              	.LASF30:
+ 992 0187 62616C53 		.ascii	"balStatus\000"
+ 992      74617475 
+ 992      7300
+ 993              	.LASF0:
+ 994 0191 7369676E 		.ascii	"signed char\000"
+ 994      65642063 
+ 994      68617200 
+ 995              	.LASF17:
+ 996 019d 6C656E67 		.ascii	"length\000"
+ 996      746800
+ 997              	.LASF35:
+ 998 01a4 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 998      69744875 
+ 998      625F726F 
+ 998      626F7469 
+ 998      6373636F 
+ 999 01d3 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ 999      6F725F32 
+ 999      2E325C44 
+ 999      72697665 
+ 999      506C6174 
+ 1000 0203 6174666F 		.ascii	"atform3.cydsn\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccnT4Cs0.s 			page 23
+
+
+ 1000      726D332E 
+ 1000      63796473 
+ 1000      6E00
+ 1001              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -28,7 +28,7 @@ enum
     TIMER_2,
     TIMER_3,
     TIMER_4, //BAL module test
-    TIMER_5,
+    TIMER_5, //MOV module test
     TIMER_NUM
 };
 

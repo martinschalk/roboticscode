@@ -19,6 +19,7 @@ SERVO MESSAGE
 #ifndef CDS5500_h
 #define CDS5500_h
 	
+
 /* send both at beginning of each message */
 #define START_BYTE_0_VALUE 0xFF	
 #define START_BYTE_1_VALUE 0xFF	

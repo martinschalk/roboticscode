@@ -17,9 +17,6 @@
 //static uint8 MsgReceiveBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
 //static uint8 MsgTransmitBuffer[BAL_MSG_RECEIVE_BUFFER_SIZE];
 
-#ifdef BAL_MODULE_TEST   
-    static void BAL_ModuleTest();
-#endif
 /*****************************************************************/
 /* | startbyte0 | startbyte1 | motorId | length | instrId | instrParams[8] | checksum | 
      0            1            2         3        4         5                13       
@@ -98,13 +95,59 @@ STATUS BAL_Init(void)
 /*****************************************************************/
 STATUS BAL_HandleTask(void)
 {
-    // Check for new messages
-    if (BPL_ucGetMessageCount() > 0)
+    STATUS balStatus, bplStatus;
+    CDS5500_MSG servoMsg;
+    
+    // Check for servo respose (status packet)
+    //| 0XFF | 0XFF | ID | Length | Status | Parameter1 ...Parameter N | Check Sum |
+    // ---------------------------------------
+    if (BPL_CDS5500_ucGetRxMessageCount() > 0)
     {
+        bplStatus = BPL_CDS5500_GetResponse(&servoMsg); //TODO: check with more than one messages in bpl receive buffer
         
+        // Check status
+        if ((bplStatus == BPL_SUCCESS) && (servoMsg.instrId != CDS5500_STATUS_OK))
+        {
+            if(servoMsg.instrId & CDS5500_ERROR_INSTRUCTION_BIT)
+            {
+                // undefined instruction was sent or an action instruction was sent without a Reg_Write instruction. 
+                // action: none
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_OVERLOAD_BIT)
+            {
+                // specified maximum torque can't control the applied load.
+                // action: ?
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_CHECKSUM_BIT)
+            {
+                // checksum of the instruction packet is incorrect.
+                // action: send last message again
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_RANGE_BIT)
+            {
+                // instruction sent is out of the defined range. 
+                // action: ?
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_OVERHEATING_BIT)
+            {
+                // internal temperature of the CDS55xx unit is above the operating temperature range as defined in the control table. 
+                // action: ?
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_POSITION_LIMIT_BIT)
+            {
+                // target position is set outside of the range between CW Angle Limit and CCW Angle Limit. 
+                // action: ?
+            }
+            if(servoMsg.instrId & CDS5500_ERROR_INPUT_VOLTAGE_BIT)
+            {
+                // voltage is out of the operating voltage range as defined in the control table. 
+                // action: ?
+            }
+            
+        }
     }
     
-    return SUCCESS;
+    return balStatus;
 }
 
 
@@ -112,7 +155,7 @@ STATUS BAL_HandleTask(void)
 #ifdef BAL_MODULE_TEST   
 void BAL_ModuleTest(void)
 {
-    CDS5500_Ping(0x01);
+    CDS5500_Ping(CDS5500_SERVO_1);
 }
 #endif
 /* [] END OF FILE */

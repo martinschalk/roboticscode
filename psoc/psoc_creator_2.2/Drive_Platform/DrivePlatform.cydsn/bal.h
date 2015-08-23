@@ -48,7 +48,7 @@ HARDWARE ABSTRACTION LAYER	(HAL)
 #define BAL_ACK_OK                      0x01
 #define BAL_ACK_NOK                     0x02
 
-#define BAL_MSG_
+#define BAL_SUCCESS                     (uint8)(0)
 
 enum
 {
@@ -83,4 +83,3 @@ extern STATUS  BAL_SendAck(uint8 val);
 
 #endif /* BAL_H */
 
-/* [] END OF FILE */

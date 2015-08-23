@@ -39,4 +39,3 @@
 
 #endif /* GLOBAL_H */
 
-/* [] END OF FILE */

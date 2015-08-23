@@ -1,0 +1,591 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 82000000 		.text
+  20      02006100 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.main,"ax",%progbits
+  24              		.align	2
+  25              		.global	main
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	main, %function
+  29              	main:
+  30              	.LFB29:
+  31              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\main.c      ****  * All rights reserved.
+   3:.\main.c      ****  *
+   4:.\main.c      ****  * This software may be modified and distributed under the terms
+   5:.\main.c      ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\main.c      ****  */
+   7:.\main.c      **** 
+   8:.\main.c      **** #include <project.h>
+   9:.\main.c      **** #include "servo_cds5500.h"
+  10:.\main.c      **** #include "bal.h"
+  11:.\main.c      **** #include "hal.h"
+  12:.\main.c      **** #include "bpl.h"
+  13:.\main.c      **** #include "tmr.h"
+  14:.\main.c      **** #include "test.h"
+  15:.\main.c      **** #include "scheduler.h"
+  16:.\main.c      **** 
+  17:.\main.c      **** #include "global.h"
+  18:.\main.c      **** 
+  19:.\main.c      **** int main()
+  20:.\main.c      **** {
+  32              		.loc 1 20 0
+  33              		.cfi_startproc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 2
+
+
+  34              		@ args = 0, pretend = 0, frame = 16
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39 0002 84B0     		sub	sp, sp, #16
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 24
+  42 0004 00AF     		add	r7, sp, #0
+  43              		.cfi_offset 14, -4
+  44              		.cfi_offset 7, -8
+  45              	.LCFI2:
+  46              		.cfi_def_cfa_register 7
+  21:.\main.c      **** 	STATUS status;
+  22:.\main.c      ****     
+  23:.\main.c      **** #ifdef SCH_DEBUG    
+  24:.\main.c      ****     int loopCount=0;
+  47              		.loc 1 24 0
+  48 0006 4FF00003 		mov	r3, #0
+  49 000a BB60     		str	r3, [r7, #8]
+  25:.\main.c      ****     uchar debug = 1;
+  50              		.loc 1 25 0
+  51 000c 4FF00103 		mov	r3, #1
+  52 0010 FB73     		strb	r3, [r7, #15]
+  26:.\main.c      **** #endif
+  27:.\main.c      **** 
+  28:.\main.c      **** 	/* Initialization */
+  29:.\main.c      **** 	/* -------------- */
+  30:.\main.c      **** 	CyGlobalIntEnable; /* Enable interrupts */
+  53              		.loc 1 30 0
+  54              	@ 30 ".\main.c" 1
+  55 0012 62B6     		CPSIE   i
+  56              	@ 0 "" 2
+  57              		.thumb
+  58 0014 02E0     		b	.L3
+  59              	.L5:
+  31:.\main.c      **** 
+  32:.\main.c      **** 
+  33:.\main.c      **** #ifdef SCH_DEBUG
+  34:.\main.c      ****     //SCH_ShowCurrentTasks();
+  35:.\main.c      **** #endif
+  36:.\main.c      **** 
+  37:.\main.c      ****     for(;;)
+  38:.\main.c      ****     {
+  39:.\main.c      ****         SCH_TaskHandler();
+  40:.\main.c      **** 
+  41:.\main.c      **** #ifdef SCH_DEBUG
+  42:.\main.c      ****         if ((debug == 1) && (++loopCount > 10)) 
+  43:.\main.c      ****         {
+  44:.\main.c      ****             //SCH_ShowCurrentTasks();
+  45:.\main.c      ****             debug = 0;
+  46:.\main.c      ****         }
+  47:.\main.c      **** #endif
+  48:.\main.c      **** 
+  49:.\main.c      **** 
+  50:.\main.c      ****     }
+  60              		.loc 1 50 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 3
+
+
+  61 0016 00BF     		nop
+  62 0018 00E0     		b	.L3
+  63              	.L6:
+  64 001a 00BF     		nop
+  65              	.L3:
+  66              		.loc 1 39 0
+  67 001c FFF7FEFF 		bl	SCH_TaskHandler
+  68              		.loc 1 42 0
+  69 0020 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  70 0022 012B     		cmp	r3, #1
+  71 0024 F7D1     		bne	.L5
+  72 0026 BB68     		ldr	r3, [r7, #8]
+  73 0028 03F10103 		add	r3, r3, #1
+  74 002c BB60     		str	r3, [r7, #8]
+  75 002e BB68     		ldr	r3, [r7, #8]
+  76 0030 0A2B     		cmp	r3, #10
+  77 0032 F2DD     		ble	.L6
+  78              		.loc 1 45 0
+  79 0034 4FF00003 		mov	r3, #0
+  80 0038 FB73     		strb	r3, [r7, #15]
+  81              		.loc 1 50 0
+  82 003a EFE7     		b	.L3
+  83              		.cfi_endproc
+  84              	.LFE29:
+  85              		.size	main, .-main
+  86              		.text
+  87              	.Letext0:
+  88              		.section	.debug_loc,"",%progbits
+  89              	.Ldebug_loc0:
+  90              	.LLST0:
+  91 0000 00000000 		.4byte	.LFB29
+  92 0004 02000000 		.4byte	.LCFI0
+  93 0008 0100     		.2byte	0x1
+  94 000a 5D       		.byte	0x5d
+  95 000b 02000000 		.4byte	.LCFI0
+  96 000f 04000000 		.4byte	.LCFI1
+  97 0013 0200     		.2byte	0x2
+  98 0015 7D       		.byte	0x7d
+  99 0016 08       		.sleb128 8
+ 100 0017 04000000 		.4byte	.LCFI1
+ 101 001b 06000000 		.4byte	.LCFI2
+ 102 001f 0200     		.2byte	0x2
+ 103 0021 7D       		.byte	0x7d
+ 104 0022 18       		.sleb128 24
+ 105 0023 06000000 		.4byte	.LCFI2
+ 106 0027 3C000000 		.4byte	.LFE29
+ 107 002b 0200     		.2byte	0x2
+ 108 002d 77       		.byte	0x77
+ 109 002e 18       		.sleb128 24
+ 110 002f 00000000 		.4byte	0x0
+ 111 0033 00000000 		.4byte	0x0
+ 112              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 113              		.file 3 ".\\/types.h"
+ 114              		.file 4 "./Generated_Source/PSoC5/core_cm3.h"
+ 115              		.section	.debug_info
+ 116 0000 FF000000 		.4byte	0xff
+ 117 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 4
+
+
+ 118 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 119 000a 04       		.byte	0x4
+ 120 000b 01       		.uleb128 0x1
+ 121 000c DA000000 		.4byte	.LASF18
+ 122 0010 01       		.byte	0x1
+ 123 0011 BA000000 		.4byte	.LASF19
+ 124 0015 2E000000 		.4byte	.LASF20
+ 125 0019 00000000 		.4byte	0x0
+ 126 001d 00000000 		.4byte	0x0
+ 127 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 128 0025 00000000 		.4byte	.Ldebug_line0
+ 129 0029 02       		.uleb128 0x2
+ 130 002a 01       		.byte	0x1
+ 131 002b 06       		.byte	0x6
+ 132 002c 23010000 		.4byte	.LASF0
+ 133 0030 02       		.uleb128 0x2
+ 134 0031 01       		.byte	0x1
+ 135 0032 08       		.byte	0x8
+ 136 0033 E6000000 		.4byte	.LASF1
+ 137 0037 02       		.uleb128 0x2
+ 138 0038 02       		.byte	0x2
+ 139 0039 05       		.byte	0x5
+ 140 003a 43010000 		.4byte	.LASF2
+ 141 003e 02       		.uleb128 0x2
+ 142 003f 02       		.byte	0x2
+ 143 0040 07       		.byte	0x7
+ 144 0041 0E000000 		.4byte	.LASF3
+ 145 0045 02       		.uleb128 0x2
+ 146 0046 04       		.byte	0x4
+ 147 0047 05       		.byte	0x5
+ 148 0048 2F010000 		.4byte	.LASF4
+ 149 004c 02       		.uleb128 0x2
+ 150 004d 04       		.byte	0x4
+ 151 004e 07       		.byte	0x7
+ 152 004f A8000000 		.4byte	.LASF5
+ 153 0053 02       		.uleb128 0x2
+ 154 0054 08       		.byte	0x8
+ 155 0055 05       		.byte	0x5
+ 156 0056 00000000 		.4byte	.LASF6
+ 157 005a 02       		.uleb128 0x2
+ 158 005b 08       		.byte	0x8
+ 159 005c 07       		.byte	0x7
+ 160 005d C3000000 		.4byte	.LASF7
+ 161 0061 03       		.uleb128 0x3
+ 162 0062 04       		.byte	0x4
+ 163 0063 05       		.byte	0x5
+ 164 0064 696E7400 		.ascii	"int\000"
+ 165 0068 02       		.uleb128 0x2
+ 166 0069 04       		.byte	0x4
+ 167 006a 07       		.byte	0x7
+ 168 006b 21000000 		.4byte	.LASF8
+ 169 006f 04       		.uleb128 0x4
+ 170 0070 A2000000 		.4byte	.LASF12
+ 171 0074 02       		.byte	0x2
+ 172 0075 4C       		.byte	0x4c
+ 173 0076 30000000 		.4byte	0x30
+ 174 007a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 5
+
+
+ 175 007b 04       		.byte	0x4
+ 176 007c 04       		.byte	0x4
+ 177 007d 3D010000 		.4byte	.LASF9
+ 178 0081 02       		.uleb128 0x2
+ 179 0082 08       		.byte	0x8
+ 180 0083 04       		.byte	0x4
+ 181 0084 FF000000 		.4byte	.LASF10
+ 182 0088 02       		.uleb128 0x2
+ 183 0089 01       		.byte	0x1
+ 184 008a 08       		.byte	0x8
+ 185 008b F4000000 		.4byte	.LASF11
+ 186 008f 05       		.uleb128 0x5
+ 187 0090 04       		.byte	0x4
+ 188 0091 07       		.byte	0x7
+ 189 0092 04       		.uleb128 0x4
+ 190 0093 F9000000 		.4byte	.LASF13
+ 191 0097 03       		.byte	0x3
+ 192 0098 0E       		.byte	0xe
+ 193 0099 6F000000 		.4byte	0x6f
+ 194 009d 04       		.uleb128 0x4
+ 195 009e 4D010000 		.4byte	.LASF14
+ 196 00a2 03       		.byte	0x3
+ 197 00a3 0F       		.byte	0xf
+ 198 00a4 6F000000 		.4byte	0x6f
+ 199 00a8 06       		.uleb128 0x6
+ 200 00a9 01       		.byte	0x1
+ 201 00aa 38010000 		.4byte	.LASF21
+ 202 00ae 01       		.byte	0x1
+ 203 00af 13       		.byte	0x13
+ 204 00b0 61000000 		.4byte	0x61
+ 205 00b4 00000000 		.4byte	.LFB29
+ 206 00b8 3C000000 		.4byte	.LFE29
+ 207 00bc 00000000 		.4byte	.LLST0
+ 208 00c0 EF000000 		.4byte	0xef
+ 209 00c4 07       		.uleb128 0x7
+ 210 00c5 9B000000 		.4byte	.LASF15
+ 211 00c9 01       		.byte	0x1
+ 212 00ca 15       		.byte	0x15
+ 213 00cb 9D000000 		.4byte	0x9d
+ 214 00cf 02       		.byte	0x2
+ 215 00d0 91       		.byte	0x91
+ 216 00d1 6F       		.sleb128 -17
+ 217 00d2 07       		.uleb128 0x7
+ 218 00d3 0C010000 		.4byte	.LASF16
+ 219 00d7 01       		.byte	0x1
+ 220 00d8 18       		.byte	0x18
+ 221 00d9 61000000 		.4byte	0x61
+ 222 00dd 02       		.byte	0x2
+ 223 00de 91       		.byte	0x91
+ 224 00df 70       		.sleb128 -16
+ 225 00e0 07       		.uleb128 0x7
+ 226 00e1 06010000 		.4byte	.LASF17
+ 227 00e5 01       		.byte	0x1
+ 228 00e6 19       		.byte	0x19
+ 229 00e7 92000000 		.4byte	0x92
+ 230 00eb 02       		.byte	0x2
+ 231 00ec 91       		.byte	0x91
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 6
+
+
+ 232 00ed 77       		.sleb128 -9
+ 233 00ee 00       		.byte	0x0
+ 234 00ef 08       		.uleb128 0x8
+ 235 00f0 16010000 		.4byte	.LASF22
+ 236 00f4 04       		.byte	0x4
+ 237 00f5 CE06     		.2byte	0x6ce
+ 238 00f7 FD000000 		.4byte	0xfd
+ 239 00fb 01       		.byte	0x1
+ 240 00fc 01       		.byte	0x1
+ 241 00fd 09       		.uleb128 0x9
+ 242 00fe 61000000 		.4byte	0x61
+ 243 0102 00       		.byte	0x0
+ 244              		.section	.debug_abbrev
+ 245 0000 01       		.uleb128 0x1
+ 246 0001 11       		.uleb128 0x11
+ 247 0002 01       		.byte	0x1
+ 248 0003 25       		.uleb128 0x25
+ 249 0004 0E       		.uleb128 0xe
+ 250 0005 13       		.uleb128 0x13
+ 251 0006 0B       		.uleb128 0xb
+ 252 0007 03       		.uleb128 0x3
+ 253 0008 0E       		.uleb128 0xe
+ 254 0009 1B       		.uleb128 0x1b
+ 255 000a 0E       		.uleb128 0xe
+ 256 000b 11       		.uleb128 0x11
+ 257 000c 01       		.uleb128 0x1
+ 258 000d 52       		.uleb128 0x52
+ 259 000e 01       		.uleb128 0x1
+ 260 000f 55       		.uleb128 0x55
+ 261 0010 06       		.uleb128 0x6
+ 262 0011 10       		.uleb128 0x10
+ 263 0012 06       		.uleb128 0x6
+ 264 0013 00       		.byte	0x0
+ 265 0014 00       		.byte	0x0
+ 266 0015 02       		.uleb128 0x2
+ 267 0016 24       		.uleb128 0x24
+ 268 0017 00       		.byte	0x0
+ 269 0018 0B       		.uleb128 0xb
+ 270 0019 0B       		.uleb128 0xb
+ 271 001a 3E       		.uleb128 0x3e
+ 272 001b 0B       		.uleb128 0xb
+ 273 001c 03       		.uleb128 0x3
+ 274 001d 0E       		.uleb128 0xe
+ 275 001e 00       		.byte	0x0
+ 276 001f 00       		.byte	0x0
+ 277 0020 03       		.uleb128 0x3
+ 278 0021 24       		.uleb128 0x24
+ 279 0022 00       		.byte	0x0
+ 280 0023 0B       		.uleb128 0xb
+ 281 0024 0B       		.uleb128 0xb
+ 282 0025 3E       		.uleb128 0x3e
+ 283 0026 0B       		.uleb128 0xb
+ 284 0027 03       		.uleb128 0x3
+ 285 0028 08       		.uleb128 0x8
+ 286 0029 00       		.byte	0x0
+ 287 002a 00       		.byte	0x0
+ 288 002b 04       		.uleb128 0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 7
+
+
+ 289 002c 16       		.uleb128 0x16
+ 290 002d 00       		.byte	0x0
+ 291 002e 03       		.uleb128 0x3
+ 292 002f 0E       		.uleb128 0xe
+ 293 0030 3A       		.uleb128 0x3a
+ 294 0031 0B       		.uleb128 0xb
+ 295 0032 3B       		.uleb128 0x3b
+ 296 0033 0B       		.uleb128 0xb
+ 297 0034 49       		.uleb128 0x49
+ 298 0035 13       		.uleb128 0x13
+ 299 0036 00       		.byte	0x0
+ 300 0037 00       		.byte	0x0
+ 301 0038 05       		.uleb128 0x5
+ 302 0039 24       		.uleb128 0x24
+ 303 003a 00       		.byte	0x0
+ 304 003b 0B       		.uleb128 0xb
+ 305 003c 0B       		.uleb128 0xb
+ 306 003d 3E       		.uleb128 0x3e
+ 307 003e 0B       		.uleb128 0xb
+ 308 003f 00       		.byte	0x0
+ 309 0040 00       		.byte	0x0
+ 310 0041 06       		.uleb128 0x6
+ 311 0042 2E       		.uleb128 0x2e
+ 312 0043 01       		.byte	0x1
+ 313 0044 3F       		.uleb128 0x3f
+ 314 0045 0C       		.uleb128 0xc
+ 315 0046 03       		.uleb128 0x3
+ 316 0047 0E       		.uleb128 0xe
+ 317 0048 3A       		.uleb128 0x3a
+ 318 0049 0B       		.uleb128 0xb
+ 319 004a 3B       		.uleb128 0x3b
+ 320 004b 0B       		.uleb128 0xb
+ 321 004c 49       		.uleb128 0x49
+ 322 004d 13       		.uleb128 0x13
+ 323 004e 11       		.uleb128 0x11
+ 324 004f 01       		.uleb128 0x1
+ 325 0050 12       		.uleb128 0x12
+ 326 0051 01       		.uleb128 0x1
+ 327 0052 40       		.uleb128 0x40
+ 328 0053 06       		.uleb128 0x6
+ 329 0054 01       		.uleb128 0x1
+ 330 0055 13       		.uleb128 0x13
+ 331 0056 00       		.byte	0x0
+ 332 0057 00       		.byte	0x0
+ 333 0058 07       		.uleb128 0x7
+ 334 0059 34       		.uleb128 0x34
+ 335 005a 00       		.byte	0x0
+ 336 005b 03       		.uleb128 0x3
+ 337 005c 0E       		.uleb128 0xe
+ 338 005d 3A       		.uleb128 0x3a
+ 339 005e 0B       		.uleb128 0xb
+ 340 005f 3B       		.uleb128 0x3b
+ 341 0060 0B       		.uleb128 0xb
+ 342 0061 49       		.uleb128 0x49
+ 343 0062 13       		.uleb128 0x13
+ 344 0063 02       		.uleb128 0x2
+ 345 0064 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 8
+
+
+ 346 0065 00       		.byte	0x0
+ 347 0066 00       		.byte	0x0
+ 348 0067 08       		.uleb128 0x8
+ 349 0068 34       		.uleb128 0x34
+ 350 0069 00       		.byte	0x0
+ 351 006a 03       		.uleb128 0x3
+ 352 006b 0E       		.uleb128 0xe
+ 353 006c 3A       		.uleb128 0x3a
+ 354 006d 0B       		.uleb128 0xb
+ 355 006e 3B       		.uleb128 0x3b
+ 356 006f 05       		.uleb128 0x5
+ 357 0070 49       		.uleb128 0x49
+ 358 0071 13       		.uleb128 0x13
+ 359 0072 3F       		.uleb128 0x3f
+ 360 0073 0C       		.uleb128 0xc
+ 361 0074 3C       		.uleb128 0x3c
+ 362 0075 0C       		.uleb128 0xc
+ 363 0076 00       		.byte	0x0
+ 364 0077 00       		.byte	0x0
+ 365 0078 09       		.uleb128 0x9
+ 366 0079 35       		.uleb128 0x35
+ 367 007a 00       		.byte	0x0
+ 368 007b 49       		.uleb128 0x49
+ 369 007c 13       		.uleb128 0x13
+ 370 007d 00       		.byte	0x0
+ 371 007e 00       		.byte	0x0
+ 372 007f 00       		.byte	0x0
+ 373              		.section	.debug_pubnames,"",%progbits
+ 374 0000 17000000 		.4byte	0x17
+ 375 0004 0200     		.2byte	0x2
+ 376 0006 00000000 		.4byte	.Ldebug_info0
+ 377 000a 03010000 		.4byte	0x103
+ 378 000e A8000000 		.4byte	0xa8
+ 379 0012 6D61696E 		.ascii	"main\000"
+ 379      00
+ 380 0017 00000000 		.4byte	0x0
+ 381              		.section	.debug_aranges,"",%progbits
+ 382 0000 1C000000 		.4byte	0x1c
+ 383 0004 0200     		.2byte	0x2
+ 384 0006 00000000 		.4byte	.Ldebug_info0
+ 385 000a 04       		.byte	0x4
+ 386 000b 00       		.byte	0x0
+ 387 000c 0000     		.2byte	0x0
+ 388 000e 0000     		.2byte	0x0
+ 389 0010 00000000 		.4byte	.LFB29
+ 390 0014 3C000000 		.4byte	.LFE29-.LFB29
+ 391 0018 00000000 		.4byte	0x0
+ 392 001c 00000000 		.4byte	0x0
+ 393              		.section	.debug_ranges,"",%progbits
+ 394              	.Ldebug_ranges0:
+ 395 0000 00000000 		.4byte	.Ltext0
+ 396 0004 00000000 		.4byte	.Letext0
+ 397 0008 00000000 		.4byte	.LFB29
+ 398 000c 3C000000 		.4byte	.LFE29
+ 399 0010 00000000 		.4byte	0x0
+ 400 0014 00000000 		.4byte	0x0
+ 401              		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 9
+
+
+ 402              	.LASF6:
+ 403 0000 6C6F6E67 		.ascii	"long long int\000"
+ 403      206C6F6E 
+ 403      6720696E 
+ 403      7400
+ 404              	.LASF3:
+ 405 000e 73686F72 		.ascii	"short unsigned int\000"
+ 405      7420756E 
+ 405      7369676E 
+ 405      65642069 
+ 405      6E7400
+ 406              	.LASF8:
+ 407 0021 756E7369 		.ascii	"unsigned int\000"
+ 407      676E6564 
+ 407      20696E74 
+ 407      00
+ 408              	.LASF20:
+ 409 002e 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 409      69744875 
+ 409      625F726F 
+ 409      626F7469 
+ 409      6373636F 
+ 410 005d 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ 410      6F725F32 
+ 410      2E325C44 
+ 410      72697665 
+ 410      506C6174 
+ 411 008d 6174666F 		.ascii	"atform3.cydsn\000"
+ 411      726D332E 
+ 411      63796473 
+ 411      6E00
+ 412              	.LASF15:
+ 413 009b 73746174 		.ascii	"status\000"
+ 413      757300
+ 414              	.LASF12:
+ 415 00a2 75696E74 		.ascii	"uint8\000"
+ 415      3800
+ 416              	.LASF5:
+ 417 00a8 6C6F6E67 		.ascii	"long unsigned int\000"
+ 417      20756E73 
+ 417      69676E65 
+ 417      6420696E 
+ 417      7400
+ 418              	.LASF19:
+ 419 00ba 2E5C6D61 		.ascii	".\\main.c\000"
+ 419      696E2E63 
+ 419      00
+ 420              	.LASF7:
+ 421 00c3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 421      206C6F6E 
+ 421      6720756E 
+ 421      7369676E 
+ 421      65642069 
+ 422              	.LASF18:
+ 423 00da 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 423      4320342E 
+ 423      342E3100 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc0cmqKL.s 			page 10
+
+
+ 424              	.LASF1:
+ 425 00e6 756E7369 		.ascii	"unsigned char\000"
+ 425      676E6564 
+ 425      20636861 
+ 425      7200
+ 426              	.LASF11:
+ 427 00f4 63686172 		.ascii	"char\000"
+ 427      00
+ 428              	.LASF13:
+ 429 00f9 75636861 		.ascii	"uchar\000"
+ 429      7200
+ 430              	.LASF10:
+ 431 00ff 646F7562 		.ascii	"double\000"
+ 431      6C6500
+ 432              	.LASF17:
+ 433 0106 64656275 		.ascii	"debug\000"
+ 433      6700
+ 434              	.LASF16:
+ 435 010c 6C6F6F70 		.ascii	"loopCount\000"
+ 435      436F756E 
+ 435      7400
+ 436              	.LASF22:
+ 437 0116 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 437      52784275 
+ 437      66666572 
+ 437      00
+ 438              	.LASF0:
+ 439 0123 7369676E 		.ascii	"signed char\000"
+ 439      65642063 
+ 439      68617200 
+ 440              	.LASF4:
+ 441 012f 6C6F6E67 		.ascii	"long int\000"
+ 441      20696E74 
+ 441      00
+ 442              	.LASF21:
+ 443 0138 6D61696E 		.ascii	"main\000"
+ 443      00
+ 444              	.LASF9:
+ 445 013d 666C6F61 		.ascii	"float\000"
+ 445      7400
+ 446              	.LASF2:
+ 447 0143 73686F72 		.ascii	"short int\000"
+ 447      7420696E 
+ 447      7400
+ 448              	.LASF14:
+ 449 014d 53544154 		.ascii	"STATUS\000"
+ 449      555300
+ 450              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -100,7 +100,7 @@ STATUS BAL_HandleTask(void)
 #ifdef BAL_MODULE_TEST   
 static void BAL_ModuleTest(void)
 {
-    Ping(0x01);
+    CDS5500_Ping(CDS5500_SERVO_1);
 }
 #endif
 /* [] END OF FILE */

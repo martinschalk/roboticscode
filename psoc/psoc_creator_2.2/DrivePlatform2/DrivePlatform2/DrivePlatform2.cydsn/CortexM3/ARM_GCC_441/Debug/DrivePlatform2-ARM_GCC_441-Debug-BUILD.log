@@ -1,6 +1,5 @@
---------------- Build Started: 08/01/2015 23:33:43 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
+--------------- Build Started: 08/23/2015 13:00:15 Project: DrivePlatform2, Configuration: ARM GCC 4.4.1 Debug ---------------
 The code generation step is up to date.
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bal.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\bal.c -o .\CortexM3\ARM_GCC_441\Debug\bal.o
-arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -D DEBUG -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\bpl.lst -ffunction-sections -c ..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c -o .\CortexM3\ARM_GCC_441\Debug\bpl.o
-..\..\..\Drive_Platform\DrivePlatform.cydsn\bpl.c: In function 'BPL_ucGetMessageCount':
---------------- Build Failed: 08/01/2015 23:33:43 ---------------
+The compile step is up to date, no work needs to be done.
+The link step is up to date, no work needs to be done.
+--------------- Build Succeeded: 08/23/2015 13:00:16 ---------------

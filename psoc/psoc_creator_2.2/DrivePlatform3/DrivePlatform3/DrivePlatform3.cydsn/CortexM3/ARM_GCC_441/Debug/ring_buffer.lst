@@ -1,0 +1,5021 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"ring_buffer.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 7B030000 		.text
+  20      02002201 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	RingBuffer:
+  26 0000 00000000 		.space	40
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  26      00000000 
+  27              		.section	.text.RBF_ucInit,"ax",%progbits
+  28              		.align	2
+  29              		.global	RBF_ucInit
+  30              		.thumb
+  31              		.thumb_func
+  32              		.type	RBF_ucInit, %function
+  33              	RBF_ucInit:
+  34              	.LFB29:
+  35              		.file 1 ".\\ring_buffer.c"
+   1:.\ring_buffer.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\ring_buffer.c ****  * All rights reserved.
+   3:.\ring_buffer.c ****  *
+   4:.\ring_buffer.c ****  * This software may be modified and distributed under the terms
+   5:.\ring_buffer.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\ring_buffer.c ****  */
+   7:.\ring_buffer.c **** 
+   8:.\ring_buffer.c ****  
+   9:.\ring_buffer.c ****  
+  10:.\ring_buffer.c ****  
+  11:.\ring_buffer.c **** /** COMMENTS
+  12:.\ring_buffer.c **** 
+  13:.\ring_buffer.c **** */
+  14:.\ring_buffer.c **** 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 2
+
+
+  15:.\ring_buffer.c **** #include "global.h"
+  16:.\ring_buffer.c **** #include "types.h"
+  17:.\ring_buffer.c **** #include "ring_buffer.h"
+  18:.\ring_buffer.c **** #include <stdio.h>
+  19:.\ring_buffer.c ****  
+  20:.\ring_buffer.c **** 
+  21:.\ring_buffer.c **** static RING_BUFFER RingBuffer[RBF_NUM];
+  22:.\ring_buffer.c ****  
+  23:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+  24:.\ring_buffer.c **** /* --------------------- STATIC FUNCTIONS -------------------------- */ 
+  25:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+  26:.\ring_buffer.c **** static uint8_t IncHead(uint8_t ucIdx);
+  27:.\ring_buffer.c **** static uint8_t DecHead(uint8_t ucIdx);
+  28:.\ring_buffer.c **** static uint8_t IncTail(uint8_t ucIdx);
+  29:.\ring_buffer.c **** //static uint8_t DecTail(uint8_t ucIdx);
+  30:.\ring_buffer.c **** 
+  31:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+  32:.\ring_buffer.c **** /* --------------------- GLOBAL FUNCTIONS -------------------------- */
+  33:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+  34:.\ring_buffer.c **** /*****************************************************************/
+  35:.\ring_buffer.c **** STATUS RBF_ucInit(void)
+  36:.\ring_buffer.c **** {
+  36              		.loc 1 36 0
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 0
+  39              		@ frame_needed = 1, uses_anonymous_args = 0
+  40 0000 80B5     		push	{r7, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 8
+  43 0002 00AF     		add	r7, sp, #0
+  44              		.cfi_offset 14, -4
+  45              		.cfi_offset 7, -8
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_register 7
+  37:.\ring_buffer.c ****     static int stest = sizeof(RingBuffer);
+  38:.\ring_buffer.c ****     (void)stest;
+  39:.\ring_buffer.c ****      
+  40:.\ring_buffer.c ****     memset(RingBuffer, 0x00, sizeof(RingBuffer));
+  48              		.loc 1 40 0
+  49 0004 40F20000 		movw	r0, #:lower16:RingBuffer
+  50 0008 C0F20000 		movt	r0, #:upper16:RingBuffer
+  51 000c 4FF00001 		mov	r1, #0
+  52 0010 4FF02802 		mov	r2, #40
+  53 0014 FFF7FEFF 		bl	memset
+  41:.\ring_buffer.c ****     
+  42:.\ring_buffer.c ****     return SUCCESS;
+  54              		.loc 1 42 0
+  55 0018 4FF00003 		mov	r3, #0
+  43:.\ring_buffer.c **** } 
+  56              		.loc 1 43 0
+  57 001c 1846     		mov	r0, r3
+  58 001e 80BD     		pop	{r7, pc}
+  59              		.cfi_endproc
+  60              	.LFE29:
+  61              		.size	RBF_ucInit, .-RBF_ucInit
+  62              		.section	.text.RBF_ucClearBuffer,"ax",%progbits
+  63              		.align	2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 3
+
+
+  64              		.global	RBF_ucClearBuffer
+  65              		.thumb
+  66              		.thumb_func
+  67              		.type	RBF_ucClearBuffer, %function
+  68              	RBF_ucClearBuffer:
+  69              	.LFB30:
+  44:.\ring_buffer.c **** 
+  45:.\ring_buffer.c **** /*****************************************************************/
+  46:.\ring_buffer.c **** uint8_t RBF_ucClearBuffer(uint8_t ucIndex)
+  47:.\ring_buffer.c **** {
+  70              		.loc 1 47 0
+  71              		.cfi_startproc
+  72              		@ args = 0, pretend = 0, frame = 16
+  73              		@ frame_needed = 1, uses_anonymous_args = 0
+  74 0000 80B5     		push	{r7, lr}
+  75              	.LCFI2:
+  76              		.cfi_def_cfa_offset 8
+  77 0002 84B0     		sub	sp, sp, #16
+  78              	.LCFI3:
+  79              		.cfi_def_cfa_offset 24
+  80 0004 00AF     		add	r7, sp, #0
+  81              		.cfi_offset 14, -4
+  82              		.cfi_offset 7, -8
+  83              	.LCFI4:
+  84              		.cfi_def_cfa_register 7
+  85 0006 0346     		mov	r3, r0
+  86 0008 FB71     		strb	r3, [r7, #7]
+  48:.\ring_buffer.c **** 	STATUS status;
+  49:.\ring_buffer.c **** 
+  50:.\ring_buffer.c ****     if ((RingBuffer[ucIndex].address != NULLPTR) && (RingBuffer[ucIndex].size > 1))
+  87              		.loc 1 50 0
+  88 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+  89 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+  90 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+  91 0014 0B46     		mov	r3, r1
+  92 0016 4FEA8303 		lsl	r3, r3, #2
+  93 001a 0B44     		add	r3, r3, r1
+  94 001c 4FEA8303 		lsl	r3, r3, #2
+  95 0020 1344     		add	r3, r3, r2
+  96 0022 03F10403 		add	r3, r3, #4
+  97 0026 1B68     		ldr	r3, [r3, #0]
+  98 0028 002B     		cmp	r3, #0
+  99 002a 7BD0     		beq	.L4
+ 100 002c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 101 002e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 102 0032 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 103 0036 0B46     		mov	r3, r1
+ 104 0038 4FEA8303 		lsl	r3, r3, #2
+ 105 003c 0B44     		add	r3, r3, r1
+ 106 003e 4FEA8303 		lsl	r3, r3, #2
+ 107 0042 1344     		add	r3, r3, r2
+ 108 0044 03F10803 		add	r3, r3, #8
+ 109 0048 1B88     		ldrh	r3, [r3, #0]
+ 110 004a 012B     		cmp	r3, #1
+ 111 004c 6AD9     		bls	.L4
+  51:.\ring_buffer.c **** 	{		
+  52:.\ring_buffer.c **** 		memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 4
+
+
+ 112              		.loc 1 52 0
+ 113 004e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 114 0050 40F20002 		movw	r2, #:lower16:RingBuffer
+ 115 0054 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 116 0058 0B46     		mov	r3, r1
+ 117 005a 4FEA8303 		lsl	r3, r3, #2
+ 118 005e 0B44     		add	r3, r3, r1
+ 119 0060 4FEA8303 		lsl	r3, r3, #2
+ 120 0064 1344     		add	r3, r3, r2
+ 121 0066 03F10403 		add	r3, r3, #4
+ 122 006a 1868     		ldr	r0, [r3, #0]
+ 123 006c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 124 006e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 125 0072 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 126 0076 0B46     		mov	r3, r1
+ 127 0078 4FEA8303 		lsl	r3, r3, #2
+ 128 007c 0B44     		add	r3, r3, r1
+ 129 007e 4FEA8303 		lsl	r3, r3, #2
+ 130 0082 1344     		add	r3, r3, r2
+ 131 0084 03F10803 		add	r3, r3, #8
+ 132 0088 1B88     		ldrh	r3, [r3, #0]
+ 133 008a 4FF00001 		mov	r1, #0
+ 134 008e 1A46     		mov	r2, r3
+ 135 0090 FFF7FEFF 		bl	memset
+  53:.\ring_buffer.c **** 		RingBuffer[ucIndex].head = 0;
+ 136              		.loc 1 53 0
+ 137 0094 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 138 0096 40F20002 		movw	r2, #:lower16:RingBuffer
+ 139 009a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 140 009e 0B46     		mov	r3, r1
+ 141 00a0 4FEA8303 		lsl	r3, r3, #2
+ 142 00a4 0B44     		add	r3, r3, r1
+ 143 00a6 4FEA8303 		lsl	r3, r3, #2
+ 144 00aa 1344     		add	r3, r3, r2
+ 145 00ac 03F10803 		add	r3, r3, #8
+ 146 00b0 4FF00002 		mov	r2, #0
+ 147 00b4 5A80     		strh	r2, [r3, #2]	@ movhi
+  54:.\ring_buffer.c **** 		RingBuffer[ucIndex].tail = 0;
+ 148              		.loc 1 54 0
+ 149 00b6 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 150 00b8 40F20002 		movw	r2, #:lower16:RingBuffer
+ 151 00bc C0F20002 		movt	r2, #:upper16:RingBuffer
+ 152 00c0 0B46     		mov	r3, r1
+ 153 00c2 4FEA8303 		lsl	r3, r3, #2
+ 154 00c6 0B44     		add	r3, r3, r1
+ 155 00c8 4FEA8303 		lsl	r3, r3, #2
+ 156 00cc 1344     		add	r3, r3, r2
+ 157 00ce 03F10803 		add	r3, r3, #8
+ 158 00d2 4FF00002 		mov	r2, #0
+ 159 00d6 9A80     		strh	r2, [r3, #4]	@ movhi
+  55:.\ring_buffer.c ****         RingBuffer[ucIndex].zb = 0;
+ 160              		.loc 1 55 0
+ 161 00d8 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 162 00da 40F20002 		movw	r2, #:lower16:RingBuffer
+ 163 00de C0F20002 		movt	r2, #:upper16:RingBuffer
+ 164 00e2 0B46     		mov	r3, r1
+ 165 00e4 4FEA8303 		lsl	r3, r3, #2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 5
+
+
+ 166 00e8 0B44     		add	r3, r3, r1
+ 167 00ea 4FEA8303 		lsl	r3, r3, #2
+ 168 00ee 1344     		add	r3, r3, r2
+ 169 00f0 03F10803 		add	r3, r3, #8
+ 170 00f4 4FF00002 		mov	r2, #0
+ 171 00f8 9A71     		strb	r2, [r3, #6]
+  56:.\ring_buffer.c **** 		RingBuffer[ucIndex].msgcount = 0;
+ 172              		.loc 1 56 0
+ 173 00fa F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 174 00fc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 175 0100 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 176 0104 0B46     		mov	r3, r1
+ 177 0106 4FEA8303 		lsl	r3, r3, #2
+ 178 010a 0B44     		add	r3, r3, r1
+ 179 010c 4FEA8303 		lsl	r3, r3, #2
+ 180 0110 1344     		add	r3, r3, r2
+ 181 0112 03F11003 		add	r3, r3, #16
+ 182 0116 4FF00002 		mov	r2, #0
+ 183 011a 1A80     		strh	r2, [r3, #0]	@ movhi
+  57:.\ring_buffer.c **** 		
+  58:.\ring_buffer.c **** 		status = RBF_SUCCESS;
+ 184              		.loc 1 58 0
+ 185 011c 4FF00003 		mov	r3, #0
+ 186 0120 FB73     		strb	r3, [r7, #15]
+ 187              		.loc 1 50 0
+ 188 0122 02E0     		b	.L5
+ 189              	.L4:
+  59:.\ring_buffer.c **** 	}
+  60:.\ring_buffer.c **** 	else
+  61:.\ring_buffer.c ****     {
+  62:.\ring_buffer.c ****         status = RBF_INVALID_PARAMETERS;
+ 190              		.loc 1 62 0
+ 191 0124 6FF00103 		mvn	r3, #1
+ 192 0128 FB73     		strb	r3, [r7, #15]
+ 193              	.L5:
+  63:.\ring_buffer.c ****     }
+  64:.\ring_buffer.c **** 	
+  65:.\ring_buffer.c **** 	return status;
+ 194              		.loc 1 65 0
+ 195 012a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  66:.\ring_buffer.c **** } 
+ 196              		.loc 1 66 0
+ 197 012c 1846     		mov	r0, r3
+ 198 012e 07F11007 		add	r7, r7, #16
+ 199 0132 BD46     		mov	sp, r7
+ 200 0134 80BD     		pop	{r7, pc}
+ 201              		.cfi_endproc
+ 202              	.LFE30:
+ 203              		.size	RBF_ucClearBuffer, .-RBF_ucClearBuffer
+ 204 0136 00BF     		.section	.text.RBF_ucRegisterBuffer,"ax",%progbits
+ 205              		.align	2
+ 206              		.global	RBF_ucRegisterBuffer
+ 207              		.thumb
+ 208              		.thumb_func
+ 209              		.type	RBF_ucRegisterBuffer, %function
+ 210              	RBF_ucRegisterBuffer:
+ 211              	.LFB31:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 6
+
+
+  67:.\ring_buffer.c **** /*****************************************************************/
+  68:.\ring_buffer.c **** uint8_t RBF_ucRegisterBuffer(uint8_t* pucAddr, uint16_t uiSize)
+  69:.\ring_buffer.c **** {
+ 212              		.loc 1 69 0
+ 213              		.cfi_startproc
+ 214              		@ args = 0, pretend = 0, frame = 16
+ 215              		@ frame_needed = 1, uses_anonymous_args = 0
+ 216 0000 80B5     		push	{r7, lr}
+ 217              	.LCFI5:
+ 218              		.cfi_def_cfa_offset 8
+ 219 0002 84B0     		sub	sp, sp, #16
+ 220              	.LCFI6:
+ 221              		.cfi_def_cfa_offset 24
+ 222 0004 00AF     		add	r7, sp, #0
+ 223              		.cfi_offset 14, -4
+ 224              		.cfi_offset 7, -8
+ 225              	.LCFI7:
+ 226              		.cfi_def_cfa_register 7
+ 227 0006 7860     		str	r0, [r7, #4]
+ 228 0008 0B46     		mov	r3, r1
+ 229 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+  70:.\ring_buffer.c ****     uint8_t ucIndex = 0;
+ 230              		.loc 1 70 0
+ 231 000c 4FF00003 		mov	r3, #0
+ 232 0010 FB73     		strb	r3, [r7, #15]
+  71:.\ring_buffer.c ****     
+  72:.\ring_buffer.c ****     if ((pucAddr != NULLPTR) && (uiSize > 1))
+ 233              		.loc 1 72 0
+ 234 0012 7B68     		ldr	r3, [r7, #4]
+ 235 0014 002B     		cmp	r3, #0
+ 236 0016 00F0AE80 		beq	.L8
+ 237 001a 7B88     		ldrh	r3, [r7, #2]
+ 238 001c 012B     		cmp	r3, #1
+ 239 001e 40F2AA80 		bls	.L8
+  73:.\ring_buffer.c ****     {
+  74:.\ring_buffer.c ****         while (ucIndex < RBF_NUM)
+ 240              		.loc 1 74 0
+ 241 0022 9DE0     		b	.L9
+ 242              	.L12:
+  75:.\ring_buffer.c ****         {
+  76:.\ring_buffer.c ****             if (RingBuffer[ucIndex].address == 0)
+ 243              		.loc 1 76 0
+ 244 0024 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 245 0026 40F20002 		movw	r2, #:lower16:RingBuffer
+ 246 002a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 247 002e 0B46     		mov	r3, r1
+ 248 0030 4FEA8303 		lsl	r3, r3, #2
+ 249 0034 0B44     		add	r3, r3, r1
+ 250 0036 4FEA8303 		lsl	r3, r3, #2
+ 251 003a 1344     		add	r3, r3, r2
+ 252 003c 03F10403 		add	r3, r3, #4
+ 253 0040 1B68     		ldr	r3, [r3, #0]
+ 254 0042 002B     		cmp	r3, #0
+ 255 0044 40F08880 		bne	.L10
+  77:.\ring_buffer.c ****             {
+  78:.\ring_buffer.c ****                 RingBuffer[ucIndex].address = pucAddr;
+ 256              		.loc 1 78 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 7
+
+
+ 257 0048 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 258 004a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 259 004e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 260 0052 0B46     		mov	r3, r1
+ 261 0054 4FEA8303 		lsl	r3, r3, #2
+ 262 0058 0B44     		add	r3, r3, r1
+ 263 005a 4FEA8303 		lsl	r3, r3, #2
+ 264 005e 1344     		add	r3, r3, r2
+ 265 0060 03F10403 		add	r3, r3, #4
+ 266 0064 7A68     		ldr	r2, [r7, #4]
+ 267 0066 1A60     		str	r2, [r3, #0]
+  79:.\ring_buffer.c ****                 RingBuffer[ucIndex].size = uiSize;
+ 268              		.loc 1 79 0
+ 269 0068 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 270 006a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 271 006e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 272 0072 0B46     		mov	r3, r1
+ 273 0074 4FEA8303 		lsl	r3, r3, #2
+ 274 0078 0B44     		add	r3, r3, r1
+ 275 007a 4FEA8303 		lsl	r3, r3, #2
+ 276 007e 1344     		add	r3, r3, r2
+ 277 0080 03F10803 		add	r3, r3, #8
+ 278 0084 7A88     		ldrh	r2, [r7, #2]	@ movhi
+ 279 0086 1A80     		strh	r2, [r3, #0]	@ movhi
+  80:.\ring_buffer.c ****                 RingBuffer[ucIndex].head = 0;
+ 280              		.loc 1 80 0
+ 281 0088 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 282 008a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 283 008e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 284 0092 0B46     		mov	r3, r1
+ 285 0094 4FEA8303 		lsl	r3, r3, #2
+ 286 0098 0B44     		add	r3, r3, r1
+ 287 009a 4FEA8303 		lsl	r3, r3, #2
+ 288 009e 1344     		add	r3, r3, r2
+ 289 00a0 03F10803 		add	r3, r3, #8
+ 290 00a4 4FF00002 		mov	r2, #0
+ 291 00a8 5A80     		strh	r2, [r3, #2]	@ movhi
+  81:.\ring_buffer.c ****                 RingBuffer[ucIndex].tail = 0;
+ 292              		.loc 1 81 0
+ 293 00aa F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 294 00ac 40F20002 		movw	r2, #:lower16:RingBuffer
+ 295 00b0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 296 00b4 0B46     		mov	r3, r1
+ 297 00b6 4FEA8303 		lsl	r3, r3, #2
+ 298 00ba 0B44     		add	r3, r3, r1
+ 299 00bc 4FEA8303 		lsl	r3, r3, #2
+ 300 00c0 1344     		add	r3, r3, r2
+ 301 00c2 03F10803 		add	r3, r3, #8
+ 302 00c6 4FF00002 		mov	r2, #0
+ 303 00ca 9A80     		strh	r2, [r3, #4]	@ movhi
+  82:.\ring_buffer.c ****                 RingBuffer[ucIndex].zb = 0;
+ 304              		.loc 1 82 0
+ 305 00cc F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 306 00ce 40F20002 		movw	r2, #:lower16:RingBuffer
+ 307 00d2 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 308 00d6 0B46     		mov	r3, r1
+ 309 00d8 4FEA8303 		lsl	r3, r3, #2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 8
+
+
+ 310 00dc 0B44     		add	r3, r3, r1
+ 311 00de 4FEA8303 		lsl	r3, r3, #2
+ 312 00e2 1344     		add	r3, r3, r2
+ 313 00e4 03F10803 		add	r3, r3, #8
+ 314 00e8 4FF00002 		mov	r2, #0
+ 315 00ec 9A71     		strb	r2, [r3, #6]
+  83:.\ring_buffer.c **** 				RingBuffer[ucIndex].msgcount = 0;
+ 316              		.loc 1 83 0
+ 317 00ee F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 318 00f0 40F20002 		movw	r2, #:lower16:RingBuffer
+ 319 00f4 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 320 00f8 0B46     		mov	r3, r1
+ 321 00fa 4FEA8303 		lsl	r3, r3, #2
+ 322 00fe 0B44     		add	r3, r3, r1
+ 323 0100 4FEA8303 		lsl	r3, r3, #2
+ 324 0104 1344     		add	r3, r3, r2
+ 325 0106 03F11003 		add	r3, r3, #16
+ 326 010a 4FF00002 		mov	r2, #0
+ 327 010e 1A80     		strh	r2, [r3, #0]	@ movhi
+  84:.\ring_buffer.c ****                 
+  85:.\ring_buffer.c ****                 memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
+ 328              		.loc 1 85 0
+ 329 0110 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 330 0112 40F20002 		movw	r2, #:lower16:RingBuffer
+ 331 0116 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 332 011a 0B46     		mov	r3, r1
+ 333 011c 4FEA8303 		lsl	r3, r3, #2
+ 334 0120 0B44     		add	r3, r3, r1
+ 335 0122 4FEA8303 		lsl	r3, r3, #2
+ 336 0126 1344     		add	r3, r3, r2
+ 337 0128 03F10403 		add	r3, r3, #4
+ 338 012c 1868     		ldr	r0, [r3, #0]
+ 339 012e F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 340 0130 40F20002 		movw	r2, #:lower16:RingBuffer
+ 341 0134 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 342 0138 0B46     		mov	r3, r1
+ 343 013a 4FEA8303 		lsl	r3, r3, #2
+ 344 013e 0B44     		add	r3, r3, r1
+ 345 0140 4FEA8303 		lsl	r3, r3, #2
+ 346 0144 1344     		add	r3, r3, r2
+ 347 0146 03F10803 		add	r3, r3, #8
+ 348 014a 1B88     		ldrh	r3, [r3, #0]
+ 349 014c 4FF00001 		mov	r1, #0
+ 350 0150 1A46     		mov	r2, r3
+ 351 0152 FFF7FEFF 		bl	memset
+  86:.\ring_buffer.c ****                 
+  87:.\ring_buffer.c ****                 break;
+ 352              		.loc 1 87 0
+ 353 0156 07E0     		b	.L11
+ 354              	.L10:
+  88:.\ring_buffer.c ****             }
+  89:.\ring_buffer.c ****             else
+  90:.\ring_buffer.c ****             {
+  91:.\ring_buffer.c ****                 ucIndex++;
+ 355              		.loc 1 91 0
+ 356 0158 FB7B     		ldrb	r3, [r7, #15]
+ 357 015a 03F10103 		add	r3, r3, #1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 9
+
+
+ 358 015e FB73     		strb	r3, [r7, #15]
+ 359              	.L9:
+ 360              		.loc 1 74 0
+ 361 0160 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 362 0162 012B     		cmp	r3, #1
+ 363 0164 7FF65EAF 		bls	.L12
+ 364              	.L11:
+  92:.\ring_buffer.c ****             }
+  93:.\ring_buffer.c ****         }
+  94:.\ring_buffer.c ****         
+  95:.\ring_buffer.c ****         if (ucIndex == RBF_NUM)
+ 365              		.loc 1 95 0
+ 366 0168 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 367 016a 022B     		cmp	r3, #2
+ 368 016c 07D1     		bne	.L16
+  96:.\ring_buffer.c ****             ucIndex = RBF_NOT_AVAILABLE;
+ 369              		.loc 1 96 0
+ 370 016e 6FF00203 		mvn	r3, #2
+ 371 0172 FB73     		strb	r3, [r7, #15]
+ 372              		.loc 1 72 0
+ 373 0174 04E0     		b	.L14
+ 374              	.L8:
+  97:.\ring_buffer.c ****     }
+  98:.\ring_buffer.c ****     else
+  99:.\ring_buffer.c ****     {
+ 100:.\ring_buffer.c ****         ucIndex = RBF_INVALID_PARAMETERS;
+ 375              		.loc 1 100 0
+ 376 0176 6FF00103 		mvn	r3, #1
+ 377 017a FB73     		strb	r3, [r7, #15]
+ 378 017c 00E0     		b	.L14
+ 379              	.L16:
+ 380              		.loc 1 72 0
+ 381 017e 00BF     		nop
+ 382              	.L14:
+ 101:.\ring_buffer.c ****     }
+ 102:.\ring_buffer.c ****     
+ 103:.\ring_buffer.c ****     
+ 104:.\ring_buffer.c ****     return ucIndex;
+ 383              		.loc 1 104 0
+ 384 0180 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 105:.\ring_buffer.c **** }
+ 385              		.loc 1 105 0
+ 386 0182 1846     		mov	r0, r3
+ 387 0184 07F11007 		add	r7, r7, #16
+ 388 0188 BD46     		mov	sp, r7
+ 389 018a 80BD     		pop	{r7, pc}
+ 390              		.cfi_endproc
+ 391              	.LFE31:
+ 392              		.size	RBF_ucRegisterBuffer, .-RBF_ucRegisterBuffer
+ 393              		.section	.text.RBF_ucUnregisterBuffer,"ax",%progbits
+ 394              		.align	2
+ 395              		.global	RBF_ucUnregisterBuffer
+ 396              		.thumb
+ 397              		.thumb_func
+ 398              		.type	RBF_ucUnregisterBuffer, %function
+ 399              	RBF_ucUnregisterBuffer:
+ 400              	.LFB32:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 10
+
+
+ 106:.\ring_buffer.c **** 
+ 107:.\ring_buffer.c **** /*****************************************************************/
+ 108:.\ring_buffer.c **** uint8_t RBF_ucUnregisterBuffer(uint8_t ucIndex)
+ 109:.\ring_buffer.c **** {
+ 401              		.loc 1 109 0
+ 402              		.cfi_startproc
+ 403              		@ args = 0, pretend = 0, frame = 16
+ 404              		@ frame_needed = 1, uses_anonymous_args = 0
+ 405 0000 80B5     		push	{r7, lr}
+ 406              	.LCFI8:
+ 407              		.cfi_def_cfa_offset 8
+ 408 0002 84B0     		sub	sp, sp, #16
+ 409              	.LCFI9:
+ 410              		.cfi_def_cfa_offset 24
+ 411 0004 00AF     		add	r7, sp, #0
+ 412              		.cfi_offset 14, -4
+ 413              		.cfi_offset 7, -8
+ 414              	.LCFI10:
+ 415              		.cfi_def_cfa_register 7
+ 416 0006 0346     		mov	r3, r0
+ 417 0008 FB71     		strb	r3, [r7, #7]
+ 110:.\ring_buffer.c ****     STATUS status;
+ 111:.\ring_buffer.c ****     
+ 112:.\ring_buffer.c ****     if (RingBuffer[ucIndex].address)
+ 418              		.loc 1 112 0
+ 419 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 420 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 421 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 422 0014 0B46     		mov	r3, r1
+ 423 0016 4FEA8303 		lsl	r3, r3, #2
+ 424 001a 0B44     		add	r3, r3, r1
+ 425 001c 4FEA8303 		lsl	r3, r3, #2
+ 426 0020 1344     		add	r3, r3, r2
+ 427 0022 03F10403 		add	r3, r3, #4
+ 428 0026 1B68     		ldr	r3, [r3, #0]
+ 429 0028 002B     		cmp	r3, #0
+ 430 002a 00F08D80 		beq	.L18
+ 113:.\ring_buffer.c ****     {
+ 114:.\ring_buffer.c ****         RingBuffer[ucIndex].address = 0;
+ 431              		.loc 1 114 0
+ 432 002e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 433 0030 40F20002 		movw	r2, #:lower16:RingBuffer
+ 434 0034 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 435 0038 0B46     		mov	r3, r1
+ 436 003a 4FEA8303 		lsl	r3, r3, #2
+ 437 003e 0B44     		add	r3, r3, r1
+ 438 0040 4FEA8303 		lsl	r3, r3, #2
+ 439 0044 1344     		add	r3, r3, r2
+ 440 0046 03F10403 		add	r3, r3, #4
+ 441 004a 4FF00002 		mov	r2, #0
+ 442 004e 1A60     		str	r2, [r3, #0]
+ 115:.\ring_buffer.c ****         RingBuffer[ucIndex].size = 0;
+ 443              		.loc 1 115 0
+ 444 0050 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 445 0052 40F20002 		movw	r2, #:lower16:RingBuffer
+ 446 0056 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 447 005a 0B46     		mov	r3, r1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 11
+
+
+ 448 005c 4FEA8303 		lsl	r3, r3, #2
+ 449 0060 0B44     		add	r3, r3, r1
+ 450 0062 4FEA8303 		lsl	r3, r3, #2
+ 451 0066 1344     		add	r3, r3, r2
+ 452 0068 03F10803 		add	r3, r3, #8
+ 453 006c 4FF00002 		mov	r2, #0
+ 454 0070 1A80     		strh	r2, [r3, #0]	@ movhi
+ 116:.\ring_buffer.c ****         RingBuffer[ucIndex].head = 0;
+ 455              		.loc 1 116 0
+ 456 0072 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 457 0074 40F20002 		movw	r2, #:lower16:RingBuffer
+ 458 0078 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 459 007c 0B46     		mov	r3, r1
+ 460 007e 4FEA8303 		lsl	r3, r3, #2
+ 461 0082 0B44     		add	r3, r3, r1
+ 462 0084 4FEA8303 		lsl	r3, r3, #2
+ 463 0088 1344     		add	r3, r3, r2
+ 464 008a 03F10803 		add	r3, r3, #8
+ 465 008e 4FF00002 		mov	r2, #0
+ 466 0092 5A80     		strh	r2, [r3, #2]	@ movhi
+ 117:.\ring_buffer.c ****         RingBuffer[ucIndex].tail = 0;
+ 467              		.loc 1 117 0
+ 468 0094 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 469 0096 40F20002 		movw	r2, #:lower16:RingBuffer
+ 470 009a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 471 009e 0B46     		mov	r3, r1
+ 472 00a0 4FEA8303 		lsl	r3, r3, #2
+ 473 00a4 0B44     		add	r3, r3, r1
+ 474 00a6 4FEA8303 		lsl	r3, r3, #2
+ 475 00aa 1344     		add	r3, r3, r2
+ 476 00ac 03F10803 		add	r3, r3, #8
+ 477 00b0 4FF00002 		mov	r2, #0
+ 478 00b4 9A80     		strh	r2, [r3, #4]	@ movhi
+ 118:.\ring_buffer.c ****         RingBuffer[ucIndex].zb = 0;
+ 479              		.loc 1 118 0
+ 480 00b6 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 481 00b8 40F20002 		movw	r2, #:lower16:RingBuffer
+ 482 00bc C0F20002 		movt	r2, #:upper16:RingBuffer
+ 483 00c0 0B46     		mov	r3, r1
+ 484 00c2 4FEA8303 		lsl	r3, r3, #2
+ 485 00c6 0B44     		add	r3, r3, r1
+ 486 00c8 4FEA8303 		lsl	r3, r3, #2
+ 487 00cc 1344     		add	r3, r3, r2
+ 488 00ce 03F10803 		add	r3, r3, #8
+ 489 00d2 4FF00002 		mov	r2, #0
+ 490 00d6 9A71     		strb	r2, [r3, #6]
+ 119:.\ring_buffer.c **** 		RingBuffer[ucIndex].msgcount = 0;
+ 491              		.loc 1 119 0
+ 492 00d8 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 493 00da 40F20002 		movw	r2, #:lower16:RingBuffer
+ 494 00de C0F20002 		movt	r2, #:upper16:RingBuffer
+ 495 00e2 0B46     		mov	r3, r1
+ 496 00e4 4FEA8303 		lsl	r3, r3, #2
+ 497 00e8 0B44     		add	r3, r3, r1
+ 498 00ea 4FEA8303 		lsl	r3, r3, #2
+ 499 00ee 1344     		add	r3, r3, r2
+ 500 00f0 03F11003 		add	r3, r3, #16
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 12
+
+
+ 501 00f4 4FF00002 		mov	r2, #0
+ 502 00f8 1A80     		strh	r2, [r3, #0]	@ movhi
+ 120:.\ring_buffer.c ****         
+ 121:.\ring_buffer.c ****         memset(RingBuffer[ucIndex].address, 0x00, RingBuffer[ucIndex].size);
+ 503              		.loc 1 121 0
+ 504 00fa F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 505 00fc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 506 0100 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 507 0104 0B46     		mov	r3, r1
+ 508 0106 4FEA8303 		lsl	r3, r3, #2
+ 509 010a 0B44     		add	r3, r3, r1
+ 510 010c 4FEA8303 		lsl	r3, r3, #2
+ 511 0110 1344     		add	r3, r3, r2
+ 512 0112 03F10403 		add	r3, r3, #4
+ 513 0116 1868     		ldr	r0, [r3, #0]
+ 514 0118 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 515 011a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 516 011e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 517 0122 0B46     		mov	r3, r1
+ 518 0124 4FEA8303 		lsl	r3, r3, #2
+ 519 0128 0B44     		add	r3, r3, r1
+ 520 012a 4FEA8303 		lsl	r3, r3, #2
+ 521 012e 1344     		add	r3, r3, r2
+ 522 0130 03F10803 		add	r3, r3, #8
+ 523 0134 1B88     		ldrh	r3, [r3, #0]
+ 524 0136 4FF00001 		mov	r1, #0
+ 525 013a 1A46     		mov	r2, r3
+ 526 013c FFF7FEFF 		bl	memset
+ 122:.\ring_buffer.c ****         
+ 123:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 527              		.loc 1 123 0
+ 528 0140 4FF00003 		mov	r3, #0
+ 529 0144 FB73     		strb	r3, [r7, #15]
+ 530 0146 02E0     		b	.L19
+ 531              	.L18:
+ 124:.\ring_buffer.c ****     }
+ 125:.\ring_buffer.c ****     else
+ 126:.\ring_buffer.c ****     {
+ 127:.\ring_buffer.c ****         status = RBF_FAIL;
+ 532              		.loc 1 127 0
+ 533 0148 4FF00103 		mov	r3, #1
+ 534 014c FB73     		strb	r3, [r7, #15]
+ 535              	.L19:
+ 128:.\ring_buffer.c ****     }
+ 129:.\ring_buffer.c ****     
+ 130:.\ring_buffer.c ****     return status;
+ 536              		.loc 1 130 0
+ 537 014e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 131:.\ring_buffer.c **** }
+ 538              		.loc 1 131 0
+ 539 0150 1846     		mov	r0, r3
+ 540 0152 07F11007 		add	r7, r7, #16
+ 541 0156 BD46     		mov	sp, r7
+ 542 0158 80BD     		pop	{r7, pc}
+ 543              		.cfi_endproc
+ 544              	.LFE32:
+ 545              		.size	RBF_ucUnregisterBuffer, .-RBF_ucUnregisterBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 13
+
+
+ 546 015a 00BF     		.section	.text.RBF_ucByteIn,"ax",%progbits
+ 547              		.align	2
+ 548              		.global	RBF_ucByteIn
+ 549              		.thumb
+ 550              		.thumb_func
+ 551              		.type	RBF_ucByteIn, %function
+ 552              	RBF_ucByteIn:
+ 553              	.LFB33:
+ 132:.\ring_buffer.c **** /*****************************************************************/
+ 133:.\ring_buffer.c **** uint8_t RBF_ucByteIn(uint8_t ucIndex, uint8_t byte)
+ 134:.\ring_buffer.c **** {
+ 554              		.loc 1 134 0
+ 555              		.cfi_startproc
+ 556              		@ args = 0, pretend = 0, frame = 16
+ 557              		@ frame_needed = 1, uses_anonymous_args = 0
+ 558 0000 80B5     		push	{r7, lr}
+ 559              	.LCFI11:
+ 560              		.cfi_def_cfa_offset 8
+ 561 0002 84B0     		sub	sp, sp, #16
+ 562              	.LCFI12:
+ 563              		.cfi_def_cfa_offset 24
+ 564 0004 00AF     		add	r7, sp, #0
+ 565              		.cfi_offset 14, -4
+ 566              		.cfi_offset 7, -8
+ 567              	.LCFI13:
+ 568              		.cfi_def_cfa_register 7
+ 569 0006 0246     		mov	r2, r0
+ 570 0008 0B46     		mov	r3, r1
+ 571 000a FA71     		strb	r2, [r7, #7]
+ 572 000c BB71     		strb	r3, [r7, #6]
+ 135:.\ring_buffer.c ****     STATUS status;
+ 136:.\ring_buffer.c **** 	
+ 137:.\ring_buffer.c ****     // is head == tail ?
+ 138:.\ring_buffer.c ****     if (RingBuffer[ucIndex].head == RingBuffer[ucIndex].tail)
+ 573              		.loc 1 138 0
+ 574 000e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 575 0010 40F20002 		movw	r2, #:lower16:RingBuffer
+ 576 0014 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 577 0018 0B46     		mov	r3, r1
+ 578 001a 4FEA8303 		lsl	r3, r3, #2
+ 579 001e 0B44     		add	r3, r3, r1
+ 580 0020 4FEA8303 		lsl	r3, r3, #2
+ 581 0024 1344     		add	r3, r3, r2
+ 582 0026 03F10803 		add	r3, r3, #8
+ 583 002a 5888     		ldrh	r0, [r3, #2]
+ 584 002c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 585 002e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 586 0032 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 587 0036 0B46     		mov	r3, r1
+ 588 0038 4FEA8303 		lsl	r3, r3, #2
+ 589 003c 0B44     		add	r3, r3, r1
+ 590 003e 4FEA8303 		lsl	r3, r3, #2
+ 591 0042 1344     		add	r3, r3, r2
+ 592 0044 03F10803 		add	r3, r3, #8
+ 593 0048 9B88     		ldrh	r3, [r3, #4]
+ 594 004a 9842     		cmp	r0, r3
+ 595 004c 2CD1     		bne	.L22
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 14
+
+
+ 139:.\ring_buffer.c ****     {
+ 140:.\ring_buffer.c ****         // if head = tail, is zero byte empty?
+ 141:.\ring_buffer.c ****         if (RingBuffer[ucIndex].zb == 0)
+ 596              		.loc 1 141 0
+ 597 004e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 598 0050 40F20002 		movw	r2, #:lower16:RingBuffer
+ 599 0054 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 600 0058 0B46     		mov	r3, r1
+ 601 005a 4FEA8303 		lsl	r3, r3, #2
+ 602 005e 0B44     		add	r3, r3, r1
+ 603 0060 4FEA8303 		lsl	r3, r3, #2
+ 604 0064 1344     		add	r3, r3, r2
+ 605 0066 03F10803 		add	r3, r3, #8
+ 606 006a 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 607 006c 002B     		cmp	r3, #0
+ 608 006e 14D1     		bne	.L23
+ 142:.\ring_buffer.c ****         {
+ 143:.\ring_buffer.c ****             RingBuffer[ucIndex].zb = 1;
+ 609              		.loc 1 143 0
+ 610 0070 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 611 0072 40F20002 		movw	r2, #:lower16:RingBuffer
+ 612 0076 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 613 007a 0B46     		mov	r3, r1
+ 614 007c 4FEA8303 		lsl	r3, r3, #2
+ 615 0080 0B44     		add	r3, r3, r1
+ 616 0082 4FEA8303 		lsl	r3, r3, #2
+ 617 0086 1344     		add	r3, r3, r2
+ 618 0088 03F10803 		add	r3, r3, #8
+ 619 008c 4FF00102 		mov	r2, #1
+ 620 0090 9A71     		strb	r2, [r3, #6]
+ 144:.\ring_buffer.c ****             status = RBF_SUCCESS;
+ 621              		.loc 1 144 0
+ 622 0092 4FF00003 		mov	r3, #0
+ 623 0096 FB73     		strb	r3, [r7, #15]
+ 145:.\ring_buffer.c ****         }
+ 146:.\ring_buffer.c ****         else
+ 147:.\ring_buffer.c ****         {
+ 148:.\ring_buffer.c ****             status = IncHead(ucIndex);
+ 624              		.loc 1 148 0
+ 625 0098 0CE0     		b	.L25
+ 626              	.L23:
+ 627 009a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 628 009c 1846     		mov	r0, r3
+ 629 009e FFF7FEFF 		bl	IncHead
+ 630 00a2 0346     		mov	r3, r0
+ 631 00a4 FB73     		strb	r3, [r7, #15]
+ 632 00a6 05E0     		b	.L25
+ 633              	.L22:
+ 149:.\ring_buffer.c ****         }
+ 150:.\ring_buffer.c ****     }
+ 151:.\ring_buffer.c ****     else // is head != tail 
+ 152:.\ring_buffer.c ****     {
+ 153:.\ring_buffer.c ****         status = IncHead(ucIndex);
+ 634              		.loc 1 153 0
+ 635 00a8 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 636 00aa 1846     		mov	r0, r3
+ 637 00ac FFF7FEFF 		bl	IncHead
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 15
+
+
+ 638 00b0 0346     		mov	r3, r0
+ 639 00b2 FB73     		strb	r3, [r7, #15]
+ 640              	.L25:
+ 154:.\ring_buffer.c ****     }
+ 155:.\ring_buffer.c ****     
+ 156:.\ring_buffer.c ****     if (status == RBF_SUCCESS)
+ 641              		.loc 1 156 0
+ 642 00b4 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 643 00b6 002B     		cmp	r3, #0
+ 644 00b8 20D1     		bne	.L26
+ 157:.\ring_buffer.c ****     {
+ 158:.\ring_buffer.c **** 		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head] = byte;
+ 645              		.loc 1 158 0
+ 646 00ba F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 647 00bc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 648 00c0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 649 00c4 0B46     		mov	r3, r1
+ 650 00c6 4FEA8303 		lsl	r3, r3, #2
+ 651 00ca 0B44     		add	r3, r3, r1
+ 652 00cc 4FEA8303 		lsl	r3, r3, #2
+ 653 00d0 1344     		add	r3, r3, r2
+ 654 00d2 03F10403 		add	r3, r3, #4
+ 655 00d6 1868     		ldr	r0, [r3, #0]
+ 656 00d8 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 657 00da 40F20002 		movw	r2, #:lower16:RingBuffer
+ 658 00de C0F20002 		movt	r2, #:upper16:RingBuffer
+ 659 00e2 0B46     		mov	r3, r1
+ 660 00e4 4FEA8303 		lsl	r3, r3, #2
+ 661 00e8 0B44     		add	r3, r3, r1
+ 662 00ea 4FEA8303 		lsl	r3, r3, #2
+ 663 00ee 1344     		add	r3, r3, r2
+ 664 00f0 03F10803 		add	r3, r3, #8
+ 665 00f4 5B88     		ldrh	r3, [r3, #2]
+ 666 00f6 0344     		add	r3, r0, r3
+ 667 00f8 BA79     		ldrb	r2, [r7, #6]
+ 668 00fa 1A70     		strb	r2, [r3, #0]
+ 669              	.L26:
+ 159:.\ring_buffer.c **** 	}
+ 160:.\ring_buffer.c **** 	
+ 161:.\ring_buffer.c **** 	return status;
+ 670              		.loc 1 161 0
+ 671 00fc FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 162:.\ring_buffer.c **** }
+ 672              		.loc 1 162 0
+ 673 00fe 1846     		mov	r0, r3
+ 674 0100 07F11007 		add	r7, r7, #16
+ 675 0104 BD46     		mov	sp, r7
+ 676 0106 80BD     		pop	{r7, pc}
+ 677              		.cfi_endproc
+ 678              	.LFE33:
+ 679              		.size	RBF_ucByteIn, .-RBF_ucByteIn
+ 680              		.section	.text.RBF_ucHeadByteOut,"ax",%progbits
+ 681              		.align	2
+ 682              		.global	RBF_ucHeadByteOut
+ 683              		.thumb
+ 684              		.thumb_func
+ 685              		.type	RBF_ucHeadByteOut, %function
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 16
+
+
+ 686              	RBF_ucHeadByteOut:
+ 687              	.LFB34:
+ 163:.\ring_buffer.c **** /*****************************************************************/
+ 164:.\ring_buffer.c **** uint8_t RBF_ucHeadByteOut(uint8_t ucIndex, uint8_t* byte)
+ 165:.\ring_buffer.c **** {
+ 688              		.loc 1 165 0
+ 689              		.cfi_startproc
+ 690              		@ args = 0, pretend = 0, frame = 16
+ 691              		@ frame_needed = 1, uses_anonymous_args = 0
+ 692 0000 80B5     		push	{r7, lr}
+ 693              	.LCFI14:
+ 694              		.cfi_def_cfa_offset 8
+ 695 0002 84B0     		sub	sp, sp, #16
+ 696              	.LCFI15:
+ 697              		.cfi_def_cfa_offset 24
+ 698 0004 00AF     		add	r7, sp, #0
+ 699              		.cfi_offset 14, -4
+ 700              		.cfi_offset 7, -8
+ 701              	.LCFI16:
+ 702              		.cfi_def_cfa_register 7
+ 703 0006 0346     		mov	r3, r0
+ 704 0008 3960     		str	r1, [r7, #0]
+ 705 000a FB71     		strb	r3, [r7, #7]
+ 166:.\ring_buffer.c ****     STATUS status;
+ 167:.\ring_buffer.c **** 	
+ 168:.\ring_buffer.c ****     // is head == tail ?
+ 169:.\ring_buffer.c **** 	if (RingBuffer[ucIndex].tail == RingBuffer[ucIndex].head)
+ 706              		.loc 1 169 0
+ 707 000c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 708 000e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 709 0012 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 710 0016 0B46     		mov	r3, r1
+ 711 0018 4FEA8303 		lsl	r3, r3, #2
+ 712 001c 0B44     		add	r3, r3, r1
+ 713 001e 4FEA8303 		lsl	r3, r3, #2
+ 714 0022 1344     		add	r3, r3, r2
+ 715 0024 03F10803 		add	r3, r3, #8
+ 716 0028 9888     		ldrh	r0, [r3, #4]
+ 717 002a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 718 002c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 719 0030 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 720 0034 0B46     		mov	r3, r1
+ 721 0036 4FEA8303 		lsl	r3, r3, #2
+ 722 003a 0B44     		add	r3, r3, r1
+ 723 003c 4FEA8303 		lsl	r3, r3, #2
+ 724 0040 1344     		add	r3, r3, r2
+ 725 0042 03F10803 		add	r3, r3, #8
+ 726 0046 5B88     		ldrh	r3, [r3, #2]
+ 727 0048 9842     		cmp	r0, r3
+ 728 004a 29D1     		bne	.L29
+ 170:.\ring_buffer.c **** 	{
+ 171:.\ring_buffer.c ****         // if head = tail, is zero byte set?
+ 172:.\ring_buffer.c ****         if (RingBuffer[ucIndex].zb == 1)
+ 729              		.loc 1 172 0
+ 730 004c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 731 004e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 732 0052 C0F20002 		movt	r2, #:upper16:RingBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 17
+
+
+ 733 0056 0B46     		mov	r3, r1
+ 734 0058 4FEA8303 		lsl	r3, r3, #2
+ 735 005c 0B44     		add	r3, r3, r1
+ 736 005e 4FEA8303 		lsl	r3, r3, #2
+ 737 0062 1344     		add	r3, r3, r2
+ 738 0064 03F10803 		add	r3, r3, #8
+ 739 0068 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 740 006a 012B     		cmp	r3, #1
+ 741 006c 14D1     		bne	.L30
+ 173:.\ring_buffer.c ****         {
+ 174:.\ring_buffer.c ****            RingBuffer[ucIndex].zb = 0; 
+ 742              		.loc 1 174 0
+ 743 006e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 744 0070 40F20002 		movw	r2, #:lower16:RingBuffer
+ 745 0074 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 746 0078 0B46     		mov	r3, r1
+ 747 007a 4FEA8303 		lsl	r3, r3, #2
+ 748 007e 0B44     		add	r3, r3, r1
+ 749 0080 4FEA8303 		lsl	r3, r3, #2
+ 750 0084 1344     		add	r3, r3, r2
+ 751 0086 03F10803 		add	r3, r3, #8
+ 752 008a 4FF00002 		mov	r2, #0
+ 753 008e 9A71     		strb	r2, [r3, #6]
+ 175:.\ring_buffer.c ****            status = RBF_SUCCESS;
+ 754              		.loc 1 175 0
+ 755 0090 4FF00003 		mov	r3, #0
+ 756 0094 FB73     		strb	r3, [r7, #15]
+ 176:.\ring_buffer.c ****         }
+ 177:.\ring_buffer.c ****         else
+ 178:.\ring_buffer.c ****         {
+ 179:.\ring_buffer.c ****             status = RBF_FAIL;
+ 757              		.loc 1 179 0
+ 758 0096 06E0     		b	.L32
+ 759              	.L30:
+ 760 0098 4FF00103 		mov	r3, #1
+ 761 009c FB73     		strb	r3, [r7, #15]
+ 762 009e 02E0     		b	.L32
+ 763              	.L29:
+ 180:.\ring_buffer.c ****         }
+ 181:.\ring_buffer.c ****     }
+ 182:.\ring_buffer.c ****     else // is head != tail 
+ 183:.\ring_buffer.c ****     {
+ 184:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 764              		.loc 1 184 0
+ 765 00a0 4FF00003 		mov	r3, #0
+ 766 00a4 FB73     		strb	r3, [r7, #15]
+ 767              	.L32:
+ 185:.\ring_buffer.c ****     }
+ 186:.\ring_buffer.c ****     
+ 187:.\ring_buffer.c ****     if (status == RBF_SUCCESS)
+ 768              		.loc 1 187 0
+ 769 00a6 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 770 00a8 002B     		cmp	r3, #0
+ 771 00aa 71D1     		bne	.L33
+ 188:.\ring_buffer.c ****     {
+ 189:.\ring_buffer.c **** 		*byte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head];
+ 772              		.loc 1 189 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 18
+
+
+ 773 00ac F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 774 00ae 40F20002 		movw	r2, #:lower16:RingBuffer
+ 775 00b2 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 776 00b6 0B46     		mov	r3, r1
+ 777 00b8 4FEA8303 		lsl	r3, r3, #2
+ 778 00bc 0B44     		add	r3, r3, r1
+ 779 00be 4FEA8303 		lsl	r3, r3, #2
+ 780 00c2 1344     		add	r3, r3, r2
+ 781 00c4 03F10403 		add	r3, r3, #4
+ 782 00c8 1868     		ldr	r0, [r3, #0]
+ 783 00ca F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 784 00cc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 785 00d0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 786 00d4 0B46     		mov	r3, r1
+ 787 00d6 4FEA8303 		lsl	r3, r3, #2
+ 788 00da 0B44     		add	r3, r3, r1
+ 789 00dc 4FEA8303 		lsl	r3, r3, #2
+ 790 00e0 1344     		add	r3, r3, r2
+ 791 00e2 03F10803 		add	r3, r3, #8
+ 792 00e6 5B88     		ldrh	r3, [r3, #2]
+ 793 00e8 0344     		add	r3, r0, r3
+ 794 00ea 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 795 00ec 3B68     		ldr	r3, [r7, #0]
+ 796 00ee 1A70     		strb	r2, [r3, #0]
+ 190:.\ring_buffer.c **** 		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].head] = 0;		//delete byte
+ 797              		.loc 1 190 0
+ 798 00f0 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 799 00f2 40F20002 		movw	r2, #:lower16:RingBuffer
+ 800 00f6 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 801 00fa 0B46     		mov	r3, r1
+ 802 00fc 4FEA8303 		lsl	r3, r3, #2
+ 803 0100 0B44     		add	r3, r3, r1
+ 804 0102 4FEA8303 		lsl	r3, r3, #2
+ 805 0106 1344     		add	r3, r3, r2
+ 806 0108 03F10403 		add	r3, r3, #4
+ 807 010c 1868     		ldr	r0, [r3, #0]
+ 808 010e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 809 0110 40F20002 		movw	r2, #:lower16:RingBuffer
+ 810 0114 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 811 0118 0B46     		mov	r3, r1
+ 812 011a 4FEA8303 		lsl	r3, r3, #2
+ 813 011e 0B44     		add	r3, r3, r1
+ 814 0120 4FEA8303 		lsl	r3, r3, #2
+ 815 0124 1344     		add	r3, r3, r2
+ 816 0126 03F10803 		add	r3, r3, #8
+ 817 012a 5B88     		ldrh	r3, [r3, #2]
+ 818 012c 0344     		add	r3, r0, r3
+ 819 012e 4FF00002 		mov	r2, #0
+ 820 0132 1A70     		strb	r2, [r3, #0]
+ 191:.\ring_buffer.c ****         
+ 192:.\ring_buffer.c ****         if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
+ 821              		.loc 1 192 0
+ 822 0134 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 823 0136 40F20002 		movw	r2, #:lower16:RingBuffer
+ 824 013a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 825 013e 0B46     		mov	r3, r1
+ 826 0140 4FEA8303 		lsl	r3, r3, #2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 19
+
+
+ 827 0144 0B44     		add	r3, r3, r1
+ 828 0146 4FEA8303 		lsl	r3, r3, #2
+ 829 014a 1344     		add	r3, r3, r2
+ 830 014c 03F10803 		add	r3, r3, #8
+ 831 0150 9888     		ldrh	r0, [r3, #4]
+ 832 0152 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 833 0154 40F20002 		movw	r2, #:lower16:RingBuffer
+ 834 0158 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 835 015c 0B46     		mov	r3, r1
+ 836 015e 4FEA8303 		lsl	r3, r3, #2
+ 837 0162 0B44     		add	r3, r3, r1
+ 838 0164 4FEA8303 		lsl	r3, r3, #2
+ 839 0168 1344     		add	r3, r3, r2
+ 840 016a 03F10803 		add	r3, r3, #8
+ 841 016e 5B88     		ldrh	r3, [r3, #2]
+ 842 0170 9842     		cmp	r0, r3
+ 843 0172 0DD0     		beq	.L33
+ 193:.\ring_buffer.c ****         {
+ 194:.\ring_buffer.c ****             if (DecHead(ucIndex) == RBF_SUCCESS)
+ 844              		.loc 1 194 0
+ 845 0174 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 846 0176 1846     		mov	r0, r3
+ 847 0178 FFF7FEFF 		bl	DecHead
+ 848 017c 0346     		mov	r3, r0
+ 849 017e 002B     		cmp	r3, #0
+ 850 0180 03D1     		bne	.L34
+ 195:.\ring_buffer.c ****             {
+ 196:.\ring_buffer.c ****                 status = RBF_SUCCESS;
+ 851              		.loc 1 196 0
+ 852 0182 4FF00003 		mov	r3, #0
+ 853 0186 FB73     		strb	r3, [r7, #15]
+ 854 0188 02E0     		b	.L33
+ 855              	.L34:
+ 197:.\ring_buffer.c ****             }
+ 198:.\ring_buffer.c ****             else
+ 199:.\ring_buffer.c ****             {
+ 200:.\ring_buffer.c ****     		    status = RBF_ERROR;
+ 856              		.loc 1 200 0
+ 857 018a 4FF0FF33 		mov	r3, #-1
+ 858 018e FB73     		strb	r3, [r7, #15]
+ 859              	.L33:
+ 201:.\ring_buffer.c ****             }
+ 202:.\ring_buffer.c ****         }
+ 203:.\ring_buffer.c **** 	}
+ 204:.\ring_buffer.c **** 	
+ 205:.\ring_buffer.c **** 	
+ 206:.\ring_buffer.c **** 	return status;
+ 860              		.loc 1 206 0
+ 861 0190 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 207:.\ring_buffer.c **** }
+ 862              		.loc 1 207 0
+ 863 0192 1846     		mov	r0, r3
+ 864 0194 07F11007 		add	r7, r7, #16
+ 865 0198 BD46     		mov	sp, r7
+ 866 019a 80BD     		pop	{r7, pc}
+ 867              		.cfi_endproc
+ 868              	.LFE34:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 20
+
+
+ 869              		.size	RBF_ucHeadByteOut, .-RBF_ucHeadByteOut
+ 870              		.section	.text.RBF_ucTailByteOut,"ax",%progbits
+ 871              		.align	2
+ 872              		.global	RBF_ucTailByteOut
+ 873              		.thumb
+ 874              		.thumb_func
+ 875              		.type	RBF_ucTailByteOut, %function
+ 876              	RBF_ucTailByteOut:
+ 877              	.LFB35:
+ 208:.\ring_buffer.c **** /*****************************************************************/
+ 209:.\ring_buffer.c **** uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte)
+ 210:.\ring_buffer.c **** {
+ 878              		.loc 1 210 0
+ 879              		.cfi_startproc
+ 880              		@ args = 0, pretend = 0, frame = 16
+ 881              		@ frame_needed = 1, uses_anonymous_args = 0
+ 882 0000 80B5     		push	{r7, lr}
+ 883              	.LCFI17:
+ 884              		.cfi_def_cfa_offset 8
+ 885 0002 84B0     		sub	sp, sp, #16
+ 886              	.LCFI18:
+ 887              		.cfi_def_cfa_offset 24
+ 888 0004 00AF     		add	r7, sp, #0
+ 889              		.cfi_offset 14, -4
+ 890              		.cfi_offset 7, -8
+ 891              	.LCFI19:
+ 892              		.cfi_def_cfa_register 7
+ 893 0006 0346     		mov	r3, r0
+ 894 0008 3960     		str	r1, [r7, #0]
+ 895 000a FB71     		strb	r3, [r7, #7]
+ 211:.\ring_buffer.c ****     STATUS status;
+ 212:.\ring_buffer.c **** 	
+ 213:.\ring_buffer.c ****     // is head == tail ?
+ 214:.\ring_buffer.c **** 	if (RingBuffer[ucIndex].tail == RingBuffer[ucIndex].head)
+ 896              		.loc 1 214 0
+ 897 000c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 898 000e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 899 0012 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 900 0016 0B46     		mov	r3, r1
+ 901 0018 4FEA8303 		lsl	r3, r3, #2
+ 902 001c 0B44     		add	r3, r3, r1
+ 903 001e 4FEA8303 		lsl	r3, r3, #2
+ 904 0022 1344     		add	r3, r3, r2
+ 905 0024 03F10803 		add	r3, r3, #8
+ 906 0028 9888     		ldrh	r0, [r3, #4]
+ 907 002a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 908 002c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 909 0030 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 910 0034 0B46     		mov	r3, r1
+ 911 0036 4FEA8303 		lsl	r3, r3, #2
+ 912 003a 0B44     		add	r3, r3, r1
+ 913 003c 4FEA8303 		lsl	r3, r3, #2
+ 914 0040 1344     		add	r3, r3, r2
+ 915 0042 03F10803 		add	r3, r3, #8
+ 916 0046 5B88     		ldrh	r3, [r3, #2]
+ 917 0048 9842     		cmp	r0, r3
+ 918 004a 29D1     		bne	.L37
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 21
+
+
+ 215:.\ring_buffer.c **** 	{
+ 216:.\ring_buffer.c ****         // if head = tail, is zero byte set?
+ 217:.\ring_buffer.c ****         if (RingBuffer[ucIndex].zb == 1)
+ 919              		.loc 1 217 0
+ 920 004c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 921 004e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 922 0052 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 923 0056 0B46     		mov	r3, r1
+ 924 0058 4FEA8303 		lsl	r3, r3, #2
+ 925 005c 0B44     		add	r3, r3, r1
+ 926 005e 4FEA8303 		lsl	r3, r3, #2
+ 927 0062 1344     		add	r3, r3, r2
+ 928 0064 03F10803 		add	r3, r3, #8
+ 929 0068 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 930 006a 012B     		cmp	r3, #1
+ 931 006c 14D1     		bne	.L38
+ 218:.\ring_buffer.c ****         {
+ 219:.\ring_buffer.c ****            RingBuffer[ucIndex].zb = 0; 
+ 932              		.loc 1 219 0
+ 933 006e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 934 0070 40F20002 		movw	r2, #:lower16:RingBuffer
+ 935 0074 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 936 0078 0B46     		mov	r3, r1
+ 937 007a 4FEA8303 		lsl	r3, r3, #2
+ 938 007e 0B44     		add	r3, r3, r1
+ 939 0080 4FEA8303 		lsl	r3, r3, #2
+ 940 0084 1344     		add	r3, r3, r2
+ 941 0086 03F10803 		add	r3, r3, #8
+ 942 008a 4FF00002 		mov	r2, #0
+ 943 008e 9A71     		strb	r2, [r3, #6]
+ 220:.\ring_buffer.c ****            status = RBF_SUCCESS;
+ 944              		.loc 1 220 0
+ 945 0090 4FF00003 		mov	r3, #0
+ 946 0094 FB73     		strb	r3, [r7, #15]
+ 221:.\ring_buffer.c ****         }
+ 222:.\ring_buffer.c ****         else
+ 223:.\ring_buffer.c ****         {
+ 224:.\ring_buffer.c ****             status = RBF_FAIL;
+ 947              		.loc 1 224 0
+ 948 0096 06E0     		b	.L40
+ 949              	.L38:
+ 950 0098 4FF00103 		mov	r3, #1
+ 951 009c FB73     		strb	r3, [r7, #15]
+ 952 009e 02E0     		b	.L40
+ 953              	.L37:
+ 225:.\ring_buffer.c ****         }
+ 226:.\ring_buffer.c ****     }
+ 227:.\ring_buffer.c ****     else // is head != tail 
+ 228:.\ring_buffer.c ****     {
+ 229:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 954              		.loc 1 229 0
+ 955 00a0 4FF00003 		mov	r3, #0
+ 956 00a4 FB73     		strb	r3, [r7, #15]
+ 957              	.L40:
+ 230:.\ring_buffer.c ****     }
+ 231:.\ring_buffer.c ****     
+ 232:.\ring_buffer.c ****     if (status == RBF_SUCCESS)
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 22
+
+
+ 958              		.loc 1 232 0
+ 959 00a6 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 960 00a8 002B     		cmp	r3, #0
+ 961 00aa 71D1     		bne	.L41
+ 233:.\ring_buffer.c ****     {
+ 234:.\ring_buffer.c **** 		*byte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail];
+ 962              		.loc 1 234 0
+ 963 00ac F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 964 00ae 40F20002 		movw	r2, #:lower16:RingBuffer
+ 965 00b2 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 966 00b6 0B46     		mov	r3, r1
+ 967 00b8 4FEA8303 		lsl	r3, r3, #2
+ 968 00bc 0B44     		add	r3, r3, r1
+ 969 00be 4FEA8303 		lsl	r3, r3, #2
+ 970 00c2 1344     		add	r3, r3, r2
+ 971 00c4 03F10403 		add	r3, r3, #4
+ 972 00c8 1868     		ldr	r0, [r3, #0]
+ 973 00ca F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 974 00cc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 975 00d0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 976 00d4 0B46     		mov	r3, r1
+ 977 00d6 4FEA8303 		lsl	r3, r3, #2
+ 978 00da 0B44     		add	r3, r3, r1
+ 979 00dc 4FEA8303 		lsl	r3, r3, #2
+ 980 00e0 1344     		add	r3, r3, r2
+ 981 00e2 03F10803 		add	r3, r3, #8
+ 982 00e6 9B88     		ldrh	r3, [r3, #4]
+ 983 00e8 0344     		add	r3, r0, r3
+ 984 00ea 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 985 00ec 3B68     		ldr	r3, [r7, #0]
+ 986 00ee 1A70     		strb	r2, [r3, #0]
+ 235:.\ring_buffer.c **** 		(RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail] = 0;		//delete byte
+ 987              		.loc 1 235 0
+ 988 00f0 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 989 00f2 40F20002 		movw	r2, #:lower16:RingBuffer
+ 990 00f6 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 991 00fa 0B46     		mov	r3, r1
+ 992 00fc 4FEA8303 		lsl	r3, r3, #2
+ 993 0100 0B44     		add	r3, r3, r1
+ 994 0102 4FEA8303 		lsl	r3, r3, #2
+ 995 0106 1344     		add	r3, r3, r2
+ 996 0108 03F10403 		add	r3, r3, #4
+ 997 010c 1868     		ldr	r0, [r3, #0]
+ 998 010e F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 999 0110 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1000 0114 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1001 0118 0B46     		mov	r3, r1
+ 1002 011a 4FEA8303 		lsl	r3, r3, #2
+ 1003 011e 0B44     		add	r3, r3, r1
+ 1004 0120 4FEA8303 		lsl	r3, r3, #2
+ 1005 0124 1344     		add	r3, r3, r2
+ 1006 0126 03F10803 		add	r3, r3, #8
+ 1007 012a 9B88     		ldrh	r3, [r3, #4]
+ 1008 012c 0344     		add	r3, r0, r3
+ 1009 012e 4FF00002 		mov	r2, #0
+ 1010 0132 1A70     		strb	r2, [r3, #0]
+ 236:.\ring_buffer.c ****         
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 23
+
+
+ 237:.\ring_buffer.c ****         if (RingBuffer[ucIndex].tail != RingBuffer[ucIndex].head)
+ 1011              		.loc 1 237 0
+ 1012 0134 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1013 0136 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1014 013a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1015 013e 0B46     		mov	r3, r1
+ 1016 0140 4FEA8303 		lsl	r3, r3, #2
+ 1017 0144 0B44     		add	r3, r3, r1
+ 1018 0146 4FEA8303 		lsl	r3, r3, #2
+ 1019 014a 1344     		add	r3, r3, r2
+ 1020 014c 03F10803 		add	r3, r3, #8
+ 1021 0150 9888     		ldrh	r0, [r3, #4]
+ 1022 0152 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1023 0154 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1024 0158 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1025 015c 0B46     		mov	r3, r1
+ 1026 015e 4FEA8303 		lsl	r3, r3, #2
+ 1027 0162 0B44     		add	r3, r3, r1
+ 1028 0164 4FEA8303 		lsl	r3, r3, #2
+ 1029 0168 1344     		add	r3, r3, r2
+ 1030 016a 03F10803 		add	r3, r3, #8
+ 1031 016e 5B88     		ldrh	r3, [r3, #2]
+ 1032 0170 9842     		cmp	r0, r3
+ 1033 0172 0DD0     		beq	.L41
+ 238:.\ring_buffer.c ****         {
+ 239:.\ring_buffer.c ****             if (IncTail(ucIndex) == RBF_SUCCESS)
+ 1034              		.loc 1 239 0
+ 1035 0174 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1036 0176 1846     		mov	r0, r3
+ 1037 0178 FFF7FEFF 		bl	IncTail
+ 1038 017c 0346     		mov	r3, r0
+ 1039 017e 002B     		cmp	r3, #0
+ 1040 0180 03D1     		bne	.L42
+ 240:.\ring_buffer.c ****             {
+ 241:.\ring_buffer.c ****                 status = RBF_SUCCESS;
+ 1041              		.loc 1 241 0
+ 1042 0182 4FF00003 		mov	r3, #0
+ 1043 0186 FB73     		strb	r3, [r7, #15]
+ 1044 0188 02E0     		b	.L41
+ 1045              	.L42:
+ 242:.\ring_buffer.c ****             }
+ 243:.\ring_buffer.c ****             else
+ 244:.\ring_buffer.c ****             {
+ 245:.\ring_buffer.c ****     		    status = RBF_ERROR;
+ 1046              		.loc 1 245 0
+ 1047 018a 4FF0FF33 		mov	r3, #-1
+ 1048 018e FB73     		strb	r3, [r7, #15]
+ 1049              	.L41:
+ 246:.\ring_buffer.c ****             }
+ 247:.\ring_buffer.c ****         }
+ 248:.\ring_buffer.c **** 	}
+ 249:.\ring_buffer.c **** 	
+ 250:.\ring_buffer.c **** 	return status;
+ 1050              		.loc 1 250 0
+ 1051 0190 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 251:.\ring_buffer.c **** }
+ 1052              		.loc 1 251 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 24
+
+
+ 1053 0192 1846     		mov	r0, r3
+ 1054 0194 07F11007 		add	r7, r7, #16
+ 1055 0198 BD46     		mov	sp, r7
+ 1056 019a 80BD     		pop	{r7, pc}
+ 1057              		.cfi_endproc
+ 1058              	.LFE35:
+ 1059              		.size	RBF_ucTailByteOut, .-RBF_ucTailByteOut
+ 1060              		.section	.text.RBF_ucReadOnlyFromTail,"ax",%progbits
+ 1061              		.align	2
+ 1062              		.global	RBF_ucReadOnlyFromTail
+ 1063              		.thumb
+ 1064              		.thumb_func
+ 1065              		.type	RBF_ucReadOnlyFromTail, %function
+ 1066              	RBF_ucReadOnlyFromTail:
+ 1067              	.LFB36:
+ 252:.\ring_buffer.c **** /*****************************************************************/
+ 253:.\ring_buffer.c **** uint8_t RBF_ucReadOnlyFromTail(uint8_t ucIndex, uint8_t* ucTargetAddr, uint8_t ucNumByte)
+ 254:.\ring_buffer.c **** {    
+ 1068              		.loc 1 254 0
+ 1069              		.cfi_startproc
+ 1070              		@ args = 0, pretend = 0, frame = 16
+ 1071              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1072 0000 80B5     		push	{r7, lr}
+ 1073              	.LCFI20:
+ 1074              		.cfi_def_cfa_offset 8
+ 1075 0002 84B0     		sub	sp, sp, #16
+ 1076              	.LCFI21:
+ 1077              		.cfi_def_cfa_offset 24
+ 1078 0004 00AF     		add	r7, sp, #0
+ 1079              		.cfi_offset 14, -4
+ 1080              		.cfi_offset 7, -8
+ 1081              	.LCFI22:
+ 1082              		.cfi_def_cfa_register 7
+ 1083 0006 B960     		str	r1, [r7, #8]
+ 1084 0008 1346     		mov	r3, r2
+ 1085 000a 0246     		mov	r2, r0
+ 1086 000c FA73     		strb	r2, [r7, #15]
+ 1087 000e FB71     		strb	r3, [r7, #7]
+ 255:.\ring_buffer.c ****     if (RingBuffer[ucIndex].address == NULLPTR)
+ 1088              		.loc 1 255 0
+ 1089 0010 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 1090 0012 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1091 0016 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1092 001a 0B46     		mov	r3, r1
+ 1093 001c 4FEA8303 		lsl	r3, r3, #2
+ 1094 0020 0B44     		add	r3, r3, r1
+ 1095 0022 4FEA8303 		lsl	r3, r3, #2
+ 1096 0026 1344     		add	r3, r3, r2
+ 1097 0028 03F10403 		add	r3, r3, #4
+ 1098 002c 1B68     		ldr	r3, [r3, #0]
+ 1099 002e 002B     		cmp	r3, #0
+ 1100 0030 02D1     		bne	.L45
+ 256:.\ring_buffer.c ****         return RBF_NOT_AVAILABLE;
+ 1101              		.loc 1 256 0
+ 1102 0032 4FF0FD03 		mov	r3, #253
+ 1103 0036 31E0     		b	.L46
+ 1104              	.L45:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 25
+
+
+ 257:.\ring_buffer.c ****     
+ 258:.\ring_buffer.c ****     if (ucNumByte > RBF_ucGetByteCount(ucIndex))
+ 1105              		.loc 1 258 0
+ 1106 0038 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1107 003a 1846     		mov	r0, r3
+ 1108 003c FFF7FEFF 		bl	RBF_ucGetByteCount
+ 1109 0040 0346     		mov	r3, r0
+ 1110 0042 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 1111 0044 9A42     		cmp	r2, r3
+ 1112 0046 02D9     		bls	.L47
+ 259:.\ring_buffer.c ****         return RBF_INVALID_PARAMETERS;
+ 1113              		.loc 1 259 0
+ 1114 0048 4FF0FE03 		mov	r3, #254
+ 1115 004c 26E0     		b	.L46
+ 1116              	.L47:
+ 260:.\ring_buffer.c ****         
+ 261:.\ring_buffer.c ****     *ucTargetAddr = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail + ucNumByte];
+ 1117              		.loc 1 261 0
+ 1118 004e F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 1119 0050 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1120 0054 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1121 0058 0B46     		mov	r3, r1
+ 1122 005a 4FEA8303 		lsl	r3, r3, #2
+ 1123 005e 0B44     		add	r3, r3, r1
+ 1124 0060 4FEA8303 		lsl	r3, r3, #2
+ 1125 0064 1344     		add	r3, r3, r2
+ 1126 0066 03F10403 		add	r3, r3, #4
+ 1127 006a 1868     		ldr	r0, [r3, #0]
+ 1128 006c F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 1129 006e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1130 0072 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1131 0076 0B46     		mov	r3, r1
+ 1132 0078 4FEA8303 		lsl	r3, r3, #2
+ 1133 007c 0B44     		add	r3, r3, r1
+ 1134 007e 4FEA8303 		lsl	r3, r3, #2
+ 1135 0082 1344     		add	r3, r3, r2
+ 1136 0084 03F10803 		add	r3, r3, #8
+ 1137 0088 9B88     		ldrh	r3, [r3, #4]
+ 1138 008a 1A46     		mov	r2, r3
+ 1139 008c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1140 008e 1344     		add	r3, r2, r3
+ 1141 0090 0344     		add	r3, r0, r3
+ 1142 0092 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 1143 0094 BB68     		ldr	r3, [r7, #8]
+ 1144 0096 1A70     		strb	r2, [r3, #0]
+ 262:.\ring_buffer.c **** 
+ 263:.\ring_buffer.c ****     return RBF_SUCCESS;
+ 1145              		.loc 1 263 0
+ 1146 0098 4FF00003 		mov	r3, #0
+ 1147              	.L46:
+ 264:.\ring_buffer.c **** }
+ 1148              		.loc 1 264 0
+ 1149 009c 1846     		mov	r0, r3
+ 1150 009e 07F11007 		add	r7, r7, #16
+ 1151 00a2 BD46     		mov	sp, r7
+ 1152 00a4 80BD     		pop	{r7, pc}
+ 1153              		.cfi_endproc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 26
+
+
+ 1154              	.LFE36:
+ 1155              		.size	RBF_ucReadOnlyFromTail, .-RBF_ucReadOnlyFromTail
+ 1156              		.section	.text.RBF_ucMsgIn,"ax",%progbits
+ 1157              		.align	2
+ 1158              		.global	RBF_ucMsgIn
+ 1159              		.thumb
+ 1160              		.thumb_func
+ 1161              		.type	RBF_ucMsgIn, %function
+ 1162              	RBF_ucMsgIn:
+ 1163              	.LFB37:
+ 265:.\ring_buffer.c **** 
+ 266:.\ring_buffer.c **** /*****************************************************************/
+ 267:.\ring_buffer.c **** /**
+ 268:.\ring_buffer.c **** 	Message structure:
+ 269:.\ring_buffer.c **** 	| size | d0 | d1 | ... | dn | size |
+ 270:.\ring_buffer.c **** 	
+ 271:.\ring_buffer.c **** 	- no checksum needed because there is no loss of information 
+ 272:.\ring_buffer.c **** 	due to transmission errors etc.
+ 273:.\ring_buffer.c **** */
+ 274:.\ring_buffer.c **** uint8_t RBF_ucMsgIn(uint8_t ucIndex, uint8_t* msg, uint8_t size)
+ 275:.\ring_buffer.c **** {
+ 1164              		.loc 1 275 0
+ 1165              		.cfi_startproc
+ 1166              		@ args = 0, pretend = 0, frame = 32
+ 1167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1168 0000 80B5     		push	{r7, lr}
+ 1169              	.LCFI23:
+ 1170              		.cfi_def_cfa_offset 8
+ 1171 0002 88B0     		sub	sp, sp, #32
+ 1172              	.LCFI24:
+ 1173              		.cfi_def_cfa_offset 40
+ 1174 0004 00AF     		add	r7, sp, #0
+ 1175              		.cfi_offset 14, -4
+ 1176              		.cfi_offset 7, -8
+ 1177              	.LCFI25:
+ 1178              		.cfi_def_cfa_register 7
+ 1179 0006 B960     		str	r1, [r7, #8]
+ 1180 0008 1346     		mov	r3, r2
+ 1181 000a 0246     		mov	r2, r0
+ 1182 000c FA73     		strb	r2, [r7, #15]
+ 1183 000e FB71     		strb	r3, [r7, #7]
+ 276:.\ring_buffer.c ****     STATUS status;
+ 277:.\ring_buffer.c **** 	int i=0;
+ 1184              		.loc 1 277 0
+ 1185 0010 4FF00003 		mov	r3, #0
+ 1186 0014 BB61     		str	r3, [r7, #24]
+ 278:.\ring_buffer.c **** 	uint8_t temp;
+ 279:.\ring_buffer.c ****     uint16_t uiByteCnt = RBF_ucGetByteCount(ucIndex);
+ 1187              		.loc 1 279 0
+ 1188 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1189 0018 1846     		mov	r0, r3
+ 1190 001a FFF7FEFF 		bl	RBF_ucGetByteCount
+ 1191 001e 0346     		mov	r3, r0
+ 1192 0020 FB83     		strh	r3, [r7, #30]	@ movhi
+ 280:.\ring_buffer.c **** 	
+ 281:.\ring_buffer.c ****     //check if enough space for message, msg + size at beginning + size at end
+ 282:.\ring_buffer.c ****     if ((RingBuffer[ucIndex].size - uiByteCnt) < (size + 2))
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 27
+
+
+ 1193              		.loc 1 282 0
+ 1194 0022 F97B     		ldrb	r1, [r7, #15]	@ zero_extendqisi2
+ 1195 0024 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1196 0028 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1197 002c 0B46     		mov	r3, r1
+ 1198 002e 4FEA8303 		lsl	r3, r3, #2
+ 1199 0032 0B44     		add	r3, r3, r1
+ 1200 0034 4FEA8303 		lsl	r3, r3, #2
+ 1201 0038 1344     		add	r3, r3, r2
+ 1202 003a 03F10803 		add	r3, r3, #8
+ 1203 003e 1B88     		ldrh	r3, [r3, #0]
+ 1204 0040 1A46     		mov	r2, r3
+ 1205 0042 FB8B     		ldrh	r3, [r7, #30]
+ 1206 0044 C3EB0202 		rsb	r2, r3, r2
+ 1207 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1208 004a 03F10203 		add	r3, r3, #2
+ 1209 004e 9A42     		cmp	r2, r3
+ 1210 0050 02DA     		bge	.L50
+ 283:.\ring_buffer.c ****     {
+ 284:.\ring_buffer.c ****         return RBF_FAIL;
+ 1211              		.loc 1 284 0
+ 1212 0052 4FF00103 		mov	r3, #1
+ 1213 0056 83E0     		b	.L51
+ 1214              	.L50:
+ 285:.\ring_buffer.c ****     }
+ 286:.\ring_buffer.c ****     
+ 287:.\ring_buffer.c **** 	// 1st byte = message size		
+ 288:.\ring_buffer.c **** 	if(RBF_ucByteIn(ucIndex, size) == RBF_SUCCESS)				// | size | d0 | d1 | ... | dn | size |
+ 1215              		.loc 1 288 0
+ 1216 0058 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1217 005a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1218 005c 1046     		mov	r0, r2
+ 1219 005e 1946     		mov	r1, r3
+ 1220 0060 FFF7FEFF 		bl	RBF_ucByteIn
+ 1221 0064 0346     		mov	r3, r0
+ 1222 0066 002B     		cmp	r3, #0
+ 1223 0068 76D1     		bne	.L52
+ 289:.\ring_buffer.c **** 	{															//	 ^
+ 290:.\ring_buffer.c **** 		while(i < size)
+ 1224              		.loc 1 290 0
+ 1225 006a 0FE0     		b	.L53
+ 1226              	.L56:
+ 291:.\ring_buffer.c **** 		{
+ 292:.\ring_buffer.c **** 			if(RBF_ucByteIn(ucIndex, msg[i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+ 1227              		.loc 1 292 0
+ 1228 006c BA69     		ldr	r2, [r7, #24]
+ 1229 006e BB68     		ldr	r3, [r7, #8]
+ 1230 0070 1344     		add	r3, r2, r3
+ 1231 0072 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1232 0074 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1233 0076 1046     		mov	r0, r2
+ 1234 0078 1946     		mov	r1, r3
+ 1235 007a FFF7FEFF 		bl	RBF_ucByteIn
+ 1236 007e 0346     		mov	r3, r0
+ 1237 0080 002B     		cmp	r3, #0
+ 1238 0082 08D1     		bne	.L69
+ 293:.\ring_buffer.c **** 			{													//	 		^        -->       |
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 28
+
+
+ 294:.\ring_buffer.c **** 				i++;
+ 1239              		.loc 1 294 0
+ 1240 0084 BB69     		ldr	r3, [r7, #24]
+ 1241 0086 03F10103 		add	r3, r3, #1
+ 1242 008a BB61     		str	r3, [r7, #24]
+ 1243              	.L53:
+ 1244              		.loc 1 290 0
+ 1245 008c FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 1246 008e BB69     		ldr	r3, [r7, #24]
+ 1247 0090 9A42     		cmp	r2, r3
+ 1248 0092 EBDC     		bgt	.L56
+ 1249 0094 00E0     		b	.L55
+ 1250              	.L69:
+ 295:.\ring_buffer.c **** 			}
+ 296:.\ring_buffer.c **** 			else
+ 297:.\ring_buffer.c **** 			{
+ 298:.\ring_buffer.c **** 				break; //no more bytes or buffer full
+ 1251              		.loc 1 298 0
+ 1252 0096 00BF     		nop
+ 1253              	.L55:
+ 299:.\ring_buffer.c **** 			}
+ 300:.\ring_buffer.c **** 		}
+ 301:.\ring_buffer.c **** 		
+ 302:.\ring_buffer.c **** 		// check if message complete
+ 303:.\ring_buffer.c **** 		if (i == size)
+ 1254              		.loc 1 303 0
+ 1255 0098 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 1256 009a BB69     		ldr	r3, [r7, #24]
+ 1257 009c 9A42     		cmp	r2, r3
+ 1258 009e 57D1     		bne	.L64
+ 304:.\ring_buffer.c **** 		{
+ 305:.\ring_buffer.c **** 			// add message size as last byte
+ 306:.\ring_buffer.c **** 			if(RBF_ucByteIn(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
+ 1259              		.loc 1 306 0
+ 1260 00a0 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1261 00a2 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1262 00a4 1046     		mov	r0, r2
+ 1263 00a6 1946     		mov	r1, r3
+ 1264 00a8 FFF7FEFF 		bl	RBF_ucByteIn
+ 1265 00ac 0346     		mov	r3, r0
+ 1266 00ae 002B     		cmp	r3, #0
+ 1267 00b0 37D1     		bne	.L60
+ 307:.\ring_buffer.c **** 			{													//	 							 ^
+ 308:.\ring_buffer.c **** 				RingBuffer[ucIndex].msgcount++;
+ 1268              		.loc 1 308 0
+ 1269 00b2 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1270 00b4 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1271 00b8 C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1272 00bc 1346     		mov	r3, r2
+ 1273 00be 4FEA8303 		lsl	r3, r3, #2
+ 1274 00c2 1344     		add	r3, r3, r2
+ 1275 00c4 4FEA8303 		lsl	r3, r3, #2
+ 1276 00c8 0B44     		add	r3, r3, r1
+ 1277 00ca 03F11003 		add	r3, r3, #16
+ 1278 00ce 1B88     		ldrh	r3, [r3, #0]
+ 1279 00d0 03F10103 		add	r3, r3, #1
+ 1280 00d4 98B2     		uxth	r0, r3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 29
+
+
+ 1281 00d6 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1282 00da C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1283 00de 1346     		mov	r3, r2
+ 1284 00e0 4FEA8303 		lsl	r3, r3, #2
+ 1285 00e4 1344     		add	r3, r3, r2
+ 1286 00e6 4FEA8303 		lsl	r3, r3, #2
+ 1287 00ea 0B44     		add	r3, r3, r1
+ 1288 00ec 03F11003 		add	r3, r3, #16
+ 1289 00f0 0246     		mov	r2, r0	@ movhi
+ 1290 00f2 1A80     		strh	r2, [r3, #0]	@ movhi
+ 309:.\ring_buffer.c **** 				status = RBF_SUCCESS;
+ 1291              		.loc 1 309 0
+ 1292 00f4 4FF00003 		mov	r3, #0
+ 1293 00f8 FB75     		strb	r3, [r7, #23]
+ 310:.\ring_buffer.c **** 			}
+ 311:.\ring_buffer.c **** 			else
+ 312:.\ring_buffer.c **** 			{
+ 313:.\ring_buffer.c **** 				while(i >= 0)	// delete already written message bytes plus size byte at beginning
+ 314:.\ring_buffer.c **** 				{
+ 315:.\ring_buffer.c **** 					if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_FAIL)
+ 316:.\ring_buffer.c **** 					{
+ 317:.\ring_buffer.c **** 						status = RBF_ERROR;
+ 318:.\ring_buffer.c **** 						break;
+ 319:.\ring_buffer.c **** 					}
+ 320:.\ring_buffer.c **** 					i--;
+ 321:.\ring_buffer.c **** 				}
+ 322:.\ring_buffer.c **** 			}
+ 323:.\ring_buffer.c **** 		}
+ 324:.\ring_buffer.c **** 		else
+ 325:.\ring_buffer.c **** 		{
+ 326:.\ring_buffer.c **** 			while(i >= 0)	// delete already written message bytes plus size byte at beginning
+ 1294              		.loc 1 326 0
+ 1295 00fa 30E0     		b	.L67
+ 1296              	.L62:
+ 1297              		.loc 1 315 0
+ 1298 00fc FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1299 00fe 07F11603 		add	r3, r7, #22
+ 1300 0102 1046     		mov	r0, r2
+ 1301 0104 1946     		mov	r1, r3
+ 1302 0106 FFF7FEFF 		bl	RBF_ucHeadByteOut
+ 1303 010a 0346     		mov	r3, r0
+ 1304 010c 012B     		cmp	r3, #1
+ 1305 010e 04D1     		bne	.L61
+ 1306              		.loc 1 317 0
+ 1307 0110 4FF0FF33 		mov	r3, #-1
+ 1308 0114 FB75     		strb	r3, [r7, #23]
+ 1309              		.loc 1 318 0
+ 1310 0116 00BF     		nop
+ 1311              		.loc 1 326 0
+ 1312 0118 21E0     		b	.L67
+ 1313              	.L61:
+ 1314              		.loc 1 320 0
+ 1315 011a BB69     		ldr	r3, [r7, #24]
+ 1316 011c 03F1FF33 		add	r3, r3, #-1
+ 1317 0120 BB61     		str	r3, [r7, #24]
+ 1318              	.L60:
+ 1319              		.loc 1 313 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 30
+
+
+ 1320 0122 BB69     		ldr	r3, [r7, #24]
+ 1321 0124 002B     		cmp	r3, #0
+ 1322 0126 E9DA     		bge	.L62
+ 1323              		.loc 1 326 0
+ 1324 0128 19E0     		b	.L67
+ 1325              	.L66:
+ 327:.\ring_buffer.c **** 			{
+ 328:.\ring_buffer.c **** 				if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_FAIL)
+ 1326              		.loc 1 328 0
+ 1327 012a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1328 012c 07F11603 		add	r3, r7, #22
+ 1329 0130 1046     		mov	r0, r2
+ 1330 0132 1946     		mov	r1, r3
+ 1331 0134 FFF7FEFF 		bl	RBF_ucHeadByteOut
+ 1332 0138 0346     		mov	r3, r0
+ 1333 013a 012B     		cmp	r3, #1
+ 1334 013c 04D1     		bne	.L65
+ 329:.\ring_buffer.c **** 				{
+ 330:.\ring_buffer.c **** 					status = RBF_ERROR;
+ 1335              		.loc 1 330 0
+ 1336 013e 4FF0FF33 		mov	r3, #-1
+ 1337 0142 FB75     		strb	r3, [r7, #23]
+ 331:.\ring_buffer.c **** 					break;
+ 1338              		.loc 1 331 0
+ 1339 0144 00BF     		nop
+ 1340 0146 0AE0     		b	.L67
+ 1341              	.L65:
+ 332:.\ring_buffer.c **** 				}
+ 333:.\ring_buffer.c **** 				i--;
+ 1342              		.loc 1 333 0
+ 1343 0148 BB69     		ldr	r3, [r7, #24]
+ 1344 014a 03F1FF33 		add	r3, r3, #-1
+ 1345 014e BB61     		str	r3, [r7, #24]
+ 1346              	.L64:
+ 1347              		.loc 1 326 0
+ 1348 0150 BB69     		ldr	r3, [r7, #24]
+ 1349 0152 002B     		cmp	r3, #0
+ 1350 0154 E9DA     		bge	.L66
+ 1351 0156 02E0     		b	.L67
+ 1352              	.L52:
+ 334:.\ring_buffer.c **** 			}
+ 335:.\ring_buffer.c **** 		}
+ 336:.\ring_buffer.c **** 		
+ 337:.\ring_buffer.c **** 	}
+ 338:.\ring_buffer.c **** 	else
+ 339:.\ring_buffer.c **** 	{
+ 340:.\ring_buffer.c **** 		status = RBF_FAIL;
+ 1353              		.loc 1 340 0
+ 1354 0158 4FF00103 		mov	r3, #1
+ 1355 015c FB75     		strb	r3, [r7, #23]
+ 1356              	.L67:
+ 341:.\ring_buffer.c **** 	}
+ 342:.\ring_buffer.c **** 	
+ 343:.\ring_buffer.c **** 	return status;
+ 1357              		.loc 1 343 0
+ 1358 015e FB7D     		ldrb	r3, [r7, #23]	@ zero_extendqisi2
+ 1359              	.L51:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 31
+
+
+ 344:.\ring_buffer.c **** }
+ 1360              		.loc 1 344 0
+ 1361 0160 1846     		mov	r0, r3
+ 1362 0162 07F12007 		add	r7, r7, #32
+ 1363 0166 BD46     		mov	sp, r7
+ 1364 0168 80BD     		pop	{r7, pc}
+ 1365              		.cfi_endproc
+ 1366              	.LFE37:
+ 1367              		.size	RBF_ucMsgIn, .-RBF_ucMsgIn
+ 1368 016a 00BF     		.section	.text.RBF_ucHeadMsgOut,"ax",%progbits
+ 1369              		.align	2
+ 1370              		.global	RBF_ucHeadMsgOut
+ 1371              		.thumb
+ 1372              		.thumb_func
+ 1373              		.type	RBF_ucHeadMsgOut, %function
+ 1374              	RBF_ucHeadMsgOut:
+ 1375              	.LFB38:
+ 345:.\ring_buffer.c **** /*****************************************************************/
+ 346:.\ring_buffer.c **** /**
+ 347:.\ring_buffer.c **** 	Example:
+ 348:.\ring_buffer.c **** 	
+ 349:.\ring_buffer.c **** 	| size | d0 | d1 | ... | dn | size | size | d0 | d1 | ... | dn | size |
+ 350:.\ring_buffer.c **** 	  ^																 ^
+ 351:.\ring_buffer.c **** 	  tail															 head
+ 352:.\ring_buffer.c **** 																	 ----
+ 353:.\ring_buffer.c **** */
+ 354:.\ring_buffer.c **** uint8_t RBF_ucHeadMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
+ 355:.\ring_buffer.c **** {
+ 1376              		.loc 1 355 0
+ 1377              		.cfi_startproc
+ 1378              		@ args = 0, pretend = 0, frame = 24
+ 1379              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1380 0000 80B5     		push	{r7, lr}
+ 1381              	.LCFI26:
+ 1382              		.cfi_def_cfa_offset 8
+ 1383 0002 86B0     		sub	sp, sp, #24
+ 1384              	.LCFI27:
+ 1385              		.cfi_def_cfa_offset 32
+ 1386 0004 00AF     		add	r7, sp, #0
+ 1387              		.cfi_offset 14, -4
+ 1388              		.cfi_offset 7, -8
+ 1389              	.LCFI28:
+ 1390              		.cfi_def_cfa_register 7
+ 1391 0006 0346     		mov	r3, r0
+ 1392 0008 B960     		str	r1, [r7, #8]
+ 1393 000a 7A60     		str	r2, [r7, #4]
+ 1394 000c FB73     		strb	r3, [r7, #15]
+ 356:.\ring_buffer.c ****     STATUS status;
+ 357:.\ring_buffer.c **** 	int i=0;
+ 1395              		.loc 1 357 0
+ 1396 000e 4FF00003 		mov	r3, #0
+ 1397 0012 7B61     		str	r3, [r7, #20]
+ 358:.\ring_buffer.c **** 	uint8_t temp;
+ 359:.\ring_buffer.c **** 	
+ 360:.\ring_buffer.c **** 	// 1st byte = message size		
+ 361:.\ring_buffer.c **** 	if(RBF_ucHeadByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
+ 1398              		.loc 1 361 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 32
+
+
+ 1399 0014 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1400 0016 1846     		mov	r0, r3
+ 1401 0018 7968     		ldr	r1, [r7, #4]
+ 1402 001a FFF7FEFF 		bl	RBF_ucHeadByteOut
+ 1403 001e 0346     		mov	r3, r0
+ 1404 0020 002B     		cmp	r3, #0
+ 1405 0022 7CD1     		bne	.L71
+ 362:.\ring_buffer.c **** 	{																	//	 							 ^
+ 363:.\ring_buffer.c **** 		if (*size > 0)
+ 1406              		.loc 1 363 0
+ 1407 0024 7B68     		ldr	r3, [r7, #4]
+ 1408 0026 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1409 0028 002B     		cmp	r3, #0
+ 1410 002a 6FD0     		beq	.L72
+ 364:.\ring_buffer.c **** 		{
+ 365:.\ring_buffer.c **** 			while(i < *size)
+ 1411              		.loc 1 365 0
+ 1412 002c 1EE0     		b	.L73
+ 1413              	.L76:
+ 366:.\ring_buffer.c **** 			{
+ 367:.\ring_buffer.c **** 				// message data bytes
+ 368:.\ring_buffer.c **** 				if(RBF_ucHeadByteOut(ucIndex, &target[*size-1-i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | d
+ 1414              		.loc 1 368 0
+ 1415 002e 7B68     		ldr	r3, [r7, #4]
+ 1416 0030 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1417 0032 03F1FF32 		add	r2, r3, #-1
+ 1418 0036 7B69     		ldr	r3, [r7, #20]
+ 1419 0038 C3EB0203 		rsb	r3, r3, r2
+ 1420 003c 1A46     		mov	r2, r3
+ 1421 003e BB68     		ldr	r3, [r7, #8]
+ 1422 0040 1344     		add	r3, r2, r3
+ 1423 0042 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1424 0044 1046     		mov	r0, r2
+ 1425 0046 1946     		mov	r1, r3
+ 1426 0048 FFF7FEFF 		bl	RBF_ucHeadByteOut
+ 1427 004c 0346     		mov	r3, r0
+ 1428 004e 002B     		cmp	r3, #0
+ 1429 0050 04D1     		bne	.L74
+ 369:.\ring_buffer.c **** 				{																	//	 	  |			<--		^
+ 370:.\ring_buffer.c **** 					i++;
+ 1430              		.loc 1 370 0
+ 1431 0052 7B69     		ldr	r3, [r7, #20]
+ 1432 0054 03F10103 		add	r3, r3, #1
+ 1433 0058 7B61     		str	r3, [r7, #20]
+ 1434 005a 07E0     		b	.L73
+ 1435              	.L74:
+ 371:.\ring_buffer.c **** 				}
+ 372:.\ring_buffer.c **** 				else
+ 373:.\ring_buffer.c **** 				{
+ 374:.\ring_buffer.c **** 					*size = 0;
+ 1436              		.loc 1 374 0
+ 1437 005c 7B68     		ldr	r3, [r7, #4]
+ 1438 005e 4FF00002 		mov	r2, #0
+ 1439 0062 1A70     		strb	r2, [r3, #0]
+ 375:.\ring_buffer.c **** 					status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 1440              		.loc 1 375 0
+ 1441 0064 4FF0FF33 		mov	r3, #-1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 33
+
+
+ 1442 0068 FB74     		strb	r3, [r7, #19]
+ 376:.\ring_buffer.c **** 					break; 
+ 1443              		.loc 1 376 0
+ 1444 006a 05E0     		b	.L75
+ 1445              	.L73:
+ 1446              		.loc 1 365 0
+ 1447 006c 7B68     		ldr	r3, [r7, #4]
+ 1448 006e 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1449 0070 1A46     		mov	r2, r3
+ 1450 0072 7B69     		ldr	r3, [r7, #20]
+ 1451 0074 9A42     		cmp	r2, r3
+ 1452 0076 DADC     		bgt	.L76
+ 1453              	.L75:
+ 377:.\ring_buffer.c **** 				}
+ 378:.\ring_buffer.c **** 			}
+ 379:.\ring_buffer.c **** 			
+ 380:.\ring_buffer.c **** 			if (i == *size)
+ 1454              		.loc 1 380 0
+ 1455 0078 7B68     		ldr	r3, [r7, #4]
+ 1456 007a 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1457 007c 1A46     		mov	r2, r3
+ 1458 007e 7B69     		ldr	r3, [r7, #20]
+ 1459 0080 9A42     		cmp	r2, r3
+ 1460 0082 3BD1     		bne	.L77
+ 381:.\ring_buffer.c **** 			{
+ 382:.\ring_buffer.c **** 				// get size byte at beginning of message 
+ 383:.\ring_buffer.c **** 				if(RBF_ucHeadByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+ 1461              		.loc 1 383 0
+ 1462 0084 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1463 0086 07F11203 		add	r3, r7, #18
+ 1464 008a 1046     		mov	r0, r2
+ 1465 008c 1946     		mov	r1, r3
+ 1466 008e FFF7FEFF 		bl	RBF_ucHeadByteOut
+ 1467 0092 0346     		mov	r3, r0
+ 1468 0094 002B     		cmp	r3, #0
+ 1469 0096 41D1     		bne	.L82
+ 384:.\ring_buffer.c **** 				{														//	 ^
+ 385:.\ring_buffer.c **** 					if (temp == *size)
+ 1470              		.loc 1 385 0
+ 1471 0098 7B68     		ldr	r3, [r7, #4]
+ 1472 009a 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 1473 009c BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 1474 009e 9A42     		cmp	r2, r3
+ 1475 00a0 24D1     		bne	.L79
+ 386:.\ring_buffer.c **** 					{
+ 387:.\ring_buffer.c **** 						RingBuffer[ucIndex].msgcount--;
+ 1476              		.loc 1 387 0
+ 1477 00a2 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1478 00a4 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1479 00a8 C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1480 00ac 1346     		mov	r3, r2
+ 1481 00ae 4FEA8303 		lsl	r3, r3, #2
+ 1482 00b2 1344     		add	r3, r3, r2
+ 1483 00b4 4FEA8303 		lsl	r3, r3, #2
+ 1484 00b8 0B44     		add	r3, r3, r1
+ 1485 00ba 03F11003 		add	r3, r3, #16
+ 1486 00be 1B88     		ldrh	r3, [r3, #0]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 34
+
+
+ 1487 00c0 03F1FF33 		add	r3, r3, #-1
+ 1488 00c4 98B2     		uxth	r0, r3
+ 1489 00c6 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1490 00ca C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1491 00ce 1346     		mov	r3, r2
+ 1492 00d0 4FEA8303 		lsl	r3, r3, #2
+ 1493 00d4 1344     		add	r3, r3, r2
+ 1494 00d6 4FEA8303 		lsl	r3, r3, #2
+ 1495 00da 0B44     		add	r3, r3, r1
+ 1496 00dc 03F11003 		add	r3, r3, #16
+ 1497 00e0 0246     		mov	r2, r0	@ movhi
+ 1498 00e2 1A80     		strh	r2, [r3, #0]	@ movhi
+ 388:.\ring_buffer.c **** 						status = RBF_SUCCESS;
+ 1499              		.loc 1 388 0
+ 1500 00e4 4FF00003 		mov	r3, #0
+ 1501 00e8 FB74     		strb	r3, [r7, #19]
+ 389:.\ring_buffer.c **** 					}
+ 390:.\ring_buffer.c **** 					else
+ 391:.\ring_buffer.c **** 					{
+ 392:.\ring_buffer.c **** 						*size = 0;
+ 393:.\ring_buffer.c **** 						status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 394:.\ring_buffer.c **** 					}
+ 395:.\ring_buffer.c **** 				}
+ 396:.\ring_buffer.c **** 			}
+ 397:.\ring_buffer.c **** 			else
+ 398:.\ring_buffer.c **** 			{
+ 399:.\ring_buffer.c **** 				*size = 0;
+ 400:.\ring_buffer.c **** 				status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 1502              		.loc 1 400 0
+ 1503 00ea 18E0     		b	.L71
+ 1504              	.L79:
+ 1505              		.loc 1 392 0
+ 1506 00ec 7B68     		ldr	r3, [r7, #4]
+ 1507 00ee 4FF00002 		mov	r2, #0
+ 1508 00f2 1A70     		strb	r2, [r3, #0]
+ 1509              		.loc 1 393 0
+ 1510 00f4 4FF0FF33 		mov	r3, #-1
+ 1511 00f8 FB74     		strb	r3, [r7, #19]
+ 1512              		.loc 1 400 0
+ 1513 00fa 10E0     		b	.L71
+ 1514              	.L77:
+ 1515              		.loc 1 399 0
+ 1516 00fc 7B68     		ldr	r3, [r7, #4]
+ 1517 00fe 4FF00002 		mov	r2, #0
+ 1518 0102 1A70     		strb	r2, [r3, #0]
+ 1519              		.loc 1 400 0
+ 1520 0104 4FF0FF33 		mov	r3, #-1
+ 1521 0108 FB74     		strb	r3, [r7, #19]
+ 1522 010a 08E0     		b	.L71
+ 1523              	.L72:
+ 401:.\ring_buffer.c **** 			}	
+ 402:.\ring_buffer.c **** 		}
+ 403:.\ring_buffer.c **** 		else
+ 404:.\ring_buffer.c **** 		{
+ 405:.\ring_buffer.c **** 			*size = 0;
+ 1524              		.loc 1 405 0
+ 1525 010c 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 35
+
+
+ 1526 010e 4FF00002 		mov	r2, #0
+ 1527 0112 1A70     		strb	r2, [r3, #0]
+ 406:.\ring_buffer.c **** 			status = RBF_EMPTY;
+ 1528              		.loc 1 406 0
+ 1529 0114 6FF00303 		mvn	r3, #3
+ 1530 0118 FB74     		strb	r3, [r7, #19]
+ 1531 011a 00E0     		b	.L71
+ 1532              	.L82:
+ 1533              		.loc 1 400 0
+ 1534 011c 00BF     		nop
+ 1535              	.L71:
+ 407:.\ring_buffer.c **** 		}
+ 408:.\ring_buffer.c **** 	}
+ 409:.\ring_buffer.c **** 	
+ 410:.\ring_buffer.c **** 	
+ 411:.\ring_buffer.c **** 	return status;
+ 1536              		.loc 1 411 0
+ 1537 011e FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 412:.\ring_buffer.c **** }
+ 1538              		.loc 1 412 0
+ 1539 0120 1846     		mov	r0, r3
+ 1540 0122 07F11807 		add	r7, r7, #24
+ 1541 0126 BD46     		mov	sp, r7
+ 1542 0128 80BD     		pop	{r7, pc}
+ 1543              		.cfi_endproc
+ 1544              	.LFE38:
+ 1545              		.size	RBF_ucHeadMsgOut, .-RBF_ucHeadMsgOut
+ 1546 012a 00BF     		.section	.text.RBF_ucTailMsgOut,"ax",%progbits
+ 1547              		.align	2
+ 1548              		.global	RBF_ucTailMsgOut
+ 1549              		.thumb
+ 1550              		.thumb_func
+ 1551              		.type	RBF_ucTailMsgOut, %function
+ 1552              	RBF_ucTailMsgOut:
+ 1553              	.LFB39:
+ 413:.\ring_buffer.c **** /*****************************************************************/
+ 414:.\ring_buffer.c **** /**
+ 415:.\ring_buffer.c **** 	Example:
+ 416:.\ring_buffer.c **** 	
+ 417:.\ring_buffer.c **** 	| size | d0 | d1 | ... | dn | size | size | d0 | d1 | ... | dn | size |
+ 418:.\ring_buffer.c **** 	  ^																 ^
+ 419:.\ring_buffer.c **** 	  tail															 head
+ 420:.\ring_buffer.c **** 	  ----
+ 421:.\ring_buffer.c **** */
+ 422:.\ring_buffer.c **** uint8_t RBF_ucTailMsgOut(uint8_t ucIndex, uint8_t* target, uint8_t* size)
+ 423:.\ring_buffer.c **** {
+ 1554              		.loc 1 423 0
+ 1555              		.cfi_startproc
+ 1556              		@ args = 0, pretend = 0, frame = 24
+ 1557              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1558 0000 80B5     		push	{r7, lr}
+ 1559              	.LCFI29:
+ 1560              		.cfi_def_cfa_offset 8
+ 1561 0002 86B0     		sub	sp, sp, #24
+ 1562              	.LCFI30:
+ 1563              		.cfi_def_cfa_offset 32
+ 1564 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 36
+
+
+ 1565              		.cfi_offset 14, -4
+ 1566              		.cfi_offset 7, -8
+ 1567              	.LCFI31:
+ 1568              		.cfi_def_cfa_register 7
+ 1569 0006 0346     		mov	r3, r0
+ 1570 0008 B960     		str	r1, [r7, #8]
+ 1571 000a 7A60     		str	r2, [r7, #4]
+ 1572 000c FB73     		strb	r3, [r7, #15]
+ 424:.\ring_buffer.c ****     STATUS status;
+ 425:.\ring_buffer.c **** 	int i=0;
+ 1573              		.loc 1 425 0
+ 1574 000e 4FF00003 		mov	r3, #0
+ 1575 0012 7B61     		str	r3, [r7, #20]
+ 426:.\ring_buffer.c **** 	uint8_t temp;
+ 427:.\ring_buffer.c **** 	
+ 428:.\ring_buffer.c **** 	// 1st byte = message size		
+ 429:.\ring_buffer.c **** 	if(RBF_ucTailByteOut(ucIndex, size) == RBF_SUCCESS)		// | size | d0 | d1 | ... | dn | size |
+ 1576              		.loc 1 429 0
+ 1577 0014 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1578 0016 1846     		mov	r0, r3
+ 1579 0018 7968     		ldr	r1, [r7, #4]
+ 1580 001a FFF7FEFF 		bl	RBF_ucTailByteOut
+ 1581 001e 0346     		mov	r3, r0
+ 1582 0020 002B     		cmp	r3, #0
+ 1583 0022 75D1     		bne	.L84
+ 430:.\ring_buffer.c **** 	{																	//	 ^
+ 431:.\ring_buffer.c **** 		if (*size > 0)
+ 1584              		.loc 1 431 0
+ 1585 0024 7B68     		ldr	r3, [r7, #4]
+ 1586 0026 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1587 0028 002B     		cmp	r3, #0
+ 1588 002a 68D0     		beq	.L85
+ 432:.\ring_buffer.c **** 		{
+ 433:.\ring_buffer.c **** 			while(i < *size)
+ 1589              		.loc 1 433 0
+ 1590 002c 17E0     		b	.L86
+ 1591              	.L89:
+ 434:.\ring_buffer.c **** 			{
+ 435:.\ring_buffer.c **** 				// message data bytes
+ 436:.\ring_buffer.c **** 				if(RBF_ucTailByteOut(ucIndex, &target[i]) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size
+ 1592              		.loc 1 436 0
+ 1593 002e 7A69     		ldr	r2, [r7, #20]
+ 1594 0030 BB68     		ldr	r3, [r7, #8]
+ 1595 0032 1344     		add	r3, r2, r3
+ 1596 0034 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1597 0036 1046     		mov	r0, r2
+ 1598 0038 1946     		mov	r1, r3
+ 1599 003a FFF7FEFF 		bl	RBF_ucTailByteOut
+ 1600 003e 0346     		mov	r3, r0
+ 1601 0040 002B     		cmp	r3, #0
+ 1602 0042 04D1     		bne	.L87
+ 437:.\ring_buffer.c **** 				{															//	 	    ^	   -->		   |
+ 438:.\ring_buffer.c **** 					i++;
+ 1603              		.loc 1 438 0
+ 1604 0044 7B69     		ldr	r3, [r7, #20]
+ 1605 0046 03F10103 		add	r3, r3, #1
+ 1606 004a 7B61     		str	r3, [r7, #20]
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 37
+
+
+ 1607 004c 07E0     		b	.L86
+ 1608              	.L87:
+ 439:.\ring_buffer.c **** 				}
+ 440:.\ring_buffer.c **** 				else
+ 441:.\ring_buffer.c **** 				{
+ 442:.\ring_buffer.c **** 					*size = 0;
+ 1609              		.loc 1 442 0
+ 1610 004e 7B68     		ldr	r3, [r7, #4]
+ 1611 0050 4FF00002 		mov	r2, #0
+ 1612 0054 1A70     		strb	r2, [r3, #0]
+ 443:.\ring_buffer.c **** 					status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 1613              		.loc 1 443 0
+ 1614 0056 4FF0FF33 		mov	r3, #-1
+ 1615 005a FB74     		strb	r3, [r7, #19]
+ 444:.\ring_buffer.c **** 					break; 
+ 1616              		.loc 1 444 0
+ 1617 005c 05E0     		b	.L88
+ 1618              	.L86:
+ 1619              		.loc 1 433 0
+ 1620 005e 7B68     		ldr	r3, [r7, #4]
+ 1621 0060 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1622 0062 1A46     		mov	r2, r3
+ 1623 0064 7B69     		ldr	r3, [r7, #20]
+ 1624 0066 9A42     		cmp	r2, r3
+ 1625 0068 E1DC     		bgt	.L89
+ 1626              	.L88:
+ 445:.\ring_buffer.c **** 				}
+ 446:.\ring_buffer.c **** 			}
+ 447:.\ring_buffer.c **** 			
+ 448:.\ring_buffer.c **** 			if (i == *size)
+ 1627              		.loc 1 448 0
+ 1628 006a 7B68     		ldr	r3, [r7, #4]
+ 1629 006c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 1630 006e 1A46     		mov	r2, r3
+ 1631 0070 7B69     		ldr	r3, [r7, #20]
+ 1632 0072 9A42     		cmp	r2, r3
+ 1633 0074 3BD1     		bne	.L90
+ 449:.\ring_buffer.c **** 			{
+ 450:.\ring_buffer.c **** 				// get size byte at beginning of message 
+ 451:.\ring_buffer.c **** 				if(RBF_ucTailByteOut(ucIndex, &temp) == RBF_SUCCESS)	// | size | d0 | d1 | ... | dn | size |
+ 1634              		.loc 1 451 0
+ 1635 0076 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1636 0078 07F11203 		add	r3, r7, #18
+ 1637 007c 1046     		mov	r0, r2
+ 1638 007e 1946     		mov	r1, r3
+ 1639 0080 FFF7FEFF 		bl	RBF_ucTailByteOut
+ 1640 0084 0346     		mov	r3, r0
+ 1641 0086 002B     		cmp	r3, #0
+ 1642 0088 41D1     		bne	.L95
+ 452:.\ring_buffer.c **** 				{														//	 							 ^
+ 453:.\ring_buffer.c **** 					if (temp == *size)
+ 1643              		.loc 1 453 0
+ 1644 008a 7B68     		ldr	r3, [r7, #4]
+ 1645 008c 1A78     		ldrb	r2, [r3, #0]	@ zero_extendqisi2
+ 1646 008e BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 1647 0090 9A42     		cmp	r2, r3
+ 1648 0092 24D1     		bne	.L92
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 38
+
+
+ 454:.\ring_buffer.c **** 					{
+ 455:.\ring_buffer.c **** 						RingBuffer[ucIndex].msgcount--;
+ 1649              		.loc 1 455 0
+ 1650 0094 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 1651 0096 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1652 009a C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1653 009e 1346     		mov	r3, r2
+ 1654 00a0 4FEA8303 		lsl	r3, r3, #2
+ 1655 00a4 1344     		add	r3, r3, r2
+ 1656 00a6 4FEA8303 		lsl	r3, r3, #2
+ 1657 00aa 0B44     		add	r3, r3, r1
+ 1658 00ac 03F11003 		add	r3, r3, #16
+ 1659 00b0 1B88     		ldrh	r3, [r3, #0]
+ 1660 00b2 03F1FF33 		add	r3, r3, #-1
+ 1661 00b6 98B2     		uxth	r0, r3
+ 1662 00b8 40F20001 		movw	r1, #:lower16:RingBuffer
+ 1663 00bc C0F20001 		movt	r1, #:upper16:RingBuffer
+ 1664 00c0 1346     		mov	r3, r2
+ 1665 00c2 4FEA8303 		lsl	r3, r3, #2
+ 1666 00c6 1344     		add	r3, r3, r2
+ 1667 00c8 4FEA8303 		lsl	r3, r3, #2
+ 1668 00cc 0B44     		add	r3, r3, r1
+ 1669 00ce 03F11003 		add	r3, r3, #16
+ 1670 00d2 0246     		mov	r2, r0	@ movhi
+ 1671 00d4 1A80     		strh	r2, [r3, #0]	@ movhi
+ 456:.\ring_buffer.c **** 						status = RBF_SUCCESS;
+ 1672              		.loc 1 456 0
+ 1673 00d6 4FF00003 		mov	r3, #0
+ 1674 00da FB74     		strb	r3, [r7, #19]
+ 457:.\ring_buffer.c **** 					}
+ 458:.\ring_buffer.c **** 					else
+ 459:.\ring_buffer.c **** 					{
+ 460:.\ring_buffer.c **** 						*size = 0;
+ 461:.\ring_buffer.c **** 						status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 462:.\ring_buffer.c **** 					}
+ 463:.\ring_buffer.c **** 				}
+ 464:.\ring_buffer.c **** 			}
+ 465:.\ring_buffer.c **** 			else
+ 466:.\ring_buffer.c **** 			{
+ 467:.\ring_buffer.c **** 				*size = 0;
+ 468:.\ring_buffer.c **** 				status = RBF_ERROR;	// this should never happen, buffer must be cleared
+ 1675              		.loc 1 468 0
+ 1676 00dc 18E0     		b	.L84
+ 1677              	.L92:
+ 1678              		.loc 1 460 0
+ 1679 00de 7B68     		ldr	r3, [r7, #4]
+ 1680 00e0 4FF00002 		mov	r2, #0
+ 1681 00e4 1A70     		strb	r2, [r3, #0]
+ 1682              		.loc 1 461 0
+ 1683 00e6 4FF0FF33 		mov	r3, #-1
+ 1684 00ea FB74     		strb	r3, [r7, #19]
+ 1685              		.loc 1 468 0
+ 1686 00ec 10E0     		b	.L84
+ 1687              	.L90:
+ 1688              		.loc 1 467 0
+ 1689 00ee 7B68     		ldr	r3, [r7, #4]
+ 1690 00f0 4FF00002 		mov	r2, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 39
+
+
+ 1691 00f4 1A70     		strb	r2, [r3, #0]
+ 1692              		.loc 1 468 0
+ 1693 00f6 4FF0FF33 		mov	r3, #-1
+ 1694 00fa FB74     		strb	r3, [r7, #19]
+ 1695 00fc 08E0     		b	.L84
+ 1696              	.L85:
+ 469:.\ring_buffer.c **** 			}	
+ 470:.\ring_buffer.c **** 		}
+ 471:.\ring_buffer.c **** 		else
+ 472:.\ring_buffer.c **** 		{
+ 473:.\ring_buffer.c **** 			*size = 0;
+ 1697              		.loc 1 473 0
+ 1698 00fe 7B68     		ldr	r3, [r7, #4]
+ 1699 0100 4FF00002 		mov	r2, #0
+ 1700 0104 1A70     		strb	r2, [r3, #0]
+ 474:.\ring_buffer.c **** 			status = RBF_EMPTY;
+ 1701              		.loc 1 474 0
+ 1702 0106 6FF00303 		mvn	r3, #3
+ 1703 010a FB74     		strb	r3, [r7, #19]
+ 1704 010c 00E0     		b	.L84
+ 1705              	.L95:
+ 1706              		.loc 1 468 0
+ 1707 010e 00BF     		nop
+ 1708              	.L84:
+ 475:.\ring_buffer.c **** 		}
+ 476:.\ring_buffer.c **** 	}
+ 477:.\ring_buffer.c **** 	
+ 478:.\ring_buffer.c **** 	
+ 479:.\ring_buffer.c **** 	return status;
+ 1709              		.loc 1 479 0
+ 1710 0110 FB7C     		ldrb	r3, [r7, #19]	@ zero_extendqisi2
+ 480:.\ring_buffer.c **** }
+ 1711              		.loc 1 480 0
+ 1712 0112 1846     		mov	r0, r3
+ 1713 0114 07F11807 		add	r7, r7, #24
+ 1714 0118 BD46     		mov	sp, r7
+ 1715 011a 80BD     		pop	{r7, pc}
+ 1716              		.cfi_endproc
+ 1717              	.LFE39:
+ 1718              		.size	RBF_ucTailMsgOut, .-RBF_ucTailMsgOut
+ 1719              		.section	.text.RBF_ucGetMsgCount,"ax",%progbits
+ 1720              		.align	2
+ 1721              		.global	RBF_ucGetMsgCount
+ 1722              		.thumb
+ 1723              		.thumb_func
+ 1724              		.type	RBF_ucGetMsgCount, %function
+ 1725              	RBF_ucGetMsgCount:
+ 1726              	.LFB40:
+ 481:.\ring_buffer.c **** /*****************************************************************/
+ 482:.\ring_buffer.c **** uint8_t RBF_ucGetMsgCount(uint8_t ucIndex)
+ 483:.\ring_buffer.c **** {
+ 1727              		.loc 1 483 0
+ 1728              		.cfi_startproc
+ 1729              		@ args = 0, pretend = 0, frame = 8
+ 1730              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1731              		@ link register save eliminated.
+ 1732 0000 80B4     		push	{r7}
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 40
+
+
+ 1733              	.LCFI32:
+ 1734              		.cfi_def_cfa_offset 4
+ 1735 0002 83B0     		sub	sp, sp, #12
+ 1736              	.LCFI33:
+ 1737              		.cfi_def_cfa_offset 16
+ 1738 0004 00AF     		add	r7, sp, #0
+ 1739              		.cfi_offset 7, -4
+ 1740              	.LCFI34:
+ 1741              		.cfi_def_cfa_register 7
+ 1742 0006 0346     		mov	r3, r0
+ 1743 0008 FB71     		strb	r3, [r7, #7]
+ 484:.\ring_buffer.c **** 	return RingBuffer[ucIndex].msgcount;
+ 1744              		.loc 1 484 0
+ 1745 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1746 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1747 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1748 0014 0B46     		mov	r3, r1
+ 1749 0016 4FEA8303 		lsl	r3, r3, #2
+ 1750 001a 0B44     		add	r3, r3, r1
+ 1751 001c 4FEA8303 		lsl	r3, r3, #2
+ 1752 0020 1344     		add	r3, r3, r2
+ 1753 0022 03F11003 		add	r3, r3, #16
+ 1754 0026 1B88     		ldrh	r3, [r3, #0]
+ 1755 0028 DBB2     		uxtb	r3, r3
+ 485:.\ring_buffer.c **** }	
+ 1756              		.loc 1 485 0
+ 1757 002a 1846     		mov	r0, r3
+ 1758 002c 07F10C07 		add	r7, r7, #12
+ 1759 0030 BD46     		mov	sp, r7
+ 1760 0032 80BC     		pop	{r7}
+ 1761 0034 7047     		bx	lr
+ 1762              		.cfi_endproc
+ 1763              	.LFE40:
+ 1764              		.size	RBF_ucGetMsgCount, .-RBF_ucGetMsgCount
+ 1765 0036 00BF     		.section	.text.RBF_ucGetByteCount,"ax",%progbits
+ 1766              		.align	2
+ 1767              		.global	RBF_ucGetByteCount
+ 1768              		.thumb
+ 1769              		.thumb_func
+ 1770              		.type	RBF_ucGetByteCount, %function
+ 1771              	RBF_ucGetByteCount:
+ 1772              	.LFB41:
+ 486:.\ring_buffer.c **** 
+ 487:.\ring_buffer.c **** /*****************************************************************/
+ 488:.\ring_buffer.c **** uint8_t RBF_ucGetByteCount(uint8_t ucIndex)
+ 489:.\ring_buffer.c **** {
+ 1773              		.loc 1 489 0
+ 1774              		.cfi_startproc
+ 1775              		@ args = 0, pretend = 0, frame = 16
+ 1776              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1777              		@ link register save eliminated.
+ 1778 0000 80B4     		push	{r7}
+ 1779              	.LCFI35:
+ 1780              		.cfi_def_cfa_offset 4
+ 1781 0002 85B0     		sub	sp, sp, #20
+ 1782              	.LCFI36:
+ 1783              		.cfi_def_cfa_offset 24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 41
+
+
+ 1784 0004 00AF     		add	r7, sp, #0
+ 1785              		.cfi_offset 7, -4
+ 1786              	.LCFI37:
+ 1787              		.cfi_def_cfa_register 7
+ 1788 0006 0346     		mov	r3, r0
+ 1789 0008 FB71     		strb	r3, [r7, #7]
+ 490:.\ring_buffer.c ****     uint8_t bytecount;
+ 491:.\ring_buffer.c ****     
+ 492:.\ring_buffer.c ****     if (RingBuffer[ucIndex].head == RingBuffer[ucIndex].tail)
+ 1790              		.loc 1 492 0
+ 1791 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1792 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1793 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1794 0014 0B46     		mov	r3, r1
+ 1795 0016 4FEA8303 		lsl	r3, r3, #2
+ 1796 001a 0B44     		add	r3, r3, r1
+ 1797 001c 4FEA8303 		lsl	r3, r3, #2
+ 1798 0020 1344     		add	r3, r3, r2
+ 1799 0022 03F10803 		add	r3, r3, #8
+ 1800 0026 5888     		ldrh	r0, [r3, #2]
+ 1801 0028 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1802 002a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1803 002e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1804 0032 0B46     		mov	r3, r1
+ 1805 0034 4FEA8303 		lsl	r3, r3, #2
+ 1806 0038 0B44     		add	r3, r3, r1
+ 1807 003a 4FEA8303 		lsl	r3, r3, #2
+ 1808 003e 1344     		add	r3, r3, r2
+ 1809 0040 03F10803 		add	r3, r3, #8
+ 1810 0044 9B88     		ldrh	r3, [r3, #4]
+ 1811 0046 9842     		cmp	r0, r3
+ 1812 0048 03D1     		bne	.L99
+ 493:.\ring_buffer.c ****     {
+ 494:.\ring_buffer.c ****         bytecount = 0;
+ 1813              		.loc 1 494 0
+ 1814 004a 4FF00003 		mov	r3, #0
+ 1815 004e FB73     		strb	r3, [r7, #15]
+ 1816 0050 79E0     		b	.L100
+ 1817              	.L99:
+ 495:.\ring_buffer.c ****     }
+ 496:.\ring_buffer.c ****     else if (RingBuffer[ucIndex].head > RingBuffer[ucIndex].tail)
+ 1818              		.loc 1 496 0
+ 1819 0052 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1820 0054 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1821 0058 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1822 005c 0B46     		mov	r3, r1
+ 1823 005e 4FEA8303 		lsl	r3, r3, #2
+ 1824 0062 0B44     		add	r3, r3, r1
+ 1825 0064 4FEA8303 		lsl	r3, r3, #2
+ 1826 0068 1344     		add	r3, r3, r2
+ 1827 006a 03F10803 		add	r3, r3, #8
+ 1828 006e 5888     		ldrh	r0, [r3, #2]
+ 1829 0070 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1830 0072 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1831 0076 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1832 007a 0B46     		mov	r3, r1
+ 1833 007c 4FEA8303 		lsl	r3, r3, #2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 42
+
+
+ 1834 0080 0B44     		add	r3, r3, r1
+ 1835 0082 4FEA8303 		lsl	r3, r3, #2
+ 1836 0086 1344     		add	r3, r3, r2
+ 1837 0088 03F10803 		add	r3, r3, #8
+ 1838 008c 9B88     		ldrh	r3, [r3, #4]
+ 1839 008e 9842     		cmp	r0, r3
+ 1840 0090 23D9     		bls	.L101
+ 497:.\ring_buffer.c ****     {
+ 498:.\ring_buffer.c ****         bytecount = RingBuffer[ucIndex].head - RingBuffer[ucIndex].tail;
+ 1841              		.loc 1 498 0
+ 1842 0092 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1843 0094 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1844 0098 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1845 009c 0B46     		mov	r3, r1
+ 1846 009e 4FEA8303 		lsl	r3, r3, #2
+ 1847 00a2 0B44     		add	r3, r3, r1
+ 1848 00a4 4FEA8303 		lsl	r3, r3, #2
+ 1849 00a8 1344     		add	r3, r3, r2
+ 1850 00aa 03F10803 		add	r3, r3, #8
+ 1851 00ae 5B88     		ldrh	r3, [r3, #2]
+ 1852 00b0 D8B2     		uxtb	r0, r3
+ 1853 00b2 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1854 00b4 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1855 00b8 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1856 00bc 0B46     		mov	r3, r1
+ 1857 00be 4FEA8303 		lsl	r3, r3, #2
+ 1858 00c2 0B44     		add	r3, r3, r1
+ 1859 00c4 4FEA8303 		lsl	r3, r3, #2
+ 1860 00c8 1344     		add	r3, r3, r2
+ 1861 00ca 03F10803 		add	r3, r3, #8
+ 1862 00ce 9B88     		ldrh	r3, [r3, #4]
+ 1863 00d0 DBB2     		uxtb	r3, r3
+ 1864 00d2 C3EB0003 		rsb	r3, r3, r0
+ 1865 00d6 FB73     		strb	r3, [r7, #15]
+ 1866 00d8 35E0     		b	.L100
+ 1867              	.L101:
+ 499:.\ring_buffer.c ****     }
+ 500:.\ring_buffer.c ****     else
+ 501:.\ring_buffer.c ****     {
+ 502:.\ring_buffer.c ****         bytecount = RingBuffer[ucIndex].head + (RingBuffer[ucIndex].size - RingBuffer[ucIndex].tail
+ 1868              		.loc 1 502 0
+ 1869 00da F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1870 00dc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1871 00e0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1872 00e4 0B46     		mov	r3, r1
+ 1873 00e6 4FEA8303 		lsl	r3, r3, #2
+ 1874 00ea 0B44     		add	r3, r3, r1
+ 1875 00ec 4FEA8303 		lsl	r3, r3, #2
+ 1876 00f0 1344     		add	r3, r3, r2
+ 1877 00f2 03F10803 		add	r3, r3, #8
+ 1878 00f6 5B88     		ldrh	r3, [r3, #2]
+ 1879 00f8 D8B2     		uxtb	r0, r3
+ 1880 00fa F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1881 00fc 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1882 0100 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1883 0104 0B46     		mov	r3, r1
+ 1884 0106 4FEA8303 		lsl	r3, r3, #2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 43
+
+
+ 1885 010a 0B44     		add	r3, r3, r1
+ 1886 010c 4FEA8303 		lsl	r3, r3, #2
+ 1887 0110 1344     		add	r3, r3, r2
+ 1888 0112 03F10803 		add	r3, r3, #8
+ 1889 0116 1B88     		ldrh	r3, [r3, #0]
+ 1890 0118 5FFA83FC 		uxtb	ip, r3
+ 1891 011c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1892 011e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1893 0122 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1894 0126 0B46     		mov	r3, r1
+ 1895 0128 4FEA8303 		lsl	r3, r3, #2
+ 1896 012c 0B44     		add	r3, r3, r1
+ 1897 012e 4FEA8303 		lsl	r3, r3, #2
+ 1898 0132 1344     		add	r3, r3, r2
+ 1899 0134 03F10803 		add	r3, r3, #8
+ 1900 0138 9B88     		ldrh	r3, [r3, #4]
+ 1901 013a DBB2     		uxtb	r3, r3
+ 1902 013c C3EB0C03 		rsb	r3, r3, ip
+ 1903 0140 DBB2     		uxtb	r3, r3
+ 1904 0142 0344     		add	r3, r0, r3
+ 1905 0144 FB73     		strb	r3, [r7, #15]
+ 1906              	.L100:
+ 503:.\ring_buffer.c ****     }
+ 504:.\ring_buffer.c ****     
+ 505:.\ring_buffer.c ****      if (RingBuffer[ucIndex].zb == 1)
+ 1907              		.loc 1 505 0
+ 1908 0146 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1909 0148 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1910 014c C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1911 0150 0B46     		mov	r3, r1
+ 1912 0152 4FEA8303 		lsl	r3, r3, #2
+ 1913 0156 0B44     		add	r3, r3, r1
+ 1914 0158 4FEA8303 		lsl	r3, r3, #2
+ 1915 015c 1344     		add	r3, r3, r2
+ 1916 015e 03F10803 		add	r3, r3, #8
+ 1917 0162 9B79     		ldrb	r3, [r3, #6]	@ zero_extendqisi2
+ 1918 0164 012B     		cmp	r3, #1
+ 1919 0166 03D1     		bne	.L102
+ 506:.\ring_buffer.c ****     {
+ 507:.\ring_buffer.c ****         bytecount++;
+ 1920              		.loc 1 507 0
+ 1921 0168 FB7B     		ldrb	r3, [r7, #15]
+ 1922 016a 03F10103 		add	r3, r3, #1
+ 1923 016e FB73     		strb	r3, [r7, #15]
+ 1924              	.L102:
+ 508:.\ring_buffer.c ****     }
+ 509:.\ring_buffer.c ****     
+ 510:.\ring_buffer.c ****     return bytecount;
+ 1925              		.loc 1 510 0
+ 1926 0170 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 511:.\ring_buffer.c **** }
+ 1927              		.loc 1 511 0
+ 1928 0172 1846     		mov	r0, r3
+ 1929 0174 07F11407 		add	r7, r7, #20
+ 1930 0178 BD46     		mov	sp, r7
+ 1931 017a 80BC     		pop	{r7}
+ 1932 017c 7047     		bx	lr
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 44
+
+
+ 1933              		.cfi_endproc
+ 1934              	.LFE41:
+ 1935              		.size	RBF_ucGetByteCount, .-RBF_ucGetByteCount
+ 1936 017e 00BF     		.section	.text.IncHead,"ax",%progbits
+ 1937              		.align	2
+ 1938              		.thumb
+ 1939              		.thumb_func
+ 1940              		.type	IncHead, %function
+ 1941              	IncHead:
+ 1942              	.LFB42:
+ 512:.\ring_buffer.c **** 
+ 513:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+ 514:.\ring_buffer.c **** /* --------------------- STATIC FUNCTIONS -------------------------- */ 
+ 515:.\ring_buffer.c **** /* ----------------------------------------------------------------- */
+ 516:.\ring_buffer.c **** /*****************************************************************/
+ 517:.\ring_buffer.c **** static uint8_t IncHead(uint8_t ucIdx)
+ 518:.\ring_buffer.c **** {
+ 1943              		.loc 1 518 0
+ 1944              		.cfi_startproc
+ 1945              		@ args = 0, pretend = 0, frame = 16
+ 1946              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1947              		@ link register save eliminated.
+ 1948 0000 80B4     		push	{r7}
+ 1949              	.LCFI38:
+ 1950              		.cfi_def_cfa_offset 4
+ 1951 0002 85B0     		sub	sp, sp, #20
+ 1952              	.LCFI39:
+ 1953              		.cfi_def_cfa_offset 24
+ 1954 0004 00AF     		add	r7, sp, #0
+ 1955              		.cfi_offset 7, -4
+ 1956              	.LCFI40:
+ 1957              		.cfi_def_cfa_register 7
+ 1958 0006 0346     		mov	r3, r0
+ 1959 0008 FB71     		strb	r3, [r7, #7]
+ 519:.\ring_buffer.c ****     uint8_t status;
+ 520:.\ring_buffer.c ****     uint16_t tempHead = RingBuffer[ucIdx].head + 1;
+ 1960              		.loc 1 520 0
+ 1961 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1962 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1963 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1964 0014 0B46     		mov	r3, r1
+ 1965 0016 4FEA8303 		lsl	r3, r3, #2
+ 1966 001a 0B44     		add	r3, r3, r1
+ 1967 001c 4FEA8303 		lsl	r3, r3, #2
+ 1968 0020 1344     		add	r3, r3, r2
+ 1969 0022 03F10803 		add	r3, r3, #8
+ 1970 0026 5B88     		ldrh	r3, [r3, #2]
+ 1971 0028 03F10103 		add	r3, r3, #1
+ 1972 002c FB81     		strh	r3, [r7, #14]	@ movhi
+ 521:.\ring_buffer.c ****     
+ 522:.\ring_buffer.c ****     if (tempHead > RingBuffer[ucIdx].size - 1)
+ 1973              		.loc 1 522 0
+ 1974 002e F889     		ldrh	r0, [r7, #14]
+ 1975 0030 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1976 0032 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1977 0036 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1978 003a 0B46     		mov	r3, r1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 45
+
+
+ 1979 003c 4FEA8303 		lsl	r3, r3, #2
+ 1980 0040 0B44     		add	r3, r3, r1
+ 1981 0042 4FEA8303 		lsl	r3, r3, #2
+ 1982 0046 1344     		add	r3, r3, r2
+ 1983 0048 03F10803 		add	r3, r3, #8
+ 1984 004c 1B88     		ldrh	r3, [r3, #0]
+ 1985 004e 03F1FF33 		add	r3, r3, #-1
+ 1986 0052 9842     		cmp	r0, r3
+ 1987 0054 02DD     		ble	.L105
+ 523:.\ring_buffer.c ****     {
+ 524:.\ring_buffer.c ****         tempHead = 0;
+ 1988              		.loc 1 524 0
+ 1989 0056 4FF00003 		mov	r3, #0
+ 1990 005a FB81     		strh	r3, [r7, #14]	@ movhi
+ 1991              	.L105:
+ 525:.\ring_buffer.c ****     }
+ 526:.\ring_buffer.c ****     
+ 527:.\ring_buffer.c ****     if ((tempHead == RingBuffer[ucIdx].tail) && (RingBuffer[ucIdx].tail == 1)) 
+ 1992              		.loc 1 527 0
+ 1993 005c F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 1994 005e 40F20002 		movw	r2, #:lower16:RingBuffer
+ 1995 0062 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 1996 0066 0B46     		mov	r3, r1
+ 1997 0068 4FEA8303 		lsl	r3, r3, #2
+ 1998 006c 0B44     		add	r3, r3, r1
+ 1999 006e 4FEA8303 		lsl	r3, r3, #2
+ 2000 0072 1344     		add	r3, r3, r2
+ 2001 0074 03F10803 		add	r3, r3, #8
+ 2002 0078 9B88     		ldrh	r3, [r3, #4]
+ 2003 007a FA89     		ldrh	r2, [r7, #14]
+ 2004 007c 9A42     		cmp	r2, r3
+ 2005 007e 14D1     		bne	.L106
+ 2006 0080 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2007 0082 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2008 0086 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2009 008a 0B46     		mov	r3, r1
+ 2010 008c 4FEA8303 		lsl	r3, r3, #2
+ 2011 0090 0B44     		add	r3, r3, r1
+ 2012 0092 4FEA8303 		lsl	r3, r3, #2
+ 2013 0096 1344     		add	r3, r3, r2
+ 2014 0098 03F10803 		add	r3, r3, #8
+ 2015 009c 9B88     		ldrh	r3, [r3, #4]
+ 2016 009e 012B     		cmp	r3, #1
+ 2017 00a0 03D1     		bne	.L106
+ 528:.\ring_buffer.c ****     {
+ 529:.\ring_buffer.c ****         status = RBF_FAIL;
+ 2018              		.loc 1 529 0
+ 2019 00a2 4FF00103 		mov	r3, #1
+ 2020 00a6 7B73     		strb	r3, [r7, #13]
+ 2021              		.loc 1 527 0
+ 2022 00a8 12E0     		b	.L107
+ 2023              	.L106:
+ 530:.\ring_buffer.c ****     }
+ 531:.\ring_buffer.c ****     else
+ 532:.\ring_buffer.c ****     {
+ 533:.\ring_buffer.c ****         RingBuffer[ucIdx].head = tempHead;
+ 2024              		.loc 1 533 0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 46
+
+
+ 2025 00aa F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2026 00ac 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2027 00b0 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2028 00b4 0B46     		mov	r3, r1
+ 2029 00b6 4FEA8303 		lsl	r3, r3, #2
+ 2030 00ba 0B44     		add	r3, r3, r1
+ 2031 00bc 4FEA8303 		lsl	r3, r3, #2
+ 2032 00c0 1344     		add	r3, r3, r2
+ 2033 00c2 03F10803 		add	r3, r3, #8
+ 2034 00c6 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 2035 00c8 5A80     		strh	r2, [r3, #2]	@ movhi
+ 534:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 2036              		.loc 1 534 0
+ 2037 00ca 4FF00003 		mov	r3, #0
+ 2038 00ce 7B73     		strb	r3, [r7, #13]
+ 2039              	.L107:
+ 535:.\ring_buffer.c ****     }
+ 536:.\ring_buffer.c **** 
+ 537:.\ring_buffer.c ****     return status;
+ 2040              		.loc 1 537 0
+ 2041 00d0 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 538:.\ring_buffer.c **** } 
+ 2042              		.loc 1 538 0
+ 2043 00d2 1846     		mov	r0, r3
+ 2044 00d4 07F11407 		add	r7, r7, #20
+ 2045 00d8 BD46     		mov	sp, r7
+ 2046 00da 80BC     		pop	{r7}
+ 2047 00dc 7047     		bx	lr
+ 2048              		.cfi_endproc
+ 2049              	.LFE42:
+ 2050              		.size	IncHead, .-IncHead
+ 2051 00de 00BF     		.section	.text.DecHead,"ax",%progbits
+ 2052              		.align	2
+ 2053              		.thumb
+ 2054              		.thumb_func
+ 2055              		.type	DecHead, %function
+ 2056              	DecHead:
+ 2057              	.LFB43:
+ 539:.\ring_buffer.c **** /*****************************************************************/
+ 540:.\ring_buffer.c **** static uint8_t DecHead(uint8_t ucIdx)
+ 541:.\ring_buffer.c **** {
+ 2058              		.loc 1 541 0
+ 2059              		.cfi_startproc
+ 2060              		@ args = 0, pretend = 0, frame = 16
+ 2061              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2062              		@ link register save eliminated.
+ 2063 0000 80B4     		push	{r7}
+ 2064              	.LCFI41:
+ 2065              		.cfi_def_cfa_offset 4
+ 2066 0002 85B0     		sub	sp, sp, #20
+ 2067              	.LCFI42:
+ 2068              		.cfi_def_cfa_offset 24
+ 2069 0004 00AF     		add	r7, sp, #0
+ 2070              		.cfi_offset 7, -4
+ 2071              	.LCFI43:
+ 2072              		.cfi_def_cfa_register 7
+ 2073 0006 0346     		mov	r3, r0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 47
+
+
+ 2074 0008 FB71     		strb	r3, [r7, #7]
+ 542:.\ring_buffer.c ****     uint8_t status;
+ 543:.\ring_buffer.c ****     
+ 544:.\ring_buffer.c ****     if(RingBuffer[ucIdx].head == RingBuffer[ucIdx].tail)
+ 2075              		.loc 1 544 0
+ 2076 000a F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2077 000c 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2078 0010 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2079 0014 0B46     		mov	r3, r1
+ 2080 0016 4FEA8303 		lsl	r3, r3, #2
+ 2081 001a 0B44     		add	r3, r3, r1
+ 2082 001c 4FEA8303 		lsl	r3, r3, #2
+ 2083 0020 1344     		add	r3, r3, r2
+ 2084 0022 03F10803 		add	r3, r3, #8
+ 2085 0026 5888     		ldrh	r0, [r3, #2]
+ 2086 0028 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2087 002a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2088 002e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2089 0032 0B46     		mov	r3, r1
+ 2090 0034 4FEA8303 		lsl	r3, r3, #2
+ 2091 0038 0B44     		add	r3, r3, r1
+ 2092 003a 4FEA8303 		lsl	r3, r3, #2
+ 2093 003e 1344     		add	r3, r3, r2
+ 2094 0040 03F10803 		add	r3, r3, #8
+ 2095 0044 9B88     		ldrh	r3, [r3, #4]
+ 2096 0046 9842     		cmp	r0, r3
+ 2097 0048 03D1     		bne	.L110
+ 545:.\ring_buffer.c ****     {
+ 546:.\ring_buffer.c ****         status = RBF_FAIL;
+ 2098              		.loc 1 546 0
+ 2099 004a 4FF00103 		mov	r3, #1
+ 2100 004e FB73     		strb	r3, [r7, #15]
+ 2101 0050 57E0     		b	.L111
+ 2102              	.L110:
+ 547:.\ring_buffer.c ****     }
+ 548:.\ring_buffer.c ****     else
+ 549:.\ring_buffer.c ****     {
+ 550:.\ring_buffer.c ****         if (RingBuffer[ucIdx].head == 0)
+ 2103              		.loc 1 550 0
+ 2104 0052 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2105 0054 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2106 0058 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2107 005c 0B46     		mov	r3, r1
+ 2108 005e 4FEA8303 		lsl	r3, r3, #2
+ 2109 0062 0B44     		add	r3, r3, r1
+ 2110 0064 4FEA8303 		lsl	r3, r3, #2
+ 2111 0068 1344     		add	r3, r3, r2
+ 2112 006a 03F10803 		add	r3, r3, #8
+ 2113 006e 5B88     		ldrh	r3, [r3, #2]
+ 2114 0070 002B     		cmp	r3, #0
+ 2115 0072 22D1     		bne	.L112
+ 551:.\ring_buffer.c ****         {
+ 552:.\ring_buffer.c ****             RingBuffer[ucIdx].head = RingBuffer[ucIdx].size - 1;
+ 2116              		.loc 1 552 0
+ 2117 0074 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2118 0076 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 2119 0078 40F20002 		movw	r2, #:lower16:RingBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 48
+
+
+ 2120 007c C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2121 0080 0346     		mov	r3, r0
+ 2122 0082 4FEA8303 		lsl	r3, r3, #2
+ 2123 0086 0344     		add	r3, r3, r0
+ 2124 0088 4FEA8303 		lsl	r3, r3, #2
+ 2125 008c 1344     		add	r3, r3, r2
+ 2126 008e 03F10803 		add	r3, r3, #8
+ 2127 0092 1B88     		ldrh	r3, [r3, #0]
+ 2128 0094 03F1FF33 		add	r3, r3, #-1
+ 2129 0098 98B2     		uxth	r0, r3
+ 2130 009a 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2131 009e C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2132 00a2 0B46     		mov	r3, r1
+ 2133 00a4 4FEA8303 		lsl	r3, r3, #2
+ 2134 00a8 0B44     		add	r3, r3, r1
+ 2135 00aa 4FEA8303 		lsl	r3, r3, #2
+ 2136 00ae 1344     		add	r3, r3, r2
+ 2137 00b0 03F10803 		add	r3, r3, #8
+ 2138 00b4 0246     		mov	r2, r0	@ movhi
+ 2139 00b6 5A80     		strh	r2, [r3, #2]	@ movhi
+ 2140 00b8 20E0     		b	.L113
+ 2141              	.L112:
+ 553:.\ring_buffer.c ****         }
+ 554:.\ring_buffer.c ****         else
+ 555:.\ring_buffer.c ****         {
+ 556:.\ring_buffer.c ****             RingBuffer[ucIdx].head--;
+ 2142              		.loc 1 556 0
+ 2143 00ba FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 2144 00bc 40F20001 		movw	r1, #:lower16:RingBuffer
+ 2145 00c0 C0F20001 		movt	r1, #:upper16:RingBuffer
+ 2146 00c4 1346     		mov	r3, r2
+ 2147 00c6 4FEA8303 		lsl	r3, r3, #2
+ 2148 00ca 1344     		add	r3, r3, r2
+ 2149 00cc 4FEA8303 		lsl	r3, r3, #2
+ 2150 00d0 0B44     		add	r3, r3, r1
+ 2151 00d2 03F10803 		add	r3, r3, #8
+ 2152 00d6 5B88     		ldrh	r3, [r3, #2]
+ 2153 00d8 03F1FF33 		add	r3, r3, #-1
+ 2154 00dc 98B2     		uxth	r0, r3
+ 2155 00de 40F20001 		movw	r1, #:lower16:RingBuffer
+ 2156 00e2 C0F20001 		movt	r1, #:upper16:RingBuffer
+ 2157 00e6 1346     		mov	r3, r2
+ 2158 00e8 4FEA8303 		lsl	r3, r3, #2
+ 2159 00ec 1344     		add	r3, r3, r2
+ 2160 00ee 4FEA8303 		lsl	r3, r3, #2
+ 2161 00f2 0B44     		add	r3, r3, r1
+ 2162 00f4 03F10803 		add	r3, r3, #8
+ 2163 00f8 0246     		mov	r2, r0	@ movhi
+ 2164 00fa 5A80     		strh	r2, [r3, #2]	@ movhi
+ 2165              	.L113:
+ 557:.\ring_buffer.c ****         }
+ 558:.\ring_buffer.c ****         
+ 559:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 2166              		.loc 1 559 0
+ 2167 00fc 4FF00003 		mov	r3, #0
+ 2168 0100 FB73     		strb	r3, [r7, #15]
+ 2169              	.L111:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 49
+
+
+ 560:.\ring_buffer.c ****     }
+ 561:.\ring_buffer.c ****     
+ 562:.\ring_buffer.c ****         
+ 563:.\ring_buffer.c ****     return status;
+ 2170              		.loc 1 563 0
+ 2171 0102 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 564:.\ring_buffer.c **** }
+ 2172              		.loc 1 564 0
+ 2173 0104 1846     		mov	r0, r3
+ 2174 0106 07F11407 		add	r7, r7, #20
+ 2175 010a BD46     		mov	sp, r7
+ 2176 010c 80BC     		pop	{r7}
+ 2177 010e 7047     		bx	lr
+ 2178              		.cfi_endproc
+ 2179              	.LFE43:
+ 2180              		.size	DecHead, .-DecHead
+ 2181              		.section	.text.IncTail,"ax",%progbits
+ 2182              		.align	2
+ 2183              		.thumb
+ 2184              		.thumb_func
+ 2185              		.type	IncTail, %function
+ 2186              	IncTail:
+ 2187              	.LFB44:
+ 565:.\ring_buffer.c **** /*****************************************************************/
+ 566:.\ring_buffer.c **** static uint8_t IncTail(uint8_t ucIdx)
+ 567:.\ring_buffer.c **** {
+ 2188              		.loc 1 567 0
+ 2189              		.cfi_startproc
+ 2190              		@ args = 0, pretend = 0, frame = 16
+ 2191              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2192              		@ link register save eliminated.
+ 2193 0000 80B4     		push	{r7}
+ 2194              	.LCFI44:
+ 2195              		.cfi_def_cfa_offset 4
+ 2196 0002 85B0     		sub	sp, sp, #20
+ 2197              	.LCFI45:
+ 2198              		.cfi_def_cfa_offset 24
+ 2199 0004 00AF     		add	r7, sp, #0
+ 2200              		.cfi_offset 7, -4
+ 2201              	.LCFI46:
+ 2202              		.cfi_def_cfa_register 7
+ 2203 0006 0346     		mov	r3, r0
+ 2204 0008 FB71     		strb	r3, [r7, #7]
+ 568:.\ring_buffer.c ****     uint8_t status = RBF_FAIL;
+ 2205              		.loc 1 568 0
+ 2206 000a 4FF00103 		mov	r3, #1
+ 2207 000e 7B73     		strb	r3, [r7, #13]
+ 569:.\ring_buffer.c ****     uint16_t tempTail = RingBuffer[ucIdx].tail + 1;
+ 2208              		.loc 1 569 0
+ 2209 0010 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2210 0012 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2211 0016 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2212 001a 0B46     		mov	r3, r1
+ 2213 001c 4FEA8303 		lsl	r3, r3, #2
+ 2214 0020 0B44     		add	r3, r3, r1
+ 2215 0022 4FEA8303 		lsl	r3, r3, #2
+ 2216 0026 1344     		add	r3, r3, r2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 50
+
+
+ 2217 0028 03F10803 		add	r3, r3, #8
+ 2218 002c 9B88     		ldrh	r3, [r3, #4]
+ 2219 002e 03F10103 		add	r3, r3, #1
+ 2220 0032 FB81     		strh	r3, [r7, #14]	@ movhi
+ 570:.\ring_buffer.c ****     
+ 571:.\ring_buffer.c ****     if (RingBuffer[ucIdx].tail != RingBuffer[ucIdx].head)
+ 2221              		.loc 1 571 0
+ 2222 0034 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2223 0036 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2224 003a C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2225 003e 0B46     		mov	r3, r1
+ 2226 0040 4FEA8303 		lsl	r3, r3, #2
+ 2227 0044 0B44     		add	r3, r3, r1
+ 2228 0046 4FEA8303 		lsl	r3, r3, #2
+ 2229 004a 1344     		add	r3, r3, r2
+ 2230 004c 03F10803 		add	r3, r3, #8
+ 2231 0050 9888     		ldrh	r0, [r3, #4]
+ 2232 0052 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2233 0054 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2234 0058 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2235 005c 0B46     		mov	r3, r1
+ 2236 005e 4FEA8303 		lsl	r3, r3, #2
+ 2237 0062 0B44     		add	r3, r3, r1
+ 2238 0064 4FEA8303 		lsl	r3, r3, #2
+ 2239 0068 1344     		add	r3, r3, r2
+ 2240 006a 03F10803 		add	r3, r3, #8
+ 2241 006e 5B88     		ldrh	r3, [r3, #2]
+ 2242 0070 9842     		cmp	r0, r3
+ 2243 0072 29D0     		beq	.L116
+ 572:.\ring_buffer.c ****     {
+ 573:.\ring_buffer.c ****         if (tempTail > RingBuffer[ucIdx].size - 1)
+ 2244              		.loc 1 573 0
+ 2245 0074 F889     		ldrh	r0, [r7, #14]
+ 2246 0076 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2247 0078 40F20002 		movw	r2, #:lower16:RingBuffer
+ 2248 007c C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2249 0080 0B46     		mov	r3, r1
+ 2250 0082 4FEA8303 		lsl	r3, r3, #2
+ 2251 0086 0B44     		add	r3, r3, r1
+ 2252 0088 4FEA8303 		lsl	r3, r3, #2
+ 2253 008c 1344     		add	r3, r3, r2
+ 2254 008e 03F10803 		add	r3, r3, #8
+ 2255 0092 1B88     		ldrh	r3, [r3, #0]
+ 2256 0094 03F1FF33 		add	r3, r3, #-1
+ 2257 0098 9842     		cmp	r0, r3
+ 2258 009a 02DD     		ble	.L117
+ 574:.\ring_buffer.c ****         {
+ 575:.\ring_buffer.c ****             tempTail = 0;
+ 2259              		.loc 1 575 0
+ 2260 009c 4FF00003 		mov	r3, #0
+ 2261 00a0 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2262              	.L117:
+ 576:.\ring_buffer.c ****         }
+ 577:.\ring_buffer.c ****         RingBuffer[ucIdx].tail = tempTail;
+ 2263              		.loc 1 577 0
+ 2264 00a2 F979     		ldrb	r1, [r7, #7]	@ zero_extendqisi2
+ 2265 00a4 40F20002 		movw	r2, #:lower16:RingBuffer
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 51
+
+
+ 2266 00a8 C0F20002 		movt	r2, #:upper16:RingBuffer
+ 2267 00ac 0B46     		mov	r3, r1
+ 2268 00ae 4FEA8303 		lsl	r3, r3, #2
+ 2269 00b2 0B44     		add	r3, r3, r1
+ 2270 00b4 4FEA8303 		lsl	r3, r3, #2
+ 2271 00b8 1344     		add	r3, r3, r2
+ 2272 00ba 03F10803 		add	r3, r3, #8
+ 2273 00be FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 2274 00c0 9A80     		strh	r2, [r3, #4]	@ movhi
+ 578:.\ring_buffer.c ****         status = RBF_SUCCESS;
+ 2275              		.loc 1 578 0
+ 2276 00c2 4FF00003 		mov	r3, #0
+ 2277 00c6 7B73     		strb	r3, [r7, #13]
+ 2278              	.L116:
+ 579:.\ring_buffer.c ****         
+ 580:.\ring_buffer.c ****         /*
+ 581:.\ring_buffer.c ****         if (tempTail != (RingBuffer[ucIdx].head + 1))
+ 582:.\ring_buffer.c ****         {
+ 583:.\ring_buffer.c ****             RingBuffer[ucIdx].tail = tempTail;
+ 584:.\ring_buffer.c ****             status = RBF_SUCCESS;
+ 585:.\ring_buffer.c ****         }
+ 586:.\ring_buffer.c ****         */
+ 587:.\ring_buffer.c ****     }
+ 588:.\ring_buffer.c ****         
+ 589:.\ring_buffer.c ****     return status;
+ 2279              		.loc 1 589 0
+ 2280 00c8 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 590:.\ring_buffer.c **** } 
+ 2281              		.loc 1 590 0
+ 2282 00ca 1846     		mov	r0, r3
+ 2283 00cc 07F11407 		add	r7, r7, #20
+ 2284 00d0 BD46     		mov	sp, r7
+ 2285 00d2 80BC     		pop	{r7}
+ 2286 00d4 7047     		bx	lr
+ 2287              		.cfi_endproc
+ 2288              	.LFE44:
+ 2289              		.size	IncTail, .-IncTail
+ 2290 00d6 00BF     		.data
+ 2291              		.align	2
+ 2292              		.type	stest.3538, %object
+ 2293              		.size	stest.3538, 4
+ 2294              	stest.3538:
+ 2295 0000 28000000 		.word	40
+ 2296              		.text
+ 2297              	.Letext0:
+ 2298              		.section	.debug_loc,"",%progbits
+ 2299              	.Ldebug_loc0:
+ 2300              	.LLST0:
+ 2301 0000 00000000 		.4byte	.LFB29
+ 2302 0004 02000000 		.4byte	.LCFI0
+ 2303 0008 0100     		.2byte	0x1
+ 2304 000a 5D       		.byte	0x5d
+ 2305 000b 02000000 		.4byte	.LCFI0
+ 2306 000f 04000000 		.4byte	.LCFI1
+ 2307 0013 0200     		.2byte	0x2
+ 2308 0015 7D       		.byte	0x7d
+ 2309 0016 08       		.sleb128 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 52
+
+
+ 2310 0017 04000000 		.4byte	.LCFI1
+ 2311 001b 20000000 		.4byte	.LFE29
+ 2312 001f 0200     		.2byte	0x2
+ 2313 0021 77       		.byte	0x77
+ 2314 0022 08       		.sleb128 8
+ 2315 0023 00000000 		.4byte	0x0
+ 2316 0027 00000000 		.4byte	0x0
+ 2317              	.LLST1:
+ 2318 002b 00000000 		.4byte	.LFB30
+ 2319 002f 02000000 		.4byte	.LCFI2
+ 2320 0033 0100     		.2byte	0x1
+ 2321 0035 5D       		.byte	0x5d
+ 2322 0036 02000000 		.4byte	.LCFI2
+ 2323 003a 04000000 		.4byte	.LCFI3
+ 2324 003e 0200     		.2byte	0x2
+ 2325 0040 7D       		.byte	0x7d
+ 2326 0041 08       		.sleb128 8
+ 2327 0042 04000000 		.4byte	.LCFI3
+ 2328 0046 06000000 		.4byte	.LCFI4
+ 2329 004a 0200     		.2byte	0x2
+ 2330 004c 7D       		.byte	0x7d
+ 2331 004d 18       		.sleb128 24
+ 2332 004e 06000000 		.4byte	.LCFI4
+ 2333 0052 36010000 		.4byte	.LFE30
+ 2334 0056 0200     		.2byte	0x2
+ 2335 0058 77       		.byte	0x77
+ 2336 0059 18       		.sleb128 24
+ 2337 005a 00000000 		.4byte	0x0
+ 2338 005e 00000000 		.4byte	0x0
+ 2339              	.LLST2:
+ 2340 0062 00000000 		.4byte	.LFB31
+ 2341 0066 02000000 		.4byte	.LCFI5
+ 2342 006a 0100     		.2byte	0x1
+ 2343 006c 5D       		.byte	0x5d
+ 2344 006d 02000000 		.4byte	.LCFI5
+ 2345 0071 04000000 		.4byte	.LCFI6
+ 2346 0075 0200     		.2byte	0x2
+ 2347 0077 7D       		.byte	0x7d
+ 2348 0078 08       		.sleb128 8
+ 2349 0079 04000000 		.4byte	.LCFI6
+ 2350 007d 06000000 		.4byte	.LCFI7
+ 2351 0081 0200     		.2byte	0x2
+ 2352 0083 7D       		.byte	0x7d
+ 2353 0084 18       		.sleb128 24
+ 2354 0085 06000000 		.4byte	.LCFI7
+ 2355 0089 8C010000 		.4byte	.LFE31
+ 2356 008d 0200     		.2byte	0x2
+ 2357 008f 77       		.byte	0x77
+ 2358 0090 18       		.sleb128 24
+ 2359 0091 00000000 		.4byte	0x0
+ 2360 0095 00000000 		.4byte	0x0
+ 2361              	.LLST3:
+ 2362 0099 00000000 		.4byte	.LFB32
+ 2363 009d 02000000 		.4byte	.LCFI8
+ 2364 00a1 0100     		.2byte	0x1
+ 2365 00a3 5D       		.byte	0x5d
+ 2366 00a4 02000000 		.4byte	.LCFI8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 53
+
+
+ 2367 00a8 04000000 		.4byte	.LCFI9
+ 2368 00ac 0200     		.2byte	0x2
+ 2369 00ae 7D       		.byte	0x7d
+ 2370 00af 08       		.sleb128 8
+ 2371 00b0 04000000 		.4byte	.LCFI9
+ 2372 00b4 06000000 		.4byte	.LCFI10
+ 2373 00b8 0200     		.2byte	0x2
+ 2374 00ba 7D       		.byte	0x7d
+ 2375 00bb 18       		.sleb128 24
+ 2376 00bc 06000000 		.4byte	.LCFI10
+ 2377 00c0 5A010000 		.4byte	.LFE32
+ 2378 00c4 0200     		.2byte	0x2
+ 2379 00c6 77       		.byte	0x77
+ 2380 00c7 18       		.sleb128 24
+ 2381 00c8 00000000 		.4byte	0x0
+ 2382 00cc 00000000 		.4byte	0x0
+ 2383              	.LLST4:
+ 2384 00d0 00000000 		.4byte	.LFB33
+ 2385 00d4 02000000 		.4byte	.LCFI11
+ 2386 00d8 0100     		.2byte	0x1
+ 2387 00da 5D       		.byte	0x5d
+ 2388 00db 02000000 		.4byte	.LCFI11
+ 2389 00df 04000000 		.4byte	.LCFI12
+ 2390 00e3 0200     		.2byte	0x2
+ 2391 00e5 7D       		.byte	0x7d
+ 2392 00e6 08       		.sleb128 8
+ 2393 00e7 04000000 		.4byte	.LCFI12
+ 2394 00eb 06000000 		.4byte	.LCFI13
+ 2395 00ef 0200     		.2byte	0x2
+ 2396 00f1 7D       		.byte	0x7d
+ 2397 00f2 18       		.sleb128 24
+ 2398 00f3 06000000 		.4byte	.LCFI13
+ 2399 00f7 08010000 		.4byte	.LFE33
+ 2400 00fb 0200     		.2byte	0x2
+ 2401 00fd 77       		.byte	0x77
+ 2402 00fe 18       		.sleb128 24
+ 2403 00ff 00000000 		.4byte	0x0
+ 2404 0103 00000000 		.4byte	0x0
+ 2405              	.LLST5:
+ 2406 0107 00000000 		.4byte	.LFB34
+ 2407 010b 02000000 		.4byte	.LCFI14
+ 2408 010f 0100     		.2byte	0x1
+ 2409 0111 5D       		.byte	0x5d
+ 2410 0112 02000000 		.4byte	.LCFI14
+ 2411 0116 04000000 		.4byte	.LCFI15
+ 2412 011a 0200     		.2byte	0x2
+ 2413 011c 7D       		.byte	0x7d
+ 2414 011d 08       		.sleb128 8
+ 2415 011e 04000000 		.4byte	.LCFI15
+ 2416 0122 06000000 		.4byte	.LCFI16
+ 2417 0126 0200     		.2byte	0x2
+ 2418 0128 7D       		.byte	0x7d
+ 2419 0129 18       		.sleb128 24
+ 2420 012a 06000000 		.4byte	.LCFI16
+ 2421 012e 9C010000 		.4byte	.LFE34
+ 2422 0132 0200     		.2byte	0x2
+ 2423 0134 77       		.byte	0x77
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 54
+
+
+ 2424 0135 18       		.sleb128 24
+ 2425 0136 00000000 		.4byte	0x0
+ 2426 013a 00000000 		.4byte	0x0
+ 2427              	.LLST6:
+ 2428 013e 00000000 		.4byte	.LFB35
+ 2429 0142 02000000 		.4byte	.LCFI17
+ 2430 0146 0100     		.2byte	0x1
+ 2431 0148 5D       		.byte	0x5d
+ 2432 0149 02000000 		.4byte	.LCFI17
+ 2433 014d 04000000 		.4byte	.LCFI18
+ 2434 0151 0200     		.2byte	0x2
+ 2435 0153 7D       		.byte	0x7d
+ 2436 0154 08       		.sleb128 8
+ 2437 0155 04000000 		.4byte	.LCFI18
+ 2438 0159 06000000 		.4byte	.LCFI19
+ 2439 015d 0200     		.2byte	0x2
+ 2440 015f 7D       		.byte	0x7d
+ 2441 0160 18       		.sleb128 24
+ 2442 0161 06000000 		.4byte	.LCFI19
+ 2443 0165 9C010000 		.4byte	.LFE35
+ 2444 0169 0200     		.2byte	0x2
+ 2445 016b 77       		.byte	0x77
+ 2446 016c 18       		.sleb128 24
+ 2447 016d 00000000 		.4byte	0x0
+ 2448 0171 00000000 		.4byte	0x0
+ 2449              	.LLST7:
+ 2450 0175 00000000 		.4byte	.LFB36
+ 2451 0179 02000000 		.4byte	.LCFI20
+ 2452 017d 0100     		.2byte	0x1
+ 2453 017f 5D       		.byte	0x5d
+ 2454 0180 02000000 		.4byte	.LCFI20
+ 2455 0184 04000000 		.4byte	.LCFI21
+ 2456 0188 0200     		.2byte	0x2
+ 2457 018a 7D       		.byte	0x7d
+ 2458 018b 08       		.sleb128 8
+ 2459 018c 04000000 		.4byte	.LCFI21
+ 2460 0190 06000000 		.4byte	.LCFI22
+ 2461 0194 0200     		.2byte	0x2
+ 2462 0196 7D       		.byte	0x7d
+ 2463 0197 18       		.sleb128 24
+ 2464 0198 06000000 		.4byte	.LCFI22
+ 2465 019c A6000000 		.4byte	.LFE36
+ 2466 01a0 0200     		.2byte	0x2
+ 2467 01a2 77       		.byte	0x77
+ 2468 01a3 18       		.sleb128 24
+ 2469 01a4 00000000 		.4byte	0x0
+ 2470 01a8 00000000 		.4byte	0x0
+ 2471              	.LLST8:
+ 2472 01ac 00000000 		.4byte	.LFB37
+ 2473 01b0 02000000 		.4byte	.LCFI23
+ 2474 01b4 0100     		.2byte	0x1
+ 2475 01b6 5D       		.byte	0x5d
+ 2476 01b7 02000000 		.4byte	.LCFI23
+ 2477 01bb 04000000 		.4byte	.LCFI24
+ 2478 01bf 0200     		.2byte	0x2
+ 2479 01c1 7D       		.byte	0x7d
+ 2480 01c2 08       		.sleb128 8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 55
+
+
+ 2481 01c3 04000000 		.4byte	.LCFI24
+ 2482 01c7 06000000 		.4byte	.LCFI25
+ 2483 01cb 0200     		.2byte	0x2
+ 2484 01cd 7D       		.byte	0x7d
+ 2485 01ce 28       		.sleb128 40
+ 2486 01cf 06000000 		.4byte	.LCFI25
+ 2487 01d3 6A010000 		.4byte	.LFE37
+ 2488 01d7 0200     		.2byte	0x2
+ 2489 01d9 77       		.byte	0x77
+ 2490 01da 28       		.sleb128 40
+ 2491 01db 00000000 		.4byte	0x0
+ 2492 01df 00000000 		.4byte	0x0
+ 2493              	.LLST9:
+ 2494 01e3 00000000 		.4byte	.LFB38
+ 2495 01e7 02000000 		.4byte	.LCFI26
+ 2496 01eb 0100     		.2byte	0x1
+ 2497 01ed 5D       		.byte	0x5d
+ 2498 01ee 02000000 		.4byte	.LCFI26
+ 2499 01f2 04000000 		.4byte	.LCFI27
+ 2500 01f6 0200     		.2byte	0x2
+ 2501 01f8 7D       		.byte	0x7d
+ 2502 01f9 08       		.sleb128 8
+ 2503 01fa 04000000 		.4byte	.LCFI27
+ 2504 01fe 06000000 		.4byte	.LCFI28
+ 2505 0202 0200     		.2byte	0x2
+ 2506 0204 7D       		.byte	0x7d
+ 2507 0205 20       		.sleb128 32
+ 2508 0206 06000000 		.4byte	.LCFI28
+ 2509 020a 2A010000 		.4byte	.LFE38
+ 2510 020e 0200     		.2byte	0x2
+ 2511 0210 77       		.byte	0x77
+ 2512 0211 20       		.sleb128 32
+ 2513 0212 00000000 		.4byte	0x0
+ 2514 0216 00000000 		.4byte	0x0
+ 2515              	.LLST10:
+ 2516 021a 00000000 		.4byte	.LFB39
+ 2517 021e 02000000 		.4byte	.LCFI29
+ 2518 0222 0100     		.2byte	0x1
+ 2519 0224 5D       		.byte	0x5d
+ 2520 0225 02000000 		.4byte	.LCFI29
+ 2521 0229 04000000 		.4byte	.LCFI30
+ 2522 022d 0200     		.2byte	0x2
+ 2523 022f 7D       		.byte	0x7d
+ 2524 0230 08       		.sleb128 8
+ 2525 0231 04000000 		.4byte	.LCFI30
+ 2526 0235 06000000 		.4byte	.LCFI31
+ 2527 0239 0200     		.2byte	0x2
+ 2528 023b 7D       		.byte	0x7d
+ 2529 023c 20       		.sleb128 32
+ 2530 023d 06000000 		.4byte	.LCFI31
+ 2531 0241 1C010000 		.4byte	.LFE39
+ 2532 0245 0200     		.2byte	0x2
+ 2533 0247 77       		.byte	0x77
+ 2534 0248 20       		.sleb128 32
+ 2535 0249 00000000 		.4byte	0x0
+ 2536 024d 00000000 		.4byte	0x0
+ 2537              	.LLST11:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 56
+
+
+ 2538 0251 00000000 		.4byte	.LFB40
+ 2539 0255 02000000 		.4byte	.LCFI32
+ 2540 0259 0100     		.2byte	0x1
+ 2541 025b 5D       		.byte	0x5d
+ 2542 025c 02000000 		.4byte	.LCFI32
+ 2543 0260 04000000 		.4byte	.LCFI33
+ 2544 0264 0200     		.2byte	0x2
+ 2545 0266 7D       		.byte	0x7d
+ 2546 0267 04       		.sleb128 4
+ 2547 0268 04000000 		.4byte	.LCFI33
+ 2548 026c 06000000 		.4byte	.LCFI34
+ 2549 0270 0200     		.2byte	0x2
+ 2550 0272 7D       		.byte	0x7d
+ 2551 0273 10       		.sleb128 16
+ 2552 0274 06000000 		.4byte	.LCFI34
+ 2553 0278 36000000 		.4byte	.LFE40
+ 2554 027c 0200     		.2byte	0x2
+ 2555 027e 77       		.byte	0x77
+ 2556 027f 10       		.sleb128 16
+ 2557 0280 00000000 		.4byte	0x0
+ 2558 0284 00000000 		.4byte	0x0
+ 2559              	.LLST12:
+ 2560 0288 00000000 		.4byte	.LFB41
+ 2561 028c 02000000 		.4byte	.LCFI35
+ 2562 0290 0100     		.2byte	0x1
+ 2563 0292 5D       		.byte	0x5d
+ 2564 0293 02000000 		.4byte	.LCFI35
+ 2565 0297 04000000 		.4byte	.LCFI36
+ 2566 029b 0200     		.2byte	0x2
+ 2567 029d 7D       		.byte	0x7d
+ 2568 029e 04       		.sleb128 4
+ 2569 029f 04000000 		.4byte	.LCFI36
+ 2570 02a3 06000000 		.4byte	.LCFI37
+ 2571 02a7 0200     		.2byte	0x2
+ 2572 02a9 7D       		.byte	0x7d
+ 2573 02aa 18       		.sleb128 24
+ 2574 02ab 06000000 		.4byte	.LCFI37
+ 2575 02af 7E010000 		.4byte	.LFE41
+ 2576 02b3 0200     		.2byte	0x2
+ 2577 02b5 77       		.byte	0x77
+ 2578 02b6 18       		.sleb128 24
+ 2579 02b7 00000000 		.4byte	0x0
+ 2580 02bb 00000000 		.4byte	0x0
+ 2581              	.LLST13:
+ 2582 02bf 00000000 		.4byte	.LFB42
+ 2583 02c3 02000000 		.4byte	.LCFI38
+ 2584 02c7 0100     		.2byte	0x1
+ 2585 02c9 5D       		.byte	0x5d
+ 2586 02ca 02000000 		.4byte	.LCFI38
+ 2587 02ce 04000000 		.4byte	.LCFI39
+ 2588 02d2 0200     		.2byte	0x2
+ 2589 02d4 7D       		.byte	0x7d
+ 2590 02d5 04       		.sleb128 4
+ 2591 02d6 04000000 		.4byte	.LCFI39
+ 2592 02da 06000000 		.4byte	.LCFI40
+ 2593 02de 0200     		.2byte	0x2
+ 2594 02e0 7D       		.byte	0x7d
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 57
+
+
+ 2595 02e1 18       		.sleb128 24
+ 2596 02e2 06000000 		.4byte	.LCFI40
+ 2597 02e6 DE000000 		.4byte	.LFE42
+ 2598 02ea 0200     		.2byte	0x2
+ 2599 02ec 77       		.byte	0x77
+ 2600 02ed 18       		.sleb128 24
+ 2601 02ee 00000000 		.4byte	0x0
+ 2602 02f2 00000000 		.4byte	0x0
+ 2603              	.LLST14:
+ 2604 02f6 00000000 		.4byte	.LFB43
+ 2605 02fa 02000000 		.4byte	.LCFI41
+ 2606 02fe 0100     		.2byte	0x1
+ 2607 0300 5D       		.byte	0x5d
+ 2608 0301 02000000 		.4byte	.LCFI41
+ 2609 0305 04000000 		.4byte	.LCFI42
+ 2610 0309 0200     		.2byte	0x2
+ 2611 030b 7D       		.byte	0x7d
+ 2612 030c 04       		.sleb128 4
+ 2613 030d 04000000 		.4byte	.LCFI42
+ 2614 0311 06000000 		.4byte	.LCFI43
+ 2615 0315 0200     		.2byte	0x2
+ 2616 0317 7D       		.byte	0x7d
+ 2617 0318 18       		.sleb128 24
+ 2618 0319 06000000 		.4byte	.LCFI43
+ 2619 031d 10010000 		.4byte	.LFE43
+ 2620 0321 0200     		.2byte	0x2
+ 2621 0323 77       		.byte	0x77
+ 2622 0324 18       		.sleb128 24
+ 2623 0325 00000000 		.4byte	0x0
+ 2624 0329 00000000 		.4byte	0x0
+ 2625              	.LLST15:
+ 2626 032d 00000000 		.4byte	.LFB44
+ 2627 0331 02000000 		.4byte	.LCFI44
+ 2628 0335 0100     		.2byte	0x1
+ 2629 0337 5D       		.byte	0x5d
+ 2630 0338 02000000 		.4byte	.LCFI44
+ 2631 033c 04000000 		.4byte	.LCFI45
+ 2632 0340 0200     		.2byte	0x2
+ 2633 0342 7D       		.byte	0x7d
+ 2634 0343 04       		.sleb128 4
+ 2635 0344 04000000 		.4byte	.LCFI45
+ 2636 0348 06000000 		.4byte	.LCFI46
+ 2637 034c 0200     		.2byte	0x2
+ 2638 034e 7D       		.byte	0x7d
+ 2639 034f 18       		.sleb128 24
+ 2640 0350 06000000 		.4byte	.LCFI46
+ 2641 0354 D6000000 		.4byte	.LFE44
+ 2642 0358 0200     		.2byte	0x2
+ 2643 035a 77       		.byte	0x77
+ 2644 035b 18       		.sleb128 24
+ 2645 035c 00000000 		.4byte	0x0
+ 2646 0360 00000000 		.4byte	0x0
+ 2647              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 2648              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 2649              		.file 4 ".\\/types.h"
+ 2650              		.file 5 ".\\/ring_buffer.h"
+ 2651              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 58
+
+
+ 2652              		.section	.debug_info
+ 2653 0000 1F060000 		.4byte	0x61f
+ 2654 0004 0200     		.2byte	0x2
+ 2655 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 2656 000a 04       		.byte	0x4
+ 2657 000b 01       		.uleb128 0x1
+ 2658 000c E3020000 		.4byte	.LASF54
+ 2659 0010 01       		.byte	0x1
+ 2660 0011 63020000 		.4byte	.LASF55
+ 2661 0015 C6010000 		.4byte	.LASF56
+ 2662 0019 00000000 		.4byte	0x0
+ 2663 001d 00000000 		.4byte	0x0
+ 2664 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 2665 0025 00000000 		.4byte	.Ldebug_line0
+ 2666 0029 02       		.uleb128 0x2
+ 2667 002a 01       		.byte	0x1
+ 2668 002b 06       		.byte	0x6
+ 2669 002c 8D010000 		.4byte	.LASF0
+ 2670 0030 03       		.uleb128 0x3
+ 2671 0031 BF000000 		.4byte	.LASF3
+ 2672 0035 02       		.byte	0x2
+ 2673 0036 2A       		.byte	0x2a
+ 2674 0037 3B000000 		.4byte	0x3b
+ 2675 003b 02       		.uleb128 0x2
+ 2676 003c 01       		.byte	0x1
+ 2677 003d 08       		.byte	0x8
+ 2678 003e 66010000 		.4byte	.LASF1
+ 2679 0042 02       		.uleb128 0x2
+ 2680 0043 02       		.byte	0x2
+ 2681 0044 05       		.byte	0x5
+ 2682 0045 3D000000 		.4byte	.LASF2
+ 2683 0049 03       		.uleb128 0x3
+ 2684 004a BD010000 		.4byte	.LASF4
+ 2685 004e 02       		.byte	0x2
+ 2686 004f 36       		.byte	0x36
+ 2687 0050 54000000 		.4byte	0x54
+ 2688 0054 02       		.uleb128 0x2
+ 2689 0055 02       		.byte	0x2
+ 2690 0056 07       		.byte	0x7
+ 2691 0057 33020000 		.4byte	.LASF5
+ 2692 005b 02       		.uleb128 0x2
+ 2693 005c 04       		.byte	0x4
+ 2694 005d 05       		.byte	0x5
+ 2695 005e 1D010000 		.4byte	.LASF6
+ 2696 0062 02       		.uleb128 0x2
+ 2697 0063 04       		.byte	0x4
+ 2698 0064 07       		.byte	0x7
+ 2699 0065 86020000 		.4byte	.LASF7
+ 2700 0069 02       		.uleb128 0x2
+ 2701 006a 08       		.byte	0x8
+ 2702 006b 05       		.byte	0x5
+ 2703 006c 00010000 		.4byte	.LASF8
+ 2704 0070 02       		.uleb128 0x2
+ 2705 0071 08       		.byte	0x8
+ 2706 0072 07       		.byte	0x7
+ 2707 0073 99010000 		.4byte	.LASF9
+ 2708 0077 04       		.uleb128 0x4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 59
+
+
+ 2709 0078 04       		.byte	0x4
+ 2710 0079 05       		.byte	0x5
+ 2711 007a 696E7400 		.ascii	"int\000"
+ 2712 007e 02       		.uleb128 0x2
+ 2713 007f 04       		.byte	0x4
+ 2714 0080 07       		.byte	0x7
+ 2715 0081 B0010000 		.4byte	.LASF10
+ 2716 0085 03       		.uleb128 0x3
+ 2717 0086 D2000000 		.4byte	.LASF11
+ 2718 008a 03       		.byte	0x3
+ 2719 008b 4C       		.byte	0x4c
+ 2720 008c 3B000000 		.4byte	0x3b
+ 2721 0090 02       		.uleb128 0x2
+ 2722 0091 04       		.byte	0x4
+ 2723 0092 04       		.byte	0x4
+ 2724 0093 F5000000 		.4byte	.LASF12
+ 2725 0097 02       		.uleb128 0x2
+ 2726 0098 08       		.byte	0x8
+ 2727 0099 04       		.byte	0x4
+ 2728 009a A1020000 		.4byte	.LASF13
+ 2729 009e 02       		.uleb128 0x2
+ 2730 009f 01       		.byte	0x1
+ 2731 00a0 08       		.byte	0x8
+ 2732 00a1 55020000 		.4byte	.LASF14
+ 2733 00a5 05       		.uleb128 0x5
+ 2734 00a6 04       		.byte	0x4
+ 2735 00a7 07       		.byte	0x7
+ 2736 00a8 03       		.uleb128 0x3
+ 2737 00a9 16010000 		.4byte	.LASF15
+ 2738 00ad 04       		.byte	0x4
+ 2739 00ae 0F       		.byte	0xf
+ 2740 00af 85000000 		.4byte	0x85
+ 2741 00b3 06       		.uleb128 0x6
+ 2742 00b4 74010000 		.4byte	.LASF57
+ 2743 00b8 14       		.byte	0x14
+ 2744 00b9 05       		.byte	0x5
+ 2745 00ba 1D       		.byte	0x1d
+ 2746 00bb 21010000 		.4byte	0x121
+ 2747 00bf 07       		.uleb128 0x7
+ 2748 00c0 69647800 		.ascii	"idx\000"
+ 2749 00c4 05       		.byte	0x5
+ 2750 00c5 1E       		.byte	0x1e
+ 2751 00c6 30000000 		.4byte	0x30
+ 2752 00ca 02       		.byte	0x2
+ 2753 00cb 23       		.byte	0x23
+ 2754 00cc 00       		.uleb128 0x0
+ 2755 00cd 08       		.uleb128 0x8
+ 2756 00ce A0000000 		.4byte	.LASF16
+ 2757 00d2 05       		.byte	0x5
+ 2758 00d3 1F       		.byte	0x1f
+ 2759 00d4 21010000 		.4byte	0x121
+ 2760 00d8 02       		.byte	0x2
+ 2761 00d9 23       		.byte	0x23
+ 2762 00da 04       		.uleb128 0x4
+ 2763 00db 08       		.uleb128 0x8
+ 2764 00dc B2020000 		.4byte	.LASF17
+ 2765 00e0 05       		.byte	0x5
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 60
+
+
+ 2766 00e1 20       		.byte	0x20
+ 2767 00e2 49000000 		.4byte	0x49
+ 2768 00e6 02       		.byte	0x2
+ 2769 00e7 23       		.byte	0x23
+ 2770 00e8 08       		.uleb128 0x8
+ 2771 00e9 08       		.uleb128 0x8
+ 2772 00ea 9B000000 		.4byte	.LASF18
+ 2773 00ee 05       		.byte	0x5
+ 2774 00ef 21       		.byte	0x21
+ 2775 00f0 49000000 		.4byte	0x49
+ 2776 00f4 02       		.byte	0x2
+ 2777 00f5 23       		.byte	0x23
+ 2778 00f6 0A       		.uleb128 0xa
+ 2779 00f7 08       		.uleb128 0x8
+ 2780 00f8 61010000 		.4byte	.LASF19
+ 2781 00fc 05       		.byte	0x5
+ 2782 00fd 22       		.byte	0x22
+ 2783 00fe 49000000 		.4byte	0x49
+ 2784 0102 02       		.byte	0x2
+ 2785 0103 23       		.byte	0x23
+ 2786 0104 0C       		.uleb128 0xc
+ 2787 0105 07       		.uleb128 0x7
+ 2788 0106 7A6200   		.ascii	"zb\000"
+ 2789 0109 05       		.byte	0x5
+ 2790 010a 23       		.byte	0x23
+ 2791 010b 30000000 		.4byte	0x30
+ 2792 010f 02       		.byte	0x2
+ 2793 0110 23       		.byte	0x23
+ 2794 0111 0E       		.uleb128 0xe
+ 2795 0112 08       		.uleb128 0x8
+ 2796 0113 DA020000 		.4byte	.LASF20
+ 2797 0117 05       		.byte	0x5
+ 2798 0118 24       		.byte	0x24
+ 2799 0119 49000000 		.4byte	0x49
+ 2800 011d 02       		.byte	0x2
+ 2801 011e 23       		.byte	0x23
+ 2802 011f 10       		.uleb128 0x10
+ 2803 0120 00       		.byte	0x0
+ 2804 0121 09       		.uleb128 0x9
+ 2805 0122 04       		.byte	0x4
+ 2806 0123 30000000 		.4byte	0x30
+ 2807 0127 03       		.uleb128 0x3
+ 2808 0128 43010000 		.4byte	.LASF21
+ 2809 012c 05       		.byte	0x5
+ 2810 012d 25       		.byte	0x25
+ 2811 012e B3000000 		.4byte	0xb3
+ 2812 0132 0A       		.uleb128 0xa
+ 2813 0133 01       		.byte	0x1
+ 2814 0134 7B020000 		.4byte	.LASF22
+ 2815 0138 01       		.byte	0x1
+ 2816 0139 23       		.byte	0x23
+ 2817 013a 01       		.byte	0x1
+ 2818 013b A8000000 		.4byte	0xa8
+ 2819 013f 00000000 		.4byte	.LFB29
+ 2820 0143 20000000 		.4byte	.LFE29
+ 2821 0147 00000000 		.4byte	.LLST0
+ 2822 014b 61010000 		.4byte	0x161
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 61
+
+
+ 2823 014f 0B       		.uleb128 0xb
+ 2824 0150 30010000 		.4byte	.LASF24
+ 2825 0154 01       		.byte	0x1
+ 2826 0155 25       		.byte	0x25
+ 2827 0156 77000000 		.4byte	0x77
+ 2828 015a 05       		.byte	0x5
+ 2829 015b 03       		.byte	0x3
+ 2830 015c 00000000 		.4byte	stest.3538
+ 2831 0160 00       		.byte	0x0
+ 2832 0161 0A       		.uleb128 0xa
+ 2833 0162 01       		.byte	0x1
+ 2834 0163 77000000 		.4byte	.LASF23
+ 2835 0167 01       		.byte	0x1
+ 2836 0168 2E       		.byte	0x2e
+ 2837 0169 01       		.byte	0x1
+ 2838 016a 30000000 		.4byte	0x30
+ 2839 016e 00000000 		.4byte	.LFB30
+ 2840 0172 36010000 		.4byte	.LFE30
+ 2841 0176 2B000000 		.4byte	.LLST1
+ 2842 017a 9B010000 		.4byte	0x19b
+ 2843 017e 0C       		.uleb128 0xc
+ 2844 017f D8000000 		.4byte	.LASF27
+ 2845 0183 01       		.byte	0x1
+ 2846 0184 2E       		.byte	0x2e
+ 2847 0185 30000000 		.4byte	0x30
+ 2848 0189 02       		.byte	0x2
+ 2849 018a 91       		.byte	0x91
+ 2850 018b 6F       		.sleb128 -17
+ 2851 018c 0B       		.uleb128 0xb
+ 2852 018d 46020000 		.4byte	.LASF25
+ 2853 0191 01       		.byte	0x1
+ 2854 0192 30       		.byte	0x30
+ 2855 0193 A8000000 		.4byte	0xa8
+ 2856 0197 02       		.byte	0x2
+ 2857 0198 91       		.byte	0x91
+ 2858 0199 77       		.sleb128 -9
+ 2859 019a 00       		.byte	0x0
+ 2860 019b 0A       		.uleb128 0xa
+ 2861 019c 01       		.byte	0x1
+ 2862 019d E0000000 		.4byte	.LASF26
+ 2863 01a1 01       		.byte	0x1
+ 2864 01a2 44       		.byte	0x44
+ 2865 01a3 01       		.byte	0x1
+ 2866 01a4 30000000 		.4byte	0x30
+ 2867 01a8 00000000 		.4byte	.LFB31
+ 2868 01ac 8C010000 		.4byte	.LFE31
+ 2869 01b0 62000000 		.4byte	.LLST2
+ 2870 01b4 E3010000 		.4byte	0x1e3
+ 2871 01b8 0C       		.uleb128 0xc
+ 2872 01b9 4D020000 		.4byte	.LASF28
+ 2873 01bd 01       		.byte	0x1
+ 2874 01be 44       		.byte	0x44
+ 2875 01bf 21010000 		.4byte	0x121
+ 2876 01c3 02       		.byte	0x2
+ 2877 01c4 91       		.byte	0x91
+ 2878 01c5 6C       		.sleb128 -20
+ 2879 01c6 0C       		.uleb128 0xc
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 62
+
+
+ 2880 01c7 70000000 		.4byte	.LASF29
+ 2881 01cb 01       		.byte	0x1
+ 2882 01cc 44       		.byte	0x44
+ 2883 01cd 49000000 		.4byte	0x49
+ 2884 01d1 02       		.byte	0x2
+ 2885 01d2 91       		.byte	0x91
+ 2886 01d3 6A       		.sleb128 -22
+ 2887 01d4 0B       		.uleb128 0xb
+ 2888 01d5 D8000000 		.4byte	.LASF27
+ 2889 01d9 01       		.byte	0x1
+ 2890 01da 46       		.byte	0x46
+ 2891 01db 30000000 		.4byte	0x30
+ 2892 01df 02       		.byte	0x2
+ 2893 01e0 91       		.byte	0x91
+ 2894 01e1 77       		.sleb128 -9
+ 2895 01e2 00       		.byte	0x0
+ 2896 01e3 0A       		.uleb128 0xa
+ 2897 01e4 01       		.byte	0x1
+ 2898 01e5 A8000000 		.4byte	.LASF30
+ 2899 01e9 01       		.byte	0x1
+ 2900 01ea 6C       		.byte	0x6c
+ 2901 01eb 01       		.byte	0x1
+ 2902 01ec 30000000 		.4byte	0x30
+ 2903 01f0 00000000 		.4byte	.LFB32
+ 2904 01f4 5A010000 		.4byte	.LFE32
+ 2905 01f8 99000000 		.4byte	.LLST3
+ 2906 01fc 1D020000 		.4byte	0x21d
+ 2907 0200 0C       		.uleb128 0xc
+ 2908 0201 D8000000 		.4byte	.LASF27
+ 2909 0205 01       		.byte	0x1
+ 2910 0206 6C       		.byte	0x6c
+ 2911 0207 30000000 		.4byte	0x30
+ 2912 020b 02       		.byte	0x2
+ 2913 020c 91       		.byte	0x91
+ 2914 020d 6F       		.sleb128 -17
+ 2915 020e 0B       		.uleb128 0xb
+ 2916 020f 46020000 		.4byte	.LASF25
+ 2917 0213 01       		.byte	0x1
+ 2918 0214 6E       		.byte	0x6e
+ 2919 0215 A8000000 		.4byte	0xa8
+ 2920 0219 02       		.byte	0x2
+ 2921 021a 91       		.byte	0x91
+ 2922 021b 77       		.sleb128 -9
+ 2923 021c 00       		.byte	0x0
+ 2924 021d 0A       		.uleb128 0xa
+ 2925 021e 01       		.byte	0x1
+ 2926 021f 54010000 		.4byte	.LASF31
+ 2927 0223 01       		.byte	0x1
+ 2928 0224 85       		.byte	0x85
+ 2929 0225 01       		.byte	0x1
+ 2930 0226 30000000 		.4byte	0x30
+ 2931 022a 00000000 		.4byte	.LFB33
+ 2932 022e 08010000 		.4byte	.LFE33
+ 2933 0232 D0000000 		.4byte	.LLST4
+ 2934 0236 65020000 		.4byte	0x265
+ 2935 023a 0C       		.uleb128 0xc
+ 2936 023b D8000000 		.4byte	.LASF27
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 63
+
+
+ 2937 023f 01       		.byte	0x1
+ 2938 0240 85       		.byte	0x85
+ 2939 0241 30000000 		.4byte	0x30
+ 2940 0245 02       		.byte	0x2
+ 2941 0246 91       		.byte	0x91
+ 2942 0247 6F       		.sleb128 -17
+ 2943 0248 0C       		.uleb128 0xc
+ 2944 0249 4F010000 		.4byte	.LASF32
+ 2945 024d 01       		.byte	0x1
+ 2946 024e 85       		.byte	0x85
+ 2947 024f 30000000 		.4byte	0x30
+ 2948 0253 02       		.byte	0x2
+ 2949 0254 91       		.byte	0x91
+ 2950 0255 6E       		.sleb128 -18
+ 2951 0256 0B       		.uleb128 0xb
+ 2952 0257 46020000 		.4byte	.LASF25
+ 2953 025b 01       		.byte	0x1
+ 2954 025c 87       		.byte	0x87
+ 2955 025d A8000000 		.4byte	0xa8
+ 2956 0261 02       		.byte	0x2
+ 2957 0262 91       		.byte	0x91
+ 2958 0263 77       		.sleb128 -9
+ 2959 0264 00       		.byte	0x0
+ 2960 0265 0A       		.uleb128 0xa
+ 2961 0266 01       		.byte	0x1
+ 2962 0267 47000000 		.4byte	.LASF33
+ 2963 026b 01       		.byte	0x1
+ 2964 026c A4       		.byte	0xa4
+ 2965 026d 01       		.byte	0x1
+ 2966 026e 30000000 		.4byte	0x30
+ 2967 0272 00000000 		.4byte	.LFB34
+ 2968 0276 9C010000 		.4byte	.LFE34
+ 2969 027a 07010000 		.4byte	.LLST5
+ 2970 027e AD020000 		.4byte	0x2ad
+ 2971 0282 0C       		.uleb128 0xc
+ 2972 0283 D8000000 		.4byte	.LASF27
+ 2973 0287 01       		.byte	0x1
+ 2974 0288 A4       		.byte	0xa4
+ 2975 0289 30000000 		.4byte	0x30
+ 2976 028d 02       		.byte	0x2
+ 2977 028e 91       		.byte	0x91
+ 2978 028f 6F       		.sleb128 -17
+ 2979 0290 0C       		.uleb128 0xc
+ 2980 0291 4F010000 		.4byte	.LASF32
+ 2981 0295 01       		.byte	0x1
+ 2982 0296 A4       		.byte	0xa4
+ 2983 0297 21010000 		.4byte	0x121
+ 2984 029b 02       		.byte	0x2
+ 2985 029c 91       		.byte	0x91
+ 2986 029d 68       		.sleb128 -24
+ 2987 029e 0B       		.uleb128 0xb
+ 2988 029f 46020000 		.4byte	.LASF25
+ 2989 02a3 01       		.byte	0x1
+ 2990 02a4 A6       		.byte	0xa6
+ 2991 02a5 A8000000 		.4byte	0xa8
+ 2992 02a9 02       		.byte	0x2
+ 2993 02aa 91       		.byte	0x91
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 64
+
+
+ 2994 02ab 77       		.sleb128 -9
+ 2995 02ac 00       		.byte	0x0
+ 2996 02ad 0A       		.uleb128 0xa
+ 2997 02ae 01       		.byte	0x1
+ 2998 02af 89000000 		.4byte	.LASF34
+ 2999 02b3 01       		.byte	0x1
+ 3000 02b4 D1       		.byte	0xd1
+ 3001 02b5 01       		.byte	0x1
+ 3002 02b6 30000000 		.4byte	0x30
+ 3003 02ba 00000000 		.4byte	.LFB35
+ 3004 02be 9C010000 		.4byte	.LFE35
+ 3005 02c2 3E010000 		.4byte	.LLST6
+ 3006 02c6 F5020000 		.4byte	0x2f5
+ 3007 02ca 0C       		.uleb128 0xc
+ 3008 02cb D8000000 		.4byte	.LASF27
+ 3009 02cf 01       		.byte	0x1
+ 3010 02d0 D1       		.byte	0xd1
+ 3011 02d1 30000000 		.4byte	0x30
+ 3012 02d5 02       		.byte	0x2
+ 3013 02d6 91       		.byte	0x91
+ 3014 02d7 6F       		.sleb128 -17
+ 3015 02d8 0C       		.uleb128 0xc
+ 3016 02d9 4F010000 		.4byte	.LASF32
+ 3017 02dd 01       		.byte	0x1
+ 3018 02de D1       		.byte	0xd1
+ 3019 02df 21010000 		.4byte	0x121
+ 3020 02e3 02       		.byte	0x2
+ 3021 02e4 91       		.byte	0x91
+ 3022 02e5 68       		.sleb128 -24
+ 3023 02e6 0B       		.uleb128 0xb
+ 3024 02e7 46020000 		.4byte	.LASF25
+ 3025 02eb 01       		.byte	0x1
+ 3026 02ec D3       		.byte	0xd3
+ 3027 02ed A8000000 		.4byte	0xa8
+ 3028 02f1 02       		.byte	0x2
+ 3029 02f2 91       		.byte	0x91
+ 3030 02f3 77       		.sleb128 -9
+ 3031 02f4 00       		.byte	0x0
+ 3032 02f5 0A       		.uleb128 0xa
+ 3033 02f6 01       		.byte	0x1
+ 3034 02f7 59000000 		.4byte	.LASF35
+ 3035 02fb 01       		.byte	0x1
+ 3036 02fc FD       		.byte	0xfd
+ 3037 02fd 01       		.byte	0x1
+ 3038 02fe 30000000 		.4byte	0x30
+ 3039 0302 00000000 		.4byte	.LFB36
+ 3040 0306 A6000000 		.4byte	.LFE36
+ 3041 030a 75010000 		.4byte	.LLST7
+ 3042 030e 3D030000 		.4byte	0x33d
+ 3043 0312 0C       		.uleb128 0xc
+ 3044 0313 D8000000 		.4byte	.LASF27
+ 3045 0317 01       		.byte	0x1
+ 3046 0318 FD       		.byte	0xfd
+ 3047 0319 30000000 		.4byte	0x30
+ 3048 031d 02       		.byte	0x2
+ 3049 031e 91       		.byte	0x91
+ 3050 031f 77       		.sleb128 -9
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 65
+
+
+ 3051 0320 0C       		.uleb128 0xc
+ 3052 0321 36010000 		.4byte	.LASF36
+ 3053 0325 01       		.byte	0x1
+ 3054 0326 FD       		.byte	0xfd
+ 3055 0327 21010000 		.4byte	0x121
+ 3056 032b 02       		.byte	0x2
+ 3057 032c 91       		.byte	0x91
+ 3058 032d 70       		.sleb128 -16
+ 3059 032e 0C       		.uleb128 0xc
+ 3060 032f 13000000 		.4byte	.LASF37
+ 3061 0333 01       		.byte	0x1
+ 3062 0334 FD       		.byte	0xfd
+ 3063 0335 30000000 		.4byte	0x30
+ 3064 0339 02       		.byte	0x2
+ 3065 033a 91       		.byte	0x91
+ 3066 033b 6F       		.sleb128 -17
+ 3067 033c 00       		.byte	0x0
+ 3068 033d 0D       		.uleb128 0xd
+ 3069 033e 01       		.byte	0x1
+ 3070 033f 81010000 		.4byte	.LASF38
+ 3071 0343 01       		.byte	0x1
+ 3072 0344 1201     		.2byte	0x112
+ 3073 0346 01       		.byte	0x1
+ 3074 0347 30000000 		.4byte	0x30
+ 3075 034b 00000000 		.4byte	.LFB37
+ 3076 034f 6A010000 		.4byte	.LFE37
+ 3077 0353 AC010000 		.4byte	.LLST8
+ 3078 0357 C3030000 		.4byte	0x3c3
+ 3079 035b 0E       		.uleb128 0xe
+ 3080 035c D8000000 		.4byte	.LASF27
+ 3081 0360 01       		.byte	0x1
+ 3082 0361 1201     		.2byte	0x112
+ 3083 0363 30000000 		.4byte	0x30
+ 3084 0367 02       		.byte	0x2
+ 3085 0368 91       		.byte	0x91
+ 3086 0369 67       		.sleb128 -25
+ 3087 036a 0F       		.uleb128 0xf
+ 3088 036b 6D736700 		.ascii	"msg\000"
+ 3089 036f 01       		.byte	0x1
+ 3090 0370 1201     		.2byte	0x112
+ 3091 0372 21010000 		.4byte	0x121
+ 3092 0376 02       		.byte	0x2
+ 3093 0377 91       		.byte	0x91
+ 3094 0378 60       		.sleb128 -32
+ 3095 0379 0E       		.uleb128 0xe
+ 3096 037a B2020000 		.4byte	.LASF17
+ 3097 037e 01       		.byte	0x1
+ 3098 037f 1201     		.2byte	0x112
+ 3099 0381 30000000 		.4byte	0x30
+ 3100 0385 02       		.byte	0x2
+ 3101 0386 91       		.byte	0x91
+ 3102 0387 5F       		.sleb128 -33
+ 3103 0388 10       		.uleb128 0x10
+ 3104 0389 46020000 		.4byte	.LASF25
+ 3105 038d 01       		.byte	0x1
+ 3106 038e 1401     		.2byte	0x114
+ 3107 0390 A8000000 		.4byte	0xa8
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 66
+
+
+ 3108 0394 02       		.byte	0x2
+ 3109 0395 91       		.byte	0x91
+ 3110 0396 6F       		.sleb128 -17
+ 3111 0397 11       		.uleb128 0x11
+ 3112 0398 6900     		.ascii	"i\000"
+ 3113 039a 01       		.byte	0x1
+ 3114 039b 1501     		.2byte	0x115
+ 3115 039d 77000000 		.4byte	0x77
+ 3116 03a1 02       		.byte	0x2
+ 3117 03a2 91       		.byte	0x91
+ 3118 03a3 70       		.sleb128 -16
+ 3119 03a4 10       		.uleb128 0x10
+ 3120 03a5 FB000000 		.4byte	.LASF39
+ 3121 03a9 01       		.byte	0x1
+ 3122 03aa 1601     		.2byte	0x116
+ 3123 03ac 30000000 		.4byte	0x30
+ 3124 03b0 02       		.byte	0x2
+ 3125 03b1 91       		.byte	0x91
+ 3126 03b2 6E       		.sleb128 -18
+ 3127 03b3 10       		.uleb128 0x10
+ 3128 03b4 A8020000 		.4byte	.LASF40
+ 3129 03b8 01       		.byte	0x1
+ 3130 03b9 1701     		.2byte	0x117
+ 3131 03bb 49000000 		.4byte	0x49
+ 3132 03bf 02       		.byte	0x2
+ 3133 03c0 91       		.byte	0x91
+ 3134 03c1 76       		.sleb128 -10
+ 3135 03c2 00       		.byte	0x0
+ 3136 03c3 0D       		.uleb128 0xd
+ 3137 03c4 01       		.byte	0x1
+ 3138 03c5 1D000000 		.4byte	.LASF41
+ 3139 03c9 01       		.byte	0x1
+ 3140 03ca 6201     		.2byte	0x162
+ 3141 03cc 01       		.byte	0x1
+ 3142 03cd 30000000 		.4byte	0x30
+ 3143 03d1 00000000 		.4byte	.LFB38
+ 3144 03d5 2A010000 		.4byte	.LFE38
+ 3145 03d9 E3010000 		.4byte	.LLST9
+ 3146 03dd 3A040000 		.4byte	0x43a
+ 3147 03e1 0E       		.uleb128 0xe
+ 3148 03e2 D8000000 		.4byte	.LASF27
+ 3149 03e6 01       		.byte	0x1
+ 3150 03e7 6201     		.2byte	0x162
+ 3151 03e9 30000000 		.4byte	0x30
+ 3152 03ed 02       		.byte	0x2
+ 3153 03ee 91       		.byte	0x91
+ 3154 03ef 6F       		.sleb128 -17
+ 3155 03f0 0E       		.uleb128 0xe
+ 3156 03f1 2E000000 		.4byte	.LASF42
+ 3157 03f5 01       		.byte	0x1
+ 3158 03f6 6201     		.2byte	0x162
+ 3159 03f8 21010000 		.4byte	0x121
+ 3160 03fc 02       		.byte	0x2
+ 3161 03fd 91       		.byte	0x91
+ 3162 03fe 68       		.sleb128 -24
+ 3163 03ff 0E       		.uleb128 0xe
+ 3164 0400 B2020000 		.4byte	.LASF17
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 67
+
+
+ 3165 0404 01       		.byte	0x1
+ 3166 0405 6201     		.2byte	0x162
+ 3167 0407 21010000 		.4byte	0x121
+ 3168 040b 02       		.byte	0x2
+ 3169 040c 91       		.byte	0x91
+ 3170 040d 64       		.sleb128 -28
+ 3171 040e 10       		.uleb128 0x10
+ 3172 040f 46020000 		.4byte	.LASF25
+ 3173 0413 01       		.byte	0x1
+ 3174 0414 6401     		.2byte	0x164
+ 3175 0416 A8000000 		.4byte	0xa8
+ 3176 041a 02       		.byte	0x2
+ 3177 041b 91       		.byte	0x91
+ 3178 041c 73       		.sleb128 -13
+ 3179 041d 11       		.uleb128 0x11
+ 3180 041e 6900     		.ascii	"i\000"
+ 3181 0420 01       		.byte	0x1
+ 3182 0421 6501     		.2byte	0x165
+ 3183 0423 77000000 		.4byte	0x77
+ 3184 0427 02       		.byte	0x2
+ 3185 0428 91       		.byte	0x91
+ 3186 0429 74       		.sleb128 -12
+ 3187 042a 10       		.uleb128 0x10
+ 3188 042b FB000000 		.4byte	.LASF39
+ 3189 042f 01       		.byte	0x1
+ 3190 0430 6601     		.2byte	0x166
+ 3191 0432 30000000 		.4byte	0x30
+ 3192 0436 02       		.byte	0x2
+ 3193 0437 91       		.byte	0x91
+ 3194 0438 72       		.sleb128 -14
+ 3195 0439 00       		.byte	0x0
+ 3196 043a 0D       		.uleb128 0xd
+ 3197 043b 01       		.byte	0x1
+ 3198 043c B7020000 		.4byte	.LASF43
+ 3199 0440 01       		.byte	0x1
+ 3200 0441 A601     		.2byte	0x1a6
+ 3201 0443 01       		.byte	0x1
+ 3202 0444 30000000 		.4byte	0x30
+ 3203 0448 00000000 		.4byte	.LFB39
+ 3204 044c 1C010000 		.4byte	.LFE39
+ 3205 0450 1A020000 		.4byte	.LLST10
+ 3206 0454 B1040000 		.4byte	0x4b1
+ 3207 0458 0E       		.uleb128 0xe
+ 3208 0459 D8000000 		.4byte	.LASF27
+ 3209 045d 01       		.byte	0x1
+ 3210 045e A601     		.2byte	0x1a6
+ 3211 0460 30000000 		.4byte	0x30
+ 3212 0464 02       		.byte	0x2
+ 3213 0465 91       		.byte	0x91
+ 3214 0466 6F       		.sleb128 -17
+ 3215 0467 0E       		.uleb128 0xe
+ 3216 0468 2E000000 		.4byte	.LASF42
+ 3217 046c 01       		.byte	0x1
+ 3218 046d A601     		.2byte	0x1a6
+ 3219 046f 21010000 		.4byte	0x121
+ 3220 0473 02       		.byte	0x2
+ 3221 0474 91       		.byte	0x91
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 68
+
+
+ 3222 0475 68       		.sleb128 -24
+ 3223 0476 0E       		.uleb128 0xe
+ 3224 0477 B2020000 		.4byte	.LASF17
+ 3225 047b 01       		.byte	0x1
+ 3226 047c A601     		.2byte	0x1a6
+ 3227 047e 21010000 		.4byte	0x121
+ 3228 0482 02       		.byte	0x2
+ 3229 0483 91       		.byte	0x91
+ 3230 0484 64       		.sleb128 -28
+ 3231 0485 10       		.uleb128 0x10
+ 3232 0486 46020000 		.4byte	.LASF25
+ 3233 048a 01       		.byte	0x1
+ 3234 048b A801     		.2byte	0x1a8
+ 3235 048d A8000000 		.4byte	0xa8
+ 3236 0491 02       		.byte	0x2
+ 3237 0492 91       		.byte	0x91
+ 3238 0493 73       		.sleb128 -13
+ 3239 0494 11       		.uleb128 0x11
+ 3240 0495 6900     		.ascii	"i\000"
+ 3241 0497 01       		.byte	0x1
+ 3242 0498 A901     		.2byte	0x1a9
+ 3243 049a 77000000 		.4byte	0x77
+ 3244 049e 02       		.byte	0x2
+ 3245 049f 91       		.byte	0x91
+ 3246 04a0 74       		.sleb128 -12
+ 3247 04a1 10       		.uleb128 0x10
+ 3248 04a2 FB000000 		.4byte	.LASF39
+ 3249 04a6 01       		.byte	0x1
+ 3250 04a7 AA01     		.2byte	0x1aa
+ 3251 04a9 30000000 		.4byte	0x30
+ 3252 04ad 02       		.byte	0x2
+ 3253 04ae 91       		.byte	0x91
+ 3254 04af 72       		.sleb128 -14
+ 3255 04b0 00       		.byte	0x0
+ 3256 04b1 0D       		.uleb128 0xd
+ 3257 04b2 01       		.byte	0x1
+ 3258 04b3 C8020000 		.4byte	.LASF44
+ 3259 04b7 01       		.byte	0x1
+ 3260 04b8 E201     		.2byte	0x1e2
+ 3261 04ba 01       		.byte	0x1
+ 3262 04bb 30000000 		.4byte	0x30
+ 3263 04bf 00000000 		.4byte	.LFB40
+ 3264 04c3 36000000 		.4byte	.LFE40
+ 3265 04c7 51020000 		.4byte	.LLST11
+ 3266 04cb DF040000 		.4byte	0x4df
+ 3267 04cf 0E       		.uleb128 0xe
+ 3268 04d0 D8000000 		.4byte	.LASF27
+ 3269 04d4 01       		.byte	0x1
+ 3270 04d5 E201     		.2byte	0x1e2
+ 3271 04d7 30000000 		.4byte	0x30
+ 3272 04db 02       		.byte	0x2
+ 3273 04dc 91       		.byte	0x91
+ 3274 04dd 77       		.sleb128 -9
+ 3275 04de 00       		.byte	0x0
+ 3276 04df 0D       		.uleb128 0xd
+ 3277 04e0 01       		.byte	0x1
+ 3278 04e1 00000000 		.4byte	.LASF45
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 69
+
+
+ 3279 04e5 01       		.byte	0x1
+ 3280 04e6 E801     		.2byte	0x1e8
+ 3281 04e8 01       		.byte	0x1
+ 3282 04e9 30000000 		.4byte	0x30
+ 3283 04ed 00000000 		.4byte	.LFB41
+ 3284 04f1 7E010000 		.4byte	.LFE41
+ 3285 04f5 88020000 		.4byte	.LLST12
+ 3286 04f9 1C050000 		.4byte	0x51c
+ 3287 04fd 0E       		.uleb128 0xe
+ 3288 04fe D8000000 		.4byte	.LASF27
+ 3289 0502 01       		.byte	0x1
+ 3290 0503 E801     		.2byte	0x1e8
+ 3291 0505 30000000 		.4byte	0x30
+ 3292 0509 02       		.byte	0x2
+ 3293 050a 91       		.byte	0x91
+ 3294 050b 6F       		.sleb128 -17
+ 3295 050c 10       		.uleb128 0x10
+ 3296 050d 26010000 		.4byte	.LASF46
+ 3297 0511 01       		.byte	0x1
+ 3298 0512 EA01     		.2byte	0x1ea
+ 3299 0514 30000000 		.4byte	0x30
+ 3300 0518 02       		.byte	0x2
+ 3301 0519 91       		.byte	0x91
+ 3302 051a 77       		.sleb128 -9
+ 3303 051b 00       		.byte	0x0
+ 3304 051c 12       		.uleb128 0x12
+ 3305 051d 0E010000 		.4byte	.LASF49
+ 3306 0521 01       		.byte	0x1
+ 3307 0522 0502     		.2byte	0x205
+ 3308 0524 01       		.byte	0x1
+ 3309 0525 30000000 		.4byte	0x30
+ 3310 0529 00000000 		.4byte	.LFB42
+ 3311 052d DE000000 		.4byte	.LFE42
+ 3312 0531 BF020000 		.4byte	.LLST13
+ 3313 0535 67050000 		.4byte	0x567
+ 3314 0539 0E       		.uleb128 0xe
+ 3315 053a FC020000 		.4byte	.LASF47
+ 3316 053e 01       		.byte	0x1
+ 3317 053f 0502     		.2byte	0x205
+ 3318 0541 30000000 		.4byte	0x30
+ 3319 0545 02       		.byte	0x2
+ 3320 0546 91       		.byte	0x91
+ 3321 0547 6F       		.sleb128 -17
+ 3322 0548 10       		.uleb128 0x10
+ 3323 0549 46020000 		.4byte	.LASF25
+ 3324 054d 01       		.byte	0x1
+ 3325 054e 0702     		.2byte	0x207
+ 3326 0550 30000000 		.4byte	0x30
+ 3327 0554 02       		.byte	0x2
+ 3328 0555 91       		.byte	0x91
+ 3329 0556 75       		.sleb128 -11
+ 3330 0557 10       		.uleb128 0x10
+ 3331 0558 5A020000 		.4byte	.LASF48
+ 3332 055c 01       		.byte	0x1
+ 3333 055d 0802     		.2byte	0x208
+ 3334 055f 49000000 		.4byte	0x49
+ 3335 0563 02       		.byte	0x2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 70
+
+
+ 3336 0564 91       		.byte	0x91
+ 3337 0565 76       		.sleb128 -10
+ 3338 0566 00       		.byte	0x0
+ 3339 0567 12       		.uleb128 0x12
+ 3340 0568 73020000 		.4byte	.LASF50
+ 3341 056c 01       		.byte	0x1
+ 3342 056d 1C02     		.2byte	0x21c
+ 3343 056f 01       		.byte	0x1
+ 3344 0570 30000000 		.4byte	0x30
+ 3345 0574 00000000 		.4byte	.LFB43
+ 3346 0578 10010000 		.4byte	.LFE43
+ 3347 057c F6020000 		.4byte	.LLST14
+ 3348 0580 A3050000 		.4byte	0x5a3
+ 3349 0584 0E       		.uleb128 0xe
+ 3350 0585 FC020000 		.4byte	.LASF47
+ 3351 0589 01       		.byte	0x1
+ 3352 058a 1C02     		.2byte	0x21c
+ 3353 058c 30000000 		.4byte	0x30
+ 3354 0590 02       		.byte	0x2
+ 3355 0591 91       		.byte	0x91
+ 3356 0592 6F       		.sleb128 -17
+ 3357 0593 10       		.uleb128 0x10
+ 3358 0594 46020000 		.4byte	.LASF25
+ 3359 0598 01       		.byte	0x1
+ 3360 0599 1E02     		.2byte	0x21e
+ 3361 059b 30000000 		.4byte	0x30
+ 3362 059f 02       		.byte	0x2
+ 3363 05a0 91       		.byte	0x91
+ 3364 05a1 77       		.sleb128 -9
+ 3365 05a2 00       		.byte	0x0
+ 3366 05a3 12       		.uleb128 0x12
+ 3367 05a4 35000000 		.4byte	.LASF51
+ 3368 05a8 01       		.byte	0x1
+ 3369 05a9 3602     		.2byte	0x236
+ 3370 05ab 01       		.byte	0x1
+ 3371 05ac 30000000 		.4byte	0x30
+ 3372 05b0 00000000 		.4byte	.LFB44
+ 3373 05b4 D6000000 		.4byte	.LFE44
+ 3374 05b8 2D030000 		.4byte	.LLST15
+ 3375 05bc EE050000 		.4byte	0x5ee
+ 3376 05c0 0E       		.uleb128 0xe
+ 3377 05c1 FC020000 		.4byte	.LASF47
+ 3378 05c5 01       		.byte	0x1
+ 3379 05c6 3602     		.2byte	0x236
+ 3380 05c8 30000000 		.4byte	0x30
+ 3381 05cc 02       		.byte	0x2
+ 3382 05cd 91       		.byte	0x91
+ 3383 05ce 6F       		.sleb128 -17
+ 3384 05cf 10       		.uleb128 0x10
+ 3385 05d0 46020000 		.4byte	.LASF25
+ 3386 05d4 01       		.byte	0x1
+ 3387 05d5 3802     		.2byte	0x238
+ 3388 05d7 30000000 		.4byte	0x30
+ 3389 05db 02       		.byte	0x2
+ 3390 05dc 91       		.byte	0x91
+ 3391 05dd 75       		.sleb128 -11
+ 3392 05de 10       		.uleb128 0x10
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 71
+
+
+ 3393 05df 98020000 		.4byte	.LASF52
+ 3394 05e3 01       		.byte	0x1
+ 3395 05e4 3902     		.2byte	0x239
+ 3396 05e6 49000000 		.4byte	0x49
+ 3397 05ea 02       		.byte	0x2
+ 3398 05eb 91       		.byte	0x91
+ 3399 05ec 76       		.sleb128 -10
+ 3400 05ed 00       		.byte	0x0
+ 3401 05ee 13       		.uleb128 0x13
+ 3402 05ef 27010000 		.4byte	0x127
+ 3403 05f3 FE050000 		.4byte	0x5fe
+ 3404 05f7 14       		.uleb128 0x14
+ 3405 05f8 A5000000 		.4byte	0xa5
+ 3406 05fc 01       		.byte	0x1
+ 3407 05fd 00       		.byte	0x0
+ 3408 05fe 0B       		.uleb128 0xb
+ 3409 05ff C7000000 		.4byte	.LASF53
+ 3410 0603 01       		.byte	0x1
+ 3411 0604 15       		.byte	0x15
+ 3412 0605 EE050000 		.4byte	0x5ee
+ 3413 0609 05       		.byte	0x5
+ 3414 060a 03       		.byte	0x3
+ 3415 060b 00000000 		.4byte	RingBuffer
+ 3416 060f 15       		.uleb128 0x15
+ 3417 0610 EF020000 		.4byte	.LASF58
+ 3418 0614 06       		.byte	0x6
+ 3419 0615 CE06     		.2byte	0x6ce
+ 3420 0617 1D060000 		.4byte	0x61d
+ 3421 061b 01       		.byte	0x1
+ 3422 061c 01       		.byte	0x1
+ 3423 061d 16       		.uleb128 0x16
+ 3424 061e 77000000 		.4byte	0x77
+ 3425 0622 00       		.byte	0x0
+ 3426              		.section	.debug_abbrev
+ 3427 0000 01       		.uleb128 0x1
+ 3428 0001 11       		.uleb128 0x11
+ 3429 0002 01       		.byte	0x1
+ 3430 0003 25       		.uleb128 0x25
+ 3431 0004 0E       		.uleb128 0xe
+ 3432 0005 13       		.uleb128 0x13
+ 3433 0006 0B       		.uleb128 0xb
+ 3434 0007 03       		.uleb128 0x3
+ 3435 0008 0E       		.uleb128 0xe
+ 3436 0009 1B       		.uleb128 0x1b
+ 3437 000a 0E       		.uleb128 0xe
+ 3438 000b 11       		.uleb128 0x11
+ 3439 000c 01       		.uleb128 0x1
+ 3440 000d 52       		.uleb128 0x52
+ 3441 000e 01       		.uleb128 0x1
+ 3442 000f 55       		.uleb128 0x55
+ 3443 0010 06       		.uleb128 0x6
+ 3444 0011 10       		.uleb128 0x10
+ 3445 0012 06       		.uleb128 0x6
+ 3446 0013 00       		.byte	0x0
+ 3447 0014 00       		.byte	0x0
+ 3448 0015 02       		.uleb128 0x2
+ 3449 0016 24       		.uleb128 0x24
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 72
+
+
+ 3450 0017 00       		.byte	0x0
+ 3451 0018 0B       		.uleb128 0xb
+ 3452 0019 0B       		.uleb128 0xb
+ 3453 001a 3E       		.uleb128 0x3e
+ 3454 001b 0B       		.uleb128 0xb
+ 3455 001c 03       		.uleb128 0x3
+ 3456 001d 0E       		.uleb128 0xe
+ 3457 001e 00       		.byte	0x0
+ 3458 001f 00       		.byte	0x0
+ 3459 0020 03       		.uleb128 0x3
+ 3460 0021 16       		.uleb128 0x16
+ 3461 0022 00       		.byte	0x0
+ 3462 0023 03       		.uleb128 0x3
+ 3463 0024 0E       		.uleb128 0xe
+ 3464 0025 3A       		.uleb128 0x3a
+ 3465 0026 0B       		.uleb128 0xb
+ 3466 0027 3B       		.uleb128 0x3b
+ 3467 0028 0B       		.uleb128 0xb
+ 3468 0029 49       		.uleb128 0x49
+ 3469 002a 13       		.uleb128 0x13
+ 3470 002b 00       		.byte	0x0
+ 3471 002c 00       		.byte	0x0
+ 3472 002d 04       		.uleb128 0x4
+ 3473 002e 24       		.uleb128 0x24
+ 3474 002f 00       		.byte	0x0
+ 3475 0030 0B       		.uleb128 0xb
+ 3476 0031 0B       		.uleb128 0xb
+ 3477 0032 3E       		.uleb128 0x3e
+ 3478 0033 0B       		.uleb128 0xb
+ 3479 0034 03       		.uleb128 0x3
+ 3480 0035 08       		.uleb128 0x8
+ 3481 0036 00       		.byte	0x0
+ 3482 0037 00       		.byte	0x0
+ 3483 0038 05       		.uleb128 0x5
+ 3484 0039 24       		.uleb128 0x24
+ 3485 003a 00       		.byte	0x0
+ 3486 003b 0B       		.uleb128 0xb
+ 3487 003c 0B       		.uleb128 0xb
+ 3488 003d 3E       		.uleb128 0x3e
+ 3489 003e 0B       		.uleb128 0xb
+ 3490 003f 00       		.byte	0x0
+ 3491 0040 00       		.byte	0x0
+ 3492 0041 06       		.uleb128 0x6
+ 3493 0042 13       		.uleb128 0x13
+ 3494 0043 01       		.byte	0x1
+ 3495 0044 03       		.uleb128 0x3
+ 3496 0045 0E       		.uleb128 0xe
+ 3497 0046 0B       		.uleb128 0xb
+ 3498 0047 0B       		.uleb128 0xb
+ 3499 0048 3A       		.uleb128 0x3a
+ 3500 0049 0B       		.uleb128 0xb
+ 3501 004a 3B       		.uleb128 0x3b
+ 3502 004b 0B       		.uleb128 0xb
+ 3503 004c 01       		.uleb128 0x1
+ 3504 004d 13       		.uleb128 0x13
+ 3505 004e 00       		.byte	0x0
+ 3506 004f 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 73
+
+
+ 3507 0050 07       		.uleb128 0x7
+ 3508 0051 0D       		.uleb128 0xd
+ 3509 0052 00       		.byte	0x0
+ 3510 0053 03       		.uleb128 0x3
+ 3511 0054 08       		.uleb128 0x8
+ 3512 0055 3A       		.uleb128 0x3a
+ 3513 0056 0B       		.uleb128 0xb
+ 3514 0057 3B       		.uleb128 0x3b
+ 3515 0058 0B       		.uleb128 0xb
+ 3516 0059 49       		.uleb128 0x49
+ 3517 005a 13       		.uleb128 0x13
+ 3518 005b 38       		.uleb128 0x38
+ 3519 005c 0A       		.uleb128 0xa
+ 3520 005d 00       		.byte	0x0
+ 3521 005e 00       		.byte	0x0
+ 3522 005f 08       		.uleb128 0x8
+ 3523 0060 0D       		.uleb128 0xd
+ 3524 0061 00       		.byte	0x0
+ 3525 0062 03       		.uleb128 0x3
+ 3526 0063 0E       		.uleb128 0xe
+ 3527 0064 3A       		.uleb128 0x3a
+ 3528 0065 0B       		.uleb128 0xb
+ 3529 0066 3B       		.uleb128 0x3b
+ 3530 0067 0B       		.uleb128 0xb
+ 3531 0068 49       		.uleb128 0x49
+ 3532 0069 13       		.uleb128 0x13
+ 3533 006a 38       		.uleb128 0x38
+ 3534 006b 0A       		.uleb128 0xa
+ 3535 006c 00       		.byte	0x0
+ 3536 006d 00       		.byte	0x0
+ 3537 006e 09       		.uleb128 0x9
+ 3538 006f 0F       		.uleb128 0xf
+ 3539 0070 00       		.byte	0x0
+ 3540 0071 0B       		.uleb128 0xb
+ 3541 0072 0B       		.uleb128 0xb
+ 3542 0073 49       		.uleb128 0x49
+ 3543 0074 13       		.uleb128 0x13
+ 3544 0075 00       		.byte	0x0
+ 3545 0076 00       		.byte	0x0
+ 3546 0077 0A       		.uleb128 0xa
+ 3547 0078 2E       		.uleb128 0x2e
+ 3548 0079 01       		.byte	0x1
+ 3549 007a 3F       		.uleb128 0x3f
+ 3550 007b 0C       		.uleb128 0xc
+ 3551 007c 03       		.uleb128 0x3
+ 3552 007d 0E       		.uleb128 0xe
+ 3553 007e 3A       		.uleb128 0x3a
+ 3554 007f 0B       		.uleb128 0xb
+ 3555 0080 3B       		.uleb128 0x3b
+ 3556 0081 0B       		.uleb128 0xb
+ 3557 0082 27       		.uleb128 0x27
+ 3558 0083 0C       		.uleb128 0xc
+ 3559 0084 49       		.uleb128 0x49
+ 3560 0085 13       		.uleb128 0x13
+ 3561 0086 11       		.uleb128 0x11
+ 3562 0087 01       		.uleb128 0x1
+ 3563 0088 12       		.uleb128 0x12
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 74
+
+
+ 3564 0089 01       		.uleb128 0x1
+ 3565 008a 40       		.uleb128 0x40
+ 3566 008b 06       		.uleb128 0x6
+ 3567 008c 01       		.uleb128 0x1
+ 3568 008d 13       		.uleb128 0x13
+ 3569 008e 00       		.byte	0x0
+ 3570 008f 00       		.byte	0x0
+ 3571 0090 0B       		.uleb128 0xb
+ 3572 0091 34       		.uleb128 0x34
+ 3573 0092 00       		.byte	0x0
+ 3574 0093 03       		.uleb128 0x3
+ 3575 0094 0E       		.uleb128 0xe
+ 3576 0095 3A       		.uleb128 0x3a
+ 3577 0096 0B       		.uleb128 0xb
+ 3578 0097 3B       		.uleb128 0x3b
+ 3579 0098 0B       		.uleb128 0xb
+ 3580 0099 49       		.uleb128 0x49
+ 3581 009a 13       		.uleb128 0x13
+ 3582 009b 02       		.uleb128 0x2
+ 3583 009c 0A       		.uleb128 0xa
+ 3584 009d 00       		.byte	0x0
+ 3585 009e 00       		.byte	0x0
+ 3586 009f 0C       		.uleb128 0xc
+ 3587 00a0 05       		.uleb128 0x5
+ 3588 00a1 00       		.byte	0x0
+ 3589 00a2 03       		.uleb128 0x3
+ 3590 00a3 0E       		.uleb128 0xe
+ 3591 00a4 3A       		.uleb128 0x3a
+ 3592 00a5 0B       		.uleb128 0xb
+ 3593 00a6 3B       		.uleb128 0x3b
+ 3594 00a7 0B       		.uleb128 0xb
+ 3595 00a8 49       		.uleb128 0x49
+ 3596 00a9 13       		.uleb128 0x13
+ 3597 00aa 02       		.uleb128 0x2
+ 3598 00ab 0A       		.uleb128 0xa
+ 3599 00ac 00       		.byte	0x0
+ 3600 00ad 00       		.byte	0x0
+ 3601 00ae 0D       		.uleb128 0xd
+ 3602 00af 2E       		.uleb128 0x2e
+ 3603 00b0 01       		.byte	0x1
+ 3604 00b1 3F       		.uleb128 0x3f
+ 3605 00b2 0C       		.uleb128 0xc
+ 3606 00b3 03       		.uleb128 0x3
+ 3607 00b4 0E       		.uleb128 0xe
+ 3608 00b5 3A       		.uleb128 0x3a
+ 3609 00b6 0B       		.uleb128 0xb
+ 3610 00b7 3B       		.uleb128 0x3b
+ 3611 00b8 05       		.uleb128 0x5
+ 3612 00b9 27       		.uleb128 0x27
+ 3613 00ba 0C       		.uleb128 0xc
+ 3614 00bb 49       		.uleb128 0x49
+ 3615 00bc 13       		.uleb128 0x13
+ 3616 00bd 11       		.uleb128 0x11
+ 3617 00be 01       		.uleb128 0x1
+ 3618 00bf 12       		.uleb128 0x12
+ 3619 00c0 01       		.uleb128 0x1
+ 3620 00c1 40       		.uleb128 0x40
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 75
+
+
+ 3621 00c2 06       		.uleb128 0x6
+ 3622 00c3 01       		.uleb128 0x1
+ 3623 00c4 13       		.uleb128 0x13
+ 3624 00c5 00       		.byte	0x0
+ 3625 00c6 00       		.byte	0x0
+ 3626 00c7 0E       		.uleb128 0xe
+ 3627 00c8 05       		.uleb128 0x5
+ 3628 00c9 00       		.byte	0x0
+ 3629 00ca 03       		.uleb128 0x3
+ 3630 00cb 0E       		.uleb128 0xe
+ 3631 00cc 3A       		.uleb128 0x3a
+ 3632 00cd 0B       		.uleb128 0xb
+ 3633 00ce 3B       		.uleb128 0x3b
+ 3634 00cf 05       		.uleb128 0x5
+ 3635 00d0 49       		.uleb128 0x49
+ 3636 00d1 13       		.uleb128 0x13
+ 3637 00d2 02       		.uleb128 0x2
+ 3638 00d3 0A       		.uleb128 0xa
+ 3639 00d4 00       		.byte	0x0
+ 3640 00d5 00       		.byte	0x0
+ 3641 00d6 0F       		.uleb128 0xf
+ 3642 00d7 05       		.uleb128 0x5
+ 3643 00d8 00       		.byte	0x0
+ 3644 00d9 03       		.uleb128 0x3
+ 3645 00da 08       		.uleb128 0x8
+ 3646 00db 3A       		.uleb128 0x3a
+ 3647 00dc 0B       		.uleb128 0xb
+ 3648 00dd 3B       		.uleb128 0x3b
+ 3649 00de 05       		.uleb128 0x5
+ 3650 00df 49       		.uleb128 0x49
+ 3651 00e0 13       		.uleb128 0x13
+ 3652 00e1 02       		.uleb128 0x2
+ 3653 00e2 0A       		.uleb128 0xa
+ 3654 00e3 00       		.byte	0x0
+ 3655 00e4 00       		.byte	0x0
+ 3656 00e5 10       		.uleb128 0x10
+ 3657 00e6 34       		.uleb128 0x34
+ 3658 00e7 00       		.byte	0x0
+ 3659 00e8 03       		.uleb128 0x3
+ 3660 00e9 0E       		.uleb128 0xe
+ 3661 00ea 3A       		.uleb128 0x3a
+ 3662 00eb 0B       		.uleb128 0xb
+ 3663 00ec 3B       		.uleb128 0x3b
+ 3664 00ed 05       		.uleb128 0x5
+ 3665 00ee 49       		.uleb128 0x49
+ 3666 00ef 13       		.uleb128 0x13
+ 3667 00f0 02       		.uleb128 0x2
+ 3668 00f1 0A       		.uleb128 0xa
+ 3669 00f2 00       		.byte	0x0
+ 3670 00f3 00       		.byte	0x0
+ 3671 00f4 11       		.uleb128 0x11
+ 3672 00f5 34       		.uleb128 0x34
+ 3673 00f6 00       		.byte	0x0
+ 3674 00f7 03       		.uleb128 0x3
+ 3675 00f8 08       		.uleb128 0x8
+ 3676 00f9 3A       		.uleb128 0x3a
+ 3677 00fa 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 76
+
+
+ 3678 00fb 3B       		.uleb128 0x3b
+ 3679 00fc 05       		.uleb128 0x5
+ 3680 00fd 49       		.uleb128 0x49
+ 3681 00fe 13       		.uleb128 0x13
+ 3682 00ff 02       		.uleb128 0x2
+ 3683 0100 0A       		.uleb128 0xa
+ 3684 0101 00       		.byte	0x0
+ 3685 0102 00       		.byte	0x0
+ 3686 0103 12       		.uleb128 0x12
+ 3687 0104 2E       		.uleb128 0x2e
+ 3688 0105 01       		.byte	0x1
+ 3689 0106 03       		.uleb128 0x3
+ 3690 0107 0E       		.uleb128 0xe
+ 3691 0108 3A       		.uleb128 0x3a
+ 3692 0109 0B       		.uleb128 0xb
+ 3693 010a 3B       		.uleb128 0x3b
+ 3694 010b 05       		.uleb128 0x5
+ 3695 010c 27       		.uleb128 0x27
+ 3696 010d 0C       		.uleb128 0xc
+ 3697 010e 49       		.uleb128 0x49
+ 3698 010f 13       		.uleb128 0x13
+ 3699 0110 11       		.uleb128 0x11
+ 3700 0111 01       		.uleb128 0x1
+ 3701 0112 12       		.uleb128 0x12
+ 3702 0113 01       		.uleb128 0x1
+ 3703 0114 40       		.uleb128 0x40
+ 3704 0115 06       		.uleb128 0x6
+ 3705 0116 01       		.uleb128 0x1
+ 3706 0117 13       		.uleb128 0x13
+ 3707 0118 00       		.byte	0x0
+ 3708 0119 00       		.byte	0x0
+ 3709 011a 13       		.uleb128 0x13
+ 3710 011b 01       		.uleb128 0x1
+ 3711 011c 01       		.byte	0x1
+ 3712 011d 49       		.uleb128 0x49
+ 3713 011e 13       		.uleb128 0x13
+ 3714 011f 01       		.uleb128 0x1
+ 3715 0120 13       		.uleb128 0x13
+ 3716 0121 00       		.byte	0x0
+ 3717 0122 00       		.byte	0x0
+ 3718 0123 14       		.uleb128 0x14
+ 3719 0124 21       		.uleb128 0x21
+ 3720 0125 00       		.byte	0x0
+ 3721 0126 49       		.uleb128 0x49
+ 3722 0127 13       		.uleb128 0x13
+ 3723 0128 2F       		.uleb128 0x2f
+ 3724 0129 0B       		.uleb128 0xb
+ 3725 012a 00       		.byte	0x0
+ 3726 012b 00       		.byte	0x0
+ 3727 012c 15       		.uleb128 0x15
+ 3728 012d 34       		.uleb128 0x34
+ 3729 012e 00       		.byte	0x0
+ 3730 012f 03       		.uleb128 0x3
+ 3731 0130 0E       		.uleb128 0xe
+ 3732 0131 3A       		.uleb128 0x3a
+ 3733 0132 0B       		.uleb128 0xb
+ 3734 0133 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 77
+
+
+ 3735 0134 05       		.uleb128 0x5
+ 3736 0135 49       		.uleb128 0x49
+ 3737 0136 13       		.uleb128 0x13
+ 3738 0137 3F       		.uleb128 0x3f
+ 3739 0138 0C       		.uleb128 0xc
+ 3740 0139 3C       		.uleb128 0x3c
+ 3741 013a 0C       		.uleb128 0xc
+ 3742 013b 00       		.byte	0x0
+ 3743 013c 00       		.byte	0x0
+ 3744 013d 16       		.uleb128 0x16
+ 3745 013e 35       		.uleb128 0x35
+ 3746 013f 00       		.byte	0x0
+ 3747 0140 49       		.uleb128 0x49
+ 3748 0141 13       		.uleb128 0x13
+ 3749 0142 00       		.byte	0x0
+ 3750 0143 00       		.byte	0x0
+ 3751 0144 00       		.byte	0x0
+ 3752              		.section	.debug_pubnames,"",%progbits
+ 3753 0000 26010000 		.4byte	0x126
+ 3754 0004 0200     		.2byte	0x2
+ 3755 0006 00000000 		.4byte	.Ldebug_info0
+ 3756 000a 23060000 		.4byte	0x623
+ 3757 000e 32010000 		.4byte	0x132
+ 3758 0012 5242465F 		.ascii	"RBF_ucInit\000"
+ 3758      7563496E 
+ 3758      697400
+ 3759 001d 61010000 		.4byte	0x161
+ 3760 0021 5242465F 		.ascii	"RBF_ucClearBuffer\000"
+ 3760      7563436C 
+ 3760      65617242 
+ 3760      75666665 
+ 3760      7200
+ 3761 0033 9B010000 		.4byte	0x19b
+ 3762 0037 5242465F 		.ascii	"RBF_ucRegisterBuffer\000"
+ 3762      75635265 
+ 3762      67697374 
+ 3762      65724275 
+ 3762      66666572 
+ 3763 004c E3010000 		.4byte	0x1e3
+ 3764 0050 5242465F 		.ascii	"RBF_ucUnregisterBuffer\000"
+ 3764      7563556E 
+ 3764      72656769 
+ 3764      73746572 
+ 3764      42756666 
+ 3765 0067 1D020000 		.4byte	0x21d
+ 3766 006b 5242465F 		.ascii	"RBF_ucByteIn\000"
+ 3766      75634279 
+ 3766      7465496E 
+ 3766      00
+ 3767 0078 65020000 		.4byte	0x265
+ 3768 007c 5242465F 		.ascii	"RBF_ucHeadByteOut\000"
+ 3768      75634865 
+ 3768      61644279 
+ 3768      74654F75 
+ 3768      7400
+ 3769 008e AD020000 		.4byte	0x2ad
+ 3770 0092 5242465F 		.ascii	"RBF_ucTailByteOut\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 78
+
+
+ 3770      75635461 
+ 3770      696C4279 
+ 3770      74654F75 
+ 3770      7400
+ 3771 00a4 F5020000 		.4byte	0x2f5
+ 3772 00a8 5242465F 		.ascii	"RBF_ucReadOnlyFromTail\000"
+ 3772      75635265 
+ 3772      61644F6E 
+ 3772      6C794672 
+ 3772      6F6D5461 
+ 3773 00bf 3D030000 		.4byte	0x33d
+ 3774 00c3 5242465F 		.ascii	"RBF_ucMsgIn\000"
+ 3774      75634D73 
+ 3774      67496E00 
+ 3775 00cf C3030000 		.4byte	0x3c3
+ 3776 00d3 5242465F 		.ascii	"RBF_ucHeadMsgOut\000"
+ 3776      75634865 
+ 3776      61644D73 
+ 3776      674F7574 
+ 3776      00
+ 3777 00e4 3A040000 		.4byte	0x43a
+ 3778 00e8 5242465F 		.ascii	"RBF_ucTailMsgOut\000"
+ 3778      75635461 
+ 3778      696C4D73 
+ 3778      674F7574 
+ 3778      00
+ 3779 00f9 B1040000 		.4byte	0x4b1
+ 3780 00fd 5242465F 		.ascii	"RBF_ucGetMsgCount\000"
+ 3780      75634765 
+ 3780      744D7367 
+ 3780      436F756E 
+ 3780      7400
+ 3781 010f DF040000 		.4byte	0x4df
+ 3782 0113 5242465F 		.ascii	"RBF_ucGetByteCount\000"
+ 3782      75634765 
+ 3782      74427974 
+ 3782      65436F75 
+ 3782      6E7400
+ 3783 0126 00000000 		.4byte	0x0
+ 3784              		.section	.debug_aranges,"",%progbits
+ 3785 0000 94000000 		.4byte	0x94
+ 3786 0004 0200     		.2byte	0x2
+ 3787 0006 00000000 		.4byte	.Ldebug_info0
+ 3788 000a 04       		.byte	0x4
+ 3789 000b 00       		.byte	0x0
+ 3790 000c 0000     		.2byte	0x0
+ 3791 000e 0000     		.2byte	0x0
+ 3792 0010 00000000 		.4byte	.LFB29
+ 3793 0014 20000000 		.4byte	.LFE29-.LFB29
+ 3794 0018 00000000 		.4byte	.LFB30
+ 3795 001c 36010000 		.4byte	.LFE30-.LFB30
+ 3796 0020 00000000 		.4byte	.LFB31
+ 3797 0024 8C010000 		.4byte	.LFE31-.LFB31
+ 3798 0028 00000000 		.4byte	.LFB32
+ 3799 002c 5A010000 		.4byte	.LFE32-.LFB32
+ 3800 0030 00000000 		.4byte	.LFB33
+ 3801 0034 08010000 		.4byte	.LFE33-.LFB33
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 79
+
+
+ 3802 0038 00000000 		.4byte	.LFB34
+ 3803 003c 9C010000 		.4byte	.LFE34-.LFB34
+ 3804 0040 00000000 		.4byte	.LFB35
+ 3805 0044 9C010000 		.4byte	.LFE35-.LFB35
+ 3806 0048 00000000 		.4byte	.LFB36
+ 3807 004c A6000000 		.4byte	.LFE36-.LFB36
+ 3808 0050 00000000 		.4byte	.LFB37
+ 3809 0054 6A010000 		.4byte	.LFE37-.LFB37
+ 3810 0058 00000000 		.4byte	.LFB38
+ 3811 005c 2A010000 		.4byte	.LFE38-.LFB38
+ 3812 0060 00000000 		.4byte	.LFB39
+ 3813 0064 1C010000 		.4byte	.LFE39-.LFB39
+ 3814 0068 00000000 		.4byte	.LFB40
+ 3815 006c 36000000 		.4byte	.LFE40-.LFB40
+ 3816 0070 00000000 		.4byte	.LFB41
+ 3817 0074 7E010000 		.4byte	.LFE41-.LFB41
+ 3818 0078 00000000 		.4byte	.LFB42
+ 3819 007c DE000000 		.4byte	.LFE42-.LFB42
+ 3820 0080 00000000 		.4byte	.LFB43
+ 3821 0084 10010000 		.4byte	.LFE43-.LFB43
+ 3822 0088 00000000 		.4byte	.LFB44
+ 3823 008c D6000000 		.4byte	.LFE44-.LFB44
+ 3824 0090 00000000 		.4byte	0x0
+ 3825 0094 00000000 		.4byte	0x0
+ 3826              		.section	.debug_ranges,"",%progbits
+ 3827              	.Ldebug_ranges0:
+ 3828 0000 00000000 		.4byte	.Ltext0
+ 3829 0004 00000000 		.4byte	.Letext0
+ 3830 0008 00000000 		.4byte	.LFB29
+ 3831 000c 20000000 		.4byte	.LFE29
+ 3832 0010 00000000 		.4byte	.LFB30
+ 3833 0014 36010000 		.4byte	.LFE30
+ 3834 0018 00000000 		.4byte	.LFB31
+ 3835 001c 8C010000 		.4byte	.LFE31
+ 3836 0020 00000000 		.4byte	.LFB32
+ 3837 0024 5A010000 		.4byte	.LFE32
+ 3838 0028 00000000 		.4byte	.LFB33
+ 3839 002c 08010000 		.4byte	.LFE33
+ 3840 0030 00000000 		.4byte	.LFB34
+ 3841 0034 9C010000 		.4byte	.LFE34
+ 3842 0038 00000000 		.4byte	.LFB35
+ 3843 003c 9C010000 		.4byte	.LFE35
+ 3844 0040 00000000 		.4byte	.LFB36
+ 3845 0044 A6000000 		.4byte	.LFE36
+ 3846 0048 00000000 		.4byte	.LFB37
+ 3847 004c 6A010000 		.4byte	.LFE37
+ 3848 0050 00000000 		.4byte	.LFB38
+ 3849 0054 2A010000 		.4byte	.LFE38
+ 3850 0058 00000000 		.4byte	.LFB39
+ 3851 005c 1C010000 		.4byte	.LFE39
+ 3852 0060 00000000 		.4byte	.LFB40
+ 3853 0064 36000000 		.4byte	.LFE40
+ 3854 0068 00000000 		.4byte	.LFB41
+ 3855 006c 7E010000 		.4byte	.LFE41
+ 3856 0070 00000000 		.4byte	.LFB42
+ 3857 0074 DE000000 		.4byte	.LFE42
+ 3858 0078 00000000 		.4byte	.LFB43
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 80
+
+
+ 3859 007c 10010000 		.4byte	.LFE43
+ 3860 0080 00000000 		.4byte	.LFB44
+ 3861 0084 D6000000 		.4byte	.LFE44
+ 3862 0088 00000000 		.4byte	0x0
+ 3863 008c 00000000 		.4byte	0x0
+ 3864              		.section	.debug_str,"MS",%progbits,1
+ 3865              	.LASF45:
+ 3866 0000 5242465F 		.ascii	"RBF_ucGetByteCount\000"
+ 3866      75634765 
+ 3866      74427974 
+ 3866      65436F75 
+ 3866      6E7400
+ 3867              	.LASF37:
+ 3868 0013 75634E75 		.ascii	"ucNumByte\000"
+ 3868      6D427974 
+ 3868      6500
+ 3869              	.LASF41:
+ 3870 001d 5242465F 		.ascii	"RBF_ucHeadMsgOut\000"
+ 3870      75634865 
+ 3870      61644D73 
+ 3870      674F7574 
+ 3870      00
+ 3871              	.LASF42:
+ 3872 002e 74617267 		.ascii	"target\000"
+ 3872      657400
+ 3873              	.LASF51:
+ 3874 0035 496E6354 		.ascii	"IncTail\000"
+ 3874      61696C00 
+ 3875              	.LASF2:
+ 3876 003d 73686F72 		.ascii	"short int\000"
+ 3876      7420696E 
+ 3876      7400
+ 3877              	.LASF33:
+ 3878 0047 5242465F 		.ascii	"RBF_ucHeadByteOut\000"
+ 3878      75634865 
+ 3878      61644279 
+ 3878      74654F75 
+ 3878      7400
+ 3879              	.LASF35:
+ 3880 0059 5242465F 		.ascii	"RBF_ucReadOnlyFromTail\000"
+ 3880      75635265 
+ 3880      61644F6E 
+ 3880      6C794672 
+ 3880      6F6D5461 
+ 3881              	.LASF29:
+ 3882 0070 75695369 		.ascii	"uiSize\000"
+ 3882      7A6500
+ 3883              	.LASF23:
+ 3884 0077 5242465F 		.ascii	"RBF_ucClearBuffer\000"
+ 3884      7563436C 
+ 3884      65617242 
+ 3884      75666665 
+ 3884      7200
+ 3885              	.LASF34:
+ 3886 0089 5242465F 		.ascii	"RBF_ucTailByteOut\000"
+ 3886      75635461 
+ 3886      696C4279 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 81
+
+
+ 3886      74654F75 
+ 3886      7400
+ 3887              	.LASF18:
+ 3888 009b 68656164 		.ascii	"head\000"
+ 3888      00
+ 3889              	.LASF16:
+ 3890 00a0 61646472 		.ascii	"address\000"
+ 3890      65737300 
+ 3891              	.LASF30:
+ 3892 00a8 5242465F 		.ascii	"RBF_ucUnregisterBuffer\000"
+ 3892      7563556E 
+ 3892      72656769 
+ 3892      73746572 
+ 3892      42756666 
+ 3893              	.LASF3:
+ 3894 00bf 75696E74 		.ascii	"uint8_t\000"
+ 3894      385F7400 
+ 3895              	.LASF53:
+ 3896 00c7 52696E67 		.ascii	"RingBuffer\000"
+ 3896      42756666 
+ 3896      657200
+ 3897              	.LASF11:
+ 3898 00d2 75696E74 		.ascii	"uint8\000"
+ 3898      3800
+ 3899              	.LASF27:
+ 3900 00d8 7563496E 		.ascii	"ucIndex\000"
+ 3900      64657800 
+ 3901              	.LASF26:
+ 3902 00e0 5242465F 		.ascii	"RBF_ucRegisterBuffer\000"
+ 3902      75635265 
+ 3902      67697374 
+ 3902      65724275 
+ 3902      66666572 
+ 3903              	.LASF12:
+ 3904 00f5 666C6F61 		.ascii	"float\000"
+ 3904      7400
+ 3905              	.LASF39:
+ 3906 00fb 74656D70 		.ascii	"temp\000"
+ 3906      00
+ 3907              	.LASF8:
+ 3908 0100 6C6F6E67 		.ascii	"long long int\000"
+ 3908      206C6F6E 
+ 3908      6720696E 
+ 3908      7400
+ 3909              	.LASF49:
+ 3910 010e 496E6348 		.ascii	"IncHead\000"
+ 3910      65616400 
+ 3911              	.LASF15:
+ 3912 0116 53544154 		.ascii	"STATUS\000"
+ 3912      555300
+ 3913              	.LASF6:
+ 3914 011d 6C6F6E67 		.ascii	"long int\000"
+ 3914      20696E74 
+ 3914      00
+ 3915              	.LASF46:
+ 3916 0126 62797465 		.ascii	"bytecount\000"
+ 3916      636F756E 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 82
+
+
+ 3916      7400
+ 3917              	.LASF24:
+ 3918 0130 73746573 		.ascii	"stest\000"
+ 3918      7400
+ 3919              	.LASF36:
+ 3920 0136 75635461 		.ascii	"ucTargetAddr\000"
+ 3920      72676574 
+ 3920      41646472 
+ 3920      00
+ 3921              	.LASF21:
+ 3922 0143 52494E47 		.ascii	"RING_BUFFER\000"
+ 3922      5F425546 
+ 3922      46455200 
+ 3923              	.LASF32:
+ 3924 014f 62797465 		.ascii	"byte\000"
+ 3924      00
+ 3925              	.LASF31:
+ 3926 0154 5242465F 		.ascii	"RBF_ucByteIn\000"
+ 3926      75634279 
+ 3926      7465496E 
+ 3926      00
+ 3927              	.LASF19:
+ 3928 0161 7461696C 		.ascii	"tail\000"
+ 3928      00
+ 3929              	.LASF1:
+ 3930 0166 756E7369 		.ascii	"unsigned char\000"
+ 3930      676E6564 
+ 3930      20636861 
+ 3930      7200
+ 3931              	.LASF57:
+ 3932 0174 5F72696E 		.ascii	"_ring_buffer\000"
+ 3932      675F6275 
+ 3932      66666572 
+ 3932      00
+ 3933              	.LASF38:
+ 3934 0181 5242465F 		.ascii	"RBF_ucMsgIn\000"
+ 3934      75634D73 
+ 3934      67496E00 
+ 3935              	.LASF0:
+ 3936 018d 7369676E 		.ascii	"signed char\000"
+ 3936      65642063 
+ 3936      68617200 
+ 3937              	.LASF9:
+ 3938 0199 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 3938      206C6F6E 
+ 3938      6720756E 
+ 3938      7369676E 
+ 3938      65642069 
+ 3939              	.LASF10:
+ 3940 01b0 756E7369 		.ascii	"unsigned int\000"
+ 3940      676E6564 
+ 3940      20696E74 
+ 3940      00
+ 3941              	.LASF4:
+ 3942 01bd 75696E74 		.ascii	"uint16_t\000"
+ 3942      31365F74 
+ 3942      00
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 83
+
+
+ 3943              	.LASF56:
+ 3944 01c6 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 3944      69744875 
+ 3944      625F726F 
+ 3944      626F7469 
+ 3944      6373636F 
+ 3945 01f5 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ 3945      6F725F32 
+ 3945      2E325C44 
+ 3945      72697665 
+ 3945      506C6174 
+ 3946 0225 6174666F 		.ascii	"atform3.cydsn\000"
+ 3946      726D332E 
+ 3946      63796473 
+ 3946      6E00
+ 3947              	.LASF5:
+ 3948 0233 73686F72 		.ascii	"short unsigned int\000"
+ 3948      7420756E 
+ 3948      7369676E 
+ 3948      65642069 
+ 3948      6E7400
+ 3949              	.LASF25:
+ 3950 0246 73746174 		.ascii	"status\000"
+ 3950      757300
+ 3951              	.LASF28:
+ 3952 024d 70756341 		.ascii	"pucAddr\000"
+ 3952      64647200 
+ 3953              	.LASF14:
+ 3954 0255 63686172 		.ascii	"char\000"
+ 3954      00
+ 3955              	.LASF48:
+ 3956 025a 74656D70 		.ascii	"tempHead\000"
+ 3956      48656164 
+ 3956      00
+ 3957              	.LASF55:
+ 3958 0263 2E5C7269 		.ascii	".\\ring_buffer.c\000"
+ 3958      6E675F62 
+ 3958      75666665 
+ 3958      722E6300 
+ 3959              	.LASF50:
+ 3960 0273 44656348 		.ascii	"DecHead\000"
+ 3960      65616400 
+ 3961              	.LASF22:
+ 3962 027b 5242465F 		.ascii	"RBF_ucInit\000"
+ 3962      7563496E 
+ 3962      697400
+ 3963              	.LASF7:
+ 3964 0286 6C6F6E67 		.ascii	"long unsigned int\000"
+ 3964      20756E73 
+ 3964      69676E65 
+ 3964      6420696E 
+ 3964      7400
+ 3965              	.LASF52:
+ 3966 0298 74656D70 		.ascii	"tempTail\000"
+ 3966      5461696C 
+ 3966      00
+ 3967              	.LASF13:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\cc5oFBQN.s 			page 84
+
+
+ 3968 02a1 646F7562 		.ascii	"double\000"
+ 3968      6C6500
+ 3969              	.LASF40:
+ 3970 02a8 75694279 		.ascii	"uiByteCnt\000"
+ 3970      7465436E 
+ 3970      7400
+ 3971              	.LASF17:
+ 3972 02b2 73697A65 		.ascii	"size\000"
+ 3972      00
+ 3973              	.LASF43:
+ 3974 02b7 5242465F 		.ascii	"RBF_ucTailMsgOut\000"
+ 3974      75635461 
+ 3974      696C4D73 
+ 3974      674F7574 
+ 3974      00
+ 3975              	.LASF44:
+ 3976 02c8 5242465F 		.ascii	"RBF_ucGetMsgCount\000"
+ 3976      75634765 
+ 3976      744D7367 
+ 3976      436F756E 
+ 3976      7400
+ 3977              	.LASF20:
+ 3978 02da 6D736763 		.ascii	"msgcount\000"
+ 3978      6F756E74 
+ 3978      00
+ 3979              	.LASF54:
+ 3980 02e3 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 3980      4320342E 
+ 3980      342E3100 
+ 3981              	.LASF58:
+ 3982 02ef 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 3982      52784275 
+ 3982      66666572 
+ 3982      00
+ 3983              	.LASF47:
+ 3984 02fc 75634964 		.ascii	"ucIdx\000"
+ 3984      7800
+ 3985              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

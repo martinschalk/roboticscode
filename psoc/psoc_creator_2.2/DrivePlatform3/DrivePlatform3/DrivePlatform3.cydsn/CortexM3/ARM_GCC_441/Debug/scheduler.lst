@@ -1,0 +1,1996 @@
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"scheduler.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 B3010000 		.text
+  20      02001E01 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	SCH_TaskIndex:
+  26 0000 00000000 		.space	4
+  27              		.data
+  28              		.align	2
+  29              		.type	SCH_Task, %object
+  30              		.size	SCH_Task, 224
+  31              	SCH_Task:
+  32 0000 45525200 		.ascii	"ERR\000"
+  33 0004 00000000 		.space	4
+  34 0008 02       		.byte	2
+  35 0009 00       		.byte	0
+  36 000a 0000     		.space	2
+  37 000c 00000000 		.word	ERR_Init
+  38 0010 00000000 		.word	ERR_HandleTask
+  39 0014 00       		.byte	0
+  40 0015 00000000 		.space	7
+  40      000000
+  41 001c 52424600 		.ascii	"RBF\000"
+  42 0020 00000000 		.space	4
+  43 0024 02       		.byte	2
+  44 0025 01       		.byte	1
+  45 0026 0000     		.space	2
+  46 0028 00000000 		.word	RBF_ucInit
+  47 002c 00000000 		.word	0
+  48 0030 00       		.byte	0
+  49 0031 00000000 		.space	7
+  49      000000
+  50 0038 48414C00 		.ascii	"HAL\000"
+  51 003c 00000000 		.space	4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 2
+
+
+  52 0040 02       		.byte	2
+  53 0041 01       		.byte	1
+  54 0042 0000     		.space	2
+  55 0044 00000000 		.word	HAL_Init
+  56 0048 00000000 		.word	0
+  57 004c 00       		.byte	0
+  58 004d 00000000 		.space	7
+  58      000000
+  59 0054 544D5200 		.ascii	"TMR\000"
+  60 0058 00000000 		.space	4
+  61 005c 02       		.byte	2
+  62 005d 01       		.byte	1
+  63 005e 0000     		.space	2
+  64 0060 00000000 		.word	TMR_Init
+  65 0064 00000000 		.word	TMR_HandleTask
+  66 0068 00       		.byte	0
+  67 0069 00000000 		.space	7
+  67      000000
+  68 0070 42504C00 		.ascii	"BPL\000"
+  69 0074 00000000 		.space	4
+  70 0078 02       		.byte	2
+  71 0079 02       		.byte	2
+  72 007a 0000     		.space	2
+  73 007c 00000000 		.word	BPL_Init
+  74 0080 00000000 		.word	BPL_HandleTask
+  75 0084 48414C00 		.ascii	"HAL\000"
+  76 0088 00000000 		.space	4
+  77 008c 42414C00 		.ascii	"BAL\000"
+  78 0090 00000000 		.space	4
+  79 0094 02       		.byte	2
+  80 0095 02       		.byte	2
+  81 0096 0000     		.space	2
+  82 0098 00000000 		.word	BAL_Init
+  83 009c 00000000 		.word	BAL_HandleTask
+  84 00a0 42504C00 		.ascii	"BPL\000"
+  85 00a4 00000000 		.space	4
+  86 00a8 4D4F5600 		.ascii	"MOV\000"
+  87 00ac 00000000 		.space	4
+  88 00b0 02       		.byte	2
+  89 00b1 02       		.byte	2
+  90 00b2 0000     		.space	2
+  91 00b4 00000000 		.word	MOV_Init
+  92 00b8 00000000 		.word	MOV_HandleTask
+  93 00bc 4D4F5600 		.ascii	"MOV\000"
+  94 00c0 00000000 		.space	4
+  95 00c4 54535400 		.ascii	"TST\000"
+  96 00c8 00000000 		.space	4
+  97 00cc 02       		.byte	2
+  98 00cd 02       		.byte	2
+  99 00ce 0000     		.space	2
+ 100 00d0 00000000 		.word	TST_Init
+ 101 00d4 00000000 		.word	TST_HandleTask
+ 102 00d8 544D5200 		.ascii	"TMR\000"
+ 103 00dc 00000000 		.space	4
+ 104              		.section	.text.SCH_GetTaskIndex,"ax",%progbits
+ 105              		.align	2
+ 106              		.thumb
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 3
+
+
+ 107              		.thumb_func
+ 108              		.type	SCH_GetTaskIndex, %function
+ 109              	SCH_GetTaskIndex:
+ 110              	.LFB29:
+ 111              		.file 1 ".\\scheduler.c"
+   1:.\scheduler.c **** /* Copyright (C) <2014> <Martin Schalk>
+   2:.\scheduler.c ****  * All rights reserved.
+   3:.\scheduler.c ****  *
+   4:.\scheduler.c ****  * This software may be modified and distributed under the terms
+   5:.\scheduler.c ****  * of the BSD license.  See the LICENSE file for details.
+   6:.\scheduler.c ****  */
+   7:.\scheduler.c **** 
+   8:.\scheduler.c **** #include <project.h>
+   9:.\scheduler.c **** #include "scheduler.h"
+  10:.\scheduler.c **** 
+  11:.\scheduler.c **** #include "hal.h"
+  12:.\scheduler.c **** #include "tmr.h"
+  13:.\scheduler.c **** #include "bpl.h"
+  14:.\scheduler.c **** #include "bal.h"
+  15:.\scheduler.c **** #include "error.h"
+  16:.\scheduler.c **** #include "ring_buffer.h"
+  17:.\scheduler.c **** #include "test.h"
+  18:.\scheduler.c **** #include "move.h"
+  19:.\scheduler.c **** 
+  20:.\scheduler.c **** static int          SCH_TaskIndex = 0;
+  21:.\scheduler.c **** static SCH_TASK 	SCH_Task[] =
+  22:.\scheduler.c **** {
+  23:.\scheduler.c **** /*   NAME   STATUS          PRIO    INIT        HANDLER             DEPENDENCY */
+  24:.\scheduler.c **** /*   ------------------------------------------------------------------------- */
+  25:.\scheduler.c **** #ifdef ERROR_MODULE_ENABLE
+  26:.\scheduler.c ****     {"ERR", SCH_TASK_NEW,   0,      ERR_Init,   ERR_HandleTask,     {DEP_NONE}},
+  27:.\scheduler.c **** #endif
+  28:.\scheduler.c ****     {"RBF", SCH_TASK_NEW,   1,      RBF_ucInit, NULL,               {DEP_NONE}},
+  29:.\scheduler.c ****     {"HAL", SCH_TASK_NEW,   1,      HAL_Init,   NULL,               {DEP_NONE}},
+  30:.\scheduler.c ****     {"TMR", SCH_TASK_NEW,   1,      TMR_Init,   TMR_HandleTask,     {DEP_NONE}},
+  31:.\scheduler.c ****     {"BPL", SCH_TASK_NEW,   2,      BPL_Init,   BPL_HandleTask,     "HAL"},
+  32:.\scheduler.c ****     {"BAL", SCH_TASK_NEW,   2,      BAL_Init,   BAL_HandleTask,     "BPL"},
+  33:.\scheduler.c ****     {"MOV", SCH_TASK_NEW,   2,      MOV_Init,   MOV_HandleTask,     "MOV"},
+  34:.\scheduler.c ****     {"TST", SCH_TASK_NEW,   2,      TST_Init,   TST_HandleTask,     "TMR"},
+  35:.\scheduler.c **** };
+  36:.\scheduler.c **** /* currently only one dependency possible */
+  37:.\scheduler.c **** 
+  38:.\scheduler.c **** 
+  39:.\scheduler.c **** /*****************************************************************/
+  40:.\scheduler.c **** static uchar SCH_GetTaskIndex(uchar* taskName)
+  41:.\scheduler.c **** {
+ 112              		.loc 1 41 0
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 16
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117              	.LCFI0:
+ 118              		.cfi_def_cfa_offset 8
+ 119 0002 84B0     		sub	sp, sp, #16
+ 120              	.LCFI1:
+ 121              		.cfi_def_cfa_offset 24
+ 122 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 4
+
+
+ 123              		.cfi_offset 14, -4
+ 124              		.cfi_offset 7, -8
+ 125              	.LCFI2:
+ 126              		.cfi_def_cfa_register 7
+ 127 0006 7860     		str	r0, [r7, #4]
+  42:.\scheduler.c ****     int i;
+  43:.\scheduler.c ****     uchar idx = (uchar)(-1);
+ 128              		.loc 1 43 0
+ 129 0008 4FF0FF33 		mov	r3, #-1
+ 130 000c FB73     		strb	r3, [r7, #15]
+  44:.\scheduler.c ****     
+  45:.\scheduler.c ****     for (i=0; i<SIZE_OF_ARRAY(SCH_Task); i++)
+ 131              		.loc 1 45 0
+ 132 000e 4FF00003 		mov	r3, #0
+ 133 0012 BB60     		str	r3, [r7, #8]
+ 134 0014 1DE0     		b	.L2
+ 135              	.L4:
+  46:.\scheduler.c ****     {
+  47:.\scheduler.c ****         if (0 == strcmp((char*)SCH_Task[SCH_TaskIndex].name, (char*)taskName))
+ 136              		.loc 1 47 0
+ 137 0016 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 138 001a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 139 001e 1A68     		ldr	r2, [r3, #0]
+ 140 0020 1346     		mov	r3, r2
+ 141 0022 4FEAC303 		lsl	r3, r3, #3
+ 142 0026 C2EB0303 		rsb	r3, r2, r3
+ 143 002a 4FEA8302 		lsl	r2, r3, #2
+ 144 002e 40F20003 		movw	r3, #:lower16:SCH_Task
+ 145 0032 C0F20003 		movt	r3, #:upper16:SCH_Task
+ 146 0036 1344     		add	r3, r2, r3
+ 147 0038 1846     		mov	r0, r3
+ 148 003a 7968     		ldr	r1, [r7, #4]
+ 149 003c FFF7FEFF 		bl	strcmp
+ 150 0040 0346     		mov	r3, r0
+ 151 0042 002B     		cmp	r3, #0
+ 152 0044 01D1     		bne	.L3
+  48:.\scheduler.c ****             idx = i;
+ 153              		.loc 1 48 0
+ 154 0046 BB68     		ldr	r3, [r7, #8]
+ 155 0048 FB73     		strb	r3, [r7, #15]
+ 156              	.L3:
+ 157              		.loc 1 45 0
+ 158 004a BB68     		ldr	r3, [r7, #8]
+ 159 004c 03F10103 		add	r3, r3, #1
+ 160 0050 BB60     		str	r3, [r7, #8]
+ 161              	.L2:
+ 162 0052 BB68     		ldr	r3, [r7, #8]
+ 163 0054 072B     		cmp	r3, #7
+ 164 0056 DED9     		bls	.L4
+  49:.\scheduler.c ****     }
+  50:.\scheduler.c ****     
+  51:.\scheduler.c ****     return idx;
+ 165              		.loc 1 51 0
+ 166 0058 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  52:.\scheduler.c **** }
+ 167              		.loc 1 52 0
+ 168 005a 1846     		mov	r0, r3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 5
+
+
+ 169 005c 07F11007 		add	r7, r7, #16
+ 170 0060 BD46     		mov	sp, r7
+ 171 0062 80BD     		pop	{r7, pc}
+ 172              		.cfi_endproc
+ 173              	.LFE29:
+ 174              		.size	SCH_GetTaskIndex, .-SCH_GetTaskIndex
+ 175              		.section	.text.SCH_TaskHandler,"ax",%progbits
+ 176              		.align	2
+ 177              		.global	SCH_TaskHandler
+ 178              		.thumb
+ 179              		.thumb_func
+ 180              		.type	SCH_TaskHandler, %function
+ 181              	SCH_TaskHandler:
+ 182              	.LFB30:
+  53:.\scheduler.c **** 
+  54:.\scheduler.c **** 
+  55:.\scheduler.c **** /*****************************************************************/
+  56:.\scheduler.c **** void SCH_TaskHandler(void)
+  57:.\scheduler.c **** {
+ 183              		.loc 1 57 0
+ 184              		.cfi_startproc
+ 185              		@ args = 0, pretend = 0, frame = 8
+ 186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 187 0000 80B5     		push	{r7, lr}
+ 188              	.LCFI3:
+ 189              		.cfi_def_cfa_offset 8
+ 190 0002 82B0     		sub	sp, sp, #8
+ 191              	.LCFI4:
+ 192              		.cfi_def_cfa_offset 16
+ 193 0004 00AF     		add	r7, sp, #0
+ 194              		.cfi_offset 14, -4
+ 195              		.cfi_offset 7, -8
+ 196              	.LCFI5:
+ 197              		.cfi_def_cfa_register 7
+  58:.\scheduler.c ****     STATUS status;
+  59:.\scheduler.c ****     uchar depTaskIndex;
+  60:.\scheduler.c ****     BOOL taskInitFlag = FALSE;
+ 198              		.loc 1 60 0
+ 199 0006 4FF00003 		mov	r3, #0
+ 200 000a FB71     		strb	r3, [r7, #7]
+  61:.\scheduler.c **** 
+  62:.\scheduler.c ****     //priority not handled yet
+  63:.\scheduler.c **** 
+  64:.\scheduler.c ****     switch(SCH_Task[SCH_TaskIndex].status)
+ 201              		.loc 1 64 0
+ 202 000c 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 203 0010 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 204 0014 1968     		ldr	r1, [r3, #0]
+ 205 0016 40F20002 		movw	r2, #:lower16:SCH_Task
+ 206 001a C0F20002 		movt	r2, #:upper16:SCH_Task
+ 207 001e 0B46     		mov	r3, r1
+ 208 0020 4FEAC303 		lsl	r3, r3, #3
+ 209 0024 C1EB0303 		rsb	r3, r1, r3
+ 210 0028 4FEA8303 		lsl	r3, r3, #2
+ 211 002c 1344     		add	r3, r3, r2
+ 212 002e 03F10803 		add	r3, r3, #8
+ 213 0032 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 6
+
+
+ 214 0034 A3F10203 		sub	r3, r3, #2
+ 215 0038 0E2B     		cmp	r3, #14
+ 216 003a 00F24581 		bhi	.L7
+ 217 003e 01A2     		adr	r2, .L12
+ 218 0040 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 219              		.align	2
+ 220              	.L12:
+ 221 0044 81000000 		.word	.L8+1
+ 222 0048 C9020000 		.word	.L7+1
+ 223 004c DD010000 		.word	.L9+1
+ 224 0050 C9020000 		.word	.L7+1
+ 225 0054 C9020000 		.word	.L7+1
+ 226 0058 C9020000 		.word	.L7+1
+ 227 005c 0B020000 		.word	.L10+1
+ 228 0060 C9020000 		.word	.L7+1
+ 229 0064 C9020000 		.word	.L7+1
+ 230 0068 C9020000 		.word	.L7+1
+ 231 006c C9020000 		.word	.L7+1
+ 232 0070 C9020000 		.word	.L7+1
+ 233 0074 C9020000 		.word	.L7+1
+ 234 0078 C9020000 		.word	.L7+1
+ 235 007c 95020000 		.word	.L11+1
+ 236              	.L8:
+  65:.\scheduler.c ****     {                               
+  66:.\scheduler.c ****         case SCH_TASK_NEW:          /* check if current task has a dependency */
+  67:.\scheduler.c ****                                     if (DEP_NONE != (SCH_Task[SCH_TaskIndex].dependency)[0])
+ 237              		.loc 1 67 0
+ 238 0080 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 239 0084 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 240 0088 1968     		ldr	r1, [r3, #0]
+ 241 008a 40F20002 		movw	r2, #:lower16:SCH_Task
+ 242 008e C0F20002 		movt	r2, #:upper16:SCH_Task
+ 243 0092 0B46     		mov	r3, r1
+ 244 0094 4FEAC303 		lsl	r3, r3, #3
+ 245 0098 C1EB0303 		rsb	r3, r1, r3
+ 246 009c 4FEA8303 		lsl	r3, r3, #2
+ 247 00a0 1344     		add	r3, r3, r2
+ 248 00a2 03F11003 		add	r3, r3, #16
+ 249 00a6 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 250 00a8 002B     		cmp	r3, #0
+ 251 00aa 2FD0     		beq	.L13
+  68:.\scheduler.c ****                                     {
+  69:.\scheduler.c ****                                         /* get task index of dependent task and check task status *
+  70:.\scheduler.c ****                                         depTaskIndex = SCH_GetTaskIndex(SCH_Task[SCH_TaskIndex].dep
+ 252              		.loc 1 70 0
+ 253 00ac 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 254 00b0 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 255 00b4 1A68     		ldr	r2, [r3, #0]
+ 256 00b6 1346     		mov	r3, r2
+ 257 00b8 4FEAC303 		lsl	r3, r3, #3
+ 258 00bc C2EB0303 		rsb	r3, r2, r3
+ 259 00c0 4FEA8303 		lsl	r3, r3, #2
+ 260 00c4 03F11002 		add	r2, r3, #16
+ 261 00c8 40F20003 		movw	r3, #:lower16:SCH_Task
+ 262 00cc C0F20003 		movt	r3, #:upper16:SCH_Task
+ 263 00d0 1344     		add	r3, r2, r3
+ 264 00d2 03F10403 		add	r3, r3, #4
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 7
+
+
+ 265 00d6 1846     		mov	r0, r3
+ 266 00d8 FFF7FEFF 		bl	SCH_GetTaskIndex
+ 267 00dc 0346     		mov	r3, r0
+ 268 00de BB71     		strb	r3, [r7, #6]
+  71:.\scheduler.c ****                                         
+  72:.\scheduler.c ****                                         /* check if dependent task is initialzed */
+  73:.\scheduler.c ****                                         if (SCH_Task[depTaskIndex].status != SCH_TASK_NEW)
+ 269              		.loc 1 73 0
+ 270 00e0 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 271 00e2 40F20002 		movw	r2, #:lower16:SCH_Task
+ 272 00e6 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 273 00ea 0B46     		mov	r3, r1
+ 274 00ec 4FEAC303 		lsl	r3, r3, #3
+ 275 00f0 C1EB0303 		rsb	r3, r1, r3
+ 276 00f4 4FEA8303 		lsl	r3, r3, #2
+ 277 00f8 1344     		add	r3, r3, r2
+ 278 00fa 03F10803 		add	r3, r3, #8
+ 279 00fe 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 280 0100 022B     		cmp	r3, #2
+ 281 0102 07D0     		beq	.L23
+  74:.\scheduler.c ****                                         {
+  75:.\scheduler.c ****                                             /* current task can be initialized */
+  76:.\scheduler.c ****                                             taskInitFlag = TRUE;
+ 282              		.loc 1 76 0
+ 283 0104 4FF00103 		mov	r3, #1
+ 284 0108 FB71     		strb	r3, [r7, #7]
+ 285 010a 04E0     		b	.L15
+ 286              	.L13:
+  77:.\scheduler.c ****                                         }
+  78:.\scheduler.c ****                                         else
+  79:.\scheduler.c ****                                         {
+  80:.\scheduler.c ****                                             /* do nothing */
+  81:.\scheduler.c ****                                         }
+  82:.\scheduler.c ****                                     }
+  83:.\scheduler.c ****                                     else
+  84:.\scheduler.c ****                                     {
+  85:.\scheduler.c ****                                         /* current task can be initialized */
+  86:.\scheduler.c ****                                         taskInitFlag = TRUE;
+ 287              		.loc 1 86 0
+ 288 010c 4FF00103 		mov	r3, #1
+ 289 0110 FB71     		strb	r3, [r7, #7]
+ 290 0112 00E0     		b	.L15
+ 291              	.L23:
+ 292              		.loc 1 76 0
+ 293 0114 00BF     		nop
+ 294              	.L15:
+  87:.\scheduler.c ****                                     }
+  88:.\scheduler.c ****                                     
+  89:.\scheduler.c ****                                     
+  90:.\scheduler.c ****                                     
+  91:.\scheduler.c ****                                     
+  92:.\scheduler.c ****                                     if (taskInitFlag == TRUE)
+ 295              		.loc 1 92 0
+ 296 0116 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 297 0118 012B     		cmp	r3, #1
+ 298 011a 40F0D280 		bne	.L24
+  93:.\scheduler.c ****                                     {
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 8
+
+
+  94:.\scheduler.c ****                                         /* call init function of current task */
+  95:.\scheduler.c ****                                         if (NULL != SCH_Task[SCH_TaskIndex].init)
+ 299              		.loc 1 95 0
+ 300 011e 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 301 0122 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 302 0126 1968     		ldr	r1, [r3, #0]
+ 303 0128 40F20002 		movw	r2, #:lower16:SCH_Task
+ 304 012c C0F20002 		movt	r2, #:upper16:SCH_Task
+ 305 0130 0B46     		mov	r3, r1
+ 306 0132 4FEAC303 		lsl	r3, r3, #3
+ 307 0136 C1EB0303 		rsb	r3, r1, r3
+ 308 013a 4FEA8303 		lsl	r3, r3, #2
+ 309 013e 1344     		add	r3, r3, r2
+ 310 0140 03F10C03 		add	r3, r3, #12
+ 311 0144 1B68     		ldr	r3, [r3, #0]
+ 312 0146 002B     		cmp	r3, #0
+ 313 0148 31D0     		beq	.L17
+  96:.\scheduler.c ****                                         {
+  97:.\scheduler.c ****                                             status = SCH_Task[SCH_TaskIndex].init();
+ 314              		.loc 1 97 0
+ 315 014a 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 316 014e C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 317 0152 1968     		ldr	r1, [r3, #0]
+ 318 0154 40F20002 		movw	r2, #:lower16:SCH_Task
+ 319 0158 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 320 015c 0B46     		mov	r3, r1
+ 321 015e 4FEAC303 		lsl	r3, r3, #3
+ 322 0162 C1EB0303 		rsb	r3, r1, r3
+ 323 0166 4FEA8303 		lsl	r3, r3, #2
+ 324 016a 1344     		add	r3, r3, r2
+ 325 016c 03F10C03 		add	r3, r3, #12
+ 326 0170 1B68     		ldr	r3, [r3, #0]
+ 327 0172 9847     		blx	r3
+ 328 0174 0346     		mov	r3, r0
+ 329 0176 7B71     		strb	r3, [r7, #5]
+  98:.\scheduler.c ****                                             if (status == SUCCESS)
+ 330              		.loc 1 98 0
+ 331 0178 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 332 017a 002B     		cmp	r3, #0
+ 333 017c 40F0A380 		bne	.L25
+  99:.\scheduler.c ****                                             {
+ 100:.\scheduler.c ****                                                 SCH_Task[SCH_TaskIndex].status = SCH_TASK_READY;
+ 334              		.loc 1 100 0
+ 335 0180 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 336 0184 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 337 0188 1968     		ldr	r1, [r3, #0]
+ 338 018a 40F20002 		movw	r2, #:lower16:SCH_Task
+ 339 018e C0F20002 		movt	r2, #:upper16:SCH_Task
+ 340 0192 0B46     		mov	r3, r1
+ 341 0194 4FEAC303 		lsl	r3, r3, #3
+ 342 0198 C1EB0303 		rsb	r3, r1, r3
+ 343 019c 4FEA8303 		lsl	r3, r3, #2
+ 344 01a0 1344     		add	r3, r3, r2
+ 345 01a2 03F10803 		add	r3, r3, #8
+ 346 01a6 4FF00402 		mov	r2, #4
+ 347 01aa 1A70     		strb	r2, [r3, #0]
+ 101:.\scheduler.c ****                                             }
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 9
+
+
+ 102:.\scheduler.c ****                                         }
+ 103:.\scheduler.c ****                                         else
+ 104:.\scheduler.c ****                                         {
+ 105:.\scheduler.c ****                                             SCH_Task[SCH_TaskIndex].status = SCH_TASK_READY;
+ 106:.\scheduler.c ****                                         }
+ 107:.\scheduler.c ****                                     }
+ 108:.\scheduler.c ****                                     
+ 109:.\scheduler.c **** 
+ 110:.\scheduler.c ****                                     break;
+ 348              		.loc 1 110 0
+ 349 01ac 8CE0     		b	.L7
+ 350              	.L17:
+ 351              		.loc 1 105 0
+ 352 01ae 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 353 01b2 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 354 01b6 1968     		ldr	r1, [r3, #0]
+ 355 01b8 40F20002 		movw	r2, #:lower16:SCH_Task
+ 356 01bc C0F20002 		movt	r2, #:upper16:SCH_Task
+ 357 01c0 0B46     		mov	r3, r1
+ 358 01c2 4FEAC303 		lsl	r3, r3, #3
+ 359 01c6 C1EB0303 		rsb	r3, r1, r3
+ 360 01ca 4FEA8303 		lsl	r3, r3, #2
+ 361 01ce 1344     		add	r3, r3, r2
+ 362 01d0 03F10803 		add	r3, r3, #8
+ 363 01d4 4FF00402 		mov	r2, #4
+ 364 01d8 1A70     		strb	r2, [r3, #0]
+ 365              		.loc 1 110 0
+ 366 01da 75E0     		b	.L7
+ 367              	.L9:
+ 111:.\scheduler.c **** 
+ 112:.\scheduler.c ****         case SCH_TASK_READY:        SCH_Task[SCH_TaskIndex].status = SCH_TASK_RUNNING;
+ 368              		.loc 1 112 0
+ 369 01dc 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 370 01e0 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 371 01e4 1968     		ldr	r1, [r3, #0]
+ 372 01e6 40F20002 		movw	r2, #:lower16:SCH_Task
+ 373 01ea C0F20002 		movt	r2, #:upper16:SCH_Task
+ 374 01ee 0B46     		mov	r3, r1
+ 375 01f0 4FEAC303 		lsl	r3, r3, #3
+ 376 01f4 C1EB0303 		rsb	r3, r1, r3
+ 377 01f8 4FEA8303 		lsl	r3, r3, #2
+ 378 01fc 1344     		add	r3, r3, r2
+ 379 01fe 03F10803 		add	r3, r3, #8
+ 380 0202 4FF00802 		mov	r2, #8
+ 381 0206 1A70     		strb	r2, [r3, #0]
+ 113:.\scheduler.c ****                                     break;
+ 382              		.loc 1 113 0
+ 383 0208 5EE0     		b	.L7
+ 384              	.L10:
+ 114:.\scheduler.c ****                                
+ 115:.\scheduler.c ****         case SCH_TASK_RUNNING:      if (NULL != SCH_Task[SCH_TaskIndex].func)
+ 385              		.loc 1 115 0
+ 386 020a 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 387 020e C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 388 0212 1968     		ldr	r1, [r3, #0]
+ 389 0214 40F20002 		movw	r2, #:lower16:SCH_Task
+ 390 0218 C0F20002 		movt	r2, #:upper16:SCH_Task
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 10
+
+
+ 391 021c 0B46     		mov	r3, r1
+ 392 021e 4FEAC303 		lsl	r3, r3, #3
+ 393 0222 C1EB0303 		rsb	r3, r1, r3
+ 394 0226 4FEA8303 		lsl	r3, r3, #2
+ 395 022a 1344     		add	r3, r3, r2
+ 396 022c 03F11003 		add	r3, r3, #16
+ 397 0230 1B68     		ldr	r3, [r3, #0]
+ 398 0232 002B     		cmp	r3, #0
+ 399 0234 17D0     		beq	.L19
+ 116:.\scheduler.c ****                                     {
+ 117:.\scheduler.c ****                                         status = SCH_Task[SCH_TaskIndex].func();
+ 400              		.loc 1 117 0
+ 401 0236 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 402 023a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 403 023e 1968     		ldr	r1, [r3, #0]
+ 404 0240 40F20002 		movw	r2, #:lower16:SCH_Task
+ 405 0244 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 406 0248 0B46     		mov	r3, r1
+ 407 024a 4FEAC303 		lsl	r3, r3, #3
+ 408 024e C1EB0303 		rsb	r3, r1, r3
+ 409 0252 4FEA8303 		lsl	r3, r3, #2
+ 410 0256 1344     		add	r3, r3, r2
+ 411 0258 03F11003 		add	r3, r3, #16
+ 412 025c 1B68     		ldr	r3, [r3, #0]
+ 413 025e 9847     		blx	r3
+ 414 0260 0346     		mov	r3, r0
+ 415 0262 7B71     		strb	r3, [r7, #5]
+ 118:.\scheduler.c ****                                     }
+ 119:.\scheduler.c ****                                     else
+ 120:.\scheduler.c ****                                     {
+ 121:.\scheduler.c ****                                         SCH_Task[SCH_TaskIndex].status = SCH_TASK_TERMINATED;
+ 122:.\scheduler.c ****                                     }
+ 123:.\scheduler.c ****                                     break;
+ 416              		.loc 1 123 0
+ 417 0264 30E0     		b	.L7
+ 418              	.L19:
+ 419              		.loc 1 121 0
+ 420 0266 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 421 026a C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 422 026e 1968     		ldr	r1, [r3, #0]
+ 423 0270 40F20002 		movw	r2, #:lower16:SCH_Task
+ 424 0274 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 425 0278 0B46     		mov	r3, r1
+ 426 027a 4FEAC303 		lsl	r3, r3, #3
+ 427 027e C1EB0303 		rsb	r3, r1, r3
+ 428 0282 4FEA8303 		lsl	r3, r3, #2
+ 429 0286 1344     		add	r3, r3, r2
+ 430 0288 03F10803 		add	r3, r3, #8
+ 431 028c 4FF02002 		mov	r2, #32
+ 432 0290 1A70     		strb	r2, [r3, #0]
+ 433              		.loc 1 123 0
+ 434 0292 19E0     		b	.L7
+ 435              	.L11:
+ 124:.\scheduler.c **** 
+ 125:.\scheduler.c ****         case SCH_TASK_WAITING:      SCH_Task[SCH_TaskIndex].status = SCH_TASK_RUNNING;
+ 436              		.loc 1 125 0
+ 437 0294 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 11
+
+
+ 438 0298 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 439 029c 1968     		ldr	r1, [r3, #0]
+ 440 029e 40F20002 		movw	r2, #:lower16:SCH_Task
+ 441 02a2 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 442 02a6 0B46     		mov	r3, r1
+ 443 02a8 4FEAC303 		lsl	r3, r3, #3
+ 444 02ac C1EB0303 		rsb	r3, r1, r3
+ 445 02b0 4FEA8303 		lsl	r3, r3, #2
+ 446 02b4 1344     		add	r3, r3, r2
+ 447 02b6 03F10803 		add	r3, r3, #8
+ 448 02ba 4FF00802 		mov	r2, #8
+ 449 02be 1A70     		strb	r2, [r3, #0]
+ 450 02c0 02E0     		b	.L7
+ 451              	.L24:
+ 452              		.loc 1 110 0
+ 453 02c2 00BF     		nop
+ 454 02c4 00E0     		b	.L7
+ 455              	.L25:
+ 456 02c6 00BF     		nop
+ 457              	.L7:
+ 126:.\scheduler.c ****                                     break;
+ 127:.\scheduler.c ****                                     
+ 128:.\scheduler.c ****         case SCH_TASK_TERMINATED:
+ 129:.\scheduler.c ****         default:                    break;
+ 130:.\scheduler.c ****     }
+ 131:.\scheduler.c ****     
+ 132:.\scheduler.c **** 
+ 133:.\scheduler.c ****     
+ 134:.\scheduler.c ****     SCH_TaskIndex++;
+ 458              		.loc 1 134 0
+ 459 02c8 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 460 02cc C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 461 02d0 1B68     		ldr	r3, [r3, #0]
+ 462 02d2 03F10102 		add	r2, r3, #1
+ 463 02d6 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 464 02da C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 465 02de 1A60     		str	r2, [r3, #0]
+ 135:.\scheduler.c ****     
+ 136:.\scheduler.c ****     if (SCH_TaskIndex > SIZE_OF_ARRAY(SCH_Task))
+ 466              		.loc 1 136 0
+ 467 02e0 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 468 02e4 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 469 02e8 1B68     		ldr	r3, [r3, #0]
+ 470 02ea 082B     		cmp	r3, #8
+ 471 02ec 06D9     		bls	.L22
+ 137:.\scheduler.c ****         SCH_TaskIndex = 0;
+ 472              		.loc 1 137 0
+ 473 02ee 40F20003 		movw	r3, #:lower16:SCH_TaskIndex
+ 474 02f2 C0F20003 		movt	r3, #:upper16:SCH_TaskIndex
+ 475 02f6 4FF00002 		mov	r2, #0
+ 476 02fa 1A60     		str	r2, [r3, #0]
+ 477              	.L22:
+ 138:.\scheduler.c **** }
+ 478              		.loc 1 138 0
+ 479 02fc 07F10807 		add	r7, r7, #8
+ 480 0300 BD46     		mov	sp, r7
+ 481 0302 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 12
+
+
+ 482              		.cfi_endproc
+ 483              	.LFE30:
+ 484              		.size	SCH_TaskHandler, .-SCH_TaskHandler
+ 485              		.bss
+ 486              		.align	2
+ 487              	SCH_TaskBuffer:
+ 488 0004 00000000 		.space	1024
+ 488      00000000 
+ 488      00000000 
+ 488      00000000 
+ 488      00000000 
+ 489              		.align	2
+ 490              	n:
+ 491 0404 00000000 		.space	4
+ 492              		.section	.rodata
+ 493              		.align	2
+ 494              	.LC0:
+ 495 0000 0A3D3D3D 		.ascii	"\012===\000"
+ 495      00
+ 496 0005 000000   		.align	2
+ 497              	.LC1:
+ 498 0008 0A546173 		.ascii	"\012Task %i: %s/\000"
+ 498      6B202569 
+ 498      3A202573 
+ 498      2F00
+ 499 0016 0000     		.align	2
+ 500              	.LC2:
+ 501 0018 4E455700 		.ascii	"NEW\000"
+ 502              		.align	2
+ 503              	.LC3:
+ 504 001c 52454144 		.ascii	"READY\000"
+ 504      5900
+ 505 0022 0000     		.align	2
+ 506              	.LC4:
+ 507 0024 52554E4E 		.ascii	"RUNNING\000"
+ 507      494E4700 
+ 508              		.align	2
+ 509              	.LC5:
+ 510 002c 57414954 		.ascii	"WAITING\000"
+ 510      494E4700 
+ 511              		.align	2
+ 512              	.LC6:
+ 513 0034 5445524D 		.ascii	"TERMINATED\000"
+ 513      494E4154 
+ 513      454400
+ 514 003f 00       		.align	2
+ 515              	.LC7:
+ 516 0040 2025730A 		.ascii	" %s\012\000"
+ 516      00
+ 517 0045 000000   		.section	.text.SCH_ShowCurrentTasks,"ax",%progbits
+ 518              		.align	2
+ 519              		.global	SCH_ShowCurrentTasks
+ 520              		.thumb
+ 521              		.thumb_func
+ 522              		.type	SCH_ShowCurrentTasks, %function
+ 523              	SCH_ShowCurrentTasks:
+ 524              	.LFB31:
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 13
+
+
+ 139:.\scheduler.c **** 
+ 140:.\scheduler.c **** 
+ 141:.\scheduler.c **** 
+ 142:.\scheduler.c **** /*****************************************************************/
+ 143:.\scheduler.c **** #ifdef SCH_DEBUG
+ 144:.\scheduler.c **** #include <stdio.h>
+ 145:.\scheduler.c **** static uchar SCH_TaskBuffer[1024];
+ 146:.\scheduler.c **** static int n=0;
+ 147:.\scheduler.c **** 
+ 148:.\scheduler.c **** void SCH_ShowCurrentTasks(void)
+ 149:.\scheduler.c **** {
+ 525              		.loc 1 149 0
+ 526              		.cfi_startproc
+ 527              		@ args = 0, pretend = 0, frame = 8
+ 528              		@ frame_needed = 1, uses_anonymous_args = 0
+ 529 0000 80B5     		push	{r7, lr}
+ 530              	.LCFI6:
+ 531              		.cfi_def_cfa_offset 8
+ 532 0002 82B0     		sub	sp, sp, #8
+ 533              	.LCFI7:
+ 534              		.cfi_def_cfa_offset 16
+ 535 0004 00AF     		add	r7, sp, #0
+ 536              		.cfi_offset 14, -4
+ 537              		.cfi_offset 7, -8
+ 538              	.LCFI8:
+ 539              		.cfi_def_cfa_register 7
+ 150:.\scheduler.c ****     int i;
+ 151:.\scheduler.c ****     
+ 152:.\scheduler.c ****     n += sprintf((char*)SCH_TaskBuffer + n, "\n===");
+ 540              		.loc 1 152 0
+ 541 0006 40F20003 		movw	r3, #:lower16:n
+ 542 000a C0F20003 		movt	r3, #:upper16:n
+ 543 000e 1B68     		ldr	r3, [r3, #0]
+ 544 0010 1A46     		mov	r2, r3
+ 545 0012 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 546 0016 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 547 001a 1344     		add	r3, r2, r3
+ 548 001c 1846     		mov	r0, r3
+ 549 001e 40F20001 		movw	r1, #:lower16:.LC0
+ 550 0022 C0F20001 		movt	r1, #:upper16:.LC0
+ 551 0026 4FF00502 		mov	r2, #5
+ 552 002a FFF7FEFF 		bl	memcpy
+ 553 002e 40F20003 		movw	r3, #:lower16:n
+ 554 0032 C0F20003 		movt	r3, #:upper16:n
+ 555 0036 1B68     		ldr	r3, [r3, #0]
+ 556 0038 03F10402 		add	r2, r3, #4
+ 557 003c 40F20003 		movw	r3, #:lower16:n
+ 558 0040 C0F20003 		movt	r3, #:upper16:n
+ 559 0044 1A60     		str	r2, [r3, #0]
+ 153:.\scheduler.c ****     
+ 154:.\scheduler.c ****     for (i=0; i<sizeof(SCH_Task); i++)
+ 560              		.loc 1 154 0
+ 561 0046 4FF00003 		mov	r3, #0
+ 562 004a 7B60     		str	r3, [r7, #4]
+ 563 004c 6EE1     		b	.L27
+ 564              	.L36:
+ 155:.\scheduler.c ****     {
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 14
+
+
+ 156:.\scheduler.c ****         if (NULL != SCH_Task[i].name)
+ 157:.\scheduler.c ****         {
+ 158:.\scheduler.c ****             n += sprintf((char*)SCH_TaskBuffer + n, "\nTask %i: %s/", i, SCH_Task[i].name);
+ 565              		.loc 1 158 0
+ 566 004e 40F20003 		movw	r3, #:lower16:n
+ 567 0052 C0F20003 		movt	r3, #:upper16:n
+ 568 0056 1B68     		ldr	r3, [r3, #0]
+ 569 0058 1A46     		mov	r2, r3
+ 570 005a 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 571 005e C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 572 0062 02EB0301 		add	r1, r2, r3
+ 573 0066 7A68     		ldr	r2, [r7, #4]
+ 574 0068 1346     		mov	r3, r2
+ 575 006a 4FEAC303 		lsl	r3, r3, #3
+ 576 006e C2EB0303 		rsb	r3, r2, r3
+ 577 0072 4FEA8302 		lsl	r2, r3, #2
+ 578 0076 40F20003 		movw	r3, #:lower16:SCH_Task
+ 579 007a C0F20003 		movt	r3, #:upper16:SCH_Task
+ 580 007e 1344     		add	r3, r2, r3
+ 581 0080 0846     		mov	r0, r1
+ 582 0082 40F20001 		movw	r1, #:lower16:.LC1
+ 583 0086 C0F20001 		movt	r1, #:upper16:.LC1
+ 584 008a 7A68     		ldr	r2, [r7, #4]
+ 585 008c FFF7FEFF 		bl	sprintf
+ 586 0090 0346     		mov	r3, r0
+ 587 0092 1A46     		mov	r2, r3
+ 588 0094 40F20003 		movw	r3, #:lower16:n
+ 589 0098 C0F20003 		movt	r3, #:upper16:n
+ 590 009c 1B68     		ldr	r3, [r3, #0]
+ 591 009e 1A44     		add	r2, r2, r3
+ 592 00a0 40F20003 		movw	r3, #:lower16:n
+ 593 00a4 C0F20003 		movt	r3, #:upper16:n
+ 594 00a8 1A60     		str	r2, [r3, #0]
+ 159:.\scheduler.c ****         
+ 160:.\scheduler.c ****             switch (SCH_Task[i].status)
+ 595              		.loc 1 160 0
+ 596 00aa 7968     		ldr	r1, [r7, #4]
+ 597 00ac 40F20002 		movw	r2, #:lower16:SCH_Task
+ 598 00b0 C0F20002 		movt	r2, #:upper16:SCH_Task
+ 599 00b4 0B46     		mov	r3, r1
+ 600 00b6 4FEAC303 		lsl	r3, r3, #3
+ 601 00ba C1EB0303 		rsb	r3, r1, r3
+ 602 00be 4FEA8303 		lsl	r3, r3, #2
+ 603 00c2 1344     		add	r3, r3, r2
+ 604 00c4 03F10803 		add	r3, r3, #8
+ 605 00c8 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 606 00ca A3F10203 		sub	r3, r3, #2
+ 607 00ce 1E2B     		cmp	r3, #30
+ 608 00d0 00F2E680 		bhi	.L28
+ 609 00d4 01A2     		adr	r2, .L34
+ 610 00d6 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 611 00da 00BF     		.align	2
+ 612              	.L34:
+ 613 00dc 59010000 		.word	.L29+1
+ 614 00e0 A1020000 		.word	.L28+1
+ 615 00e4 9B010000 		.word	.L30+1
+ 616 00e8 A1020000 		.word	.L28+1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 15
+
+
+ 617 00ec A1020000 		.word	.L28+1
+ 618 00f0 A1020000 		.word	.L28+1
+ 619 00f4 DD010000 		.word	.L31+1
+ 620 00f8 A1020000 		.word	.L28+1
+ 621 00fc A1020000 		.word	.L28+1
+ 622 0100 A1020000 		.word	.L28+1
+ 623 0104 A1020000 		.word	.L28+1
+ 624 0108 A1020000 		.word	.L28+1
+ 625 010c A1020000 		.word	.L28+1
+ 626 0110 A1020000 		.word	.L28+1
+ 627 0114 1F020000 		.word	.L32+1
+ 628 0118 A1020000 		.word	.L28+1
+ 629 011c A1020000 		.word	.L28+1
+ 630 0120 A1020000 		.word	.L28+1
+ 631 0124 A1020000 		.word	.L28+1
+ 632 0128 A1020000 		.word	.L28+1
+ 633 012c A1020000 		.word	.L28+1
+ 634 0130 A1020000 		.word	.L28+1
+ 635 0134 A1020000 		.word	.L28+1
+ 636 0138 A1020000 		.word	.L28+1
+ 637 013c A1020000 		.word	.L28+1
+ 638 0140 A1020000 		.word	.L28+1
+ 639 0144 A1020000 		.word	.L28+1
+ 640 0148 A1020000 		.word	.L28+1
+ 641 014c A1020000 		.word	.L28+1
+ 642 0150 A1020000 		.word	.L28+1
+ 643 0154 61020000 		.word	.L33+1
+ 644              	.L29:
+ 161:.\scheduler.c ****             {
+ 162:.\scheduler.c ****                 case SCH_TASK_NEW:          n += sprintf((char*)SCH_TaskBuffer + n, "NEW");
+ 645              		.loc 1 162 0
+ 646 0158 40F20003 		movw	r3, #:lower16:n
+ 647 015c C0F20003 		movt	r3, #:upper16:n
+ 648 0160 1B68     		ldr	r3, [r3, #0]
+ 649 0162 1A46     		mov	r2, r3
+ 650 0164 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 651 0168 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 652 016c 1344     		add	r3, r2, r3
+ 653 016e 1846     		mov	r0, r3
+ 654 0170 40F20001 		movw	r1, #:lower16:.LC2
+ 655 0174 C0F20001 		movt	r1, #:upper16:.LC2
+ 656 0178 4FF00402 		mov	r2, #4
+ 657 017c FFF7FEFF 		bl	memcpy
+ 658 0180 40F20003 		movw	r3, #:lower16:n
+ 659 0184 C0F20003 		movt	r3, #:upper16:n
+ 660 0188 1B68     		ldr	r3, [r3, #0]
+ 661 018a 03F10302 		add	r2, r3, #3
+ 662 018e 40F20003 		movw	r3, #:lower16:n
+ 663 0192 C0F20003 		movt	r3, #:upper16:n
+ 664 0196 1A60     		str	r2, [r3, #0]
+ 163:.\scheduler.c ****                                             break;
+ 665              		.loc 1 163 0
+ 666 0198 82E0     		b	.L28
+ 667              	.L30:
+ 164:.\scheduler.c ****                 case SCH_TASK_READY:        n += sprintf((char*)SCH_TaskBuffer + n, "READY");
+ 668              		.loc 1 164 0
+ 669 019a 40F20003 		movw	r3, #:lower16:n
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 16
+
+
+ 670 019e C0F20003 		movt	r3, #:upper16:n
+ 671 01a2 1B68     		ldr	r3, [r3, #0]
+ 672 01a4 1A46     		mov	r2, r3
+ 673 01a6 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 674 01aa C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 675 01ae 1344     		add	r3, r2, r3
+ 676 01b0 1846     		mov	r0, r3
+ 677 01b2 40F20001 		movw	r1, #:lower16:.LC3
+ 678 01b6 C0F20001 		movt	r1, #:upper16:.LC3
+ 679 01ba 4FF00602 		mov	r2, #6
+ 680 01be FFF7FEFF 		bl	memcpy
+ 681 01c2 40F20003 		movw	r3, #:lower16:n
+ 682 01c6 C0F20003 		movt	r3, #:upper16:n
+ 683 01ca 1B68     		ldr	r3, [r3, #0]
+ 684 01cc 03F10502 		add	r2, r3, #5
+ 685 01d0 40F20003 		movw	r3, #:lower16:n
+ 686 01d4 C0F20003 		movt	r3, #:upper16:n
+ 687 01d8 1A60     		str	r2, [r3, #0]
+ 165:.\scheduler.c ****                                             break;
+ 688              		.loc 1 165 0
+ 689 01da 61E0     		b	.L28
+ 690              	.L31:
+ 166:.\scheduler.c ****                 case SCH_TASK_RUNNING:      n += sprintf((char*)SCH_TaskBuffer + n, "RUNNING");
+ 691              		.loc 1 166 0
+ 692 01dc 40F20003 		movw	r3, #:lower16:n
+ 693 01e0 C0F20003 		movt	r3, #:upper16:n
+ 694 01e4 1B68     		ldr	r3, [r3, #0]
+ 695 01e6 1A46     		mov	r2, r3
+ 696 01e8 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 697 01ec C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 698 01f0 1344     		add	r3, r2, r3
+ 699 01f2 1846     		mov	r0, r3
+ 700 01f4 40F20001 		movw	r1, #:lower16:.LC4
+ 701 01f8 C0F20001 		movt	r1, #:upper16:.LC4
+ 702 01fc 4FF00802 		mov	r2, #8
+ 703 0200 FFF7FEFF 		bl	memcpy
+ 704 0204 40F20003 		movw	r3, #:lower16:n
+ 705 0208 C0F20003 		movt	r3, #:upper16:n
+ 706 020c 1B68     		ldr	r3, [r3, #0]
+ 707 020e 03F10702 		add	r2, r3, #7
+ 708 0212 40F20003 		movw	r3, #:lower16:n
+ 709 0216 C0F20003 		movt	r3, #:upper16:n
+ 710 021a 1A60     		str	r2, [r3, #0]
+ 167:.\scheduler.c ****                                             break;
+ 711              		.loc 1 167 0
+ 712 021c 40E0     		b	.L28
+ 713              	.L32:
+ 168:.\scheduler.c ****                 case SCH_TASK_WAITING:      n += sprintf((char*)SCH_TaskBuffer + n, "WAITING");
+ 714              		.loc 1 168 0
+ 715 021e 40F20003 		movw	r3, #:lower16:n
+ 716 0222 C0F20003 		movt	r3, #:upper16:n
+ 717 0226 1B68     		ldr	r3, [r3, #0]
+ 718 0228 1A46     		mov	r2, r3
+ 719 022a 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 720 022e C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 721 0232 1344     		add	r3, r2, r3
+ 722 0234 1846     		mov	r0, r3
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 17
+
+
+ 723 0236 40F20001 		movw	r1, #:lower16:.LC5
+ 724 023a C0F20001 		movt	r1, #:upper16:.LC5
+ 725 023e 4FF00802 		mov	r2, #8
+ 726 0242 FFF7FEFF 		bl	memcpy
+ 727 0246 40F20003 		movw	r3, #:lower16:n
+ 728 024a C0F20003 		movt	r3, #:upper16:n
+ 729 024e 1B68     		ldr	r3, [r3, #0]
+ 730 0250 03F10702 		add	r2, r3, #7
+ 731 0254 40F20003 		movw	r3, #:lower16:n
+ 732 0258 C0F20003 		movt	r3, #:upper16:n
+ 733 025c 1A60     		str	r2, [r3, #0]
+ 169:.\scheduler.c ****                                             break;
+ 734              		.loc 1 169 0
+ 735 025e 1FE0     		b	.L28
+ 736              	.L33:
+ 170:.\scheduler.c ****                 case SCH_TASK_TERMINATED:   n += sprintf((char*)SCH_TaskBuffer + n, "TERMINATED");
+ 737              		.loc 1 170 0
+ 738 0260 40F20003 		movw	r3, #:lower16:n
+ 739 0264 C0F20003 		movt	r3, #:upper16:n
+ 740 0268 1B68     		ldr	r3, [r3, #0]
+ 741 026a 1A46     		mov	r2, r3
+ 742 026c 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 743 0270 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 744 0274 1344     		add	r3, r2, r3
+ 745 0276 1846     		mov	r0, r3
+ 746 0278 40F20001 		movw	r1, #:lower16:.LC6
+ 747 027c C0F20001 		movt	r1, #:upper16:.LC6
+ 748 0280 4FF00B02 		mov	r2, #11
+ 749 0284 FFF7FEFF 		bl	memcpy
+ 750 0288 40F20003 		movw	r3, #:lower16:n
+ 751 028c C0F20003 		movt	r3, #:upper16:n
+ 752 0290 1B68     		ldr	r3, [r3, #0]
+ 753 0292 03F10A02 		add	r2, r3, #10
+ 754 0296 40F20003 		movw	r3, #:lower16:n
+ 755 029a C0F20003 		movt	r3, #:upper16:n
+ 756 029e 1A60     		str	r2, [r3, #0]
+ 757              	.L28:
+ 171:.\scheduler.c ****                                             break;
+ 172:.\scheduler.c ****                 default:                    break;                                
+ 173:.\scheduler.c ****             }
+ 174:.\scheduler.c ****             
+ 175:.\scheduler.c ****             n += sprintf((char*)SCH_TaskBuffer + n, " %s\n", SCH_Task[i].dependency);
+ 758              		.loc 1 175 0
+ 759 02a0 40F20003 		movw	r3, #:lower16:n
+ 760 02a4 C0F20003 		movt	r3, #:upper16:n
+ 761 02a8 1B68     		ldr	r3, [r3, #0]
+ 762 02aa 1A46     		mov	r2, r3
+ 763 02ac 40F20003 		movw	r3, #:lower16:SCH_TaskBuffer
+ 764 02b0 C0F20003 		movt	r3, #:upper16:SCH_TaskBuffer
+ 765 02b4 02EB0301 		add	r1, r2, r3
+ 766 02b8 7A68     		ldr	r2, [r7, #4]
+ 767 02ba 1346     		mov	r3, r2
+ 768 02bc 4FEAC303 		lsl	r3, r3, #3
+ 769 02c0 C2EB0303 		rsb	r3, r2, r3
+ 770 02c4 4FEA8303 		lsl	r3, r3, #2
+ 771 02c8 03F11002 		add	r2, r3, #16
+ 772 02cc 40F20003 		movw	r3, #:lower16:SCH_Task
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 18
+
+
+ 773 02d0 C0F20003 		movt	r3, #:upper16:SCH_Task
+ 774 02d4 1344     		add	r3, r2, r3
+ 775 02d6 03F10403 		add	r3, r3, #4
+ 776 02da 0846     		mov	r0, r1
+ 777 02dc 40F20001 		movw	r1, #:lower16:.LC7
+ 778 02e0 C0F20001 		movt	r1, #:upper16:.LC7
+ 779 02e4 1A46     		mov	r2, r3
+ 780 02e6 FFF7FEFF 		bl	sprintf
+ 781 02ea 0246     		mov	r2, r0
+ 782 02ec 40F20003 		movw	r3, #:lower16:n
+ 783 02f0 C0F20003 		movt	r3, #:upper16:n
+ 784 02f4 1B68     		ldr	r3, [r3, #0]
+ 785 02f6 1A44     		add	r2, r2, r3
+ 786 02f8 40F20003 		movw	r3, #:lower16:n
+ 787 02fc C0F20003 		movt	r3, #:upper16:n
+ 788 0300 1A60     		str	r2, [r3, #0]
+ 176:.\scheduler.c ****             if ((n+64)>1024)
+ 789              		.loc 1 176 0
+ 790 0302 40F20003 		movw	r3, #:lower16:n
+ 791 0306 C0F20003 		movt	r3, #:upper16:n
+ 792 030a 1B68     		ldr	r3, [r3, #0]
+ 793 030c 03F14003 		add	r3, r3, #64
+ 794 0310 B3F5806F 		cmp	r3, #1024
+ 795 0314 06DD     		ble	.L35
+ 177:.\scheduler.c ****                 n=0;
+ 796              		.loc 1 177 0
+ 797 0316 40F20003 		movw	r3, #:lower16:n
+ 798 031a C0F20003 		movt	r3, #:upper16:n
+ 799 031e 4FF00002 		mov	r2, #0
+ 800 0322 1A60     		str	r2, [r3, #0]
+ 801              	.L35:
+ 802              		.loc 1 154 0
+ 803 0324 7B68     		ldr	r3, [r7, #4]
+ 804 0326 03F10103 		add	r3, r3, #1
+ 805 032a 7B60     		str	r3, [r7, #4]
+ 806              	.L27:
+ 807 032c 7B68     		ldr	r3, [r7, #4]
+ 808 032e DF2B     		cmp	r3, #223
+ 809 0330 7FF68DAE 		bls	.L36
+ 178:.\scheduler.c ****         }
+ 179:.\scheduler.c ****     }
+ 180:.\scheduler.c **** }
+ 810              		.loc 1 180 0
+ 811 0334 07F10807 		add	r7, r7, #8
+ 812 0338 BD46     		mov	sp, r7
+ 813 033a 80BD     		pop	{r7, pc}
+ 814              		.cfi_endproc
+ 815              	.LFE31:
+ 816              		.size	SCH_ShowCurrentTasks, .-SCH_ShowCurrentTasks
+ 817              		.text
+ 818              	.Letext0:
+ 819              		.section	.debug_loc,"",%progbits
+ 820              	.Ldebug_loc0:
+ 821              	.LLST0:
+ 822 0000 00000000 		.4byte	.LFB29
+ 823 0004 02000000 		.4byte	.LCFI0
+ 824 0008 0100     		.2byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 19
+
+
+ 825 000a 5D       		.byte	0x5d
+ 826 000b 02000000 		.4byte	.LCFI0
+ 827 000f 04000000 		.4byte	.LCFI1
+ 828 0013 0200     		.2byte	0x2
+ 829 0015 7D       		.byte	0x7d
+ 830 0016 08       		.sleb128 8
+ 831 0017 04000000 		.4byte	.LCFI1
+ 832 001b 06000000 		.4byte	.LCFI2
+ 833 001f 0200     		.2byte	0x2
+ 834 0021 7D       		.byte	0x7d
+ 835 0022 18       		.sleb128 24
+ 836 0023 06000000 		.4byte	.LCFI2
+ 837 0027 64000000 		.4byte	.LFE29
+ 838 002b 0200     		.2byte	0x2
+ 839 002d 77       		.byte	0x77
+ 840 002e 18       		.sleb128 24
+ 841 002f 00000000 		.4byte	0x0
+ 842 0033 00000000 		.4byte	0x0
+ 843              	.LLST1:
+ 844 0037 00000000 		.4byte	.LFB30
+ 845 003b 02000000 		.4byte	.LCFI3
+ 846 003f 0100     		.2byte	0x1
+ 847 0041 5D       		.byte	0x5d
+ 848 0042 02000000 		.4byte	.LCFI3
+ 849 0046 04000000 		.4byte	.LCFI4
+ 850 004a 0200     		.2byte	0x2
+ 851 004c 7D       		.byte	0x7d
+ 852 004d 08       		.sleb128 8
+ 853 004e 04000000 		.4byte	.LCFI4
+ 854 0052 06000000 		.4byte	.LCFI5
+ 855 0056 0200     		.2byte	0x2
+ 856 0058 7D       		.byte	0x7d
+ 857 0059 10       		.sleb128 16
+ 858 005a 06000000 		.4byte	.LCFI5
+ 859 005e 04030000 		.4byte	.LFE30
+ 860 0062 0200     		.2byte	0x2
+ 861 0064 77       		.byte	0x77
+ 862 0065 10       		.sleb128 16
+ 863 0066 00000000 		.4byte	0x0
+ 864 006a 00000000 		.4byte	0x0
+ 865              	.LLST2:
+ 866 006e 00000000 		.4byte	.LFB31
+ 867 0072 02000000 		.4byte	.LCFI6
+ 868 0076 0100     		.2byte	0x1
+ 869 0078 5D       		.byte	0x5d
+ 870 0079 02000000 		.4byte	.LCFI6
+ 871 007d 04000000 		.4byte	.LCFI7
+ 872 0081 0200     		.2byte	0x2
+ 873 0083 7D       		.byte	0x7d
+ 874 0084 08       		.sleb128 8
+ 875 0085 04000000 		.4byte	.LCFI7
+ 876 0089 06000000 		.4byte	.LCFI8
+ 877 008d 0200     		.2byte	0x2
+ 878 008f 7D       		.byte	0x7d
+ 879 0090 10       		.sleb128 16
+ 880 0091 06000000 		.4byte	.LCFI8
+ 881 0095 3C030000 		.4byte	.LFE31
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 20
+
+
+ 882 0099 0200     		.2byte	0x2
+ 883 009b 77       		.byte	0x77
+ 884 009c 10       		.sleb128 16
+ 885 009d 00000000 		.4byte	0x0
+ 886 00a1 00000000 		.4byte	0x0
+ 887              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\2.2\\psoc creator\\import\\gnu_cs\\arm\\4
+ 888              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 889              		.file 4 ".\\/types.h"
+ 890              		.file 5 ".\\/scheduler.h"
+ 891              		.file 6 "./Generated_Source/PSoC5/core_cm3.h"
+ 892              		.section	.debug_info
+ 893 0000 79020000 		.4byte	0x279
+ 894 0004 0200     		.2byte	0x2
+ 895 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 896 000a 04       		.byte	0x4
+ 897 000b 01       		.uleb128 0x1
+ 898 000c 4C010000 		.4byte	.LASF32
+ 899 0010 01       		.byte	0x1
+ 900 0011 F5000000 		.4byte	.LASF33
+ 901 0015 AD010000 		.4byte	.LASF34
+ 902 0019 00000000 		.4byte	0x0
+ 903 001d 00000000 		.4byte	0x0
+ 904 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 905 0025 00000000 		.4byte	.Ldebug_line0
+ 906 0029 02       		.uleb128 0x2
+ 907 002a 01       		.byte	0x1
+ 908 002b 06       		.byte	0x6
+ 909 002c 8C010000 		.4byte	.LASF0
+ 910 0030 03       		.uleb128 0x3
+ 911 0031 27010000 		.4byte	.LASF9
+ 912 0035 02       		.byte	0x2
+ 913 0036 2A       		.byte	0x2a
+ 914 0037 3B000000 		.4byte	0x3b
+ 915 003b 02       		.uleb128 0x2
+ 916 003c 01       		.byte	0x1
+ 917 003d 08       		.byte	0x8
+ 918 003e 68000000 		.4byte	.LASF1
+ 919 0042 02       		.uleb128 0x2
+ 920 0043 02       		.byte	0x2
+ 921 0044 05       		.byte	0x5
+ 922 0045 66010000 		.4byte	.LASF2
+ 923 0049 02       		.uleb128 0x2
+ 924 004a 02       		.byte	0x2
+ 925 004b 07       		.byte	0x7
+ 926 004c A1000000 		.4byte	.LASF3
+ 927 0050 02       		.uleb128 0x2
+ 928 0051 04       		.byte	0x4
+ 929 0052 05       		.byte	0x5
+ 930 0053 83010000 		.4byte	.LASF4
+ 931 0057 02       		.uleb128 0x2
+ 932 0058 04       		.byte	0x4
+ 933 0059 07       		.byte	0x7
+ 934 005a 8F000000 		.4byte	.LASF5
+ 935 005e 02       		.uleb128 0x2
+ 936 005f 08       		.byte	0x8
+ 937 0060 05       		.byte	0x5
+ 938 0061 00000000 		.4byte	.LASF6
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 21
+
+
+ 939 0065 02       		.uleb128 0x2
+ 940 0066 08       		.byte	0x8
+ 941 0067 07       		.byte	0x7
+ 942 0068 10010000 		.4byte	.LASF7
+ 943 006c 04       		.uleb128 0x4
+ 944 006d 04       		.byte	0x4
+ 945 006e 05       		.byte	0x5
+ 946 006f 696E7400 		.ascii	"int\000"
+ 947 0073 02       		.uleb128 0x2
+ 948 0074 04       		.byte	0x4
+ 949 0075 07       		.byte	0x7
+ 950 0076 03010000 		.4byte	.LASF8
+ 951 007a 03       		.uleb128 0x3
+ 952 007b 70010000 		.4byte	.LASF10
+ 953 007f 03       		.byte	0x3
+ 954 0080 4C       		.byte	0x4c
+ 955 0081 3B000000 		.4byte	0x3b
+ 956 0085 02       		.uleb128 0x2
+ 957 0086 04       		.byte	0x4
+ 958 0087 04       		.byte	0x4
+ 959 0088 5B000000 		.4byte	.LASF11
+ 960 008c 02       		.uleb128 0x2
+ 961 008d 08       		.byte	0x8
+ 962 008e 04       		.byte	0x4
+ 963 008f C7000000 		.4byte	.LASF12
+ 964 0093 02       		.uleb128 0x2
+ 965 0094 01       		.byte	0x1
+ 966 0095 08       		.byte	0x8
+ 967 0096 58010000 		.4byte	.LASF13
+ 968 009a 05       		.uleb128 0x5
+ 969 009b 04       		.byte	0x4
+ 970 009c 07       		.byte	0x7
+ 971 009d 03       		.uleb128 0x3
+ 972 009e C1000000 		.4byte	.LASF14
+ 973 00a2 04       		.byte	0x4
+ 974 00a3 0E       		.byte	0xe
+ 975 00a4 7A000000 		.4byte	0x7a
+ 976 00a8 03       		.uleb128 0x3
+ 977 00a9 61000000 		.4byte	.LASF15
+ 978 00ad 04       		.byte	0x4
+ 979 00ae 0F       		.byte	0xf
+ 980 00af 7A000000 		.4byte	0x7a
+ 981 00b3 03       		.uleb128 0x3
+ 982 00b4 1B000000 		.4byte	.LASF16
+ 983 00b8 04       		.byte	0x4
+ 984 00b9 10       		.byte	0x10
+ 985 00ba 30000000 		.4byte	0x30
+ 986 00be 03       		.uleb128 0x3
+ 987 00bf 3E010000 		.4byte	.LASF17
+ 988 00c3 05       		.byte	0x5
+ 989 00c4 1E       		.byte	0x1e
+ 990 00c5 C9000000 		.4byte	0xc9
+ 991 00c9 06       		.uleb128 0x6
+ 992 00ca 04       		.byte	0x4
+ 993 00cb CF000000 		.4byte	0xcf
+ 994 00cf 07       		.uleb128 0x7
+ 995 00d0 01       		.byte	0x1
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 22
+
+
+ 996 00d1 A8000000 		.4byte	0xa8
+ 997 00d5 08       		.uleb128 0x8
+ 998 00d6 DC000000 		.4byte	.LASF35
+ 999 00da 1C       		.byte	0x1c
+ 1000 00db 05       		.byte	0x5
+ 1001 00dc 22       		.byte	0x22
+ 1002 00dd 36010000 		.4byte	0x136
+ 1003 00e1 09       		.uleb128 0x9
+ 1004 00e2 3F000000 		.4byte	.LASF18
+ 1005 00e6 05       		.byte	0x5
+ 1006 00e7 23       		.byte	0x23
+ 1007 00e8 36010000 		.4byte	0x136
+ 1008 00ec 02       		.byte	0x2
+ 1009 00ed 23       		.byte	0x23
+ 1010 00ee 00       		.uleb128 0x0
+ 1011 00ef 09       		.uleb128 0x9
+ 1012 00f0 44000000 		.4byte	.LASF19
+ 1013 00f4 05       		.byte	0x5
+ 1014 00f5 24       		.byte	0x24
+ 1015 00f6 9D000000 		.4byte	0x9d
+ 1016 00fa 02       		.byte	0x2
+ 1017 00fb 23       		.byte	0x23
+ 1018 00fc 08       		.uleb128 0x8
+ 1019 00fd 09       		.uleb128 0x9
+ 1020 00fe D3000000 		.4byte	.LASF20
+ 1021 0102 05       		.byte	0x5
+ 1022 0103 25       		.byte	0x25
+ 1023 0104 9D000000 		.4byte	0x9d
+ 1024 0108 02       		.byte	0x2
+ 1025 0109 23       		.byte	0x23
+ 1026 010a 09       		.uleb128 0x9
+ 1027 010b 09       		.uleb128 0x9
+ 1028 010c 3A000000 		.4byte	.LASF21
+ 1029 0110 05       		.byte	0x5
+ 1030 0111 26       		.byte	0x26
+ 1031 0112 BE000000 		.4byte	0xbe
+ 1032 0116 02       		.byte	0x2
+ 1033 0117 23       		.byte	0x23
+ 1034 0118 0C       		.uleb128 0xc
+ 1035 0119 09       		.uleb128 0x9
+ 1036 011a CE000000 		.4byte	.LASF22
+ 1037 011e 05       		.byte	0x5
+ 1038 011f 27       		.byte	0x27
+ 1039 0120 BE000000 		.4byte	0xbe
+ 1040 0124 02       		.byte	0x2
+ 1041 0125 23       		.byte	0x23
+ 1042 0126 10       		.uleb128 0x10
+ 1043 0127 09       		.uleb128 0x9
+ 1044 0128 76000000 		.4byte	.LASF23
+ 1045 012c 05       		.byte	0x5
+ 1046 012d 28       		.byte	0x28
+ 1047 012e 36010000 		.4byte	0x136
+ 1048 0132 02       		.byte	0x2
+ 1049 0133 23       		.byte	0x23
+ 1050 0134 14       		.uleb128 0x14
+ 1051 0135 00       		.byte	0x0
+ 1052 0136 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 23
+
+
+ 1053 0137 9D000000 		.4byte	0x9d
+ 1054 013b 46010000 		.4byte	0x146
+ 1055 013f 0B       		.uleb128 0xb
+ 1056 0140 9A000000 		.4byte	0x9a
+ 1057 0144 07       		.byte	0x7
+ 1058 0145 00       		.byte	0x0
+ 1059 0146 03       		.uleb128 0x3
+ 1060 0147 EC000000 		.4byte	.LASF24
+ 1061 014b 05       		.byte	0x5
+ 1062 014c 29       		.byte	0x29
+ 1063 014d D5000000 		.4byte	0xd5
+ 1064 0151 0C       		.uleb128 0xc
+ 1065 0152 29000000 		.4byte	.LASF36
+ 1066 0156 01       		.byte	0x1
+ 1067 0157 28       		.byte	0x28
+ 1068 0158 01       		.byte	0x1
+ 1069 0159 9D000000 		.4byte	0x9d
+ 1070 015d 00000000 		.4byte	.LFB29
+ 1071 0161 64000000 		.4byte	.LFE29
+ 1072 0165 00000000 		.4byte	.LLST0
+ 1073 0169 96010000 		.4byte	0x196
+ 1074 016d 0D       		.uleb128 0xd
+ 1075 016e 20000000 		.4byte	.LASF37
+ 1076 0172 01       		.byte	0x1
+ 1077 0173 28       		.byte	0x28
+ 1078 0174 96010000 		.4byte	0x196
+ 1079 0178 02       		.byte	0x2
+ 1080 0179 91       		.byte	0x91
+ 1081 017a 6C       		.sleb128 -20
+ 1082 017b 0E       		.uleb128 0xe
+ 1083 017c 6900     		.ascii	"i\000"
+ 1084 017e 01       		.byte	0x1
+ 1085 017f 2A       		.byte	0x2a
+ 1086 0180 6C000000 		.4byte	0x6c
+ 1087 0184 02       		.byte	0x2
+ 1088 0185 91       		.byte	0x91
+ 1089 0186 70       		.sleb128 -16
+ 1090 0187 0E       		.uleb128 0xe
+ 1091 0188 69647800 		.ascii	"idx\000"
+ 1092 018c 01       		.byte	0x1
+ 1093 018d 2B       		.byte	0x2b
+ 1094 018e 9D000000 		.4byte	0x9d
+ 1095 0192 02       		.byte	0x2
+ 1096 0193 91       		.byte	0x91
+ 1097 0194 77       		.sleb128 -9
+ 1098 0195 00       		.byte	0x0
+ 1099 0196 06       		.uleb128 0x6
+ 1100 0197 04       		.byte	0x4
+ 1101 0198 9D000000 		.4byte	0x9d
+ 1102 019c 0F       		.uleb128 0xf
+ 1103 019d 01       		.byte	0x1
+ 1104 019e 4B000000 		.4byte	.LASF27
+ 1105 01a2 01       		.byte	0x1
+ 1106 01a3 38       		.byte	0x38
+ 1107 01a4 01       		.byte	0x1
+ 1108 01a5 00000000 		.4byte	.LFB30
+ 1109 01a9 04030000 		.4byte	.LFE30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 24
+
+
+ 1110 01ad 37000000 		.4byte	.LLST1
+ 1111 01b1 E0010000 		.4byte	0x1e0
+ 1112 01b5 10       		.uleb128 0x10
+ 1113 01b6 44000000 		.4byte	.LASF19
+ 1114 01ba 01       		.byte	0x1
+ 1115 01bb 3A       		.byte	0x3a
+ 1116 01bc A8000000 		.4byte	0xa8
+ 1117 01c0 02       		.byte	0x2
+ 1118 01c1 91       		.byte	0x91
+ 1119 01c2 75       		.sleb128 -11
+ 1120 01c3 10       		.uleb128 0x10
+ 1121 01c4 0E000000 		.4byte	.LASF25
+ 1122 01c8 01       		.byte	0x1
+ 1123 01c9 3B       		.byte	0x3b
+ 1124 01ca 9D000000 		.4byte	0x9d
+ 1125 01ce 02       		.byte	0x2
+ 1126 01cf 91       		.byte	0x91
+ 1127 01d0 76       		.sleb128 -10
+ 1128 01d1 10       		.uleb128 0x10
+ 1129 01d2 76010000 		.4byte	.LASF26
+ 1130 01d6 01       		.byte	0x1
+ 1131 01d7 3C       		.byte	0x3c
+ 1132 01d8 B3000000 		.4byte	0xb3
+ 1133 01dc 02       		.byte	0x2
+ 1134 01dd 91       		.byte	0x91
+ 1135 01de 77       		.sleb128 -9
+ 1136 01df 00       		.byte	0x0
+ 1137 01e0 0F       		.uleb128 0xf
+ 1138 01e1 01       		.byte	0x1
+ 1139 01e2 98010000 		.4byte	.LASF28
+ 1140 01e6 01       		.byte	0x1
+ 1141 01e7 94       		.byte	0x94
+ 1142 01e8 01       		.byte	0x1
+ 1143 01e9 00000000 		.4byte	.LFB31
+ 1144 01ed 3C030000 		.4byte	.LFE31
+ 1145 01f1 6E000000 		.4byte	.LLST2
+ 1146 01f5 06020000 		.4byte	0x206
+ 1147 01f9 0E       		.uleb128 0xe
+ 1148 01fa 6900     		.ascii	"i\000"
+ 1149 01fc 01       		.byte	0x1
+ 1150 01fd 96       		.byte	0x96
+ 1151 01fe 6C000000 		.4byte	0x6c
+ 1152 0202 02       		.byte	0x2
+ 1153 0203 91       		.byte	0x91
+ 1154 0204 74       		.sleb128 -12
+ 1155 0205 00       		.byte	0x0
+ 1156 0206 10       		.uleb128 0x10
+ 1157 0207 81000000 		.4byte	.LASF29
+ 1158 020b 01       		.byte	0x1
+ 1159 020c 14       		.byte	0x14
+ 1160 020d 6C000000 		.4byte	0x6c
+ 1161 0211 05       		.byte	0x5
+ 1162 0212 03       		.byte	0x3
+ 1163 0213 00000000 		.4byte	SCH_TaskIndex
+ 1164 0217 0A       		.uleb128 0xa
+ 1165 0218 46010000 		.4byte	0x146
+ 1166 021c 27020000 		.4byte	0x227
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 25
+
+
+ 1167 0220 0B       		.uleb128 0xb
+ 1168 0221 9A000000 		.4byte	0x9a
+ 1169 0225 07       		.byte	0x7
+ 1170 0226 00       		.byte	0x0
+ 1171 0227 10       		.uleb128 0x10
+ 1172 0228 5D010000 		.4byte	.LASF30
+ 1173 022c 01       		.byte	0x1
+ 1174 022d 15       		.byte	0x15
+ 1175 022e 17020000 		.4byte	0x217
+ 1176 0232 05       		.byte	0x5
+ 1177 0233 03       		.byte	0x3
+ 1178 0234 00000000 		.4byte	SCH_Task
+ 1179 0238 0A       		.uleb128 0xa
+ 1180 0239 9D000000 		.4byte	0x9d
+ 1181 023d 49020000 		.4byte	0x249
+ 1182 0241 11       		.uleb128 0x11
+ 1183 0242 9A000000 		.4byte	0x9a
+ 1184 0246 FF03     		.2byte	0x3ff
+ 1185 0248 00       		.byte	0x0
+ 1186 0249 10       		.uleb128 0x10
+ 1187 024a 2F010000 		.4byte	.LASF31
+ 1188 024e 01       		.byte	0x1
+ 1189 024f 91       		.byte	0x91
+ 1190 0250 38020000 		.4byte	0x238
+ 1191 0254 05       		.byte	0x5
+ 1192 0255 03       		.byte	0x3
+ 1193 0256 04000000 		.4byte	SCH_TaskBuffer
+ 1194 025a 0E       		.uleb128 0xe
+ 1195 025b 6E00     		.ascii	"n\000"
+ 1196 025d 01       		.byte	0x1
+ 1197 025e 92       		.byte	0x92
+ 1198 025f 6C000000 		.4byte	0x6c
+ 1199 0263 05       		.byte	0x5
+ 1200 0264 03       		.byte	0x3
+ 1201 0265 04040000 		.4byte	n
+ 1202 0269 12       		.uleb128 0x12
+ 1203 026a B4000000 		.4byte	.LASF38
+ 1204 026e 06       		.byte	0x6
+ 1205 026f CE06     		.2byte	0x6ce
+ 1206 0271 77020000 		.4byte	0x277
+ 1207 0275 01       		.byte	0x1
+ 1208 0276 01       		.byte	0x1
+ 1209 0277 13       		.uleb128 0x13
+ 1210 0278 6C000000 		.4byte	0x6c
+ 1211 027c 00       		.byte	0x0
+ 1212              		.section	.debug_abbrev
+ 1213 0000 01       		.uleb128 0x1
+ 1214 0001 11       		.uleb128 0x11
+ 1215 0002 01       		.byte	0x1
+ 1216 0003 25       		.uleb128 0x25
+ 1217 0004 0E       		.uleb128 0xe
+ 1218 0005 13       		.uleb128 0x13
+ 1219 0006 0B       		.uleb128 0xb
+ 1220 0007 03       		.uleb128 0x3
+ 1221 0008 0E       		.uleb128 0xe
+ 1222 0009 1B       		.uleb128 0x1b
+ 1223 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 26
+
+
+ 1224 000b 11       		.uleb128 0x11
+ 1225 000c 01       		.uleb128 0x1
+ 1226 000d 52       		.uleb128 0x52
+ 1227 000e 01       		.uleb128 0x1
+ 1228 000f 55       		.uleb128 0x55
+ 1229 0010 06       		.uleb128 0x6
+ 1230 0011 10       		.uleb128 0x10
+ 1231 0012 06       		.uleb128 0x6
+ 1232 0013 00       		.byte	0x0
+ 1233 0014 00       		.byte	0x0
+ 1234 0015 02       		.uleb128 0x2
+ 1235 0016 24       		.uleb128 0x24
+ 1236 0017 00       		.byte	0x0
+ 1237 0018 0B       		.uleb128 0xb
+ 1238 0019 0B       		.uleb128 0xb
+ 1239 001a 3E       		.uleb128 0x3e
+ 1240 001b 0B       		.uleb128 0xb
+ 1241 001c 03       		.uleb128 0x3
+ 1242 001d 0E       		.uleb128 0xe
+ 1243 001e 00       		.byte	0x0
+ 1244 001f 00       		.byte	0x0
+ 1245 0020 03       		.uleb128 0x3
+ 1246 0021 16       		.uleb128 0x16
+ 1247 0022 00       		.byte	0x0
+ 1248 0023 03       		.uleb128 0x3
+ 1249 0024 0E       		.uleb128 0xe
+ 1250 0025 3A       		.uleb128 0x3a
+ 1251 0026 0B       		.uleb128 0xb
+ 1252 0027 3B       		.uleb128 0x3b
+ 1253 0028 0B       		.uleb128 0xb
+ 1254 0029 49       		.uleb128 0x49
+ 1255 002a 13       		.uleb128 0x13
+ 1256 002b 00       		.byte	0x0
+ 1257 002c 00       		.byte	0x0
+ 1258 002d 04       		.uleb128 0x4
+ 1259 002e 24       		.uleb128 0x24
+ 1260 002f 00       		.byte	0x0
+ 1261 0030 0B       		.uleb128 0xb
+ 1262 0031 0B       		.uleb128 0xb
+ 1263 0032 3E       		.uleb128 0x3e
+ 1264 0033 0B       		.uleb128 0xb
+ 1265 0034 03       		.uleb128 0x3
+ 1266 0035 08       		.uleb128 0x8
+ 1267 0036 00       		.byte	0x0
+ 1268 0037 00       		.byte	0x0
+ 1269 0038 05       		.uleb128 0x5
+ 1270 0039 24       		.uleb128 0x24
+ 1271 003a 00       		.byte	0x0
+ 1272 003b 0B       		.uleb128 0xb
+ 1273 003c 0B       		.uleb128 0xb
+ 1274 003d 3E       		.uleb128 0x3e
+ 1275 003e 0B       		.uleb128 0xb
+ 1276 003f 00       		.byte	0x0
+ 1277 0040 00       		.byte	0x0
+ 1278 0041 06       		.uleb128 0x6
+ 1279 0042 0F       		.uleb128 0xf
+ 1280 0043 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 27
+
+
+ 1281 0044 0B       		.uleb128 0xb
+ 1282 0045 0B       		.uleb128 0xb
+ 1283 0046 49       		.uleb128 0x49
+ 1284 0047 13       		.uleb128 0x13
+ 1285 0048 00       		.byte	0x0
+ 1286 0049 00       		.byte	0x0
+ 1287 004a 07       		.uleb128 0x7
+ 1288 004b 15       		.uleb128 0x15
+ 1289 004c 00       		.byte	0x0
+ 1290 004d 27       		.uleb128 0x27
+ 1291 004e 0C       		.uleb128 0xc
+ 1292 004f 49       		.uleb128 0x49
+ 1293 0050 13       		.uleb128 0x13
+ 1294 0051 00       		.byte	0x0
+ 1295 0052 00       		.byte	0x0
+ 1296 0053 08       		.uleb128 0x8
+ 1297 0054 13       		.uleb128 0x13
+ 1298 0055 01       		.byte	0x1
+ 1299 0056 03       		.uleb128 0x3
+ 1300 0057 0E       		.uleb128 0xe
+ 1301 0058 0B       		.uleb128 0xb
+ 1302 0059 0B       		.uleb128 0xb
+ 1303 005a 3A       		.uleb128 0x3a
+ 1304 005b 0B       		.uleb128 0xb
+ 1305 005c 3B       		.uleb128 0x3b
+ 1306 005d 0B       		.uleb128 0xb
+ 1307 005e 01       		.uleb128 0x1
+ 1308 005f 13       		.uleb128 0x13
+ 1309 0060 00       		.byte	0x0
+ 1310 0061 00       		.byte	0x0
+ 1311 0062 09       		.uleb128 0x9
+ 1312 0063 0D       		.uleb128 0xd
+ 1313 0064 00       		.byte	0x0
+ 1314 0065 03       		.uleb128 0x3
+ 1315 0066 0E       		.uleb128 0xe
+ 1316 0067 3A       		.uleb128 0x3a
+ 1317 0068 0B       		.uleb128 0xb
+ 1318 0069 3B       		.uleb128 0x3b
+ 1319 006a 0B       		.uleb128 0xb
+ 1320 006b 49       		.uleb128 0x49
+ 1321 006c 13       		.uleb128 0x13
+ 1322 006d 38       		.uleb128 0x38
+ 1323 006e 0A       		.uleb128 0xa
+ 1324 006f 00       		.byte	0x0
+ 1325 0070 00       		.byte	0x0
+ 1326 0071 0A       		.uleb128 0xa
+ 1327 0072 01       		.uleb128 0x1
+ 1328 0073 01       		.byte	0x1
+ 1329 0074 49       		.uleb128 0x49
+ 1330 0075 13       		.uleb128 0x13
+ 1331 0076 01       		.uleb128 0x1
+ 1332 0077 13       		.uleb128 0x13
+ 1333 0078 00       		.byte	0x0
+ 1334 0079 00       		.byte	0x0
+ 1335 007a 0B       		.uleb128 0xb
+ 1336 007b 21       		.uleb128 0x21
+ 1337 007c 00       		.byte	0x0
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 28
+
+
+ 1338 007d 49       		.uleb128 0x49
+ 1339 007e 13       		.uleb128 0x13
+ 1340 007f 2F       		.uleb128 0x2f
+ 1341 0080 0B       		.uleb128 0xb
+ 1342 0081 00       		.byte	0x0
+ 1343 0082 00       		.byte	0x0
+ 1344 0083 0C       		.uleb128 0xc
+ 1345 0084 2E       		.uleb128 0x2e
+ 1346 0085 01       		.byte	0x1
+ 1347 0086 03       		.uleb128 0x3
+ 1348 0087 0E       		.uleb128 0xe
+ 1349 0088 3A       		.uleb128 0x3a
+ 1350 0089 0B       		.uleb128 0xb
+ 1351 008a 3B       		.uleb128 0x3b
+ 1352 008b 0B       		.uleb128 0xb
+ 1353 008c 27       		.uleb128 0x27
+ 1354 008d 0C       		.uleb128 0xc
+ 1355 008e 49       		.uleb128 0x49
+ 1356 008f 13       		.uleb128 0x13
+ 1357 0090 11       		.uleb128 0x11
+ 1358 0091 01       		.uleb128 0x1
+ 1359 0092 12       		.uleb128 0x12
+ 1360 0093 01       		.uleb128 0x1
+ 1361 0094 40       		.uleb128 0x40
+ 1362 0095 06       		.uleb128 0x6
+ 1363 0096 01       		.uleb128 0x1
+ 1364 0097 13       		.uleb128 0x13
+ 1365 0098 00       		.byte	0x0
+ 1366 0099 00       		.byte	0x0
+ 1367 009a 0D       		.uleb128 0xd
+ 1368 009b 05       		.uleb128 0x5
+ 1369 009c 00       		.byte	0x0
+ 1370 009d 03       		.uleb128 0x3
+ 1371 009e 0E       		.uleb128 0xe
+ 1372 009f 3A       		.uleb128 0x3a
+ 1373 00a0 0B       		.uleb128 0xb
+ 1374 00a1 3B       		.uleb128 0x3b
+ 1375 00a2 0B       		.uleb128 0xb
+ 1376 00a3 49       		.uleb128 0x49
+ 1377 00a4 13       		.uleb128 0x13
+ 1378 00a5 02       		.uleb128 0x2
+ 1379 00a6 0A       		.uleb128 0xa
+ 1380 00a7 00       		.byte	0x0
+ 1381 00a8 00       		.byte	0x0
+ 1382 00a9 0E       		.uleb128 0xe
+ 1383 00aa 34       		.uleb128 0x34
+ 1384 00ab 00       		.byte	0x0
+ 1385 00ac 03       		.uleb128 0x3
+ 1386 00ad 08       		.uleb128 0x8
+ 1387 00ae 3A       		.uleb128 0x3a
+ 1388 00af 0B       		.uleb128 0xb
+ 1389 00b0 3B       		.uleb128 0x3b
+ 1390 00b1 0B       		.uleb128 0xb
+ 1391 00b2 49       		.uleb128 0x49
+ 1392 00b3 13       		.uleb128 0x13
+ 1393 00b4 02       		.uleb128 0x2
+ 1394 00b5 0A       		.uleb128 0xa
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 29
+
+
+ 1395 00b6 00       		.byte	0x0
+ 1396 00b7 00       		.byte	0x0
+ 1397 00b8 0F       		.uleb128 0xf
+ 1398 00b9 2E       		.uleb128 0x2e
+ 1399 00ba 01       		.byte	0x1
+ 1400 00bb 3F       		.uleb128 0x3f
+ 1401 00bc 0C       		.uleb128 0xc
+ 1402 00bd 03       		.uleb128 0x3
+ 1403 00be 0E       		.uleb128 0xe
+ 1404 00bf 3A       		.uleb128 0x3a
+ 1405 00c0 0B       		.uleb128 0xb
+ 1406 00c1 3B       		.uleb128 0x3b
+ 1407 00c2 0B       		.uleb128 0xb
+ 1408 00c3 27       		.uleb128 0x27
+ 1409 00c4 0C       		.uleb128 0xc
+ 1410 00c5 11       		.uleb128 0x11
+ 1411 00c6 01       		.uleb128 0x1
+ 1412 00c7 12       		.uleb128 0x12
+ 1413 00c8 01       		.uleb128 0x1
+ 1414 00c9 40       		.uleb128 0x40
+ 1415 00ca 06       		.uleb128 0x6
+ 1416 00cb 01       		.uleb128 0x1
+ 1417 00cc 13       		.uleb128 0x13
+ 1418 00cd 00       		.byte	0x0
+ 1419 00ce 00       		.byte	0x0
+ 1420 00cf 10       		.uleb128 0x10
+ 1421 00d0 34       		.uleb128 0x34
+ 1422 00d1 00       		.byte	0x0
+ 1423 00d2 03       		.uleb128 0x3
+ 1424 00d3 0E       		.uleb128 0xe
+ 1425 00d4 3A       		.uleb128 0x3a
+ 1426 00d5 0B       		.uleb128 0xb
+ 1427 00d6 3B       		.uleb128 0x3b
+ 1428 00d7 0B       		.uleb128 0xb
+ 1429 00d8 49       		.uleb128 0x49
+ 1430 00d9 13       		.uleb128 0x13
+ 1431 00da 02       		.uleb128 0x2
+ 1432 00db 0A       		.uleb128 0xa
+ 1433 00dc 00       		.byte	0x0
+ 1434 00dd 00       		.byte	0x0
+ 1435 00de 11       		.uleb128 0x11
+ 1436 00df 21       		.uleb128 0x21
+ 1437 00e0 00       		.byte	0x0
+ 1438 00e1 49       		.uleb128 0x49
+ 1439 00e2 13       		.uleb128 0x13
+ 1440 00e3 2F       		.uleb128 0x2f
+ 1441 00e4 05       		.uleb128 0x5
+ 1442 00e5 00       		.byte	0x0
+ 1443 00e6 00       		.byte	0x0
+ 1444 00e7 12       		.uleb128 0x12
+ 1445 00e8 34       		.uleb128 0x34
+ 1446 00e9 00       		.byte	0x0
+ 1447 00ea 03       		.uleb128 0x3
+ 1448 00eb 0E       		.uleb128 0xe
+ 1449 00ec 3A       		.uleb128 0x3a
+ 1450 00ed 0B       		.uleb128 0xb
+ 1451 00ee 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 30
+
+
+ 1452 00ef 05       		.uleb128 0x5
+ 1453 00f0 49       		.uleb128 0x49
+ 1454 00f1 13       		.uleb128 0x13
+ 1455 00f2 3F       		.uleb128 0x3f
+ 1456 00f3 0C       		.uleb128 0xc
+ 1457 00f4 3C       		.uleb128 0x3c
+ 1458 00f5 0C       		.uleb128 0xc
+ 1459 00f6 00       		.byte	0x0
+ 1460 00f7 00       		.byte	0x0
+ 1461 00f8 13       		.uleb128 0x13
+ 1462 00f9 35       		.uleb128 0x35
+ 1463 00fa 00       		.byte	0x0
+ 1464 00fb 49       		.uleb128 0x49
+ 1465 00fc 13       		.uleb128 0x13
+ 1466 00fd 00       		.byte	0x0
+ 1467 00fe 00       		.byte	0x0
+ 1468 00ff 00       		.byte	0x0
+ 1469              		.section	.debug_pubnames,"",%progbits
+ 1470 0000 3B000000 		.4byte	0x3b
+ 1471 0004 0200     		.2byte	0x2
+ 1472 0006 00000000 		.4byte	.Ldebug_info0
+ 1473 000a 7D020000 		.4byte	0x27d
+ 1474 000e 9C010000 		.4byte	0x19c
+ 1475 0012 5343485F 		.ascii	"SCH_TaskHandler\000"
+ 1475      5461736B 
+ 1475      48616E64 
+ 1475      6C657200 
+ 1476 0022 E0010000 		.4byte	0x1e0
+ 1477 0026 5343485F 		.ascii	"SCH_ShowCurrentTasks\000"
+ 1477      53686F77 
+ 1477      43757272 
+ 1477      656E7454 
+ 1477      61736B73 
+ 1478 003b 00000000 		.4byte	0x0
+ 1479              		.section	.debug_aranges,"",%progbits
+ 1480 0000 2C000000 		.4byte	0x2c
+ 1481 0004 0200     		.2byte	0x2
+ 1482 0006 00000000 		.4byte	.Ldebug_info0
+ 1483 000a 04       		.byte	0x4
+ 1484 000b 00       		.byte	0x0
+ 1485 000c 0000     		.2byte	0x0
+ 1486 000e 0000     		.2byte	0x0
+ 1487 0010 00000000 		.4byte	.LFB29
+ 1488 0014 64000000 		.4byte	.LFE29-.LFB29
+ 1489 0018 00000000 		.4byte	.LFB30
+ 1490 001c 04030000 		.4byte	.LFE30-.LFB30
+ 1491 0020 00000000 		.4byte	.LFB31
+ 1492 0024 3C030000 		.4byte	.LFE31-.LFB31
+ 1493 0028 00000000 		.4byte	0x0
+ 1494 002c 00000000 		.4byte	0x0
+ 1495              		.section	.debug_ranges,"",%progbits
+ 1496              	.Ldebug_ranges0:
+ 1497 0000 00000000 		.4byte	.Ltext0
+ 1498 0004 00000000 		.4byte	.Letext0
+ 1499 0008 00000000 		.4byte	.LFB29
+ 1500 000c 64000000 		.4byte	.LFE29
+ 1501 0010 00000000 		.4byte	.LFB30
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 31
+
+
+ 1502 0014 04030000 		.4byte	.LFE30
+ 1503 0018 00000000 		.4byte	.LFB31
+ 1504 001c 3C030000 		.4byte	.LFE31
+ 1505 0020 00000000 		.4byte	0x0
+ 1506 0024 00000000 		.4byte	0x0
+ 1507              		.section	.debug_str,"MS",%progbits,1
+ 1508              	.LASF6:
+ 1509 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1509      206C6F6E 
+ 1509      6720696E 
+ 1509      7400
+ 1510              	.LASF25:
+ 1511 000e 64657054 		.ascii	"depTaskIndex\000"
+ 1511      61736B49 
+ 1511      6E646578 
+ 1511      00
+ 1512              	.LASF16:
+ 1513 001b 424F4F4C 		.ascii	"BOOL\000"
+ 1513      00
+ 1514              	.LASF37:
+ 1515 0020 7461736B 		.ascii	"taskName\000"
+ 1515      4E616D65 
+ 1515      00
+ 1516              	.LASF36:
+ 1517 0029 5343485F 		.ascii	"SCH_GetTaskIndex\000"
+ 1517      47657454 
+ 1517      61736B49 
+ 1517      6E646578 
+ 1517      00
+ 1518              	.LASF21:
+ 1519 003a 696E6974 		.ascii	"init\000"
+ 1519      00
+ 1520              	.LASF18:
+ 1521 003f 6E616D65 		.ascii	"name\000"
+ 1521      00
+ 1522              	.LASF19:
+ 1523 0044 73746174 		.ascii	"status\000"
+ 1523      757300
+ 1524              	.LASF27:
+ 1525 004b 5343485F 		.ascii	"SCH_TaskHandler\000"
+ 1525      5461736B 
+ 1525      48616E64 
+ 1525      6C657200 
+ 1526              	.LASF11:
+ 1527 005b 666C6F61 		.ascii	"float\000"
+ 1527      7400
+ 1528              	.LASF15:
+ 1529 0061 53544154 		.ascii	"STATUS\000"
+ 1529      555300
+ 1530              	.LASF1:
+ 1531 0068 756E7369 		.ascii	"unsigned char\000"
+ 1531      676E6564 
+ 1531      20636861 
+ 1531      7200
+ 1532              	.LASF23:
+ 1533 0076 64657065 		.ascii	"dependency\000"
+ 1533      6E64656E 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 32
+
+
+ 1533      637900
+ 1534              	.LASF29:
+ 1535 0081 5343485F 		.ascii	"SCH_TaskIndex\000"
+ 1535      5461736B 
+ 1535      496E6465 
+ 1535      7800
+ 1536              	.LASF5:
+ 1537 008f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1537      20756E73 
+ 1537      69676E65 
+ 1537      6420696E 
+ 1537      7400
+ 1538              	.LASF3:
+ 1539 00a1 73686F72 		.ascii	"short unsigned int\000"
+ 1539      7420756E 
+ 1539      7369676E 
+ 1539      65642069 
+ 1539      6E7400
+ 1540              	.LASF38:
+ 1541 00b4 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1541      52784275 
+ 1541      66666572 
+ 1541      00
+ 1542              	.LASF14:
+ 1543 00c1 75636861 		.ascii	"uchar\000"
+ 1543      7200
+ 1544              	.LASF12:
+ 1545 00c7 646F7562 		.ascii	"double\000"
+ 1545      6C6500
+ 1546              	.LASF22:
+ 1547 00ce 66756E63 		.ascii	"func\000"
+ 1547      00
+ 1548              	.LASF20:
+ 1549 00d3 7072696F 		.ascii	"priority\000"
+ 1549      72697479 
+ 1549      00
+ 1550              	.LASF35:
+ 1551 00dc 5F736368 		.ascii	"_scheduler_task\000"
+ 1551      6564756C 
+ 1551      65725F74 
+ 1551      61736B00 
+ 1552              	.LASF24:
+ 1553 00ec 5343485F 		.ascii	"SCH_TASK\000"
+ 1553      5441534B 
+ 1553      00
+ 1554              	.LASF33:
+ 1555 00f5 2E5C7363 		.ascii	".\\scheduler.c\000"
+ 1555      68656475 
+ 1555      6C65722E 
+ 1555      6300
+ 1556              	.LASF8:
+ 1557 0103 756E7369 		.ascii	"unsigned int\000"
+ 1557      676E6564 
+ 1557      20696E74 
+ 1557      00
+ 1558              	.LASF7:
+ 1559 0110 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 33
+
+
+ 1559      206C6F6E 
+ 1559      6720756E 
+ 1559      7369676E 
+ 1559      65642069 
+ 1560              	.LASF9:
+ 1561 0127 75696E74 		.ascii	"uint8_t\000"
+ 1561      385F7400 
+ 1562              	.LASF31:
+ 1563 012f 5343485F 		.ascii	"SCH_TaskBuffer\000"
+ 1563      5461736B 
+ 1563      42756666 
+ 1563      657200
+ 1564              	.LASF17:
+ 1565 013e 5343485F 		.ascii	"SCH_TASK_FUNC\000"
+ 1565      5441534B 
+ 1565      5F46554E 
+ 1565      4300
+ 1566              	.LASF32:
+ 1567 014c 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1567      4320342E 
+ 1567      342E3100 
+ 1568              	.LASF13:
+ 1569 0158 63686172 		.ascii	"char\000"
+ 1569      00
+ 1570              	.LASF30:
+ 1571 015d 5343485F 		.ascii	"SCH_Task\000"
+ 1571      5461736B 
+ 1571      00
+ 1572              	.LASF2:
+ 1573 0166 73686F72 		.ascii	"short int\000"
+ 1573      7420696E 
+ 1573      7400
+ 1574              	.LASF10:
+ 1575 0170 75696E74 		.ascii	"uint8\000"
+ 1575      3800
+ 1576              	.LASF26:
+ 1577 0176 7461736B 		.ascii	"taskInitFlag\000"
+ 1577      496E6974 
+ 1577      466C6167 
+ 1577      00
+ 1578              	.LASF4:
+ 1579 0183 6C6F6E67 		.ascii	"long int\000"
+ 1579      20696E74 
+ 1579      00
+ 1580              	.LASF0:
+ 1581 018c 7369676E 		.ascii	"signed char\000"
+ 1581      65642063 
+ 1581      68617200 
+ 1582              	.LASF28:
+ 1583 0198 5343485F 		.ascii	"SCH_ShowCurrentTasks\000"
+ 1583      53686F77 
+ 1583      43757272 
+ 1583      656E7454 
+ 1583      61736B73 
+ 1584              	.LASF34:
+ 1585 01ad 583A5C47 		.ascii	"X:\\GitHub_roboticscode\\roboticscode\\psoc\\psoc_c"
+ 1585      69744875 
+ARM GAS  C:\Users\Martin\AppData\Local\Temp\ccDPf4wf.s 			page 34
+
+
+ 1585      625F726F 
+ 1585      626F7469 
+ 1585      6373636F 
+ 1586 01dc 72656174 		.ascii	"reator_2.2\\DrivePlatform3\\DrivePlatform3\\DrivePl"
+ 1586      6F725F32 
+ 1586      2E325C44 
+ 1586      72697665 
+ 1586      506C6174 
+ 1587 020c 6174666F 		.ascii	"atform3.cydsn\000"
+ 1587      726D332E 
+ 1587      63796473 
+ 1587      6E00
+ 1588              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
