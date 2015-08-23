@@ -76,6 +76,13 @@ STATUS CDS5500_CheckResponse(CDS5500_MSG* response)
 
 
 /**************************************************************************
+**************************************************************************/
+void CDS5500_ReadRequest(uint8_t ucMotorId, uint8_t ucAddr)
+{
+    
+}
+
+/**************************************************************************
 Does not command any operations. Used for requesting a status 
 packet or to check the existence of a CDS55xx servo with a specific 
 ID. 

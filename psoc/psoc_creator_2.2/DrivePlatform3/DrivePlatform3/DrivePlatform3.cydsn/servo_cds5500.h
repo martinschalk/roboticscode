@@ -220,6 +220,7 @@ extern STATUS CDS5500_CheckResponse(CDS5500_MSG* response);
 extern void ServoTest(void);
 extern uint8 CDS5500_GetChecksum(CDS5500_MSG* msg);
 
+extern void CDS5500_ReadRequest(uint8_t ucMotorId, uint8_t ucAddr);
 extern void CDS5500_Ping(uint8 motorId);
 extern void CDS5500_WritePos(int ID, int pos, int vel);
 extern void CDS5500_RegWritePos(int ID, int position, int velocity);
