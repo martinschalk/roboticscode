@@ -21,16 +21,16 @@
 #define TIMER_MODE_CONTINUOUS		2
 #define TIMER_MODE_ONE_SHOT			3
 
-enum
+typedef enum _timer_idx
 {
     TIMER_0	= 0,
     TIMER_1, //BPL module test
-    TIMER_2,
+    TIMER_2, //MOV last motor contact
     TIMER_3,
     TIMER_4, //BAL module test
     TIMER_5, //MOV module test
     TIMER_NUM
-};
+}TIMER_IDX;
 
 /* timer function to be called if timer down */
 typedef void (*TMR_FUNC)(void);

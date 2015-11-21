@@ -250,17 +250,24 @@ uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte)
 	return status;
 }
 /*****************************************************************/
-uint8_t RBF_ucReadOnlyFromTail(uint8_t ucIndex, uint8_t* ucTargetAddr, uint8_t ucNumByte)
+uint8_t RBF_ucReadOnlyFromTail(uint8_t ucIndex, uint8_t ucNumByte)
 {    
+    uint8_t ucByte;
+
     if (RingBuffer[ucIndex].address == NULLPTR)
         return RBF_NOT_AVAILABLE;
-    
-    if (ucNumByte > RBF_ucGetByteCount(ucIndex))
-        return RBF_INVALID_PARAMETERS;
         
-    *ucTargetAddr = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail + ucNumByte];
+     // is head == tail ?
+	if ((RingBuffer[ucIndex].tail + ucNumByte) > RingBuffer[ucIndex].size)
+	{
+        ucByte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail + ucNumByte - RingBuffer[ucIndex].size];
+    }
+    else
+    {        
+        ucByte = (RingBuffer[ucIndex].address)[RingBuffer[ucIndex].tail + ucNumByte];
+    }
 
-    return RBF_SUCCESS;
+    return ucByte; //TODO: test
 }
 
 /*****************************************************************/

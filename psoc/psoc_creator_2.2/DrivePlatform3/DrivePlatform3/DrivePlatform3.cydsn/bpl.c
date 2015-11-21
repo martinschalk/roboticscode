@@ -180,15 +180,19 @@ STATUS BPL_HandleTask(void)
     // --------------------------------------------
     if (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) >= CDS5500_STATUS_PACKET_MIN_LENGTH)
     {
-        rbfStatus = RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucStartByte1, 0);
-        rbfStatus |= RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucStartByte2, 1);
-        rbfStatus |= RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, &ucNumBytes, 3);
+        ucStartByte1 = RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, 0);
+        ucStartByte2 = RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, 1);
+        ucNumBytes = RBF_ucReadOnlyFromTail(BPL_ucReceiveBufferIndex, 3);
         
         if (        (ucStartByte1 == 0xFF) && (ucStartByte2 == 0xFF) 
                 &&  (RBF_ucGetByteCount(BPL_ucReceiveBufferIndex) >= (ucNumBytes + 4)) //(0XFF 0XFF ID Length)
            )
         {
             BPL_CDS5500_ucRxMessageCount++; //Message can now be picked up using BPL_CDS5500_GetResponse()
+        }
+        else
+        {
+            //something went wrong, better clear buffer
         }
     }    
     

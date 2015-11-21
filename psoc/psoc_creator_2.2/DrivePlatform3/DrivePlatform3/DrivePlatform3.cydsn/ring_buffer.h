@@ -83,11 +83,10 @@ extern uint8_t RBF_ucTailByteOut(uint8_t ucIndex, uint8_t* byte);
 /*****************************************************************/
 /** parameters: 
         ucIndex :       uint8_t, buffer index
-        ucTargetAddr :  uint8_t, target address
         ucNumByte :     uint8_t, number of byte to be read
-    return: status
+    return: value
 */
-extern uint8_t RBF_ucReadOnlyFromTail(uint8_t ucIndex, uint8_t* ucTargetAddr, uint8_t ucNumByte);
+uint8_t RBF_ucReadOnlyFromTail(uint8_t ucIndex, uint8_t ucNumByte);
 
 /*****************************************************************/
 /** parameters: none

@@ -11,6 +11,7 @@
 
 #include "bal.h"
 #include "types.h"
+#include "move.h"
 
 /*------------------------ LOCAL FUNCTIONS -------------------------------*/
 
@@ -79,7 +80,26 @@ STATUS CDS5500_CheckResponse(CDS5500_MSG* response)
 **************************************************************************/
 void CDS5500_ReadRequest(uint8_t ucMotorId, uint8_t ucAddr)
 {
+    STATUS status;
+
+    CDS5500_MSG msg = { START_BYTE_0_VALUE, 
+                        START_BYTE_1_VALUE, 
+                        ucMotorId,
+                        CDS5500_INST_LENGTH_READ,
+                        CDS5500_INST_ID_READ,
+                        {ucAddr},
+                        0x00,
+                      };
+                      
+    msg.instrParams[msg.length - CDS5500_COMPLEMENTARY_BYTES] = CDS5500_GetChecksum(&msg); 
     
+    status = BAL_ServoMsg(&msg);  
+    
+    //Notify upper layer 
+    if (status == SUCCESS)
+        MOV_vSetMsgIdResponsePending(ucMotorId, CDS5500_INST_ID_READ);
+    
+    (void)status;
 }
 
 /**************************************************************************
@@ -258,7 +278,7 @@ void ServoTest(void)
 {
     STATUS status;
     
-    status = SendServoMsg(  CDS5500_SERVO_1,    CDS5500_INST_LENGTH_PING,   CDS5500_INST_ID_PING,      0);
+    status = SendServoMsg(  CDS5500_SERVO_ID_1,    CDS5500_INST_LENGTH_PING,   CDS5500_INST_ID_PING,      0);
     /*
                         HEADER      ID      LENGTH      INSTRUCTION     PARAMETERS
             SEND:       0XFF 0XFF   0X01    0X02        0X01            0XFB 

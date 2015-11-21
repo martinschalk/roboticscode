@@ -102,10 +102,10 @@ typedef struct _cds5500_status
 }CDS5500_STATUS;
 
 
-#define CDS5500_SERVO_1                         (uint8_t)(0x01)
-#define CDS5500_SERVO_2                         (uint8_t)(0x02)
-#define CDS5500_SERVO_3                         (uint8_t)(0x03)
-#define CDS5500_SERVO_4                         (uint8_t)(0x04)
+#define CDS5500_SERVO_ID_1                      (uint8_t)(0x01)
+#define CDS5500_SERVO_ID_2                      (uint8_t)(0x02)
+#define CDS5500_SERVO_ID_3                      (uint8_t)(0x03)
+#define CDS5500_SERVO_ID_4                      (uint8_t)(0x04)
 
 
 #define CDS5500_ANGLE_LIMIT_CW                  (uint16_t)  (0x0000)  //0
@@ -174,13 +174,15 @@ typedef struct _cds5500_status
 #define CDS5500_INST_ID_READ                       0x02    //Reading values in the Control Table
 #define CDS5500_INST_ID_WRITE                      0x03    //Writing values to the Control Table
 #define CDS5500_INST_ID_REG_WRITE                  0x04    //Similar to WRITE_DATA, but stays in standby mode until the ACION instruction is given
-#define CDS5500_INST_ID_ACTION                     0x05    //Triggers the action registered by the REG_WRITE instruction
-#define CDS5500_INST_ID_RESET                      0x06	//Changes the control table values of the CDS55xx servos to the Factory default values 
+#define CDS5500_INST_ID_ACTION                     0x05    //Triggers the action registered by the REG_WRITE instruction (broadcast, no response)
+#define CDS5500_INST_ID_RESET                      0x06	   //Changes the control table values of the CDS55xx servos to the Factory default values 
 #define CDS5500_INST_ID_DIGITAL_RESET              0x07    //
 #define CDS5500_INST_ID_SYSTEM_READ                0x0C    //
 #define CDS5500_INST_ID_SYSTEM_WRITE               0x0D    //
 #define CDS5500_INST_ID_SYNC_WRITE                 0x83    //Used for controlling multiple CDS55xx servos simultaneously
 #define CDS5500_INST_ID_SYNC_REG_WRITE             0x84    //
+
+#define CDS5500_INST_ID_NONE                       0x00
 
 /* Instruction Length */
 #define CDS5500_INST_LENGTH_PING                0x00
